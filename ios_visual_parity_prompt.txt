@@ -1,0 +1,188 @@
+You are upgrading an older iOS version of this app to closely match a newer Android design language that is already polished.
+
+This is a strict visual-parity implementation request, not a generic redesign.
+
+==================================================
+PRIMARY OBJECTIVE
+==================================================
+Bring iOS UI to the same premium style:
+- classy, elegant, less cartoony
+- parchment + antique gold + deep navy palette
+- consistent component language across all dialogs/screens
+- preserve logic/data/flows (UI and UX polish only)
+
+If a detail below conflicts with current iOS visuals, follow this spec.
+
+==================================================
+A. DESIGN SYSTEM FIRST (MANDATORY)
+==================================================
+Create centralized tokens and shared components before editing screens.
+
+1) Design Tokens (single source of truth)
+- Colors:
+  - Navy primary (deep): for major buttons/header accents
+  - Navy mid: gradient partner
+  - Gold border: antique gold
+  - Gold bright: highlight gold
+  - Parchment top/mid/base: ivory/cream gradient stops
+  - Body text primary: very dark brown
+  - Body text muted: medium warm brown
+  - Light-on-dark text: warm off-white
+- Shape scale:
+  - small, medium, large radii used consistently
+- Stroke scale:
+  - hairline, thin, medium border widths
+- Shadow scale:
+  - subtle only; avoid hard black drop shadows
+- Spacing scale:
+  - consistent insets for card interiors, controls, and section gaps
+
+2) Typography
+- Display/headline: classic/elegant serif look for certificate headers
+- Body: highly readable text for long mitzvah content
+- Label/button styles: semibold, slight tracking where appropriate
+- Keep hierarchy strong and consistent:
+  display > title > body > label > caption
+
+3) Shared Components
+Create and use reusable SwiftUI components:
+- ParchmentDialogContainer
+  - parchment gradient background
+  - refined gold border treatment
+  - optional close icon
+- GoldPrimaryButton
+  - polished navy/gold button treatment
+  - disabled and pressed states
+- ParchmentSecondaryButton
+  - subtle outlined/soft style
+- CertificateFrame
+  - double-line frame
+  - optional corner flourish marks
+- AppLinkText
+  - tap open URL
+  - long-press menu: Open URL / Copy URL
+
+No one-off styles unless absolutely required.
+
+==================================================
+B. SCREEN-BY-SCREEN PARITY SPEC
+==================================================
+
+1) HOME SCREEN
+- Keep functional layout, but restyle to premium look.
+- Remove decorative symbols above hero title (equivalent of "✦ ✡ ✦").
+- Remove subtitle "Light up the world, one mitzvah at a time".
+- Keep hero instruction text only.
+- Improve top-left menu control styling (chip-like, integrated).
+- Improve top-right mitzvah count badge styling (elegant pill/chip).
+- Restyle bottom action buttons to match navy/gold/parchment language.
+- Ensure readability over background (text contrast + subtle shadowing).
+
+2) MITZVAH POPUP (MOST IMPORTANT)
+This must feel like the polished Android version.
+
+Required visual structure:
+- floating scroll motif at top
+- warm light rays behind scroll
+- parchment card body
+- refined gold border/frame
+- olive branch ornaments in all 4 corners
+- polished Accept / Next buttons
+
+Spacing/placement parity requirements:
+- Text-size controls ("a/A" or "A-/A+") and close "x":
+  - move inward slightly so they do NOT overlap border lines
+- Body text block:
+  - increase horizontal inset so text has breathing room from border
+
+Light-ray behavior (strict):
+- keep full upward dramatic spread (looks rich and open above)
+- do not let lower rays interfere with text readability
+- no hard clipping that looks abruptly cut
+- downward portion should fade gently
+
+Olive branch corner behavior:
+- sit closer to outer corners (not on top of border lines)
+- branch vertical reach should be slightly longer
+  - top branches extend downward a bit more
+  - bottom branches extend upward a bit more
+- horizontal reach should remain roughly unchanged
+
+3) DAILY MITZVOT CHECKLIST (MENU)
+- Must visually match new app style, not old stock iOS list aesthetic.
+- Apply parchment/gold/navy wrapper and consistent typography.
+- Header controls (close/help/clear/text-size/toggle) should look integrated.
+- Section headers and separators should feel elegant and cohesive.
+- Checkbox rows and info affordances should match theme.
+- Detail/info popups within checklist should also use styled container.
+- Keep checklist logic and data behavior unchanged.
+
+4) LEVEL/CERTIFICATE POPUP (TOP-RIGHT COUNT)
+- Should look like an actual certificate.
+- Add clear certificate frame treatment:
+  - double border and subtle corner details
+- Improve spacing and hierarchy:
+  - title, count, level badge, decorative separators
+- Keep existing text/content; improve presentation only.
+
+5) ADD/SUGGEST MITZVAH SHEET
+- Restyle form sheet to match overall premium theme.
+- Inputs/buttons should align with tokenized design system.
+- Maintain validation/submission behavior exactly.
+
+==================================================
+C. LINK LONG-PRESS UX (GLOBAL)
+==================================================
+Apply to all URL-style links everywhere in app:
+- tap: open URL directly
+- long-press: show menu with:
+  - Open URL
+  - Copy URL
+- Copy URL:
+  - place full URL in clipboard
+  - show immediate lightweight feedback (toast/banner/snackbar equivalent)
+
+This behavior must be consistent in every screen/dialog using links.
+
+==================================================
+D. NON-NEGOTIABLE CONSTRAINTS
+==================================================
+- Do not change business logic or data persistence behavior.
+- Do not reintroduce removed legacy features.
+- No regressions in navigation flow.
+- Keep touch targets usable and contrast readable.
+- Ensure small-device layout safety (narrow iPhones).
+- Avoid text clipping at larger Dynamic Type sizes where feasible.
+
+==================================================
+E. EXECUTION ORDER (MANDATORY)
+==================================================
+1) Audit existing iOS screens/components and map to this spec.
+2) Implement tokens + shared components first.
+3) Refactor home screen.
+4) Refactor mitzvah popup and light/olive/spacing details.
+5) Refactor checklist + nested dialogs.
+6) Refactor certificate popup.
+7) Implement global link long-press behavior and apply everywhere.
+8) Build, fix compile issues, and run through critical flows.
+
+==================================================
+F. ACCEPTANCE CHECKLIST
+==================================================
+Only mark complete when all are true:
+- [ ] Home screen has no decorative symbols and no subtitle line.
+- [ ] Mitzvah popup feels parchment/certificate class, not cartoony.
+- [ ] Popup controls and text spacing no longer collide with borders.
+- [ ] Scroll light rays look full upward and cleanly faded downward.
+- [ ] Olive branches are corner-anchored, not border-overlapping.
+- [ ] Checklist matches visual system (container, controls, rows, dialogs).
+- [ ] Certificate popup has proper framed certificate look.
+- [ ] Long-press link menu (Open URL / Copy URL) works everywhere.
+- [ ] Build succeeds with no new critical warnings/errors.
+
+Final output format after implementation:
+1) Files changed
+2) Summary of visual parity improvements per screen
+3) Where link long-press was added
+4) Any remaining minor TODOs
+

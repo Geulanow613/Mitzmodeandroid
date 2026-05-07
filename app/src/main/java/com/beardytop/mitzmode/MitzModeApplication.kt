@@ -1,0 +1,194 @@
+package com.beardytop.mitzmode
+
+import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.util.Log
+import com.beardytop.mitzmode.BuildConfig
+import dagger.hilt.android.HiltAndroidApp
+import io.sentry.Sentry
+import io.sentry.android.core.SentryAndroid
+import io.sentry.protocol.User
+import com.jakewharton.threetenabp.AndroidThreeTen
+import com.beardytop.mitzmode.util.VideoManager
+import com.beardytop.mitzmode.util.SentryUtil
+
+@HiltAndroidApp
+class MitzModeApplication : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        
+        // Initialize ThreeTenABP first (doesn't require network)
+        AndroidThreeTen.init(this)
+        
+        // Start ANR detection watchdog
+        try {
+            SentryUtil.startAnrWatchdog()
+            Log.d("MitzModeApplication", "ANR watchdog started successfully")
+        } catch (e: Exception) {
+            Log.e("MitzModeApplication", "Failed to start ANR watchdog", e)
+        }
+        
+        // Initialize Sentry only if we have network connection to avoid blocking
+        if (isNetworkAvailable()) {
+            initializeSentry()
+        } else {
+            Log.d("MitzModeApplication", "No network available, skipping Sentry initialization")
+        }
+    }
+    
+    override fun onLowMemory() {
+        super.onLowMemory()
+        Log.w("MitzModeApplication", "Low memory detected - releasing video resources")
+        
+        // Log memory pressure to Sentry
+        SentryUtil.logMessage(
+            "Low memory event triggered",
+            "warning",
+            mapOf(
+                "memory_event" to "low_memory",
+                "action" to "releasing_resources"
+            )
+        )
+        
+        // Release all video resources when system is low on memory
+        try {
+            VideoManager.getInstance(this).onLowMemory()
+        } catch (e: Exception) {
+            Log.e("MitzModeApplication", "Error handling low memory", e)
+            SentryUtil.logError(e, mapOf("context" to "low_memory_handling"))
+        }
+        
+        // Force garbage collection
+        System.gc()
+    }
+    
+    override fun onTrimMemory(level: Int) {
+        super.onTrimMemory(level)
+        
+        val levelName = when (level) {
+            TRIM_MEMORY_UI_HIDDEN -> "UI_HIDDEN"
+            TRIM_MEMORY_RUNNING_MODERATE -> "RUNNING_MODERATE"
+            TRIM_MEMORY_RUNNING_LOW -> "RUNNING_LOW"
+            TRIM_MEMORY_RUNNING_CRITICAL -> "RUNNING_CRITICAL"
+            TRIM_MEMORY_BACKGROUND -> "BACKGROUND"
+            TRIM_MEMORY_MODERATE -> "MODERATE"
+            TRIM_MEMORY_COMPLETE -> "COMPLETE"
+            else -> "UNKNOWN_$level"
+        }
+        
+        Log.d("MitzModeApplication", "Memory trim requested: $levelName")
+        
+        // Log memory pressure events (only for significant pressure, not routine UI changes)
+        // UI_HIDDEN is a normal lifecycle event and should not be logged to Sentry
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            // Only log UI_HIDDEN to Android Log, not Sentry (reduces noise)
+            Log.d("MitzModeApplication", "UI hidden - normal app lifecycle event")
+        } else if (level >= TRIM_MEMORY_RUNNING_LOW) {
+            val logLevel = when {
+                level >= TRIM_MEMORY_RUNNING_CRITICAL -> "warning"
+                level >= TRIM_MEMORY_RUNNING_LOW -> "info" 
+                else -> "debug"
+            }
+            
+            SentryUtil.logMessage(
+                "Memory pressure detected: $levelName",
+                logLevel,
+                mapOf(
+                    "memory_event" to "trim_memory",
+                    "trim_level" to levelName,
+                    "level_value" to level.toString()
+                )
+            )
+        }
+        
+        // Release resources based on memory pressure level
+        when {
+            level >= TRIM_MEMORY_RUNNING_CRITICAL -> {
+                // Critical memory situation - release all possible resources
+                try {
+                    VideoManager.getInstance(this).onLowMemory()
+                    System.gc()
+                } catch (e: Exception) {
+                    Log.e("MitzModeApplication", "Error during critical memory trim", e)
+                }
+            }
+            level >= TRIM_MEMORY_RUNNING_LOW -> {
+                // Moderate memory pressure - release some resources
+                try {
+                    VideoManager.getInstance(this).releaseBackgroundResources()
+                } catch (e: Exception) {
+                    Log.e("MitzModeApplication", "Error during memory trim", e)
+                }
+            }
+        }
+    }
+    
+    override fun onTerminate() {
+        super.onTerminate()
+        
+        // Stop ANR watchdog when app terminates
+        try {
+            SentryUtil.stopAnrWatchdog()
+            Log.d("MitzModeApplication", "ANR watchdog stopped")
+        } catch (e: Exception) {
+            Log.e("MitzModeApplication", "Error stopping ANR watchdog", e)
+        }
+    }
+    
+    private fun isNetworkAvailable(): Boolean {
+        return try {
+            val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val network = connectivityManager.activeNetwork ?: return false
+            val capabilities = connectivityManager.getNetworkCapabilities(network) ?: return false
+            capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        } catch (e: Exception) {
+            Log.e("MitzModeApplication", "Error checking network availability", e)
+            false
+        }
+    }
+    
+    private fun initializeSentry() {
+        try {
+            if (BuildConfig.SENTRY_DSN == "YOUR_SENTRY_DSN_HERE") {
+                Log.d("MitzModeApplication", "No Sentry DSN configured, skipping initialization")
+                return
+            }
+            SentryAndroid.init(this) { options ->
+                options.dsn = BuildConfig.SENTRY_DSN
+                options.isEnableAutoSessionTracking = true
+                // Set reasonable timeouts for network operations
+                options.connectionTimeoutMillis = 3000
+                options.readTimeoutMillis = 3000
+                // Enable ANR detection in Sentry
+                options.isAnrEnabled = true
+                options.anrTimeoutIntervalMillis = 4000 // 4 seconds ANR threshold
+            }
+            
+            // Add additional context
+            Sentry.configureScope { scope ->
+                // Add device info
+                scope.setTag("device_manufacturer", android.os.Build.MANUFACTURER)
+                scope.setTag("device_model", android.os.Build.MODEL)
+                scope.setTag("android_version", android.os.Build.VERSION.RELEASE)
+                scope.setTag("app_version", packageManager.getPackageInfo(packageName, 0).versionName ?: "unknown")
+            }
+
+            // Note: We'll add user tracking later when we implement user authentication
+            // For now, we'll just track anonymous usage
+            Sentry.setUser(User().apply {
+                ipAddress = "{{auto}}"
+                // You can also add other anonymous user data if needed:
+                // username = "anonymous"
+                // id = UUID.randomUUID().toString()
+            })
+            
+            Log.d("MitzModeApplication", "Sentry initialized successfully")
+        } catch (e: Exception) {
+            // If Sentry fails to initialize, just continue without it
+            Log.e("MitzModeApplication", "Failed to initialize Sentry: ${e.message}")
+            e.printStackTrace()
+        }
+    }
+} 
