@@ -42,16 +42,9 @@ android {
             buildConfigField "boolean", "IS_DEBUG", "false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            
-            manifestPlaceholders = [
-                SENTRY_DSN: localProperties.getProperty('SENTRY_DSN', 'YOUR_SENTRY_DSN_HERE')
-            ]
         }
         debug {
             buildConfigField "boolean", "IS_DEBUG", "true"
-            manifestPlaceholders = [
-                SENTRY_DSN: localProperties.getProperty('SENTRY_DSN', 'YOUR_SENTRY_DSN_HERE')
-            ]
         }
     }
     compileOptions {

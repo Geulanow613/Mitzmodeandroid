@@ -25,8 +25,12 @@
         android:largeHeap="true">
         
         <meta-data
-            android:name="io.sentry.dsn"
-            android:value="${SENTRY_DSN}" />
+            android:name="io.sentry.auto-init"
+            android:value="false" />
+        <!-- DSN is set programmatically in MitzModeApplication only when valid.
+             Leaving it out of the manifest prevents SentryInitProvider from
+             crashing at ContentProvider attach time on devices without a DSN
+             configured (e.g. open-source builds). -->
         <meta-data
             android:name="io.sentry.debug"
             android:value="true" />

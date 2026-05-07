@@ -151,8 +151,9 @@ class MitzModeApplication : Application() {
     
     private fun initializeSentry() {
         try {
-            if (BuildConfig.SENTRY_DSN == "YOUR_SENTRY_DSN_HERE") {
-                Log.d("MitzModeApplication", "No Sentry DSN configured, skipping initialization")
+            val dsn = BuildConfig.SENTRY_DSN
+            if (dsn.isBlank() || dsn == "YOUR_SENTRY_DSN_HERE" || !dsn.startsWith("https://")) {
+                Log.d("MitzModeApplication", "No valid Sentry DSN configured, skipping initialization")
                 return
             }
             SentryAndroid.init(this) { options ->
