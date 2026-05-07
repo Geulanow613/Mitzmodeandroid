@@ -83,5 +83,4 @@ fabric.properties
 sentry.properties
 
 # Sensitive files with credentials
-app/src/main/java/com/beardytop/mitzmode/ui/components/AddMitzvahDialog.kt
 sensitive-config.properties
