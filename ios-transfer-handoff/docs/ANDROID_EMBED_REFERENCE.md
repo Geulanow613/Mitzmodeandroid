@@ -11,7 +11,7 @@ The iOS Mitz Mode app should behave like the Android integration. Source is in t
 | `app/.../ui/components/LowEndDeviceBackground.kt` | Static gradient — iOS native home must match (`docs/MITZ_MODE_HOME_BACKGROUND.md`) |
 | `app/.../MainActivity.kt` | Edge-to-edge + safe areas |
 
-**iOS docs (in this handoff):** `docs/MITZ_MODE_HOME_BACKGROUND.md`, `docs/MITZ_MODE_HOME_LAYOUT.md`
+**iOS docs (in this handoff):** `docs/MITZ_MODE_HOME_BACKGROUND.md`, `docs/MITZ_MODE_HOME_LAYOUT.md`, `docs/MITZ_MODE_OFFICIAL_APP_SONG.md`
 
 ## Kotlin shared (same as iOS mirror)
 

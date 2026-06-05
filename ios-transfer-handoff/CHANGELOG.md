@@ -1,6 +1,17 @@
 # Changelog (iOS handoff sync)
 
-What the mirrored `be-a-tzaddik/` files and `docs/` contain. Last refresh: **2026-06-05** (`sync-to-ios-handoff.ps1`).
+What the mirrored `be-a-tzaddik/` files and `docs/` contain. Last refresh: **2026-06-05**.
+
+## Official App Song dialog (Android — iOS native must match)
+
+See **`docs/MITZ_MODE_OFFICIAL_APP_SONG.md`**.
+
+- **`MusicPlayerDialog.kt`:** G.E.U.L.A streaming section below player controls
+- Heading: **Listen to more music from G.E.U.L.A**
+- Official logos: Apple Music badge, Spotify icon, Amazon Music logo — **vertical stack** (avoids clipping on narrow screens)
+- Credit: `Performed by G.E.U.L.A © 2026`
+- Assets: `app/src/main/res/drawable/ic_apple_music.png`, `ic_spotify.png`, `ic_amazon_music.png`
+- Artist URLs: Apple Music, Spotify, Amazon Music (G.E.U.L.A artist pages)
 
 ## Mitz Mode home (Android — iOS native must match)
 

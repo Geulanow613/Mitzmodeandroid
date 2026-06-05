@@ -10,8 +10,9 @@ This folder is a **file bundle for handoff**, not an installation guide. Copy pa
 4. For **Mitz Mode embed**, read **`docs/SWIFT_KOTLIN_REFERENCE.md`** — `EmbeddedChecklistViewController`, Swift host, `Info.plist` keys.
 5. For **Mitz Mode native home UI**, read **`docs/MITZ_MODE_HOME_BACKGROUND.md`** (gradient) and **`docs/MITZ_MODE_HOME_LAYOUT.md`** (button/text positions).
 6. For **glossary / Shabbat Guide term taps**, read **`docs/GLOSSARY_AND_TERM_LINKS.md`**.
-7. For **Android behavior reference** (outside this folder), see **`docs/ANDROID_EMBED_REFERENCE.md`**.
-8. Check **`CHANGELOG.md`** for the latest copy/zman/halacha deltas since last handoff.
+7. For **Official App Song + G.E.U.L.A streaming links**, read **`docs/MITZ_MODE_OFFICIAL_APP_SONG.md`**.
+8. For **Android behavior reference** (outside this folder), see **`docs/ANDROID_EMBED_REFERENCE.md`**.
+9. Check **`CHANGELOG.md`** for the latest copy/zman/halacha deltas since last handoff.
 
 ## Folder layout
 

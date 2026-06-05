@@ -73,11 +73,14 @@ After `sync-to-ios-handoff.ps1`:
 | `docs/MITZ_MODE_HOME_BACKGROUND.md` | Static gradient spec + Swift snippets for iOS home |
 | `docs/MITZ_MODE_HOME_LAYOUT.md` | Instruction text, Mitzvah Me button, bottom pill positions (dp) |
 | `docs/GLOSSARY_AND_TERM_LINKS.md` | Term matching, Shabbat Guide taps, link audit |
+| `docs/MITZ_MODE_OFFICIAL_APP_SONG.md` | Official App Song player + G.E.U.L.A streaming links |
 
 | Android path | Role |
 |--------------|------|
 | `app/.../ui/components/LowEndDeviceBackground.kt` | Gradient composable (all devices) |
 | `app/.../ui/MitzModeApp.kt` | Home layout, static gradient, bottom pills |
+| `app/.../ui/components/MusicPlayerDialog.kt` | Official App Song + streaming links |
+| `app/src/main/res/drawable/ic_*.png` | Apple Music, Spotify, Amazon Music official logos |
 | `app/.../MainActivity.kt` | `enableEdgeToEdge()`, safe-area insets |
 
 ## Android embed reference (not in this mirror)

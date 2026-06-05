@@ -65,6 +65,16 @@ Standalone app: Today | Timer | Settings | About (no center logo).
 - Edge-to-edge with safe-area padding on controls (status + home indicator)
 - Reward/celebration videos may still play on events (separate from home background)
 
+## Official App Song (native Swift shell)
+
+See **`MITZ_MODE_OFFICIAL_APP_SONG.md`**.
+
+- ⋮ menu opens in-app player (not external browser)
+- Credit: `Performed by G.E.U.L.A © 2026`
+- **Listen to more music from G.E.U.L.A** — Apple Music, Spotify, Amazon Music with **official** brand assets
+- Links stacked vertically; all three visible on phone-width dialogs
+- Taps open correct G.E.U.L.A artist URLs on each service
+
 ## Glossary / halachic terms (KMP — shared module)
 
 See **`GLOSSARY_AND_TERM_LINKS.md`**.

@@ -1,6 +1,8 @@
 package com.beardytop.mitzmode.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,6 +29,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.R
+import com.beardytop.mitzmode.utils.openUrl
 import com.beardytop.mitzmode.viewmodel.MusicPlayerViewModel
 import kotlinx.coroutines.delay
 
@@ -264,13 +272,125 @@ fun MusicPlayerDialog(
                 
                 // Performer credit
                 Text(
-                    text = "Performed by G.E.U.L.A © 2025",
+                    text = "Performed by G.E.U.L.A © 2026",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                StreamingPlatformLinks()
             }
+        }
+    }
+}
+
+@Composable
+private fun StreamingPlatformLinks() {
+    val context = LocalContext.current
+    val platforms = listOf(
+        StreamingPlatform(
+            iconRes = R.drawable.ic_apple_music,
+            label = "Apple Music",
+            url = "https://music.apple.com/us/artist/geula/1615973719",
+            logoWidth = 200.dp,
+            logoHeight = 36.dp,
+            showLabel = false,
+        ),
+        StreamingPlatform(
+            iconRes = R.drawable.ic_spotify,
+            label = "Spotify",
+            url = "https://open.spotify.com/artist/2MSUpcrPITpkisaogXF5W9",
+            logoWidth = 40.dp,
+            logoHeight = 40.dp,
+        ),
+        StreamingPlatform(
+            iconRes = R.drawable.ic_amazon_music,
+            label = "Amazon Music",
+            url = "https://www.amazon.com/music/player/artists/B0FCGB4RGM/g-e-u-l-a",
+            logoWidth = 180.dp,
+            logoHeight = 32.dp,
+            showLabel = false,
+        ),
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f))
+            .padding(horizontal = 12.dp, vertical = 14.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TranslatableText(
+            text = "Listen to more music from G.E.U.L.A",
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            platforms.forEach { platform ->
+                StreamingPlatformChip(
+                    platform = platform,
+                    onClick = { context.openUrl(platform.url) }
+                )
+            }
+        }
+    }
+}
+
+private data class StreamingPlatform(
+    val iconRes: Int,
+    val label: String,
+    val url: String,
+    val logoWidth: Dp,
+    val logoHeight: Dp,
+    val showLabel: Boolean = true,
+)
+
+@Composable
+private fun StreamingPlatformChip(
+    platform: StreamingPlatform,
+    onClick: () -> Unit,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(10.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 6.dp)
+    ) {
+        Image(
+            painter = painterResource(platform.iconRes),
+            contentDescription = platform.label,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.size(width = platform.logoWidth, height = platform.logoHeight)
+        )
+        if (platform.showLabel) {
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = platform.label,
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                maxLines = 2
+            )
         }
     }
 }
