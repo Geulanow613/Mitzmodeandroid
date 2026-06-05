@@ -53,13 +53,6 @@ fun MainScreen(
                 onDismissRequest = { expanded = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Daily Mitzvot Checklist") },
-                    onClick = {
-                        expanded = false
-                        onShowDailyMitzvot()
-                    }
-                )
-                DropdownMenuItem(
                     text = { Text("About") },
                     onClick = {
                         expanded = false

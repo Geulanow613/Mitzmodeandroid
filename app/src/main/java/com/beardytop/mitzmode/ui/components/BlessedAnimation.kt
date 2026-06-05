@@ -43,7 +43,7 @@ fun BlessedAnimation(
                 }
             )
             exoPlayer = player
-            player?.playWhenReady = true
+            videoManager.startRewardPlayback()
         } catch (e: Exception) {
             playbackError = true
             onFinished()
@@ -52,7 +52,7 @@ fun BlessedAnimation(
 
     DisposableEffect(Unit) {
         onDispose {
-            // VideoManager handles cleanup
+            videoManager.releaseRewardPlayer()
         }
     }
 
@@ -70,7 +70,7 @@ fun BlessedAnimation(
             ) {
                 AndroidView(
                     factory = { context ->
-                        videoManager.createTextureView(context, isBackground = false)
+                        videoManager.createTextureView(context)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

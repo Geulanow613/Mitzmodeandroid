@@ -1,7 +1,12 @@
 package com.beardytop.mitzmode.ui.components
 
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -9,6 +14,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.beatzaddik.domain.ChecklistLink
+import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.mitzmode.data.MitzvahLink
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 @Composable
@@ -21,30 +30,43 @@ fun TranslatableText(
     fontWeight: FontWeight? = null,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
-    translationViewModel: TranslationViewModel = hiltViewModel()
+    knownLinks: List<MitzvahLink> = emptyList(),
+    enableHalachicTerms: Boolean = true,
+    translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel(),
 ) {
     val translationEnabled by translationViewModel.translationEnabled.collectAsState()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    
+
     var translatedText by remember(text, currentLanguage) { mutableStateOf(text) }
-    
+
     LaunchedEffect(text, currentLanguage, translationEnabled) {
-        if (translationEnabled && currentLanguage != "en") {
-            translatedText = translationViewModel.translateText(text)
+        translatedText = if (translationEnabled && currentLanguage != "en") {
+            translationViewModel.translateText(text)
         } else {
-            translatedText = text
+            text
         }
     }
-    
-    Text(
+
+    val resolvedStyle = style.copy(
+        fontSize = if (fontSize != TextUnit.Unspecified) fontSize else style.fontSize,
+        fontWeight = fontWeight ?: style.fontWeight,
+        textAlign = textAlign ?: style.textAlign,
+    )
+    val resolvedColor = if (color != Color.Unspecified) color else style.color
+    val checklistLinks = remember(knownLinks) {
+        knownLinks.map { ChecklistLink(displayText = it.displayText, url = it.url) }
+    }
+
+    HalachicClickableText(
         text = translatedText,
+        style = resolvedStyle,
+        color = resolvedColor,
         modifier = modifier,
-        style = style,
-        color = color,
-        fontSize = fontSize,
-        fontWeight = fontWeight,
         textAlign = textAlign,
-        maxLines = maxLines
+        maxLines = maxLines,
+        knownLinks = checklistLinks,
+        enableTerms = enableHalachicTerms,
     )
 }
 
@@ -59,15 +81,17 @@ fun TranslatableTextWithLoading(
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     loadingText: String = "Translating...",
-    translationViewModel: TranslationViewModel = hiltViewModel()
+    knownLinks: List<MitzvahLink> = emptyList(),
+    enableHalachicTerms: Boolean = true,
+    translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel(),
 ) {
     val translationEnabled by translationViewModel.translationEnabled.collectAsState()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    val isTranslating by translationViewModel.isTranslating.collectAsState()
-    
+
     var translatedText by remember(text, currentLanguage) { mutableStateOf(text) }
     var isLoading by remember { mutableStateOf(false) }
-    
+
     LaunchedEffect(text, currentLanguage, translationEnabled) {
         if (translationEnabled && currentLanguage != "en") {
             isLoading = true
@@ -78,15 +102,26 @@ fun TranslatableTextWithLoading(
             isLoading = false
         }
     }
-    
-    Text(
-        text = if (isLoading) loadingText else translatedText,
-        modifier = modifier,
-        style = style,
-        color = color,
-        fontSize = fontSize,
-        fontWeight = fontWeight,
-        textAlign = textAlign,
-        maxLines = maxLines
+
+    val display = if (isLoading) loadingText else translatedText
+    val resolvedStyle = style.copy(
+        fontSize = if (fontSize != TextUnit.Unspecified) fontSize else style.fontSize,
+        fontWeight = fontWeight ?: style.fontWeight,
+        textAlign = textAlign ?: style.textAlign,
     )
-} 
+    val resolvedColor = if (color != Color.Unspecified) color else style.color
+    val checklistLinks = remember(knownLinks) {
+        knownLinks.map { ChecklistLink(displayText = it.displayText, url = it.url) }
+    }
+
+    HalachicClickableText(
+        text = display,
+        style = resolvedStyle,
+        color = resolvedColor,
+        modifier = modifier,
+        textAlign = textAlign,
+        maxLines = maxLines,
+        knownLinks = if (isLoading) emptyList() else checklistLinks,
+        enableTerms = enableHalachicTerms && !isLoading,
+    )
+}

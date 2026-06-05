@@ -1,0 +1,550 @@
+jlm	Jerusalem, Israel	31.7683	35.2137	Asia/Jerusalem
+tlv	Tel Aviv, Israel	32.0853	34.7818	Asia/Jerusalem
+haifa	Haifa, Israel	32.7940	34.9896	Asia/Jerusalem
+bnei_brak	Bnei Brak, Israel	32.0807	34.8338	Asia/Jerusalem
+beersheba	Beersheba, Israel	31.2518	34.7915	Asia/Jerusalem
+netanya	Netanya, Israel	32.3215	34.8532	Asia/Jerusalem
+ashdod	Ashdod, Israel	31.8044	34.6553	Asia/Jerusalem
+petah_tikva	Petah Tikva, Israel	32.0871	34.8875	Asia/Jerusalem
+ramat_gan	Ramat Gan, Israel	32.0684	34.8248	Asia/Jerusalem
+holon	Holon, Israel	32.0117	34.7792	Asia/Jerusalem
+rishon_lezion	Rishon LeZion, Israel	31.9730	34.7925	Asia/Jerusalem
+ashkelon	Ashkelon, Israel	31.6688	34.5743	Asia/Jerusalem
+kfar_saba	Kfar Saba, Israel	32.1750	34.9069	Asia/Jerusalem
+herzliya	Herzliya, Israel	32.1624	34.8443	Asia/Jerusalem
+raanana	Raanana, Israel	32.1844	34.8708	Asia/Jerusalem
+modiin	Modiin, Israel	31.8969	35.0097	Asia/Jerusalem
+efrat	Efrat, Israel	31.6547	35.1422	Asia/Jerusalem
+tiberias	Tiberias, Israel	32.7951	35.5310	Asia/Jerusalem
+safed	Safed, Israel	32.9646	35.4960	Asia/Jerusalem
+eilat	Eilat, Israel	29.5577	34.9519	Asia/Jerusalem
+montgomery	Montgomery, AL	32.3792	-86.3077	America/Chicago
+juneau	Juneau, AK	58.3019	-134.4197	America/Juneau
+phoenix	Phoenix, AZ	33.4484	-112.0740	America/Phoenix
+little_rock	Little Rock, AR	34.7465	-92.2896	America/Chicago
+sacramento	Sacramento, CA	38.5816	-121.4944	America/Los_Angeles
+denver	Denver, CO	39.7392	-104.9903	America/Denver
+hartford	Hartford, CT	41.7658	-72.6734	America/New_York
+dover	Dover, DE	39.1582	-75.5244	America/New_York
+tallahassee	Tallahassee, FL	30.4383	-84.2807	America/New_York
+atlanta	Atlanta, GA	33.7490	-84.3880	America/New_York
+honolulu	Honolulu, HI	21.3069	-157.8583	Pacific/Honolulu
+boise	Boise, ID	43.6150	-116.2023	America/Boise
+springfield_il	Springfield, IL	39.7817	-89.6501	America/Chicago
+indianapolis	Indianapolis, IN	39.7684	-86.1581	America/Indiana/Indianapolis
+des_moines	Des Moines, IA	41.5868	-93.6250	America/Chicago
+topeka	Topeka, KS	39.0473	-95.6752	America/Chicago
+frankfort	Frankfort, KY	38.2009	-84.8733	America/New_York
+baton_rouge	Baton Rouge, LA	30.4515	-91.1871	America/Chicago
+augusta_me	Augusta, ME	44.3106	-69.7795	America/New_York
+annapolis	Annapolis, MD	38.9784	-76.4922	America/New_York
+boston	Boston, MA	42.3601	-71.0589	America/New_York
+lansing	Lansing, MI	42.7325	-84.5555	America/Detroit
+st_paul	St. Paul, MN	44.9537	-93.0900	America/Chicago
+jackson_ms	Jackson, MS	32.2988	-90.1848	America/Chicago
+jefferson_city	Jefferson City, MO	38.5767	-92.1735	America/Chicago
+helena	Helena, MT	46.5891	-112.0391	America/Denver
+lincoln	Lincoln, NE	40.8136	-96.7026	America/Chicago
+carson_city	Carson City, NV	39.1638	-119.7674	America/Los_Angeles
+concord	Concord, NH	43.2081	-71.5376	America/New_York
+trenton	Trenton, NJ	40.2171	-74.7429	America/New_York
+santa_fe	Santa Fe, NM	35.6870	-105.9378	America/Denver
+albany	Albany, NY	42.6526	-73.7562	America/New_York
+raleigh	Raleigh, NC	35.7796	-78.6382	America/New_York
+bismarck	Bismarck, ND	46.8083	-100.7837	America/Chicago
+columbus_oh	Columbus, OH	39.9612	-82.9988	America/New_York
+oklahoma_city	Oklahoma City, OK	35.4676	-97.5164	America/Chicago
+salem_or	Salem, OR	44.9429	-123.0351	America/Los_Angeles
+harrisburg	Harrisburg, PA	40.2732	-76.8867	America/New_York
+providence	Providence, RI	41.8240	-71.4128	America/New_York
+columbia_sc	Columbia, SC	34.0007	-81.0348	America/New_York
+pierre	Pierre, SD	44.3683	-100.3510	America/Chicago
+nashville	Nashville, TN	36.1627	-86.7816	America/Chicago
+austin	Austin, TX	30.2672	-97.7431	America/Chicago
+salt_lake_city	Salt Lake City, UT	40.7608	-111.8910	America/Denver
+montpelier	Montpelier, VT	44.2601	-72.5754	America/New_York
+richmond	Richmond, VA	37.5407	-77.4360	America/New_York
+olympia	Olympia, WA	47.0379	-122.9007	America/Los_Angeles
+charleston_wv	Charleston, WV	38.3498	-81.6326	America/New_York
+madison	Madison, WI	43.0731	-89.4012	America/Chicago
+cheyenne	Cheyenne, WY	41.1400	-104.8202	America/Denver
+new_york	New York, NY	40.7128	-74.0060	America/New_York
+brooklyn	Brooklyn, NY	40.6782	-73.9442	America/New_York
+manhattan	Manhattan, NY	40.7831	-73.9712	America/New_York
+lakewood	Lakewood, NJ	40.0979	-74.2176	America/New_York
+monsey	Monsey, NY	41.1112	-74.0685	America/New_York
+teaneck	Teaneck, NJ	40.8976	-74.0160	America/New_York
+great_neck	Great Neck, NY	40.8007	-73.7285	America/New_York
+five_towns	Five Towns, NY	40.6201	-73.7274	America/New_York
+scarsdale	Scarsdale, NY	41.0051	-73.7846	America/New_York
+los_angeles	Los Angeles, CA	34.0522	-118.2437	America/Los_Angeles
+chicago	Chicago, IL	41.8781	-87.6298	America/Chicago
+houston	Houston, TX	29.7604	-95.3698	America/Chicago
+philadelphia	Philadelphia, PA	39.9526	-75.1652	America/New_York
+san_antonio	San Antonio, TX	29.4241	-98.4936	America/Chicago
+san_diego	San Diego, CA	32.7157	-117.1611	America/Los_Angeles
+dallas	Dallas, TX	32.7767	-96.7970	America/Chicago
+san_jose	San Jose, CA	37.3382	-121.8863	America/Los_Angeles
+jacksonville	Jacksonville, FL	30.3322	-81.6557	America/New_York
+fort_worth	Fort Worth, TX	32.7555	-97.3308	America/Chicago
+charlotte	Charlotte, NC	35.2271	-80.8431	America/New_York
+seattle	Seattle, WA	47.6062	-122.3321	America/Los_Angeles
+washington_dc	Washington, DC	38.9072	-77.0369	America/New_York
+el_paso	El Paso, TX	31.7619	-106.4850	America/Denver
+detroit	Detroit, MI	42.3314	-83.0458	America/Detroit
+portland	Portland, OR	45.5152	-122.6784	America/Los_Angeles
+memphis	Memphis, TN	35.1495	-90.0490	America/Chicago
+las_vegas	Las Vegas, NV	36.1699	-115.1398	America/Los_Angeles
+louisville	Louisville, KY	38.2527	-85.7585	America/Kentucky/Louisville
+baltimore	Baltimore, MD	39.2904	-76.6122	America/New_York
+milwaukee	Milwaukee, WI	43.0389	-87.9065	America/Chicago
+albuquerque	Albuquerque, NM	35.0844	-106.6504	America/Denver
+tucson	Tucson, AZ	32.2226	-110.9747	America/Phoenix
+fresno	Fresno, CA	36.7378	-119.7871	America/Los_Angeles
+mesa	Mesa, AZ	33.4152	-111.8315	America/Phoenix
+kansas_city	Kansas City, MO	39.0997	-94.5786	America/Chicago
+colorado_springs	Colorado Springs, CO	38.8339	-104.8214	America/Denver
+miami	Miami, FL	25.7617	-80.1918	America/New_York
+long_beach	Long Beach, CA	33.7701	-118.1937	America/Los_Angeles
+virginia_beach	Virginia Beach, VA	36.8529	-75.9780	America/New_York
+oakland	Oakland, CA	37.8044	-122.2712	America/Los_Angeles
+minneapolis	Minneapolis, MN	44.9778	-93.2650	America/Chicago
+tulsa	Tulsa, OK	36.1540	-95.9928	America/Chicago
+tampa	Tampa, FL	27.9506	-82.4572	America/New_York
+arlington_tx	Arlington, TX	32.7357	-97.1081	America/Chicago
+new_orleans	New Orleans, LA	29.9511	-90.0715	America/Chicago
+wichita	Wichita, KS	37.6872	-97.3301	America/Chicago
+cleveland	Cleveland, OH	41.4993	-81.6944	America/New_York
+bakersfield	Bakersfield, CA	35.3733	-119.0187	America/Los_Angeles
+aurora_co	Aurora, CO	39.7294	-104.8319	America/Denver
+anaheim	Anaheim, CA	33.8366	-117.9143	America/Los_Angeles
+santa_ana	Santa Ana, CA	33.7455	-117.8677	America/Los_Angeles
+riverside	Riverside, CA	33.9533	-117.3962	America/Los_Angeles
+corpus_christi	Corpus Christi, TX	27.8006	-97.3964	America/Chicago
+lexington	Lexington, KY	38.0406	-84.5037	America/New_York
+henderson_nv	Henderson, NV	36.0395	-114.9817	America/Los_Angeles
+orlando	Orlando, FL	28.5383	-81.3792	America/New_York
+irvine	Irvine, CA	33.6846	-117.8265	America/Los_Angeles
+newark	Newark, NJ	40.7357	-74.1724	America/New_York
+st_louis	St. Louis, MO	38.6270	-90.1994	America/Chicago
+pittsburgh	Pittsburgh, PA	40.4406	-79.9959	America/New_York
+cincinnati	Cincinnati, OH	39.1031	-84.5120	America/New_York
+anchorage	Anchorage, AK	61.2181	-149.9003	America/Anchorage
+buffalo	Buffalo, NY	42.8864	-78.8784	America/New_York
+chandler	Chandler, AZ	33.3062	-111.8413	America/Phoenix
+laredo	Laredo, TX	27.5036	-99.5075	America/Chicago
+norfolk	Norfolk, VA	36.8508	-76.2859	America/New_York
+durham	Durham, NC	35.9940	-78.8986	America/New_York
+greensboro	Greensboro, NC	36.0726	-79.7920	America/New_York
+plano	Plano, TX	33.0198	-96.6989	America/Chicago
+lubbock	Lubbock, TX	33.5779	-101.8552	America/Chicago
+reno	Reno, NV	39.5296	-119.8138	America/Los_Angeles
+glendale_az	Glendale, AZ	33.5387	-112.1860	America/Phoenix
+hialeah	Hialeah, FL	25.8576	-80.2781	America/New_York
+garland	Garland, TX	32.9126	-96.6389	America/Chicago
+scottsdale	Scottsdale, AZ	33.4942	-111.9261	America/Phoenix
+irving	Irving, TX	32.8140	-96.9489	America/Chicago
+north_las_vegas	North Las Vegas, NV	36.1989	-115.1175	America/Los_Angeles
+fremont	Fremont, CA	37.5483	-121.9882	America/Los_Angeles
+boca_raton	Boca Raton, FL	26.3683	-80.1289	America/New_York
+silver_spring	Silver Spring, MD	38.9907	-77.0261	America/New_York
+rockville	Rockville, MD	39.0840	-77.1528	America/New_York
+skokie	Skokie, IL	42.0324	-87.7416	America/Chicago
+highland_park_il	Highland Park, IL	42.1817	-87.8003	America/Chicago
+pikesville	Pikesville, MD	39.3743	-76.7225	America/New_York
+beverly_hills	Beverly Hills, CA	34.0736	-118.4004	America/Los_Angeles
+palm_beach	Palm Beach, FL	26.7056	-80.0364	America/New_York
+west_palm_beach	West Palm Beach, FL	26.7153	-80.0534	America/New_York
+savannah	Savannah, GA	32.0809	-81.0912	America/New_York
+charleston_sc	Charleston, SC	32.7765	-79.9311	America/New_York
+spokane	Spokane, WA	47.6588	-117.4260	America/Los_Angeles
+tacoma	Tacoma, WA	47.2529	-122.4443	America/Los_Angeles
+birmingham	Birmingham, AL	33.5186	-86.8104	America/Chicago
+mobile	Mobile, AL	30.6954	-88.0399	America/Chicago
+knoxville	Knoxville, TN	35.9606	-83.9207	America/New_York
+chattanooga	Chattanooga, TN	35.0456	-85.3097	America/New_York
+grand_rapids	Grand Rapids, MI	42.9634	-85.6681	America/Detroit
+dayton	Dayton, OH	39.7589	-84.1916	America/New_York
+akron	Akron, OH	41.0814	-81.5190	America/New_York
+toledo	Toledo, OH	41.6528	-83.5379	America/New_York
+omaha	Omaha, NE	41.2565	-95.9345	America/Chicago
+bridgeport	Bridgeport, CT	41.1792	-73.1894	America/New_York
+new_haven	New Haven, CT	41.3083	-72.9279	America/New_York
+syracuse	Syracuse, NY	43.0481	-76.1474	America/New_York
+rochester	Rochester, NY	43.1566	-77.6088	America/New_York
+yonkers	Yonkers, NY	40.9312	-73.8987	America/New_York
+white_plains	White Plains, NY	41.0340	-73.7629	America/New_York
+paramus	Paramus, NJ	40.9445	-74.0754	America/New_York
+edison	Edison, NJ	40.5187	-74.4121	America/New_York
+princeton	Princeton, NJ	40.3573	-74.6672	America/New_York
+cherry_hill	Cherry Hill, NJ	39.9348	-75.0307	America/New_York
+wilmington_de	Wilmington, DE	39.7391	-75.5398	America/New_York
+ann_arbor	Ann Arbor, MI	42.2808	-83.7430	America/Detroit
+fort_lauderdale	Fort Lauderdale, FL	26.1224	-80.1373	America/New_York
+st_petersburg	St. Petersburg, FL	27.7676	-82.6403	America/New_York
+sarasota	Sarasota, FL	27.3364	-82.5307	America/New_York
+naples_fl	Naples, FL	26.1420	-81.7948	America/New_York
+santa_barbara	Santa Barbara, CA	34.4208	-119.6982	America/Los_Angeles
+pasadena	Pasadena, CA	34.1478	-118.1445	America/Los_Angeles
+palo_alto	Palo Alto, CA	37.4419	-122.1430	America/Los_Angeles
+san_francisco	San Francisco, CA	37.7749	-122.4194	America/Los_Angeles
+stockton	Stockton, CA	37.9577	-121.2908	America/Los_Angeles
+springfield_mo	Springfield, MO	37.2090	-93.2923	America/Chicago
+shreveport	Shreveport, LA	32.5252	-93.7502	America/Chicago
+lafayette_la	Lafayette, LA	30.2241	-92.0198	America/Chicago
+huntsville	Huntsville, AL	34.7304	-86.5861	America/Chicago
+asheville	Asheville, NC	35.5951	-82.5515	America/New_York
+winston_salem	Winston-Salem, NC	36.0999	-80.2442	America/New_York
+tyler	Tyler, TX	32.3513	-95.3011	America/Chicago
+waco	Waco, TX	31.5493	-97.1467	America/Chicago
+college_station	College Station, TX	30.6280	-96.3344	America/Chicago
+provo	Provo, UT	40.2338	-111.6585	America/Denver
+ogden	Ogden, UT	41.2230	-111.9738	America/Denver
+fairbanks	Fairbanks, AK	64.8378	-147.7164	America/Anchorage
+toronto	Toronto, ON	43.6532	-79.3832	America/Toronto
+montreal	Montreal, QC	45.5017	-73.5673	America/Toronto
+vancouver	Vancouver, BC	49.2827	-123.1207	America/Vancouver
+calgary	Calgary, AB	51.0447	-114.0719	America/Edmonton
+edmonton	Edmonton, AB	53.5461	-113.4938	America/Edmonton
+ottawa	Ottawa, ON	45.4215	-75.6972	America/Toronto
+winnipeg	Winnipeg, MB	49.8954	-97.1385	America/Winnipeg
+quebec_city	Quebec City, QC	46.8139	-71.2080	America/Toronto
+hamilton	Hamilton, ON	43.2557	-79.8711	America/Toronto
+kitchener	Kitchener, ON	43.4516	-80.4925	America/Toronto
+london_on	London, ON	42.9849	-81.2453	America/Toronto
+victoria	Victoria, BC	48.4284	-123.3656	America/Vancouver
+halifax	Halifax, NS	44.6488	-63.5752	America/Halifax
+saskatoon	Saskatoon, SK	52.1332	-106.6700	America/Regina
+regina	Regina, SK	50.4452	-104.6189	America/Regina
+st_johns	St. John's, NL	47.5615	-52.7126	America/St_Johns
+windsor	Windsor, ON	42.3149	-83.0364	America/Toronto
+mississauga	Mississauga, ON	43.5890	-79.6441	America/Toronto
+brampton	Brampton, ON	43.7315	-79.7624	America/Toronto
+markham	Markham, ON	43.8561	-79.3370	America/Toronto
+vaughan	Vaughan, ON	43.8361	-79.4983	America/Toronto
+richmond_hill	Richmond Hill, ON	43.8828	-79.4403	America/Toronto
+thornhill	Thornhill, ON	43.8159	-79.4248	America/Toronto
+bathurst_manor	Toronto, ON	43.7600	-79.4400	America/Toronto
+outremont	Montreal, QC	45.5167	-73.6167	America/Toronto
+cote_st_luc	Cote Saint-Luc, QC	45.4769	-73.6653	America/Toronto
+surrey	Surrey, BC	49.1913	-122.8490	America/Vancouver
+burnaby	Burnaby, BC	49.2488	-122.9805	America/Vancouver
+richmond_bc	Richmond, BC	49.1666	-123.1336	America/Vancouver
+kelowna	Kelowna, BC	49.8880	-119.4960	America/Vancouver
+nanaimo	Nanaimo, BC	49.1659	-123.9401	America/Vancouver
+whitehorse	Whitehorse, YT	60.7212	-135.0568	America/Whitehorse
+yellowknife	Yellowknife, NT	62.4540	-114.3718	America/Yellowknife
+iqaluit	Iqaluit, NU	63.7467	-68.5170	America/Iqaluit
+charlottetown	Charlottetown, PE	46.2382	-63.1311	America/Halifax
+fredericton	Fredericton, NB	45.9636	-66.6431	America/Moncton
+moncton	Moncton, NB	46.0878	-64.7782	America/Moncton
+sherbrooke	Sherbrooke, QC	45.4042	-71.8929	America/Toronto
+gatineau	Gatineau, QC	45.4767	-75.7013	America/Toronto
+lethbridge	Lethbridge, AB	49.6942	-112.8328	America/Edmonton
+red_deer	Red Deer, AB	52.2681	-113.8112	America/Edmonton
+kingston_on	Kingston, ON	44.2312	-76.4860	America/Toronto
+guelph	Guelph, ON	43.5448	-80.2482	America/Toronto
+waterloo	Waterloo, ON	43.4643	-80.5204	America/Toronto
+niagara_falls	Niagara Falls, ON	43.0896	-79.0849	America/Toronto
+st_catharines	St. Catharines, ON	43.1594	-79.2469	America/Toronto
+oshawa	Oshawa, ON	43.8971	-78.8658	America/Toronto
+laval	Laval, QC	45.6066	-73.7124	America/Toronto
+longueuil	Longueuil, QC	45.5312	-73.5185	America/Toronto
+london	London, United Kingdom	51.5074	-0.1278	Europe/London
+hendon	Hendon, United Kingdom	51.5897	-0.2280	Europe/London
+golders_green	Golders Green, United Kingdom	51.5722	-0.1944	Europe/London
+stamford_hill	Stamford Hill, United Kingdom	51.5744	-0.0722	Europe/London
+manchester	Manchester, United Kingdom	53.4808	-2.2426	Europe/London
+birmingham_uk	Birmingham, United Kingdom	52.4862	-1.8904	Europe/London
+leeds	Leeds, United Kingdom	53.8008	-1.5491	Europe/London
+glasgow	Glasgow, United Kingdom	55.8642	-4.2518	Europe/London
+edinburgh	Edinburgh, United Kingdom	55.9533	-3.1883	Europe/London
+liverpool	Liverpool, United Kingdom	53.4084	-2.9916	Europe/London
+bristol	Bristol, United Kingdom	51.4545	-2.5879	Europe/London
+cardiff	Cardiff, United Kingdom	51.4816	-3.1791	Europe/London
+belfast	Belfast, United Kingdom	54.5973	-5.9301	Europe/London
+dublin	Dublin, Ireland	53.3498	-6.2603	Europe/Dublin
+cork	Cork, Ireland	51.8985	-8.4756	Europe/Dublin
+galway	Galway, Ireland	53.2707	-9.0568	Europe/Dublin
+antwerp	Antwerp, Belgium	51.2194	4.4025	Europe/Brussels
+brussels	Brussels, Belgium	50.8503	4.3517	Europe/Brussels
+ghent	Ghent, Belgium	51.0543	3.7174	Europe/Brussels
+liege	Liege, Belgium	50.6326	5.5797	Europe/Brussels
+amsterdam	Amsterdam, Netherlands	52.3676	4.9041	Europe/Amsterdam
+rotterdam	Rotterdam, Netherlands	51.9244	4.4777	Europe/Amsterdam
+the_hague	The Hague, Netherlands	52.0705	4.3007	Europe/Amsterdam
+utrecht	Utrecht, Netherlands	52.0907	5.1214	Europe/Amsterdam
+eindhoven	Eindhoven, Netherlands	51.4416	5.4697	Europe/Amsterdam
+paris	Paris, France	48.8566	2.3522	Europe/Paris
+lyon	Lyon, France	45.7640	4.8357	Europe/Paris
+marseille	Marseille, France	43.2965	5.3698	Europe/Paris
+toulouse	Toulouse, France	43.6047	1.4442	Europe/Paris
+nice	Nice, France	43.7102	7.2620	Europe/Paris
+nantes	Nantes, France	47.2184	-1.5536	Europe/Paris
+strasbourg	Strasbourg, France	48.5734	7.7521	Europe/Paris
+bordeaux	Bordeaux, France	44.8378	-0.5792	Europe/Paris
+lille	Lille, France	50.6292	3.0573	Europe/Paris
+berlin	Berlin, Germany	52.5200	13.4050	Europe/Berlin
+munich	Munich, Germany	48.1351	11.5820	Europe/Berlin
+hamburg	Hamburg, Germany	53.5511	9.9937	Europe/Berlin
+frankfurt	Frankfurt, Germany	50.1109	8.6821	Europe/Berlin
+cologne	Cologne, Germany	50.9375	6.9603	Europe/Berlin
+dusseldorf	Dusseldorf, Germany	51.2277	6.7735	Europe/Berlin
+stuttgart	Stuttgart, Germany	48.7758	9.1829	Europe/Berlin
+leipzig	Leipzig, Germany	51.3397	12.3731	Europe/Berlin
+dresden	Dresden, Germany	51.0504	13.7373	Europe/Berlin
+nuremberg	Nuremberg, Germany	49.4521	11.0767	Europe/Berlin
+zurich	Zurich, Switzerland	47.3769	8.5417	Europe/Zurich
+geneva	Geneva, Switzerland	46.2044	6.1432	Europe/Zurich
+basel	Basel, Switzerland	47.5596	7.5886	Europe/Zurich
+bern	Bern, Switzerland	46.9480	7.4474	Europe/Zurich
+lausanne	Lausanne, Switzerland	46.5197	6.6323	Europe/Zurich
+vienna	Vienna, Austria	48.2082	16.3738	Europe/Vienna
+salzburg	Salzburg, Austria	47.8095	13.0550	Europe/Vienna
+graz	Graz, Austria	47.0707	15.4395	Europe/Vienna
+innsbruck	Innsbruck, Austria	47.2692	11.4041	Europe/Vienna
+rome	Rome, Italy	41.9028	12.4964	Europe/Rome
+milan	Milan, Italy	45.4642	9.1900	Europe/Rome
+naples	Naples, Italy	40.8518	14.2681	Europe/Rome
+turin	Turin, Italy	45.0703	7.6869	Europe/Rome
+florence	Florence, Italy	43.7696	11.2558	Europe/Rome
+venice	Venice, Italy	45.4408	12.3155	Europe/Rome
+bologna	Bologna, Italy	44.4949	11.3426	Europe/Rome
+palermo	Palermo, Italy	38.1157	13.3615	Europe/Rome
+madrid	Madrid, Spain	40.4168	-3.7038	Europe/Madrid
+barcelona	Barcelona, Spain	41.3851	2.1734	Europe/Madrid
+valencia	Valencia, Spain	39.4699	-0.3763	Europe/Madrid
+seville	Seville, Spain	37.3891	-5.9845	Europe/Madrid
+bilbao	Bilbao, Spain	43.2630	-2.9350	Europe/Madrid
+malaga	Malaga, Spain	36.7213	-4.4214	Europe/Madrid
+lisbon	Lisbon, Portugal	38.7223	-9.1393	Europe/Lisbon
+porto	Porto, Portugal	41.1579	-8.6291	Europe/Lisbon
+stockholm	Stockholm, Sweden	59.3293	18.0686	Europe/Stockholm
+gothenburg	Gothenburg, Sweden	57.7089	11.9746	Europe/Stockholm
+malmo	Malmo, Sweden	55.6050	13.0038	Europe/Stockholm
+oslo	Oslo, Norway	59.9139	10.7522	Europe/Oslo
+bergen	Bergen, Norway	60.3913	5.3221	Europe/Oslo
+copenhagen	Copenhagen, Denmark	55.6761	12.5683	Europe/Copenhagen
+aarhus	Aarhus, Denmark	56.1629	10.2039	Europe/Copenhagen
+helsinki	Helsinki, Finland	60.1699	24.9384	Europe/Helsinki
+tampere	Tampere, Finland	61.4978	23.7610	Europe/Helsinki
+reykjavik	Reykjavik, Iceland	64.1466	-21.9426	Atlantic/Reykjavik
+tallinn	Tallinn, Estonia	59.4370	24.7536	Europe/Tallinn
+riga	Riga, Latvia	56.9496	24.1052	Europe/Riga
+vilnius	Vilnius, Lithuania	54.6872	25.2797	Europe/Vilnius
+warsaw	Warsaw, Poland	52.2297	21.0122	Europe/Warsaw
+krakow	Krakow, Poland	50.0647	19.9450	Europe/Warsaw
+gdansk	Gdansk, Poland	54.3520	18.6466	Europe/Warsaw
+wroclaw	Wroclaw, Poland	51.1079	17.0385	Europe/Warsaw
+prague	Prague, Czech Republic	50.0755	14.4378	Europe/Prague
+brno	Brno, Czech Republic	49.1951	16.6068	Europe/Prague
+budapest	Budapest, Hungary	47.4979	19.0402	Europe/Budapest
+bucharest	Bucharest, Romania	44.4268	26.1025	Europe/Bucharest
+cluj_napoca	Cluj-Napoca, Romania	46.7712	23.6236	Europe/Bucharest
+sofia	Sofia, Bulgaria	42.6977	23.3219	Europe/Sofia
+belgrade	Belgrade, Serbia	44.7866	20.4489	Europe/Belgrade
+zagreb	Zagreb, Croatia	45.8150	15.9819	Europe/Zagreb
+split	Split, Croatia	43.5081	16.4402	Europe/Zagreb
+ljubljana	Ljubljana, Slovenia	46.0569	14.5058	Europe/Ljubljana
+bratislava	Bratislava, Slovakia	48.1486	17.1077	Europe/Bratislava
+sarajevo	Sarajevo, Bosnia and Herzegovina	43.8563	18.4131	Europe/Sarajevo
+skopje	Skopje, North Macedonia	41.9981	21.4254	Europe/Skopje
+tirana	Tirana, Albania	41.3275	19.8187	Europe/Tirane
+podgorica	Podgorica, Montenegro	42.4304	19.2594	Europe/Podgorica
+pristina	Pristina, Kosovo	42.6629	21.1655	Europe/Belgrade
+athens	Athens, Greece	37.9838	23.7275	Europe/Athens
+thessaloniki	Thessaloniki, Greece	40.6401	22.9444	Europe/Athens
+nicosia	Nicosia, Cyprus	35.1856	33.3823	Asia/Nicosia
+valletta	Valletta, Malta	35.8989	14.5146	Europe/Malta
+luxembourg_city	Luxembourg, Luxembourg	49.6116	6.1319	Europe/Luxembourg
+kyiv	Kyiv, Ukraine	50.4501	30.5234	Europe/Kyiv
+lviv	Lviv, Ukraine	49.8397	24.0297	Europe/Kyiv
+odesa	Odesa, Ukraine	46.4825	30.7233	Europe/Kyiv
+kharkiv	Kharkiv, Ukraine	49.9935	36.2304	Europe/Kyiv
+dnipro	Dnipro, Ukraine	48.4647	35.0462	Europe/Kyiv
+moscow	Moscow, Russia	55.7558	37.6173	Europe/Moscow
+saint_petersburg	Saint Petersburg, Russia	59.9311	30.3609	Europe/Moscow
+novosibirsk	Novosibirsk, Russia	55.0084	82.9357	Asia/Novosibirsk
+yekaterinburg	Yekaterinburg, Russia	56.8389	60.6057	Asia/Yekaterinburg
+kazan	Kazan, Russia	55.8304	49.0661	Europe/Moscow
+istanbul	Istanbul, Turkey	41.0082	28.9784	Europe/Istanbul
+ankara	Ankara, Turkey	39.9334	32.8597	Europe/Istanbul
+izmir	Izmir, Turkey	38.4237	27.1428	Europe/Istanbul
+antalya	Antalya, Turkey	36.8969	30.7133	Europe/Istanbul
+baku	Baku, Azerbaijan	40.4093	49.8671	Asia/Baku
+tbilisi	Tbilisi, Georgia	41.7151	44.8271	Asia/Tbilisi
+yerevan	Yerevan, Armenia	40.1792	44.4991	Asia/Yerevan
+chisinau	Chisinau, Moldova	47.0105	28.8638	Europe/Chisinau
+minsk	Minsk, Belarus	53.9006	27.5590	Europe/Minsk
+riyadh	Riyadh, Saudi Arabia	24.7136	46.6753	Asia/Riyadh
+jeddah	Jeddah, Saudi Arabia	21.4858	39.1925	Asia/Riyadh
+dubai	Dubai, United Arab Emirates	25.2048	55.2708	Asia/Dubai
+abu_dhabi	Abu Dhabi, United Arab Emirates	24.4539	54.3773	Asia/Dubai
+doha	Doha, Qatar	25.2854	51.5310	Asia/Qatar
+kuwait_city	Kuwait City, Kuwait	29.3759	47.9774	Asia/Kuwait
+manama	Manama, Bahrain	26.2285	50.5860	Asia/Bahrain
+muscat	Muscat, Oman	23.5880	58.3829	Asia/Muscat
+tehran	Tehran, Iran	35.6892	51.3890	Asia/Tehran
+isfahan	Isfahan, Iran	32.6546	51.6680	Asia/Tehran
+baghdad	Baghdad, Iraq	33.3152	44.3661	Asia/Baghdad
+amman	Amman, Jordan	31.9454	35.9284	Asia/Amman
+beirut	Beirut, Lebanon	33.8938	35.5018	Asia/Beirut
+damascus	Damascus, Syria	33.5138	36.2765	Asia/Damascus
+ramallah	Ramallah, Palestine	31.9038	35.2034	Asia/Hebron
+gaza_city	Gaza City, Palestine	31.5017	34.4668	Asia/Gaza
+cairo	Cairo, Egypt	30.0444	31.2357	Africa/Cairo
+alexandria	Alexandria, Egypt	31.2001	29.9187	Africa/Cairo
+mumbai	Mumbai, India	19.0760	72.8777	Asia/Kolkata
+delhi	Delhi, India	28.7041	77.1025	Asia/Kolkata
+bangalore	Bangalore, India	12.9716	77.5946	Asia/Kolkata
+hyderabad	Hyderabad, India	17.3850	78.4867	Asia/Kolkata
+chennai	Chennai, India	13.0827	80.2707	Asia/Kolkata
+kolkata	Kolkata, India	22.5726	88.3639	Asia/Kolkata
+pune	Pune, India	18.5204	73.8567	Asia/Kolkata
+ahmedabad	Ahmedabad, India	23.0225	72.5714	Asia/Kolkata
+beijing	Beijing, China	39.9042	116.4074	Asia/Shanghai
+shanghai	Shanghai, China	31.2304	121.4737	Asia/Shanghai
+guangzhou	Guangzhou, China	23.1291	113.2644	Asia/Shanghai
+shenzhen	Shenzhen, China	22.5431	114.0579	Asia/Shanghai
+chengdu	Chengdu, China	30.5728	104.0668	Asia/Shanghai
+hong_kong	Hong Kong, China	22.3193	114.1694	Asia/Hong_Kong
+taipei	Taipei, Taiwan	25.0330	121.5654	Asia/Taipei
+tokyo	Tokyo, Japan	35.6762	139.6503	Asia/Tokyo
+osaka	Osaka, Japan	34.6937	135.5023	Asia/Tokyo
+nagoya	Nagoya, Japan	35.1815	136.9066	Asia/Tokyo
+yokohama	Yokohama, Japan	35.4437	139.6380	Asia/Tokyo
+sapporo	Sapporo, Japan	43.0618	141.3545	Asia/Tokyo
+fukuoka	Fukuoka, Japan	33.5904	130.4017	Asia/Tokyo
+seoul	Seoul, South Korea	37.5665	126.9780	Asia/Seoul
+busan	Busan, South Korea	35.1796	129.0756	Asia/Seoul
+incheon	Incheon, South Korea	37.4563	126.7052	Asia/Seoul
+bangkok	Bangkok, Thailand	13.7563	100.5018	Asia/Bangkok
+ho_chi_minh_city	Ho Chi Minh City, Vietnam	10.8231	106.6297	Asia/Ho_Chi_Minh
+hanoi	Hanoi, Vietnam	21.0278	105.8342	Asia/Bangkok
+jakarta	Jakarta, Indonesia	6.2088	106.8456	Asia/Jakarta
+manila	Manila, Philippines	14.5995	120.9842	Asia/Manila
+kuala_lumpur	Kuala Lumpur, Malaysia	3.1390	101.6869	Asia/Kuala_Lumpur
+singapore	Singapore, Singapore	1.3521	103.8198	Asia/Singapore
+yangon	Yangon, Myanmar	16.8661	96.1951	Asia/Yangon
+dhaka	Dhaka, Bangladesh	23.8103	90.4125	Asia/Dhaka
+karachi	Karachi, Pakistan	24.8607	67.0011	Asia/Karachi
+lahore	Lahore, Pakistan	31.5204	74.3587	Asia/Karachi
+islamabad	Islamabad, Pakistan	33.6844	73.0479	Asia/Karachi
+kabul	Kabul, Afghanistan	34.5553	69.2075	Asia/Kabul
+tashkent	Tashkent, Uzbekistan	41.2995	69.2401	Asia/Tashkent
+almaty	Almaty, Kazakhstan	43.2220	76.8512	Asia/Almaty
+astana	Astana, Kazakhstan	51.1694	71.4491	Asia/Almaty
+ulaanbaatar	Ulaanbaatar, Mongolia	47.8864	106.9057	Asia/Ulaanbaatar
+kathmandu	Kathmandu, Nepal	27.7172	85.3240	Asia/Kathmandu
+colombo	Colombo, Sri Lanka	6.9271	79.8612	Asia/Colombo
+lagos	Lagos, Nigeria	6.5244	3.3792	Africa/Lagos
+abuja	Abuja, Nigeria	9.0765	7.3986	Africa/Lagos
+nairobi	Nairobi, Kenya	1.2921	36.8219	Africa/Nairobi
+mombasa	Mombasa, Kenya	4.0435	39.6682	Africa/Nairobi
+johannesburg	Johannesburg, South Africa	26.2041	28.0473	Africa/Johannesburg
+cape_town	Cape Town, South Africa	33.9249	18.4241	Africa/Johannesburg
+pretoria	Pretoria, South Africa	25.7479	28.2293	Africa/Johannesburg
+durban	Durban, South Africa	29.8587	31.0218	Africa/Johannesburg
+casablanca	Casablanca, Morocco	33.5731	-7.5898	Africa/Casablanca
+rabat	Rabat, Morocco	34.0209	-6.8416	Africa/Casablanca
+marrakech	Marrakech, Morocco	31.6295	-7.9811	Africa/Casablanca
+tunis	Tunis, Tunisia	36.8065	10.1815	Africa/Tunis
+algiers	Algiers, Algeria	36.7538	3.0588	Africa/Algiers
+tripoli	Tripoli, Libya	32.8872	13.1913	Africa/Tripoli
+khartoum	Khartoum, Sudan	15.5007	32.5599	Africa/Khartoum
+addis_ababa	Addis Ababa, Ethiopia	9.0320	38.7469	Africa/Addis_Ababa
+kampala	Kampala, Uganda	0.3476	32.5825	Africa/Kampala
+dar_es_salaam	Dar es Salaam, Tanzania	6.7924	39.2083	Africa/Dar_es_Salaam
+dodoma	Dodoma, Tanzania	6.1630	35.7516	Africa/Dar_es_Salaam
+kinshasa	Kinshasa, DR Congo	4.4419	15.2663	Africa/Kinshasa
+luanda	Luanda, Angola	8.8390	13.2894	Africa/Luanda
+accra	Accra, Ghana	5.6037	-0.1870	Africa/Accra
+abidjan	Abidjan, Ivory Coast	5.3600	-4.0083	Africa/Abidjan
+dakar	Dakar, Senegal	14.7167	-17.4677	Africa/Dakar
+bamako	Bamako, Mali	12.6392	-8.0029	Africa/Bamako
+ouagadougou	Ouagadougou, Burkina Faso	12.3714	-1.5197	Africa/Ouagadougou
+niamey	Niamey, Niger	13.5127	2.1124	Africa/Niamey
+yaounde	Yaounde, Cameroon	3.8480	11.5021	Africa/Douala
+douala	Douala, Cameroon	4.0511	9.7679	Africa/Douala
+harare	Harare, Zimbabwe	17.8252	31.0335	Africa/Harare
+lusaka	Lusaka, Zambia	15.3875	28.3228	Africa/Lusaka
+maputo	Maputo, Mozambique	25.9692	32.5732	Africa/Maputo
+windhoek	Windhoek, Namibia	22.5609	17.0658	Africa/Windhoek
+gaborone	Gaborone, Botswana	24.6282	25.9231	Africa/Gaborone
+antananarivo	Antananarivo, Madagascar	18.8792	47.5079	Indian/Antananarivo
+port_louis	Port Louis, Mauritius	20.1609	57.5012	Indian/Mauritius
+kigali	Kigali, Rwanda	1.9706	30.1044	Africa/Kigali
+ndjamena	Ndjamena, Chad	12.1348	15.0557	Africa/Ndjamena
+mexico_city	Mexico City, Mexico	19.4326	-99.1332	America/Mexico_City
+guadalajara	Guadalajara, Mexico	20.6597	-103.3496	America/Mexico_City
+monterrey	Monterrey, Mexico	25.6866	-100.3161	America/Monterrey
+puebla	Puebla, Mexico	19.0414	-98.2063	America/Mexico_City
+tijuana	Tijuana, Mexico	32.5149	-117.0382	America/Tijuana
+cancun	Cancun, Mexico	21.1619	-86.8515	America/Cancun
+merida	Merida, Mexico	20.9674	-89.5926	America/Merida
+leon_mexico	Leon, Mexico	21.1250	-101.6860	America/Mexico_City
+sao_paulo	Sao Paulo, Brazil	23.5505	-46.6333	America/Sao_Paulo
+rio_de_janeiro	Rio de Janeiro, Brazil	22.9068	-43.1729	America/Sao_Paulo
+brasilia	Brasilia, Brazil	15.7975	-47.8919	America/Sao_Paulo
+belo_horizonte	Belo Horizonte, Brazil	19.9167	-43.9345	America/Sao_Paulo
+porto_alegre	Porto Alegre, Brazil	30.0346	-51.2177	America/Sao_Paulo
+curitiba	Curitiba, Brazil	25.4284	-49.2733	America/Sao_Paulo
+recife	Recife, Brazil	8.0476	-34.8770	America/Recife
+salvador	Salvador, Brazil	12.9777	-38.5016	America/Bahia
+fortaleza	Fortaleza, Brazil	3.7172	-38.5433	America/Fortaleza
+manaus	Manaus, Brazil	3.1190	-60.0217	America/Manaus
+buenos_aires	Buenos Aires, Argentina	34.6037	-58.3816	America/Argentina/Buenos_Aires
+cordoba_ar	Cordoba, Argentina	31.4201	-64.1888	America/Argentina/Cordoba
+rosario	Rosario, Argentina	32.9468	-60.6393	America/Argentina/Cordoba
+mendoza	Mendoza, Argentina	32.8908	-68.8272	America/Argentina/Mendoza
+santiago	Santiago, Chile	33.4489	-70.6693	America/Santiago
+valparaiso	Valparaiso, Chile	33.0472	-71.6127	America/Santiago
+lima	Lima, Peru	12.0464	-77.0428	America/Lima
+bogota	Bogota, Colombia	4.7110	-74.0721	America/Bogota
+medellin	Medellin, Colombia	6.2476	-75.5658	America/Bogota
+cali	Cali, Colombia	3.4516	-76.5320	America/Bogota
+caracas	Caracas, Venezuela	10.4806	-66.9036	America/Caracas
+quito	Quito, Ecuador	0.1807	-78.4678	America/Guayaquil
+guayaquil	Guayaquil, Ecuador	2.1894	-79.8891	America/Guayaquil
+la_paz	La Paz, Bolivia	16.4897	-68.1193	America/La_Paz
+santa_cruz	Santa Cruz, Bolivia	17.7833	-63.1821	America/La_Paz
+asuncion	Asuncion, Paraguay	25.2637	-57.5759	America/Asuncion
+montevideo	Montevideo, Uruguay	34.9011	-56.1645	America/Montevideo
+havana	Havana, Cuba	23.1136	-82.3666	America/Havana
+santo_domingo	Santo Domingo, Dominican Republic	18.4861	-69.9312	America/Santo_Domingo
+san_juan	San Juan, Puerto Rico	18.4655	-66.1057	America/Puerto_Rico
+kingston	Kingston, Jamaica	17.9970	-76.7936	America/Jamaica
+port_of_spain	Port of Spain, Trinidad and Tobago	10.6918	-61.2225	America/Port_of_Spain
+nassau	Nassau, Bahamas	25.0443	-77.3504	America/Nassau
+guatemala_city	Guatemala City, Guatemala	14.6349	-90.5069	America/Guatemala
+san_salvador	San Salvador, El Salvador	13.6929	-89.2182	America/El_Salvador
+tegucigalpa	Tegucigalpa, Honduras	14.0723	-87.1921	America/Tegucigalpa
+managua	Managua, Nicaragua	12.1364	-86.2514	America/Managua
+san_jose_cr	San Jose, Costa Rica	9.9281	-84.0907	America/Costa_Rica
+panama_city	Panama City, Panama	8.9824	-79.5199	America/Panama
+belize_city	Belize City, Belize	17.5046	-88.1962	America/Belize
+georgetown	Georgetown, Guyana	6.8013	-58.1551	America/Guyana
+paramaribo	Paramaribo, Suriname	5.8520	-55.2038	America/Paramaribo
+cayenne	Cayenne, French Guiana	4.9224	-52.3135	America/Cayenne
+sydney	Sydney, Australia	33.8688	151.2093	Australia/Sydney
+melbourne	Melbourne, Australia	37.8136	144.9631	Australia/Melbourne
+brisbane	Brisbane, Australia	27.4698	153.0251	Australia/Brisbane
+perth	Perth, Australia	31.9505	115.8605	Australia/Perth
+adelaide	Adelaide, Australia	34.9285	138.6007	Australia/Adelaide
+canberra	Canberra, Australia	35.2809	149.1300	Australia/Sydney
+gold_coast	Gold Coast, Australia	28.0167	153.4000	Australia/Brisbane
+hobart	Hobart, Australia	42.8821	147.3272	Australia/Hobart
+darwin	Darwin, Australia	12.4634	130.8456	Australia/Darwin
+auckland	Auckland, New Zealand	36.8485	174.7633	Pacific/Auckland
+wellington	Wellington, New Zealand	41.2865	174.7762	Pacific/Auckland
+christchurch	Christchurch, New Zealand	43.5321	172.6362	Pacific/Auckland
+suva	Suva, Fiji	18.1416	178.4419	Pacific/Fiji
+port_moresby	Port Moresby, Papua New Guinea	9.4438	147.1803	Pacific/Port_Moresby
+noumea	Noumea, New Caledonia	22.2558	166.4505	Pacific/Noumea
+apia	Apia, Samoa	13.8333	171.7667	Pacific/Apia
+nuku_alofa	Nuku'alofa, Tonga	21.1393	175.2049	Pacific/Tongatapu
+honiara	Honiara, Solomon Islands	9.4454	159.9729	Pacific/Guadalcanal
+andorra_la_vella	Andorra la Vella, Andorra	42.5063	1.5218	Europe/Andorra
+monaco	Monaco, Monaco	43.7384	7.4246	Europe/Monaco
+san_marino	San Marino, San Marino	43.9424	12.4578	Europe/Rome
+vaduz	Vaduz, Liechtenstein	47.1410	9.5209	Europe/Vaduz

@@ -82,7 +82,7 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextButton(onClick = { showEnglish = !showEnglish }) {
-                        Text(if (showEnglish) "Hide English" else "Show English")
+                        TranslatableText(if (showEnglish) "Hide English" else "Show English")
                     }
                     
                     Row(
@@ -124,13 +124,13 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
                             )
 
                             if (showEnglish && section.english != null) {
-                                Text(
+                                TranslatableText(
                                     text = section.english,
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontSize = MaterialTheme.typography.bodyMedium.fontSize * fontScale
                                     ),
                                     textAlign = TextAlign.Start,
-                                    modifier = Modifier.padding(top = 8.dp, bottom = 16.dp)
+                                    modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
                                 )
                             }
 

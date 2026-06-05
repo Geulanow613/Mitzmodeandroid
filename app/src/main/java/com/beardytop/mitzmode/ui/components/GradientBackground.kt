@@ -8,12 +8,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import kotlin.math.*
 
 /**
  * Lush, painterly night-sky background with multiple gradient layers,
- * a warm gold glow at the top, gently twinkling stars, and slow drifting
+ * a warm gold glow at the top, gently twinkling Stars of David, and slow drifting
  * light beams. Built to feel like a softly-lit Torah scroll night sky.
  */
 @Composable
@@ -52,8 +54,8 @@ fun GradientBackground(
         label = "auraPulse"
     )
 
-    // Pre-generated star field — fixed positions so they don't dance around.
-    val stars = remember { generateStars(seed = 42, count = 80) }
+    // Pre-generated field — fixed positions / rotations so glyphs don't drift.
+    val stars = remember { generateStars(seed = 42, count = 0) }
 
     Canvas(modifier = modifier.fillMaxSize()) {
         val w = size.width
@@ -135,12 +137,11 @@ fun GradientBackground(
             )
         }
 
-        // 6. Stars with multi-layer glow & gentle twinkle
+        // 6. Stars of David — soft halos + stroked Magen David, gently twinkling
         stars.forEach { star ->
             val phase = (twinkle + star.phase) % 1f
             val pulse = (sin(phase * 2 * PI).toFloat() + 1f) / 2f  // 0..1
-            val alpha = (star.baseAlpha * (0.55f + 0.45f * pulse)).coerceIn(0.05f, 0.95f)
-            val r = star.radius * (0.85f + 0.3f * pulse)
+            val alpha = (star.baseAlpha * (0.55f + 0.45f * pulse)).coerceIn(0.06f, 0.92f)
             val cx = star.x * w
             val cy = star.y * h
             val color = when (star.tint) {
@@ -149,42 +150,35 @@ fun GradientBackground(
                 StarTint.WHITE -> Color(0xFFFFFFFF)
                 StarTint.BLUE  -> Color(0xFFB7C7FF)
             }
+            val triR = (star.radius * (3.2f + 0.35f * pulse) + 2.0f).coerceIn(2.8f, 12.5f)
+            val strokeW = (triR * 0.20f).coerceIn(0.5f, 2.1f) * if (star.isBright) 1.2f else 1f
 
-            // Outer halo
             drawCircle(
-                color = color.copy(alpha = alpha * 0.18f),
-                radius = r * 4.5f,
+                color = color.copy(alpha = alpha * 0.14f),
+                radius = triR * 2.6f,
                 center = Offset(cx, cy)
             )
-            // Mid glow
             drawCircle(
-                color = color.copy(alpha = alpha * 0.45f),
-                radius = r * 2.2f,
-                center = Offset(cx, cy)
-            )
-            // Core
-            drawCircle(
-                color = color.copy(alpha = alpha),
-                radius = r,
+                color = color.copy(alpha = alpha * 0.24f),
+                radius = triR * 1.35f,
                 center = Offset(cx, cy)
             )
 
-            // For the brightest stars, draw a subtle 4-point glint
-            if (star.isBright) {
-                val glintLen = r * 6f
-                val glintColor = color.copy(alpha = alpha * 0.6f)
-                drawLine(
-                    color = glintColor,
-                    start = Offset(cx - glintLen, cy),
-                    end = Offset(cx + glintLen, cy),
-                    strokeWidth = 0.6f
+            rotate(star.rotationDeg, pivot = Offset(cx, cy)) {
+                drawStarOfDavidGlyph(
+                    center = Offset(cx, cy),
+                    radius = triR,
+                    color = color.copy(alpha = alpha),
+                    strokeWidth = strokeW
                 )
-                drawLine(
-                    color = glintColor,
-                    start = Offset(cx, cy - glintLen),
-                    end = Offset(cx, cy + glintLen),
-                    strokeWidth = 0.6f
-                )
+                if (star.isBright) {
+                    drawStarOfDavidGlyph(
+                        center = Offset(cx, cy),
+                        radius = triR * 1.12f,
+                        color = color.copy(alpha = alpha * 0.28f),
+                        strokeWidth = strokeW * 0.45f
+                    )
+                }
             }
         }
 
@@ -230,12 +224,13 @@ private data class Star(
     val baseAlpha: Float,
     val phase: Float,
     val tint: StarTint,
-    val isBright: Boolean
+    val isBright: Boolean,
+    val rotationDeg: Float
 )
 
 /**
- * Generates a deterministic star field that's pleasing — most stars small/white,
- * a few gold accents, and a handful of "bright" stars with glints.
+ * Generates a deterministic field — mostly small white / gold Magen Davids,
+ * a few brighter ones with a soft outer echo.
  */
 private fun generateStars(seed: Int, count: Int): List<Star> {
     val rng = java.util.Random(seed.toLong())
@@ -255,7 +250,41 @@ private fun generateStars(seed: Int, count: Int): List<Star> {
             baseAlpha = if (isBright) 0.85f else 0.35f + rng.nextFloat() * 0.3f,
             phase = rng.nextFloat(),
             tint = tint,
-            isBright = isBright
+            isBright = isBright,
+            rotationDeg = rng.nextFloat() * 360f
         )
     }
+}
+
+/** Two equilateral triangles — classic Magen David outline (same geometry as dialog artwork). */
+private fun DrawScope.drawStarOfDavidGlyph(
+    center: Offset,
+    radius: Float,
+    color: Color,
+    strokeWidth: Float
+) {
+    val cos30 = cos(30.0 * PI / 180.0).toFloat()
+    val sin30 = sin(30.0 * PI / 180.0).toFloat()
+    val style = Stroke(width = strokeWidth, cap = StrokeCap.Round, join = StrokeJoin.Round)
+
+    drawPath(
+        Path().apply {
+            moveTo(center.x, center.y - radius)
+            lineTo(center.x + radius * cos30, center.y + radius * sin30)
+            lineTo(center.x - radius * cos30, center.y + radius * sin30)
+            close()
+        },
+        color = color,
+        style = style
+    )
+    drawPath(
+        Path().apply {
+            moveTo(center.x, center.y + radius)
+            lineTo(center.x + radius * cos30, center.y - radius * sin30)
+            lineTo(center.x - radius * cos30, center.y - radius * sin30)
+            close()
+        },
+        color = color,
+        style = style
+    )
 }

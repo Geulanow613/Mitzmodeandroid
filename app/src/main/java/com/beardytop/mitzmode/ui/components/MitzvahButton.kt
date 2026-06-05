@@ -36,6 +36,7 @@ import android.os.Build
 import android.os.VibratorManager
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 // Function to get the proper "Mitzvah Me" translation for different languages
@@ -63,7 +64,8 @@ fun getMitzvahMeTranslation(
 fun MitzvahButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    translationViewModel: TranslationViewModel = hiltViewModel()
+    translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
 ) {
     val context = LocalContext.current
     val vibrator = remember {
@@ -305,12 +307,9 @@ fun MitzvahButton(
                         ),
                     contentAlignment = Alignment.Center
                 ) {
-                    // Get the proper translation for the button text
-                    val displayText = getMitzvahMeTranslation(currentLanguage, translationViewModel)
-                    
-                    // Enhanced text with shadow effect
-                    Text(
-                        text = displayText,
+                    TranslatableText(
+                        text = "Mitzvah Me",
+                        enableHalachicTerms = false,
                         style = MaterialTheme.typography.headlineMedium.copy(
                             fontWeight = FontWeight.Black,
                             fontSize = 19.sp,
@@ -323,7 +322,8 @@ fun MitzvahButton(
                         ),
                         color = Color.White,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(horizontal = 12.dp)
+                        modifier = Modifier.padding(horizontal = 12.dp),
+                        translationViewModel = translationViewModel,
                     )
                     
                     // Spectacular rotating stars with different speeds

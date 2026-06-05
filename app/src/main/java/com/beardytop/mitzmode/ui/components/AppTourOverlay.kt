@@ -71,7 +71,11 @@ fun GlowingDot(
             modifier = Modifier
                 .size(dotSize)
                 .drawBehind {
-                    drawCircle(color = Color.White.copy(alpha = alpha * 0.9f), radius = sizePx / 4f, center = center)
+                    drawCircle(
+                        color = Color.White.copy(alpha = alpha * 0.9f),
+                        radius = sizePx / 4f,
+                        center = center
+                    )
                 }
         )
     }
@@ -120,7 +124,7 @@ private fun TourContent(
     modifier: Modifier = Modifier
 ) {
     val density = LocalDensity.current
-    
+
     Box(modifier = modifier.fillMaxSize()) {
         // Frame-based scrim: draw 4 rects around the highlight so the center stays visible (no BlendMode)
         Canvas(Modifier.fillMaxSize()) {
@@ -138,22 +142,35 @@ private fun TourContent(
                 // Top strip
                 if (top > 0f) drawRect(scrimColor, topLeft = Offset(0f, 0f), size = Size(w, top))
                 // Bottom strip
-                if (bottom < h) drawRect(scrimColor, topLeft = Offset(0f, bottom), size = Size(w, h - bottom))
+                if (bottom < h) drawRect(
+                    scrimColor,
+                    topLeft = Offset(0f, bottom),
+                    size = Size(w, h - bottom)
+                )
                 // Left strip
-                if (left > 0f) drawRect(scrimColor, topLeft = Offset(0f, top), size = Size(left, bottom - top))
+                if (left > 0f) drawRect(
+                    scrimColor,
+                    topLeft = Offset(0f, top),
+                    size = Size(left, bottom - top)
+                )
                 // Right strip
-                if (right < w) drawRect(scrimColor, topLeft = Offset(right, top), size = Size(w - right, bottom - top))
+                if (right < w) drawRect(
+                    scrimColor,
+                    topLeft = Offset(right, top),
+                    size = Size(w - right, bottom - top)
+                )
             } ?: run {
                 // No bounds yet: full scrim
                 drawRect(scrimColor)
             }
         }
 
-        // Tour card positioning: step 2 = lower half, step 3 = top half, others = bottom
+        // Tour card positioning: keep cards off the highlighted control
         val cardAlignment = when (currentStep) {
-            2 -> BiasAlignment(0f, 0.5f)  // Lower half for Add a Mitzvah
-            3 -> BiasAlignment(0f, -0.5f)  // Top half for level/count
-            else -> Alignment.BottomCenter  // Bottom for other steps
+            1 -> BiasAlignment(0f, -0.55f)     // Checklist button at bottom — card at top
+            2, 3 -> BiasAlignment(0f, 0.5f)   // Menu, Add a Mitzvah
+            4 -> BiasAlignment(0f, -0.5f)    // Mitzvah count / level
+            else -> Alignment.BottomCenter   // Mitzvah Me button
         }
         Card(
             modifier = Modifier
@@ -161,7 +178,10 @@ private fun TourContent(
                 .fillMaxWidth()
                 .padding(horizontal = 20.dp)
                 .padding(
-                    top = if (cardAlignment == BiasAlignment(0f, -0.5f)) 24.dp else 0.dp,
+                    top = when (currentStep) {
+                        1, 4 -> 24.dp
+                        else -> 0.dp
+                    },
                     bottom = if (cardAlignment == Alignment.BottomCenter) 48.dp else 24.dp
                 ),
             shape = RoundedCornerShape(16.dp),
@@ -172,13 +192,14 @@ private fun TourContent(
                 modifier = Modifier.padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
+                TranslatableText(
                     text = stepMessage,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Medium,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                    ),
                     textAlign = TextAlign.Center,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -190,7 +211,7 @@ private fun TourContent(
                 ) {
                     // Skip (left)
                     TextButton(onClick = onSkip) {
-                        Text("Skip", color = MaterialTheme.colorScheme.primary)
+                        TranslatableText("Skip", color = MaterialTheme.colorScheme.primary)
                     }
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -201,7 +222,7 @@ private fun TourContent(
                                     containerColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
-                                Text("Next")
+                                TranslatableText("Next")
                             }
                         } else {
                             Button(
@@ -210,7 +231,7 @@ private fun TourContent(
                                     containerColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
-                                Text("Done")
+                                TranslatableText("Done")
                             }
                         }
 

@@ -10,12 +10,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Language
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Rect
@@ -23,32 +23,36 @@ import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.activity.ComponentActivity
+import com.beardytop.mitzmode.tzaddik.EmbeddedTzaddikChecklist
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
+import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import com.beardytop.mitzmode.ui.components.*
-import com.beardytop.mitzmode.utils.DeviceCapabilityChecker
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import kotlinx.coroutines.delay
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
-import com.beardytop.mitzmode.ui.components.getMitzvahMeTranslation
 
 @Composable
 fun MitzModeApp(
     viewModel: MitzModeViewModel = hiltViewModel()
 ) {
-    val currentMitzvah by viewModel.currentMitzvah.collectAsState()
-    val showVideo by viewModel.showVideo.collectAsState()
-    val showLevelUp by viewModel.showLevelUp.collectAsState()
-    val showMusicReward by viewModel.showMusicReward.collectAsState()
-    val completedMitzvot by viewModel.completedMitzvot.collectAsState()
-    val showTour by viewModel.showTour.collectAsState()
-    println("DEBUG: showVideo value: $showVideo")
+    val currentMitzvah by viewModel.currentMitzvah.collectAsStateWithLifecycle()
+    val showVideo by viewModel.showVideo.collectAsStateWithLifecycle()
+    val showLevelUp by viewModel.showLevelUp.collectAsStateWithLifecycle()
+    val showMusicReward by viewModel.showMusicReward.collectAsStateWithLifecycle()
+    val completedMitzvot by viewModel.completedMitzvot.collectAsStateWithLifecycle()
+    val showTour by viewModel.showTour.collectAsStateWithLifecycle()
     var showMitzvahInfo by remember { mutableStateOf(false) }
     var showAbout by remember { mutableStateOf(false) }
     var showMenu by remember { mutableStateOf(false) }
@@ -63,17 +67,26 @@ fun MitzModeApp(
 
     var showLanguageSelection by remember { mutableStateOf(false) }
     var showMusicPlayer by remember { mutableStateOf(false) }
-    var isSparkleAnimating by remember { mutableStateOf(false) }
 
     var currentTourStep by remember { mutableStateOf(0) }
     var tourStepBounds by remember { mutableStateOf<Map<Int, Rect>>(emptyMap()) }
     var rootLayoutCoords by remember { mutableStateOf<LayoutCoordinates?>(null) }
     val tourSteps = remember {
         listOf(
-            TourStep("Tap the Mitzvah Button any time for a random mitzvah suggestion!"),
-            TourStep("Tap the menu button (three dots) to access powerful resources! The Daily Mitzvot Checklist is your complete guide to living according to Torah—perfect whether you're just starting your journey or deepening your practice. You'll also find blessings and other helpful tools in this menu!"),
-            TourStep("Can you think of any more mitzvot we should add to the list? Submit them here!"),
-            TourStep("You can check how many mitzvot you've completed here, and your current level.")
+            TourStep(
+                "Tap Mitzvah Me any time for a fresh mitzvah suggestion—a quick spark when you want a good deed idea."
+            ),
+            TourStep(
+                "Your Daily Mitzvot Checklist is this gold button—not hidden in the menu. " +
+                    "Use GPS or your city for live zmanim, check off today's mitzvot, tap any item for clear explanations, " +
+                    "follow your nusach, and see this week's parsha."
+            ),
+            TourStep(
+                "The ⋮ menu has blessings, the Al HaMichya builder, Birkat Hamazon, the Traveler's Prayer, " +
+                    "the app song, and language settings—the checklist is not here."
+            ),
+            TourStep("Suggest a mitzvah for the community—tap here to submit an idea."),
+            TourStep("Tap your mitzvah count to see how many you've completed and your current level.")
         )
     }
 
@@ -100,69 +113,43 @@ fun MitzModeApp(
             .fillMaxSize()
             .onGloballyPositioned { rootLayoutCoords = it }
     ) {
-        // First layer: Background - Check device capability for video
-        val context = LocalContext.current
-        val canHandleVideo = remember { DeviceCapabilityChecker.canHandleVideoBackground(context) }
+        // First layer: static gradient background on all devices (no looping video).
+        LowEndDeviceBackground()
         
-        if (canHandleVideo) {
-            // Video background for capable devices
-            VideoBackground(
-                videoAsset = "background.mp4",
-                isPlaying = true
+        // Second layer: Dialogs
+        if (currentMitzvah != null) {
+            MitzvahDialog(
+                mitzvah = currentMitzvah!!,
+                onDismiss = { viewModel.clearCurrentMitzvah() },
+                onAccept = {
+                    viewModel.onMitzvahAccepted()
+                },
+                onNext = { viewModel.onMitzvahButtonPressed() }
             )
-            // Semi-transparent overlay for better text readability
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(alpha = 0.3f))
-            )
-        } else {
-            // Beautiful animated gradient background for devices that can't handle video
-            GradientBackground()
         }
-        
-        // Main content (hero title)
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally
+
+        // Third layer: Always-clickable controls (inset above gesture/nav bar)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .statusBarsPadding()
+                .navigationBarsPadding()
         ) {
-            Spacer(modifier = Modifier.fillMaxHeight(0.13f))
+                // Detect full-screen phones and adjust padding
+                val configuration = LocalConfiguration.current
+                val isFullScreen = configuration.screenHeightDp > 700 // Detect tall screens
+                val topPadding = if (isFullScreen) 32.dp else 8.dp
+                val headerRowHeight = 54.dp
+                val instructionTopPadding = topPadding + 8.dp + headerRowHeight + 28.dp
 
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(horizontal = 28.dp)
-            ) {
-                val translationViewModel: TranslationViewModel = hiltViewModel()
-                val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-                val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-
-                val mitzvahMeText = if (translationEnabled && currentLanguage != "en") {
-                    getMitzvahMeTranslation(currentLanguage, translationViewModel)
-                } else {
-                    "Mitzvah Me"
-                }
-
-                val instructionText = if (translationEnabled && currentLanguage != "en") {
-                    when (currentLanguage) {
-                        "he" -> "לחץ על כפתור $mitzvahMeText כדי לעשות מצווה!"
-                        "es" -> "¡Presiona el botón $mitzvahMeText para realizar una mitzvá!"
-                        "fr" -> "Appuyez sur le bouton $mitzvahMeText pour faire une mitzvah!"
-                        "de" -> "Drücke den $mitzvahMeText Button für eine Mitzvah!"
-                        "it" -> "Premi il pulsante $mitzvahMeText per fare una mitzvah!"
-                        "pt" -> "Pressione o botão $mitzvahMeText para fazer uma mitzvá!"
-                        "ru" -> "Нажмите кнопку $mitzvahMeText для выполнения мицвы!"
-                        "ar" -> "اضغط على زر $mitzvahMeText لأداء ميتزفا!"
-                        "zh" -> "点击${mitzvahMeText}按钮做善行！"
-                        "ja" -> "${mitzvahMeText}ボタンを押してミツバーを行おう！"
-                        else -> "Tap the $mitzvahMeText button for a mitzvah!"
-                    }
-                } else {
-                    "Tap the Mitzvah Me button for a mitzvah!"
-                }
-
-                // Hero title — gold gradient, drop shadow
-                Text(
-                    text = instructionText,
+                // Instruction below top chrome (menu + counter), inset from sides
+                TranslatableText(
+                    text = "Tap the Mitzvah Me button for a mitzvah!",
+                    enableHalachicTerms = false,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = instructionTopPadding)
+                        .padding(horizontal = 72.dp),
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
@@ -176,81 +163,65 @@ fun MitzModeApp(
                     color = Color(0xFFFFE082),
                     textAlign = TextAlign.Center
                 )
-            }
-        }
 
-        // Second layer: Dialogs
-        if (currentMitzvah != null) {
-            MitzvahDialog(
-                mitzvah = currentMitzvah!!,
-                onDismiss = { viewModel.clearCurrentMitzvah() },
-                onAccept = {
-                    viewModel.onMitzvahAccepted()
-                    isSparkleAnimating = true
-                    println("DEBUG: Mitzvah accepted!")
-                },
-                onNext = { viewModel.onMitzvahButtonPressed() }
-            )
-        }
-
-        // Third layer: Always-clickable controls
-        Box(modifier = Modifier.fillMaxSize()) {
-                // Detect full-screen phones and adjust padding
-                val configuration = LocalConfiguration.current
-                val isFullScreen = configuration.screenHeightDp > 700 // Detect tall screens
-                val topPadding = if (isFullScreen) 32.dp else 8.dp
-                
-                // Menu in top left (tour step 1) — glass-morphic chip
+                // Menu in top left (tour step 2) — glass-morphic chip
+                val menuButtonSize = headerRowHeight
+                val menuDropdownWidth = 280.dp
+                val menuDropdownOffsetX = (menuButtonSize - menuDropdownWidth) / 2
+                val menuBorderPx = with(LocalDensity.current) { 1.dp.toPx() }
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                        .padding(top = topPadding, start = 14.dp)
+                        .wrapContentSize(Alignment.TopStart)
+                        // Align vertically with the top-right counter pill.
+                        .padding(top = topPadding + 8.dp, start = 14.dp)
                         .then(
                             if (showTour) Modifier.onGloballyPositioned { coords ->
                                 rootLayoutCoords?.let { root ->
                                     val pos = root.localPositionOf(coords, Offset.Zero)
                                     val sz = coords.size
-                                    tourStepBounds = tourStepBounds + (1 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height))
+                                    tourStepBounds = tourStepBounds + (2 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height))
                                 }
                             } else Modifier
                         )
                 ) {
                     Box(
                         modifier = Modifier
-                            .size(46.dp)
-                            .shadow(
-                                elevation = 8.dp,
-                                shape = CircleShape,
-                                spotColor = Color(0xFFFFD56B)
-                            )
-                            .clip(CircleShape)
-                            .background(
-                                brush = Brush.radialGradient(
-                                    colors = listOf(
-                                        Color.White.copy(alpha = 0.18f),
-                                        Color.White.copy(alpha = 0.06f)
-                                    )
+                            .size(menuButtonSize)
+                            .drawBehind {
+                                // Draw from true center — avoids off-center gray octagon from Modifier.shadow().
+                                val radius = size.minDimension / 2f
+                                val center = Offset(size.width / 2f, size.height / 2f)
+                                drawCircle(
+                                    brush = Brush.radialGradient(
+                                        colors = listOf(
+                                            Color.White.copy(alpha = 0.18f),
+                                            Color.White.copy(alpha = 0.06f)
+                                        ),
+                                        center = center,
+                                        radius = radius
+                                    ),
+                                    radius = radius,
+                                    center = center
                                 )
-                            )
-                            .border(
-                                width = 1.dp,
-                                color = Color(0xFFFFD56B).copy(alpha = 0.55f),
-                                shape = CircleShape
-                            )
+                                drawCircle(
+                                    color = Color(0xFFFFD56B).copy(alpha = 0.55f),
+                                    radius = radius - menuBorderPx / 2f,
+                                    center = center,
+                                    style = Stroke(width = menuBorderPx)
+                                )
+                            }
                             .clickable { if (!showTour) showMenu = true },
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(
-                            Icons.Default.MoreVert,
-                            contentDescription = "Menu",
-                            tint = Color(0xFFFFE082),
-                            modifier = Modifier.size(24.dp)
-                        )
+                        MenuDotsIcon(tint = Color(0xFFFFE082))
                     }
                     DropdownMenu(
                         expanded = showMenu,
                         onDismissRequest = { if (!showTour) showMenu = false },
+                        offset = DpOffset(menuDropdownOffsetX, 6.dp),
                         modifier = Modifier
+                            .width(menuDropdownWidth)
                             .background(
                                 color = Color(0xFFFFFBEE),
                                 shape = RoundedCornerShape(14.dp)
@@ -261,16 +232,6 @@ fun MitzModeApp(
                                 shape = RoundedCornerShape(14.dp)
                             )
                     ) {
-                        DropdownMenuItem(
-                            text = { TranslatableText("Daily Mitzvot Checklist") },
-                            onClick = {
-                                if (!showTour) {
-                                    showMenu = false
-                                    showDailyMitzvot = true
-                                }
-                            },
-                            enabled = !showTour
-                        )
                         DropdownMenuItem(
                             text = { TranslatableText("About") },
                             onClick = {
@@ -342,7 +303,7 @@ fun MitzModeApp(
                     }
                 }
 
-                // Mitzvah count in top right — elegant gold pill (tour step 3)
+                // Mitzvah count in top right — elegant gold pill (tour step 4)
                 val mitzvotCount = completedMitzvot.size
                 val gold = Color(0xFFFFD56B)
                 val goldDeep = Color(0xFFB8860B)
@@ -356,7 +317,7 @@ fun MitzModeApp(
                                 rootLayoutCoords?.let { root ->
                                     val pos = root.localPositionOf(coords, Offset.Zero)
                                     val sz = coords.size
-                                    tourStepBounds = tourStepBounds + (3 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height))
+                                    tourStepBounds = tourStepBounds + (4 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height))
                                 }
                             } else Modifier
                         )
@@ -413,10 +374,11 @@ fun MitzModeApp(
                     }
                 }
 
-                // Center Mitzvah Button - using centered layout since video is disabled
+                // Center Mitzvah Button — nudged above bottom CTAs and nav bar
                 val buttonModifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.Center)
+                    .padding(bottom = 72.dp)
 
                 Box(
                     modifier = buttonModifier
@@ -438,86 +400,159 @@ fun MitzModeApp(
                     )
                 }
 
-                // Add a Mitzvah button (tour step 2) — refined outline pill
-                Box(
+                // Bottom action stack — checklist is primary (not in ⋮ menu); tour step 1
+                Column(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(bottom = 76.dp)
-                        .then(
-                            if (showTour) Modifier.onGloballyPositioned { coords ->
-                                rootLayoutCoords?.let { root ->
-                                    val pos = root.localPositionOf(coords, Offset.Zero)
-                                    val sz = coords.size
-                                    tourStepBounds = tourStepBounds + (2 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height))
-                                }
-                            } else Modifier
-                        )
+                        .fillMaxWidth()
+                        .padding(bottom = 24.dp)
+                        .padding(horizontal = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    OutlinedButton(
-                        onClick = { showAddMitzvah = true },
-                        shape = RoundedCornerShape(50),
-                        border = androidx.compose.foundation.BorderStroke(
-                            width = 1.4.dp,
-                            color = Color(0xFFFFD56B).copy(alpha = 0.8f)
-                        ),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = Color.White.copy(alpha = 0.08f),
-                            contentColor = Color(0xFFFFE082)
-                        ),
-                        contentPadding = PaddingValues(horizontal = 22.dp, vertical = 10.dp)
-                    ) {
-                        TranslatableText(
-                            "Add a Mitzvah",
-                            style = MaterialTheme.typography.labelLarge.copy(
-                                fontWeight = FontWeight.SemiBold,
-                                letterSpacing = 0.6.sp
-                            ),
-                            color = Color(0xFFFFE082)
-                        )
-                    }
-                }
-
-                // What's a Mitzvah? button — primary gold-gradient pill
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 18.dp)
-                        .shadow(
-                            elevation = 12.dp,
-                            shape = RoundedCornerShape(50),
-                            spotColor = Color(0xFFFFD56B)
-                        )
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(
-                                    Color(0xFFFFD56B),
-                                    Color(0xFFD4A024),
-                                    Color(0xFFB8860B)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .offset(y = (-20).dp)
+                            .then(
+                                if (showTour) Modifier.onGloballyPositioned { coords ->
+                                    rootLayoutCoords?.let { root ->
+                                        val pos = root.localPositionOf(coords, Offset.Zero)
+                                        val sz = coords.size
+                                        tourStepBounds = tourStepBounds + (
+                                            1 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height)
+                                        )
+                                    }
+                                } else Modifier
+                            )
+                            .shadow(
+                                elevation = 16.dp,
+                                shape = RoundedCornerShape(50),
+                                spotColor = Color(0xFFFFD56B)
+                            )
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    colors = listOf(
+                                        Color(0xFFFFF3B5),
+                                        Color(0xFFFFE082),
+                                        Color(0xFFFFD56B),
+                                        Color(0xFFE0AB2F)
+                                    )
                                 )
                             )
-                        )
-                        .border(
-                            width = 1.dp,
-                            color = Color(0xFFFFE082).copy(alpha = 0.8f),
-                            shape = RoundedCornerShape(50)
-                        )
-                        .clickable { showMitzvahInfo = true }
-                        .padding(horizontal = 28.dp, vertical = 12.dp)
-                ) {
-                    TranslatableText(
-                        "What's a Mitzvah?",
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.SemiBold,
-                            letterSpacing = 0.6.sp,
-                            shadow = Shadow(
-                                color = Color.Black.copy(alpha = 0.35f),
-                                offset = Offset(0f, 1.5f),
-                                blurRadius = 3f
+                            .border(
+                                width = 1.6.dp,
+                                color = Color(0xFFFFF8D6),
+                                shape = RoundedCornerShape(50)
                             )
-                        ),
-                        color = Color.White
-                    )
+                            .clickable { showDailyMitzvot = true }
+                            .padding(horizontal = 24.dp, vertical = 15.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        TranslatableText(
+                            "Daily Mitzvot Checklist",
+                            enableHalachicTerms = false,
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.Bold,
+                                letterSpacing = 0.55.sp,
+                                textAlign = TextAlign.Center,
+                                shadow = Shadow(
+                                    color = Color.Black.copy(alpha = 0.32f),
+                                    offset = Offset(0f, 1.8f),
+                                    blurRadius = 2.8f
+                                )
+                            ),
+                            color = Color(0xFF1A3D72)
+                        )
+                    }
+
+                    // Add a Mitzvah (tour step 3)
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .then(
+                                if (showTour) Modifier.onGloballyPositioned { coords ->
+                                    rootLayoutCoords?.let { root ->
+                                        val pos = root.localPositionOf(coords, Offset.Zero)
+                                        val sz = coords.size
+                                        tourStepBounds = tourStepBounds + (
+                                            3 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height)
+                                        )
+                                    }
+                                } else Modifier
+                            )
+                    ) {
+                        OutlinedButton(
+                            onClick = { showAddMitzvah = true },
+                            modifier = Modifier.fillMaxWidth(),
+                            shape = RoundedCornerShape(50),
+                            border = androidx.compose.foundation.BorderStroke(
+                                width = 1.4.dp,
+                                color = Color(0xFFFFD56B).copy(alpha = 0.8f)
+                            ),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = Color.White.copy(alpha = 0.08f),
+                                contentColor = Color(0xFFFFE082)
+                            ),
+                            contentPadding = PaddingValues(horizontal = 22.dp, vertical = 12.dp)
+                        ) {
+                            TranslatableText(
+                                "Add a Mitzvah",
+                                enableHalachicTerms = false,
+                                style = MaterialTheme.typography.labelLarge.copy(
+                                    fontWeight = FontWeight.SemiBold,
+                                    letterSpacing = 0.6.sp
+                                ),
+                                color = Color(0xFFFFE082)
+                            )
+                        }
+                    }
+
+                    // What's a Mitzvah?
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .shadow(
+                                elevation = 12.dp,
+                                shape = RoundedCornerShape(50),
+                                spotColor = Color(0xFFFFD56B)
+                            )
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    colors = listOf(
+                                        Color(0xFFFFD56B),
+                                        Color(0xFFD4A024),
+                                        Color(0xFFB8860B)
+                                    )
+                                )
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color(0xFFFFE082).copy(alpha = 0.8f),
+                                shape = RoundedCornerShape(50)
+                            )
+                            .clickable { showMitzvahInfo = true }
+                            .padding(horizontal = 24.dp, vertical = 13.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        TranslatableText(
+                            "What's a Mitzvah?",
+                            enableHalachicTerms = false,
+                            style = MaterialTheme.typography.titleMedium.copy(
+                                fontWeight = FontWeight.SemiBold,
+                                letterSpacing = 0.6.sp,
+                                textAlign = TextAlign.Center,
+                                shadow = Shadow(
+                                    color = Color.Black.copy(alpha = 0.35f),
+                                    offset = Offset(0f, 1.5f),
+                                    blurRadius = 3f
+                                )
+                            ),
+                            color = Color.White
+                        )
+                    }
                 }
             }
 
@@ -578,9 +613,11 @@ fun MitzModeApp(
             BrachotDialog(onDismiss = { showBrachot = false })
         }
         
-        // Show checklist dialog when selected from menu (render before tour overlay during tour)
+        // Be a Tzaddik checklist — full embedded app when selected from menu
         if (showDailyMitzvot && !showTour) {
-            DailyMitzvotChecklist(
+            val activity = LocalContext.current as ComponentActivity
+            EmbeddedTzaddikChecklist(
+                activity = activity,
                 onDismiss = { showDailyMitzvot = false }
             )
         }
@@ -602,13 +639,18 @@ fun MitzModeApp(
                 in 700..799 -> "Living Sefer Torah"
                 in 800..899 -> "Eliyahu HaNavi"
                 in 900..999 -> "King David"
-                in 1000..Int.MAX_VALUE -> "Moshiach!!!"
+                in 1000..1799 -> "Moshiach!!!"
+                in 1800..Int.MAX_VALUE -> "Mitz Mode!"
                 else -> "Secular"  // Default case for 0 or negative
             }
             MitzvahLevelDialog(
                 count = count,
                 currentLevel = currentLevel,
-                onDismiss = { showMitzvahLevel = false }
+                onDismiss = { showMitzvahLevel = false },
+                onRequestFinalRewardVideo = {
+                    showMitzvahLevel = false
+                    viewModel.requestFinalRewardVideoReplay()
+                }
             )
         }
 
@@ -640,7 +682,7 @@ fun MitzModeApp(
             )
         }
 
-        // First-time app tour (step 0 = Mitzvah button, 1 = menu/dropdown, 2 = Add a Mitzvah, 3 = level)
+        // Tour: 0 = Mitzvah Me, 1 = Daily Mitzvot Checklist, 2 = ⋮ menu, 3 = Add a Mitzvah, 4 = level
         if (showTour) {
             AppTourOverlay(
                 currentStep = currentTourStep,

@@ -60,27 +60,27 @@ fun MitzvahCount(
             )
             
             // Subtitle
-            Text(
+            TranslatableText(
                 text = "Mitzvot on your record",
                 style = MaterialTheme.typography.titleMedium,
                 color = neonGreen,
                 fontSize = 24.sp,
-                modifier = Modifier.padding(top = 8.dp)
+                modifier = Modifier.padding(top = 8.dp),
             )
         }
 
         // Mazel Tov text at 75% down the screen
-        Text(
+        TranslatableText(
             text = "Mazel Tov!",
             style = MaterialTheme.typography.displayMedium.copy(
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 2.sp
+                letterSpacing = 2.sp,
             ),
             color = neonGreen,
             fontSize = 48.sp,
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 236.dp)
+                .padding(bottom = 236.dp),
         )
     }
 } 

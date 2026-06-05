@@ -44,12 +44,12 @@ fun TzaddikAlert(onDismiss: () -> Unit) {
             .background(Color.Black.copy(alpha = 0.7f)),
         contentAlignment = Alignment.Center
     ) {
-        Text(
+        TranslatableText(
             text = "Tzaddik Alert!!!",
             fontSize = 48.sp,
             fontWeight = FontWeight.Bold,
             color = Color.hsv(currentColor * 360f, 1f, 1f),
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp),
         )
     }
 } 

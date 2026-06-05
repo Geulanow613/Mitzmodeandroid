@@ -1,12 +1,17 @@
 package com.beardytop.mitzmode.service
 
 import android.content.Context
+import android.util.Log
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import com.beardytop.mitzmode.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.HttpUrl
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -30,25 +35,31 @@ class TranslationService @Inject constructor(
         
         // In production, you should store this securely
         // You can also read from environment variables or secure storage
-        return apiKey
+        return apiKey.trim().trim('"')
     }
     
-    // Translate text from source language to target language using REST API
+    // Translate text from source language to target language using REST API (POST body — GET + ?q=… breaks long strings)
     suspend fun translateText(
         text: String,
         targetLanguage: String,
         sourceLanguage: String = "auto"
     ): String? = withContext(Dispatchers.IO) {
         try {
+            if (text.isBlank()) return@withContext text
+
             val apiKey = getApiKey()
-            if (apiKey == "YOUR_GOOGLE_TRANSLATE_API_KEY_HERE") {
-                // Return original text if no API key is configured
-                println("DEBUG: No Google Translate API key configured - returning original text")
+            if (apiKey.isBlank() ||
+                apiKey.equals("YOUR_GOOGLE_TRANSLATE_API_KEY_HERE", ignoreCase = true)) {
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "No Google Translate API key configured — returning original text")
+                }
                 return@withContext text
             }
-            
-            println("DEBUG: Translating '$text' to $targetLanguage (${text.length} characters)")
-            
+
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Translating (${text.length} chars) to $targetLanguage")
+            }
+
             val url = HttpUrl.Builder()
                 .scheme("https")
                 .host("translation.googleapis.com")
@@ -56,14 +67,24 @@ class TranslationService @Inject constructor(
                 .addPathSegment("translate")
                 .addPathSegment("v2")
                 .addQueryParameter("key", apiKey)
-                .addQueryParameter("q", text)
-                .addQueryParameter("target", targetLanguage)
-                .addQueryParameter("source", sourceLanguage)
-                .addQueryParameter("format", "text")
                 .build()
-            
+
+            val payload = JsonObject().apply {
+                val qArr = JsonArray()
+                qArr.add(text)
+                add("q", qArr)
+                addProperty("target", targetLanguage)
+                addProperty("format", "text")
+                if (sourceLanguage.isNotBlank() && sourceLanguage.lowercase() != "auto") {
+                    addProperty("source", sourceLanguage)
+                }
+            }
+            val json = gson.toJson(payload)
+            val body = json.toRequestBody("application/json; charset=utf-8".toMediaType())
+
             val request = Request.Builder()
                 .url(url)
+                .post(body)
                 .build()
             
             val response = httpClient.newCall(request).execute()
@@ -77,22 +98,24 @@ class TranslationService @Inject constructor(
                     if (translations.size() > 0) {
                         val translation = translations.get(0).asJsonObject
                         val translatedText = translation.get("translatedText").asString
-                        println("DEBUG: Translation successful: '$translatedText'")
+                        if (BuildConfig.DEBUG) {
+                            Log.d(TAG, "Translation successful (${translatedText.length} chars)")
+                        }
                         return@withContext translatedText
                     }
                 }
             } else {
-                println("DEBUG: Translation API error: ${response.code} - ${response.message}")
+                Log.w(TAG, "Translation API error: ${response.code} ${response.message}")
                 val errorBody = response.body?.string()
-                if (errorBody != null) {
-                    println("DEBUG: Error details: $errorBody")
+                if (errorBody != null && BuildConfig.DEBUG) {
+                    Log.d(TAG, "Error details: $errorBody")
                 }
             }
             
             // Return original text if translation fails
             text
         } catch (e: Exception) {
-            e.printStackTrace()
+            Log.e(TAG, "translateText failed", e)
             // Return original text if translation fails
             text
         }
@@ -100,6 +123,7 @@ class TranslationService @Inject constructor(
     
     // Common language codes
     companion object {
+        private const val TAG = "TranslationService"
         const val ENGLISH = "en"
         const val SPANISH = "es"
         const val FRENCH = "fr"

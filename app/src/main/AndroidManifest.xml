@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.BROADCAST_CLOSE_SYSTEM_DIALOGS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
@@ -37,15 +41,21 @@
         <meta-data
             android:name="io.sentry.traces.sample-rate"
             android:value="1.0" />
+        <!-- Profiling uses ART method tracing and can SIGSEGV on some runtimes/emulators. -->
         <meta-data
             android:name="io.sentry.traces.profiling.sample-rate"
-            android:value="1.0" />
-        
-        <!-- Disable ProfileInstaller to prevent crashes on some devices/emulators -->
-        <meta-data
-            android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-            android:value="androidx.startup"
-            tools:node="remove" />
+            android:value="0" />
+
+        <!-- Disable ProfileInstaller (avoids ART trace buffer conflicts on emulators). -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+                tools:node="remove" />
+        </provider>
 
         <activity
             android:name=".MainActivity"

@@ -22,8 +22,8 @@ android {
         applicationId "com.beardytop.mitzmode"
         minSdk 24
         targetSdk 36
-        versionCode 44
-        versionName "4.4.0"
+        versionCode 54
+        versionName "5.4.0"
 
         testInstrumentationRunner "com.beardytop.mitzmode.HiltTestRunner"
         vectorDrawables {
@@ -168,6 +168,9 @@ dependencies {
 
     // Security Crypto
     implementation "androidx.security:security-crypto:1.1.0-alpha06"
+
+    // Be a Tzaddik checklist (embedded KMP module)
+    implementation project(':beatzaddik-shared')
 }
 
 // Allow references to generated code

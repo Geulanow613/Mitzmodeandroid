@@ -12,8 +12,8 @@ android {
         applicationId = "com.beardytop.mitzmode"
         minSdk = 24
         targetSdk = 34
-        versionCode = 17
-        versionName = "3.0"
+        versionCode = 54
+        versionName = "5.4.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

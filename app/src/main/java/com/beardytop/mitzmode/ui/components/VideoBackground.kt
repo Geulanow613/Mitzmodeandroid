@@ -1,21 +1,29 @@
 package com.beardytop.mitzmode.ui.components
 
+import android.graphics.Color as AndroidColor
 import android.util.Log
-import androidx.compose.runtime.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.background
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.media3.common.PlaybackException
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
 import com.beardytop.mitzmode.util.VideoManager
-import kotlinx.coroutines.delay
 
 private const val TAG = "VideoBackground"
 
@@ -27,29 +35,63 @@ fun VideoBackground(
     onVideoComplete: () -> Unit = {}
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
     var exoPlayer by remember { mutableStateOf<ExoPlayer?>(null) }
     var hasError by remember { mutableStateOf(false) }
     var isPlayerReady by remember { mutableStateOf(false) }
+    var recreateKey by remember { mutableIntStateOf(0) }
+    /** True after a real [ON_PAUSE]; avoids treating initial observer sync ON_RESUME as "recover from lost player". */
+    var mayNeedResumeHeal by remember { mutableStateOf(false) }
+    /** When false, [PlayerView] must not hold the player (surface detached for HWUI lifecycle). */
+    var surfaceAttached by remember { mutableStateOf(true) }
     val videoManager = remember { VideoManager.getInstance(context) }
-    
-    // Check if device can handle video
+
     if (videoManager.isLowMemoryDevice()) {
         Log.d(TAG, "Skipping video background - low memory device")
         return
     }
-    
-    // Initialize ExoPlayer using VideoManager
-    LaunchedEffect(videoAsset) {
+
+    DisposableEffect(lifecycleOwner, videoManager) {
+        val observer = LifecycleEventObserver { _, event ->
+            when (event) {
+                Lifecycle.Event.ON_PAUSE -> {
+                    mayNeedResumeHeal = true
+                    surfaceAttached = false
+                    videoManager.detachBackgroundSurface()
+                }
+                Lifecycle.Event.ON_STOP -> {
+                    surfaceAttached = false
+                    videoManager.detachBackgroundSurface()
+                }
+                Lifecycle.Event.ON_RESUME -> {
+                    if (videoManager.isLowMemoryDevice()) return@LifecycleEventObserver
+                    surfaceAttached = true
+                    if (videoManager.hasBackgroundPlayer()) {
+                        // Playback resumes after PlayerView reconnects in [AndroidView.update].
+                    } else if (mayNeedResumeHeal) {
+                        // Returned to foreground without a player (e.g. critical trim) — rebuild once.
+                        exoPlayer = null
+                        isPlayerReady = false
+                        hasError = false
+                        recreateKey++
+                    }
+                    mayNeedResumeHeal = false
+                }
+                else -> Unit
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
+
+    LaunchedEffect(videoAsset, recreateKey) {
+        isPlayerReady = false
         try {
             val player = videoManager.createBackgroundPlayer(
                 videoAsset = videoAsset,
                 onReady = {
                     isPlayerReady = true
                     onVideoReady()
-                    // Start playback after a delay to ensure surface is ready
-                    if (isPlaying) {
-                        videoManager.startBackgroundPlayback()
-                    }
                 },
                 onComplete = {
                     onVideoComplete()
@@ -66,36 +108,51 @@ fun VideoBackground(
         }
     }
 
-    // Handle play/pause state changes
-    LaunchedEffect(isPlaying, isPlayerReady) {
-        if (isPlayerReady && exoPlayer != null) {
-            // Add delay to ensure surface is ready
-            delay(300)
-            if (isPlaying) {
-                videoManager.startBackgroundPlayback()
-            } else {
-                videoManager.pauseBackgroundPlayer()
-            }
+    LaunchedEffect(isPlaying, isPlayerReady, surfaceAttached) {
+        if (!isPlayerReady || exoPlayer == null || !surfaceAttached) return@LaunchedEffect
+        if (isPlaying) {
+            videoManager.startBackgroundPlayback()
+        } else {
+            videoManager.pauseBackgroundPlayer()
         }
     }
 
-    // Only render if we have a player and no error
     if (!hasError && exoPlayer != null) {
-        // Black background to provide letterboxing
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black),
-            contentAlignment = Alignment.Center
+                .background(Color.Black)
         ) {
             AndroidView(
-                factory = { context ->
-                    videoManager.createTextureView(context, isBackground = true)
+                factory = { ctx ->
+                    PlayerView(ctx).apply {
+                        useController = false
+                        setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
+                        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+                        setBackgroundColor(AndroidColor.BLACK)
+                        setShutterBackgroundColor(AndroidColor.BLACK)
+                    }
                 },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(9f / 16f) // Portrait aspect ratio
+                update = { playerView ->
+                    if (!surfaceAttached || exoPlayer == null) {
+                        if (playerView.player != null) {
+                            playerView.player = null
+                        }
+                        return@AndroidView
+                    }
+                    if (playerView.player !== exoPlayer) {
+                        playerView.player = exoPlayer
+                    }
+                    videoManager.prepareBackgroundPlayer()
+                    if (isPlaying && isPlayerReady) {
+                        videoManager.startBackgroundPlayback()
+                    }
+                },
+                onRelease = { playerView ->
+                    playerView.player = null
+                },
+                modifier = Modifier.fillMaxSize()
             )
         }
     }
-} 
+}

@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.data.LanguageInfo
 import com.beardytop.mitzmode.data.LanguagePreferencesManager
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
@@ -27,7 +28,8 @@ import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 @Composable
 fun LanguageSelectionDialog(
     onDismiss: () -> Unit,
-    translationViewModel: TranslationViewModel = hiltViewModel()
+    translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
 ) {
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
     val translationEnabled by translationViewModel.translationEnabled.collectAsState()
@@ -97,7 +99,15 @@ fun LanguageSelectionDialog(
                     )
                     Switch(
                         checked = translationEnabled,
-                        onCheckedChange = { translationViewModel.setTranslationEnabled(it) }
+                        onCheckedChange = { enabled ->
+                            translationViewModel.setTranslationEnabled(enabled)
+                            // Translating requires a non-English target; leaving "en" makes every TranslatableText a no-op.
+                            if (enabled && currentLanguage == "en") {
+                                val fallback =
+                                    supportedLanguages.firstOrNull { it.code != "en" }?.code ?: "he"
+                                translationViewModel.setCurrentLanguage(fallback)
+                            }
+                        }
                     )
                 }
                 

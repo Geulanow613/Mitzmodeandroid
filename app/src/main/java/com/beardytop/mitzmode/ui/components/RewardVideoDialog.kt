@@ -1,7 +1,11 @@
 package com.beardytop.mitzmode.ui.components
 
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.automirrored.filled.VolumeOff
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,10 +21,8 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.media3.exoplayer.ExoPlayer
 import com.beardytop.mitzmode.util.VideoManager
+import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 @Composable
 fun RewardVideoDialog(
@@ -31,48 +33,37 @@ fun RewardVideoDialog(
     val context = LocalContext.current
     val videoManager = remember { VideoManager.getInstance(context) }
     var exoPlayer by remember { mutableStateOf<ExoPlayer?>(null) }
-    var isPlayerReady by remember { mutableStateOf(false) }
+    var muted by remember(videoNumber) { mutableStateOf(false) }
+    val isFinalReward = videoNumber == MitzModeViewModel.FINAL_REWARD_VIDEO_ID
+    val normalVolume = remember { 1f }
 
     LaunchedEffect(videoNumber) {
+        val asset = if (isFinalReward) "finalreward.mp4" else "mitzmodenew$videoNumber.mp4"
         val player = videoManager.createRewardPlayer(
-            videoAsset = "mitzmodenew$videoNumber.mp4",
+            videoAsset = asset,
             onComplete = onDismiss,
-            onError = { error ->
-                // Handle error gracefully
+            onError = {
                 onDismiss()
-            }
+            },
+            volume = if (isFinalReward) MitzModeViewModel.FINAL_REWARD_PLAYER_VOLUME_UNMUTED else null
         )
-        exoPlayer = player
-        
-        // Wait for player to be ready before starting playback
-        player?.let { p ->
-            // Check if already ready
-            if (p.playbackState == androidx.media3.common.Player.STATE_READY) {
-                isPlayerReady = true
-                // Add delay to ensure surface is ready
-                delay(400)
-                videoManager.startRewardPlayback()
-            } else {
-                // Listen for ready state
-                p.addListener(object : androidx.media3.common.Player.Listener {
-                    override fun onPlaybackStateChanged(playbackState: Int) {
-                        if (playbackState == androidx.media3.common.Player.STATE_READY && !isPlayerReady) {
-                            isPlayerReady = true
-                            // Start playback after surface is ready
-                            CoroutineScope(Dispatchers.Main).launch {
-                                delay(400)
-                                videoManager.startRewardPlayback()
-                            }
-                        }
-                    }
-                })
-            }
+        if (player == null) {
+            onDismiss()
+            return@LaunchedEffect
         }
+        exoPlayer = player
+        // Surface attach + prepare happen in [VideoManager.attachRewardSurface]; play starts when ready.
+        videoManager.startRewardPlayback()
     }
 
-    DisposableEffect(Unit) {
+    LaunchedEffect(exoPlayer, muted, normalVolume) {
+        val vol = if (muted) 0f else normalVolume
+        videoManager.setRewardPlayerVolume(vol)
+    }
+
+    DisposableEffect(videoNumber) {
         onDispose {
-            // VideoManager handles cleanup
+            videoManager.releaseRewardPlayer()
         }
     }
 
@@ -80,7 +71,7 @@ fun RewardVideoDialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
             dismissOnBackPress = true,
-            dismissOnClickOutside = true,
+            dismissOnClickOutside = false,
             usePlatformDefaultWidth = false,
             decorFitsSystemWindows = false,
             securePolicy = SecureFlagPolicy.SecureOn
@@ -90,24 +81,56 @@ fun RewardVideoDialog(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black),
-            contentAlignment = Alignment.Center
+                .background(Color.Black)
         ) {
-            exoPlayer?.let { player ->
-                // Video with proper aspect ratio centered in black background
+            exoPlayer?.let {
                 AndroidView(
-                    factory = { context ->
-                        videoManager.createTextureView(context, isBackground = false)
+                    factory = { ctx ->
+                        videoManager.createTextureView(ctx)
                     },
                     modifier = Modifier
+                        .align(Alignment.Center)
                         .fillMaxWidth()
-                        .aspectRatio(9f / 16f) // Portrait aspect ratio
+                        .aspectRatio(9f / 16f)
                 )
             }
-            
-            // Add level up animation overlay ON TOP of everything
+
             levelName?.let { level ->
-                LevelUpOverlay(level = level)
+                if (!isFinalReward) {
+                    LevelUpOverlay(level = level)
+                }
+            }
+
+            Row(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .statusBarsPadding()
+                    .padding(horizontal = 4.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(0.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = { muted = !muted },
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = Color.White.copy(alpha = 0.92f)
+                    )
+                ) {
+                    Icon(
+                        imageVector = if (muted) Icons.AutoMirrored.Filled.VolumeOff else Icons.AutoMirrored.Filled.VolumeUp,
+                        contentDescription = if (muted) "Unmute" else "Mute"
+                    )
+                }
+                IconButton(
+                    onClick = onDismiss,
+                    colors = IconButtonDefaults.iconButtonColors(
+                        contentColor = Color.White.copy(alpha = 0.92f)
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Close,
+                        contentDescription = "Close"
+                    )
+                }
             }
         }
     }

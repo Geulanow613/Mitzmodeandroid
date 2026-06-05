@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import kotlinx.coroutines.launch
 
@@ -26,7 +27,8 @@ fun TranslationNoticeDialog(
     targetLanguageCode: String,
     onDismiss: () -> Unit,
     onUnderstood: () -> Unit,
-    translationViewModel: TranslationViewModel = hiltViewModel()
+    translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
     

@@ -5,19 +5,12 @@ import android.graphics.SurfaceTexture
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
-import androidx.compose.ui.graphics.toArgb
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.PlaybackException
-import androidx.media3.common.VideoSize
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
-import androidx.media3.ui.PlayerView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -30,8 +23,13 @@ class VideoManager private constructor(context: Context) {
     private var isLowMemoryDevice = false
     private var backgroundPlayerReady = AtomicBoolean(false)
     private var rewardPlayerReady = AtomicBoolean(false)
-    private var backgroundSurface: Surface? = null
     private var rewardSurface: Surface? = null
+    /** Ensures we only call [Player.prepare] once per background player instance (after surface wiring). */
+    private var backgroundPrepareStarted = false
+    /** Reward clip: [Player.prepare] only after [TextureView] surface exists (avoids decoder surface churn / black flash). */
+    private var rewardPrepareStarted = false
+    /** User requested play; applied once surface exists and player is [Player.STATE_READY]. */
+    private var rewardPlayPending = false
     
     companion object {
         @Volatile
@@ -84,14 +82,9 @@ class VideoManager private constructor(context: Context) {
                     volume = 0f
                     repeatMode = Player.REPEAT_MODE_ONE
                     playWhenReady = false
-                    // Set video scaling mode to fit with letterboxing (black bars) instead of stretching
                     videoScalingMode = androidx.media3.common.C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-                    
+
                     addListener(object : Player.Listener {
-                        override fun onVideoSizeChanged(videoSize: VideoSize) {
-                            Log.d(TAG, "Background video size changed: ${videoSize.width}x${videoSize.height}")
-                        }
-                        
                         override fun onPlaybackStateChanged(playbackState: Int) {
                             when (playbackState) {
                                 Player.STATE_READY -> {
@@ -122,8 +115,7 @@ class VideoManager private constructor(context: Context) {
                             onError(error)
                         }
                     })
-                    
-                    prepare()
+                    // Do not prepare() here — PlayerView must attach the surface first (see prepareBackgroundPlayer).
                 }
             
             Log.d(TAG, "Background player created successfully")
@@ -135,10 +127,26 @@ class VideoManager private constructor(context: Context) {
         }
     }
     
+    /**
+     * Call from [androidx.media3.ui.PlayerView] after [androidx.media3.ui.PlayerView.setPlayer]
+     * so the video surface exists before decoding starts (avoids black flashes / surface generation churn).
+     */
+    fun prepareBackgroundPlayer() {
+        backgroundPlayer?.let { player ->
+            if (backgroundPrepareStarted) return
+            if (player.playbackState != Player.STATE_IDLE) return
+            backgroundPrepareStarted = true
+            player.prepare()
+            Log.d(TAG, "Background player prepare() after surface attach")
+        }
+    }
+    
     fun createRewardPlayer(
         videoAsset: String,
         onComplete: () -> Unit = {},
-        onError: (PlaybackException) -> Unit = {}
+        onError: (PlaybackException) -> Unit = {},
+        /** If non-null, sets [ExoPlayer.volume] (use `1f` when the asset should be heard). */
+        volume: Float? = null
     ): ExoPlayer? {
         val context = contextRef.get() ?: return null
         
@@ -156,19 +164,17 @@ class VideoManager private constructor(context: Context) {
                     
                     setMediaSource(source)
                     playWhenReady = false
+                    volume?.let { this.volume = it }
                     // Set video scaling mode to fit with letterboxing (black bars) instead of stretching
                     videoScalingMode = androidx.media3.common.C.VIDEO_SCALING_MODE_SCALE_TO_FIT
                     
                     addListener(object : Player.Listener {
-                        override fun onVideoSizeChanged(videoSize: VideoSize) {
-                            Log.d(TAG, "Reward video size changed: ${videoSize.width}x${videoSize.height}")
-                        }
-                        
                         override fun onPlaybackStateChanged(state: Int) {
                             when (state) {
                                 Player.STATE_READY -> {
                                     Log.d(TAG, "Reward video ready")
                                     rewardPlayerReady.set(true)
+                                    tryStartRewardPlayback()
                                 }
                                 Player.STATE_ENDED -> {
                                     Log.d(TAG, "Reward video completed")
@@ -186,8 +192,7 @@ class VideoManager private constructor(context: Context) {
                             onError(error)
                         }
                     })
-                    
-                    prepare()
+                    // prepare() runs in [attachRewardSurface] after setVideoSurface (see background player pattern).
                 }
             
             Log.d(TAG, "Reward player created successfully")
@@ -199,86 +204,99 @@ class VideoManager private constructor(context: Context) {
         }
     }
     
-        fun createTextureView(context: Context, isBackground: Boolean = false): TextureView {
+    /** TextureView + Surface for reward / overlay clips only (not main background). */
+    fun createTextureView(context: Context): TextureView {
         return TextureView(context).apply {
-            // For background videos, start invisible to prevent flicker
-            // For reward videos, start visible since they have black background now
-            alpha = if (isBackground) 0f else 1f
-            
+            alpha = 1f
             surfaceTextureListener = object : TextureView.SurfaceTextureListener {
                 override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-                    Log.d(TAG, "Surface texture available: ${width}x${height}")
-                    val videoSurface = Surface(surface)
-                    
-                    if (isBackground) {
-                        backgroundSurface = videoSurface
-                        backgroundPlayer?.setVideoSurface(videoSurface)
-                        // Only fade in background videos
-                        CoroutineScope(Dispatchers.Main).launch {
-                            delay(200L)
-                            animate().alpha(1f).setDuration(300).start()
-                        }
-                    } else {
-                        rewardSurface = videoSurface
-                        rewardPlayer?.setVideoSurface(videoSurface)
-                        // Reward videos stay visible - no fade needed with black background
-                    }
+                    attachRewardSurface(surface, width, height)
                 }
-                
+
                 override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
                     Log.d(TAG, "Surface texture size changed: ${width}x${height}")
-                    // Size changed - no action needed, let video maintain natural aspect ratio
                 }
-                
+
                 override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
                     Log.d(TAG, "Surface texture destroyed")
-                    if (isBackground) {
-                        backgroundSurface?.release()
-                        backgroundSurface = null
-                    } else {
-                        rewardSurface?.release()
-                        rewardSurface = null
+                    try {
+                        rewardPlayer?.clearVideoSurface()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error clearing reward video surface", e)
                     }
+                    rewardSurface?.release()
+                    rewardSurface = null
                     return true
                 }
-                
-                override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
-                    // Video frame updated - no action needed
-                }
+
+                override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
             }
         }
+    }
+
+    private fun attachRewardSurface(surfaceTexture: SurfaceTexture, width: Int, height: Int) {
+        Log.d(TAG, "Surface texture available: ${width}x${height}")
+        rewardSurface?.release()
+        val videoSurface = Surface(surfaceTexture)
+        rewardSurface = videoSurface
+        val player = rewardPlayer ?: return
+        player.setVideoSurface(videoSurface)
+        if (!rewardPrepareStarted && player.playbackState == Player.STATE_IDLE) {
+            rewardPrepareStarted = true
+            player.prepare()
+        }
+        tryStartRewardPlayback()
+    }
+
+    private fun tryStartRewardPlayback() {
+        val player = rewardPlayer ?: return
+        if (!rewardPlayPending) return
+        if (!rewardPlayerReady.get() || rewardSurface == null) return
+        rewardPlayPending = false
+        player.playWhenReady = true
+        Log.d(TAG, "Reward playback started")
     }
     
     fun startBackgroundPlayback() {
-        backgroundPlayer?.let { player ->
-            if (backgroundPlayerReady.get() && backgroundSurface != null) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    // Small delay to ensure surface is fully ready
-                    delay(200)
-                    player.playWhenReady = true
-                    Log.d(TAG, "Background playback started")
-                }
-            }
-        }
+        val player = backgroundPlayer ?: return
+        if (!backgroundPlayerReady.get()) return
+        player.play()
+        Log.d(TAG, "Background playback started")
     }
     
     fun startRewardPlayback() {
-        rewardPlayer?.let { player ->
-            if (rewardPlayerReady.get() && rewardSurface != null) {
-                CoroutineScope(Dispatchers.Main).launch {
-                    // Longer delay for reward videos to prevent flickering
-                    delay(500)
-                    player.playWhenReady = true
-                    Log.d(TAG, "Reward playback started")
-                }
-            }
-        }
+        rewardPlayPending = true
+        tryStartRewardPlayback()
+    }
+
+    /** Live volume for the reward clip (mute UI, etc.). */
+    fun setRewardPlayerVolume(volume: Float) {
+        rewardPlayer?.volume = volume.coerceIn(0f, 1f)
     }
     
     fun pauseBackgroundPlayer() {
         backgroundPlayer?.let { player ->
             if (backgroundPlayerReady.get()) {
                 player.pause()
+            }
+        }
+    }
+
+    /**
+     * Pause decoding and drop the video surface before HWUI pauses the view hierarchy
+     * (e.g. [LicenseActivity] overlay, [android.app.Activity.onStop]). Keeps the player
+     * instance so [resumeBackgroundPlayer] can reconnect via [androidx.media3.ui.PlayerView].
+     */
+    fun detachBackgroundSurface() {
+        backgroundPlayer?.let { player ->
+            try {
+                if (backgroundPlayerReady.get()) {
+                    player.pause()
+                }
+                player.clearVideoSurface()
+                Log.d(TAG, "Background player surface detached")
+            } catch (e: Exception) {
+                Log.e(TAG, "Error detaching background surface", e)
             }
         }
     }
@@ -292,9 +310,6 @@ class VideoManager private constructor(context: Context) {
     }
     
     fun releaseBackgroundPlayer() {
-        backgroundSurface?.release()
-        backgroundSurface = null
-        
         backgroundPlayer?.let { player ->
             try {
                 player.release()
@@ -305,12 +320,21 @@ class VideoManager private constructor(context: Context) {
         }
         backgroundPlayer = null
         backgroundPlayerReady.set(false)
+        backgroundPrepareStarted = false
     }
     
     fun releaseRewardPlayer() {
+        rewardPlayPending = false
+        rewardPrepareStarted = false
+        rewardPlayer?.let { player ->
+            try {
+                player.clearVideoSurface()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error clearing reward video surface before release", e)
+            }
+        }
         rewardSurface?.release()
         rewardSurface = null
-        
         rewardPlayer?.let { player ->
             try {
                 player.release()
@@ -337,9 +361,11 @@ class VideoManager private constructor(context: Context) {
     
     fun onLowMemory() {
         Log.w(TAG, "Low memory detected - releasing all players")
-        isLowMemoryDevice = true
         releaseAll()
     }
     
     fun isLowMemoryDevice(): Boolean = isLowMemoryDevice
+
+    /** Used to detect when the UI still holds a player ref but [releaseBackgroundPlayer] already ran. */
+    fun hasBackgroundPlayer(): Boolean = backgroundPlayer != null
 } 

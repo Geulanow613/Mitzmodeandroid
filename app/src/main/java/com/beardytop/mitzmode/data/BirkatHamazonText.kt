@@ -10,31 +10,47 @@ data class BirkatSection(
     val title: String,
     val hebrew: String,
     val english: String? = null,
-    val category: BirkatCategory? = null
+    val category: BirkatCategory? = null,
+    /** When non-null, this block is collapsed by default; summary row is tappable to show full text. */
+    val collapsibleSummary: String? = null,
+    /** Shown under [collapsibleSummary] when the dialog’s English toggle is on. */
+    val collapsibleSummaryEnglish: String? = null
 )
 
 object BirkatHamazonText {
     val sections = listOf(
         BirkatSection(
-            title = "שיר המעלות",
-            hebrew = """על נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.""",
-            english = "By the rivers of Babylon, there we sat and wept when we remembered Zion. Upon the willows in its midst we hung our harps. For there our captors asked us for words of song, and our tormentors [asked of us] mirth: 'Sing for us from Zion's song.' How shall we sing the Lord's song on alien soil? If I forget you, O Jerusalem, let my right hand forget its skill. Let my tongue cleave to my palate if I do not remember you, if I do not bring up Jerusalem at the beginning of my joy. Remember, O Lord, against the Edomites the day of Jerusalem, who said, 'Raze it, raze it to its very foundation!' O daughter of Babylon, who is destined to be plundered, praiseworthy is he who repays you your recompense for what you did to us. Praiseworthy is he who will take and dash your infants against the rock.",
+            title = "שיר המעלות — מזמור קלז (על נהרות בבל)",
+            hebrew = """בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
+
+על נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.""",
+            english = """On ordinary weekdays when Tachanun is said, say:
+
+By the rivers of Babylon, there we sat and wept when we remembered Zion. Upon the willows in its midst we hung our harps. For there our captors asked us for words of song, and our tormentors [asked of us] mirth: 'Sing for us from Zion's song.' How shall we sing the Lord's song on alien soil? If I forget you, O Jerusalem, let my right hand forget its skill. Let my tongue cleave to my palate if I do not remember you, if I do not bring up Jerusalem at the beginning of my joy. Remember, O Lord, against the Edomites the day of Jerusalem, who said, 'Raze it, raze it to its very foundation!' O daughter of Babylon, who is destined to be plundered, praiseworthy is he who repays you your recompense for what you did to us. Praiseworthy is he who will take and dash your infants against the rock.""",
             category = BirkatCategory.ADDITIONS
         ),
         BirkatSection(
-            title = "שיר המעלות",
-            hebrew = """שיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו""",
-            english = "A song of ascents. When the Lord returned the returnees to Zion, we were like dreamers. Then our mouths will be filled with laughter and our tongues with songs of praise. Then they will say among the nations, 'The Lord has done great things for them.' The Lord has done great things for us; we were joyful. Return, O Lord, our captivity like rivulets in arid land. Those who sow with tears will reap with song. He who goes along weeping, carrying the valuable seeds, will come back with song, carrying his sheaves.",
+            title = "שיר המעלות — מזמור קכו (בשוב יהוה)",
+            hebrew = """בימים שאין בהם תחנון אומרים:
+
+שיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו""",
+            english = """On days when tachanun is omitted:
+
+A song of ascents. When the Lord returned the returnees to Zion, we were like dreamers. Then our mouths will be filled with laughter and our tongues with songs of praise. Then they will say among the nations, 'The Lord has done great things for them.' The Lord has done great things for us; we were joyful. Return, O Lord, our captivity like rivulets in arid land. Those who sow with tears will reap with song. He who goes along weeping, carrying the valuable seeds, will come back with song, carrying his sheaves.""",
             category = BirkatCategory.ADDITIONS
         ),
         BirkatSection(
             title = "זימון",
-            hebrew = """רבותי, נברך!
+            hebrew = """זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים את הנוסח שבסוגריים (״אלהינו״ וכו׳).
+
+רבותי, נברך!
 המסבים עונים: יהי שם יי מברך מעתה ועד עולם.
 המזמן אומר: ברשות מרנן ורבנן ורבותי, נברך (בעשרה אלהינו) שאכלנו משלו.
 המסבים עונים: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.
 המזמן חוזר ואומר: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.""",
-            english = """My masters, let us bless!
+            english = """Zimmun is said only when at least three Jewish men who have reached bar mitzvah (age 13 or older) ate together in the halachic sense that calls for Birkat Hamazon as one group; someone eating alone—or any gathering that does not meet this—does not recite Zimmun. When ten such men are present, include the parenthetical wording (“our God,” etc.).
+
+My masters, let us bless!
 Others respond: May the name of the Lord be blessed from now and forever.
 Leader says: With the permission of our masters and teachers, let us bless (if 10: our God) He of whose food we have eaten.
 Others respond: Blessed be (our God) He of whose food we have eaten and through whose goodness we live.
@@ -62,13 +78,17 @@ Leader repeats: Blessed be (our God) He of whose food we have eaten and through 
 
 בימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך ישראל להשכיחם מתורתך ולהעבירם מחקי רצונך ואתה ברחמיך הרבים עמדת להם בעת צרתם רבת את ריבם דנת את דינם נקמת את נקמתם מסרת גבורים ביד חלשים ורבים ביד מעטים וטמאים ביד טהורים ורשעים ביד צדיקים וזדים ביד עוסקי תורתך ולך עשית שם גדול וקדוש בעולמך ולעמך ישראל עשית תשועה גדולה ופרקן כהיום הזה ואחר כך באו בניך לדביר ביתך ופנו את היכלך וטהרו את-מקדשך והדליקו נרות בחצרות קדשך וקבעו שמונת ימי חנכה אלו להודות ולהלל לשמך הגדול.""",
             english = "For the miracles, and for the salvation, and for the mighty deeds, and for the victories, and for the battles which You performed for our forefathers in those days, at this time. In the days of Mattathias, the son of Johanan the High Priest, the Hasmonean and his sons, when the wicked Greek kingdom rose up against Your people Israel to make them forget Your Torah and compel them to stray from the statutes of Your will. But You in Your great mercy stood up for them in the time of their distress. You took up their grievance, judged their claim, and avenged their wrong. You delivered the strong into the hands of the weak, the many into the hands of the few, the impure into the hands of the pure, the wicked into the hands of the righteous, and the wanton into the hands of the diligent students of Your Torah. For Yourself You made a great and holy name in Your world, and for Your people Israel you worked a great victory and salvation as this very day. Thereafter, Your children came to the Holy of Holies of Your House, cleansed Your Temple, purified Your Sanctuary, kindled lights in Your holy courtyards, and instituted these eight days of Chanukah to give thanks and praise to Your great name.",
-            category = BirkatCategory.ADDITIONS
+            category = BirkatCategory.ADDITIONS,
+            collapsibleSummary = "בחנוכה — על הניסים · לא בכל יום",
+            collapsibleSummaryEnglish = "On Chanukah — Al haNissim · not recited on ordinary days"
         ),
         BirkatSection(
             title = "על הניסים לפורים",
             hebrew = """בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת את מחשבתו והשבות-לו גמולו בראשו ותלו אותו ואת בניו על העץ ועשית עמהם נסים ונפלאות ונודה לשמך הגדול סלה.""",
             english = "In the days of Mordechai and Esther, in Shushan the capital, when the wicked Haman rose up against them and sought to destroy, to slay, and to exterminate all the Jews, young and old, infants and women, on a single day, on the thirteenth day of the twelfth month, which is the month of Adar, and to take their spoils for plunder. But You, in Your abundant mercy, nullified his counsel and frustrated his intention and caused his design to return upon his own head, and they hanged him and his sons on the gallows. For all these miracles we thank Your great name.",
-            category = BirkatCategory.ADDITIONS
+            category = BirkatCategory.ADDITIONS,
+            collapsibleSummary = "בפורים — על הניסים · לא בכל יום",
+            collapsibleSummaryEnglish = "On Purim — Al haNissim · not recited on ordinary days"
         ),
         BirkatSection(
             title = "בונה ירושלים",
@@ -85,8 +105,14 @@ Leader repeats: Blessed be (our God) He of whose food we have eaten and through 
 בפסח: חג המצות
 בסוכות: חג הסכות
 זכרנו יהוה אלהינו בו לטובה, ופקדנו בו לברכה, והושיענו בו לחיים ובדבר ישועה ורחמים חוס וחננו, ורחם עלינו, והושיענו כי אליך עינינו, כי אל מלך חנון ורחום אתה.""",
-            english = "Our God and God of our fathers, may there rise, come, reach, appear, be favored, be heard, be regarded, and be remembered before You our remembrance and consideration, and the remembrance of our fathers, and the remembrance of Messiah son of David Your servant, and the remembrance of Jerusalem Your holy city, and the remembrance of all Your people the house of Israel, for deliverance, for goodness, for grace, for kindness, for mercy, for life, and for peace on this day of:\n[On Rosh Chodesh: the New Moon]\n[On Passover: the Festival of Matzot]\n[On Sukkot: the Festival of Sukkot]\nRemember us, Lord our God, on this day for good; consider us on this day for blessing; save us on this day for life. With a word of salvation and mercy spare us and be gracious to us; have mercy on us and save us, for our eyes are turned to You, because You are God, the gracious and merciful King.",
-            category = BirkatCategory.ADDITIONS
+            english = """Our God and God of our fathers, may there rise, come, reach, appear, be favored, be heard, be regarded, and be remembered before You our remembrance and consideration, and the remembrance of our fathers, and the remembrance of Messiah son of David Your servant, and the remembrance of Jerusalem Your holy city, and the remembrance of all Your people the house of Israel, for deliverance, for goodness, for grace, for kindness, for mercy, for life, and for peace on this day of:
+[On Rosh Chodesh: the New Moon]
+[On Passover: the Festival of Matzot]
+[On Sukkot: the Festival of Sukkot]
+Remember us, Lord our God, on this day for good; consider us on this day for blessing; save us on this day for life. With a word of salvation and mercy spare us and be gracious to us; have mercy on us and save us, for our eyes are turned to You, because You are God, the gracious and merciful King.""",
+            category = BirkatCategory.ADDITIONS,
+            collapsibleSummary = "יעלה ויבוא — בראש חודש / פסח / סוכות · לא בכל יום",
+            collapsibleSummaryEnglish = "Yaaleh Veyavo — Rosh Chodesh, Passover, or Sukkot (not recited on ordinary weekdays)"
         ),
         BirkatSection(
             title = "הטוב והמטיב",
@@ -102,13 +128,23 @@ Leader repeats: Blessed be (our God) He of whose food we have eaten and through 
 בבית אביו אומר: הרחמן הוא יברך את אבי מורי בעל הבית הזה, ואת אמי מורתי בעלת הבית הזה.
 נשוי אומר: הרחמן הוא יברך אותי, (אם אביו ואמו בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת אשתי, ואת זרעי, ואת כל אשר לי.
 נשואה אומרת: הרחמן הוא יברך אותי, (אם איה ואמה בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת בעלי, ואת זרעי, ואת כל אשר לי.
-אורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.
-
-בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
-בסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.
-
-הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.""",
-            english = "May the Merciful One reign over us forever and ever. May the Merciful One be blessed in heaven and on earth. May the Merciful One be praised for all generations, and be glorified through us forever and all eternity, and honored through us forever and ever. May the Merciful One grant us an honorable livelihood. May the Merciful One break the yoke from our neck and lead us upright to our land. May the Merciful One send abundant blessing into this house and upon this table at which we have eaten. May the Merciful One send us Elijah the Prophet - may he be remembered for good - who will bring us good tidings of salvation and comfort.\n\n[In father's house:] May the Merciful One bless my father, my teacher, the master of this house, and my mother, my teacher, the mistress of this house.\n[If married man:] May the Merciful One bless me (and my father and my mother) and my wife and my children and all that is mine.\n[If married woman:] May the Merciful One bless me (and my father and my mother) and my husband and my children and all that is mine.\n[If guest:] May the Merciful One bless the master and mistress of this house, them, and their household, and their children, and all that is theirs.\n\n[On Rosh Chodesh:] May the Merciful One renew for us this month for good and for blessing.\n[On Sukkot:] May the Merciful One restore for us the fallen sukkah of David.\n\nMay the Merciful One grant us the privilege of reaching the days of the Messiah and the life of the World to Come. He who makes great salvation for His king and shows kindness to His anointed one, to David and his descendants forever. He who makes peace in His heights, may He make peace for us and for all Israel. And say: Amen.",
+אורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.""",
+            english = "May the Merciful One reign over us forever and ever. May the Merciful One be blessed in heaven and on earth. May the Merciful One be praised for all generations, and be glorified through us forever and all eternity, and honored through us forever and ever. May the Merciful One grant us an honorable livelihood. May the Merciful One break the yoke from our neck and lead us upright to our land. May the Merciful One send abundant blessing into this house and upon this table at which we have eaten. May the Merciful One send us Elijah the Prophet - may he be remembered for good - who will bring us good tidings of salvation and comfort.\n\n[In father's house:] May the Merciful One bless my father, my teacher, the master of this house, and my mother, my teacher, the mistress of this house.\n[If married man:] May the Merciful One bless me (and my father and my mother) and my wife and my children and all that is mine.\n[If married woman:] May the Merciful One bless me (and my father and my mother) and my husband and my children and all that is mine.\n[If guest:] May the Merciful One bless the master and mistress of this house, them, and their household, and their children, and all that is theirs.",
+            category = BirkatCategory.ADDITIONS
+        ),
+        BirkatSection(
+            title = "הרחמן — בראש חודש ובסוכות",
+            hebrew = """בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
+בסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.""",
+            english = "[On Rosh Chodesh:] May the Merciful One renew for us this month for good and for blessing.\n[On Sukkot:] May the Merciful One restore for us the fallen sukkah of David.",
+            category = BirkatCategory.ADDITIONS,
+            collapsibleSummary = "בראש חודש ובסוכות — שורות נוספות (לא בכל יום)",
+            collapsibleSummaryEnglish = "On Rosh Chodesh and Sukkot — extra Harachaman lines (not every day)"
+        ),
+        BirkatSection(
+            title = "הרחמן (המשך)",
+            hebrew = """הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.""",
+            english = "May the Merciful One grant us the privilege of reaching the days of the Messiah and the life of the World to Come. He who makes great salvation for His king and shows kindness to His anointed one, to David and his descendants forever. He who makes peace in His heights, may He make peace for us and for all Israel. And say: Amen.",
             category = BirkatCategory.ADDITIONS
         ),
         BirkatSection(

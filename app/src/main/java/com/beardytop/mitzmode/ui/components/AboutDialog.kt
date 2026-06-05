@@ -9,35 +9,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
-
 @Composable
 fun AboutDialog(
     onDismiss: () -> Unit
 ) {
-    val translationViewModel: TranslationViewModel = hiltViewModel()
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-
-    val introText = if (translationEnabled && currentLanguage != "en") {
-        when (currentLanguage) {
-            "he" -> "האפליקציה הזו מובאת לכם על ידי"
-            "es" -> "Esta aplicación es presentada por"
-            "fr" -> "Cette application vous est proposée par"
-            "de" -> "Diese App wird Ihnen präsentiert von"
-            "it" -> "Questa app è presentata da"
-            "pt" -> "Este aplicativo é apresentado por"
-            "ru" -> "Это приложение представлено"
-            "ar" -> "هذا التطبيق مقدم لكم من"
-            "zh" -> "此应用由以下公司为您呈现："
-            "ja" -> "このアプリは以下によって提供されています："
-            else -> "This app is brought to you by"
-        }
-    } else {
-        "This app is brought to you by"
-    }
-
     ParchmentDialog(
         onDismiss = onDismiss,
         title = "About",
@@ -55,13 +30,13 @@ fun AboutDialog(
             )
 
             TranslatableText(
-                text = introText,
+                text = "This app is brought to you by",
                 style = MaterialTheme.typography.bodyLarge.copy(textAlign = TextAlign.Center),
                 color = DialogTextPrimary,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Text(
+            TranslatableText(
                 text = "Beardy Top Productions",
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.SemiBold,

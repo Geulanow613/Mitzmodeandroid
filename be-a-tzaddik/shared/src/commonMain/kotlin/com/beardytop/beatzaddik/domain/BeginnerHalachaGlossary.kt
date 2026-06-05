@@ -1,0 +1,214 @@
+package com.beardytop.beatzaddik.domain
+
+/**
+ * Short definitions for beginners — prepended to seasonal explainers.
+ * Halacha summaries follow Peninei Halakha, Chabad.org, Aish, and Ohr Somayach; ask your rav for psak.
+ */
+object BeginnerHalachaGlossary {
+
+    fun withKeyTerms(terms: String, body: String): String =
+        if (terms.isBlank()) body.trim() else "${terms.trim()}\n\n${body.trim()}"
+
+    fun block(vararg lines: String): String =
+        "Key terms:\n" + lines.joinToString("\n") { "• $it" }
+
+    // ── Shared term lines ─────────────────────────────────────────────────────
+
+    const val MELACHA =
+        "Melacha — creative work forbidden on Shabbat and Yom Tov (cooking, writing, using phones/electronics as your rabbi guides, etc.)"
+    const val YOM_TOV =
+        "Yom Tov — a festival day (Pesach, Sukkot, Rosh Hashana, etc.) with work rules similar to Shabbat; some food prep is allowed on the festival itself"
+    const val SHABBAT =
+        "Shabbat — the weekly Sabbath from Friday sunset until Saturday night (when three stars are visible)"
+    const val EREV =
+        "Erev — the eve before; \"Erev Shabbat\" is Friday, \"Erev Pesach\" is the day before Pesach begins at night"
+    const val CHAG =
+        "Chag — festival (same idea as Yom Tov in everyday speech)"
+    const val TZEIT =
+        "Tzeit — halachic nightfall (when the day ends for mitzvot like candle lighting); often a few minutes after sunset"
+    const val RAV =
+        "Rav / rabbi — your halachic authority for personal questions"
+    const val MINHAG =
+        "Minhag — community or family custom (not always identical in every synagogue)"
+    const val BRACHA =
+        "Bracha — blessing said before a mitzvah or food"
+    const val KIDDUSH =
+        "Kiddush — blessing over wine that sanctifies Shabbat or Yom Tov at the meal"
+    const val HAVDALAH =
+        "Havdalah — ceremony separating holy time from weekday (wine, candle, spices on a normal Motzei Shabbat)"
+    const val YAKNEHAZ =
+        "Yaknehaz — order when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu (Zeman); spices are omitted"
+    const val ERUV_TAVSHILIN =
+        "Eruv tavshilin — symbolic food set aside before Yom Tov so you may cook on the festival for the Shabbat that follows (only in certain calendar years)"
+    const val BLECH =
+        "Blech — metal cover on the stove so food stays warm on Shabbat without cooking"
+    const val SHUL =
+        "Shul — synagogue"
+    const val DAVEN =
+        "Daven / davening — pray; any prayer (blessings, Shema, Tehillim, personal tefillah, or the services Shacharit, Mincha, Maariv, etc.)"
+    const val AMIDAH =
+        "Amidah / Shmoneh Esrei — the central standing silent prayer"
+    const val MUSAF =
+        "Musaf — extra Amidah on Shabbat, Yom Tov, and Rosh Chodesh remembering Temple offerings"
+    const val HALLEL =
+        "Hallel — psalms of praise added on festivals and Rosh Chodesh"
+    const val YAALEH_VYAVO =
+        "Yaaleh V'yavo — paragraph added to Amidah and Grace after Meals on Rosh Chodesh and festivals"
+    const val BENTCHING =
+        "Bentching / Birkat Hamazon — Grace after Meals"
+    const val TACHANUN =
+        "Tachanun — penitential prayers omitted on happy days"
+    const val SHEHECHEYANU =
+        "Shehecheyanu — blessing for reaching a new season or mitzvah"
+    const val CHAMETZ =
+        "Chametz — leavened grain (bread, beer, etc.) forbidden on Pesach"
+    const val BEDIKAT =
+        "Bedikat chametz — formal search for chametz the night before Pesach"
+    const val BIUR =
+        "Biur chametz — destroying chametz the next morning"
+    const val MECHIRAT =
+        "Mechirat chametz — selling chametz to a non-Jew through your rabbi so you do not own it on Pesach"
+    const val KOL_CHAMIRA =
+        "Kol Chamira — declaration nullifying any chametz still in your possession"
+    const val SIYUM =
+        "Siyum — festive meal celebrating finishing a section of Torah study (often exempts firstborns from Taanit Bechorot)"
+    const val SEDER =
+        "Seder — Pesach night ritual meal with the Haggadah, matzah, four cups of wine, etc."
+    const val KITNIYOT =
+        "Kitniyot — legumes/rice; Ashkenazim traditionally avoid on Pesach; many Sephardim eat them"
+    const val CHOL_HAMOED =
+        "Chol HaMoed — middle days of Pesach or Sukkot (lighter work rules than full Yom Tov)"
+    const val REVIIT =
+        "Revi'it — small halachic volume of liquid (about 2.5–3 oz wine — confirm with your rav)"
+    const val KEZAYIT =
+        "Kezayit — olive-sized amount of food (used for matzah at the Seder and some other mitzvot)"
+    const val SCHACH =
+        "Schach — plant covering on the sukkah roof"
+    const val LULAV_SET =
+        "Arba Minim / lulav — four plants waved on Sukkot: palm (lulav), citron (etrog), myrtle (hadas), willow (aravah)"
+    const val MEGILLAH =
+        "Megillah — Book of Esther read on Purim"
+    const val MISHLOACH =
+        "Mishloach manot — sending at least two ready-to-eat foods to one friend on Purim day"
+    const val MATANOT =
+        "Matanot la'evyonim — gifts to at least two poor people on Purim day"
+    const val SEUDAH =
+        "Seudah — festive meal (e.g. Purim afternoon feast)"
+    const val OMER =
+        "Sefirat HaOmer — counting 49 days from Pesach to Shavuot"
+    const val SELICHOT =
+        "Selichot — extra penitential prayers before Rosh Hashana (timing varies by nusach)"
+    const val PIRSUMEI_NISA =
+        "Pirsumei nisa — publicizing the miracle (why the menorah is placed visibly)"
+
+    fun yomTovAndShabbat(): String = block(
+        MELACHA,
+        YOM_TOV,
+        SHABBAT,
+        TZEIT,
+        KIDDUSH,
+        HAVDALAH,
+        BLECH,
+        ERUV_TAVSHILIN,
+        YAKNEHAZ,
+        RAV,
+    )
+
+    fun erevChagCommon(): String = block(
+        MELACHA,
+        YOM_TOV,
+        TZEIT,
+        KIDDUSH,
+        BLECH,
+        MUSAF,
+        SHUL,
+    )
+
+    fun pesachPrep(): String = block(
+        CHAMETZ,
+        BEDIKAT,
+        BIUR,
+        MECHIRAT,
+        KOL_CHAMIRA,
+        SIYUM,
+        SEDER,
+        YOM_TOV,
+        TZEIT,
+        RAV,
+    )
+
+    fun daveningBasics(): String = block(
+        DAVEN,
+        AMIDAH,
+        MUSAF,
+        HALLEL,
+        YAALEH_VYAVO,
+        BENTCHING,
+        TACHANUN,
+        BRACHA,
+        SHUL,
+    )
+
+    fun cholHamoedBasics(): String = block(
+        CHOL_HAMOED,
+        YOM_TOV,
+        MELACHA,
+        "Ochel nefesh — preparing food for the festival (allowed on Chol HaMoed)",
+        "Chamar medina — a significant local beverage (e.g. beer) some use instead of wine for festival joy",
+        "Simchat Yom Tov — rejoicing on the festival (wine, food, and enjoyment)",
+        REVIIT,
+        MINHAG,
+        RAV,
+    )
+
+    fun sukkotBasics(): String = block(
+        SCHACH,
+        LULAV_SET,
+        YOM_TOV,
+        MELACHA,
+        BRACHA,
+        KEZAYIT,
+        RAV,
+    )
+
+    fun purimBasics(): String = block(
+        MEGILLAH,
+        MATANOT,
+        MISHLOACH,
+        SEUDAH,
+        TZEIT,
+        BRACHA,
+        RAV,
+    )
+
+    fun chanukahBasics(): String = block(
+        PIRSUMEI_NISA,
+        TZEIT,
+        SHABBAT,
+        BRACHA,
+        SHEHECHEYANU,
+        RAV,
+    )
+
+    fun omerBasics(): String = block(
+        OMER,
+        BRACHA,
+        TZEIT,
+        SHUL,
+        RAV,
+    )
+
+    fun mourningBasics(): String = block(
+        MINHAG,
+        SHUL,
+        RAV,
+    )
+
+    fun selichotBasics(): String = block(
+        SELICHOT,
+        DAVEN,
+        SHUL,
+        MINHAG,
+        RAV,
+    )
+}

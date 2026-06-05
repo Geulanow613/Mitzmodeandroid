@@ -1,6 +1,7 @@
 package com.beardytop.mitzmode
 
 import android.app.Application
+import android.content.ComponentCallbacks2
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
@@ -68,13 +69,13 @@ class MitzModeApplication : Application() {
         super.onTrimMemory(level)
         
         val levelName = when (level) {
-            TRIM_MEMORY_UI_HIDDEN -> "UI_HIDDEN"
-            TRIM_MEMORY_RUNNING_MODERATE -> "RUNNING_MODERATE"
-            TRIM_MEMORY_RUNNING_LOW -> "RUNNING_LOW"
-            TRIM_MEMORY_RUNNING_CRITICAL -> "RUNNING_CRITICAL"
-            TRIM_MEMORY_BACKGROUND -> "BACKGROUND"
-            TRIM_MEMORY_MODERATE -> "MODERATE"
-            TRIM_MEMORY_COMPLETE -> "COMPLETE"
+            ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN -> "UI_HIDDEN"
+            ComponentCallbacks2.TRIM_MEMORY_RUNNING_MODERATE -> "RUNNING_MODERATE"
+            ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW -> "RUNNING_LOW"
+            ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL -> "RUNNING_CRITICAL"
+            ComponentCallbacks2.TRIM_MEMORY_BACKGROUND -> "BACKGROUND"
+            ComponentCallbacks2.TRIM_MEMORY_MODERATE -> "MODERATE"
+            ComponentCallbacks2.TRIM_MEMORY_COMPLETE -> "COMPLETE"
             else -> "UNKNOWN_$level"
         }
         
@@ -82,13 +83,22 @@ class MitzModeApplication : Application() {
         
         // Log memory pressure events (only for significant pressure, not routine UI changes)
         // UI_HIDDEN is a normal lifecycle event and should not be logged to Sentry
-        if (level == TRIM_MEMORY_UI_HIDDEN) {
+        if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN) {
             // Only log UI_HIDDEN to Android Log, not Sentry (reduces noise)
             Log.d("MitzModeApplication", "UI hidden - normal app lifecycle event")
-        } else if (level >= TRIM_MEMORY_RUNNING_LOW) {
-            val logLevel = when {
-                level >= TRIM_MEMORY_RUNNING_CRITICAL -> "warning"
-                level >= TRIM_MEMORY_RUNNING_LOW -> "info" 
+        } else if (
+            level == ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW ||
+            level == ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL ||
+            level == ComponentCallbacks2.TRIM_MEMORY_BACKGROUND ||
+            level == ComponentCallbacks2.TRIM_MEMORY_MODERATE ||
+            level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE
+        ) {
+            val logLevel = when (level) {
+                ComponentCallbacks2.TRIM_MEMORY_COMPLETE,
+                ComponentCallbacks2.TRIM_MEMORY_MODERATE,
+                ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL -> "warning"
+                ComponentCallbacks2.TRIM_MEMORY_BACKGROUND,
+                ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW -> "info"
                 else -> "debug"
             }
             
@@ -103,10 +113,11 @@ class MitzModeApplication : Application() {
             )
         }
         
-        // Release resources based on memory pressure level
-        when {
-            level >= TRIM_MEMORY_RUNNING_CRITICAL -> {
-                // Critical memory situation - release all possible resources
+        // Trim levels are not monotonic (e.g. UI_HIDDEN=20 > RUNNING_CRITICAL=15), so never use >=.
+        when (level) {
+            ComponentCallbacks2.TRIM_MEMORY_COMPLETE,
+            ComponentCallbacks2.TRIM_MEMORY_MODERATE,
+            ComponentCallbacks2.TRIM_MEMORY_RUNNING_CRITICAL -> {
                 try {
                     VideoManager.getInstance(this).onLowMemory()
                     System.gc()
@@ -114,13 +125,13 @@ class MitzModeApplication : Application() {
                     Log.e("MitzModeApplication", "Error during critical memory trim", e)
                 }
             }
-            level >= TRIM_MEMORY_RUNNING_LOW -> {
-                // Moderate memory pressure - release some resources
-                try {
-                    VideoManager.getInstance(this).releaseBackgroundResources()
-                } catch (e: Exception) {
-                    Log.e("MitzModeApplication", "Error during memory trim", e)
-                }
+            ComponentCallbacks2.TRIM_MEMORY_BACKGROUND,
+            ComponentCallbacks2.TRIM_MEMORY_RUNNING_LOW -> {
+                // Do not release the main background ExoPlayer here: Android sends
+                // TRIM_MEMORY_BACKGROUND whenever the user leaves the app, which would
+                // tear down the wallpaper video and leave a blank surface on return.
+                // Heavy release remains for COMPLETE / MODERATE / RUNNING_CRITICAL above.
+                Log.d("MitzModeApplication", "Memory trim ($levelName) — keeping background video player")
             }
         }
     }
@@ -165,6 +176,13 @@ class MitzModeApplication : Application() {
                 // Enable ANR detection in Sentry
                 options.isAnrEnabled = true
                 options.anrTimeoutIntervalMillis = 4000 // 4 seconds ANR threshold
+                // ART method tracing used by profiling can crash on some devices/emulators
+                // (tlsPtr_.method_trace_buffer check failed). See getsentry/sentry-java#3653.
+                options.profilesSampleRate = 0.0
+                if (BuildConfig.DEBUG) {
+                    options.tracesSampleRate = 0.0
+                    options.isEnableUserInteractionTracing = false
+                }
             }
             
             // Add additional context

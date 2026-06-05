@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.data.MitzvahLink
 import com.beardytop.mitzmode.viewmodel.DailyMitzvotViewModel
 
 import com.beardytop.mitzmode.util.Constants
@@ -478,7 +479,10 @@ private fun ChecklistItemWithInfo(
                             lineHeight = (textSize * 1.5).sp
                         ),
                         color = textBrown,
-                        modifier = Modifier.padding(bottom = if (link != null) 12.dp else 0.dp)
+                        modifier = Modifier.padding(bottom = if (link != null) 12.dp else 0.dp),
+                        knownLinks = link?.let {
+                            listOf(MitzvahLink(displayText = it.displayText, url = it.url))
+                        }.orEmpty(),
                     )
 
                     if (link != null) {
@@ -514,7 +518,7 @@ private fun ChecklistItemWithInfo(
                             .clickable { showInfo = false }
                             .padding(horizontal = 20.dp, vertical = 8.dp)
                     ) {
-                        Text(
+                        TranslatableText(
                             text = "Close",
                             style = MaterialTheme.typography.labelLarge.copy(
                                 fontWeight = FontWeight.SemiBold,
@@ -562,7 +566,7 @@ private fun ExplanationDialog(
                 )
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
-                Text(
+                TranslatableText(
                     text = "Explanation",
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.SemiBold,
@@ -596,8 +600,8 @@ private fun ExplanationDialog(
                         .clickable { onDismiss() }
                         .padding(horizontal = 20.dp, vertical = 8.dp)
                 ) {
-                    Text(
-                        "Close",
+                    TranslatableText(
+                        text = "Close",
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.SemiBold,
                             letterSpacing = 0.5.sp
@@ -633,7 +637,7 @@ private fun MaleDailyChecklist(viewModel: DailyMitzvotViewModel, textSize: Float
                 .clickable { viewModel.clearChecklist() }
                 .padding(horizontal = 14.dp, vertical = 6.dp)
         ) {
-            Text(
+            TranslatableText(
                 text = "Clear All",
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontWeight = FontWeight.Medium,

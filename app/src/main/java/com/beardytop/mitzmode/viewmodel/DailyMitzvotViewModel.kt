@@ -57,9 +57,7 @@ class DailyMitzvotViewModel @Inject constructor(
         // Update count and show animation if needed
         if (value && !oldValue) {  // Only increment if changing from unchecked to checked
             todayCheckCount++
-            println("Debug: Checkbox count = $todayCheckCount")  // Add this debug line
             if (todayCheckCount == 5 && !repository.hasShownBlessedToday()) {
-                println("Debug: Showing blessed animation")  // Add this debug line
                 _showBlessedAnimation.value = true
                 repository.markBlessedShown()
             }

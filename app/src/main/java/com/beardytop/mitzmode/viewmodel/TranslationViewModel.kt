@@ -2,6 +2,7 @@ package com.beardytop.mitzmode.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.beardytop.mitzmode.BuildConfig
 import com.beardytop.mitzmode.data.LanguageInfo
 import com.beardytop.mitzmode.data.LanguagePreferencesManager
 import com.beardytop.mitzmode.service.TranslationService
@@ -10,7 +11,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
+import android.util.Log
 
 @HiltViewModel
 class TranslationViewModel @Inject constructor(
@@ -25,6 +29,12 @@ class TranslationViewModel @Inject constructor(
     val isTranslating: StateFlow<Boolean> = _isTranslating.asStateFlow()
     
     private val _translationCache = mutableMapOf<String, String>()
+    /** Avoid bursts of parallel API calls (menu + dialogs → 429 → silent fallback to English). */
+    private val translateMutex = Mutex()
+
+    private companion object {
+        private const val TAG = "TranslationViewModel"
+    }
     
     fun setCurrentLanguage(languageCode: String) {
         languagePreferencesManager.setCurrentLanguage(languageCode)
@@ -38,44 +48,56 @@ class TranslationViewModel @Inject constructor(
         return languagePreferencesManager.supportedLanguages
     }
     
-    private fun isHebrewText(text: String): Boolean {
-        // Check if text contains Hebrew characters
-        return text.any { char ->
-            char in '\u0590'..'\u05FF' // Hebrew Unicode block
-        }
+    /**
+     * Skip API translation only for passages that are Hebrew-script without Latin letters
+     * (e.g. liturgy). English UI that cites Hebrew words still contains A–Z and must translate.
+     */
+    private fun shouldSkipAsAlreadyHebrewScript(text: String, targetLanguage: String): Boolean {
+        if (targetLanguage != "he" && targetLanguage != "yi") return false
+        val hasHebrewScript = text.any { it in '\u0590'..'\u05FF' }
+        val hasLatin = text.any { it in 'A'..'Z' || it in 'a'..'z' }
+        return hasHebrewScript && !hasLatin
     }
-    
+
     suspend fun translateText(text: String): String {
-        println("DEBUG: translateText called with '$text', enabled=${translationEnabled.value}, lang=${currentLanguage.value}")
+        if (BuildConfig.DEBUG) {
+            Log.d(
+                TAG,
+                "translateText '${text.take(80)}…' enabled=${translationEnabled.value} lang=${currentLanguage.value}"
+            )
+        }
         if (!translationEnabled.value || currentLanguage.value == "en") {
             return text
         }
-        
-        // If target language is Hebrew and text contains Hebrew characters, don't translate
-        if (currentLanguage.value == "he" && isHebrewText(text)) {
-            println("DEBUG: Skipping translation for Hebrew text to Hebrew")
+
+        if (shouldSkipAsAlreadyHebrewScript(text, currentLanguage.value)) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, "Skipping translation (Hebrew-script-only → ${currentLanguage.value})")
+            }
             return text
         }
         
-        val cacheKey = "${text}_${currentLanguage.value}"
+        val lang = currentLanguage.value
+        val cacheKey = "${text}_${lang}"
         _translationCache[cacheKey]?.let { return it }
-        
-        _isTranslating.value = true
-        
-        val translatedText = try {
-            translationService.translateText(
-                text = text,
-                targetLanguage = currentLanguage.value,
-                sourceLanguage = "en"
-            ) ?: text
-        } catch (e: Exception) {
-            text // Return original text if translation fails
+
+        return translateMutex.withLock {
+            _translationCache[cacheKey]?.let { return@withLock it }
+
+            _isTranslating.value = true
+            val translatedText = try {
+                translationService.translateText(
+                    text = text,
+                    targetLanguage = lang,
+                    sourceLanguage = "auto"
+                ) ?: text
+            } catch (e: Exception) {
+                text
+            }
+            _isTranslating.value = false
+            _translationCache[cacheKey] = translatedText
+            translatedText
         }
-        
-        _isTranslating.value = false
-        _translationCache[cacheKey] = translatedText
-        
-        return translatedText
     }
     
     fun translateTextAsync(text: String, onResult: (String) -> Unit) {
@@ -95,29 +117,29 @@ class TranslationViewModel @Inject constructor(
             return text
         }
         
-        // If target language is Hebrew and text contains Hebrew characters, don't translate
-        if (targetLanguage == "he" && isHebrewText(text)) {
+        if (shouldSkipAsAlreadyHebrewScript(text, targetLanguage)) {
             return text
         }
         
         val cacheKey = "${text}_${targetLanguage}"
         _translationCache[cacheKey]?.let { return it }
-        
-        _isTranslating.value = true
-        
-        val translatedText = try {
-            translationService.translateText(
-                text = text,
-                targetLanguage = targetLanguage,
-                sourceLanguage = "en"
-            ) ?: text
-        } catch (e: Exception) {
-            text // Return original text if translation fails
+
+        return translateMutex.withLock {
+            _translationCache[cacheKey]?.let { return@withLock it }
+
+            _isTranslating.value = true
+            val translatedText = try {
+                translationService.translateText(
+                    text = text,
+                    targetLanguage = targetLanguage,
+                    sourceLanguage = "auto"
+                ) ?: text
+            } catch (e: Exception) {
+                text
+            }
+            _isTranslating.value = false
+            _translationCache[cacheKey] = translatedText
+            translatedText
         }
-        
-        _isTranslating.value = false
-        _translationCache[cacheKey] = translatedText
-        
-        return translatedText
     }
 } 

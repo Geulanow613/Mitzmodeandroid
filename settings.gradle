@@ -13,5 +13,7 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name = "Mitz Mode"
-include ':app' 
+rootProject.name = "MitzMode"
+include ':app'
+include ':beatzaddik-shared'
+project(':beatzaddik-shared').projectDir = file('be-a-tzaddik/shared') 

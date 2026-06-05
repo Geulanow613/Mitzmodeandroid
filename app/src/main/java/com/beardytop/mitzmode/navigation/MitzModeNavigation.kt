@@ -20,7 +20,7 @@ fun MitzModeNavigation(
         composable("completed") {
             CompletedMitzvotScreen(
                 completedMitzvot = viewModel.completedMitzvot.value,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
             )
         }
     }

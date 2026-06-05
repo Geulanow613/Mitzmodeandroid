@@ -19,6 +19,9 @@ class MitzvotRepository @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
     private var mitzvot: List<Mitzvah>? = null
+    private val shuffleDeck = mutableListOf<Mitzvah>()
+    private var shuffleIndex = 0
+    private var lastIssuedId: String? = null
     private val mutex = Mutex()
 
     // Small prefs: only stores ETag string + legacy combined JSON (for migration)
@@ -41,9 +44,9 @@ class MitzvotRepository @Inject constructor(
     suspend fun getRandomMitzvah(): Mitzvah = withContext(Dispatchers.IO) {
         mutex.withLock {
             if (mitzvot == null) {
-                mitzvot = buildCacheFirstList()
+                buildCacheFirstList()
             }
-            mitzvot!!.random()
+            nextShuffledMitzvahLocked()
         }
     }
 
@@ -70,6 +73,7 @@ class MitzvotRepository @Inject constructor(
                     }
                 }
                 mitzvot = (local + readCloudCache()).distinctBy { it.id }
+                resetShuffleQueue(mitzvot!!)
                 Log.d("MitzvotRepository", "Refreshed: ${mitzvot!!.size} mitzvot")
             } catch (e: Exception) {
                 Log.e("MitzvotRepository", "Error during force refresh: ${e.message}", e)
@@ -79,7 +83,18 @@ class MitzvotRepository @Inject constructor(
 
     fun areMitzvotLoaded(): Boolean = mitzvot != null && mitzvot!!.isNotEmpty()
 
-    fun getRandomMitzvahIfAvailable(): Mitzvah? = mitzvot?.randomOrNull()
+    /**
+     * Returns the next mitzvah from a shuffled deck (local + cloud), without replacement
+     * until the deck is exhausted, then reshuffles. Avoids showing the same mitzvah twice
+     * in a row when the pool has more than one entry.
+     */
+    suspend fun getRandomMitzvahIfAvailable(): Mitzvah? = withContext(Dispatchers.IO) {
+        mutex.withLock {
+            val pool = mitzvot ?: return@withLock null
+            if (pool.isEmpty()) return@withLock null
+            nextShuffledMitzvahLocked()
+        }
+    }
 
     // ---- Core loading logic ----
 
@@ -103,6 +118,7 @@ class MitzvotRepository @Inject constructor(
 
         // Set the in-memory list immediately so the app can start
         mitzvot = combined
+        resetShuffleQueue(combined)
 
         // Background ETag check — runs after mutex is released by caller
         if (loader.isNetworkAvailable()) {
@@ -136,6 +152,7 @@ class MitzvotRepository @Inject constructor(
             mutex.withLock {
                 val local = loader.loadLocalMitzvot()
                 mitzvot = (local + result.mitzvot).distinctBy { it.id }
+                resetShuffleQueue(mitzvot!!)
                 Log.d("MitzvotRepository", "In-memory list silently refreshed: ${mitzvot!!.size} mitzvot")
             }
         } catch (e: Exception) {
@@ -200,5 +217,38 @@ class MitzvotRepository @Inject constructor(
             apply()
         }
         Log.d("MitzvotRepository", "Stored version: $version, ETag: $etag")
+    }
+
+    private fun resetShuffleQueue(pool: List<Mitzvah>) {
+        shuffleDeck.clear()
+        shuffleIndex = 0
+        if (pool.isEmpty()) return
+        shuffleDeck.addAll(pool)
+        shuffleDeck.shuffle()
+        avoidImmediateRepeatLocked()
+    }
+
+    /** If the first card matches the last one shown, swap it with a different card (pool size > 1). */
+    private fun avoidImmediateRepeatLocked() {
+        val last = lastIssuedId ?: return
+        if (shuffleDeck.size <= 1) return
+        if (shuffleDeck[0].id != last) return
+        val swapIdx = shuffleDeck.indexOfFirst { it.id != last }
+        if (swapIdx <= 0) return
+        val tmp = shuffleDeck[0]
+        shuffleDeck[0] = shuffleDeck[swapIdx]
+        shuffleDeck[swapIdx] = tmp
+    }
+
+    /** Call only while holding [mutex]. */
+    private fun nextShuffledMitzvahLocked(): Mitzvah {
+        val pool = mitzvot!!
+        check(pool.isNotEmpty()) { "nextShuffledMitzvahLocked with empty pool" }
+        if (shuffleDeck.isEmpty() || shuffleIndex >= shuffleDeck.size) {
+            resetShuffleQueue(pool)
+        }
+        val m = shuffleDeck[shuffleIndex++]
+        lastIssuedId = m.id
+        return m
     }
 }

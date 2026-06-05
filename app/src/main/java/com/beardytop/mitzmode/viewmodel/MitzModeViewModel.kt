@@ -2,6 +2,7 @@ package com.beardytop.mitzmode.viewmodel
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beardytop.mitzmode.data.Mitzvah
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import com.google.gson.Gson
+import com.beardytop.mitzmode.BuildConfig
 import com.beardytop.mitzmode.util.SentryUtil
 
 @HiltViewModel
@@ -21,6 +23,14 @@ class MitzModeViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val mitzvotRepository: MitzvotRepository
 ) : ViewModel() {
+
+    companion object {
+        private const val TAG = "MitzModeViewModel"
+        /** [showVideo] uses mitzmodenew{1..13}.mp4; this id maps to asset `finalreward.mp4` with audio. */
+        const val FINAL_REWARD_VIDEO_ID = 100
+        /** ExoPlayer volume when unmuted (1f = full; does not change system/media volume). */
+        const val FINAL_REWARD_PLAYER_VOLUME_UNMUTED = 1f
+    }
     private val prefs = context.getSharedPreferences("mitzvot_prefs", Context.MODE_PRIVATE)
     
     private val _currentMitzvah = MutableStateFlow<Mitzvah?>(null)
@@ -53,7 +63,7 @@ class MitzModeViewModel @Inject constructor(
     // First-time app tour: show until user completes or skips
     private val _showTour = MutableStateFlow(!prefs.getBoolean("tour_completed", false))
     val showTour: StateFlow<Boolean> = _showTour.asStateFlow()
-    
+
     init {
         viewModelScope.launch {
             try {
@@ -182,6 +192,14 @@ class MitzModeViewModel @Inject constructor(
     fun onVideoComplete() {
         _showVideo.value = null
     }
+
+    /** Replay `finalreward.mp4` from the certificate (no level-up rainbow overlay). */
+    fun requestFinalRewardVideoReplay() {
+        viewModelScope.launch(Dispatchers.Main) {
+            _showLevelUp.value = null
+            _showVideo.value = FINAL_REWARD_VIDEO_ID
+        }
+    }
     
     fun onLevelUpComplete() {
         _showLevelUp.value = null
@@ -214,7 +232,7 @@ class MitzModeViewModel @Inject constructor(
     }
     
     private fun getCurrentLevel(count: Int): String {
-        println("DEBUG: Calculating level for count: $count")
+        if (BuildConfig.DEBUG) Log.d(TAG, "Calculating level for count: $count")
         val level = when (count) {
             in 1..9 -> "Beginner"
             in 10..49 -> "Ba'al Teshuva"
@@ -228,10 +246,11 @@ class MitzModeViewModel @Inject constructor(
             in 700..799 -> "Living Sefer Torah"
             in 800..899 -> "Eliyahu HaNavi"
             in 900..999 -> "King David"
-            in 1000..Int.MAX_VALUE -> "Moshiach!!!"
+            in 1000..1799 -> "Moshiach!!!"
+            in 1800..Int.MAX_VALUE -> "Mitz Mode!"
             else -> "Beginner"  // Default case, should never happen
         }
-        println("DEBUG: Level calculated as: $level")
+        if (BuildConfig.DEBUG) Log.d(TAG, "Level calculated as: $level")
         return level
     }
     
@@ -250,6 +269,7 @@ class MitzModeViewModel @Inject constructor(
             800 -> 11 // Eliyahu HaNavi at 800th mitzvah
             900 -> 12 // King David at 900th mitzvah
             1000 -> 13 // Moshiach!!! at 1000th mitzvah
+            1800 -> FINAL_REWARD_VIDEO_ID // Mitz Mode! — finalreward.mp4
             else -> 0  // No video for non-milestone numbers
         }
     }
@@ -261,17 +281,19 @@ class MitzModeViewModel @Inject constructor(
                 
                 // Get current count before adding new mitzvah
                 val currentCount = _completedMitzvot.value.size
-                println("DEBUG: Current mitzvot count: $currentCount")
-                
+                if (BuildConfig.DEBUG) Log.d(TAG, "Current mitzvot count: $currentCount")
+
                 // Calculate new count
                 val newCount = currentCount + 1
-                println("DEBUG: New mitzvot count will be: $newCount")
-                println("DEBUG: New level will be: ${getCurrentLevel(newCount)}")
-                
+                if (BuildConfig.DEBUG) {
+                    Log.d(TAG, "New mitzvot count will be: $newCount")
+                    Log.d(TAG, "New level will be: ${getCurrentLevel(newCount)}")
+                }
+
                 // Check for milestone achievements
                 val shouldShowVideo = when (newCount) {
-                    1, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000 -> {
-                        println("DEBUG: Milestone reached at count $newCount!")
+                    1, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1800 -> {
+                        if (BuildConfig.DEBUG) Log.d(TAG, "Milestone reached at count $newCount!")
                         true
                     }
                     else -> false
@@ -298,16 +320,28 @@ class MitzModeViewModel @Inject constructor(
                 // THEN check for video/level up AFTER updating the list
                 if (shouldShowVideo) {
                     val newLevel = getCurrentLevel(newCount)
-                    println("DEBUG: Playing video ${getVideoNumberForLevel(newCount)} for level $newLevel")
+                    if (BuildConfig.DEBUG) {
+                        Log.d(
+                            TAG,
+                            "Playing video ${getVideoNumberForLevel(newCount)} for level $newLevel"
+                        )
+                    }
                     
-                    // Update UI on main thread
+                    // Update UI on main thread (final reward: video only, no rainbow level-up overlay)
                     withContext(Dispatchers.Main) {
-                        _showVideo.value = getVideoNumberForLevel(newCount)
-                        _showLevelUp.value = newLevel // Show level up simultaneously with video
+                        val videoId = getVideoNumberForLevel(newCount)
+                        _showVideo.value = videoId
+                        _showLevelUp.value =
+                            if (videoId == FINAL_REWARD_VIDEO_ID) null else newLevel
                     }
                 }
                 
-                println("DEBUG: Mitzvah accepted! showVideo = ${_showVideo.value}, showLevelUp = ${_showLevelUp.value}")
+                if (BuildConfig.DEBUG) {
+                    Log.d(
+                        TAG,
+                        "Mitzvah accepted! showVideo = ${_showVideo.value}, showLevelUp = ${_showLevelUp.value}"
+                    )
+                }
             } catch (e: Exception) {
                 handleError(e, "onMitzvahAccepted")
             }
@@ -327,4 +361,5 @@ class MitzModeViewModel @Inject constructor(
         _showTour.value = false
         prefs.edit().putBoolean("tour_completed", true).apply()
     }
+
 } 

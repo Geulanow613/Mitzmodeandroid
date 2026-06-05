@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adds 14% padding around the foreground image so the full artwork is
+     visible without cropping on any adaptive-icon shape (circle, squircle, etc.) -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@mipmap/ic_launcher_foreground"
+    android:inset="14%" />

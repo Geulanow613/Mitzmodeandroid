@@ -1,0 +1,794 @@
+{
+  "version": 20,
+  "items": [
+    {
+      "id": "modeh_ani_upon_waking",
+      "title": "Modeh Ani (Thank G-d upon waking)",
+      "section": "Upon waking",
+      "sortOrder": 10,
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The very first act of each day:\n\nWhat it is:\nModeh Ani (מוֹדֶה אֲנִי — literally \"I am grateful\") is a two-line prayer said the moment you open your eyes. It is the most basic expression of Jewish gratitude — thanking G-d for returning your soul after sleep.\n\nThe tradition:\nJewish thought teaches that sleep is a nightly experience of near-death — our soul partially leaves the body each night and is returned in the morning. Modeh Ani acknowledges that G-d chose to give you another day.\n\nThe Hebrew text and translation:\n\"Modeh ani lifanecha, Melech chai v'kayam, shehechezarta bi nishmati b'chemla — raba emunatecha.\"\n\"I thank You, living and eternal King, for returning my soul to me with compassion — how great is Your faithfulness.\"\n\nKey terms:\n• Modeh / Modah — grateful, acknowledging (male / female form)\n• Nishmat — my soul (neshama = soul, the spiritual core of a person)\n• Emunatecha — Your faithfulness (emunah = faith / trust)\n\nHow to do it:\nSay it while still in bed, before getting up. Modeh Ani is one of the only parts of davening you can say without washing your hands first — then proceed to Netilat Yadayim (see the next item).",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "ritual_hand_washing",
+      "title": "Netilat Yadayim (Ritual morning hand washing)",
+      "section": "Upon waking",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.\n\nWhat it is:\nNetilat Yadayim (נְטִילַת יָדַיִם — literally \"lifting of the hands\") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.\n\nDifferent minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.\n\nKey terms:\n• Ruach Ra'ah — the spirit of impurity that rests on the hands during sleep\n• Tumah — ritual impurity; a spiritual state, not physical dirtiness\n• Keli — a vessel (water must be poured from a cup, bottle, or washcup — filling a cup from the tap and then pouring is fine; do not wash under a running tap without a vessel)\n\nHow to pour (all traditions):\n1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep\n2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left\n3. Dry your hands when your minhag calls for it (see blessing timing below)\n\nBlessing timing overview (set nusach in Settings for your full text):\n• Ashkenaz: usually no blessing at bedside; blessing after second washing (bathroom + dress), unless you had no bathroom need.\n• Sefard: blessing ideally on first washing; bathroom first only if urgent.\n• Chabad: no blessing on first washing; blessing only after second washing at the sink.\n\nThe blessing text:\n\"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim\"\n\nThe 4 amot rule:\nBefore washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full \"journey\" that allows the impurity to expand. If the sink is farther than 4 amot away:\n• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink\n• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy\n• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink\nFollow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.\n\nIf you need to say a blessing before you can wash (e.g. urgent bathroom need and no water nearby):\nRub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called kuach and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).\n\nAfter naps:\n• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)\n• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi\n\nOther important notes:\n• Do not touch your eyes, mouth, or face before washing\n• Do not touch food before washing\n• The same alternating triple-pour without a blessing is done after: using the bathroom, leaving a cemetery, and before eating bread\n• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening",
+      "links": [
+        {
+          "displayText": "Chabad — morning hand washing guide",
+          "url": "https://www.chabad.org/library/article_cdo/aid/7230155/jewish/What-You-Need-to-Know-About-Washing-Hands-Not-for-Bread.htm"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false,
+      "explanationAshkenaz": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.\n\nWhat it is:\nNetilat Yadayim (נְטִילַת יָדַיִם — literally \"lifting of the hands\") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.\n\nDifferent minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.\n\nKey terms:\n• Ruach Ra'ah — the spirit of impurity that rests on the hands during sleep\n• Tumah — ritual impurity; a spiritual state, not physical dirtiness\n• Keli — a vessel (water must be poured from a cup, bottle, or washcup — filling a cup from the tap and then pouring is fine; do not wash under a running tap without a vessel)\n\nHow to pour (all traditions):\n1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep\n2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left\n3. Dry your hands when your minhag calls for it (see blessing timing below)\n\nAshkenaz minhag — when to say Al Netilat Yadayim:\n• Routine: wash upon waking (often pouring into a basin by the bed) without a blessing first.\n• Blessing: because most people need the bathroom shortly after waking — and one should not recite blessings while needing to relieve oneself — the custom is to say Al Netilat Yadayim only after the second washing: once you have used the bathroom, gotten dressed, washed again, and are about to dry your hands; then say Asher Yatzar as well.\n• If you woke with no urge to use the bathroom: say the blessing on the first morning washing instead.\n\nThe blessing text:\n\"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim\"\n\nThe 4 amot rule:\nBefore washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full \"journey\" that allows the impurity to expand. If the sink is farther than 4 amot away:\n• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink\n• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy\n• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink\nFollow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.\n\nIf you need to say a blessing before you can wash (e.g. urgent bathroom need and no water nearby):\nRub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called kuach and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).\n\nAfter naps:\n• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)\n• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi\n\nOther important notes:\n• Do not touch your eyes, mouth, or face before washing\n• Do not touch food before washing\n• The same alternating triple-pour without a blessing is done after: using the bathroom, leaving a cemetery, and before eating bread\n• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening",
+      "explanationSefard": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.\n\nWhat it is:\nNetilat Yadayim (נְטִילַת יָדַיִם — literally \"lifting of the hands\") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.\n\nDifferent minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.\n\nKey terms:\n• Ruach Ra'ah — the spirit of impurity that rests on the hands during sleep\n• Tumah — ritual impurity; a spiritual state, not physical dirtiness\n• Keli — a vessel (water must be poured from a cup, bottle, or washcup — filling a cup from the tap and then pouring is fine; do not wash under a running tap without a vessel)\n\nHow to pour (all traditions):\n1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep\n2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left\n3. Dry your hands when your minhag calls for it (see blessing timing below)\n\nSefard minhag — when to say Al Netilat Yadayim:\n• Following Shulchan Aruch and the Rashba: morning washing primarily removes ruach ra'ah from sleep.\n• Say the blessing right after the first morning washing when you can — ideally immediately, even if you will use the bathroom afterward.\n• If you have an urgent, pressing need to use the bathroom, go first, then wash and recite the blessing.\n\nThe blessing text:\n\"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim\"\n\nThe 4 amot rule:\nBefore washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full \"journey\" that allows the impurity to expand. If the sink is farther than 4 amot away:\n• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink\n• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy\n• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink\nFollow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.\n\nIf you need to say a blessing before you can wash (e.g. urgent bathroom need and no water nearby):\nRub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called kuach and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).\n\nAfter naps:\n• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)\n• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi\n\nOther important notes:\n• Do not touch your eyes, mouth, or face before washing\n• Do not touch food before washing\n• The same alternating triple-pour without a blessing is done after: using the bathroom, leaving a cemetery, and before eating bread\n• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening",
+      "explanationChabad": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.\n\nWhat it is:\nNetilat Yadayim (נְטִילַת יָדַיִם — literally \"lifting of the hands\") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.\n\nDifferent minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.\n\nKey terms:\n• Ruach Ra'ah — the spirit of impurity that rests on the hands during sleep\n• Tumah — ritual impurity; a spiritual state, not physical dirtiness\n• Keli — a vessel (water must be poured from a cup, bottle, or washcup — filling a cup from the tap and then pouring is fine; do not wash under a running tap without a vessel)\n\nHow to pour (all traditions):\n1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep\n2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left\n3. Dry your hands when your minhag calls for it (see blessing timing below)\n\nChabad minhag — when to say Al Netilat Yadayim (Alter Rebbe's Shulchan Aruch):\n• First washing: upon waking, before touching things or letting your feet touch the floor without washing — three alternating pours, no blessing.\n• Then: restroom, rinse your mouth, and personal grooming.\n• Second washing: at the sink — now recite Al Netilat Yadayim, with Asher Yatzar and Elokai Neshama, in a clean state of body and mind.\n\nThe blessing text:\n\"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim\"\n\nThe 4 amot rule:\nBefore washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full \"journey\" that allows the impurity to expand. If the sink is farther than 4 amot away:\n• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink\n• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy\n• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink\nFollow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.\n\nIf you need to say a blessing before you can wash (e.g. urgent bathroom need and no water nearby):\nRub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called kuach and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).\n\nAfter naps:\n• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)\n• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi\n\nOther important notes:\n• Do not touch your eyes, mouth, or face before washing\n• Do not touch food before washing\n• The same alternating triple-pour without a blessing is done after: using the bathroom, leaving a cemetery, and before eating bread\n• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening"
+    },
+    {
+      "id": "wear_a_kippah_head_covering",
+      "title": "Kippah (Head covering for men)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Jewish men cover their heads throughout the entire day as a sign that G-d is above us.\n\nWhat it is:\nA kippah (כִּפָּה — also called a yarmulke, from the Yiddish) is a small head covering — a skullcap worn on top of the head. The word kippah means \"dome\" or \"vault,\" and the word yarmulke comes from an Aramaic phrase meaning \"awe of the King.\"\n\nWhy we wear it:\nThe Talmud records that covering the head cultivates yirat Shamayim — literally \"fear of Heaven,\" which in Jewish thought means a constant awareness that G-d is present and that our actions matter. Wearing a kippah is a visible, ongoing reminder of that awareness.\n\nKey terms:\n• Yirat Shamayim — awe of Heaven; living with God-consciousness\n• Shamayim — Heaven / the sky\n• Minhag — custom (the specific size, style, and color of kippah is a matter of community custom)\n\nPractical notes:\n• Wear it all day, every day — not just during prayer or Torah study\n• There is no need to wear a kippah while bathing or swimming\n• Any size, color, or style is acceptable; follow your community's custom\n• Many men wear a hat or a larger covering over the kippah during prayer as an added sign of respect\n\nFor women:\nMarried women are obligated in hair covering — see the modesty section.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "wear_tzitzit_recommended_for_divine_protection",
+      "title": "Tzitzit (Fringed garment)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The Torah commands Jewish men to wear fringes on the corners of four-cornered garments — a constant physical reminder of all G-d's commandments.\n\nWhat tzitzit are:\nTzitzit (צִיצִית — fringes or tassels) are knotted strings attached to each corner of a four-cornered garment. Each set of tzitzit has 8 threads and 5 knots. The number 600 (numerical value of the word tzitzit) + 8 threads + 5 knots = 613 — the total number of mitzvot (commandments) in the Torah.\n\nThe Torah source:\n\"Speak to the Children of Israel and tell them to make fringes on the corners of their garments... so that you may look upon them and remember all the commandments of G-d.\" (Numbers 15:38-39)\n\nKey terms:\n• Tallit katan — literally \"small tallit\"; a small rectangular garment worn under the shirt with tzitzit at its four corners\n• Tallit gadol — literally \"large tallit\"; the large prayer shawl worn over clothing during morning prayers\n• Beged — garment (the obligation only applies to four-cornered garments)\n• Mitzvot — commandments (singular: mitzvah); the 613 commandments of the Torah\n\nHow to observe it:\nMost observant Jewish men wear a tallit katan (small garment) under their shirt all day. During morning prayers (Shacharit), a tallit gadol (large prayer shawl) is worn over the clothing.\n\nGetting started:\n• Buy a tallit katan at any Judaica store or online\n• Ask your rabbi to show you how to wear it and say the blessing\n• Check your tzitzit periodically — if a string breaks, it may invalidate them",
+      "links": [
+        {
+          "displayText": "Tzitzit — Numbers 15:38",
+          "url": "https://www.sefaria.org/Numbers.15.38"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "keep_kosher",
+      "title": "Keep Kosher (Kashrut)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Kashrut is the system of Jewish dietary laws that governs what we eat, how food is prepared, and how meat and dairy are kept separate.\n\nWhat kosher means:\nKosher (כָּשֵׁר) literally means \"fit\" or \"proper.\" Food that meets all the Torah's dietary requirements is called kosher. Food that does not is called treif (טְרֵיף — literally \"torn,\" referring to torn-apart animals).\n\nThe main rules:\n\nPermitted and forbidden animals:\n• Land animals must have split hooves AND chew their cud: beef, lamb, and goat are kosher; pork is not\n• Fish must have fins AND scales: salmon, tuna, and carp are kosher; shrimp, lobster, and catfish are not\n• Chicken, turkey, duck, and other domestic fowl are kosher\n\nShechita (kosher slaughter):\n• All meat must be slaughtered by a shochet — a specially trained and G-d-fearing slaughterer — using a swift, painless cut. This is called shechita (שְׁחִיטָה)\n• After slaughter, the meat is salted to remove blood (melicha), since consuming blood is forbidden\n\nSeparating meat and dairy (basar b'chalav):\n• Meat and dairy may never be eaten together, cooked together, or served on the same dishes\n• After eating meat, you wait a period of time before dairy. Six hours is standard in many communities, but customs vary (some wait one or three hours) — follow your rabbi and community\n• Separate sets of dishes, pots, and utensils are kept for meat and dairy\n\nHechsher:\n• A hechsher (הֶכְשֵׁר) is a certification mark on packaged foods indicating rabbinical supervision. Look for a recognized symbol on labels.\n\nWhy these laws:\nThe Torah gives these laws as divine commands. Beyond the reason, observing them elevates every meal into an act of service to G-d and builds discipline and consciousness in our daily lives.\n\nGetting started:\nConsult your local Orthodox rabbi before setting up a kosher kitchen. Many people begin by removing non-kosher meat and seafood, then work toward full observance.",
+      "links": [
+        {
+          "displayText": "Introduction to Kashrut — Rambam",
+          "url": "https://www.sefaria.org/Mishneh_Torah,_Forbidden_Foods"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 30,
+      "persistChecked": true,
+      "situational": false
+    },
+    {
+      "id": "shmirat_halashon",
+      "title": "Shmirat HaLashon (Guard your speech)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Speech is one of the most powerful forces in Jewish life — it can build people up or destroy them in an instant. Shmirat halashon (שְׁמִירַת הַלָּשׁוֹן — guarding the tongue) is the ongoing mitzvah to watch what we say.\n\nWhat to avoid:\n• Lashon hara (לָשׁוֹן הָרָע — \"evil tongue\"): saying true or untrue derogatory words about another person — their character, their business, their children, and the like — even without intent to harm. If the information would lower the listener's opinion of that person, it is generally forbidden. Speaking lashon hara about the Land of Israel (Eretz Yisrael) is also forbidden.\n• Rechilut (רְכִילוּת): tale-bearing — passing words from one person to another in a way that creates conflict.\n• Ona'at devarim: hurtful or humiliating speech, insults, mockery, and needless argument.\n• Falsehood and misleading others in speech.\n\nWhy it matters:\nThe Talmud compares lashon hara to murder — reputations and relationships can be killed without raising a hand. The Chafetz Chaim (Rabbi Yisrael Meir Kagan, 19th century) devoted his life to teaching these laws because they protect the dignity of every Jew.\n\nHow to practice:\n• Before sharing news about someone, ask: Is it necessary? Is it kind? Would I want this said about me?\n• When you hear gossip, do not repeat it; you may change the subject or gently defend the person spoken about.\n• Use speech for encouragement, truth, prayer, and Torah.\n\nThis checklist item is a daily reminder to be mindful — not a scorecard of perfection. Ask your rabbi when a specific situation is permitted (e.g., warning someone of harm).",
+      "links": [
+        {
+          "displayText": "Chafetz Chaim — Preface (Sefaria)",
+          "url": "https://www.sefaria.org.il/Chafetz_Chaim%2C_Preface?lang=bi"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 35,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "business_ethics",
+      "title": "Business ethics (Honesty in work and money)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Jewish law applies in the marketplace and office just as in the synagogue. Honest weights, fair deals, and trustworthy conduct are Torah obligations — not optional \"extra credit.\"\n\nWhat this includes:\n• Geneivat da'at (גְּנֵבַת דַּעַת — deception): misleading a customer or employer about price, quality, terms, or your qualifications.\n• Ona'ah (אוֹנָאָה): overcharging or underpaying when the other party does not know the fair value.\n• Keeping your word: honoring agreements, deadlines, and commitments; not making promises you cannot keep.\n• Paying workers on time: wages owed must be paid when due (Leviticus 19:13).\n• Not stealing in any form — including time theft, expense fraud, or taking what is not yours.\n• Taxes and debts: fulfilling legal obligations honestly; not cheating the government or private parties.\n\nKey idea:\n\"In righteousness you shall judge your fellow\" (Leviticus 19:15) — business dealings are judged by the same moral standard as ritual mitzvot. A Jew's integrity (yosher — יֹשֶׁר) is a sanctification of G-d's name in the world.\n\nHow to practice:\n• Be transparent in sales, billing, and negotiations.\n• When in doubt, ask a rabbi or trusted advisor about a specific contract or industry practice.\n• Treat employees, clients, and employers with the dignity the Torah demands.\n\nCheck this off as a daily intention to act with honesty in all financial and professional interactions.",
+      "links": [
+        {
+          "displayText": "Rambam — Laws of Theft",
+          "url": "https://www.sefaria.org/Mishneh_Torah,_Robbery_and_Lost_Property"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 36,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "tzedakah_maaser",
+      "title": "Tzedakah (Charity) — Maaser",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Giving charity (tzedakah — צְדָקָה) is a constant mitzvah. A foundational custom is maaser kesafim (מַעֲשֵׂר כְּסָפִים) — setting aside about ten percent of one's income for charity.\n\nHow to calculate:\nMaaser is generally figured from net earnings, not gross: start with what you actually receive, then deduct taxes, necessary work-related expenses, and reasonable business overhead before taking ten percent. Ask your rabbi for guidance on your specific situation (self-employment, benefits, one-time windfalls, etc.).\n\nWhere to give:\nHalachic priorities place local poor individuals, Torah institutions, and the needy of Israel at the top of the list. Excellent choices often include local family relief organizations, community food pantries, and trusted charities that serve those in need in your area and in Israel.\n\nIf money is tight:\nJewish law teaches that your own livelihood and basic needs come first. If you cannot comfortably afford the full ten percent without real hardship, you are not expected to compromise your financial stability. Give a minimal, symbolic amount when you can so you still take part in this vital mitzvah — and increase when circumstances allow.\n\nKey terms:\n• Tzedakah — righteousness; charity (the word implies justice, not mere generosity)\n• Maaser / Maaser kesafim — \"tithe of money\"; the ten-percent practice\n• Aniyei ircha — the poor of your city (a top priority)\n\nThis checklist item is a daily reminder to plan your giving with intention. Confirm amounts and recipients with your rabbi.",
+      "links": [
+        {
+          "displayText": "Rambam — Laws of Gifts to the Poor",
+          "url": "https://www.sefaria.org/Mishneh_Torah,_Gifts_to_the_Poor"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 37,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "chinuch_educating_children",
+      "title": "Chinuch (Educating children)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "hasChildren": true,
+      "explanation": "Parents are obligated in chinuch (חִנּוּךְ — training children in mitzvot). The Torah commands: \"Teach them to your children\" (Devarim 11:19) — so they learn Torah and observe mitzvot (Peninei Halakha, Laws of Children 24:1). Before bar/bat mitzvah, a child is not Torah-obligated in mitzvot, but there is a rabbinic mitzvah for parents to train them (Chabad.org — Jewish Education: Chinuch; Aish — Laws of Raising Jewish Children).\n\nCore principles (from the poskim):\n• \"Educate the youth according to his way\" (Mishlei 22:6) — each child has his or her own pace (Aish).\n• Train a child in a positive mitzva when he understands what it involves and can observe it properly — k'fi daato (Peninei Halakha 24:1).\n• Teach the proper details, not just the general idea — e.g. use a kosher etrog when training for the Four Species (Aish).\n• \"The external awakens the internal\" — action and habit come first; understanding deepens with age (Aish).\n\nClassical roadmap — Pirkei Avot 5:21 (Yehudah ben Teima), cited throughout Jewish education:\n• Age 5 — mikra (Scripture)\n• Age 10 — Mishnah\n• Age 13 — mitzvot (boys at 13, girls at 12 become obligated)\n• Age 15 — Gemara / deeper Torah study\nThis is the traditional structure of Jewish learning, not a rigid checklist for every family — your rabbi and school guide the details.\n\nWhat major sources say about specific stages:\n\nWhen a child begins to speak — teach \"Torah tziva lanu Moshe\" and the first verse of Shema (Sukka 42a; Aish, citing Mishnah Berurah).\n\nAround age 3 — begin teaching Aleph-Bet (Rema YD 245:8; Aish). Habituate children to brachot and tefillah, as Torah learning begins then (Bava Batra 21a; Sukka 42a; Shulchan Aruch YD 245:5 — Peninei Halakha 24:1). Boys: many communities begin kippah and tzitzit (Aish, Shaarei Teshuva 17:2). Encourage listening to Kiddush and Havdalah; when the child understands Shabbat, ensure he or she hears them properly (Peninei Halakha 24:1).\n\nBefore age 3 — no obligation to stop a child from prohibited acts (Peninei Halakha 24:2).\n\nWhen a child understands permitted vs. forbidden — usually around age 3 — stop him from eating non-kosher food, turning lights on/off on Shabbat, etc. (Peninei Halakha 24:2; Aish notes a similar stage around age 4 for comprehension of \"forbidden\").\n\nAge 6 or 7 — the main age of chinuch for most positive mitzvot, including brachot and prayer, when children study Torah in earnest (Peninei Halakha 24:1; Aish — general rule from age 6, varying by mitzvah). Poskim teach brachot of Kriyat Shema, Shema, and Shemoneh Esrei around this age (see Children in Halacha / Mishnah Berurah).\n\nVaries by mitzvah (Aish; Peninei Halakha):\n• Simple action mitzvot (shofar, sukkah) — often from about age 5.\n• Mitzvot requiring intent (e.g. mourning on Tisha B'Av) — closer to age 7.\n• Tzitzit — when the boy knows how to wear them correctly and recite the bracha (Peninei Halakha 24:1).\n• Tefillin — only shortly before bar mitzvah, when he can maintain proper body and concentration (Sukka 42a; Mishnah Berurah 343:3; Aish).\n\nYom Kippur fasting for children follows specific rabbinic ages (partial fast from 9, etc.) — see Peninei Halakha, Laws of Yom Kippur ch. 9.\n\nTone: mitzvot should be a joy, not a burden; correct with love (Aish). Both parents share in chinuch; ask your rabbi for your children's ages, nusach, and community minhag.\n\nThis checklist item: mark it when you actively invested in your children's chinuch today — teaching, modeling, or guiding a mitzvah at the level halacha expects for their stage.",
+      "links": [
+        {
+          "displayText": "Peninei Halakha — The Mitzva of Chinuch",
+          "url": "https://ph.yhb.org.il/en/01-24-01/"
+        },
+        {
+          "displayText": "Peninei Halakha — Negative Commandments",
+          "url": "https://ph.yhb.org.il/en/01-24-02/"
+        },
+        {
+          "displayText": "Aish — Laws of Raising Jewish Children",
+          "url": "https://aish.com/4-children-and-halacha-2/"
+        },
+        {
+          "displayText": "Chabad.org — Jewish Education: Chinuch",
+          "url": "https://www.chabad.org/library/article_cdo/aid/4052274/jewish/Jewish-Education-Chinuch.htm"
+        },
+        {
+          "displayText": "Pirkei Avot 5:21 (Sefaria)",
+          "url": "https://www.sefaria.org/Pirkei_Avot.5.21"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 38,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "have_mezuzot_on_your_doorposts",
+      "title": "Mezuzot on your doorposts",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The Torah commands us to write G-d's words \"on the doorposts of your house and your gates\" (Deuteronomy 6:9). This is fulfilled by affixing a mezuzah to each doorpost.\n\nWhat a mezuzah is:\nA mezuzah (מְזוּזָה — literally \"doorpost\") is first and foremost the klaf — a small parchment scroll on which a trained scribe (sofer) has hand-written two passages from the Torah (Deuteronomy 6:4-9 and 11:13-21). On the back, the name \"Shaddai\" is written — one of G-d's names, and an acronym for Shomer Daltot Yisrael (Guardian of Israel's doors).\n• The mitzvah is the kosher klaf affixed to the doorpost. A decorative case is optional (you may affix the klaf directly), but most people use one to shield the parchment from dust, damage, and weather.\n\nProtection and benefits:\nJewish tradition teaches that mezuzot guard the home and those who dwell in it — the scroll at the threshold is a sign that G-d watches over your doors. Each time you pass a mezuzah, you are reminded of the Shema, G-d's oneness, and the mitzvot; that steady reminder builds Jewish awareness through ordinary comings and goings. Our Sages link careful mezuzah observance with wellbeing in the home. Many families find mezuzot mark the house as unmistakably Jewish, help teach children, and bring a sense of peace and kedushah (holiness) to daily life.\n\nKey terms:\n• Sofer — a trained Torah scribe who writes sacred texts by hand on parchment\n• Klaf — parchment (the actual scroll inside — this must be kosher)\n• Shaddai — a name of G-d meaning \"Almighty,\" written on the back of the scroll\n\nWhere to put one:\n• Every regularly-used doorway in your home requires a mezuzah — front door, bedroom, living room, kitchen, office, etc.\n• Not required on: bathrooms, small closets under a certain size, storage rooms\n• Affixed on the right doorpost as you enter, in the upper third of the post, at a slight inward angle (top tilted inward)\n\nVery important:\nThe klaf (parchment) must be kosher. Many decorative mezuzah cases are sold empty or with non-kosher scrolls. Always buy your klaf from a reliable Judaica store or rabbi, and have it checked by a sofer every few years.\n\nThe blessing when affixing:\n\"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu lik'boa mezuzah.\"",
+      "links": [
+        {
+          "displayText": "Mezuzah — Deuteronomy 6:9",
+          "url": "https://www.sefaria.org/Deuteronomy.6.9"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 40,
+      "persistChecked": true,
+      "situational": false
+    },
+    {
+      "id": "immerse_food_vessels_in_mikveh",
+      "title": "Tevilat Keilim (Immersing new vessels)",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "When you purchase new dishes, pots, or utensils from a non-Jewish-owned business, many require immersion before use — not only metal and glass, but also glazed ceramic (such as china or porcelain with a glaze) and similar materials.\n\nWhat this is:\nTevilat keilim (טְבִילַת כֵּלִים — \"immersion of vessels\") is a Torah-level mitzvah derived from Numbers 31:23. Just as the human body requires immersion for certain transitions, so too do our vessels when entering the Jewish home.\n\nKey terms:\n• Mikveh — a kosher ritual pool used for immersion. Many communities have a mikveh for vessels at designated times.\n• Tevilah — immersion\n• Keilim — vessels, utensils\n\nWhich vessels need immersion:\n• With a blessing: metal and glass vessels used for food\n• Without a blessing (rabbinic requirement): glazed ceramic and some other materials — ask your rabbi for unusual items\n• No immersion needed: plastic, wooden items, disposables, and items made by a Jew\n\nHow to do it:\nRecite the blessing, then fully submerge the vessel. Let go for a moment so the water surrounds the entire item — a brief release ensures nothing is still touching your hand above the waterline. Use a kosher mikveh; if there is no mikveh nearby, you may immerse in the ocean, a lake, or a river — whether a particular body of water qualifies depends on several factors, so ask your rabbi. Your local mikveh or rabbi can advise on times and setup.\n\nOvens and appliances:\nFor ovens and similar items, usually only the removable racks (or parts that directly touch food) are immersed — not the entire appliance. Some items do require immersing the whole unit; halacha depends on the type. If you are worried about damage — digital displays, electronics, or fragile equipment — ask your rabbi; sometimes one may be lenient and not immerse.\n\nThis is a situational mitzvah — check it off when you have completed immersing the required vessels.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 50,
+      "persistChecked": true,
+      "situational": true
+    },
+    {
+      "id": "100_daily_blessings",
+      "title": "100 Blessings every day",
+      "section": "Ongoing mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The rabbis instituted a practice of saying 100 blessings (brachot) every day, keeping us perpetually aware of G-d's gifts.\n\nWhat a bracha is:\nA bracha (בְּרָכָה — blessing, plural: brachot) is a short formula said before or after performing a mitzvah or enjoying something from the world. Every bracha begins: \"Baruch Atah Ado-nai Eloheinu Melech ha'olam...\" — Blessed are You, L-rd our G-d, King of the universe...\n\nWhere the 100 come from on a weekday:\n• Morning blessings (Birchot HaShachar): ~15\n• Morning prayer service (Shacharit): ~40\n• Afternoon prayer (Mincha): ~20\n• Evening prayer (Maariv): ~18\n• Blessings before and after food: ~10\nTotal: easily 100 on a regular weekday\n\nOn Shabbat and Yom Tov (Jewish holidays):\nThe prayer services are shorter and the Amidah has fewer blessings, so you will fall short of 100. To make up the count:\n• Eat additional snacks and say brachot before and after each\n• Smell fragrant spices or fruit and say the blessing on fragrances (besamim — בְּשָׂמִים)\n\nEin Kelokeinu (Ashkenaz custom on Shabbat & Yom Tov):\nAshkenazim outside Israel often recite Ein Kelokeinu (אֵין כֵאלֹקֵינו) at the end of Shacharit on Shabbat and festivals because the weekday Amidah has nineteen blessings while the Shabbat Amidah has only seven, so you fall further short of one hundred. Following Rashi (Menachot 43b), some rabbis hold that the praises in this hymn count toward the daily hundred when you are lacking — not as full brachot with Shem Umalchus (G-d's name and kingship in the usual formula), but as intentional recognition of G-d. The Taz (OC 642) cites this as a reason for the custom. Many count twenty lines (five stanzas of four); some count twenty-one when the opening line is repeated at the end, as in many siddurim. An older reckoning (Shibbolei Haleket) counts twelve, parallel to the twelve weekday Amidah blessings omitted on Shabbat. It is not recited on Yom Kippur (Maharil), when the long liturgy already supplies abundant praise. The Mishnah Berurah prefers making up the count with real brachot — food, fragrances, or answering Amen to aliyot — when you can, rather than relying only on these praises.\n\nTzaddik (צדיק) — a framework some rabbis recommend:\nSome teachers suggest using the four letters of the word Tzaddik as a daily checklist alongside the 100 brachot:\n• צ (Tzadi = 90): Answer 90 Amens each day (responding \"Amen\" when you hear blessings in prayer or from others).\n• ד (Dalet = 4): Respond to the 4 Kedushot (קְדֻשּׁוֹת — sanctification prayers) in the daily services: (1) Kedushah in Yotzer Or (the blessing before the morning Shema), (2) Kedushah in the Shacharit Amidah repetition, (3) Kedushah D'Sidra / Uva L'Tzion (recited at the end of Shacharit), and (4) Kedushah in the Mincha Amidah repetition.\n• י (Yud = 10): Say 10 Amens to \"Yehei Shemei Rabbah\" (יְהֵא שְׁמֵהּ רַבָּא) during Kaddish throughout the day.\n• ק (Kuf = 100): Recite 100 brachot (blessings) each day — the obligation described above.\n\nKey terms:\n• Kavvanah — intention; saying a bracha with genuine focus and meaning\n• Yom Tov — literally \"good day\"; a Jewish holiday when the Torah prohibits most types of work",
+      "links": [
+        {
+          "displayText": "Aish — 100 blessings a day",
+          "url": "https://aish.com/43-100-blessings-each-day/"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 60,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "at_least_one_prayer_daily_typically_morning",
+      "title": "Daily prayer (at least once)",
+      "section": "Daily Prayer",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "While men are obligated in three structured prayer times, women are required to pray at least once a day.\n\nWhat prayer (tefillah) is:\nTefillah (תְּפִלָּה) comes from the Hebrew root meaning to judge oneself or reflect. Prayer is both a mitzvah and our most direct channel of communication with G-d. The rabbis derived from the phrase \"to serve G-d with all your heart\" (Deuteronomy 11:13) that this refers to prayer — the service of the heart.\n\nKey terms:\n• Tefillah — prayer\n• Amidah — literally \"standing\"; the central prayer of every service, said standing while facing Jerusalem\n• Shemoneh Esrei — literally \"eighteen\"; another name for the Amidah (originally had 18 blessings, now 19)\n• Siddur — the Jewish prayer book (from the root meaning \"order\"); it contains all the prayers for the daily and holiday services\n\nWhat to say:\nThe minimum for women includes praise of G-d, personal requests, and thanks. Many women say the full Amidah (Shemoneh Esrei). Others fulfill the obligation with a heartfelt personal prayer in any language.\n\nFor newcomers:\nStart with what you can manage consistently. Even a few sincere sentences every morning — thanking G-d, asking for what you need — is a genuine fulfillment. Over time, learn more from a siddur (prayer book).",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "female",
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "torah_blessings_minimal_torah_study",
+      "title": "Birkat HaTorah (Blessings before Torah study)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Every day, before learning Torah for the first time, we say Birkat HaTorah — the blessings over Torah study. This is a Torah-level commandment.\n\nWhat these blessings are:\nBirkat HaTorah (בִּרְכַּת הַתּוֹרָה — blessings of the Torah) consists of three short blessings:\n1. A blessing thanking G-d for commanding us to engage in Torah study\n2. A blessing asking G-d to make the words of Torah sweet in our mouths and the mouths of our children\n3. A blessing praising G-d for giving us the Torah\n\nAfter saying these blessings, we immediately read short Torah passages (which also fulfills a minimum daily Torah study obligation).\n\nWhy they matter:\nThe Talmud teaches that many troubles in Jewish history came from failing to say the blessings before Torah study. These blessings express that Torah is not just intellectual — it is a divine gift and our most sacred inheritance.\n\nTiming:\nSaid once in the morning; they cover all Torah learning for the entire day. They can be said from after halachic midnight (chatzos halayla — the midpoint of the night) onward — so even if you wake up very early, say them.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false,
+      "explanationFemale": "Before learning Torah for the first time each day, women say Birkat HaTorah — the blessings over Torah study. This applies when you learn halacha or any Torah text.\n\nSay the three blessings once in the morning (from after halachic midnight / chatzos halayla onward). They cover all Torah learning for the rest of the day.\n\nAfter the blessings, many siddurim include short Torah passages. Even a few minutes of halacha learning afterward fulfills your daily study obligation (see Torah Study)."
+    },
+    {
+      "id": "morning_blessings_birchot_hashachar",
+      "title": "Birchot HaShachar (Morning Blessings)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "A series of short blessings said at the beginning of the morning prayer service, thanking G-d for things we tend to take completely for granted.\n\nWhat they are:\nBirchot HaShachar (בִּרְכוֹת הַשַּׁחַר — Blessings of the Dawn) is a sequence of ~15 blessings at the start of Shacharit. They originated as blessings said at each stage of waking up and preparing for the day — as you open your eyes, stand up, put on clothes, and step outside.\n\nWhat you thank G-d for:\n• Giving intelligence to the rooster to distinguish day from night\n• Not making you a non-Jew, a slave, or a woman (men's version; women say \"for making me according to His will\")\n• Opening the eyes of the blind\n• Clothing the naked\n• Straightening those who are bent\n• Spreading the earth over the waters\n• Giving strength to the weary\n• And more...\n\nKey terms:\n• Shacharit (שַׁחֲרִית) — the morning prayer service; the word comes from shachar, meaning dawn\n• Korbanot (קָרְבָּנוֹת) — Temple offerings; passages describing the daily Temple sacrifices (Tamid) are read as part of the morning service as a substitute for the actual offerings\n• Parshat HaTamid — the passage in Numbers 28:1-8 describing the daily morning offering; recited as part of Korbanot\n\nWhat comes before Birchot HaShachar:\nIn the full morning service, Korbanot (passages about Temple offerings) typically come before or after these blessings. While these may be skipped if time is short, saying them is an important part of the complete service.\n\nTiming:\n• The earliest time to say Birchot HaShachar is from chatzos (halachic midnight / chatzos halayla).\n• L'chatchila (ideally), say the first blessing — HaNoten LaSechvi Vinah (who gives the rooster understanding to distinguish day from night) — after alot hashachar (dawn). If you said it after chatzos, you have still fulfilled your obligation.\n• The other blessings in the sequence may be said from chatzos onward if you wake up very early.",
+      "explanationFemale": "Many poskim and communities hold that women should say Birchot HaShachar upon waking — the same sequence of morning blessings men recite at the start of Shacharit, thanking G-d for the gifts of each new day.\n\nWhat they are:\nBirchot HaShachar (בִּרְכוֹת הַשַּׁחַר — Blessings of the Dawn) is a sequence of ~15 short blessings. They originated as blessings said at each stage of waking — opening your eyes, standing up, getting dressed, and stepping outside.\n\nWomen's wording:\nUse your siddur's women's version. Instead of \"who has not made me a woman,\" women say \"who has made me according to His will.\" The other blessings are the same.\n\nWhen to say them:\n• From chatzos (halachic midnight) onward.\n• Ideally say HaNoten LaSechvi Vinah (the rooster blessing) after alot hashachar; if you said it after chatzos, you have still fulfilled your obligation.\n• The other blessings may be said from chatzos if you wake up very early. Ideally say them upon waking.\n\nEven if you do not daven full Shacharit, many say these blessings are an important way to start the day with gratitude.\n\nAsk your rabbi or rebbetzin about your community's practice.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "minimum_pesukei_d_zimra",
+      "title": "Pesukei DeZimra (Verses of Praise)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Psalms and poetic passages recited before the Shema and Amidah to prepare the heart and mind for prayer.\n\nWhat they are:\nPesukei DeZimra (פְּסוּקֵי דְזִמְרָא — Verses of Song) is a collection of psalms and passages from the Hebrew Bible said before the central prayers each morning. The word zimra means song or melody.\n\nWhy we say them:\nThe Talmud compares jumping straight into the Amidah without preparation to barging into a king's presence without first requesting an audience. Pesukei DeZimra is our way of gradually elevating our focus, shifting from ordinary thought to spiritual awareness, before standing before G-d in prayer.\n\nKey terms:\n• Baruch She'amar — the opening blessing of Pesukei DeZimra; \"Blessed is He who spoke and the world came into being\"\n• Ashrei (אַשְׁרֵי) — Psalm 145, one of the most important psalms, said three times daily; its first word means \"fortunate/happy\"\n• Yishtabach — the closing blessing of Pesukei DeZimra\n• Hallel — psalms of praise (Psalms 113-118); said on Jewish holidays\n\nThe minimum for when you are short on time:\n• Baruch She'amar (opening blessing)\n• Ashrei (Psalm 145)\n• Yishtabach (closing blessing)\n\nThe full version also includes Psalms 146-150 and other hymns. If you arrive at synagogue late, skip Pesukei DeZimra to say the Shema and Amidah with the congregation on time.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 30,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "morning_shema_with_its_blessings",
+      "title": "Shema with its blessings (Morning)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "The Shema is the central declaration of Jewish faith, recited twice daily — morning and evening. Saying it each day is a Torah-level commandment.\n\nWhat the Shema is:\nShema (שְׁמַע — \"Hear\" or \"Listen\") is three Torah passages:\n• Paragraph 1 (Deuteronomy 6:4-9): Declares G-d's oneness and the obligation to love Him with all your heart, soul, and resources\n• Paragraph 2 (Deuteronomy 11:13-21): The reward for observing the Torah and the consequence for abandoning it\n• Paragraph 3 (Numbers 15:37-41): The commandment of tzitzit and remembering the Exodus from Egypt\n\nThe first line:\n\"Shema Yisrael, Ado-nai Eloheinu, Ado-nai Echad.\"\n\"Hear O Israel: the L-rd is our G-d, the L-rd is One.\"\nThis is the most fundamental statement in all of Judaism.\n\nThe blessings that surround it:\n• Before the Shema: two blessings — one about G-d creating light and day (Yotzer Or) and one about G-d giving the Torah to Israel (Ahavat Olam / Ahavah Rabbah)\n• After the Shema: a blessing about redemption from Egypt (Emet VeYatziv), affirming that G-d saved our ancestors and continues to save us\n\nKey terms:\n• Echad — one; G-d's absolute, indivisible unity\n• Ahavat Hashem — love of G-d; the Shema commands us to love G-d with heart, soul, and might\n• Kavvanah — intention and focus; the first verse requires full concentration\n\nHow to say it:\nRecite the first line slowly with full intention. Covering your eyes during the first verse of the Shema is a universally accepted custom, but it is not a strict halachic obligation. The rest can be said at a normal pace.\n\nTiming:\n• The biblical morning Shema must be recited within the first three shaot zmaniot (halachic hours) of the day — until sof zman Shema. That is the latest time to fulfill the Torah obligation.\n• This app grays out the item after sof zman Shema because the biblical obligation can no longer be fulfilled.\n• Bedi'eved: if you missed that time, you should still say the morning Shema with its blessings as part of Shacharit until chatzos (halachic midday). Doing so does not fulfill the biblical obligation, but it is how you complete the service properly.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 40,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "shemoneh_esrei_tachanun",
+      "title": "Amidah / Shemoneh Esrei (Morning prayer)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The Amidah is the central, most important prayer of every service — the moment we stand directly before G-d in silent prayer.\n\nWhat it is:\nThe Amidah (עֲמִידָה — \"standing\") is also called the Shemoneh Esrei (שְׁמוֹנֶה עֶשְׂרֵה — \"eighteen\") after the original 18 blessings; a 19th was added later. On weekdays it contains 19 blessings; on Shabbat and holidays, it is shorter.\n\nThe three sections:\n• Shevach (praise): The first three blessings praise G-d — His greatness, His power over life and death, and His holiness\n• Bakasha (requests): The middle 13 blessings ask for wisdom, repentance, forgiveness, redemption, health, livelihood, ingathering of exiles, restoration of justice, and the coming of the Messiah\n• Hodayah (thanks): The last three blessings give thanks and ask for peace\n\nHow to say it:\n• Stand with your feet together (as angels stand)\n• Face Jerusalem (roughly east in most places)\n• Bow at four specific points in the prayer\n• Say it quietly — lips move but only you can hear\n• Do not stop or interrupt once you begin\n\nTachanun — what is it?:\nTachanun (תַּחֲנוּן — supplication) is a penitential prayer added after the Amidah on most weekdays. It is a confession and plea for mercy. Tachanun is usually said while sitting, leaning the forehead on the arm (nefilat apayim — a posture of submission).\n\nAt Shacharit:\n• Mondays and Thursdays: the longer Tachanun is said — the full section (often opening with \"Vehu Rachum\" / וְהוּא רַחוּם) with nefilat apayim.\n• Other weekdays: a shorter Tachanun is used (exact text varies by nusach and community).\n\nTachanun is omitted on Shabbat, Yom Tov (holidays), Rosh Chodesh (the new month), and other days of joy — the Amidah is still said.\n\nRosh Chodesh means \"head of the month\" — the first day of the Hebrew calendar month, a minor holiday.\n\nIf you are praying in a synagogue, follow the congregation's practice for Tachanun.\n\nTiming:\nThe morning Amidah becomes available at dawn (alot hashachar — shown in the app). Ideally say it at sunrise or later, when the full Shacharit service is ordinarily prayed. If you are in a hurry, you may say the Amidah after dawn even before sunrise.\n\nIdeal deadline: before the end of the fourth halachic hour (sof zman tefillah — visible in the app). Bedi'eved you may still daven Shacharit until halachic midday (chatzos). If you miss it entirely, at Mincha pray two Amidot — Mincha first, then tashlumin for the missed Shacharit.",
+      "links": [
+        {
+          "displayText": "Shulchan Arukh — laws of the Amidah",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.94"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 50,
+      "persistChecked": false,
+      "situational": false,
+      "explanationAshkenaz": "Tachanun (Ashkenaz): On most weekdays Tachanun follows Shacharit Amidah — usually sitting with nefilat apayim. Mondays and Thursdays: longer Tachanun (Vehu Rachum and the full penitential section). Other weekdays: shorter form. Omitted on Rosh Chodesh, festivals, Chanukah, and other days listed in your siddur.",
+      "explanationSefard": "Tachanun (Sefard): Usually said after Shacharit on weekdays; posture (nefilat apayim or not) varies by community. Many communities use longer Tachanun on Mondays and Thursdays and a shorter form on other weekdays. Omitted on the same festive days.",
+      "explanationChabad": "Tachanun (Chabad / Nusach Ari): Recite the Amidah from Tehillat Hashem. Tachanun on ordinary weekdays at Shacharit — longer on Mondays and Thursdays (Vehu Rachum), shorter on other days. Omitted on Rosh Chodesh, Yom Tov, Chanukah, and other special days in the siddur."
+    },
+    {
+      "id": "put_on_tefillin_during_morning_prayers_except_shabbat_festiv",
+      "title": "Tefillin (Phylacteries) during morning prayers",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Tefillin are two small black leather boxes containing Torah passages, worn during morning prayers. This is one of the most important daily mitzvot for Jewish men.\n\nWhat they are:\nTefillin (תְּפִלִּין — phylacteries) consist of two black leather boxes, each containing four hand-written Torah passages on parchment.\n• Shel yad (of the hand): strapped to the upper left arm (for right-handed men), near the heart, with the strap wound seven times around the forearm and then around the hand and fingers in a specific pattern\n• Shel rosh (of the head): placed on top of the head, centered, above the hairline, with the straps hanging down in front\n\nThe Torah source:\n\"Bind them as a sign on your arm, and they shall be frontlets between your eyes\" (Deuteronomy 6:8). This verse is read in the Shema.\n\nWhy we wear them:\nTefillin bind our mind (head-box), heart (arm-box, worn near the heart), and hands (wrapped around the arm) to G-d during prayer. They are a sign of the covenant between G-d and the Jewish people.\n\nKey terms:\n• Shel yad — \"of the hand\"; the arm-tefillin\n• Shel rosh — \"of the head\"; the head-tefillin\n• Batim — literally \"houses\"; the leather boxes\n• Retzuot — the leather straps\n• Kesher — the knot on the head-tefillin (shaped like the letter dalet)\n\nWhen NOT worn:\n• Shabbat (the Sabbath) and Yom Tov (Jewish holidays)\n• Chol HaMoed (the intermediate days of Passover and Sukkot) — this depends on community custom; ask your rabbi\n\nGetting started:\nKosher tefillin are a significant investment ($200 to $2000+). Do not buy cheap tefillin — many are not kosher. Ask your rabbi to help you acquire a certified pair and to teach you how to put them on correctly.",
+      "links": [
+        {
+          "displayText": "Tefillin — Deuteronomy 6:8",
+          "url": "https://www.sefaria.org/Deuteronomy.6.8"
+        }
+      ],
+      "hideOnShabbat": true,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 55,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "musaf_only_on_rosh_chodesh_festivals_and_shabbat",
+      "title": "Musaf (Additional prayer on special days)",
+      "section": "Morning Prayer (Shacharit)",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Musaf is an additional Amidah prayer added to the morning service on Shabbat, Rosh Chodesh, and all Jewish holidays.\n\nWhat Musaf is:\nMusaf (מוּסָף — literally \"additional\") is an extra Amidah — the same standing prayer as the rest of the service — but with a special middle blessing describing the Temple offerings (korbanot) that were brought on that day in Temple times, and a prayer for the restoration of the Temple service.\n\nKey terms:\n• Musaf — additional / extra\n• Korbanot — Temple offerings; sacrifices brought by priests in the Holy Temple in Jerusalem\n• Beit HaMikdash — the Holy Temple in Jerusalem (literally \"the House of Holiness\")\n• Rosh Chodesh — the first day of the Hebrew calendar month; a minor holiday\n• Yom Tov — a Jewish holiday (literally \"good day\"): Rosh Hashanah, Yom Kippur, Passover (Pesach), Shavuot, Sukkot, Shemini Atzeret/Simchat Torah\n\nWhen Musaf is said:\n• Every Shabbat\n• Rosh Chodesh (new month)\n• All Yom Tov holidays\n• Chol HaMoed (intermediate days of Pesach and Sukkot)\n\nWhy we say it:\nIn Temple times, special extra offerings (musaf korbanot) were brought on these holy days. Since the Temple was destroyed, we replace the physical offerings with prayer — reciting what was offered and praying for the Temple to be rebuilt.\n\nTiming:\nSaid after Shacharit (the main morning service), before midday.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 60,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "mincha_shemoneh_esrei_tachanun",
+      "title": "Mincha (Afternoon Prayer)",
+      "section": "Afternoon Prayer",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Mincha is the afternoon prayer — brief, powerful, and said in the middle of the working day.\n\nWhat Mincha is:\nMincha (מִנְחָה — originally the name of the afternoon grain offering in the Temple) is the afternoon prayer service. It was instituted by our patriarch Yitzchak (Isaac), who went to the field to pray in the afternoon (Genesis 24:63, per the Talmud).\n\nWhat the Mincha service contains:\n• Ashrei (Psalm 145) — see morning prayer notes\n• Amidah / Shemoneh Esrei — the same 19-blessing standing prayer (see above)\n• Tachanun — on most weekdays (see below)\n• Aleinu — a closing prayer affirming G-d's sovereignty over the world\n\nTachanun at Mincha:\nTachanun (תַּחֲנוּן — supplication/confession) is a short penitential prayer said after the Amidah on most ordinary weekdays. At Mincha it is often the shorter version — beginning with \"Vayomer David el Gad\" (\"And David said to Gad...\"). Tachanun is omitted on Rosh Chodesh (new month), Yom Tov (holidays), Chanukah, Purim, and other joyful occasions. If praying in a synagogue, follow the congregation.\n\nKey terms:\n• Mincha Gedolah — \"large Mincha\"; the earliest time for Mincha, beginning 30 minutes after halachic noon (chatzot)\n• Mincha Ketanah — \"small Mincha\"; the preferred time, beginning 2.5 hours before sunset\n• Plag HaMincha — \"half of Mincha\"; 1.25 hours before sunset; significant for Shabbat candle lighting\n\nTiming:\nMincha begins from about 30 minutes after midday and must finish before sunset. The app shows the current window. If you miss Mincha, it can be made up at Maariv only — say the Maariv Amidah first, then immediately say a second Amidah as the tashlumin. This window closes when Maariv ends; you cannot make it up the following morning. See the guide entry on Tashlumin for full rules.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false,
+      "explanationAshkenaz": "Tachanun at Mincha (Ashkenaz): Often said after Mincha on weekdays (sometimes with nefilat apayim). Omitted on Rosh Chodesh, Yom Tov, and other days of celebration — Mincha itself is still said.",
+      "explanationSefard": "Tachanun at Mincha (Sefard / Mizrahi): In many communities Tachanun is not said at Mincha (only at Shacharit). Follow your community; if your minyan says Tachanun at Mincha, do as they do.",
+      "explanationChabad": "Tachanun at Mincha (Chabad): On ordinary weekdays, typically the shorter Tachanun (Vayomer David el Gad) after Mincha. Omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other special occasions — Mincha itself is still said."
+    },
+    {
+      "id": "evening_shema_with_its_blessings",
+      "title": "Shema with its blessings (Evening)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "explanation": "The Torah commands the Shema to be said \"when you lie down\" — meaning in the evening. This is a separate Torah-level obligation from the morning Shema.\n\nWhat it is:\nThe same three Torah paragraphs as the morning Shema (see the morning prayer section), but said at night with different surrounding blessings.\n\nThe blessings around the evening Shema:\n• Before: A blessing about G-d alternating day and night (Ma'ariv Aravim) and a blessing about G-d's eternal love for Israel (Ahavat Olam)\n• After: A blessing affirming the Exodus from Egypt (Emet Ve'Emunah) and prayers for protection through the night\n\nKey terms:\n• Maariv (מַעֲרִיב) — the evening prayer service; named for the blessing Ma'ariv Aravim (\"Who brings on the evening\")\n• Tzeit hakochavim (צֵאת הַכּוֹכָבִים) — nightfall; literally \"the emergence of the stars\"; the earliest time for the evening Shema\n• Chatzos halayla (חֲצוֹת הַלַּיְלָה) — halachic midnight; the preferred deadline for saying the evening Shema\n\nTiming:\nFrom nightfall (tzeit hakochavim — when three medium stars appear) until dawn. Ideally said before halachic midnight (chatzos halayla). The app shows the current window.\n\nAfter sunset (shkiyah):\nWhile Maariv (the evening prayer) can begin at sunset, the biblical obligation to recite Shema at night has not yet begun. If you pray early Maariv, you will need to repeat the Shema later (at nightfall / tzeit hakochavim).\n\nNote:\nThe evening Shema (as part of Maariv) is distinct from the bedtime Shema (Kriat Shema al HaMitah). Both are required.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "maariv_shemoneh_esrei",
+      "title": "Maariv (Evening Prayer — Amidah)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "explanation": "Maariv is the evening prayer service, instituted by our patriarch Yaakov (Jacob) and observed every night.\n\nWhat it is:\nMaariv (מַעֲרִיב — also called Arvit, עַרְבִית) is the evening prayer service. After the Shema and its blessings, we say the Amidah (Shemoneh Esrei) — the same standing prayer as in Shacharit and Mincha, though the evening version has some differences.\n\nStructure of Maariv:\n1. Ashrei and a short passage (in some traditions)\n2. Barchu — the call to prayer (בָּרְכוּ — \"Bless G-d\"), said when praying with a minyan of 10 men\n3. Evening Shema with its two blessings before and two after\n4. Amidah / Shemoneh Esrei\n5. Aleinu\n6. Mourner's Kaddish (said by mourners or those observing yahrzeit)\n\nKey terms:\n• Barchu — the formal call to communal prayer; \"Bless G-d, the blessed One!\"\n• Minyan — a quorum of at least 10 Jewish men required for certain communal prayers\n• Kaddish (קַדִּישׁ) — a prayer praising G-d, said by mourners and at various points in the service; requires a minyan\n• Yahrzeit (יאָרצַייט) — the anniversary of a person's death; Kaddish is traditionally recited on this day\n• Aleinu (עָלֵינוּ) — closing prayer affirming G-d's sovereignty; said at the end of every service\n\nTiming:\nFrom nightfall until dawn. If you miss Maariv, make it up at the following morning's Shacharit only — say the regular Shacharit Amidah first, then immediately say a second Amidah as the tashlumin for Maariv. If you miss that window too, the opportunity is permanently gone. See the guide entry on Tashlumin for full rules including the Tefilat Nedavah option.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
+      "title": "Kriat Shema al HaMitah (Bedtime Shema)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "explanation": "Said immediately before sleep, the bedtime Shema is a separate requirement from the Shema said during Maariv.\n\nWhat it is:\nKriat Shema al HaMitah (קְרִיאַת שְׁמַע עַל הַמִּטָּה — \"reading of the Shema on the bed\") is a short nighttime prayer said as the final spiritual act before sleep. The Talmud teaches it protects the person through the night.\n\nWhat to say:\n• At minimum: the first paragraph of Shema (\"Shema Yisrael... uvshochbecha uvkumecha\")\n• Recommended: the full three paragraphs of Shema\n• Also included: Hamapil blessing (next item), several psalms (including Psalm 91 — a psalm of protection), and other brief prayers\n\nWhy a second Shema?\nEven if you already said the Shema as part of Maariv, the bedtime Shema is a separate mitzvah — different time, different purpose. The Maariv Shema fulfills the evening commandment; the bedtime Shema is specifically for protection during sleep.\n\nKey terms:\n• Mitah — bed\n• Kriat Shema — \"reading of the Shema\"\n• Shmirat HaNefesh — protection of the soul; the tradition that certain prayers guard us from spiritual harm at night\n\nTiming:\nSay it as close to the actual time of sleep as possible. Ideally before halachic midnight (chatzos halayla). If you go to bed later, say it then.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 40,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "bedtime_shema_women",
+      "title": "Kriat Shema al HaMitah (Bedtime Shema)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "gender": "female",
+      "explanation": "Women are obligated in Kriat Shema al HaMitah (קְרִיאַת שְׁמַע עַל הַמִּטָּה — the Bedtime Shema), even though women are generally exempt from most time-bound positive commandments (mitzvot aseh shehazman graman, like the daytime Shema at a specific hour). Bedtime Shema is treated differently for several reasons:\n\nSpiritual protection (shmirah — שְׁמִירָה):\nThe Bedtime Shema is not only a timed recitation. The Talmud teaches that these words guard a person while the soul is partially withdrawn during sleep. Women need this protection during sleep just as men do.\n\nHamapil (הַמַּפִּיל):\nThe blessing recited just before sleep — \"Who casts the bands of sleep upon my eyes...\" — is a blessing of praise and a request for protection. It is not time-bound in the same way as the evening Shema in Maariv, and women are required to say it as part of preparing for sleep.\n\nThe core verse:\nEven beyond the full bedtime order, reciting the first verse of Shema (Shema Yisrael) is an acknowledgment of G-d's sovereignty that applies to everyone.\n\nWhat to say:\n• At minimum: the first paragraph of Shema (\"Shema Yisrael...\" through \"uvshochbecha uvkumecha\")\n• Recommended: all three paragraphs of Shema, as printed in your siddur's bedtime section\n• Then Hamapil, as the last blessing before closing your eyes\n• Many siddurim also include psalms (such as Psalm 91) and brief prayers of trust in G-d\n\nCustoms:\nSome traditions omit certain prayers in the full bedtime order (for example, some are cautious about saying Hamapil if they are unsure they will fall asleep immediately). The core Shema and the protective blessings remain universal for women. Ask your rabbi or rebbetzin about your community's practice.\n\nTiming:\nSay it right before getting into bed to go to sleep for the night — at your actual bedtime, not when taking a short daytime nap. If you go to bed later than halachic midnight, say it then. If you forgot and have not yet slept, say it when you remember.\n\nDistinct from Maariv:\nIf you pray Maariv or say the evening Shema separately, the Bedtime Shema at sleep is still its own mitzvah — different time and purpose (protection through the night).\n\nUse a siddur or the guides below for the exact text step by step.",
+      "links": [
+        {
+          "displayText": "Chabad.org — Bedtime Shema",
+          "url": "https://www.chabad.org/library/article_cdo/aid/1795/jewish/Bedtime-Shema.htm"
+        },
+        {
+          "displayText": "Aish.com — Bedtime Shema",
+          "url": "https://aish.com/need_sleep/"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 40,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "hamapil_blessing_according_to_many_opinions",
+      "title": "Hamapil (Blessing before sleep)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "explanation": "Hamapil is the very last thing said before closing your eyes to sleep.\n\nWhat it is:\nHamapil (הַמַּפִּיל — \"who casts\") is a blessing thanking G-d for the gift of sleep and asking for protection through the night. It is unique because it is said before an action you are about to do (sleep) rather than while doing it.\n\nThe blessing asks that:\n• Our eyes be allowed to sleep\n• We wake in the morning in peace\n• We not be disturbed by bad dreams\n• Our sleep refresh and heal us\n\nWhy sleep requires a blessing:\nThe Talmud teaches that sleep is \"one-sixtieth of death\" — a nightly partial departure of the soul from the body. Saying Hamapil acknowledges this transition and expresses total trust in G-d.\n\nKey terms:\n• Hamapil — the one who casts/pours; the opening word of the blessing\n• Sheinah — sleep\n• Chalom — dream\n• Chalom tov — a good dream\n\nHow to say it:\nSay it after the bedtime Shema, immediately before closing your eyes.\n\nAfter saying Hamapil (Rama, SA OC 239:1): do not eat, drink, or speak until you fall asleep. If an urgent need arises (a child crying, needing the restroom, a security matter), you may speak — this does not cancel the blessing and you do not need to repeat it (Biur Halachah, ad loc.). Reading Tehillim (Psalms), learning Torah, or repeating Shema while waiting for sleep is permitted and not considered an interruption, since it is part of preparing the mind for holy rest (Biur Halachah).\n\nWhat if you're not sure you'll fall asleep?\nThere are two main positions:\n\n1. Ashkenazi ruling — always say it (Mishnah Berurah 239:6; Chazon Ish, OC 37:11):\nHamapil is a blessing of praise for G-d's creation of sleep in general, not a personal guarantee that you will fall asleep at once. Even if you suffer from insomnia, say it. As long as you lie down with the intent to sleep, the blessing is valid — any sleep you eventually get that night validates it retroactively.\n\n2. Sephardic and Kabbalistic ruling — exercise caution (Ben Ish Chai, Year 1, Parashat Pekudei 12; Kaf HaChaim OC 239:18):\nIf you are genuinely uncertain you will sleep soon — due to illness, severe anxiety, or acute insomnia — do not say the full blessing with G-d's name (Shem u'Malchut), to avoid a blessing said in vain (bracha levatala). Instead, say the words as a meditative prayer while thinking G-d's name silently, or omit the closing signature (Baruch Atah...) entirely. The principle applied is: safek brachot l'hakel — when in doubt about a blessing, be lenient and omit it.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 50,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "kiddush_levana",
+      "title": "Kiddush Levana — Sanctification of the Moon (once per Hebrew month)",
+      "section": "Evening Prayer",
+      "timeOfDay": "night",
+      "required": true,
+      "situational": false,
+      "gender": "male",
+      "sortOrder": 60,
+      "persistChecked": false,
+      "monthlyMitzvah": true,
+      "explanation": "Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly prayer/blessing said once each month when the new moon is visible at night. It is one of the most ancient expressions of Jewish joy, wonder, and faith in renewal.\n\nWhat it is:\nKiddush Levana is not worship of the moon — that would be forbidden. It is a blessing directed to G-d, praising Him for the cycles of creation and drawing inspiration from the moon's monthly renewal as a symbol of Israel's own renewal and ultimate redemption. The blessing includes verses from Psalms, praises of G-d, and a statement of faith in Israel's future.\n\nThe Talmud (Sanhedrin 42a) teaches: 'Whoever blesses the new moon at its proper time is considered as if he greeted the Shekhinah (Divine Presence) itself.'\n\nWhen and how:\n• At night, after nightfall (tzeit), standing.\n• L'chatchila (ideal): Say it under the open sky — not under a roof, porch ceiling, or trees overhead (Shulchan Aruch OC 426; Mishnah Berurah).\n• Looking at the moon: Before the main blessing, look at the moon briefly so you benefit from its light. Do not look at the moon while reciting the blessing — that is the widespread custom (Mishna Berurah 426:13; Kaf HaChaim; Peninei Halakha 5:17).\n• Bedi'eved: If you cannot go outside (illness, safety, weather), you may say it indoors when you can see the moon through a clear window or open door; try to open the window when possible.\n• Clouds: If the moon is fully hidden by thick clouds, do not begin — you cannot benefit from its light. If only a thin cover and you can still make out the moon's outline, you may say it; ideally wait for a clearer night. If clouds cover the moon after you have already started, finish the service.\n\nMonthly window — earliest and latest:\n\nEarliest time:\nYou cannot say it right when the new month begins. Wait until the moon is visible as a crescent:\n• Ashkenazi / Chabad: wait at least 3 days after the new moon (the molad).\n• Sephardi: wait 7 days after the new moon.\n\nLatest time:\nThe latest you can say it is the night of the 15th of the Hebrew month — after that, the window is closed until next month. Ideally say it well before then; the Mishnah Berurah recommends within the first 10 days of the month.\n\nShabbat and Motzei Shabbat:\nMany communities have a beautiful custom to say Kiddush Levana specifically on Motzei Shabbat (Saturday night), when people leave synagogue in their Shabbat clothes, joyful from Shabbat. The joy of Shabbat is said to enhance the sanctity of the blessing. If Motzei Shabbat falls within the window, it is the preferred time.\n\nWhat you cannot do on Shabbat/Yom Tov:\nKiddush Levana is not said on Shabbat or Yom Tov itself. It must be said on a regular weeknight or Motzei Shabbat/Yom Tov.\n\nMinimum requirement:\nAt minimum, say the opening blessing ('Baruch Atah Ado-nai... mekadesh Yisrael v'roshei chodashim'), some traditional accompanying verses, and the closing parts. In practice, a siddur is used — follow along from your community's nusach.\n\nKey terms:\n• Levana (לְבָנָה) — the moon; also related to lavan (white) and l'vnat (whiteness)\n• Molad (מוֹלָד) — the birth of the new moon; the moment of lunar conjunction\n• Rosh Chodesh (רֹאשׁ חֹדֶשׁ) — the new month, beginning at the molad\n• Shekhinah (שְׁכִינָה) — the Divine Presence\n\nThis app tracks the window for you: the item will appear as available when the window is open, upcoming when the window has not yet opened, and expired after the 15th. It resets each month automatically.",
+      "links": [
+        {
+          "displayText": "Chabad — Kiddush Levana",
+          "url": "https://www.chabad.org/library/article_cdo/aid/1645/jewish/Kiddush-Levana.htm",
+          "type": "default"
+        },
+        {
+          "displayText": "Peninei Halakha — Blessing the New Moon",
+          "url": "https://ph.yhb.org.il/en/05-01-17/"
+        },
+        {
+          "displayText": "Shulchan Arukh OC 426 (Sefaria)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.426"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false
+    },
+    {
+      "id": "weekly_parsha_shnayim_mikra",
+      "title": "Shnayim Mikra (Weekly Torah portion)",
+      "section": "Torah Study",
+      "sortOrder": 10,
+      "timeOfDay": "any",
+      "required": true,
+      "weeklyMitzvah": true,
+      "explanation": "Each week, the Jewish community reads a designated section of the Torah in synagogue on Shabbat morning. Every individual is personally required to study that same section during the week.\n\nWhat this is:\nShnayim Mikra v'Echad Targum (שְׁנַיִם מִקְרָא וְאֶחָד תַּרְגּוּם — \"twice the text and once the translation\") is the requirement to read each verse of the weekly Torah portion:\n• Twice in the original Hebrew\n• Once in Aramaic translation (Targum Onkelos, a word-for-word Aramaic translation of the Torah written by Onkelos, a convert to Judaism in the 1st century CE)\n\nKey terms:\n• Parsha / Parashah (פָּרָשָׁה) — the weekly Torah portion; the Torah is divided into 54 portions, one read each week in synagogue\n• Sefer Torah — the Torah scroll, hand-written on parchment\n• Targum Onkelos — the authoritative Aramaic translation of the Torah\n• Chumash — a printed Torah book (from chamesh — five), containing the Five Books of Moses with commentaries\n\nFor those learning Hebrew:\nIf you cannot yet read the Hebrew and Aramaic fluently, many authorities allow an accurate English translation in place of Targum Onkelos. However, learning to read the Hebrew text is one of the most rewarding investments a Jew can make.\n\nWhen to do it:\nComplete it before Shabbat morning of the following week. Most people spread it across the week — a few verses or a passage each day.",
+      "links": [
+        {
+          "displayText": "Sefaria — weekly Parsha",
+          "url": "https://www.sefaria.org/texts/Torah"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "torah_study_women",
+      "title": "Torah study — halachot for daily life",
+      "section": "Torah Study",
+      "timeOfDay": "any",
+      "required": true,
+      "gender": "female",
+      "explanation": "What applies to women in Torah Study:\n\nWomen are exempt from the formal, continuous mitzvah of Talmud Torah (תַּלְמוּד תּוֹרָה) incumbent on men — including the men's day-and-night study schedule on this checklist. You are also not required to do Shnayim Mikra (weekly parsha reading) or Chabad's daily Hayom Yom / Chitas program, though you may learn them voluntarily.\n\nYour obligation:\nYou are obligated to study the practical halachot (הֲלָכוֹת — laws) that apply to your daily life so you can observe them properly: blessings, kashrut, Shabbat, prayer you say, tzniut, taharat hamishpacha (if married), and other mitzvot relevant to you.\n\nWhen to learn:\nThis item is for any time of day or night. Even a few minutes of focused halacha learning counts. There is no upper limit if you wish to learn more.\n\nEvening prayer (separate section):\nWomen say Kriat Shema al HaMitah (Bedtime Shema) before sleep. You do not need Shema with its Maariv blessings as a separate obligation.\n\nGood starting points:\n• [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) or a women's halacha book from your community\n• Daily halacha — [DailyHalacha.com](https://www.dailyhalacha.com/) or [Halachipedia](https://www.halachipedia.com/)\n• [Sefaria.org](https://www.sefaria.org/) — search topics you need for your home and family\n\nAsk your rabbi or rebbetzin which areas to prioritize as you grow in observance.",
+      "links": [
+        {
+          "displayText": "Sefaria — Kitzur Shulchan Arukh",
+          "url": "https://www.sefaria.org/Kitzur_Shulchan_Arukh"
+        },
+        {
+          "displayText": "Chabad.org",
+          "url": "https://www.chabad.org/"
+        },
+        {
+          "displayText": "Sefaria.org",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Sefaria — Jewish texts & translations",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Halachipedia",
+          "url": "https://www.halachipedia.com/"
+        },
+        {
+          "displayText": "DailyHalacha.com",
+          "url": "https://www.dailyhalacha.com/"
+        },
+        {
+          "displayText": "Chabad.org — Daily Torah Study (optional)",
+          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 30,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "torah_study_day",
+      "title": "Talmud Torah — daytime (Daily Torah Study)",
+      "section": "Torah Study",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Torah study is one of the greatest mitzvot in the entire Torah — so great that the Talmud says it is equal to all other mitzvot combined.\n\nWhat Torah study is:\nTalmud Torah (תַּלְמוּד תּוֹרָה — study of Torah) means engaging with any part of the Jewish textual tradition: the Five Books of Moses, the Prophets and Writings (Tanakh), Mishnah, Talmud, halachic (legal) works, Kabbalah (Jewish mysticism), Chassidut (Chassidic teachings), Mussar (ethical literature), or any authentic Torah book.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day. There is no upper limit — learn as much as you are able. Set aside fixed times (keviyut — קְבִיעוּת) when possible; even a small amount done consistently and purposefully is enormously valuable.\n\nThis checklist item is for daytime study. There is a separate item for Torah study at night.\n\nKey terms:\n• Tanakh — the Hebrew Bible: Torah (Five Books of Moses) + Nevi'im (Prophets) + Ketuvim (Writings)\n• Mishnah — the first written compilation of the Oral Torah, edited by Rabbi Yehuda HaNasi around 200 CE\n• Talmud — the expanded discussion of the Mishnah by the rabbis; consists of Gemara (Talmudic discussion) + Mishnah; completed around 500 CE\n• Halacha — Jewish law; the practical rules derived from Torah\n• Chassidut — Chassidic philosophy and teachings, focused on inner divine service and joy\n• Mussar — ethical and character-development literature\n\nGood starting points for newcomers:\n• Daily halacha: [DailyHalacha.com](https://www.dailyhalacha.com/) and [Halachipedia](https://www.halachipedia.com/) for looking up laws\n• [Chabad.org](https://www.chabad.org/) or [Sefaria.org](https://www.sefaria.org/) for structured texts with translation\n• A weekly Parsha class (in person or on [TorahAnytime.com](https://www.torahanytime.com/))\n• [Daf Yomi](https://www.sefaria.org/daf-yomi) — one page of Talmud per day (completes the entire Talmud in 7.5 years)\n• The [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) — a concise summary of practical Jewish law for daily life",
+      "links": [
+        {
+          "displayText": "Rambam — Laws of Torah Study",
+          "url": "https://www.sefaria.org/Mishneh_Torah,_Torah_Study.1"
+        },
+        {
+          "displayText": "Chabad.org",
+          "url": "https://www.chabad.org/"
+        },
+        {
+          "displayText": "Sefaria.org",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Sefaria — Jewish texts & translations",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Kitzur Shulchan Arukh (Sefaria)",
+          "url": "https://www.sefaria.org/Kitzur_Shulchan_Arukh"
+        },
+        {
+          "displayText": "Daf Yomi",
+          "url": "https://www.sefaria.org/daf-yomi"
+        },
+        {
+          "displayText": "Sefaria — Daf Yomi",
+          "url": "https://www.sefaria.org/daf-yomi"
+        },
+        {
+          "displayText": "Chabad.org — Daily Torah Study",
+          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+        },
+        {
+          "displayText": "What Is Chitas? (Chabad.org)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/6031317/jewish/What-Is-Chitas-The-Daily-Study-Program.htm"
+        },
+        {
+          "displayText": "Halachipedia",
+          "url": "https://www.halachipedia.com/"
+        },
+        {
+          "displayText": "DailyHalacha.com",
+          "url": "https://www.dailyhalacha.com/"
+        },
+        {
+          "displayText": "TorahAnytime.com — classes",
+          "url": "https://www.torahanytime.com/"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 30,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "torah_study_night",
+      "title": "Talmud Torah — nighttime (Daily Torah Study)",
+      "section": "Torah Study",
+      "timeOfDay": "night",
+      "required": true,
+      "explanation": "Torah study is one of the greatest mitzvot in the entire Torah — so great that the Talmud says it is equal to all other mitzvot combined.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day and also at night. There is no upper limit to how much you may learn — the more Torah you study, the greater the mitzvah.\n\nThis checklist item is for nighttime study (from nightfall until the end of the night's obligations). Daytime study is tracked separately.\n\nWhat counts:\nAny authentic Torah learning — Chumash, Tanakh, Mishnah, Talmud, halacha, Mussar, Chassidut, or a structured daily program (such as Chitas for those who follow that custom).\n\nEven a few minutes of focused learning at night fulfills this mitzvah. Consistency matters more than length.",
+      "links": [
+        {
+          "displayText": "Rambam — Laws of Torah Study",
+          "url": "https://www.sefaria.org/Mishneh_Torah,_Torah_Study.1"
+        },
+        {
+          "displayText": "Chabad.org",
+          "url": "https://www.chabad.org/"
+        },
+        {
+          "displayText": "Sefaria.org",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Sefaria — Jewish texts & translations",
+          "url": "https://www.sefaria.org/"
+        },
+        {
+          "displayText": "Chabad.org — Daily Torah Study (Chitas)",
+          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+        },
+        {
+          "displayText": "What Is Chitas? (Chabad.org)",
+          "url": "https://www.chabad.org/library/article_cdo/aid/6031317/jewish/What-Is-Chitas-The-Daily-Study-Program.htm"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "male",
+      "sortOrder": 35,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "blessings_before_food",
+      "title": "Brachot before eating or drinking",
+      "section": "Eating & Blessings",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Before eating or drinking anything, we say a short blessing (bracha) thanking G-d for the food. This is one of the most frequently-performed mitzvot in daily life.\n\nWhat a bracha is:\nBracha (בְּרָכָה — blessing, plural: brachot) is a brief formula beginning \"Baruch Atah Ado-nai Eloheinu Melech ha'olam...\" (Blessed are You, L-rd our G-d, King of the universe) followed by a specific ending based on the food.\n\nThe Talmud's principle:\n\"It is forbidden to benefit from this world without a blessing.\" Eating without a bracha treats G-d's world as ownerless — the bracha is our acknowledgment that everything belongs to G-d.\n\nThe six main blessings before food:\n• Hamotzi (הַמּוֹצִיא) — for bread made from any of the five grains (wheat, barley, spelt, oat, rye)\n• Mezonot (מְזוֹנוֹת) — for other grain-based foods: cake, cookies, crackers, pasta, cereal\n• HaGafen (הַגָּפֶן) — for wine or grape juice; the blessing is Borei pri ha'gafen (בּוֹרֵא פְּרִי הַגָּפֶן)\n• HaEtz (הָעֵץ) — for fruit from a tree (apples, oranges, grapes, etc.)\n• HaAdamah (הָאֲדָמָה) — for produce from the ground (vegetables, bananas, strawberries)\n• Shehakol (שֶׁהַכֹּל) — for everything else: meat, fish, eggs, milk, cheese, water, candy, etc.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "blessings_after_food",
+      "title": "Brachot after eating",
+      "section": "Eating & Blessings",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "After eating or drinking, we thank G-d with an after-blessing (bracha acharona). Which blessing you say depends on what you ate or drank — and whether you ate or drank enough, within the required time.\n\nThe after-blessings:\n\nBirkat Hamazon (בִּרְכַּת הַמָּזוֹן — Grace After Meals):\n• After eating bread (Hamotzi)\n• A full multi-paragraph prayer of thanks; a Torah-level commandment (Deuteronomy 8:10)\n• When three or more adult Jewish men eat bread together, Zimmun (זִמּוּן — a formal invitation) is recited together before Birkat Hamazon\n• A bentcher (בֶּנְטְשֶׁר) is a small booklet containing the text — commonly found at Shabbat tables\n• After a bread meal: if you ate at least a kezayit of bread within k'dei achilat pras, Birkat Hamazon (bentching) covers everything else you ate at that same meal — wine, meat, fruit, dessert, etc. You do not say separate after-blessings for those other foods.\n\nAl HaMichya (עַל הַמִּחְיָה — Bracha Achat Me'ein Shalosh):\n• After Mezonot — grain foods that are not bread: cake, crackers, pasta, cereal, etc. (wheat, barley, spelt, oat, rye)\n• A condensed “one blessing like three” derived from Birkat Hamazon\n• At the same sitting, if you also had enough wine/grape juice or enough shivat ha-minim tree fruits (below), use one Al HaMichya text with the inserted phrases (v'al hagafen v'al pri hagafen, v'al ha'etz v'al pri ha'etz) in your siddur\n\nAl HaGafen (עַל הַגָּפֶן וְעַל פְּרִי הַגָּפֶן):\n• After wine or grape juice — the full after-blessing is על הגפן ועל פרי הגפן (the vine and the fruit of the vine), not על הגפן alone\n• At least a revi'it within k'dei shtiyat revi'it (not Borei Nefashot)\n• Same category as the before-blessing Borei pri ha'gafen (בּוֹרֵא פְּרִי הַגָּפֶן)\n• Eating fresh grapes as fruit (not drinking juice): many say Al HaEtz instead — see shivat ha-minim below\n\nAl HaEtz (עַל הָעֵץ וְעַל פְּרִי הָעֵץ — Bracha Achat Me'ein Shalosh):\n• Only after shivat ha-minim (seven species) fruits that grow on trees: grapes (as fruit, not juice), dates, figs, pomegranates, olives\n• The full phrase is על העץ ועל פרי העץ (the tree and the fruit of the tree) throughout the blessing — opening, thanks, and closing — not על העץ alone\n• Not for apples, oranges, bananas, berries, or other tree fruits — those use Borei Nefashot only\n• A kezayit within k'dei achilat pras\n\nBorei Nefashot (בּוֹרֵא נְפָשׁוֹת — \"Who creates souls\"):\n• After most other foods: meat, fish, eggs, dairy, vegetables, and fruits that are not shivat ha-minim\n• After most drinks other than wine/grape juice, if you drank a revi'it within k'dei shtiyat revi'it\n• The shortest after-blessing; can be memorized in minutes\n\nHow much food — k'dei achilat pras (eating):\n• Generally need at least a kezayit (כְּזַיִת — about olive-sized; many use roughly 1 oz / 30 g)\n• Eaten within k'dei achilat pras (כְּדֵי אֲכִילַת פְּרַס — the time to eat about half a loaf): lechatchila about 4 minutes; many poskim allow up to about 6–9 minutes bedi'eved (Shulchan Aruch / Mishnah Berurah)\n• Less than a kezayit, or spread over longer than k'dei achilat pras: no after-blessing on that food\n\nHow much drink — k'dei shtiyat revi'it (drinking) — not the same as k'dei achilat pras:\nHalacha often requires an action within a specific continuous timeframe. For eating a kezayit, that is k'dei achilat pras (minutes — see above). For drinking, it is much faster.\n\nK'dei shtiyat revi'it (כְּדֵי שְׁתִיַּת רְבִיעִית) literally means the time it takes to drink a revi'it (about 3–5 fl oz / 86–150 ml depending on custom). It is a very short span — a few continuous seconds — used as a legal measurement for drinking.\n\nFor bracha acharona on a beverage:\n• You need a revi'it drunk within k'dei shtiyat revi'it\n• If you sip coffee slowly over 20 minutes, you did not drink the required volume within the required time — no after-blessing on that drink\n• How many seconds? Poskim differ:\n  — Sephardic / Rambam / Rav Ovadia Yosef: one continuous shot without removing the cup from your lips — roughly about 2–4 seconds\n  — Ashkenaz / Mishnah Berurah: two normal gulps with one brief pause between them — often estimated about 9–12 seconds\n• Cold drinks (water, juice): to be obligated in Borei Nefashot or Al HaGafen, swallow a revi'it quickly and continuously in those few seconds rather than nursing it slowly\n• Hot coffee, tea, or soup: drinking that fast is difficult, so common practice is no after-blessing when you only sip slowly — unless you set aside at least a revi'it and drink it at once when cool enough\n\nDrinks only — which after-blessing?\n• Wine or grape juice: Al HaGafen (עַל הַגָּפֶן וְעַל פְּרִי הַגָּפֶן) if a revi'it within k'dei shtiyat revi'it\n• Water, milk, soda, etc.: Borei Nefashot if a revi'it within k'dei shtiyat revi'it\n• Mezonot snack plus wine at the same sitting: one Al HaMichya including the wine phrase if both meet their thresholds\n\nWhere to find the exact text:\nOpen your siddur or bentcher to the bracha acharona section. In Mitz Mode, tap the menu (⋮) → **Blessings** for before- and after-blessing texts.\n\nKey terms:\n• Zimun — the formal invitation to Birkat Hamazon when three or more adult Jewish men eat bread together\n• Kezayit — minimum food amount for an after-blessing\n• Revi'it — minimum drink amount for an after-blessing on beverages (about 3–5 fl oz; roughly 86 ml per Rav Chaim Na'eh, about 100 ml in many guides, up to about 150 ml per Chazon Ish)\n• K'dei achilat pras — time to eat about half a loaf; used for a kezayit of food (about 3–4 minutes lechatchila; not seconds)\n• K'dei shtiyat revi'it — time to drink a revi'it; used for after-blessings on drinks (about 2–4 seconds per Rambam / Sephardic custom; about 9–12 seconds per Mishnah Berurah / many Ashkenazim — not comparable to k'dei achilat pras)\n• Shivat ha-minim — seven species praised in the Land of Israel: wheat, barley, grapes, figs, pomegranates, olives, dates (Deuteronomy 8:8)",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "asher_yatzar_after_using_bathroom",
+      "title": "Asher Yatzar (After using the bathroom)",
+      "section": "Eating & Blessings",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "After using the bathroom, we wash our hands and say the Asher Yatzar blessing — every time you finish.\n\nWhen to say it:\n• Normally: say Asher Yatzar each time you use the bathroom, once you are done and have washed your hands.\n• If you are ill — for example diarrhea or another condition where you may need the bathroom again right away — wait until you are reasonably sure you have finished for that round before saying it. Otherwise you might say the blessing and then need the bathroom again immediately, which is impractical and not the point of the bracha.\n\nWhat it is:\nAsher Yatzar (אֲשֶׁר יָצַר — \"Who fashioned\") is a blessing thanking G-d for the miraculous design of the human body. It is one of the most medically insightful prayers ever composed.\n\nThe blessing says:\nG-d created the human body with wisdom — with openings and closings (tubes, valves, sphincters). If any one of them were to open when it should be closed, or close when it should be open, it would be impossible to survive.\n\nWhy this is profound:\nModern medicine has confirmed exactly this. A blocked ureter, a stuck heart valve, or a blocked bowel — any of these is a life-threatening emergency. Every time your body functions normally, it is a miracle. Asher Yatzar trains us to recognize it as one.\n\nKey terms:\n• Asher Yatzar — \"Who fashioned\" (the opening words of the blessing)\n• Chalulim chalulim — \"cavities within cavities\" (the body's complex inner structure, mentioned in the blessing)\n• Rofeh chol basar — \"Healer of all flesh\" (how the blessing ends, acknowledging G-d as the ultimate healer)\n\nHow to do it:\n1. After using the bathroom, wash your hands (without a blessing, unless this is your morning washing)\n2. Say Asher Yatzar — it takes about 20 seconds\n\nFind the text in any Jewish prayer book (siddur) or app. In Mitz Mode, tap the menu (⋮) → **Blessings** for the text.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 30,
+      "persistChecked": false,
+      "situational": false
+    },
+    {
+      "id": "cover_hair_in_public_if_married",
+      "title": "Kisui Rosh (Hair covering for married women)",
+      "section": "Married women's mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Married Jewish women are required to cover their hair whenever they are in public or in the presence of men other than their husband.\n\nWhat it is:\nKisui rosh (כִּיסּוּי רֹאשׁ — literally \"covering of the head\") is one of the fundamental practices of Jewish married life. It is a Torah-level obligation (Shulchan Aruch, Even HaEzer 115:4).\n\nWhy:\nA married woman's hair is considered ervah (עֶרְוָה — literally \"nakedness\"; in halachic terms, something private that should not be publicly displayed). Covering it expresses that her deepest beauty is reserved for the privacy of her home and her husband. It is also an expression of tzniut (modesty) — the Jewish value of inner dignity over external display.\n\nMethods of covering:\n• Tichel (טִיכֶל) — a headscarf or wrap, commonly used across many communities\n• Sheitel (שֵׁייטֶל) — a wig; widely used in Ashkenazic and Chassidic communities\n• Hat or beret\n• Mitpachot — decorative wraps and turbans\n• Combination (e.g., small wig with a hat over it)\n\nKey terms:\n• Ervah — something private, intimate; in halachic context, something that must not be publicly exposed\n• Tzniut — modesty; a core Jewish value\n• Posek — the rabbi who rules on questions of Jewish law for a community\n\nStandards:\nMost Orthodox authorities require the entire hair to be covered in public. Details vary by community. Speak with your rabbi or rebbetzin about what applies in your situation.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "female",
+      "married": true,
+      "sortOrder": 10,
+      "persistChecked": true,
+      "situational": false
+    },
+    {
+      "id": "modesty_tznius",
+      "title": "Tzniut (Modest dress and conduct)",
+      "section": "Important Lifestyle Mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Tzniut is one of the defining values of Jewish life — it governs how we dress and how we carry ourselves in the world.\n\nWhat tzniut is:\nTzniut (צְנִיעוּת — modesty) comes from the verse \"Walk humbly (hatznea lechet) with your G-d\" (Micah 6:8). It is not just a dress code — it is a philosophy of life. Tzniut means reserving what is most precious and intimate for those who truly know you, rather than displaying it to the world.\n\nIn dress (for women):\n• Skirts or dresses that cover the knees\n• Tops that cover the elbows and collarbone\n• Avoid tight-fitting or sheer clothing\n• Stockings / tights as required by community custom\n\nIn conduct (for everyone):\n• Speak with dignity and thoughtfulness\n• Do not seek unnecessary attention\n• Act in a way that reflects inner character over outer appearance\n• Lower the eyes when appropriate\n\nFor men:\nTzniut applies to men too — in dress, speech, and conduct. Men should not wear revealing clothing and should conduct themselves with dignity.\n\nKey terms:\n• Tzniut / Tzeniut — modesty, privacy, humility\n• Hatznea lechet — \"walking humbly\" (the verse from Micah)\n• Halachah — Jewish law; the specific dress requirements are part of halachah\n\nStandards vary by community. The key is sincere progress and consistency, guided by your local rabbi and rebbetzin.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "female",
+      "sortOrder": 20,
+      "persistChecked": true,
+      "situational": false
+    },
+    {
+      "id": "family_purity_laws_if_married",
+      "title": "Taharat HaMishpacha (Family Purity Laws)",
+      "section": "Married women's mitzvot",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "The laws of family purity govern the intimate relationship between husband and wife and are among the most important mitzvot in the Torah.\n\nWhat they are:\nTaharat HaMishpacha (טָהֳרַת הַמִּשְׁפָּחָה — literally \"family purity\") is a cycle of physical separation and mikveh immersion that structures the intimacy of Jewish marriage.\n\nThe basic cycle:\n• During niddah (נִדָּה — menstrual period and its aftermath), the husband and wife refrain from physical contact\n• After the period ends, the wife counts seven \"clean days\" (shivah nekiyim) during which she checks that bleeding has fully stopped\n• After the seven clean days, she immerses in a mikveh (ritual pool)\n• After immersion, the couple resumes their relationship\n\nKey terms:\n• Niddah — a woman in the state of menstrual impurity (the state itself, not a person)\n• Shivah nekiyim — literally \"seven clean days\"; the period counted after menstruation ends\n• Mikveh (מִקְוֶה) — a kosher ritual pool fed by natural water; used for immersion\n• Hefsek tahara — the internal examination done to confirm bleeding has stopped before counting the seven days\n• Bedika — the daily internal examination during the seven clean days\n• Chafifah — thorough physical preparation (bathing, removing barriers) before mikveh immersion\n\nWhy these laws:\nJewish tradition teaches that these laws bring holiness, freshness, and blessing to marriage. Couples who practice them often describe the monthly rhythm of separation and reunion as one of the most surprisingly positive aspects of Jewish life.\n\nHow to learn:\nThis system is complex and must be learned properly before marriage — or as soon as you begin observance. Take a Taharat HaMishpacha course from a qualified teacher (rebbetzin, kallah teacher, or through organizations like Nishmat or local Jewish community programs).",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "gender": "female",
+      "married": true,
+      "sortOrder": 30,
+      "persistChecked": true,
+      "situational": false
+    },
+    {
+      "id": "prepare_for_and_observe_shabbat_and_festivals",
+      "title": "Prepare for Shabbat (Erev Shabbat checklist)",
+      "section": "Prepare for Shabbat",
+      "timeOfDay": "any",
+      "required": true,
+      "explanation": "Shabbat is the holiest day of the week — the Jewish Sabbath. It begins at sunset on Friday and ends when three stars appear on Saturday night (approximately 25 hours).\n\nKey terms:\n• Shabbat (שַׁבָּת) — the Sabbath; G-d rested on the seventh day of creation and sanctified it (Genesis 2:3); observing Shabbat is one of the Ten Commandments\n• Erev Shabbat — the eve of Shabbat; Friday afternoon/evening before candle lighting\n• Melacha (מְלָאכָה) — the 39 categories of creative work prohibited on Shabbat, derived from the work done to build the Tabernacle\n• Oneg Shabbat — the mitzvah to enjoy and delight in Shabbat (oneg = pleasure)\n\nWhat to prepare before Shabbat:\n1. Cooking: All cooking must be done before Shabbat begins. A blech (a metal sheet covering the stove flame) or a pre-set hot plate keeps food warm on Shabbat without cooking.\n2. Timers: Electric lights, the hot plate, and other appliances can be left on or set to turn on/off using a Shabbos timer (pre-set before Shabbat).\n3. Lay out what you need: siddur (prayer book), Chumash (Torah book), clothes, children's items — anything you will want.\n4. Candles: Light Shabbat candles 18 minutes before sunset (see next item).\n\nOn Shabbat — things we do NOT do:\n• Write, draw, or erase\n• Cook, bake, or light fire\n• Turn electricity on or off (including phones, lights, and appliances)\n• Drive or ride in a motorized vehicle\n• Handle money or engage in commerce\n\nOn Shabbat — what we DO:\n• Attend synagogue for Friday night and Saturday morning services\n• Say Kiddush — a blessing over wine sanctifying Shabbat\n• Eat three festive meals (Friday night, Saturday afternoon, and a third before nightfall)\n• Study Torah, sing Shabbat songs (zemiroth), rest, and spend time with family",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false,
+      "shabbatEveOnly": true
+    },
+    {
+      "id": "shabbat_candles",
+      "title": "Hadlakat Nerot (Shabbat candle lighting)",
+      "section": "Prepare for Shabbat",
+      "timeOfDay": "day",
+      "required": true,
+      "explanation": "Lighting candles on Friday afternoon is one of the most beloved practices in all of Judaism — it officially welcomes Shabbat into the home.\n\nWhat it is:\nHadlakat Nerot (הַדְלָקַת נֵרוֹת — lighting of candles) is a rabbinic mitzvah performed weekly before Shabbat. The Shabbat candles bring light and peace into the home, honoring the day's holiness.\n\nWho lights:\nTraditionally the woman of the household lights. If there is no woman in the home, a man lights. Each woman or girl in the household may light her own candles.\n\nWhen to light:\nExactly 18 minutes before sunset on Friday (some Ashkenazic communities light 20-22 minutes before; Sephardic communities often light closer to sunset). The app shows the candle-lighting time for your location.\n\nHow many candles:\n• The minimum is two candles — one for Zachor (\"remember\" Shabbat, from Exodus 20:8) and one for Shamor (\"guard\" Shabbat, from Deuteronomy 5:12)\n• Many women add one candle per child\n\nThe blessing:\nThere are two customs:\n• Ashkenazi custom: Light the candles first, then wave hands over the flames, cover the eyes, recite the blessing, and uncover. Lighting is done first because reciting the blessing is considered accepting Shabbat — after which relighting would be forbidden. Covering the eyes allows the blessing to precede benefiting from the light.\n• Sephardi custom: Recite the blessing first, then light the candles.\nFollow your family's custom. When in doubt, ask your rabbi.\n\nThe blessing: \"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu l'hadlik ner shel Shabbat.\"\n\nKey terms:\n• Nerot — candles\n• Zachor / Shamor — the two expressions of the Shabbat command in the two versions of the Ten Commandments\n• Kavvanah — intention; candle lighting is an especially auspicious time for personal prayer\n\nImportant:\nOnce you have lit the candles and said the blessing, Shabbat has begun for you. Do not light additional fire or use electricity after this point.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "shabbatEveOnly": true,
+      "sortOrder": 20,
+      "persistChecked": false,
+      "situational": false
+    }
+  ]
+}
