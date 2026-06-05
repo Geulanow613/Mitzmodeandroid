@@ -7,7 +7,12 @@ import kotlinx.datetime.plus
 
 object SeasonalChecklistItems {
 
-    fun forDay(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> = buildList {
+    fun forDay(
+        cal: DayInfo,
+        profile: UserProfile,
+        tomorrowCal: DayInfo,
+        dayAfterTomorrowCal: DayInfo,
+    ): List<ChecklistItemDef> = buildList {
         if (cal.isSefiratHaomer && cal.omerDay != null && cal.omerDay in 1..49 && !cal.isLagBaomer) {
             add(omerItem(cal, profile))
             add(sefirahMourningMusicItem(profile))
@@ -22,11 +27,17 @@ object SeasonalChecklistItems {
         } else if (cal.isPurim) {
             addAll(purimItems(profile))
         }
-        if ("erev_chag" in cal.activeSeasons) {
-            add(erevChagPrepItem(cal, profile))
+        if ("erev_chag" in cal.activeSeasons && !HolyDayPhoneRules.isShabbatMelachaDay(cal)) {
+            add(erevChagPrepItem(cal, profile, tomorrowCal))
+        }
+        if (YomTovShabbatPrepText.shouldShowAdvancePrepDay(cal, tomorrowCal, profile)) {
+            add(yomTovShabbatAdvancePrepItem(cal, tomorrowCal, profile))
+        }
+        if (PurimMeshulashText.shouldShowAdvancePrep(cal, tomorrowCal, dayAfterTomorrowCal)) {
+            add(purimMeshulashAdvancePrepItem())
         }
         if ("erev_purim" in cal.activeSeasons) {
-            add(erevPurimPrepItem(profile))
+            add(erevPurimPrepItem(cal, tomorrowCal))
         }
         if ("erev_chanukah" in cal.activeSeasons) {
             add(erevChanukahPrepItem(profile))
@@ -64,7 +75,7 @@ object SeasonalChecklistItems {
             addAll(erevPesachItems(cal, profile))
         }
         if (isWeekBeforePesach(cal)) {
-            add(pesachWeekPrepItem(profile))
+            add(pesachWeekPrepItem(cal, profile))
         }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             addAll(cholHamoedItems(cal, profile))
@@ -75,7 +86,7 @@ object SeasonalChecklistItems {
         if ("shemini_atzeret" in cal.activeSeasons) {
             add(sheminiAtzeretItem(profile))
         }
-        if ("simchat_torah" in cal.activeSeasons) {
+        if ("simchat_torah" in cal.activeSeasons && !profile.isInIsrael) {
             add(simchatTorahItem(profile))
         }
         if (isNightAfterYomKippur(cal)) {
@@ -113,7 +124,9 @@ object SeasonalChecklistItems {
             required = false,
             situational = false,
             seasons = listOf("sefirah"),
-            explanation = """During Sefirat HaOmer we keep customs of mourning (aveilut) because Rabbi Akiva's 24,000 students died in a plague during this period between Pesach and Shavuot (Talmud, Yevamot 62b). Their deaths ceased on Lag BaOmer — which is why many communities ease some restrictions then, while others continue until Shavuot or the morning of the 33rd day of the Omer.
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.mourningBasics(),
+                """During Sefirat HaOmer we keep customs of mourning (aveilut) because Rabbi Akiva's 24,000 students died in a plague during this period between Pesach and Shavuot (Talmud, Yevamot 62b). Their deaths ceased on Lag BaOmer — which is why many communities ease some restrictions then, while others continue until Shavuot or the morning of the 33rd day of the Omer.
 
 Why we mourn: The Omer is the path from physical freedom (Pesach) to spiritual receiving of Torah (Shavuot). The plague cut short Torah transmission — so we temper joy with restraint until we reach Matan Torah.
 
@@ -123,6 +136,7 @@ Common customs (timing varies — ask your rav):
 • No haircuts for part or all of the Omer
 
 Follow your community's start and end dates for these practices.""",
+            ),
             explanationAshkenaz = """Ashkenaz custom: mourning from after Pesach until Lag BaOmer (33rd day of the Omer, 18 Iyar) or until the morning of Lag BaOmer (per your shul). Some continue haircuts/music restrictions until Shavuot or the Three Weeks.
 
 No weddings, no live music, and no haircuts during your community's Sefirah period. Lag BaOmer is a break for many Ashkenazim; ask your rabbi about music and haircuts after that date.""",
@@ -162,7 +176,9 @@ See Chabad.org Sefirah articles for details on your community.""",
             required = true,
             situational = false,
             seasons = listOf("purim"),
-            explanation = """Mikra Megillah (hearing the Book of Esther) is a Torah-level mitzvah (Esther 9:28). Men and women are equally obligated.
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.purimBasics(),
+                """Mikra Megillah (hearing the Book of Esther) is a Torah-level mitzvah (Esther 9:28). Men and women are equally obligated.
 
 When to hear it:
 • Once on Purim evening — after nightfall (tzeit)
@@ -170,7 +186,7 @@ When to hear it:
 
 How to fulfill:
 • Hear every word read from a kosher megillah scroll by someone who can discharge your obligation (Shulchan Arukh O.C. 690)
-• Stand for the blessings and when the reader says the name Haman (follow your shul for sitting during the rest)
+• Stand for the blessings; customs when Haman's name is read vary by shul (many make noise; sitting vs standing — follow your community)
 • Listen without talking — missed words may require hearing that passage again; ask your rabbi if unsure
 
 Blessings before reading:
@@ -178,7 +194,8 @@ Blessings before reading:
 • She'asa nissim
 • Shehecheyanu on the first evening (and on the first daytime reading of the year, per custom)
 
-Machatzit haShekel: Many give a half-shekel charity before Megillah (night or morning — follow your community). Confirm local reading times with your shul.""",
+Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.""",
+            ),
             links = purimMegillahLinks(profile)
         ),
         ChecklistItemDef(
@@ -189,18 +206,22 @@ Machatzit haShekel: Many give a half-shekel charity before Megillah (night or mo
             required = true,
             situational = false,
             seasons = listOf("purim"),
-            explanation = """Matanot la'evyonim (מתנות לאביונים) helps every Jew celebrate Purim with food and joy (Esther 9:22).
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.purimBasics(),
+                """Matanot la'evyonim (מתנות לאביונים) helps every Jew celebrate Purim with food and joy (Esther 9:22).
 
-The mitzvah:
-• Give at least two gifts to two poor people on Purim day
-• Each gift should enable a modest Purim meal — money is common (many use at least two coins or bills; amounts vary by community)
+The mitzvah (Peninei Halakha 05-16-03; Chabad.org):
+• Give at least two gifts to two poor people on Purim day — one gift to each person.
+• Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
 
 How to do it:
-• Give during Purim day, ideally before your Purim seudah so recipients can use it for the meal
+• Give during Purim daytime only (not at night); many give after the daytime Megillah reading (follow your minhag).
+• Ideally before your Purim seudah so recipients can use it for the meal.
 • You may give through a trustworthy messenger, gemach, or organization that distributes on Purim day — verify funds reach the poor that day
 • If you cannot find recipients, ask your rabbi or shul — many collect on Purim morning
 
 Who qualifies: Someone who lacks resources for Purim — your rav can guide you if unsure.""",
+            ),
             links = purimMatanotLinks(profile)
         ),
         ChecklistItemDef(
@@ -211,11 +232,14 @@ Who qualifies: Someone who lacks resources for Purim — your rav can guide you 
             required = true,
             situational = false,
             seasons = listOf("purim"),
-            explanation = """Mishloach manot (משלוח מנות) — sending portions of food — increases friendship and joy on Purim (Esther 9:19).
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.purimBasics(),
+                """Mishloach manot (משלוח מנות) — sending portions of food — increases friendship and joy on Purim (Esther 9:19).
 
-The mitzvah:
-• Send at least one package with two different ready-to-eat foods or drinks to one friend (many follow the Rema to send two portions to two friends)
-• Examples: wine and cookies, fruit and pastry, two distinct snacks — clearly two types, not one combined dish
+The mitzvah (Rambam, Shulchan Arukh 695:4; Aish; Peninei Halakha 05-16-04):
+• Send at least two different ready-to-eat foods or drinks to one friend on Purim day — one mishloach manot package.
+• Women are equally obligated; many send to a woman friend and men to a man (Rema). Sending to additional friends is praiseworthy.
+• Examples: wine and cookies, fruit and pastry — clearly two types, not one combined dish.
 
 How to do it:
 • Deliver on Purim day before sunset — by you or a messenger (shul lists, kids, or neighbors are fine)
@@ -223,12 +247,58 @@ How to do it:
 • Label sender and recipient; mishloach manot should be identifiable
 
 Tips: You need not reciprocate every package you receive the same day. Plan ahead on Erev Purim so deliveries are not rushed at the last minute.""",
+            ),
             links = purimMishloachLinks(profile)
+        ),
+        ChecklistItemDef(
+            id = "purim_seudah",
+            title = "Purim seudah — festive afternoon meal",
+            section = "Purim",
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            situational = false,
+            seasons = listOf("purim"),
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.purimBasics(),
+                """The Purim seudah (סעודת פורים) is one of the four Purim mitzvot (Esther 9:22; Peninei Halakha 05-16-02).
+
+When:
+• During Purim day — before sunset (many hold the meal in the afternoon after mitzvot are underway).
+
+How:
+• A festive meal with bread (many use two rolls or matzah per custom), meat, wine, and joy.
+• Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
+• Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
+
+Plan the menu and timing so matanot la'evyonim and mishloach manot are handled earlier in the day when possible.""",
+            ),
+            links = purimMegillahLinks(profile)
         )
     )
 
-    private fun erevChagPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
-        val prep = ErevChagPrepText.build(cal, profile)
+    private fun yomTovShabbatAdvancePrepItem(cal: DayInfo, tomorrowCal: DayInfo, profile: UserProfile): ChecklistItemDef {
+        val tomorrowName = tomorrowCal.upcomingChagName ?: "Yom Tov"
+        val explanation = YomTovShabbatPrepText.advanceBlock(cal, tomorrowCal, profile).orEmpty()
+        val links = YomTovShabbatPrepText.links(tomorrowCal, profile, tomorrowName)
+        val title = if (YomTovShabbatPrepText.isFridayBeforeShabbatErevChag(cal, tomorrowCal)) {
+            "Tomorrow: Shabbat & erev $tomorrowName — read before Shabbat"
+        } else {
+            "Tomorrow: $tomorrowName & Shabbat — prepare today"
+        }
+        return ChecklistItemDef(
+            id = "yom_tov_shabbat_advance_prep",
+            title = title,
+            section = "Seasonal",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            explanation = explanation,
+            links = links
+        )
+    }
+
+    private fun erevChagPrepItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
+        val prep = ErevChagPrepText.build(cal, profile, tomorrowCal)
         return ChecklistItemDef(
             id = "erev_chag_prep",
             title = prep.title,
@@ -242,19 +312,42 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
         )
     }
 
-    private fun erevPurimPrepItem(profile: UserProfile) = ChecklistItemDef(
+    private fun erevPurimPrepItem(cal: DayInfo, tomorrowCal: DayInfo) = ChecklistItemDef(
         id = "erev_purim_prep",
-        title = "Erev Purim prep — arrange Megillah and mitzvot",
+        title = if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
+            "Purim Meshulash — read full plan before Shabbat (phone off)"
+        } else {
+            "Erev Purim prep — arrange Megillah and mitzvot"
+        },
         section = "Purim",
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
         seasons = listOf("erev_purim"),
-        explanation = "Purim is tomorrow. Confirm Megillah reading times (night and morning), prepare mishloach manot packages, and arrange matanot la'evyonim (cash, charity envelopes, or recipients).",
-        links = listOf(
-            ChecklistLink("Chabad — Purim checklist", "https://www.chabad.org/holidays/purim/default_cdo/jewish/Purim.htm", "chabad"),
-            ChecklistLink("Peninei Halacha — Purim", "https://ph.yhb.org.il/en/03-14-00/", "default")
-        )
+        explanation = if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
+            PurimMeshulashText.erevPrepExplanation()
+        } else {
+            """Purim is tomorrow. Plan all four mitzvot: Megillah (night and morning), matanot la'evyonim, mishloach manot, and tomorrow's festive seudah (afternoon meal). Confirm reading times with your shul."""
+        },
+        links = purimPrepLinks(),
+    )
+
+    private fun purimMeshulashAdvancePrepItem() = ChecklistItemDef(
+        id = "purim_meshulash_advance_prep",
+        title = "Purim Meshulash — read full plan before Shabbat",
+        section = "Purim",
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        seasons = emptyList(),
+        explanation = PurimMeshulashText.advancePrepExplanation(),
+        links = purimPrepLinks(),
+    )
+
+    private fun purimPrepLinks() = listOf(
+        ChecklistLink("Chabad — Purim checklist", "https://www.chabad.org/holidays/purim/default_cdo/jewish/Purim.htm", "chabad"),
+        ChecklistLink("Peninei Halacha — Purim", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"),
+        ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/1508", "default"),
     )
 
     private fun erevChanukahPrepItem(profile: UserProfile) = ChecklistItemDef(
@@ -279,7 +372,7 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
             required = false,
             situational = false,
             seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.mechiratExplanation(profile),
+            explanation = ErevPesachPrepText.mechiratExplanation(cal, profile),
             links = ErevPesachPrepText.mechiratLinks(profile)
         ),
         ChecklistItemDef(
@@ -291,7 +384,7 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
             required = false,
             situational = false,
             seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.taanitBechorExplanation(),
+            explanation = ErevPesachPrepText.taanitBechorExplanation(cal, profile),
             links = ErevPesachPrepText.taanitBechorLinks(profile)
         ),
         ChecklistItemDef(
@@ -303,7 +396,7 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
             required = false,
             situational = false,
             seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.sederPrepExplanation(profile),
+            explanation = ErevPesachPrepText.sederPrepExplanation(cal, profile),
             links = ErevPesachPrepText.sederPrepLinks(profile)
         ),
         ChecklistItemDef(
@@ -332,14 +425,14 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
         )
     )
 
-    private fun pesachWeekPrepItem(profile: UserProfile) = ChecklistItemDef(
+    private fun pesachWeekPrepItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
         id = "pesach_week_prep",
         title = "Week-before-Pesach prep: clean and organize your home",
         section = "Pesach prep",
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
-        explanation = SeasonalMitzvahText.pesachWeekPrepExplanation(),
+        explanation = SeasonalMitzvahText.pesachWeekPrepExplanation(cal, profile),
         links = SeasonalMitzvahText.pesachWeekLinks(profile)
     )
 
@@ -353,8 +446,8 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
                 required = false,
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
-                explanation = SeasonalMitzvahText.cholHamoedHonorExplanation(),
-                links = SeasonalMitzvahText.cholHamoedLinks(profile)
+                explanation = SeasonalMitzvahText.cholHamoedHonorExplanation(cal, profile),
+                links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
             ),
             ChecklistItemDef(
                 id = "chol_hamoed_wine_reviit",
@@ -364,18 +457,8 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
                 required = false,
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
-                explanation = """Drinking wine on Chol HaMoed is a mitzvah — an expression of simchat Yom Tov (joy of the festival). Poskim recommend drinking at least a revi'it of wine on each day of Chol HaMoed (Pesach or Sukkot).
-
-This is not a strict obligation like the four cups at the Seder, but it is a recommended mitzvah you should make effort to fulfill every day of the moed.
-
-How:
-• L'chatchila (ideal): at least a revi'it of wine (roughly 3–4 oz / ~75–100 ml — confirm the shiur with your rabbi)
-• B'dieved: grape juice fulfills the mitzvah if wine is unavailable or you cannot drink wine
-• Drink with kavana to honor the festival — ideally with a meal or festive context
-• Use wine that meets your Pesach or year-round kashrut needs as applicable
-
-Each day counts separately — fulfill today's revi'it even if you missed a previous day.""",
-                links = cholHamoedWineLinks(profile)
+                explanation = SeasonalMitzvahText.cholHamoedWineReviitExplanation(cal),
+                links = cholHamoedWineLinks(cal, profile)
             ),
             ChecklistItemDef(
                 id = "chol_hamoed_nicer_clothes",
@@ -386,7 +469,7 @@ Each day counts separately — fulfill today's revi'it even if you missed a prev
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
                 explanation = SeasonalMitzvahText.cholHamoedClothesExplanation(),
-                links = SeasonalMitzvahText.cholHamoedLinks(profile)
+                links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
             )
         )
         if ("chol_hamoed_pesach" in cal.activeSeasons) {
@@ -405,17 +488,25 @@ Each day counts separately — fulfill today's revi'it even if you missed a prev
         return list
     }
 
-    private fun arbaMinimItem(profile: UserProfile) = ChecklistItemDef(
-        id = "sukkot_arba_minim",
-        title = "Wave Arba Minim (lulav, etrog, hadassim, aravot)",
-        section = "Seasonal",
-        timeOfDay = TimeOfDay.DAY,
-        required = false,
-        situational = false,
-        seasons = listOf("sukkot"),
-        explanation = SeasonalMitzvahText.arbaMinimExplanation(profile),
-        links = SeasonalMitzvahText.arbaMinimLinks(profile)
-    )
+    private fun arbaMinimItem(profile: UserProfile): ChecklistItemDef {
+        val isFemale = profile.gender == Gender.FEMALE
+        return ChecklistItemDef(
+            id = "sukkot_arba_minim",
+            title = if (isFemale) {
+                "Wave Arba Minim — recommended mitzvah (women)"
+            } else {
+                "Wave Arba Minim (lulav, etrog, hadassim, aravot)"
+            },
+            section = "Seasonal",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            seasons = listOf("sukkot"),
+            explanation = SeasonalMitzvahText.arbaMinimExplanation(profile),
+            explanationFemale = SeasonalMitzvahText.arbaMinimExplanationFemale(profile),
+            links = SeasonalMitzvahText.arbaMinimLinks(profile)
+        )
+    }
 
     private fun sheminiAtzeretItem(profile: UserProfile) = ChecklistItemDef(
         id = "shemini_atzeret_focus",
@@ -490,7 +581,9 @@ Each day counts separately — fulfill today's revi'it even if you missed a prev
         val day = cal.hebrewDay ?: return null
         if (month != HebrewCalendarEngine.ELUL) return null
         return when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD -> ChecklistItemDef(
+            EffectiveNusach.SEFARD -> {
+                if (day == 1) return null
+                ChecklistItemDef(
                 id = "selichot_elul_sefard",
                 title = "Say Selichot (Sefard custom)",
                 section = "Seasonal",
@@ -499,7 +592,8 @@ Each day counts separately — fulfill today's revi'it even if you missed a prev
                 situational = false,
                 explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.SEFARD),
                 links = selichotLinks(profile)
-            )
+                )
+            }
             EffectiveNusach.CHABAD -> ChecklistItemDef(
                 id = "selichot_elul_chabad",
                 title = "Say Selichot (Chabad custom)",
@@ -594,7 +688,7 @@ Chabad: No official communal observance is instituted, though the memory of the 
         links = listOf(
             ChecklistLink(
                 "Yad Vashem — Holocaust Martyrs' and Heroes' Remembrance Authority",
-                "https://www.yadvashem.org/holocaust/about/final-solution-beginning-extermination/commemoration.html",
+                "https://www.yadvashem.org/remembrance/remembrance-day.html",
                 "default"
             )
         )
@@ -692,28 +786,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
 
     private fun omerLinks(profile: UserProfile) = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> listOf(
-            ChecklistLink("Chabad — Sefirat HaOmer", "https://www.chabad.org/library/article_cdo/aid/4802/jewish/Sefirat-Haomer.htm", "chabad"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Sefaria", "https://www.sefaria.org/Sefirat_HaOmer", "default")
+            ChecklistLink("Chabad — Sefirat HaOmer", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "chabad"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Sefaria", "https://www.sefaria.org/Numbers.28.26", "default")
         )
         else -> listOf(
             ChecklistLink("Aish — Sefirat HaOmer", "https://aish.com/holidays/pesach/", "default"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Sefaria — Omer", "https://www.sefaria.org/Sefirat_HaOmer", "default"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Sefaria — Omer", "https://www.sefaria.org/Numbers.28.26", "default"),
             ChecklistLink("OU — Sefirat HaOmer", "https://ou.org/judaism/omer/", "default")
         )
     }
 
     private fun sefirahMourningLinks(profile: UserProfile) = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> listOf(
-            ChecklistLink("Chabad — Sefirah customs", "https://www.chabad.org/library/article_cdo/aid/2263/jewish/Sefirah.htm", "chabad"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/03-16-00/", "default")
+            ChecklistLink("Chabad — Sefirah customs", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "chabad"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default")
         )
         else -> listOf(
             ChecklistLink("Aish — Sefirat HaOmer period", "https://aish.com/holidays/pesach/", "default"),
-            ChecklistLink("Chabad — Sefirah overview", "https://www.chabad.org/library/article_cdo/aid/2263/jewish/Sefirah.htm", "default"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Ohr Somayach — Sefirah", "https://ohr.edu/lessons/sefiras-haomer", "default")
+            ChecklistLink("Chabad — Sefirah overview", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "default"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Ohr Somayach — Sefirah", "https://ohr.edu/this_week/prayer_essentials/7338", "default")
         )
     }
 
@@ -736,9 +830,9 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             )
         }
         add(ChecklistLink("Aish — Megillah & Purim", "https://aish.com/holidays/purim/", "default"))
-        add(ChecklistLink("Peninei Halacha — Megillah", "https://ph.yhb.org.il/en/03-14-00/", "default"))
-        add(ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/yhiy/purim/", "default"))
-        add(ChecklistLink("Sefaria — Megillah", "https://www.sefaria.org/Megillat_Esther", "default"))
+        add(ChecklistLink("Peninei Halacha — Megillah", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
+        add(ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/1508", "default"))
+        add(ChecklistLink("Sefaria — Megillah", "https://www.sefaria.org/Esther", "default"))
     }
 
     private fun purimMatanotLinks(profile: UserProfile) = buildList {
@@ -751,7 +845,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Matanot la'evyonim", "https://ph.yhb.org.il/en/03-14-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Matanot la'evyonim", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
         add(ChecklistLink("Aish — Purim mitzvot", "https://aish.com/holidays/purim/", "default"))
     }
 
@@ -765,7 +859,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Mishloach manot", "https://ph.yhb.org.il/en/03-14-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Mishloach manot", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
         add(ChecklistLink("Aish — Purim mitzvot", "https://aish.com/holidays/purim/", "default"))
     }
 
@@ -778,7 +872,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             required = true,
             situational = false,
             seasons = listOf("purim_meshulash_friday"),
-            explanation = "In Jerusalem Purim Meshulash years, hear the Megillah on Friday (14 Adar) — night and day readings apply as on a normal Purim. See the Megillah item explainers for laws and blessings.",
+            explanation = PurimMeshulashText.fridayMegillahExplanation(),
             links = purimMegillahLinks(profile)
         ),
         ChecklistItemDef(
@@ -789,7 +883,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             required = true,
             situational = false,
             seasons = listOf("purim_meshulash_friday"),
-            explanation = "In Jerusalem Purim Meshulash years, matanot la'evyonim are given on Friday (14 Adar), not on Shabbat. See the matanot la'evyonim explainer for how much and how to give.",
+            explanation = PurimMeshulashText.fridayMatanotExplanation(),
             links = purimMatanotLinks(profile)
         )
     )
@@ -803,7 +897,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             required = true,
             situational = false,
             seasons = listOf("purim_meshulash_sunday"),
-            explanation = "In Jerusalem Purim Meshulash years, mishloach manot are sent on Sunday (16 Adar). See the mishloach manot explainer for what to send and when.",
+            explanation = PurimMeshulashText.sundayMishloachExplanation(),
             links = purimMishloachLinks(profile)
         ),
         ChecklistItemDef(
@@ -814,12 +908,12 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             required = false,
             situational = false,
             seasons = listOf("purim_meshulash_sunday"),
-            explanation = "In Jerusalem Purim Meshulash years, the festive Purim meal (seudah) is held on Sunday (16 Adar), with joy, Torah words, and thanks to Hashem.",
+            explanation = PurimMeshulashText.sundaySeudahExplanation(),
             links = purimMegillahLinks(profile)
         )
     )
 
-    private fun cholHamoedWineLinks(profile: UserProfile) = buildList {
+    private fun cholHamoedWineLinks(cal: DayInfo, profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(
                 ChecklistLink(
@@ -829,26 +923,31 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/04-09-00/", "default"))
-        add(ChecklistLink("Aish — Chol HaMoed", "https://aish.com/holidays/pesach/", "default"))
+        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/12-11-01/", "default"))
+        val aishUrl = if ("chol_hamoed_sukkot" in cal.activeSeasons && "chol_hamoed_pesach" !in cal.activeSeasons) {
+            "https://aish.com/holidays/sukkot/"
+        } else {
+            "https://aish.com/holidays/pesach/"
+        }
+        add(ChecklistLink("Aish — Chol HaMoed", aishUrl, "default"))
     }
 
     private fun pesachPrepLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — Erev Pesach guide", "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1719/jewish/Erev-Pesach.htm", "chabad"),
-        ChecklistLink("Aish — Preparing for Passover", "https://aish.com/passover-preparation-guide/", "default"),
-        ChecklistLink("Peninei Halacha — Pesach preparations", "https://ph.yhb.org.il/en/category/moadim/04-pesach/", "default")
+        ChecklistLink("Aish — Preparing for Passover", "https://aish.com/holidays/pesach/", "default"),
+        ChecklistLink("Peninei Halacha — Pesach preparations", "https://ph.yhb.org.il/en/04-03-01/", "default")
     )
 
     private fun mourningLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — The Three Weeks", "https://www.chabad.org/library/article_cdo/aid/144568/jewish/The-Three-Weeks.htm", "chabad"),
-        ChecklistLink("Aish — Nine Days overview", "https://aish.com/48943186/", "default"),
-        ChecklistLink("Peninei Halacha — Three Weeks and Nine Days", "https://ph.yhb.org.il/en/category/moadim/08-the-three-weeks/", "default")
+        ChecklistLink("Aish — Nine Days overview", "https://aish.com/48943916/", "default"),
+        ChecklistLink("Peninei Halacha — Three Weeks and Nine Days", "https://ph.yhb.org.il/en/category/zemanim/05-08/", "default")
     )
 
     private fun selichotLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — Selichot", "https://www.chabad.org/library/article_cdo/aid/4744/jewish/Selichot.htm", "chabad"),
-        ChecklistLink("Aish — Selichot overview", "https://aish.com/48968286/", "default"),
-        ChecklistLink("Peninei Halacha — Selichot customs", "https://ph.yhb.org.il/en/category/moadim/02-days-of-awe/", "default")
+        ChecklistLink("Aish — Selichot overview", "https://aish.com/slichot_and_the_13_attributes/", "default"),
+        ChecklistLink("Peninei Halacha — Selichot customs", "https://ph.yhb.org.il/en/category/15/15-01/", "default")
     )
 
     private fun tuBshvatSederItem(profile: UserProfile) = ChecklistItemDef(

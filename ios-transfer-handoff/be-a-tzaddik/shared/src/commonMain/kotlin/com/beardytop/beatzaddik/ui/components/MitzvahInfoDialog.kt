@@ -1,8 +1,6 @@
 package com.beardytop.beatzaddik.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +13,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -50,10 +47,6 @@ fun MitzvahInfoDialog(
                 .shadow(28.dp, InfoDialogShape, ambientColor = TzaddikColors.GoldBorder.copy(alpha = 0.4f))
                 .clip(InfoDialogShape)
                 .background(Color.White)
-                .clickable(
-                    indication = null,
-                    interactionSource = remember { MutableInteractionSource() }
-                ) { }
         ) {
             Column(Modifier.fillMaxWidth()) {
                 // Navy gradient header with title
@@ -68,11 +61,10 @@ fun MitzvahInfoDialog(
                         .padding(top = 20.dp, bottom = 18.dp, start = 20.dp, end = 52.dp)
                 ) {
                     Column {
-                        Text(
+                        AppText(
                             item.displayTitle,
-                            style = MaterialTheme.typography.titleLarge,
-                            color = TzaddikColors.GoldBright,
-                            fontWeight = FontWeight.SemiBold
+                            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
+                            color = TzaddikColors.GoldBright
                         )
                         // Gold accent underline
                         Box(

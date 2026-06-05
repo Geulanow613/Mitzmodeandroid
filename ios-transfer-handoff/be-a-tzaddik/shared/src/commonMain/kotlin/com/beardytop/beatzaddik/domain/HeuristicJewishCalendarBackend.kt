@@ -49,7 +49,7 @@ class HeuristicJewishCalendarBackend : JewishCalendarBackend {
         val results = mutableListOf<UpcomingHoliday>()
         for (i in 0..21) {
             val d = from.plus(i, DateTimeUnit.DAY)
-            if (d.dayOfWeek == DayOfWeek.FRIDAY && i > 0) {
+            if (d.dayOfWeek == DayOfWeek.FRIDAY) {
                 results += UpcomingHoliday("Shabbat", i, "Weekly Shabbat")
             }
         }

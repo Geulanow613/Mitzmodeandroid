@@ -27,6 +27,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -43,7 +44,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
+import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.beatzaddik.ui.components.HalachicGuideTerms
+import com.beardytop.beatzaddik.ui.components.LocalHalachicTermExtras
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import androidx.compose.runtime.CompositionLocalProvider
 
 // ── Navigation model ─────────────────────────────────────────────────────────
 
@@ -92,6 +97,7 @@ fun ShabbatGuideScreen(
 
     PlatformBackHandler(onBack = ::goBack)
 
+    CompositionLocalProvider(LocalHalachicTermExtras provides HalachicGuideTerms.terms) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -138,6 +144,7 @@ fun ShabbatGuideScreen(
             onClick = ::goBack
         )
     }
+    }
 }
 
 // ── Floating button ───────────────────────────────────────────────────────────
@@ -181,15 +188,19 @@ private fun HubPage(
                 modifier = Modifier.fillMaxWidth().padding(vertical = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text("שַׁבָּת", fontSize = 48.sp,
-                    color = TzaddikColors.GoldBright, fontFamily = FontFamily.Serif)
-                Text("Shabbat & Holidays",
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold,
+                Text(
+                    "שַׁבָּת",
+                    style = MaterialTheme.typography.displayLarge.copy(fontSize = 48.sp, fontFamily = FontFamily.Serif),
+                    color = TzaddikColors.GoldBright
+                )
+                AppText(
+                    "Shabbat & Holidays",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     color = TzaddikColors.ParchTop,
-                    textAlign = TextAlign.Center)
+                    textAlign = TextAlign.Center
+                )
                 Spacer(Modifier.height(4.dp))
-                Text("Tap any topic to read more",
+                AppText("Tap any topic to read more",
                     style = MaterialTheme.typography.bodySmall,
                     color = TzaddikColors.GoldBright.copy(alpha = 0.6f))
                 Spacer(Modifier.height(12.dp))
@@ -252,10 +263,11 @@ private fun HubSectionLabel(text: String) {
                 .background(TzaddikColors.GoldBright)
         )
         Spacer(Modifier.width(8.dp))
-        Text(text,
-            style = MaterialTheme.typography.labelLarge,
-            color = TzaddikColors.GoldBright.copy(alpha = 0.85f),
-            fontWeight = FontWeight.Bold)
+        AppText(
+            text,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+            color = TzaddikColors.GoldBright.copy(alpha = 0.85f)
+        )
     }
 }
 
@@ -272,15 +284,20 @@ private fun HubCard(title: String, subtitle: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f)) {
-            Text(title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = TzaddikColors.ParchTop,
-                fontWeight = FontWeight.SemiBold)
+            AppText(
+                title,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = TzaddikColors.ParchTop
+            )
             if (subtitle.isNotBlank()) {
                 Spacer(Modifier.height(2.dp))
-                Text(subtitle,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = TzaddikColors.ParchTop.copy(alpha = 0.6f))
+                val subtitleStyle = MaterialTheme.typography.bodySmall
+                val subtitleColor = TzaddikColors.ParchTop.copy(alpha = 0.6f)
+                if (subtitle.any { it in 'A'..'Z' || it in 'a'..'z' }) {
+                    AppText(subtitle, style = subtitleStyle, color = subtitleColor)
+                } else {
+                    Text(subtitle, style = subtitleStyle, color = subtitleColor)
+                }
             }
         }
         Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null,
@@ -334,15 +351,24 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
                         .background(TzaddikColors.NavyDeep.copy(alpha = 0.1f))
                         .padding(horizontal = 12.dp, vertical = 8.dp)
                 ) {
-                    Text("Activity", Modifier.weight(1.2f),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.NavyDeep, fontWeight = FontWeight.Bold)
-                    Text("Shabbat", Modifier.weight(0.9f),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.NavyDeep, fontWeight = FontWeight.Bold)
-                    Text("Yom Tov", Modifier.weight(1.3f),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.NavyDeep, fontWeight = FontWeight.Bold)
+                    AppText(
+                        "Activity",
+                        modifier = Modifier.weight(1.2f),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = TzaddikColors.NavyDeep
+                    )
+                    AppText(
+                        "Shabbat",
+                        modifier = Modifier.weight(0.9f),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = TzaddikColors.NavyDeep
+                    )
+                    AppText(
+                        "Yom Tov",
+                        modifier = Modifier.weight(1.3f),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = TzaddikColors.NavyDeep
+                    )
                 }
                 HorizontalDivider(color = TzaddikColors.GoldBorder.copy(alpha = 0.28f))
                 ShabbatGuideData.shabbatYomTovComparison.forEachIndexed { i, row ->
@@ -356,15 +382,24 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
                             .padding(horizontal = 12.dp, vertical = 7.dp),
                         verticalAlignment = Alignment.Top
                     ) {
-                        Text(row.activity, Modifier.weight(1.2f),
+                        AppText(
+                            row.activity,
+                            modifier = Modifier.weight(1.2f),
+                            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.SemiBold),
+                            color = TzaddikColors.NavyDeep
+                        )
+                        AppText(
+                            row.shabbat,
+                            modifier = Modifier.weight(0.9f),
                             style = MaterialTheme.typography.bodySmall,
-                            color = TzaddikColors.NavyDeep, fontWeight = FontWeight.SemiBold)
-                        Text(row.shabbat, Modifier.weight(0.9f),
+                            color = TzaddikColors.TextBrown
+                        )
+                        AppText(
+                            row.yomTov,
+                            modifier = Modifier.weight(1.3f),
                             style = MaterialTheme.typography.bodySmall,
-                            color = TzaddikColors.TextBrown)
-                        Text(row.yomTov, Modifier.weight(1.3f),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = TzaddikColors.TextBrown)
+                            color = TzaddikColors.TextBrown
+                        )
                     }
                     if (i < ShabbatGuideData.shabbatYomTovComparison.lastIndex) {
                         HorizontalDivider(color = TzaddikColors.GoldBorder.copy(alpha = 0.12f))
@@ -394,10 +429,11 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text("Browse the 39 Melachot",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = TzaddikColors.GoldBright,
-                    fontWeight = FontWeight.SemiBold)
+                AppText(
+                    "Browse the 39 Melachot",
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                    color = TzaddikColors.GoldBright
+                )
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null,
                     tint = TzaddikColors.GoldBright, modifier = Modifier.size(20.dp))
             }
@@ -424,13 +460,14 @@ private fun TermDetailPage(topic: GuideTopic) {
         }
         topic.learnMoreUrl?.let { url ->
             item {
-                Text("Learn more ↗",
-                    style = MaterialTheme.typography.labelMedium,
+                AppText(
+                    "Learn more ↗",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = TzaddikColors.GoldBright.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
-                        .clickable { uriHandler.openUri(url) })
+                        .clickable { uriHandler.openUri(url) }
+                )
             }
         }
         item { DisclaimerNote() }
@@ -476,22 +513,28 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
                         .background(TzaddikColors.GoldBright.copy(alpha = 0.15f)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("${index + 1}",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.GoldBright,
-                        fontWeight = FontWeight.Bold)
+                    Text(
+                        "${index + 1}",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                        color = TzaddikColors.GoldBright
+                    )
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {
-                    Text(melacha.title,
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = TzaddikColors.ParchTop,
-                        fontWeight = FontWeight.SemiBold)
+                    AppText(
+                        melacha.title,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                        color = TzaddikColors.ParchTop
+                    )
                     if (melacha.hebrewTitle.isNotBlank()) {
-                        Text(melacha.hebrewTitle,
-                            fontSize = 12.sp,
-                            fontFamily = FontFamily.Serif,
-                            color = TzaddikColors.GoldBright.copy(alpha = 0.5f))
+                        Text(
+                            melacha.hebrewTitle,
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontSize = 12.sp,
+                                fontFamily = FontFamily.Serif
+                            ),
+                            color = TzaddikColors.GoldBright.copy(alpha = 0.5f)
+                        )
                     }
                 }
                 Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, null,
@@ -526,10 +569,11 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
                         .border(1.dp, TzaddikColors.GoldBright.copy(alpha = 0.35f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("$number",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = TzaddikColors.GoldBright,
-                        fontWeight = FontWeight.Bold)
+                    Text(
+                        "$number",
+                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                        color = TzaddikColors.GoldBright
+                    )
                 }
                 Spacer(Modifier.height(10.dp))
                 PageTitle(title = topic.title, hebrew = topic.hebrewTitle)
@@ -540,13 +584,14 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
         }
         topic.learnMoreUrl?.let { url ->
             item {
-                Text("Learn more ↗",
-                    style = MaterialTheme.typography.labelMedium,
+                AppText(
+                    "Learn more ↗",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = TzaddikColors.GoldBright.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
-                        .clickable { uriHandler.openUri(url) })
+                        .clickable { uriHandler.openUri(url) }
+                )
             }
         }
         item { DisclaimerNote() }
@@ -602,13 +647,14 @@ private fun HolidayDetailPage(topic: GuideTopic) {
         item { BodyCard(topic.body) }
         topic.learnMoreUrl?.let { url ->
             item {
-                Text("Learn more ↗",
-                    style = MaterialTheme.typography.labelMedium,
+                AppText(
+                    "Learn more ↗",
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = TzaddikColors.GoldBright.copy(alpha = 0.8f),
-                    fontWeight = FontWeight.SemiBold,
                     modifier = Modifier
                         .padding(horizontal = 4.dp)
-                        .clickable { uriHandler.openUri(url) })
+                        .clickable { uriHandler.openUri(url) }
+                )
             }
         }
         item { DisclaimerNote() }
@@ -624,18 +670,23 @@ private fun PageTitle(title: String, hebrew: String) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (hebrew.isNotBlank()) {
-            Text(hebrew,
-                fontSize = 22.sp,
-                fontFamily = FontFamily.Serif,
-                color = TzaddikColors.GoldBright.copy(alpha = 0.75f),
-                textAlign = TextAlign.Center)
+            Text(
+                hebrew,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontSize = 22.sp,
+                    fontFamily = FontFamily.Serif,
+                    textAlign = TextAlign.Center
+                ),
+                color = TzaddikColors.GoldBright.copy(alpha = 0.75f)
+            )
             Spacer(Modifier.height(4.dp))
         }
-        Text(title,
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
+        AppText(
+            title,
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.ParchTop,
-            textAlign = TextAlign.Center)
+            textAlign = TextAlign.Center
+        )
         Spacer(Modifier.height(10.dp))
         GoldFlourishDivider(widthFraction = 0.4f)
     }
@@ -653,10 +704,11 @@ private fun SubHeading(text: String) {
                 .background(TzaddikColors.GoldBright)
         )
         Spacer(Modifier.width(8.dp))
-        Text(text,
-            style = MaterialTheme.typography.titleSmall,
-            color = TzaddikColors.GoldBright,
-            fontWeight = FontWeight.Bold)
+        AppText(
+            text,
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+            color = TzaddikColors.GoldBright
+        )
     }
 }
 
@@ -678,25 +730,34 @@ private fun BodyCard(text: String) {
                     val t = line.trim()
                     if (t.startsWith("•")) {
                         Row(Modifier.padding(bottom = 4.dp)) {
-                            Text("•", color = TzaddikColors.GoldBorder,
+                            Text(
+                                "•",
+                                color = TzaddikColors.GoldBorder,
                                 style = MaterialTheme.typography.bodySmall,
-                                modifier = Modifier.padding(end = 6.dp, top = 1.dp))
-                            Text(t.removePrefix("•").trim(),
+                                modifier = Modifier.padding(end = 6.dp, top = 1.dp)
+                            )
+                            HalachicClickableText(
+                                text = t.removePrefix("•").trim(),
                                 style = MaterialTheme.typography.bodySmall,
-                                color = TzaddikColors.TextBrown)
+                                color = TzaddikColors.TextBrown,
+                            )
                         }
                     } else if (t.isNotBlank()) {
-                        Text(t, style = MaterialTheme.typography.bodySmall,
+                        HalachicClickableText(
+                            text = t,
+                            style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.TextBrown,
-                            modifier = Modifier.padding(bottom = 4.dp))
+                            modifier = Modifier.padding(bottom = 4.dp),
+                        )
                     }
                 }
             } else {
-                Text(paragraph.trim(),
-                    style = MaterialTheme.typography.bodySmall,
+                HalachicClickableText(
+                    text = paragraph.trim(),
+                    style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                     color = TzaddikColors.TextBrown,
-                    lineHeight = 18.sp,
-                    modifier = Modifier.padding(bottom = 6.dp))
+                    modifier = Modifier.padding(bottom = 6.dp),
+                )
             }
         }
     }
@@ -704,7 +765,7 @@ private fun BodyCard(text: String) {
 
 @Composable
 private fun DisclaimerNote() {
-    Text(
+    AppText(
         "Always consult a qualified Orthodox rabbi for personal halachic guidance.",
         style = MaterialTheme.typography.labelSmall,
         color = TzaddikColors.GoldBright.copy(alpha = 0.45f),

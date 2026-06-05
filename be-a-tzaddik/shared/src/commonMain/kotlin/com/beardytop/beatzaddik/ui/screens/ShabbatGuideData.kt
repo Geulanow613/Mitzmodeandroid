@@ -1,5 +1,7 @@
 package com.beardytop.beatzaddik.ui.screens
 
+import com.beardytop.beatzaddik.domain.HalachicTerm
+
 data class GuideTopic(
     val id: String,
     val title: String,
@@ -58,7 +60,7 @@ Key rules:
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
 • On Shabbat morning, if wine is unavailable, beer or whiskey (chamar medinah — a locally significant beverage) may be used. Wine is always preferred. Consult your rabbi for specifics.""",
-            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/253326/jewish/Kiddush.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/610626/jewish/Kiddush.htm"
         ),
         GuideTopic(
             id = "havdalah",
@@ -590,6 +592,7 @@ It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the f
     // Terms that appear in the upcoming/seasonal block and need an explanation anchor
     val termAnchorMap = mapOf(
         "Shabbat" to "shabbat_overview",
+        "Shabbos" to "shabbat_overview",
         "Rosh Chodesh" to "rosh_chodesh",
         "Hallel" to "hallel",
         "Yaaleh V'yavo" to "yaaleh_vyavo",
@@ -621,4 +624,53 @@ It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the f
         "Fast of 17 Tammuz" to "fast_17_tammuz",
         "Fast of Esther" to "fast_esther"
     )
+
+    /** Glossary terms that share a word with a guide topic but are a different concept. */
+    private val glossaryOnlyTermIds = setOf(
+        "kiddush_levana",
+        "kiddush_hashem",
+        "motzei_shabbat",
+        "shema_al_hamitah",
+        "torah_study",
+        "havdalah_in_kiddush",
+        "yaknehaz",
+        "holiday_havdalah",
+        "oneg_shabbat",
+        "ruach_ra'ah",
+        "bar_mitzvah",
+        "bat_mitzvah",
+        "megillah_reading",
+        "half_hallel",
+        "full_hallel",
+        "seudah_shlishit",
+        "shabbat_candles",
+        "eruv_tavshilin",
+        "eruv_chatzerot",
+        "eruv_techumin",
+        "shabbat_shalom",
+        "mishnah_berurah",
+        "pesukei_d'zimra",
+        "chamar_medina",
+    )
+
+    /** Longest matching label wins (e.g. "Rosh Hashana" before "Rosh"). */
+    fun anchorForLabel(label: String): String? =
+        termAnchorMap.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { (term, _) -> label.contains(term, ignoreCase = true) }
+            ?.value
+
+    fun anchorForTerm(term: HalachicTerm): String? {
+        if (term.id in glossaryOnlyTermIds) return null
+        // Exact guide keys (Rosh Hashana, Yom Tov) — not substring matches on longer phrases.
+        term.matchLabels
+            .firstOrNull { label -> termAnchorMap.keys.any { it.equals(label, ignoreCase = true) } }
+            ?.let { label ->
+                return termAnchorMap.entries.first { it.key.equals(label, ignoreCase = true) }.value
+            }
+        if (!term.title.contains(' ')) {
+            term.matchLabels.firstNotNullOfOrNull(::anchorForLabel)?.let { return it }
+        }
+        return if (term.id.startsWith("guide_")) term.id.removePrefix("guide_") else null
+    }
 }

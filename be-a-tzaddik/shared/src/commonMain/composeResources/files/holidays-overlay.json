@@ -2,7 +2,6 @@
   "version": 1,
   "upcoming": [
     { "id": "shabbat", "name": "Shabbat", "recurring": "weekly_friday", "prepMitzvot": ["shabbat_candles", "shabbat_prep"] },
-    { "id": "rosh_chodesh", "name": "Rosh Chodesh", "recurring": "monthly", "prepMitzvot": [] },
     { "id": "purim", "name": "Purim", "hebrewMonth": 12, "hebrewDay": 14, "prepMitzvot": [] },
     { "id": "pesach", "name": "Pesach", "hebrewMonth": 1, "hebrewDay": 15, "prepMitzvot": ["shabbat_prep"] },
     { "id": "shavuot", "name": "Shavuot", "hebrewMonth": 3, "hebrewDay": 6, "prepMitzvot": [] },

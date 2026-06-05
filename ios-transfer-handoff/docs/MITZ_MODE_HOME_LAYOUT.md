@@ -7,7 +7,7 @@ Background: **`MITZ_MODE_HOME_BACKGROUND.md`** (static gradient on all devices).
 ## Safe areas
 
 - Root controls `Box`: `statusBarsPadding()` + `navigationBarsPadding()` (edge-to-edge; content inset above system bars).
-- Bottom pill stack: `padding(bottom = 20.dp)` above gesture/nav bar.
+- Bottom pill stack: `padding(bottom = 24.dp)` above gesture/nav bar.
 
 ## Instruction text (“Tap the Mitzvah Me button…”)
 
@@ -31,13 +31,13 @@ Swift: use `safeAreaInsets.top` + same logical offsets (convert dp → pt 1:1 on
 
 ## Bottom action stack (top → bottom)
 
-Column: `BottomCenter`, `horizontal = 20.dp`, `spacedBy = 12.dp`.
+Column: `BottomCenter`, `horizontal = 20.dp`, `spacedBy = 10.dp`, `horizontalAlignment = CenterHorizontally`.
 
 | Control | Notes |
 |---------|--------|
-| **Daily Mitzvot Checklist** | Full-width gold gradient pill (primary entry; **not** in ⋮ menu); `offset(y = -20.dp)` |
-| **Add a Mitzvah** | Full-width outlined pill |
-| **What's a Mitzvah?** | Full-width gold gradient pill |
+| **Daily Mitzvot Checklist** | **Full-width** gold gradient pill (primary entry; **not** in ⋮ menu); `offset(y = -20.dp)` |
+| **Add a Mitzvah** | **Content-width** outlined pill — `wrapContentWidth()`, centered (not `fillMaxWidth`) |
+| **What's a Mitzvah?** | **Content-width** gold gradient pill — no `fillMaxWidth`, centered |
 
 ⋮ **menu only:** About, Blessing After Meals, Traveler's Prayer, Blessings, Official App Song, Language Settings.
 
@@ -47,7 +47,7 @@ Column: `BottomCenter`, `horizontal = 20.dp`, `spacedBy = 12.dp`.
 - Gradient stops: `#FFF3B5` → `#FFE082` → `#FFD56B` → `#E0AB2F` (horizontal)
 - Border: `1.6.dp`, `#FFF8D6`
 - Shadow: elevation `16.dp`, spot `#FFD56B`
-- Inner padding: `horizontal 34.dp`, `vertical 14.dp`
+- Inner padding: `horizontal 24.dp`, `vertical 15.dp`
 - Text: `#1A3D72`, `titleMedium` bold
 
 ## Header chrome (same layer)
@@ -60,6 +60,7 @@ Column: `BottomCenter`, `horizontal = 20.dp`, `spacedBy = 12.dp`.
 
 - [ ] Instruction sits below menu + counter, not under status bar.
 - [ ] Mitzvah Me button clears bottom three pills and home indicator.
+- [ ] Daily Mitzvot Checklist pill is full width; Add a Mitzvah and What's a Mitzvah? are narrower, centered under it.
 - [ ] Daily Mitzvot Checklist pill is ~24pt above Add a Mitzvah (visual gap).
 - [ ] Static gradient fills screen (`MITZ_MODE_HOME_BACKGROUND.md`).
 

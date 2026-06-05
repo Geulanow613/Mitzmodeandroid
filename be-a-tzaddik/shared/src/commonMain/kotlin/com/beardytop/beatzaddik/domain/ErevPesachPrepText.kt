@@ -367,7 +367,7 @@ After biur:
             }
         }
         add(ChecklistLink("Aish — Passover", "https://aish.com/holidays/pesach/", "default"))
-        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/category/moadim/04-pesach/", "default"))
-        add(ChecklistLink("Ohr Somayach — Pesach", "https://ohr.edu/yhiy/pesach/", "default"))
+        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/04-03-01/", "default"))
+        add(ChecklistLink("Ohr Somayach — Pesach", "https://ohr.edu/holidays/pesach/", "default"))
     }
 }

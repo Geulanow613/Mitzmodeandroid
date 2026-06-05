@@ -321,7 +321,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         for (i in 0..60) {
             val d = from.plus(i, DateTimeUnit.DAY)
             val jc = calendarFor(d)
-            if (nextShabbat == null && d.dayOfWeek == DayOfWeek.FRIDAY && i > 0) {
+            if (nextShabbat == null && d.dayOfWeek == DayOfWeek.FRIDAY) {
                 nextShabbat = UpcomingHoliday("Shabbat", i, "Candles, Kiddush, rest from electronics")
             }
             if (nextYomTov == null && jc.isYomTov && i > 0) {

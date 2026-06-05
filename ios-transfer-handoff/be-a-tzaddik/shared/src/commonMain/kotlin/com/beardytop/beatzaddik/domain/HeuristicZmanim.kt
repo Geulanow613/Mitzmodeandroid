@@ -18,11 +18,14 @@ object HeuristicZmanim {
 
         val sunrise = localDateTimeMillis(date, 6, 30, tz)
         val sunset = localDateTimeMillis(date, 18, 30, tz)
-        val chatzos = localDateTimeMillis(date, 12, 0, tz)
-        val minchaGedola = chatzos + 30 * 60 * 1000L
+        val dayLength = sunset - sunrise
+        // GRA-style proportional hours (sunrise→sunset ÷ 12), not clock noon
+        fun endOfHour(h: Int) = sunrise + dayLength * h / 12
+        val sofShema = endOfHour(3)
+        val sofTefilla = endOfHour(4)
+        val chatzos = endOfHour(6)
+        val minchaGedola = sunrise + dayLength * 13 / 24 // 6.5 halachic hours after sunrise
         val misheyakir = sunrise - 60 * 60 * 1000L
-        val sofShema = sunrise + (3 * 60 + 30) * 60 * 1000L
-        val sofTefilla = sunrise + (4 * 60 + 30) * 60 * 1000L
         val plag = sunset - (75 * 60 * 1000L)
         // ~8.5° below horizon (~33 min after sunset at mid-latitudes; aligns with MyZmanim-style nightfall)
         val tzeit = sunset + (33 * 60 * 1000L)

@@ -39,6 +39,7 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -67,6 +68,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.ui.components.GUIDE_TERM_TAG
+import com.beardytop.beatzaddik.ui.components.LocalOpenShabbatGuide
 import com.beardytop.beatzaddik.ui.components.drawHalachicTermUnderlines
 import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
 import com.beardytop.beatzaddik.domain.DayChecklists
@@ -141,6 +143,7 @@ fun TodayScreen(
         }
     }
 
+    CompositionLocalProvider(LocalOpenShabbatGuide provides onOpenShabbatGuide) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -154,7 +157,8 @@ fun TodayScreen(
                 timezoneId = profile.timezoneId,
                 locationLabel = profile.locationLabel,
                 onNusachClick = onOpenSettings,
-                onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } }
+                onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
+                onOpenShabbatGuide = onOpenShabbatGuide,
             )
             if (upcoming.isNotEmpty()) {
                 UpcomingHolidaysBlock(upcoming, onOpenShabbatGuide)
@@ -304,6 +308,7 @@ fun TodayScreen(
 
     infoItem?.let { item ->
         MitzvahInfoDialog(item = item, onDismiss = { infoItem = null })
+    }
     }
 }
 
@@ -547,15 +552,15 @@ private fun UpcomingHolidaysBlock(
                 "Shabbat guide ›",
                 style = MaterialTheme.typography.labelSmall,
                 color = TzaddikColors.GoldBright.copy(alpha = 0.7f),
-                modifier = Modifier.clickable { onOpenShabbatGuide(null) }
+                enableTerms = false,
+                modifier = Modifier.clickable { onOpenShabbatGuide(null) },
             )
         }
         Spacer(Modifier.height(8.dp))
         holidays.forEach { h ->
             val whenLabel = upcomingWhenLabel(h)
             // Determine anchor: map holiday name to a guide section
-            val anchor = ShabbatGuideData.termAnchorMap.entries
-                .firstOrNull { (term, _) -> h.name.contains(term, ignoreCase = true) }?.value
+            val anchor = ShabbatGuideData.anchorForLabel(h.name)
 
             Row(
                 modifier = Modifier
@@ -600,12 +605,9 @@ private fun HintWithTermLinks(
     hint: String,
     onOpenShabbatGuide: (anchor: String?) -> Unit
 ) {
-    val termMap = ShabbatGuideData.termAnchorMap
     val hintColor = TzaddikColors.ParchTop.copy(alpha = 0.8f)
     val segments = hint.split(", ")
-    val hasLinkedTerms = segments.any { seg ->
-        termMap.keys.any { term -> seg.contains(term, ignoreCase = true) }
-    }
+    val hasLinkedTerms = segments.any { seg -> ShabbatGuideData.anchorForLabel(seg) != null }
 
     if (!hasLinkedTerms) {
         AppText(
@@ -620,8 +622,7 @@ private fun HintWithTermLinks(
     val annotated = remember(hint) {
         buildAnnotatedString {
             segments.forEachIndexed { index, seg ->
-                val anchor = termMap.entries
-                    .firstOrNull { (term, _) -> seg.contains(term, ignoreCase = true) }?.value
+                val anchor = ShabbatGuideData.anchorForLabel(seg)
                 val segmentText = if (anchor != null) "$seg ›" else seg
                 if (anchor != null) {
                     pushStringAnnotation(GUIDE_TERM_TAG, anchor)
@@ -640,7 +641,7 @@ private fun HintWithTermLinks(
     }
     val density = LocalDensity.current
     val underlineColor = halachicTermUnderlineColor(hintColor)
-    val underlineStrokePx = with(density) { 1.dp.toPx() }
+    val underlineStrokePx = with(density) { 0.75.dp.toPx() }
     val underlineOffsetPx = with(density) { 2.dp.toPx() }
     var textLayout by remember(annotated) { mutableStateOf<TextLayoutResult?>(null) }
 
@@ -682,7 +683,8 @@ private fun CalendarHeader(
     timezoneId: String,
     locationLabel: String?,
     onNusachClick: () -> Unit = {},
-    onPeriodClick: () -> Unit = {}
+    onPeriodClick: () -> Unit = {},
+    onOpenShabbatGuide: (anchor: String?) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -770,16 +772,20 @@ private fun CalendarHeader(
 
                 // Only show meaningful status chips — skip bare day-of-week names
                 val meaningfulChips = d.header.statusChips.filter { chip ->
-                    chip !in setOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+                    chip !in setOf(
+                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+                        "Erev Shabbat", // shown as "Shabbat — Tonight" in upcoming list
+                    )
                 }
                 meaningfulChips.forEach { chip ->
+                    val guideAnchor = ShabbatGuideData.anchorForLabel(chip)
                     AssistChip(
-                        onClick = {},
+                        onClick = { guideAnchor?.let { onOpenShabbatGuide(it) } },
                         label = {
                             AppText(
                                 chip,
                                 color = TzaddikColors.ParchTop,
-                                style = MaterialTheme.typography.labelMedium
+                                style = MaterialTheme.typography.labelMedium,
                             )
                         },
                         colors = AssistChipDefaults.assistChipColors(

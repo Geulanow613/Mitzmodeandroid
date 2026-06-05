@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -33,28 +33,25 @@ fun AboutScreen(
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
-        Text(
+        AppText(
             "About",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.GoldBright,
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
         )
 
         ParchmentContentCard {
-            Text(
+            AppText(
                 appTitle,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep
             )
             Spacer(Modifier.height(8.dp))
             GoldFlourishDivider()
             Spacer(Modifier.height(12.dp))
-            Text(
+            AppText(
                 AppDisclaimer.TITLE,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = TzaddikColors.NavyDeep
             )
             Spacer(Modifier.height(8.dp))

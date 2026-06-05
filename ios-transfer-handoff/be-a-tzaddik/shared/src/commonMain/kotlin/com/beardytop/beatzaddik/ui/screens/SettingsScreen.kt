@@ -24,6 +24,7 @@ import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -90,10 +91,9 @@ fun SettingsScreen(
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         // Screen title
-        Text(
+        AppText(
             "Settings",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.GoldBright,
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
         )
@@ -151,7 +151,7 @@ fun SettingsScreen(
 
         // --- Prayer tradition card ---
         SettingsCard(title = "Prayer Tradition (Nusach)") {
-            Text(
+            AppText(
                 "Your nusach determines which prayer customs appear in your checklist.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextMuted
@@ -170,7 +170,7 @@ fun SettingsScreen(
                 .lowercase()
                 .replaceFirstChar { it.uppercase() }
             Spacer(Modifier.height(6.dp))
-            Text(
+            AppText(
                 "Currently using: $effectiveName",
                 style = MaterialTheme.typography.labelMedium,
                 color = TzaddikColors.NavyMid
@@ -179,7 +179,7 @@ fun SettingsScreen(
 
         // --- Location card ---
         SettingsCard(title = "Location & Prayer Times") {
-            Text(
+            AppText(
                 "Prayer times (zmanim) — Shema deadline, Mincha window, candle lighting — " +
                     "are calculated from your location. Your location is stored on this device only.",
                 style = MaterialTheme.typography.bodySmall,
@@ -202,7 +202,7 @@ fun SettingsScreen(
             LocationPill(locationPillText)
             locMsg?.let {
                 Spacer(Modifier.height(4.dp))
-                Text(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+                AppText(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
             }
             Spacer(Modifier.height(10.dp))
             ProfileToggle(
@@ -212,18 +212,17 @@ fun SettingsScreen(
                 onChange = { enabled -> viewModel.setGpsForZmanim(enabled) { } }
             )
             Spacer(Modifier.height(10.dp))
-            Text(
+            AppText(
                 "Or select your city:",
-                style = MaterialTheme.typography.labelLarge,
-                color = TzaddikColors.NavyDeep,
-                fontWeight = FontWeight.SemiBold
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                color = TzaddikColors.NavyDeep
             )
             Spacer(Modifier.height(6.dp))
             OutlinedTextField(
                 value = cityQuery,
                 onValueChange = { cityQuery = it },
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text("Search city") },
+                label = { AppText("Search city") },
                 singleLine = true
             )
             Spacer(Modifier.height(8.dp))
@@ -248,7 +247,7 @@ fun SettingsScreen(
                     )
                 }
                 if (inlineCities.isEmpty()) {
-                    Text(
+                    AppText(
                         "No cities found. Try another spelling.",
                         style = MaterialTheme.typography.bodySmall,
                         color = TzaddikColors.TextMuted
@@ -270,7 +269,7 @@ fun SettingsScreen(
             val israelSource = profile.isInIsraelSource
             val israelAutoDetected = israelSource != IsraelDetectionSource.MANUAL_FLAG && profile.isInIsrael
             if (israelAutoDetected) {
-                Text(
+                AppText(
                     "🇮🇱 Israel customs active — detected from your ${
                         if (israelSource == IsraelDetectionSource.GPS) "GPS location" else "city selection"
                     } (1-day Yom Tov, Israel parsha cycle).",
@@ -304,7 +303,7 @@ fun SettingsScreen(
                     value = cityQuery,
                     onValueChange = { cityQuery = it },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Search city") },
+                    label = { AppText("Search city") },
                     singleLine = true
                 )
                 Spacer(Modifier.height(8.dp))
@@ -328,7 +327,7 @@ fun SettingsScreen(
                         )
                     }
                     if (filteredCities.isEmpty()) {
-                        Text(
+                        AppText(
                             "No cities found. Try another spelling.",
                             style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.TextMuted
@@ -345,7 +344,7 @@ fun SettingsScreen(
                 kashrutScrollY = coords.positionInParent().y.toInt()
             }
         ) {
-            Text(
+            AppText(
                 "After eating meat, you wait before eating dairy, and vice versa. " +
                     "The wait time is a matter of your family tradition — ask your rabbi if unsure.",
                 style = MaterialTheme.typography.bodySmall,
@@ -368,7 +367,7 @@ fun SettingsScreen(
                 }
             )
             Spacer(Modifier.height(6.dp))
-            Text(
+            AppText(
                 "Default wait times are set automatically based on your nusach if not customized here.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextMuted
@@ -377,7 +376,7 @@ fun SettingsScreen(
 
         // --- Text size card ---
         SettingsCard(title = "Text Size") {
-            Text(
+            AppText(
                 "Adjust to your preferred reading size.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextMuted
@@ -413,11 +412,10 @@ private fun SettingsCard(
             .border(1.dp, TzaddikColors.GoldBorder.copy(alpha = 0.35f), RoundedCornerShape(16.dp))
             .padding(horizontal = 18.dp, vertical = 16.dp)
     ) {
-        Text(
+        AppText(
             title,
-            style = MaterialTheme.typography.titleMedium,
-            color = TzaddikColors.NavyDeep,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            color = TzaddikColors.NavyDeep
         )
         Spacer(Modifier.height(4.dp))
         GoldFlourishDivider(widthFraction = 0.5f, modifier = Modifier.padding(bottom = 12.dp))
@@ -427,14 +425,13 @@ private fun SettingsCard(
 
 @Composable
 private fun SettingLabel(label: String, description: String? = null) {
-    Text(
+    AppText(
         label,
-        style = MaterialTheme.typography.labelLarge,
-        color = TzaddikColors.NavyDeep,
-        fontWeight = FontWeight.SemiBold
+        style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+        color = TzaddikColors.NavyDeep
     )
     description?.let {
-        Text(
+        AppText(
             it,
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted
@@ -460,11 +457,10 @@ private fun LocationPill(text: String) {
             .background(TzaddikColors.NavyDeep.copy(alpha = 0.07f))
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        Text(
+        AppText(
             text,
-            style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.NavyMid,
-            fontWeight = FontWeight.Medium
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+            color = TzaddikColors.NavyMid
         )
     }
 }
@@ -484,7 +480,7 @@ private fun DairyToMeatWaitSlider(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
+        AppText(
             label,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.TextBrown,
@@ -497,11 +493,10 @@ private fun DairyToMeatWaitSlider(
                 .background(TzaddikColors.GoldBorder.copy(alpha = 0.18f))
                 .padding(horizontal = 14.dp, vertical = 5.dp)
         ) {
-            Text(
+            AppText(
                 KashrutWaitTimes.formatDairyToMeatWait(displayMinutes),
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
         }
@@ -526,7 +521,7 @@ private fun WaitTimeSlider(label: String, value: Int, onValueChange: (Int) -> Un
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(
+        AppText(
             label,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.TextBrown,
@@ -541,9 +536,8 @@ private fun WaitTimeSlider(label: String, value: Int, onValueChange: (Int) -> Un
         ) {
             Text(
                 "${value}h",
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
         }
@@ -574,8 +568,12 @@ private fun ProfileToggle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(Modifier.weight(1f)) {
-            Text(label, color = TzaddikColors.TextBrown, fontWeight = FontWeight.SemiBold)
-            Text(description, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+            AppText(
+                label,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = TzaddikColors.TextBrown
+            )
+            AppText(description, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
         }
         Spacer(Modifier.width(12.dp))
         Switch(
@@ -600,10 +598,12 @@ private fun SettingsChip(
         selected = selected,
         onClick = onClick,
         label = {
-            Text(
+            AppText(
                 label,
-                color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown,
-                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
+                ),
+                color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown
             )
         },
         modifier = modifier,

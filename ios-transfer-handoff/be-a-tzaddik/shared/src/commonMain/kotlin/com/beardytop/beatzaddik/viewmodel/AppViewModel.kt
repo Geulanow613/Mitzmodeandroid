@@ -17,7 +17,9 @@ import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.platform.LocationResult
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
+import com.beardytop.beatzaddik.domain.HolyDayPhoneRules
 import com.beardytop.beatzaddik.domain.RestKind
+import com.beardytop.beatzaddik.domain.SHABBAT_REST_TITLE
 import com.beardytop.beatzaddik.domain.shabbatMessage
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
 import kotlinx.coroutines.delay
@@ -149,8 +151,8 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         else deps.checklistEngine.requiredProgress(d)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0 to 0)
 
-    val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(profile, clockTick) { prof, _ ->
-        deps.calendar.upcomingHolidays(profile = prof)
+    val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(profile, clockTick) { prof, now ->
+        deps.calendar.upcomingHolidays(nowEpochMillis = now, profile = prof)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val electronicsRest: StateFlow<ElectronicsRestPeriod?> = combine(profile, clockTick) { prof, now ->
@@ -437,16 +439,17 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
     }
 
-    /** Ensures Shabbat day always pauses the app even if zmanim lookup fails. */
+    /** Fallback pause when full zmanim calendar fails — still ends at tzeit when zmanim are available. */
     private fun shabbatRestFallback(nowEpochMillis: Long, profile: UserProfile): ElectronicsRestPeriod? {
         val cal = deps.calendar.dayInfoAt(nowEpochMillis, profile)
-        if (!cal.isShabbat || cal.isErevShabbat) return null
+        if (!HolyDayPhoneRules.isShabbatMelachaWindow(cal, nowEpochMillis)) return null
         return ElectronicsRestPeriod(
             kind = RestKind.SHABBAT,
-            title = "Shabbat Shalom",
+            title = SHABBAT_REST_TITLE,
             message = shabbatMessage(),
             hebrewDateLabel = cal.hebrewLabel,
-            locationLabel = profile.locationLabel
+            locationLabel = profile.locationLabel,
+            endsAtEpochMillis = cal.zmanim?.tzeitMillis,
         )
     }
 }

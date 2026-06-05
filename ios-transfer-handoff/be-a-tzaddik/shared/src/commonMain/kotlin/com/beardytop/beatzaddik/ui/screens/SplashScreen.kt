@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -79,13 +79,14 @@ fun SplashScreen(
 
             Spacer(Modifier.height(24.dp))
 
-            Text(
+            AppText(
                 splashTitle,
                 style = MaterialTheme.typography.headlineLarge.copy(
                     fontWeight = FontWeight.Bold,
                     fontSize = 36.sp,
                     letterSpacing = 0.5.sp
                 ),
+                enableTerms = false,
                 color = TzaddikColors.GoldBright,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.alpha(titleAlpha.value)
@@ -93,7 +94,7 @@ fun SplashScreen(
 
             Spacer(Modifier.height(10.dp))
 
-            Text(
+            AppText(
                 "Your daily companion\nfor Torah-observant living",
                 style = MaterialTheme.typography.bodyLarge.copy(
                     lineHeight = 24.sp

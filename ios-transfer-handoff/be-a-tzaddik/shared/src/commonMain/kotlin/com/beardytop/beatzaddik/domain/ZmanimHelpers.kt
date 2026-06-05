@@ -6,6 +6,18 @@ package com.beardytop.beatzaddik.domain
 object ZmanimHelpers {
 
     /**
+     * End of the Nth proportional halachic hour of the day (GRA-style: divide sunrise→sunset into 12).
+     * E.g. hour 4 = latest time to eat chametz on Erev Pesach; hour 5 = biur deadline.
+     */
+    fun endOfHalachicHourMillis(z: ZmanimSnapshot, hour: Int): Long? {
+        val sunrise = z.sunriseMillis ?: return null
+        val sunset = z.sunsetMillis ?: return null
+        if (hour !in 1..12) return null
+        val dayLength = sunset - sunrise
+        return sunrise + dayLength * hour / 12
+    }
+
+    /**
      * Chatzos halayla — midpoint between sunset and the next dawn (alot hashachar).
      */
     fun chatzosLaylaMillis(z: ZmanimSnapshot, nowMillis: Long): Long? {

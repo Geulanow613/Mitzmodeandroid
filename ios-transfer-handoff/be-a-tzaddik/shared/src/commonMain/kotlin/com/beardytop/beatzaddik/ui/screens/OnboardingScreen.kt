@@ -33,6 +33,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -58,6 +59,7 @@ import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.ui.components.ChecklistSectionHeader
+import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.ParchmentContentCard
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
@@ -227,14 +229,13 @@ private fun AboutYouStep(
                 }
             }
     ) {
-        Text(
+        AppText(
             "Tell us about yourself",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.NavyDeep
         )
         Spacer(Modifier.height(4.dp))
-        Text(
+        AppText(
             "The Torah's obligations differ somewhat based on these details — this helps us show you the right checklist.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted
@@ -265,25 +266,25 @@ private fun AboutYouStep(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.height(4.dp))
-        Text(
+        AppText(
             "Choose Female for the women's checklist (prayer, Torah study, tzniut). \"Prefer not to say\" uses the men's checklist.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted
         )
         Spacer(Modifier.height(8.dp))
         ToggleRow("I am married", married) { onMarried(it) }
-        Text(
-            if (gender == Gender.FEMALE) {
+        HalachicClickableText(
+            text = if (gender == Gender.FEMALE) {
                 "When married, your checklist adds a Married women's mitzvot section: hair covering (kisui rosh) and taharat hamishpacha (family purity). You can change this anytime in Settings."
             } else {
                 "For women, being married adds hair covering and family purity to the checklist. Change anytime in Settings."
             },
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted,
-            modifier = Modifier.padding(start = 4.dp, bottom = 6.dp)
+            modifier = Modifier.padding(start = 4.dp, bottom = 6.dp),
         )
         ToggleRow("I have children", children) { onChildren(it) }
-        Text(
+        AppText(
             "Affects: certain Shabbat and holiday preparation items.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted,
@@ -310,17 +311,16 @@ private fun PrayerTraditionStep(
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        Text(
+        AppText(
             "Prayer tradition & location",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.NavyDeep
         )
         Spacer(Modifier.height(4.dp))
-        Text(
-            "Different Jewish communities have slightly different prayer traditions (nusach). Choosing yours helps the app show the correct prayer text and customs.",
+        HalachicClickableText(
+            text = "Different Jewish communities have slightly different prayer traditions (nusach). Choosing yours helps the app show the correct prayer text and customs.",
             style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.TextMuted
+            color = TzaddikColors.TextMuted,
         )
         Spacer(Modifier.height(12.dp))
         ChecklistSectionHeader("My prayer tradition (Nusach)")
@@ -352,7 +352,7 @@ private fun PrayerTraditionStep(
 
         Spacer(Modifier.height(12.dp))
         ChecklistSectionHeader("Location (for prayer times)")
-        Text(
+        AppText(
             "The app shows accurate prayer times (zmanim) when it knows your location — sunrise, sunset, Shema deadline, and more.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted
@@ -360,9 +360,9 @@ private fun PrayerTraditionStep(
         Spacer(Modifier.height(8.dp))
         ToggleRow("Use GPS for accurate zmanim", useGps) { onGps(it) }
         locMsg?.let {
-            Text(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+            AppText(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
         }
-        Text(
+        AppText(
             "You can also set a city manually in Settings after setup.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted,
@@ -374,7 +374,7 @@ private fun PrayerTraditionStep(
             value = cityQuery,
             onValueChange = { cityQuery = it },
             modifier = Modifier.fillMaxWidth(),
-            label = { Text("Search city") },
+            label = { AppText("Search city") },
             singleLine = true
         )
         Spacer(Modifier.height(8.dp))
@@ -394,7 +394,7 @@ private fun PrayerTraditionStep(
                 )
             }
             if (filteredCities.isEmpty()) {
-                Text(
+                AppText(
                     "No cities found. Try another spelling.",
                     style = MaterialTheme.typography.bodySmall,
                     color = TzaddikColors.TextMuted
@@ -418,7 +418,7 @@ private fun NusachOption(
         modifier = Modifier.fillMaxWidth().padding(vertical = 2.dp)
     )
     if (selected) {
-        Text(
+        AppText(
             description,
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.NavyMid,
@@ -434,7 +434,7 @@ private fun ToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Un
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(label, color = TzaddikColors.TextBrown, modifier = Modifier.weight(1f))
+        AppText(label, color = TzaddikColors.TextBrown, modifier = Modifier.weight(1f), enableTerms = false)
         Spacer(Modifier.width(8.dp))
         Switch(
             checked = checked,
@@ -457,7 +457,13 @@ private fun StyledChip(
     FilterChip(
         selected = selected,
         onClick = onClick,
-        label = { Text(label, color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown) },
+        label = {
+            AppText(
+                label,
+                color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown,
+                enableTerms = false
+            )
+        },
         modifier = modifier,
         colors = FilterChipDefaults.filterChipColors(
             selectedContainerColor = TzaddikColors.GoldBright.copy(alpha = 0.35f),

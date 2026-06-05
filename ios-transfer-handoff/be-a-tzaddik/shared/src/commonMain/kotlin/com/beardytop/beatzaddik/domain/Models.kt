@@ -232,5 +232,7 @@ data class KashrutWait(
 data class UpcomingHoliday(
     val name: String,
     val daysAway: Int,
-    val hint: String = ""
+    val hint: String = "",
+    /** When [daysAway] is 0: true → label "Tonight" (begins at sunset); false → "today". */
+    val beginsTonightWhenImminent: Boolean = true,
 )

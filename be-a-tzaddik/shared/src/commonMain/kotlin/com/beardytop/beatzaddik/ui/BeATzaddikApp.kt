@@ -2,6 +2,7 @@ package com.beardytop.beatzaddik.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.rememberScrollState
@@ -138,8 +139,30 @@ fun BeATzaddikApp(
                 }
             }
             electronicsRest != null -> {
-                PlatformBackHandler { /* stay on rest screen */ }
-                ShabbatRestScreen(electronicsRest!!)
+                var showRestSettings by rememberSaveable { mutableStateOf(false) }
+                if (showRestSettings) {
+                    PlatformBackHandler { showRestSettings = false }
+                    Box(Modifier.fillMaxSize()) {
+                        HolyLightBackground(Modifier.fillMaxSize())
+                        Column(Modifier.fillMaxSize()) {
+                            AppText(
+                                "‹ Back",
+                                color = TzaddikColors.GoldBright,
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier
+                                    .clickable { showRestSettings = false }
+                                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                            )
+                            SettingsScreen(viewModel = viewModel)
+                        }
+                    }
+                } else {
+                    PlatformBackHandler { /* stay on rest screen */ }
+                    ShabbatRestScreen(
+                        period = electronicsRest!!,
+                        onOpenSettings = { showRestSettings = true },
+                    )
+                }
             }
             else -> MainShell(
                 viewModel = viewModel,

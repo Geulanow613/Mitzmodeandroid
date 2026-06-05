@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,23 +39,23 @@ fun AboutContent(
             Spacer(Modifier.height(14.dp))
         }
 
-        Text(
-            AppDisclaimer.STARTUP_BODY,
+        HalachicClickableText(
+            text = AppDisclaimer.STARTUP_BODY,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.TextBrown,
             textAlign = textAlign,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(16.dp))
-        Text(
-            AppDisclaimer.PRODUCER_INTRO,
+        HalachicClickableText(
+            text = AppDisclaimer.PRODUCER_INTRO,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.TextBrown,
             textAlign = textAlign,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(4.dp))
-        Text(
+        AppText(
             AppDisclaimer.PRODUCER_NAME,
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
             color = TzaddikColors.GoldBorder,

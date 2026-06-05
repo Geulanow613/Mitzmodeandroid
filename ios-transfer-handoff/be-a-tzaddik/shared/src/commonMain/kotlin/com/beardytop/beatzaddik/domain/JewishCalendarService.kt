@@ -18,19 +18,31 @@ class JewishCalendarService(
     fun dayInfoAt(nowEpochMillis: Long, profile: UserProfile): DayInfo =
         backend.dayInfoAt(nowEpochMillis, profile)
 
+    /** Stable calendar snapshot for a civil date (noon local) — used for tomorrow lookahead. */
+    fun dayInfoForDate(date: LocalDate, profile: UserProfile): DayInfo =
+        backend.dayInfoAt(date.toEpochMillisAtNoon(profile), profile)
+
     fun electronicsRestPeriod(
         nowEpochMillis: Long = Clock.System.now().toEpochMilliseconds(),
         profile: UserProfile
-    ): ElectronicsRestPeriod? = backend.electronicsRestPeriod(nowEpochMillis, profile)
+    ): ElectronicsRestPeriod? = ElectronicsRestEvaluator.evaluate(this, nowEpochMillis, profile)
 
     fun upcomingHolidays(
-        from: LocalDate = today(),
+        nowEpochMillis: Long = Clock.System.now().toEpochMilliseconds(),
         profile: UserProfile = UserProfile()
     ): List<UpcomingHoliday> {
-        val fromBackend = backend.upcomingHolidays(from, profile)
-        val fromOverlay = holidayOverlay.mapNotNull { entry -> overlayToHoliday(entry, from, profile) }
-        return (fromBackend + fromOverlay)
-            .distinctBy { "${it.name}-${it.daysAway}" }
+        val nowInfo = dayInfoAt(nowEpochMillis, profile)
+        val from = ZmanPeriodLogic.effectivePlanningDate(
+            nowMillis = nowEpochMillis,
+            civilDate = nowInfo.date,
+            zmanim = nowInfo.zmanim,
+        )
+        val fromPlanner = UpcomingHolidayPlanner.plan(backend, nowEpochMillis, profile)
+        val fromOverlay = holidayOverlay.mapNotNull { entry ->
+            overlayToHoliday(entry, from, profile)
+        }
+        return (fromPlanner + fromOverlay)
+            .distinctBy { it.name }
             .sortedBy { it.daysAway }
             .take(8)
     }
@@ -40,15 +52,38 @@ class JewishCalendarService(
         return when (entry.recurring) {
             "weekly_friday" -> {
                 val days = daysUntilFriday(from)
-                if (days in 1..14) UpcomingHoliday(entry.name, days, hint) else null
+                if (days in 0..14) {
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = days,
+                        hint = hint,
+                        beginsTonightWhenImminent = true,
+                    )
+                } else {
+                    null
+                }
             }
             "monthly" -> {
                 val days = daysUntilRoshChodesh(from, profile)
-                days?.let { UpcomingHoliday(entry.name, it, hint) }
+                days?.let {
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = it,
+                        hint = hint,
+                        beginsTonightWhenImminent = true,
+                    )
+                }
             }
             else -> {
                 val days = daysUntilHebrewDate(from, entry.hebrewMonth, entry.hebrewDay, profile)
-                days?.let { UpcomingHoliday(entry.name, it, hint) }
+                days?.let {
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = it,
+                        hint = hint,
+                        beginsTonightWhenImminent = false,
+                    )
+                }
             }
         }
     }

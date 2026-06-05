@@ -101,7 +101,7 @@
       "links": [
         {
           "displayText": "Chafetz Chaim — Preface (Sefaria)",
-          "url": "https://www.sefaria.org.il/Chafetz_Chaim%2C_Preface?lang=bi"
+          "url": "https://www.sefaria.org/Chafetz_Chaim,_Preface"
         }
       ],
       "hideOnShabbat": false,
@@ -170,8 +170,8 @@
           "url": "https://aish.com/4-children-and-halacha-2/"
         },
         {
-          "displayText": "Chabad.org — Jewish Education: Chinuch",
-          "url": "https://www.chabad.org/library/article_cdo/aid/4052274/jewish/Jewish-Education-Chinuch.htm"
+          "displayText": "Chabad.org — Parenting & Chinuch",
+          "url": "https://www.chabad.org/library/article_cdo/aid/5784342/jewish/Parenting-Horim.htm"
         },
         {
           "displayText": "Pirkei Avot 5:21 (Sefaria)",
@@ -258,14 +258,14 @@
       "section": "Morning Prayer (Shacharit)",
       "timeOfDay": "any",
       "required": true,
-      "explanation": "Every day, before learning Torah for the first time, we say Birkat HaTorah — the blessings over Torah study. This is a Torah-level commandment.\n\nWhat these blessings are:\nBirkat HaTorah (בִּרְכַּת הַתּוֹרָה — blessings of the Torah) consists of three short blessings:\n1. A blessing thanking G-d for commanding us to engage in Torah study\n2. A blessing asking G-d to make the words of Torah sweet in our mouths and the mouths of our children\n3. A blessing praising G-d for giving us the Torah\n\nAfter saying these blessings, we immediately read short Torah passages (which also fulfills a minimum daily Torah study obligation).\n\nWhy they matter:\nThe Talmud teaches that many troubles in Jewish history came from failing to say the blessings before Torah study. These blessings express that Torah is not just intellectual — it is a divine gift and our most sacred inheritance.\n\nTiming:\nSaid once in the morning; they cover all Torah learning for the entire day. They can be said from after halachic midnight (chatzos halayla — the midpoint of the night) onward — so even if you wake up very early, say them.",
+      "explanation": "Before you open a book — remember what Torah study is:\n\nThe blessings you are about to say exist because Torah is how we cleave to Hashem. The sages teach that learning Torah outweighs every other mitzvah combined (Peah 1:1), that the Shechinah joins those who speak words of Torah (Avot 3:2–3), and that Torah study protects your life in this world and the next (Sotah 21a). Birkat HaTorah is the doorway into that reality — asking Hashem to make Torah sweet on your lips, not heavy.\n\nEvery day, before learning Torah for the first time, we say Birkat HaTorah — the blessings over Torah study. This is a Torah-level commandment.\n\nWhat these blessings are:\nBirkat HaTorah (בִּרְכַּת הַתּוֹרָה — blessings of the Torah) consists of three short blessings:\n1. A blessing thanking G-d for commanding us to engage in Torah study\n2. A blessing asking G-d to make the words of Torah sweet in our mouths and the mouths of our children\n3. A blessing praising G-d for giving us the Torah\n\nAfter saying these blessings, we immediately read short Torah passages (which also fulfills a minimum daily Torah study obligation).\n\nWhy they matter:\nThe Talmud teaches that many troubles in Jewish history came from failing to say the blessings before Torah study. These blessings express that Torah is not just intellectual — it is a divine gift and our most sacred inheritance.\n\nTiming:\nSaid once in the morning; they cover all Torah learning for the entire day. They can be said from after halachic midnight (chatzos halayla — the midpoint of the night) onward — so even if you wake up very early, say them.",
       "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "sortOrder": 10,
       "persistChecked": false,
       "situational": false,
-      "explanationFemale": "Before learning Torah for the first time each day, women say Birkat HaTorah — the blessings over Torah study. This applies when you learn halacha or any Torah text.\n\nSay the three blessings once in the morning (from after halachic midnight / chatzos halayla onward). They cover all Torah learning for the rest of the day.\n\nAfter the blessings, many siddurim include short Torah passages. Even a few minutes of halacha learning afterward fulfills your daily study obligation (see Torah Study)."
+      "explanationFemale": "Torah learning bonds you with Hashem — the sages teach that the Shechinah dwells wherever words of Torah are spoken (Avot 3:2) and that Torah study protects your life (Sotah 21a). Birkat HaTorah opens that door each day.\n\nBefore learning Torah for the first time each day, women say Birkat HaTorah — the blessings over Torah study. This applies when you learn halacha or any Torah text.\n\nSay the three blessings once in the morning (from after halachic midnight / chatzos halayla onward). They cover all Torah learning for the rest of the day.\n\nAfter the blessings, many siddurim include short Torah passages. Even a few minutes of halacha learning afterward fulfills your daily study obligation (see Torah Study)."
     },
     {
       "id": "morning_blessings_birchot_hashachar",
@@ -444,11 +444,11 @@
       "links": [
         {
           "displayText": "Chabad.org — Bedtime Shema",
-          "url": "https://www.chabad.org/library/article_cdo/aid/1795/jewish/Bedtime-Shema.htm"
+          "url": "https://www.chabad.org/library/article_cdo/aid/629832/jewish/Bedtime-Shema.htm"
         },
         {
           "displayText": "Aish.com — Bedtime Shema",
-          "url": "https://aish.com/need_sleep/"
+          "url": "https://aish.com/bedtime-shema/"
         }
       ],
       "hideOnShabbat": false,
@@ -487,7 +487,7 @@
       "links": [
         {
           "displayText": "Chabad — Kiddush Levana",
-          "url": "https://www.chabad.org/library/article_cdo/aid/1645/jewish/Kiddush-Levana.htm",
+          "url": "https://www.chabad.org/library/article_cdo/aid/1904288/jewish/Kiddush-Levana-Sanctification-of-the-Moon.htm",
           "type": "default"
         },
         {
@@ -510,11 +510,11 @@
       "timeOfDay": "any",
       "required": true,
       "weeklyMitzvah": true,
-      "explanation": "Each week, the Jewish community reads a designated section of the Torah in synagogue on Shabbat morning. Every individual is personally required to study that same section during the week.\n\nWhat this is:\nShnayim Mikra v'Echad Targum (שְׁנַיִם מִקְרָא וְאֶחָד תַּרְגּוּם — \"twice the text and once the translation\") is the requirement to read each verse of the weekly Torah portion:\n• Twice in the original Hebrew\n• Once in Aramaic translation (Targum Onkelos, a word-for-word Aramaic translation of the Torah written by Onkelos, a convert to Judaism in the 1st century CE)\n\nKey terms:\n• Parsha / Parashah (פָּרָשָׁה) — the weekly Torah portion; the Torah is divided into 54 portions, one read each week in synagogue\n• Sefer Torah — the Torah scroll, hand-written on parchment\n• Targum Onkelos — the authoritative Aramaic translation of the Torah\n• Chumash — a printed Torah book (from chamesh — five), containing the Five Books of Moses with commentaries\n\nFor those learning Hebrew:\nIf you cannot yet read the Hebrew and Aramaic fluently, many authorities allow an accurate English translation in place of Targum Onkelos. However, learning to read the Hebrew text is one of the most rewarding investments a Jew can make.\n\nWhen to do it:\nComplete it before Shabbat morning of the following week. Most people spread it across the week — a few verses or a passage each day.",
+      "explanation": "Why Shnayim Mikra is worth the effort — teachings of our rabbis:\n\nThe weekly Torah portion is not only a calendar item. It is your personal share in the Torah that sustains the Jewish people. The sages tie public Torah reading to the survival of the world itself (Shabbat 119b). When you learn the same parsha the community will hear on Shabbat, you join a chain stretching back to Sinai — and the Shechinah dwells wherever words of Torah are spoken (Avot 3:2).\n\nTorah study protects the learner; it is among the three guardians of life in the Talmud (Sotah 21a). Tradition describes words of Torah ascending and bringing merit. Shnayim Mikra is a manageable weekly rhythm: a little each day builds a bond with Hashem that no podcast can replace.\n\nEach week, the Jewish community reads a designated section of the Torah in synagogue on Shabbat morning. Every individual is personally required to study that same section during the week.\n\nWhat this is:\nShnayim Mikra v'Echad Targum (שְׁנַיִם מִקְרָא וְאֶחָד תַּרְגּוּם — \"twice the text and once the translation\") is the requirement to read each verse of the weekly Torah portion:\n• Twice in the original Hebrew\n• Once in Aramaic translation (Targum Onkelos, a word-for-word Aramaic translation of the Torah written by Onkelos, a convert to Judaism in the 1st century CE)\n\nKey terms:\n• Parsha / Parashah (פָּרָשָׁה) — the weekly Torah portion; the Torah is divided into 54 portions, one read each week in synagogue\n• Sefer Torah — the Torah scroll, hand-written on parchment\n• Targum Onkelos — the authoritative Aramaic translation of the Torah\n• Chumash — a printed book of the five books of the Torah (from chamesh — \"five\"), usually with Hebrew, translation, and commentaries such as Rashi\n\nFor those learning Hebrew:\nIf you cannot yet read the Hebrew and Aramaic fluently, many authorities allow an accurate English translation in place of Targum Onkelos. However, learning to read the Hebrew text is one of the most rewarding investments a Jew can make.\n\nWhen to do it:\nComplete it before Shabbat morning of the following week. Most people spread it across the week — a few verses or a passage each day.",
       "links": [
         {
-          "displayText": "Sefaria — weekly Parsha",
-          "url": "https://www.sefaria.org/texts/Torah"
+          "displayText": "Shulchan Arukh — Shnayim Mikra (OC 285)",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.285"
         }
       ],
       "hideOnShabbat": false,
@@ -530,7 +530,7 @@
       "timeOfDay": "any",
       "required": true,
       "gender": "female",
-      "explanation": "What applies to women in Torah Study:\n\nWomen are exempt from the formal, continuous mitzvah of Talmud Torah (תַּלְמוּד תּוֹרָה) incumbent on men — including the men's day-and-night study schedule on this checklist. You are also not required to do Shnayim Mikra (weekly parsha reading) or Chabad's daily Hayom Yom / Chitas program, though you may learn them voluntarily.\n\nYour obligation:\nYou are obligated to study the practical halachot (הֲלָכוֹת — laws) that apply to your daily life so you can observe them properly: blessings, kashrut, Shabbat, prayer you say, tzniut, taharat hamishpacha (if married), and other mitzvot relevant to you.\n\nWhen to learn:\nThis item is for any time of day or night. Even a few minutes of focused halacha learning counts. There is no upper limit if you wish to learn more.\n\nEvening prayer (separate section):\nWomen say Kriat Shema al HaMitah (Bedtime Shema) before sleep. You do not need Shema with its Maariv blessings as a separate obligation.\n\nGood starting points:\n• [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) or a women's halacha book from your community\n• Daily halacha — [DailyHalacha.com](https://www.dailyhalacha.com/) or [Halachipedia](https://www.halachipedia.com/)\n• [Sefaria.org](https://www.sefaria.org/) — search topics you need for your home and family\n\nAsk your rabbi or rebbetzin which areas to prioritize as you grow in observance.",
+      "explanation": "Why Torah learning matters for you — what the sages teach every Jew:\n\nTorah is not only men's work in the spiritual sense. Whenever you learn — halacha for your home, stories of our matriarchs, or the prayers you say — you bond with Hashem. Pirkei Avot promises that when words of Torah pass between people, the Shechinah dwells among them (Avot 3:2–3). That applies to a woman at her desk with a Kitzur Shulchan Arukh just as it applies in a beit midrash.\n\nThe sages list Torah study among the three things that protect a person's life (Sotah 21a). Tradition teaches that words of Torah rise on high and bring merit and advocacy for the learner and her family. Learning the laws of Shabbat, kashrut, and taharat hamishpacha is not bureaucracy — it is how you bring holiness into the rooms where your family lives.\n\nTorah is an etz chaim, a tree of life (Mishlei 3:18). Even a few minutes of focused learning sweetens the day and connects mitzvot into a whole picture instead of isolated rules.\n\nWhat applies to women in Torah Study:\n\nWomen are exempt from the formal, continuous mitzvah of Talmud Torah (תַּלְמוּד תּוֹרָה) incumbent on men — including the men's day-and-night study schedule on this checklist. You are also not required to do Shnayim Mikra (weekly parsha reading) or Chabad's daily Hayom Yom / Chitas program, though you may learn them voluntarily.\n\nYour obligation:\nYou are obligated to study the practical halachot (הֲלָכוֹת — laws) that apply to your daily life so you can observe them properly: blessings, kashrut, Shabbat, prayer you say, tzniut, taharat hamishpacha (if married), and other mitzvot relevant to you.\n\nWhen to learn:\nThis item is for any time of day or night. Even a few minutes of focused halacha learning counts. There is no upper limit if you wish to learn more.\n\nEvening prayer (separate section):\nWomen say Kriat Shema al HaMitah (Bedtime Shema) before sleep. You do not need Shema with its Maariv blessings as a separate obligation.\n\nGood starting points:\n• [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) or a women's halacha book from your community\n• Daily halacha — [DailyHalacha.com](https://www.dailyhalacha.com/) or [Halachipedia](https://www.halachipedia.com/)\n• [Sefaria.org](https://www.sefaria.org/) — search topics you need for your home and family\n\nAsk your rabbi or rebbetzin which areas to prioritize as you grow in observance.",
       "links": [
         {
           "displayText": "Sefaria — Kitzur Shulchan Arukh",
@@ -558,7 +558,7 @@
         },
         {
           "displayText": "Chabad.org — Daily Torah Study (optional)",
-          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+          "url": "https://www.chabad.org/library/article_cdo/aid/6031317/jewish/What-Is-Chitas-The-Daily-Study-Program.htm"
         }
       ],
       "hideOnShabbat": false,
@@ -573,7 +573,7 @@
       "section": "Torah Study",
       "timeOfDay": "day",
       "required": true,
-      "explanation": "Torah study is one of the greatest mitzvot in the entire Torah — so great that the Talmud says it is equal to all other mitzvot combined.\n\nWhat Torah study is:\nTalmud Torah (תַּלְמוּד תּוֹרָה — study of Torah) means engaging with any part of the Jewish textual tradition: the Five Books of Moses, the Prophets and Writings (Tanakh), Mishnah, Talmud, halachic (legal) works, Kabbalah (Jewish mysticism), Chassidut (Chassidic teachings), Mussar (ethical literature), or any authentic Torah book.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day. There is no upper limit — learn as much as you are able. Set aside fixed times (keviyut — קְבִיעוּת) when possible; even a small amount done consistently and purposefully is enormously valuable.\n\nThis checklist item is for daytime study. There is a separate item for Torah study at night.\n\nKey terms:\n• Tanakh — the Hebrew Bible: Torah (Five Books of Moses) + Nevi'im (Prophets) + Ketuvim (Writings)\n• Mishnah — the first written compilation of the Oral Torah, edited by Rabbi Yehuda HaNasi around 200 CE\n• Talmud — the expanded discussion of the Mishnah by the rabbis; consists of Gemara (Talmudic discussion) + Mishnah; completed around 500 CE\n• Halacha — Jewish law; the practical rules derived from Torah\n• Chassidut — Chassidic philosophy and teachings, focused on inner divine service and joy\n• Mussar — ethical and character-development literature\n\nGood starting points for newcomers:\n• Daily halacha: [DailyHalacha.com](https://www.dailyhalacha.com/) and [Halachipedia](https://www.halachipedia.com/) for looking up laws\n• [Chabad.org](https://www.chabad.org/) or [Sefaria.org](https://www.sefaria.org/) for structured texts with translation\n• A weekly Parsha class (in person or on [TorahAnytime.com](https://www.torahanytime.com/))\n• [Daf Yomi](https://www.sefaria.org/daf-yomi) — one page of Talmud per day (completes the entire Talmud in 7.5 years)\n• The [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) — a concise summary of practical Jewish law for daily life",
+      "explanation": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah study is not only an obligation. It is the deepest everyday way a Jew bonds with Hashem. The Mishnah teaches that Talmud Torah k'neged kulam — learning Torah outweighs every other mitzvah combined (Peah 1:1). When you learn, you are cleaving to the G-d who gave us life — not escaping the world, but filling it with meaning.\n\nWhat our rabbis say happens when you learn:\n\n• Hashem draws near — Pirkei Avot teaches that when even two people sit together and words of Torah pass between them, the Shechinah (Divine Presence) dwells among them (Avot 3:2–3). Alone at your kitchen table with a siddur or Chumash, you are still in that company.\n\n• Protection in this world and the next — The Talmud lists Torah study among the three things that guard a person's life (alongside fear of sin and acts of kindness; Sotah 21a). Tradition describes words of Torah ascending on high and becoming angels that advocate for the learner. However you understand that image, the sages are clear: Torah surrounds your home, your children, and your decisions with merit.\n\n• Sweetness, not drudgery — Birkat HaTorah asks Hashem to make Torah \"sweet in our mouths.\" Torah is called an etz chaim, a tree of life (Mishlei 3:18). The more you return to it, the more mitzvot feel connected instead of scattered.\n\n• You help hold up the world — The Talmud teaches that the world endures because of the breath of children learning Torah, and that Jerusalem was lost in part when Torah study was neglected (Shabbat 119b). Your learning tips the scale toward blessing for the Jewish people.\n\nYou do not need to be a scholar. A few focused minutes count. The reward is real even before you feel it.\n\nWhat Torah study is:\nTalmud Torah (תַּלְמוּד תּוֹרָה — study of Torah) means engaging with any part of the Jewish textual tradition: the five books of the Torah, the Prophets and Writings (Tanakh), Mishnah, Talmud, halachic (legal) works, Kabbalah (Jewish mysticism), Chassidut (Chassidic teachings), Mussar (ethical literature), or any authentic Torah book.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day. There is no upper limit — learn as much as you are able. Set aside fixed times (keviyut — קְבִיעוּת) when possible; even a small amount done consistently and purposefully is enormously valuable.\n\nThis checklist item is for daytime study. There is a separate item for Torah study at night.\n\nKey terms:\n• Tanakh — the Hebrew Bible: Torah (the five books) + Nevi'im (Prophets) + Ketuvim (Writings)\n• Mishnah — the first written compilation of the Oral Torah, edited by Rabbi Yehuda HaNasi around 200 CE\n• Talmud — the expanded discussion of the Mishnah by the rabbis; consists of Gemara (Talmudic discussion) + Mishnah; completed around 500 CE\n• Halacha — Jewish law; the practical rules derived from Torah\n• Chassidut — Chassidic philosophy and teachings, focused on inner divine service and joy\n• Mussar — ethical and character-development literature\n\nGood starting points for newcomers:\n• Daily halacha: [DailyHalacha.com](https://www.dailyhalacha.com/) and [Halachipedia](https://www.halachipedia.com/) for looking up laws\n• [Chabad.org](https://www.chabad.org/) or [Sefaria.org](https://www.sefaria.org/) for structured texts with translation\n• A weekly Parsha class (in person or on [TorahAnytime.com](https://www.torahanytime.com/))\n• [Daf Yomi](https://www.sefaria.org/daf-yomi) — one page of Talmud per day (completes the entire Talmud in 7.5 years)\n• The [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) — a concise summary of practical Jewish law for daily life",
       "links": [
         {
           "displayText": "Rambam — Laws of Torah Study",
@@ -605,7 +605,7 @@
         },
         {
           "displayText": "Chabad.org — Daily Torah Study",
-          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+          "url": "https://www.chabad.org/library/article_cdo/aid/6031317/jewish/What-Is-Chitas-The-Daily-Study-Program.htm"
         },
         {
           "displayText": "What Is Chitas? (Chabad.org)",
@@ -637,7 +637,7 @@
       "section": "Torah Study",
       "timeOfDay": "night",
       "required": true,
-      "explanation": "Torah study is one of the greatest mitzvot in the entire Torah — so great that the Talmud says it is equal to all other mitzvot combined.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day and also at night. There is no upper limit to how much you may learn — the more Torah you study, the greater the mitzvah.\n\nThis checklist item is for nighttime study (from nightfall until the end of the night's obligations). Daytime study is tracked separately.\n\nWhat counts:\nAny authentic Torah learning — Chumash, Tanakh, Mishnah, Talmud, halacha, Mussar, Chassidut, or a structured daily program (such as Chitas for those who follow that custom).\n\nEven a few minutes of focused learning at night fulfills this mitzvah. Consistency matters more than length.",
+      "explanation": "Why learn at night — what the sages promise:\n\nNighttime Torah study has a special place in Jewish tradition. The Talmud praises one who establishes words of Torah at night — the verse \"I rise at midnight to thank You\" applies to him (Tehillim 119:62; Shabbat 119a). After the day's noise, learning at night is quiet cleaving to Hashem: the Shechinah dwells wherever words of Torah are spoken (Avot 3:2–3).\n\nOur rabbis teach that Torah study protects the learner — it is counted among the three guardians of a person's life (Sotah 21a). Words of Torah are described in Kabbalistic tradition as ascending and forming advocates on high. Even a short night seder before sleep can settle the mind, sanctify the end of the day, and surround your household with merit.\n\nTorah study is equal in weight to all other mitzvot combined (Peah 1:1). You do not need hours — consistency matters more than length.\n\nThe obligation:\nEvery Jew should learn at least a little Torah during the day and also at night. There is no upper limit to how much you may learn — the more Torah you study, the greater the mitzvah.\n\nThis checklist item is for nighttime study (from nightfall until the end of the night's obligations). Daytime study is tracked separately.\n\nWhat counts:\nAny authentic Torah learning — Chumash, Tanakh, Mishnah, Talmud, halacha, Mussar, Chassidut, or a structured daily program (such as Chitas for those who follow that custom).\n\nEven a few minutes of focused learning at night fulfills this mitzvah. Consistency matters more than length.",
       "links": [
         {
           "displayText": "Rambam — Laws of Torah Study",
@@ -657,7 +657,7 @@
         },
         {
           "displayText": "Chabad.org — Daily Torah Study (Chitas)",
-          "url": "https://www.chabad.org/dailystudy/default_cdo/jewish/Daily-Study.htm"
+          "url": "https://www.chabad.org/library/article_cdo/aid/6031317/jewish/What-Is-Chitas-The-Daily-Study-Program.htm"
         },
         {
           "displayText": "What Is Chitas? (Chabad.org)",

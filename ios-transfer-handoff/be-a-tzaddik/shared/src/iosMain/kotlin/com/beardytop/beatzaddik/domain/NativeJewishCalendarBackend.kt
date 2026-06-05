@@ -290,7 +290,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             val d = from.plus(i, DateTimeUnit.DAY)
             val isLeap = HebrewCalendarEngine.isJewishLeapYear(hd.year)
 
-            if (nextShabbat == null && d.dayOfWeek == DayOfWeek.FRIDAY && i > 0) {
+            if (nextShabbat == null && d.dayOfWeek == DayOfWeek.FRIDAY) {
                 nextShabbat = UpcomingHoliday("Shabbat", i, "Candles, Kiddush, rest from electronics")
             }
 

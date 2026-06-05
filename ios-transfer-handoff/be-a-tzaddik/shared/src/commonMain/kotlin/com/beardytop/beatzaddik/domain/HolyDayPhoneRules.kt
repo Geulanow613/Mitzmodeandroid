@@ -15,8 +15,19 @@ data class HolyDayPhoneNotice(
 
 object HolyDayPhoneRules {
 
+    /** Civil Saturday (not erev) — for prep/seasonal logic, not phone-blocking windows. */
     fun isShabbatMelachaDay(cal: DayInfo): Boolean =
         cal.isShabbat && !cal.isErevShabbat
+
+    /**
+     * Shabbat melacha hours: from 1 minute before Friday sunset until Saturday tzeit.
+     * After tzeit the checklist and app are usable again for Motzei Shabbat
+     * (unless Yom Tov begins that night — then [ElectronicsRestEvaluator] keeps the pause).
+     */
+    fun isShabbatMelachaWindow(cal: DayInfo, nowMillis: Long): Boolean {
+        if (!isShabbatMelachaDay(cal)) return false
+        return !isPastTzeit(cal, nowMillis)
+    }
 
     /**
      * Outside Israel, the second day of a two-day Yom Tov (e.g. 2nd day Rosh Hashana,
@@ -28,14 +39,29 @@ object HolyDayPhoneRules {
         return cal.yesterdayWasYomTovAssurBemelacha
     }
 
-    fun shouldHideChecklist(profile: UserProfile, cal: DayInfo): Boolean =
-        isShabbatMelachaDay(cal) || isChutzLaaretzSecondYomTovDay(profile, cal)
+    fun isChutzLaaretzSecondYomTovWindow(
+        profile: UserProfile,
+        cal: DayInfo,
+        nowMillis: Long,
+    ): Boolean {
+        if (!isChutzLaaretzSecondYomTovDay(profile, cal)) return false
+        return !isPastTzeit(cal, nowMillis)
+    }
 
-    fun phoneNotice(profile: UserProfile, cal: DayInfo): HolyDayPhoneNotice? = when {
-        isChutzLaaretzSecondYomTovDay(profile, cal) ->
+    fun shouldHideChecklist(profile: UserProfile, cal: DayInfo, nowMillis: Long): Boolean =
+        isShabbatMelachaWindow(cal, nowMillis) ||
+            isChutzLaaretzSecondYomTovWindow(profile, cal, nowMillis)
+
+    fun phoneNotice(profile: UserProfile, cal: DayInfo, nowMillis: Long): HolyDayPhoneNotice? = when {
+        isChutzLaaretzSecondYomTovWindow(profile, cal, nowMillis) ->
             cal.yomTovHolidayName?.let(::yomTovNotice)
-        isShabbatMelachaDay(cal) -> shabbatNotice()
+        isShabbatMelachaWindow(cal, nowMillis) -> shabbatNotice()
         else -> null
+    }
+
+    private fun isPastTzeit(cal: DayInfo, nowMillis: Long): Boolean {
+        val tzeit = cal.zmanim?.tzeitMillis ?: return false
+        return nowMillis >= tzeit
     }
 
     private fun shabbatNotice() = HolyDayPhoneNotice(
@@ -43,6 +69,7 @@ object HolyDayPhoneRules {
         title = "Shabbat Shalom",
         message = "Today is Shabbat. Please put away your phone and keep the day holy — " +
             "pray, learn Torah, enjoy Shabbat meals, and rest. " +
+            "Melacha (forbidden work on Shabbat) includes most phone and device use — ask your rav if unsure. " +
             "This app is for weekdays and erev Shabbat preparation, not for use during Shabbat.",
         footer = "Close this app and enjoy a peaceful, screen-free Shabbat."
     )

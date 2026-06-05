@@ -9,8 +9,9 @@ This folder is a **file bundle for handoff**, not an installation guide. Copy pa
 3. Apply code from **`be-a-tzaddik/`** into the Mac iOS workspace (same relative paths under `be-a-tzaddik/` or your repo’s `be-a-tzaddik/`).
 4. For **Mitz Mode embed**, read **`docs/SWIFT_KOTLIN_REFERENCE.md`** — `EmbeddedChecklistViewController`, Swift host, `Info.plist` keys.
 5. For **Mitz Mode native home UI**, read **`docs/MITZ_MODE_HOME_BACKGROUND.md`** (gradient) and **`docs/MITZ_MODE_HOME_LAYOUT.md`** (button/text positions).
-6. For **Android behavior reference** (outside this folder), see **`docs/ANDROID_EMBED_REFERENCE.md`**.
-7. Check **`CHANGELOG.md`** for the latest copy/zman/halacha deltas since last handoff.
+6. For **glossary / Shabbat Guide term taps**, read **`docs/GLOSSARY_AND_TERM_LINKS.md`**.
+7. For **Android behavior reference** (outside this folder), see **`docs/ANDROID_EMBED_REFERENCE.md`**.
+8. Check **`CHANGELOG.md`** for the latest copy/zman/halacha deltas since last handoff.
 
 ## Folder layout
 
@@ -49,7 +50,12 @@ This folder is a **file bundle for handoff**, not an installation guide. Copy pa
 | `shared/.../composeResources/files/checklist-items.json` | Mitzvah copy, women’s `explanationFemale`, halacha wording |
 | `shared/.../domain/ChecklistZmanEvaluator.kt` | Tashlumin hints, Mincha until nightfall |
 | `shared/.../domain/SeasonalChecklistItems.kt` | Holidays, Chol HaMoed, Arba Minim notes |
-| `shared/.../ui/screens/ShabbatGuideData.kt` | Guide text, nusach differences |
+| `shared/.../domain/HalachicTermsDictionary.kt` | Glossary matcher, phrase overlap, apostrophe rules |
+| `shared/.../ui/components/HalachicTermText.kt` | Term popups, `LocalOpenShabbatGuide` routing |
+| `shared/.../ui/screens/ShabbatGuideData.kt` | Guide text, anchors, `glossaryOnlyTermIds`, learn-more URLs |
+| `shared/.../ui/screens/TodayScreen.kt` | Today + Shabbat guide entry, upcoming holidays |
+| `shared/.../ui/screens/ShabbatRestScreen.kt` | Holy-day / electronics rest screen |
+| `shared/.../domain/ElectronicsRestEvaluator.kt` | When device rest applies |
 | `shared/.../ui/BeATzaddikApp.kt` | Tabs, embedded mode, About |
 | `shared/.../ui/screens/AboutScreen.kt` | About tab |
 | `shared/.../domain/HolyDayPhoneRules.kt` | Shabbat / chutz 2nd-day Yom Tov |

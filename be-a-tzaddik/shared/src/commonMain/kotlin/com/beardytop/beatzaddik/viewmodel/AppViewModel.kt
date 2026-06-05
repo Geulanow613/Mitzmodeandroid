@@ -19,6 +19,7 @@ import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.HolyDayPhoneRules
 import com.beardytop.beatzaddik.domain.RestKind
+import com.beardytop.beatzaddik.domain.SHABBAT_REST_TITLE
 import com.beardytop.beatzaddik.domain.shabbatMessage
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
 import kotlinx.coroutines.delay
@@ -444,7 +445,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         if (!HolyDayPhoneRules.isShabbatMelachaWindow(cal, nowEpochMillis)) return null
         return ElectronicsRestPeriod(
             kind = RestKind.SHABBAT,
-            title = "Shabbat Shalom",
+            title = SHABBAT_REST_TITLE,
             message = shabbatMessage(),
             hebrewDateLabel = cal.hebrewLabel,
             locationLabel = profile.locationLabel,

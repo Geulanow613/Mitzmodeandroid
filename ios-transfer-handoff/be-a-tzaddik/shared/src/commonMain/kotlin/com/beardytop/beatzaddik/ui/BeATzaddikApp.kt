@@ -2,6 +2,7 @@ package com.beardytop.beatzaddik.ui
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.rememberScrollState
@@ -56,7 +57,10 @@ import com.beardytop.beatzaddik.domain.Gender
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.platform.exitApplication
+import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldButton
+import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.MitzModeBottomNav
@@ -91,6 +95,7 @@ fun BeATzaddikApp(
     var splashDone by rememberSaveable { mutableStateOf(embeddedMode) }
 
     TzaddikTheme(textScale = profile.textScale) {
+        HalachicTermOverlay {
         if (!splashDone) {
             PlatformBackHandler {
                 if (embeddedMode) onRequestClose()
@@ -100,7 +105,7 @@ fun BeATzaddikApp(
                 isFemale = profile.gender == Gender.FEMALE,
                 titleOverride = if (embeddedMode) embeddedTitle else null
             )
-            return@TzaddikTheme
+            return@HalachicTermOverlay
         }
 
         if (showDisclaimer) {
@@ -120,7 +125,7 @@ fun BeATzaddikApp(
                     DisclaimerBody(embeddedMode = embeddedMode)
                 }
             }
-            return@TzaddikTheme
+            return@HalachicTermOverlay
         }
         when {
             !profile.onboardingComplete -> {
@@ -134,8 +139,30 @@ fun BeATzaddikApp(
                 }
             }
             electronicsRest != null -> {
-                PlatformBackHandler { /* stay on rest screen */ }
-                ShabbatRestScreen(electronicsRest!!)
+                var showRestSettings by rememberSaveable { mutableStateOf(false) }
+                if (showRestSettings) {
+                    PlatformBackHandler { showRestSettings = false }
+                    Box(Modifier.fillMaxSize()) {
+                        HolyLightBackground(Modifier.fillMaxSize())
+                        Column(Modifier.fillMaxSize()) {
+                            AppText(
+                                "‹ Back",
+                                color = TzaddikColors.GoldBright,
+                                style = MaterialTheme.typography.labelLarge,
+                                modifier = Modifier
+                                    .clickable { showRestSettings = false }
+                                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                            )
+                            SettingsScreen(viewModel = viewModel)
+                        }
+                    }
+                } else {
+                    PlatformBackHandler { /* stay on rest screen */ }
+                    ShabbatRestScreen(
+                        period = electronicsRest!!,
+                        onOpenSettings = { showRestSettings = true },
+                    )
+                }
             }
             else -> MainShell(
                 viewModel = viewModel,
@@ -156,6 +183,7 @@ fun BeATzaddikApp(
                 onDismiss = { viewModel.dismissLocationPermissionDialog() }
             )
         }
+        }
     }
 }
 
@@ -173,7 +201,7 @@ private fun DisclaimerBody(embeddedMode: Boolean) {
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
+            AppText(
                 "Text size",
                 style = MaterialTheme.typography.labelSmall,
                 color = TzaddikColors.TextMuted
@@ -206,26 +234,25 @@ private fun DisclaimerBody(embeddedMode: Boolean) {
             ) {
                 CandleEmblem(modifier = Modifier.size((54f * fontScale).dp.coerceIn(40.dp, 80.dp)))
                 Spacer(Modifier.height(12.dp))
-                Text(
+                AppText(
                     AppDisclaimer.WELCOME_HEADLINE,
                     style = scaled(MaterialTheme.typography.titleLarge),
                     color = TzaddikColors.NavyDeep,
                     textAlign = TextAlign.Center
                 )
                 Spacer(Modifier.height(6.dp))
-                Text(
+                AppText(
                     AppDisclaimer.welcomeIntro(embeddedMode),
                     style = scaled(MaterialTheme.typography.bodyMedium),
                     color = TzaddikColors.TextBrown,
                     textAlign = TextAlign.Center
                 )
                 Spacer(Modifier.height(16.dp))
-                Text(
-                    AppDisclaimer.STARTUP_BODY,
+                HalachicClickableText(
+                    text = AppDisclaimer.STARTUP_BODY,
                     style = scaled(MaterialTheme.typography.bodyMedium),
                     color = TzaddikColors.TextBrown,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(32.dp))
             }
@@ -344,7 +371,7 @@ private fun MainShell(
                 )
             }
         ) {
-            Text(
+            AppText(
                 if (embeddedMode) {
                     "Are you sure you want to leave the checklist?"
                 } else {
@@ -374,7 +401,7 @@ private fun MainShell(
                 )
             }
         ) {
-            Text(
+            AppText(
                 "Are you sure you want to return to the mitzvah generator?",
                 style = MaterialTheme.typography.bodyMedium,
                 color = TzaddikColors.TextBrown

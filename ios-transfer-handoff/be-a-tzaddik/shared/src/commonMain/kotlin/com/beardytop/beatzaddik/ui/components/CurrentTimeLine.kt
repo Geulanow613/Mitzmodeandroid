@@ -1,7 +1,6 @@
 package com.beardytop.beatzaddik.ui.components
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -33,22 +32,23 @@ fun CurrentTimeLine(
 
     val profileTime = formatClockTime(nowMillis, timezoneId)
 
-    Text(
+    AppText(
         text = profileTime,
-        style = MaterialTheme.typography.headlineMedium,
-        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
         color = TzaddikColors.GoldBright,
-        modifier = modifier
+        modifier = modifier,
+        enableTerms = false
     )
     // Show location only — suppress timezone city if it matches the location label to avoid duplication
     val tzCity = shortTimezoneLabel(timezoneId)
     val locationText = locationLabel?.takeIf { it.isNotBlank() && !it.equals(tzCity, ignoreCase = true) }
         ?: tzCity.takeIf { it.isNotBlank() }
     if (!locationText.isNullOrBlank()) {
-        Text(
+        AppText(
             text = locationText,
             style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.ParchTop.copy(alpha = 0.55f)
+            color = TzaddikColors.ParchTop.copy(alpha = 0.55f),
+            enableTerms = false
         )
     }
 }

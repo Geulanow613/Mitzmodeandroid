@@ -268,34 +268,34 @@ Tonight & tomorrow:
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Rosh Hashana", "https://www.chabad.org/holidays/jewishnewyear/default_cdo/jewish/Jewish-New-Year.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Rosh Hashana", "https://ph.yhb.org.il/en/03-05-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Rosh Hashana", "https://ph.yhb.org.il/en/category/15/15-03/", "default"))
         add(ChecklistLink("Aish — Rosh Hashana", "https://aish.com/holidays/rosh-hashanah/", "default"))
-        add(ChecklistLink("Ohr Somayach — Rosh Hashana", "https://ohr.edu/yhiy/rosh-hashana/", "default"))
+        add(ChecklistLink("Ohr Somayach — Rosh Hashana", "https://ohr.edu/holidays/rosh_hashana/", "default"))
     }
 
     private fun yomKippurLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Yom Kippur", "https://www.chabad.org/holidays/yomkippur/default_cdo/jewish/Yom-Kippur.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Yom Kippur", "https://ph.yhb.org.il/en/03-09-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Yom Kippur", "https://ph.yhb.org.il/en/category/15/15-06/", "default"))
         add(ChecklistLink("Aish — Yom Kippur", "https://aish.com/holidays/yom-kippur/", "default"))
-        add(ChecklistLink("Ohr Somayach — Yom Kippur", "https://ohr.edu/yhiy/yom-kippur/", "default"))
+        add(ChecklistLink("Ohr Somayach — Yom Kippur", "https://ohr.edu/holidays/yom_kippur/", "default"))
     }
 
     private fun pesachChagLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Passover", "https://www.chabad.org/holidays/passover/default_cdo/jewish/Passover.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/category/moadim/04-pesach/", "default"))
+        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/04-03-01/", "default"))
         add(ChecklistLink("Aish — Passover", "https://aish.com/holidays/pesach/", "default"))
-        add(ChecklistLink("Ohr Somayach — Pesach", "https://ohr.edu/yhiy/pesach/", "default"))
+        add(ChecklistLink("Ohr Somayach — Pesach", "https://ohr.edu/holidays/pesach/", "default"))
     }
 
     private fun shavuotLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Shavuot", "https://www.chabad.org/holidays/shavuot/default_cdo/jewish/Shavuot.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Shavuot", "https://ph.yhb.org.il/en/03-07-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Shavuot", "https://ph.yhb.org.il/en/category/12/12-13/", "default"))
         add(ChecklistLink("Aish — Shavuot", "https://aish.com/holidays/shavuot/", "default"))
     }
 
@@ -303,7 +303,7 @@ Tonight & tomorrow:
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Sukkot", "https://www.chabad.org/holidays/sukkot/default_cdo/jewish/Sukkot.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Sukkot", "https://ph.yhb.org.il/en/category/moadim/13-sukkot/", "default"))
+        add(ChecklistLink("Peninei Halacha — Sukkot", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
         add(ChecklistLink("Aish — Sukkot", "https://aish.com/holidays/sukkot/", "default"))
     }
 
@@ -311,19 +311,19 @@ Tonight & tomorrow:
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Shemini Atzeret", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1771/jewish/Shemini-Atzeret.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Sukkot festivals", "https://ph.yhb.org.il/en/category/moadim/13-sukkot/", "default"))
+        add(ChecklistLink("Peninei Halacha — Sukkot festivals", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
     }
 
     private fun simchatTorahLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1772/jewish/Simchat-Torah.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/category/moadim/13-sukkot/", "default"))
+        add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
         add(ChecklistLink("Aish — Simchat Torah", "https://aish.com/holidays/sukkot/", "default"))
     }
 
     private fun defaultChagLinks(profile: UserProfile) = buildList {
-        add(ChecklistLink("Peninei Halacha — Festivals", "https://ph.yhb.org.il/en/category/moadim/", "default"))
+        add(ChecklistLink("Peninei Halacha — Festivals", "https://ph.yhb.org.il/en/category/zemanim/", "default"))
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Holidays", "https://www.chabad.org/holidays/default_cdo/jewish/Jewish-Holidays.htm", "chabad"))
         }

@@ -28,7 +28,6 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -44,7 +43,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.domain.ChecklistZmanEvaluator
@@ -145,15 +143,15 @@ private fun CollapsedZmanChecklistRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    Text(
+                    AppText(
                         text = item.displayTitle,
+                        enableTerms = false,
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                         color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        maxLines = 2
                     )
                     collapsedSummary?.let { summary ->
-                        Text(
+                        AppText(
                             text = summary,
                             style = MaterialTheme.typography.labelSmall,
                             color = when (item.zmanAvailability) {
@@ -301,45 +299,50 @@ private fun ActiveChecklistRow(
                 if (!item.checked && parenStart > 0) {
                     val main = title.substring(0, parenStart)
                     val paren = title.substring(parenStart + 1) // trim the leading space
-                    Text(
+                    AppText(
                         text = main,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp),
-                        color = if (zmanMuted) TzaddikColors.TextMuted.copy(alpha = 0.78f) else TzaddikColors.TextBrown,
-                        fontWeight = FontWeight.SemiBold
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.SemiBold
+                        ),
+                        color = if (zmanMuted) TzaddikColors.TextMuted.copy(alpha = 0.78f) else TzaddikColors.TextBrown
                     )
-                    Text(
+                    AppText(
                         text = paren,
+                        enableTerms = false,
                         style = MaterialTheme.typography.bodySmall,
                         color = TzaddikColors.TextMuted.copy(alpha = 0.75f)
                     )
                 } else {
-                    Text(
+                    AppText(
                         text = title,
-                        style = MaterialTheme.typography.bodyMedium.copy(fontSize = 15.sp),
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontSize = 15.sp,
+                            fontWeight = if (!item.checked && !zmanMuted) FontWeight.SemiBold else FontWeight.Normal
+                        ),
                         color = when {
                             zmanMuted -> TzaddikColors.TextMuted.copy(alpha = 0.78f)
                             item.checked -> TzaddikColors.TextMuted
                             else -> TzaddikColors.TextBrown
-                        },
-                        fontWeight = if (!item.checked && !zmanMuted) FontWeight.SemiBold else FontWeight.Normal
-                    )
-                }
-                item.zmanHint?.let { hint ->
-                    Text(
-                        text = hint,
-                        style = MaterialTheme.typography.labelSmall,
-                        color = when (item.zmanAvailability) {
-                            ItemZmanAvailability.UPCOMING -> TzaddikColors.NavyMid.copy(alpha = 0.85f)
-                            ItemZmanAvailability.EXPIRED -> TzaddikColors.TextMuted.copy(alpha = 0.85f)
-                            ItemZmanAvailability.ACTIVE -> TzaddikColors.TextMuted
                         }
                     )
                 }
-                item.zmanMakeupNote?.takeIf { zmanMuted && item.zmanAvailability == ItemZmanAvailability.EXPIRED }?.let { note ->
-                    Text(
-                        text = note,
+                item.zmanHint?.let { hint ->
+                    AppText(
+                        text = hint,
+                        enableTerms = false,
                         style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.TextMuted.copy(alpha = 0.85f)
+                        color = TzaddikColors.TextMuted,
+                    )
+                }
+                item.zmanMakeupNote?.takeIf { zmanMuted && item.zmanAvailability == ItemZmanAvailability.EXPIRED }?.let { note ->
+                    AppText(
+                        text = note,
+                        enableTerms = false,
+                        style = MaterialTheme.typography.labelSmall,
+                        color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
                     )
                 }
             }

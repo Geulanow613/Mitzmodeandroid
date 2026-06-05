@@ -52,7 +52,9 @@ object OmerCountText {
 
         val weeksPhrase = weeksAndDays(day)
 
-        return """
+        return BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.omerBasics(),
+            """
 Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.
 
 Today in the Omer: day $day of 49 — $weeksPhrase.
@@ -64,10 +66,11 @@ $nextNightLine
 How to count:
 • Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).
 • Say: "Today is $day ${if (day == 1) "day" else "days"} of the Omer, which is ${weeksAndDays(day)}."
-• Count before dawn (chatzos layla). If you forgot at night, many poskim have you count the next day without a bracha — ask your rav.
+• Count after nightfall (tzeit); complete before dawn. If you forgot at night, many poskim have you count the next day without a bracha — ask your rav.
 
 $nusachWhen
-        """.trim().replace("\n\n\n", "\n\n")
+        """.trim().replace("\n\n\n", "\n\n"),
+        )
     }
 
     private fun DayOfWeek.displayName(): String =

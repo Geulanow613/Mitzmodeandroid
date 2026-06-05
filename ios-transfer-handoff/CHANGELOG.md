@@ -1,12 +1,38 @@
 # Changelog (iOS handoff sync)
 
-What the mirrored `be-a-tzaddik/` files and `docs/` contain. Last refresh: **2026-06-04** (`sync-to-ios-handoff.ps1`).
+What the mirrored `be-a-tzaddik/` files and `docs/` contain. Last refresh: **2026-06-05** (`sync-to-ios-handoff.ps1`).
 
 ## Mitz Mode home (Android — iOS native must match)
 
 - **Background:** Static vertical gradient on all devices — no looping `background.mp4` (`docs/MITZ_MODE_HOME_BACKGROUND.md`)
 - **Layout:** Instruction text, Mitzvah Me button, bottom pills — `docs/MITZ_MODE_HOME_LAYOUT.md` (dp values from `MitzModeApp.kt`)
+- **Bottom pills:** Daily Mitzvot Checklist stays **full width**; **Add a Mitzvah** and **What's a Mitzvah?** are **content-width**, centered (`wrapContentWidth` / no `fillMaxWidth`)
 - **Edge-to-edge:** Controls use status + navigation bar padding (`MainActivity.kt` / `MitzModeApp.kt`)
+
+## Glossary, term matching, and links (KMP)
+
+See **`docs/GLOSSARY_AND_TERM_LINKS.md`**.
+
+- **`HalachicTermsDictionary.kt`:** `isInsideLongerPhrase`, apostrophe boundary fix, many new terms/aliases (Kiddush Levana, Korbanot, yad soledet bo, etc.)
+- **`BeginnerHalachaGlossary.kt`:** Rabbi vs rav split; Arba Minim copy no longer aliases lulav/etrog as slash phrase
+- **`HalachicTermText.kt`:** `LocalOpenShabbatGuide`; guide routing via `anchorForTerm`
+- **`ShabbatGuideData.kt`:** `glossaryOnlyTermIds`, stricter `anchorForTerm`, fixed broken learn-more URLs
+- **`TodayScreen.kt`:** Provides `LocalOpenShabbatGuide`; Shabbat guide › uses `enableTerms = false`
+- Link audit: 240 URLs in source, 0 broken (excludes mitzvot cloud/list JSON)
+
+## Shabbat rest & upcoming holidays
+
+- **`ShabbatRestScreen.kt`:** Refined holy-day / electronics rest UX
+- **`ElectronicsRestEvaluator.kt`**, **`ElectronicsRestPeriod.kt`:** Period evaluation updates
+- **`RestMessages.kt`:** Additional rest copy
+- **`UpcomingHolidayPlanner.kt`:** Holiday countdown on Today
+- **`JewishCalendarService.kt`**, **`SeasonalChecklistItems.kt`**, **`SeasonalMitzvahText.kt`:** Seasonal copy tweaks
+- Prep text: **`ErevChagPrepText.kt`**, **`ErevPesachPrepText.kt`**, **`YomTovShabbatPrepText.kt`**
+
+## Embedded Mitz Mode / navigation
+
+- **`BeATzaddikApp.kt`:** Embedded mode, Shabbat guide from Today, return-to-Mitz-Mode flow
+- **`AppViewModel.kt`:** Minor state wiring
 
 ## Disclaimer & About (KMP — copy into iOS shared module)
 

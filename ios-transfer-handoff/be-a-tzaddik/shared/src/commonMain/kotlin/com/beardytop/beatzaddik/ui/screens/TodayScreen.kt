@@ -24,7 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -37,7 +37,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -55,13 +57,20 @@ import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.beardytop.beatzaddik.ui.components.GUIDE_TERM_TAG
+import com.beardytop.beatzaddik.ui.components.LocalOpenShabbatGuide
+import com.beardytop.beatzaddik.ui.components.drawHalachicTermUnderlines
+import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
 import com.beardytop.beatzaddik.domain.DayChecklists
 import com.beardytop.beatzaddik.domain.HolyDayPhoneNotice
 import com.beardytop.beatzaddik.domain.ChecklistEngine
@@ -81,6 +90,7 @@ import com.beardytop.beatzaddik.ui.components.HolyFlashController
 import com.beardytop.beatzaddik.ui.components.HolyLightChecklistRow
 import com.beardytop.beatzaddik.ui.components.MitzvahInfoDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentContentCard
+import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.viewmodel.AppViewModel
@@ -133,6 +143,7 @@ fun TodayScreen(
         }
     }
 
+    CompositionLocalProvider(LocalOpenShabbatGuide provides onOpenShabbatGuide) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -146,7 +157,8 @@ fun TodayScreen(
                 timezoneId = profile.timezoneId,
                 locationLabel = profile.locationLabel,
                 onNusachClick = onOpenSettings,
-                onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } }
+                onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
+                onOpenShabbatGuide = onOpenShabbatGuide,
             )
             if (upcoming.isNotEmpty()) {
                 UpcomingHolidaysBlock(upcoming, onOpenShabbatGuide)
@@ -172,12 +184,12 @@ fun TodayScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
+                        AppText(
                             "You can eat $allowedFood as of ${endedAt ?: "now"}",
                             color = TzaddikColors.NavyDeep,
                             modifier = Modifier.weight(1f)
                         )
-                        Text(
+                        AppText(
                             "Clear",
                             color = TzaddikColors.NavyMid,
                             style = MaterialTheme.typography.labelLarge,
@@ -187,7 +199,7 @@ fun TodayScreen(
                 } else {
                     AssistChip(
                         onClick = onOpenTimer,
-                        label = { Text("Kashrut timer active — tap to view", color = TzaddikColors.NavyDeep) },
+                        label = { AppText("Kashrut timer active — tap to view", color = TzaddikColors.NavyDeep) },
                         colors = AssistChipDefaults.assistChipColors(
                             containerColor = TzaddikColors.GoldBright.copy(alpha = 0.25f)
                         ),
@@ -196,7 +208,7 @@ fun TodayScreen(
                 }
             }
             if (day == null) {
-                Text("Loading checklist…", color = TzaddikColors.TextMuted, modifier = Modifier.padding(12.dp))
+                AppText("Loading checklist…", color = TzaddikColors.TextMuted, modifier = Modifier.padding(12.dp))
             }
             day?.let { d ->
                 d.holyDayPhoneNotice?.let { notice ->
@@ -212,15 +224,15 @@ fun TodayScreen(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
+                        AppText(
                             if (allDone) "All done for now!" else "Today's mitzvot",
-                            fontWeight = FontWeight.SemiBold,
+                            enableTerms = false,
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
                             color = if (allDone) TzaddikColors.GoldBorder else TzaddikColors.NavyDeep
                         )
                         Text(
                             "$done / $total",
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                             color = if (allDone) TzaddikColors.GoldBorder else TzaddikColors.NavyMid
                         )
                     }
@@ -231,7 +243,7 @@ fun TodayScreen(
                         trackColor = TzaddikColors.GoldBorder.copy(alpha = 0.2f)
                     )
                     if (allDone) {
-                        Text(
+                        AppText(
                             "Every mitzvah you do today matters. Keep going.",
                             style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.GoldBorder,
@@ -244,7 +256,12 @@ fun TodayScreen(
                     onClick = { scrollToChecklistPeriod(d.activePeriod) }
                 )
                 d.activePeriodHint?.let {
-                    Text(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+                    AppText(
+                        it,
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                    )
                 }
                 ChecklistSections(
                     items = d.items,
@@ -263,12 +280,12 @@ fun TodayScreen(
             }
             if (day?.holyDayPhoneNotice == null) {
                 Spacer(Modifier.height(12.dp))
-                Text("Add custom mitzvah", style = MaterialTheme.typography.titleSmall, color = TzaddikColors.NavyDeep)
+                AppText("Add custom mitzvah", style = MaterialTheme.typography.titleSmall, color = TzaddikColors.NavyDeep)
                 OutlinedTextField(
                     value = customText,
                     onValueChange = { customText = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Type something for today…", color = TzaddikColors.TextMuted) },
+                    placeholder = { AppText("Type something for today…", color = TzaddikColors.TextMuted) },
                     colors = OutlinedTextFieldDefaults.colors(
                         focusedBorderColor = TzaddikColors.GoldBorder,
                         unfocusedBorderColor = TzaddikColors.GoldBorder.copy(alpha = 0.4f),
@@ -292,6 +309,7 @@ fun TodayScreen(
     infoItem?.let { item ->
         MitzvahInfoDialog(item = item, onDismiss = { infoItem = null })
     }
+    }
 }
 
 @Composable
@@ -310,27 +328,26 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
             modifier = Modifier.height(48.dp)
         )
         Spacer(Modifier.height(12.dp))
-        Text(
+        AppText(
             notice.title,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.GoldBright,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(12.dp))
-        Text(
-            notice.message,
+        HalachicClickableText(
+            text = notice.message,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.ParchTop,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(Modifier.height(8.dp))
-        Text(
+        AppText(
             notice.footer,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = TzaddikColors.GoldBorder,
-            textAlign = TextAlign.Center,
-            fontWeight = FontWeight.Medium
+            textAlign = TextAlign.Center
         )
     }
 }
@@ -374,12 +391,13 @@ private fun ClickablePeriodLabel(
     label: String,
     onClick: () -> Unit
 ) {
-    Text(
+    AppText(
         label,
-        style = MaterialTheme.typography.titleMedium,
-        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.titleMedium.copy(
+            fontWeight = FontWeight.Bold,
+            textDecoration = TextDecoration.Underline
+        ),
         color = TzaddikColors.NavyDeep,
-        textDecoration = TextDecoration.Underline,
         modifier = Modifier
             .clickable(onClick = onClick)
             .padding(vertical = 2.dp)
@@ -402,7 +420,7 @@ private fun ChecklistSections(
     onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> }
 ) {
     if (items.isEmpty()) {
-        Text(
+        AppText(
             "No mitzvot on your checklist for today.",
             modifier = Modifier.padding(vertical = 12.dp),
             color = TzaddikColors.TextMuted
@@ -460,10 +478,10 @@ private fun ChecklistSections(
                     modifier = anchorModifier
                 )
             } else {
-                Text(
+                AppText(
                     section,
-                    style = MaterialTheme.typography.titleSmall,
-                    fontWeight = FontWeight.SemiBold,
+                    enableTerms = false,
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                     color = TzaddikColors.NavyMid,
                     modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
                 )
@@ -503,6 +521,13 @@ private fun ChecklistSections(
         }
 }
 
+private fun upcomingWhenLabel(holiday: UpcomingHoliday): String = when {
+    holiday.daysAway == 0 && holiday.beginsTonightWhenImminent -> "Tonight"
+    holiday.daysAway == 0 -> "today"
+    holiday.daysAway == 1 -> "tomorrow"
+    else -> "in ${holiday.daysAway} days"
+}
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun UpcomingHolidaysBlock(
@@ -517,23 +542,25 @@ private fun UpcomingHolidaysBlock(
             .padding(12.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Upcoming & seasonal",
+            AppText(
+                "Upcoming & seasonal",
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.GoldBright,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.weight(1f))
-            Text(
+                modifier = Modifier.weight(1f)
+            )
+            AppText(
                 "Shabbat guide ›",
                 style = MaterialTheme.typography.labelSmall,
                 color = TzaddikColors.GoldBright.copy(alpha = 0.7f),
-                modifier = Modifier.clickable { onOpenShabbatGuide(null) }
+                enableTerms = false,
+                modifier = Modifier.clickable { onOpenShabbatGuide(null) },
             )
         }
         Spacer(Modifier.height(8.dp))
         holidays.forEach { h ->
-            val whenLabel = if (h.daysAway == 0) "today" else "in ${h.daysAway} days"
+            val whenLabel = upcomingWhenLabel(h)
             // Determine anchor: map holiday name to a guide section
-            val anchor = ShabbatGuideData.termAnchorMap.entries
-                .firstOrNull { (term, _) -> h.name.contains(term, ignoreCase = true) }?.value
+            val anchor = ShabbatGuideData.anchorForLabel(h.name)
 
             Row(
                 modifier = Modifier
@@ -548,9 +575,10 @@ private fun UpcomingHolidaysBlock(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(Modifier.weight(1f)) {
-                    Text(
+                    AppText(
                         "${h.name} — $whenLabel",
                         color = TzaddikColors.ParchTop,
+                        enableTerms = false,
                         style = MaterialTheme.typography.bodyMedium
                     )
                     if (h.hint.isNotBlank()) {
@@ -560,58 +588,92 @@ private fun UpcomingHolidaysBlock(
                     }
                 }
                 if (anchor != null) {
-                    Text("›", color = TzaddikColors.GoldBright.copy(alpha = 0.6f),
+                    Text(
+                        "›",
+                        color = TzaddikColors.GoldBright.copy(alpha = 0.6f),
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(start = 6.dp))
+                        modifier = Modifier.padding(start = 6.dp)
+                    )
                 }
             }
         }
     }
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun HintWithTermLinks(
     hint: String,
     onOpenShabbatGuide: (anchor: String?) -> Unit
 ) {
-    // Split hint by known terms and make those terms tappable chips
-    val termMap = ShabbatGuideData.termAnchorMap
-    val words = hint.split(", ", ", ", ". ", " ")
-    val hasLinkedTerms = words.any { w -> termMap.keys.any { t -> w.contains(t, ignoreCase = true) } }
+    val hintColor = TzaddikColors.ParchTop.copy(alpha = 0.8f)
+    val segments = hint.split(", ")
+    val hasLinkedTerms = segments.any { seg -> ShabbatGuideData.anchorForLabel(seg) != null }
 
     if (!hasLinkedTerms) {
-        Text(hint, color = TzaddikColors.ParchTop.copy(alpha = 0.8f),
-            style = MaterialTheme.typography.bodySmall)
+        AppText(
+            hint,
+            color = hintColor,
+            enableTerms = false,
+            style = MaterialTheme.typography.bodySmall,
+        )
         return
     }
 
-    // Build a list of comma-separated segments
-    val segments = hint.split(", ")
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-        segments.forEach { seg ->
-            val matchedAnchor = termMap.entries
-                .firstOrNull { (term, _) -> seg.contains(term, ignoreCase = true) }?.value
-            if (matchedAnchor != null) {
-                Box(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(TzaddikColors.GoldBorder.copy(alpha = 0.20f))
-                        .clickable { onOpenShabbatGuide(matchedAnchor) }
-                        .padding(horizontal = 8.dp, vertical = 2.dp)
-                ) {
-                    Text(
-                        "$seg ›",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TzaddikColors.GoldBright
-                    )
+    val annotated = remember(hint) {
+        buildAnnotatedString {
+            segments.forEachIndexed { index, seg ->
+                val anchor = ShabbatGuideData.anchorForLabel(seg)
+                val segmentText = if (anchor != null) "$seg ›" else seg
+                if (anchor != null) {
+                    pushStringAnnotation(GUIDE_TERM_TAG, anchor)
                 }
-            } else {
-                Text(seg, color = TzaddikColors.ParchTop.copy(alpha = 0.8f),
-                    style = MaterialTheme.typography.bodySmall)
+                withStyle(SpanStyle(color = hintColor)) {
+                    append(segmentText)
+                }
+                if (anchor != null) {
+                    pop()
+                }
+                if (index < segments.lastIndex) {
+                    append(", ")
+                }
             }
         }
     }
+    val density = LocalDensity.current
+    val underlineColor = halachicTermUnderlineColor(hintColor)
+    val underlineStrokePx = with(density) { 0.75.dp.toPx() }
+    val underlineOffsetPx = with(density) { 2.dp.toPx() }
+    var textLayout by remember(annotated) { mutableStateOf<TextLayoutResult?>(null) }
+
+    Text(
+        text = annotated,
+        style = MaterialTheme.typography.bodySmall,
+        modifier = Modifier
+            .drawBehind {
+                textLayout?.let { layout ->
+                    drawHalachicTermUnderlines(
+                        layoutResult = layout,
+                        annotated = annotated,
+                        underlineColor = underlineColor,
+                        strokeWidthPx = underlineStrokePx,
+                        underlineOffsetPx = underlineOffsetPx,
+                        annotationTag = GUIDE_TERM_TAG,
+                    )
+                }
+            }
+            .pointerInput(annotated) {
+                detectTapGestures { position ->
+                    textLayout?.let { layout ->
+                        val offset = layout.getOffsetForPosition(position)
+                        annotated.getStringAnnotations(GUIDE_TERM_TAG, offset, offset)
+                            .firstOrNull()
+                            ?.item
+                            ?.let { onOpenShabbatGuide(it) }
+                    }
+                }
+            },
+        onTextLayout = { textLayout = it },
+    )
 }
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -621,7 +683,8 @@ private fun CalendarHeader(
     timezoneId: String,
     locationLabel: String?,
     onNusachClick: () -> Unit = {},
-    onPeriodClick: () -> Unit = {}
+    onPeriodClick: () -> Unit = {},
+    onOpenShabbatGuide: (anchor: String?) -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -641,11 +704,10 @@ private fun CalendarHeader(
         )
         day?.let { d ->
             // Civil + Hebrew dates on the same visual tier — same weight, clear step down from clock
-            Text(
+            AppText(
                 d.header.civilDateLabel,
                 color = TzaddikColors.ParchTop,
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
             Text(
                 d.header.hebrewDateLabel,
@@ -654,17 +716,19 @@ private fun CalendarHeader(
             )
             d.header.timeLabel?.let { periodLabel ->
                 Spacer(Modifier.height(2.dp))
-                Text(
+                AppText(
                     periodLabel,
-                    color = TzaddikColors.GoldBright.copy(alpha = 0.85f),
-                    style = MaterialTheme.typography.bodySmall,
-                    fontWeight = FontWeight.SemiBold,
-                    textDecoration = TextDecoration.Underline,
+                    color = TzaddikColors.ParchTop.copy(alpha = 0.9f),
+                    enableTerms = false,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        textDecoration = TextDecoration.Underline,
+                    ),
                     modifier = Modifier.clickable(onClick = onPeriodClick)
                 )
             }
             d.header.parshaLabel?.let {
-                Text(
+                AppText(
                     "Parsha: $it",
                     color = TzaddikColors.ParchTop.copy(alpha = 0.5f),
                     style = MaterialTheme.typography.bodySmall
@@ -693,7 +757,7 @@ private fun CalendarHeader(
                             .background(TzaddikColors.GoldBright, RoundedCornerShape(1.dp))
                     )
                     Spacer(Modifier.width(7.dp))
-                    Text(
+                    AppText(
                         d.nusachLabel,
                         color = TzaddikColors.GoldBright,
                         style = MaterialTheme.typography.labelMedium
@@ -708,16 +772,20 @@ private fun CalendarHeader(
 
                 // Only show meaningful status chips — skip bare day-of-week names
                 val meaningfulChips = d.header.statusChips.filter { chip ->
-                    chip !in setOf("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
+                    chip !in setOf(
+                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+                        "Erev Shabbat", // shown as "Shabbat — Tonight" in upcoming list
+                    )
                 }
                 meaningfulChips.forEach { chip ->
+                    val guideAnchor = ShabbatGuideData.anchorForLabel(chip)
                     AssistChip(
-                        onClick = {},
+                        onClick = { guideAnchor?.let { onOpenShabbatGuide(it) } },
                         label = {
-                            Text(
+                            AppText(
                                 chip,
                                 color = TzaddikColors.ParchTop,
-                                style = MaterialTheme.typography.labelMedium
+                                style = MaterialTheme.typography.labelMedium,
                             )
                         },
                         colors = AssistChipDefaults.assistChipColors(

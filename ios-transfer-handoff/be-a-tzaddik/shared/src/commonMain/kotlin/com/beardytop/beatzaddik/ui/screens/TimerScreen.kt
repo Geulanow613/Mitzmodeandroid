@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -73,13 +74,12 @@ fun TimerScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         // Screen title
-        Text(
+        AppText(
             "Kashrut Timer",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.GoldBright
         )
-        Text(
+        AppText(
             "Track your meat / dairy separation",
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.ParchTop.copy(alpha = 0.88f),
@@ -102,11 +102,10 @@ fun TimerScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            Text(
+            AppText(
                 "Your wait times",
-                style = MaterialTheme.typography.labelLarge,
-                color = TzaddikColors.GoldBright,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.GoldBright
             )
             Spacer(Modifier.height(4.dp))
             WaitTimeRow(
@@ -118,7 +117,7 @@ fun TimerScreen(
                 text = "After dairy: wait ${KashrutWaitTimes.formatDairyToMeatWait(profile.dairyToMeatWaitMinutes())} before meat"
             )
             Spacer(Modifier.height(4.dp))
-            Text(
+            AppText(
                 "Wait times reflect your family custom (minhag). Tap below to adjust.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.ParchTop.copy(alpha = 0.78f)
@@ -147,11 +146,10 @@ fun TimerScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(
+                AppText(
                     "What did you just eat?",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
                     color = TzaddikColors.ParchTop,
-                    fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -165,7 +163,7 @@ fun TimerScreen(
                     text = "I ate dairy",
                     modifier = Modifier.fillMaxWidth()
                 )
-                Text(
+                AppText(
                     "Tap to start the countdown until you may eat the other category.",
                     style = MaterialTheme.typography.bodySmall,
                     color = TzaddikColors.ParchTop.copy(alpha = 0.78f),
@@ -181,7 +179,7 @@ fun TimerScreen(
 private fun WaitTimeRow(emoji: String, text: String) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text(emoji, fontSize = 16.sp)
-        Text(
+        AppText(
             text,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.ParchTop,
@@ -224,22 +222,20 @@ private fun ActiveTimerCard(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text(
+        AppText(
             when (wait.category) {
                 MealCategory.MEAT -> "Waiting before dairy"
                 MealCategory.DAIRY -> "Waiting before meat"
             },
-            style = MaterialTheme.typography.titleSmall,
-            color = TzaddikColors.GoldBright.copy(alpha = 0.85f),
-            letterSpacing = 1.2.sp
+            style = MaterialTheme.typography.titleSmall.copy(letterSpacing = 1.2.sp),
+            color = TzaddikColors.GoldBright.copy(alpha = 0.85f)
         )
 
         if (isDone) {
-            Text(
+            AppText(
                 "✓ You may now eat",
-                style = MaterialTheme.typography.headlineSmall,
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.GoldBright,
-                fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
             )
         } else {
@@ -251,7 +247,7 @@ private fun ActiveTimerCard(
                 color = TzaddikColors.GoldBright,
                 letterSpacing = 2.sp
             )
-            Text(
+            AppText(
                 when (wait.category) {
                     MealCategory.MEAT -> "remaining until dairy"
                     MealCategory.DAIRY -> "remaining until meat"

@@ -39,7 +39,6 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -160,10 +159,12 @@ fun MitzModeBottomNav(
                 icon = icon,
                 label = if (label.isNotBlank()) {
                     {
-                        Text(
+                        AppText(
                             label,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = if (selectedTab == index) FontWeight.SemiBold else FontWeight.Normal
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontWeight = if (selectedTab == index) FontWeight.SemiBold else FontWeight.Normal
+                            ),
+                            enableTerms = false
                         )
                     }
                 } else null,
@@ -224,8 +225,9 @@ fun ChecklistSectionHeader(title: String, modifier: Modifier = Modifier) {
                     )
             )
             Spacer(Modifier.width(8.dp))
-            Text(
+            AppText(
                 title,
+                enableTerms = false,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
                     letterSpacing = 0.3.sp
@@ -280,8 +282,9 @@ fun CollapsibleChecklistSectionHeader(
                         )
                 )
                 Spacer(Modifier.width(8.dp))
-                Text(
+                AppText(
                     text = if (itemCount > 0) "$title ($itemCount)" else title,
+                    enableTerms = false,
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.3.sp
@@ -352,7 +355,7 @@ fun ParchmentDialog(
                 if (title != null || showCloseIcon) {
                     Box(Modifier.fillMaxWidth()) {
                         if (title != null) {
-                            Text(
+                            AppText(
                                 title,
                                 style = MaterialTheme.typography.headlineSmall.copy(
                                     fontWeight = FontWeight.SemiBold,
@@ -408,11 +411,14 @@ fun GoldButton(onClick: () -> Unit, text: String, modifier: Modifier = Modifier)
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
         contentPadding = PaddingValues(horizontal = 22.dp, vertical = 10.dp)
     ) {
-        Text(
+        AppText(
             text,
-            fontWeight = FontWeight.SemiBold,
-            letterSpacing = 0.6.sp,
-            textAlign = TextAlign.Center
+            style = MaterialTheme.typography.labelLarge.copy(
+                fontWeight = FontWeight.SemiBold,
+                letterSpacing = 0.6.sp,
+                textAlign = TextAlign.Center
+            ),
+            enableTerms = false
         )
     }
 }
@@ -420,7 +426,7 @@ fun GoldButton(onClick: () -> Unit, text: String, modifier: Modifier = Modifier)
 @Composable
 fun ParchmentTextButton(onClick: () -> Unit, text: String) {
     TextButton(onClick = onClick, colors = ButtonDefaults.textButtonColors(contentColor = TzaddikColors.GoldBorder)) {
-        Text(text, fontWeight = FontWeight.Medium)
+        AppText(text, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Medium), enableTerms = false)
     }
 }
 
@@ -467,13 +473,13 @@ fun TextScaleControl(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(
+                AppText(
                     TextScaleDefaults.percentLabel(clamped),
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = TzaddikColors.NavyDeep
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                    color = TzaddikColors.NavyDeep,
+                    enableTerms = false
                 )
-                Text(
+                AppText(
                     "Tap − or + · 10% per step",
                     style = MaterialTheme.typography.labelSmall,
                     color = TzaddikColors.TextMuted,
@@ -515,7 +521,7 @@ fun TextScaleControl(
                 FilterChip(
                     selected = selected,
                     onClick = { onScaleChange(value) },
-                    label = { Text(label, fontSize = 12.sp) },
+                    label = { AppText(label, style = MaterialTheme.typography.labelSmall.copy(fontSize = 12.sp), enableTerms = false) },
                     modifier = Modifier.weight(1f),
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = TzaddikColors.GoldBright.copy(alpha = 0.4f)
@@ -525,18 +531,17 @@ fun TextScaleControl(
         }
         if (showPreview) {
             Spacer(Modifier.height(12.dp))
-            Text(
+            AppText(
                 "Preview at this size",
                 style = MaterialTheme.typography.labelMedium,
                 color = TzaddikColors.TextMuted
             )
-            Text(
+            AppText(
                 "Morning Shema with its blessings",
-                style = MaterialTheme.typography.bodyLarge,
-                fontWeight = FontWeight.SemiBold,
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
                 color = TzaddikColors.TextBrown
             )
-            Text(
+            AppText(
                 "Educational checklist — confirm practices with your rabbi.",
                 style = MaterialTheme.typography.bodyMedium,
                 color = TzaddikColors.TextMuted

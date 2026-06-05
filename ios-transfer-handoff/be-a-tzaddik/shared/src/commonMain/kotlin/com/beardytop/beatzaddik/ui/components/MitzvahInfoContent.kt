@@ -101,17 +101,16 @@ fun MitzvahExplanationContent(
             Spacer(Modifier.height(14.dp))
             GoldFlourishDivider(widthFraction = 0.45f)
             Spacer(Modifier.height(10.dp))
-            Text(
+            AppText(
                 "Makeup prayer",
-                style = MaterialTheme.typography.titleSmall,
-                color = TzaddikColors.NavyDeep,
-                fontWeight = FontWeight.SemiBold
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
+                color = TzaddikColors.NavyDeep
             )
             Spacer(Modifier.height(4.dp))
-            Text(
-                makeup,
+            HalachicClickableText(
+                text = makeup,
+                style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextBrown,
-                style = MaterialTheme.typography.bodySmall
             )
         }
 
@@ -184,99 +183,13 @@ private fun LinkableBodyText(
     modifier: Modifier = Modifier,
     knownLinks: List<ChecklistLink> = emptyList()
 ) {
-    val uriHandler = LocalUriHandler.current
-    val annotated = when {
-        text.contains("](") -> buildMarkdownLinkAnnotatedString(text)
-        else -> buildPlainTextLinkAnnotatedString(text, knownLinks)
-    }
-    if (annotated.getStringAnnotations("URL", 0, annotated.length).isEmpty()) {
-        Text(text, style = style, color = TzaddikColors.TextBrown, modifier = modifier)
-        return
-    }
-    ClickableText(
-        text = annotated,
-        style = style.copy(color = TzaddikColors.TextBrown),
+    HalachicClickableText(
+        text = text,
+        style = style,
         modifier = modifier,
-        onClick = { offset ->
-            annotated.getStringAnnotations("URL", offset, offset).firstOrNull()
-                ?.let { uriHandler.openUri(it.item) }
-        }
+        color = TzaddikColors.TextBrown,
+        knownLinks = knownLinks,
     )
-}
-
-private fun AnnotatedString.Builder.appendLinkedSpan(label: String, url: String) {
-    pushStringAnnotation(tag = "URL", annotation = url)
-    withStyle(
-        SpanStyle(
-            color = TzaddikColors.NavyMid,
-            textDecoration = TextDecoration.Underline,
-            fontWeight = FontWeight.Medium
-        )
-    ) {
-        append(label)
-    }
-    pop()
-}
-
-private fun buildMarkdownLinkAnnotatedString(text: String) = buildAnnotatedString {
-    var cursor = 0
-    MarkdownLinkRegex.findAll(text).forEach { match ->
-        if (match.range.first > cursor) {
-            append(text.substring(cursor, match.range.first))
-        }
-        appendLinkedSpan(match.groupValues[1], match.groupValues[2].trim())
-        cursor = match.range.last + 1
-    }
-    if (cursor < text.length) {
-        append(text.substring(cursor))
-    }
-}
-
-/** When JSON still has plain site names, match labels from the item's verified links array. */
-private fun buildPlainTextLinkAnnotatedString(
-    text: String,
-    knownLinks: List<ChecklistLink>
-): androidx.compose.ui.text.AnnotatedString {
-    val patterns = knownLinks
-        .flatMap { link ->
-            val label = link.displayText.trim()
-            val host = runCatching {
-                val withoutScheme = link.url.removePrefix("https://").removePrefix("http://")
-                withoutScheme.substringBefore('/').removePrefix("www.")
-            }.getOrNull()
-            buildList {
-                if (label.isNotEmpty()) add(label to link.url)
-                if (!host.isNullOrBlank()) {
-                    add(host to link.url)
-                    add("www.$host" to link.url)
-                }
-            }
-        }
-        .distinctBy { it.first.lowercase() }
-        .sortedByDescending { it.first.length }
-    if (patterns.isEmpty()) {
-        return buildAnnotatedString { append(text) }
-    }
-    return buildAnnotatedString {
-        var cursor = 0
-        while (cursor < text.length) {
-            val match = patterns
-                .asSequence()
-                .mapNotNull { (label, url) ->
-                    val idx = text.indexOf(label, cursor, ignoreCase = true)
-                    if (idx < 0) null else Triple(idx, label, url)
-                }
-                .minByOrNull { it.first }
-            if (match == null) {
-                append(text.substring(cursor))
-                break
-            }
-            val (start, label, url) = match
-            if (start > cursor) append(text.substring(cursor, start))
-            appendLinkedSpan(text.substring(start, start + label.length), url)
-            cursor = start + label.length
-        }
-    }
 }
 
 @Composable
@@ -288,11 +201,10 @@ private fun InfoBadge(text: String, containerColor: Color, textColor: Color) {
             .background(containerColor)
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        Text(
-            text,
-            style = MaterialTheme.typography.bodySmall,
+        HalachicClickableText(
+            text = text,
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = textColor,
-            fontWeight = FontWeight.Medium
         )
     }
 }
@@ -336,13 +248,13 @@ private fun RichExplanationText(
                     NumberedRow(line, knownLinks = knownLinks)
                 }
                 line.startsWith("\"") -> {
-                    Text(
-                        line.trim('"'),
+                    HalachicClickableText(
+                        text = line.trim('"'),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontStyle = FontStyle.Italic,
                             lineHeight = 22.sp
                         ),
-                        color = TzaddikColors.TextMuted
+                        color = TzaddikColors.TextMuted,
                     )
                 }
                 else -> {
@@ -367,11 +279,10 @@ private fun SectionHeading(title: String) {
                 .background(TzaddikColors.GoldBright, RoundedCornerShape(1.dp))
         )
         Spacer(Modifier.width(8.dp))
-        Text(
+        AppText(
             title,
-            style = MaterialTheme.typography.titleSmall,
-            color = TzaddikColors.NavyDeep,
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+            color = TzaddikColors.NavyDeep
         )
     }
     Box(
@@ -416,10 +327,10 @@ private fun GoldBulletRow(text: String, knownLinks: List<ChecklistLink> = emptyL
 private fun NumberedRow(line: String, knownLinks: List<ChecklistLink> = emptyList()) {
     val dotIndex = line.indexOf('.')
     if (dotIndex < 0) {
-        Text(
-            line,
+        HalachicClickableText(
+            text = line,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
-            color = TzaddikColors.TextBrown
+            color = TzaddikColors.TextBrown,
         )
         return
     }
@@ -439,9 +350,8 @@ private fun NumberedRow(line: String, knownLinks: List<ChecklistLink> = emptyLis
         ) {
             Text(
                 num,
-                style = MaterialTheme.typography.labelSmall,
-                color = TzaddikColors.GoldDeep,
-                fontWeight = FontWeight.Bold
+                style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.GoldDeep
             )
         }
         Spacer(Modifier.width(8.dp))

@@ -1,5 +1,9 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
+
 /**
  * Day vs afternoon vs night for checklist sections and zman windows.
  * Uses sunset (not only tzeit) so evening is active after sundown even when
@@ -74,4 +78,21 @@ object ZmanPeriodLogic {
     /** Next dawn (alot hashachar) — end of obligations that began at the previous sunset. */
     fun nightObligationWindowEnd(zmanim: ZmanimSnapshot): Long? =
         zmanim.nightObligationsEndMillis ?: zmanim.alotHaShacharMillis
+
+    /**
+     * Civil date for counting days until upcoming observances.
+     * Before alot hashachar we still count as the previous morning-day
+     * (e.g. Friday 4am → Shabbat is tomorrow, not tonight).
+     */
+    fun effectivePlanningDate(
+        nowMillis: Long,
+        civilDate: LocalDate,
+        zmanim: ZmanimSnapshot?,
+    ): LocalDate {
+        val dawn = zmanim?.alotHaShacharMillis ?: zmanim?.sunriseMillis
+        if (dawn != null && nowMillis < dawn) {
+            return civilDate.plus(-1, DateTimeUnit.DAY)
+        }
+        return civilDate
+    }
 }

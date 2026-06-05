@@ -42,7 +42,7 @@ class JewishCalendarService(
             overlayToHoliday(entry, from, profile)
         }
         return (fromPlanner + fromOverlay)
-            .distinctBy { "${it.name}-${it.daysAway}" }
+            .distinctBy { it.name }
             .sortedBy { it.daysAway }
             .take(8)
     }

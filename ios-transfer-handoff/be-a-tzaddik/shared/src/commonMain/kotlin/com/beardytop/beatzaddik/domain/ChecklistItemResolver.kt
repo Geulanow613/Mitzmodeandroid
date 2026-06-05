@@ -29,7 +29,7 @@ object ChecklistItemResolver {
                     displayText = "Read Parshat ${parshaInfo.displayName} on Chabad",
                     url = parshaInfo.chabadUrl
                 )
-                else -> baseLink ?: ChecklistLink(
+                else -> ChecklistLink(
                     displayText = "Sefaria — Parshat ${parshaInfo.displayName}",
                     url = parshaInfo.sefariaUrl
                 )
@@ -55,9 +55,7 @@ object ChecklistItemResolver {
                 timeOfDayAvailability(item.timeOfDay, nowMillis, zmanim)
             else -> ItemZmanStatus()
         }
-        val resourceLinks = item.links
-            .filter { isUsefulLink(it.url) }
-            .distinctBy { it.url.trim().lowercase() }
+        val resourceLinks = buildResourceLinks(item, parshaInfo, nusach)
 
         return ResolvedChecklistItem(
             def = item,
@@ -156,6 +154,42 @@ object ChecklistItemResolver {
             }
             else -> ItemZmanStatus()
         }
+    }
+
+    private fun buildResourceLinks(
+        item: ChecklistItemDef,
+        parshaInfo: ParshaData.ParshaInfo?,
+        nusach: EffectiveNusach,
+    ): List<ChecklistLink> {
+        val static = item.links
+            .filter { isUsefulLink(it.url) && !isGenericTorahIndex(it.url) }
+        if (parshaInfo == null) {
+            return static.distinctBy { it.url.trim().lowercase() }
+        }
+        val weekly = buildList {
+            add(
+                ChecklistLink(
+                    displayText = "Sefaria — Parshat ${parshaInfo.displayName}",
+                    url = parshaInfo.sefariaUrl
+                )
+            )
+            if (nusach == EffectiveNusach.CHABAD) {
+                add(
+                    ChecklistLink(
+                        displayText = "Chabad — Parshat ${parshaInfo.displayName}",
+                        url = parshaInfo.chabadUrl
+                    )
+                )
+            }
+            addAll(static)
+        }
+        return weekly.distinctBy { it.url.trim().lowercase() }
+    }
+
+    /** Generic Torah index pages are not useful for a specific weekly portion. */
+    private fun isGenericTorahIndex(url: String): Boolean {
+        val normalized = url.trimEnd('/').lowercase()
+        return normalized.endsWith("sefaria.org/texts/torah")
     }
 
     /** Skip bare homepages that don't teach anything on their own. */

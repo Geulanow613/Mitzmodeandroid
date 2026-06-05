@@ -346,8 +346,8 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 
     private fun purimPrepLinks() = listOf(
         ChecklistLink("Chabad — Purim checklist", "https://www.chabad.org/holidays/purim/default_cdo/jewish/Purim.htm", "chabad"),
-        ChecklistLink("Peninei Halacha — Purim", "https://ph.yhb.org.il/en/03-14-00/", "default"),
-        ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/yhiy/purim/", "default"),
+        ChecklistLink("Peninei Halacha — Purim", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"),
+        ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/1508", "default"),
     )
 
     private fun erevChanukahPrepItem(profile: UserProfile) = ChecklistItemDef(
@@ -688,7 +688,7 @@ Chabad: No official communal observance is instituted, though the memory of the 
         links = listOf(
             ChecklistLink(
                 "Yad Vashem — Holocaust Martyrs' and Heroes' Remembrance Authority",
-                "https://www.yadvashem.org/holocaust/about/final-solution-beginning-extermination/commemoration.html",
+                "https://www.yadvashem.org/remembrance/remembrance-day.html",
                 "default"
             )
         )
@@ -786,28 +786,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
 
     private fun omerLinks(profile: UserProfile) = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> listOf(
-            ChecklistLink("Chabad — Sefirat HaOmer", "https://www.chabad.org/library/article_cdo/aid/4802/jewish/Sefirat-Haomer.htm", "chabad"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Sefaria", "https://www.sefaria.org/Sefirat_HaOmer", "default")
+            ChecklistLink("Chabad — Sefirat HaOmer", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "chabad"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Sefaria", "https://www.sefaria.org/Numbers.28.26", "default")
         )
         else -> listOf(
             ChecklistLink("Aish — Sefirat HaOmer", "https://aish.com/holidays/pesach/", "default"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Sefaria — Omer", "https://www.sefaria.org/Sefirat_HaOmer", "default"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Sefaria — Omer", "https://www.sefaria.org/Numbers.28.26", "default"),
             ChecklistLink("OU — Sefirat HaOmer", "https://ou.org/judaism/omer/", "default")
         )
     }
 
     private fun sefirahMourningLinks(profile: UserProfile) = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> listOf(
-            ChecklistLink("Chabad — Sefirah customs", "https://www.chabad.org/library/article_cdo/aid/2263/jewish/Sefirah.htm", "chabad"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/03-16-00/", "default")
+            ChecklistLink("Chabad — Sefirah customs", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "chabad"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default")
         )
         else -> listOf(
             ChecklistLink("Aish — Sefirat HaOmer period", "https://aish.com/holidays/pesach/", "default"),
-            ChecklistLink("Chabad — Sefirah overview", "https://www.chabad.org/library/article_cdo/aid/2263/jewish/Sefirah.htm", "default"),
-            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/03-16-00/", "default"),
-            ChecklistLink("Ohr Somayach — Sefirah", "https://ohr.edu/lessons/sefiras-haomer", "default")
+            ChecklistLink("Chabad — Sefirah overview", "https://www.chabad.org/library/article_cdo/aid/130631/jewish/Sefirat-HaOmer.htm", "default"),
+            ChecklistLink("Peninei Halacha — Sefirat HaOmer period", "https://ph.yhb.org.il/en/category/zemanim/05-02/", "default"),
+            ChecklistLink("Ohr Somayach — Sefirah", "https://ohr.edu/this_week/prayer_essentials/7338", "default")
         )
     }
 
@@ -830,9 +830,9 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             )
         }
         add(ChecklistLink("Aish — Megillah & Purim", "https://aish.com/holidays/purim/", "default"))
-        add(ChecklistLink("Peninei Halacha — Megillah", "https://ph.yhb.org.il/en/03-14-00/", "default"))
-        add(ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/yhiy/purim/", "default"))
-        add(ChecklistLink("Sefaria — Megillah", "https://www.sefaria.org/Megillat_Esther", "default"))
+        add(ChecklistLink("Peninei Halacha — Megillah", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
+        add(ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/1508", "default"))
+        add(ChecklistLink("Sefaria — Megillah", "https://www.sefaria.org/Esther", "default"))
     }
 
     private fun purimMatanotLinks(profile: UserProfile) = buildList {
@@ -845,7 +845,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Matanot la'evyonim", "https://ph.yhb.org.il/en/03-14-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Matanot la'evyonim", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
         add(ChecklistLink("Aish — Purim mitzvot", "https://aish.com/holidays/purim/", "default"))
     }
 
@@ -859,7 +859,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Mishloach manot", "https://ph.yhb.org.il/en/03-14-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Mishloach manot", "https://ph.yhb.org.il/en/category/zemanim/05-15/", "default"))
         add(ChecklistLink("Aish — Purim mitzvot", "https://aish.com/holidays/purim/", "default"))
     }
 
@@ -923,7 +923,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 )
             )
         }
-        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/04-09-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/12-11-01/", "default"))
         val aishUrl = if ("chol_hamoed_sukkot" in cal.activeSeasons && "chol_hamoed_pesach" !in cal.activeSeasons) {
             "https://aish.com/holidays/sukkot/"
         } else {
@@ -934,20 +934,20 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
 
     private fun pesachPrepLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — Erev Pesach guide", "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1719/jewish/Erev-Pesach.htm", "chabad"),
-        ChecklistLink("Aish — Preparing for Passover", "https://aish.com/passover-preparation-guide/", "default"),
-        ChecklistLink("Peninei Halacha — Pesach preparations", "https://ph.yhb.org.il/en/category/moadim/04-pesach/", "default")
+        ChecklistLink("Aish — Preparing for Passover", "https://aish.com/holidays/pesach/", "default"),
+        ChecklistLink("Peninei Halacha — Pesach preparations", "https://ph.yhb.org.il/en/04-03-01/", "default")
     )
 
     private fun mourningLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — The Three Weeks", "https://www.chabad.org/library/article_cdo/aid/144568/jewish/The-Three-Weeks.htm", "chabad"),
-        ChecklistLink("Aish — Nine Days overview", "https://aish.com/48943186/", "default"),
-        ChecklistLink("Peninei Halacha — Three Weeks and Nine Days", "https://ph.yhb.org.il/en/category/moadim/08-the-three-weeks/", "default")
+        ChecklistLink("Aish — Nine Days overview", "https://aish.com/48943916/", "default"),
+        ChecklistLink("Peninei Halacha — Three Weeks and Nine Days", "https://ph.yhb.org.il/en/category/zemanim/05-08/", "default")
     )
 
     private fun selichotLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — Selichot", "https://www.chabad.org/library/article_cdo/aid/4744/jewish/Selichot.htm", "chabad"),
-        ChecklistLink("Aish — Selichot overview", "https://aish.com/48968286/", "default"),
-        ChecklistLink("Peninei Halacha — Selichot customs", "https://ph.yhb.org.il/en/category/moadim/02-days-of-awe/", "default")
+        ChecklistLink("Aish — Selichot overview", "https://aish.com/slichot_and_the_13_attributes/", "default"),
+        ChecklistLink("Peninei Halacha — Selichot customs", "https://ph.yhb.org.il/en/category/15/15-01/", "default")
     )
 
     private fun tuBshvatSederItem(profile: UserProfile) = ChecklistItemDef(

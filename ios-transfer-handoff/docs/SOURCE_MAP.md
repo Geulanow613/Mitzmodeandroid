@@ -51,7 +51,13 @@ After `sync-to-ios-handoff.ps1`:
 | `domain/ZmanPeriodLogic.kt` | Day / afternoon / evening |
 | `domain/HolyDayPhoneRules.kt` | Shabbat / chutz 2nd Yom Tov |
 | `domain/SeasonalChecklistItems.kt` | Holiday checklist items |
-| `domain/ShabbatGuideData.kt` | Guide copy (in `ui/screens/`) |
+| `domain/HalachicTermsDictionary.kt` | Glossary + matcher |
+| `domain/BeginnerHalachaGlossary.kt` | Beginner terms merged into dictionary |
+| `ui/components/HalachicTermText.kt` | Underlined terms, guide routing |
+| `ui/screens/ShabbatGuideData.kt` | Guide copy, anchors, URLs |
+| `ui/screens/ShabbatRestScreen.kt` | Shabbat / Yom Tov rest UX |
+| `domain/ElectronicsRestEvaluator.kt` | Electronics rest periods |
+| `domain/UpcomingHolidayPlanner.kt` | Upcoming holiday block on Today |
 | `iosMain/.../MainViewController.kt` | Standalone + embedded VC |
 | `iosMain/.../NativeJewishCalendarBackend.kt` | iOS calendar |
 
@@ -66,6 +72,7 @@ After `sync-to-ios-handoff.ps1`:
 |-----|------|
 | `docs/MITZ_MODE_HOME_BACKGROUND.md` | Static gradient spec + Swift snippets for iOS home |
 | `docs/MITZ_MODE_HOME_LAYOUT.md` | Instruction text, Mitzvah Me button, bottom pill positions (dp) |
+| `docs/GLOSSARY_AND_TERM_LINKS.md` | Term matching, Shabbat Guide taps, link audit |
 
 | Android path | Role |
 |--------------|------|

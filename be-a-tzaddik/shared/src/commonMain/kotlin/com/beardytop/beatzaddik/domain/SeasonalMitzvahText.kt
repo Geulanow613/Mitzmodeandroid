@@ -520,9 +520,9 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
             add(ChecklistLink("Chabad — Build a sukkah", "https://www.chabad.org/library/article_cdo/aid/420822/jewish/How-to-Build-a-Sukkah.htm", "chabad"))
             add(ChecklistLink("Chabad — Dwelling in the sukkah", "https://www.chabad.org/library/article_cdo/aid/420823/jewish/Eating-in-the-Sukkah.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Sukkah", "https://ph.yhb.org.il/en/category/moadim/13-sukkot/", "default"))
+        add(ChecklistLink("Peninei Halacha — Sukkah", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
         add(ChecklistLink("Aish — Sukkot", "https://aish.com/holidays/sukkot/", "default"))
-        add(ChecklistLink("Ohr Somayach — Sukkot", "https://ohr.edu/yhiy/sukkot/", "default"))
+        add(ChecklistLink("Ohr Somayach — Sukkot", "https://ohr.edu/holidays/succos/", "default"))
     }
 
     fun arbaMinimLinks(profile: UserProfile) = buildList {
@@ -530,16 +530,16 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
             add(ChecklistLink("Chabad — The four species", "https://www.chabad.org/library/article_cdo/aid/420824/jewish/The-Four-Species.htm", "chabad"))
             add(ChecklistLink("Chabad — Women & lulav", "https://www.chabad.org/library/article_cdo/aid/420825/jewish/Women-and-Lulav.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Lulav", "https://ph.yhb.org.il/en/13-05-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Lulav", "https://ph.yhb.org.il/en/13-05-01/", "default"))
         add(ChecklistLink("Aish — Lulav & Etrog", "https://aish.com/holidays/sukkot/", "default"))
-        add(ChecklistLink("Ohr Somayach — Sukkot", "https://ohr.edu/yhiy/sukkot/", "default"))
+        add(ChecklistLink("Ohr Somayach — Sukkot", "https://ohr.edu/holidays/succos/", "default"))
     }
 
     fun sheminiAtzeretLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Shemini Atzeret", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1771/jewish/Shemini-Atzeret.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Festivals", "https://ph.yhb.org.il/en/13-08-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Festivals", "https://ph.yhb.org.il/en/category/13/13-07/", "default"))
         add(ChecklistLink("Aish — Shemini Atzeret", "https://aish.com/holidays/sukkot/", "default"))
     }
 
@@ -547,16 +547,16 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1772/jewish/Simchat-Torah.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/13-09-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/category/13/13-07/", "default"))
         add(ChecklistLink("Aish — Simchat Torah", "https://aish.com/holidays/sukkot/", "default"))
-        add(ChecklistLink("Ohr Somayach — Simchat Torah", "https://ohr.edu/yhiy/simchat-torah/", "default"))
+        add(ChecklistLink("Ohr Somayach — Simchat Torah", "https://ohr.edu/holidays/simchat_torah/", "default"))
     }
 
     fun cholHamoedLinks(cal: DayInfo, profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Chol HaMoed", "https://www.chabad.org/library/article_cdo/aid/5279/jewish/Chol-Hamoed.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/04-09-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Chol HaMoed", "https://ph.yhb.org.il/en/12-11-01/", "default"))
         val aishUrl = if ("chol_hamoed_sukkot" in cal.activeSeasons && "chol_hamoed_pesach" !in cal.activeSeasons) {
             "https://aish.com/holidays/sukkot/"
         } else {
@@ -567,15 +567,15 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
 
     fun roshChodeshLinks(profile: UserProfile) = buildList {
         add(ChecklistLink("Chabad — Rosh Chodesh", "https://www.chabad.org/library/article_cdo/aid/4770/jewish/Rosh-Chodesh.htm", "chabad"))
-        add(ChecklistLink("Peninei Halacha — Rosh Chodesh", "https://ph.yhb.org.il/en/05-01-00/", "default"))
-        add(ChecklistLink("Aish — Rosh Chodesh", "https://aish.com/roshchodesh/", "default"))
+        add(ChecklistLink("Peninei Halacha — Rosh Chodesh", "https://ph.yhb.org.il/en/05-01-01/", "default"))
+        add(ChecklistLink("Aish — Rosh Chodesh", "https://aish.com/43-rosh-chodesh-2/", "default"))
     }
 
     fun chanukahDayLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — How to light", "https://www.chabad.org/holidays/chanukah/article_cdo/aid/103868/jewish/How-to-Light-Chanukah-Candles.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Chanukah", "https://ph.yhb.org.il/en/12-00-00/", "default"))
+        add(ChecklistLink("Peninei Halacha — Chanukah", "https://ph.yhb.org.il/en/05-12-01/", "default"))
         add(ChecklistLink("Ohr Somayach — Chanukah", "https://ohr.edu/1304", "default"))
         add(ChecklistLink("Aish — Chanukah", "https://aish.com/holidays/chanukah/", "default"))
     }
@@ -586,13 +586,13 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — Passover prep", "https://www.chabad.org/holidays/passover/default_cdo/jewish/Passover.htm", "chabad"))
         }
-        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/category/moadim/04-pesach/", "default"))
+        add(ChecklistLink("Peninei Halacha — Pesach", "https://ph.yhb.org.il/en/04-03-01/", "default"))
         add(ChecklistLink("Aish — Passover", "https://aish.com/holidays/pesach/", "default"))
     }
 
     fun tuBshvatLinks() = listOf(
         ChecklistLink("Chabad — Tu B'Shvat", "https://www.chabad.org/holidays/jewishnewyear/article_cdo/aid/1185/jewish/Tu-BShvat.htm", "chabad"),
         ChecklistLink("Aish — Tu B'Shvat", "https://aish.com/48965616/", "default"),
-        ChecklistLink("Peninei Halacha — Tu B'Shvat", "https://ph.yhb.org.il/en/06-11-00/", "default")
+        ChecklistLink("Peninei Halacha — Tu B'Shvat", "https://ph.yhb.org.il/tu-beshvat/", "default")
     )
 }

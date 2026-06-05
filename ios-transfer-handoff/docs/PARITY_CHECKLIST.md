@@ -53,14 +53,28 @@ Standalone app: Today | Timer | Settings | About (no center logo).
 - **Chutz la’aretz 2nd day Yom Tov:** festival notice, empty checklist
 - **Israel / chutz day 1 Yom Tov:** checklist available
 - Seasonal: erev prep, Chol HaMoed, Jerusalem Purim, etc.
+- **Shabbat rest screen** (`ShabbatRestScreen.kt`) + **electronics rest** (`ElectronicsRestEvaluator.kt`, `ElectronicsRestPeriod.kt`) — device-use messaging aligned with holy-day rules
+- **Upcoming holidays** block on Today (`UpcomingHolidayPlanner.kt`) with guide links where applicable
 
 ## Mitz Mode home screen (native Swift shell)
 
 - **Static gradient only** on all devices — same as Android `LowEndDeviceBackground` (see **`MITZ_MODE_HOME_BACKGROUND.md`**)
 - **No** looping `background.mp4`, no RAM-based video toggle, no animated `GradientBackground` on home
 - **Layout parity** — instruction text, Mitzvah Me button offset, bottom pills including Daily Mitzvot Checklist `−24dp` offset (see **`MITZ_MODE_HOME_LAYOUT.md`**)
+- **Daily Mitzvot Checklist** pill stays **full width**; **Add a Mitzvah** and **What's a Mitzvah?** are **content-width**, centered (not edge-to-edge)
 - Edge-to-edge with safe-area padding on controls (status + home indicator)
 - Reward/celebration videos may still play on events (separate from home background)
+
+## Glossary / halachic terms (KMP — shared module)
+
+See **`GLOSSARY_AND_TERM_LINKS.md`**.
+
+- Multi-word phrases match as a unit (*Kiddush Levana*, *Motzei Shabbat*, *Half Hallel*); shorter overlaps suppressed
+- Apostrophe quoting: `'yad soledet bo'` matches; contraction apostrophes (`b'Makom`) do not break words
+- **rabbi** and **rav** are separate entries
+- Tapping guide-linked terms opens **Shabbat Guide** at the right anchor (`LocalOpenShabbatGuide`); `glossaryOnlyTermIds` stay in popup
+- **Shabbat guide ›** on Today is one tap target (terms disabled on that label)
+- External learn-more links in guide/glossary resolve (no broken URLs)
 
 ## Navigation / performance
 

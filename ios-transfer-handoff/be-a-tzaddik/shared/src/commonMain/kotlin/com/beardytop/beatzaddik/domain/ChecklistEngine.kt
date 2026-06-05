@@ -57,6 +57,8 @@ class ChecklistEngine(
         val now = Clock.System.now()
         val nowMillis = now.toEpochMilliseconds()
         val cal = calendar.dayInfoAt(nowMillis, profile)
+        val tomorrowCal = calendar.dayInfoForDate(cal.date.plus(1, DateTimeUnit.DAY), profile)
+        val dayAfterTomorrowCal = calendar.dayInfoForDate(cal.date.plus(2, DateTimeUnit.DAY), profile)
         // Hebrew month key — monthly items reset each new Hebrew month.
         val currentMonthKey = "${cal.hebrewYear}-${cal.hebrewMonth}"
         // Saturday date key — weekly items reset each Motzei Shabbat.
@@ -66,7 +68,7 @@ class ChecklistEngine(
             cal.date.plus(daysUntilSaturday, DateTimeUnit.DAY).toString()
         }
 
-        val seasonal = SeasonalChecklistItems.forDay(cal, profile)
+        val seasonal = SeasonalChecklistItems.forDay(cal, profile, tomorrowCal, dayAfterTomorrowCal)
         val customDefs = customItems.map { custom ->
             ChecklistItemDef(
                 id = custom.id,
@@ -78,7 +80,7 @@ class ChecklistEngine(
             )
         }
 
-        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal)
+        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
         val allDefs = if (hideChecklist) {
             emptyList()
         } else {
@@ -128,7 +130,7 @@ class ChecklistEngine(
                     EffectiveNusach.CHABAD -> "Nusach Ari / Chabad"
                 }
             },
-            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal)
+            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
         )
     }
 

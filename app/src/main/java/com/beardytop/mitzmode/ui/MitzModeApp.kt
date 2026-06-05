@@ -470,7 +470,6 @@ fun MitzModeApp(
                     // Add a Mitzvah (tour step 3)
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .then(
                                 if (showTour) Modifier.onGloballyPositioned { coords ->
                                     rootLayoutCoords?.let { root ->
@@ -485,7 +484,7 @@ fun MitzModeApp(
                     ) {
                         OutlinedButton(
                             onClick = { showAddMitzvah = true },
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.wrapContentWidth(),
                             shape = RoundedCornerShape(50),
                             border = androidx.compose.foundation.BorderStroke(
                                 width = 1.4.dp,
@@ -512,7 +511,6 @@ fun MitzModeApp(
                     // What's a Mitzvah?
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth()
                             .shadow(
                                 elevation = 12.dp,
                                 shape = RoundedCornerShape(50),

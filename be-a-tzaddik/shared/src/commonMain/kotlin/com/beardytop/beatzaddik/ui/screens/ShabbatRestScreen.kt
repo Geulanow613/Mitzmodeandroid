@@ -1,6 +1,7 @@
 package com.beardytop.beatzaddik.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,9 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.RestKind
+import com.beardytop.beatzaddik.domain.RestPhase
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
@@ -34,85 +37,117 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 @Composable
-fun ShabbatRestScreen(period: ElectronicsRestPeriod) {
+fun ShabbatRestScreen(
+    period: ElectronicsRestPeriod,
+    onOpenSettings: (() -> Unit)? = null,
+) {
     Box(Modifier.fillMaxSize()) {
         HolyLightBackground(Modifier.fillMaxSize())
         Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(28.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Icon(
-            Icons.Outlined.NightsStay,
-            contentDescription = null,
-            tint = TzaddikColors.GoldBright,
-            modifier = Modifier.height(72.dp)
-        )
-        Spacer(Modifier.height(20.dp))
-        AppText(
-            period.title,
-            style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-            color = TzaddikColors.GoldBright,
-            textAlign = TextAlign.Center
-        )
-        period.hebrewDateLabel?.let {
-            Spacer(Modifier.height(8.dp))
-            Text(it, color = TzaddikColors.ParchTop, style = MaterialTheme.typography.titleMedium)
-        }
-        period.locationLabel?.let {
-            AppText(
-                "Times for $it",
-                color = TzaddikColors.ParchTop.copy(alpha = 0.85f),
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center
-            )
-        }
-        Spacer(Modifier.height(24.dp))
-        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .background(TzaddikColors.ParchBase.copy(alpha = 0.12f), RoundedCornerShape(16.dp))
-                .padding(20.dp)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(28.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
         ) {
-            HalachicClickableText(
-                text = period.message,
-                color = TzaddikColors.ParchTop,
-                style = MaterialTheme.typography.bodyLarge,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
+            Icon(
+                Icons.Outlined.NightsStay,
+                contentDescription = null,
+                tint = TzaddikColors.GoldBright,
+                modifier = Modifier.height(72.dp),
             )
-        }
-        Spacer(Modifier.height(20.dp))
-        AppText(
-            when (period.kind) {
-                RestKind.SHABBAT ->
-                    "This app is paused for Shabbat. Close it and enjoy a peaceful, screen-free day."
-                RestKind.YOM_TOV ->
-                    "This app is paused for Yom Tov. Close it and keep the day with joy and holiness."
-            },
-            color = TzaddikColors.GoldBorder,
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
-            textAlign = TextAlign.Center
-        )
-        period.endsAtEpochMillis?.let { ends ->
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(20.dp))
             AppText(
-                "You may open the app again after ${formatEndTime(ends)} (local time).",
-                color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center
+                period.title,
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.GoldBright,
+                textAlign = TextAlign.Center,
             )
-        }
-        Spacer(Modifier.height(28.dp))
-        Text(
-            "Shabbat shalom · Gut Shabbos · שבת שלום",
-            color = TzaddikColors.GoldBright.copy(alpha = 0.9f),
-            style = MaterialTheme.typography.labelLarge,
-            textAlign = TextAlign.Center
-        )
+            period.hebrewDateLabel?.let {
+                Spacer(Modifier.height(8.dp))
+                Text(it, color = TzaddikColors.ParchTop, style = MaterialTheme.typography.titleMedium)
+            }
+            period.locationLabel?.let {
+                AppText(
+                    "Times for $it",
+                    color = TzaddikColors.ParchTop.copy(alpha = 0.85f),
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                )
+            }
+            Spacer(Modifier.height(24.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(TzaddikColors.ParchBase.copy(alpha = 0.12f), RoundedCornerShape(16.dp))
+                    .padding(20.dp),
+            ) {
+                HalachicClickableText(
+                    text = period.message,
+                    color = TzaddikColors.ParchTop,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+            Spacer(Modifier.height(20.dp))
+            when (period.phase) {
+                RestPhase.APPROACHING -> {
+                    period.startsAtEpochMillis?.let { starts ->
+                        AppText(
+                            "The app will pause automatically at ${formatEndTime(starts)} (local time).",
+                            color = TzaddikColors.GoldBorder,
+                            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+                RestPhase.ACTIVE -> {
+                    AppText(
+                        when (period.kind) {
+                            RestKind.SHABBAT ->
+                                "This app is paused for Shabbat. Close it and enjoy a peaceful, screen-free day."
+                            RestKind.YOM_TOV ->
+                                "This app is paused for Yom Tov. Close it and keep the day with joy and holiness."
+                        },
+                        color = TzaddikColors.GoldBorder,
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
+                        textAlign = TextAlign.Center,
+                    )
+                    period.endsAtEpochMillis?.let { ends ->
+                        Spacer(Modifier.height(16.dp))
+                        AppText(
+                            "You may open the app again after ${formatEndTime(ends)} (local time).",
+                            color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
+                            style = MaterialTheme.typography.bodySmall,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                    if (period.kind == RestKind.SHABBAT) {
+                        Spacer(Modifier.height(28.dp))
+                        Text(
+                            "Shabbat shalom · Gut Shabbos · שבת שלום",
+                            color = TzaddikColors.GoldBright.copy(alpha = 0.9f),
+                            style = MaterialTheme.typography.labelLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+            }
+            if (onOpenSettings != null) {
+                Spacer(Modifier.height(32.dp))
+                Text(
+                    "I live somewhere different",
+                    color = TzaddikColors.ParchTop.copy(alpha = 0.55f),
+                    style = MaterialTheme.typography.labelSmall,
+                    textAlign = TextAlign.Center,
+                    textDecoration = TextDecoration.Underline,
+                    modifier = Modifier
+                        .clickable(onClick = onOpenSettings)
+                        .padding(8.dp),
+                )
+            }
         }
     }
 }
