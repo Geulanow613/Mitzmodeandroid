@@ -9,7 +9,7 @@ object AppDisclaimer {
 
     fun welcomeIntro(embeddedMode: Boolean): String =
         if (embeddedMode) {
-            "the Daily Mitzvot Checklist helps you track standard daily mitzvot in a Torah-observant routine."
+            "The Daily Mitzvot Checklist helps you track standard daily mitzvot in a Torah-observant routine."
         } else {
             "Be a Tzaddik helps you track standard daily mitzvot in a Torah-observant routine."
         }

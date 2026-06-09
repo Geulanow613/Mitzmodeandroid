@@ -112,6 +112,9 @@ Tomorrow is erev $tomorrowChag — the Yom Tov–Shabbat rules below apply start
                 }
                 parts.add("$intro\n\n$body")
             }
+            if (HebrewCalendarEngine.isShaloshRegalim(tomorrow.upcomingChagYomTovIndex)) {
+                parts.add(SeasonalMitzvahText.simchasYomTovPrepBlock())
+            }
         }
 
         if ("erev_pesach" !in today.activeSeasons) {
@@ -251,7 +254,7 @@ Before or at Maariv:
 $prepLead:
 • Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag, per Rosh Hashana guides).
 • Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.
-• Tashlich, when observed, is scheduled per your community calendar (often not on Shabbat).
+• Tashlich: when the first day of Rosh Hashana is Shabbat, it is postponed to Sunday (structural rule — avoiding carrying machzorim in public without an eruv).
 
 Candles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (Chabad.org — from a pre-existing flame).
     """.trim(),

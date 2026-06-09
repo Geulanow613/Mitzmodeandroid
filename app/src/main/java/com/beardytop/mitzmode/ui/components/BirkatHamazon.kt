@@ -24,6 +24,12 @@ fun BirkatHamazon(
         onDismissRequest = onDismiss,
         title = { 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "(Nusach Ashkenaz)",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
                 Text("ברכת המזון", textAlign = TextAlign.Center)
                 Row(
                     horizontalArrangement = Arrangement.SpaceEvenly,

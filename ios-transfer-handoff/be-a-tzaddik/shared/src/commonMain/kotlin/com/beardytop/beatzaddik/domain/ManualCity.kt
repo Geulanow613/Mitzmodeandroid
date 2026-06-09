@@ -6,4 +6,6 @@ data class ManualCity(
     val latitude: Double,
     val longitude: Double,
     val timezoneId: String,
+    /** Approximate elevation in meters for zmanim sunrise/sunset adjustment. */
+    val elevationMeters: Double? = null,
 )

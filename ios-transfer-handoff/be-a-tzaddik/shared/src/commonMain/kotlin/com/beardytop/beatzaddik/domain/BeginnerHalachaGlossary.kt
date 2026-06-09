@@ -15,11 +15,11 @@ object BeginnerHalachaGlossary {
     // ── Shared term lines ─────────────────────────────────────────────────────
 
     const val MELACHA =
-        "Melacha — creative work forbidden on Shabbat and Yom Tov (cooking, writing, using phones/electronics as your rabbi guides, etc.)"
+        "Melacha — transformative labor forbidden on Shabbat and Yom Tov (cooking, writing, using phones/electronics as your rabbi guides, etc.) — not merely \"hard\" or \"creative\" work in the everyday sense"
     const val YOM_TOV =
         "Yom Tov — a festival day (Pesach, Sukkot, Rosh Hashana, etc.) with work rules similar to Shabbat; some food prep is allowed on the festival itself"
     const val SHABBAT =
-        "Shabbat — the weekly Sabbath from Friday sunset until Saturday night (when three stars are visible)"
+        "Shabbat — the weekly Sabbath from Friday sunset until halachic nightfall (tzeit) on Saturday night, per your community's zmanim"
     const val EREV =
         "Erev — the eve before; \"Erev Shabbat\" is Friday, \"Erev Pesach\" is the day before Pesach begins at night"
     const val CHAG =
@@ -41,7 +41,7 @@ object BeginnerHalachaGlossary {
     const val YAKNEHAZ =
         "Yaknehaz — order when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu (Zeman); spices are omitted"
     const val ERUV_TAVSHILIN =
-        "Eruv tavshilin — symbolic food set aside before Yom Tov so you may cook on the festival for the Shabbat that follows (only in certain calendar years)"
+        "Eruv tavshilin — symbolic food set aside on Erev Yom Tov so you may continue food preparation on the festival for the Shabbat that follows (only in certain calendar years)"
     const val BLECH =
         "Blech — metal cover on the stove so food stays warm on Shabbat without cooking"
     const val SHUL =
@@ -77,13 +77,17 @@ object BeginnerHalachaGlossary {
     const val SEDER =
         "Seder — Pesach night ritual meal with the Haggadah, matzah, four cups of wine, etc."
     const val KITNIYOT =
-        "Kitniyot — legumes/rice; Ashkenazim traditionally avoid on Pesach; many Sephardim eat them"
+        "Kitniyot — legumes/rice; an Ashkenazi customary stringency on Pesach (not Torah chametz); halachically permitted for Sephardim"
     const val CHOL_HAMOED =
         "Chol HaMoed — middle days of Pesach or Sukkot (lighter work rules than full Yom Tov)"
     const val REVIIT =
-        "Revi'it — small halachic volume of liquid (about 2.5–3 oz wine — confirm with your rav)"
+        "Revi'it — one-quarter of a log; minimum ritual liquid volume for Kiddush, Havdalah, netilat yadayim, and the four cups (86–150 ml depending on poskim; confirm with your rav)"
     const val KEZAYIT =
-        "Kezayit — olive-sized amount of food (used for matzah at the Seder and some other mitzvot)"
+        "Kezayit — olive-sized portion in halacha; many authorities measure it as about a golf ball (35–40 ml / 25–33 g depending on poskim; confirm with your rav)"
+    const val OCHEL_NEFESH =
+        "Ochel nefesh — the halachic allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day"
+    const val CHAMAR_MEDINA =
+        "Chamar medina — a significant local beverage (like beer, coffee, or tea) used under specific circumstances for Kiddush or Havdalah when wine is unavailable; not valid for the Seder's four cups per most poskim"
     const val SCHACH =
         "Schach — plant covering on the sukkah roof"
     const val LULAV_SET =
@@ -106,6 +110,7 @@ object BeginnerHalachaGlossary {
     fun yomTovAndShabbat(): String = block(
         MELACHA,
         YOM_TOV,
+        OCHEL_NEFESH,
         SHABBAT,
         TZEIT,
         KIDDUSH,
@@ -151,12 +156,31 @@ object BeginnerHalachaGlossary {
         SHUL,
     )
 
+    fun shavuotBasics(): String = block(
+        YOM_TOV,
+        "Shavuot — festival marking Matan Torah (receiving the Torah at Sinai)",
+        "Tikkun Leil Shavuot — all-night Torah study on the first night",
+        MUSAF,
+        HALLEL,
+        YAALEH_VYAVO,
+        MINHAG,
+        RAV,
+    )
+
+    fun simchasYomTovBasics(): String = block(
+        YOM_TOV,
+        "Simchat Yom Tov — Torah mitzvah to rejoice on the festival (V'samachta b'chagecha)",
+        REVIIT,
+        CHAMAR_MEDINA,
+        MINHAG,
+        RAV,
+    )
+
     fun cholHamoedBasics(): String = block(
         CHOL_HAMOED,
         YOM_TOV,
         MELACHA,
-        "Ochel nefesh — preparing food for the festival (allowed on Chol HaMoed)",
-        "Chamar medina — a significant local beverage (e.g. beer) some use instead of wine for festival joy",
+        CHAMAR_MEDINA,
         "Simchat Yom Tov — rejoicing on the festival (wine, food, and enjoyment)",
         REVIIT,
         MINHAG,

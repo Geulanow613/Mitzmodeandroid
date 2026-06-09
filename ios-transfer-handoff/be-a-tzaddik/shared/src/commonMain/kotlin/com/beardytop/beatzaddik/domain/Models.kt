@@ -1,7 +1,12 @@
 package com.beardytop.beatzaddik.domain
 
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.serialization.Serializable
+
+/** Device timezone for new profiles before GPS or a manual city is chosen. */
+fun deviceTimezoneId(): String =
+    runCatching { TimeZone.currentSystemDefault().id }.getOrDefault("America/New_York")
 
 @Serializable
 enum class Gender { MALE, FEMALE, PREFER_NOT_TO_SAY }
@@ -67,8 +72,10 @@ data class UserProfile(
     val locationSource: LocationSource = LocationSource.NONE,
     val latitude: Double? = null,
     val longitude: Double? = null,
-    val timezoneId: String = "America/New_York",
+    val timezoneId: String = deviceTimezoneId(),
     val locationLabel: String? = null,
+    /** Meters above sea level — used for sunrise/sunset (KosherJava elevation adjustment). */
+    val elevationMeters: Double? = null,
     val useGps: Boolean = false,
     val manualCityId: String? = null,
     val textScale: Float = 1f,
@@ -151,6 +158,8 @@ data class ChecklistItemDef(
     val shabbatOnly: Boolean = false,
     /** Candles, etc. — show on Erev Shabbat / prep, not on Shabbat day itself */
     val shabbatEveOnly: Boolean = false,
+    /** Melave malkah, etc. — show from tzeit Saturday until dawn Sunday */
+    val motzeiShabbatOnly: Boolean = false,
     /** Lower = earlier within the same [section]. */
     val sortOrder: Int = 0,
     /** Checked state survives midnight rollover (mezuzot, tevilah, etc.). */

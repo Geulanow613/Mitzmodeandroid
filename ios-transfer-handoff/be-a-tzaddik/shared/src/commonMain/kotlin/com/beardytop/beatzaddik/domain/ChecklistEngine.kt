@@ -17,16 +17,18 @@ class ChecklistEngine(
             "Morning Prayer (Shacharit)",
             "Ongoing mitzvot",
             "Torah Study",
+            "Eating & Blessings",
             "Married women's mitzvot",
             "Daily Prayer",
             "Afternoon Prayer",
             "Evening Prayer",
-            "Eating & Blessings",
             "Important Lifestyle Mitzvot",
             "Prepare for Shabbat",
+            "Motzei Shabbat",
             "Chol HaMoed",
             "Mourning customs",
             "Seasonal",
+            "Prepare for the festival",
             "Pesach prep",
             "Sefirat HaOmer",
             "Chanukah",
@@ -84,7 +86,9 @@ class ChecklistEngine(
         val allDefs = if (hideChecklist) {
             emptyList()
         } else {
-            sortDefs((catalog + seasonal + customDefs).filter { matches(it, profile, cal) })
+            sortDefs((catalog + seasonal + customDefs).filter {
+                matches(it, profile, cal, nowMillis, tomorrowCal)
+            })
         }
 
         val prayerDay = PrayerDayContext.from(cal, profile.effectiveNusach())
@@ -156,7 +160,13 @@ class ChecklistEngine(
         return total > 0 && done == total
     }
 
-    private fun matches(item: ChecklistItemDef, profile: UserProfile, cal: DayInfo): Boolean {
+    private fun matches(
+        item: ChecklistItemDef,
+        profile: UserProfile,
+        cal: DayInfo,
+        nowMillis: Long,
+        tomorrowCal: DayInfo,
+    ): Boolean {
         if (item.gender == "male" && !profile.gender.usesMaleChecklistItems()) return false
         if (item.gender == "female" && profile.gender != Gender.FEMALE) return false
         if (item.married == true && !profile.married) return false
@@ -164,6 +174,11 @@ class ChecklistEngine(
         if (!matchesShabbatAppUse(item, cal)) return false
         if (item.hideOnShabbat && cal.isShabbatOrYomTov) return false
         if (item.shabbatEveOnly && !cal.isErevShabbat) return false
+        if (item.motzeiShabbatOnly &&
+            !MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
+        ) {
+            return false
+        }
         if (item.id == "musaf_only_on_rosh_chodesh_festivals_and_shabbat") {
             if (!cal.isShabbat && !cal.isYomTov && !cal.isRoshChodesh) return false
         } else if (item.shabbatOnly && !cal.isShabbatOrYomTov && !cal.isErevShabbat) {
@@ -181,6 +196,7 @@ class ChecklistEngine(
      * Erev Shabbat (Friday): preparation items only.
      */
     private fun matchesShabbatAppUse(item: ChecklistItemDef, cal: DayInfo): Boolean {
+        if (item.motzeiShabbatOnly) return true
         if (item.section !in shabbatRelatedSections) return true
         if (cal.isShabbat && !cal.isErevShabbat) return false
         if (cal.isErevShabbat && !cal.isShabbat) {

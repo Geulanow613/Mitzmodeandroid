@@ -62,6 +62,16 @@ fun BirkatHamazonDialog(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
+                Text(
+                    text = "(Nusach Ashkenaz)",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                )
+
                 // Header with close button and title
                 Box(
                     modifier = Modifier

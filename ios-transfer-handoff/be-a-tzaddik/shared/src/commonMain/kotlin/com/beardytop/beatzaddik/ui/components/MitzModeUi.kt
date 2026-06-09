@@ -424,9 +424,21 @@ fun GoldButton(onClick: () -> Unit, text: String, modifier: Modifier = Modifier)
 }
 
 @Composable
-fun ParchmentTextButton(onClick: () -> Unit, text: String) {
-    TextButton(onClick = onClick, colors = ButtonDefaults.textButtonColors(contentColor = TzaddikColors.GoldBorder)) {
-        AppText(text, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Medium), enableTerms = false)
+fun ParchmentTextButton(
+    onClick: () -> Unit,
+    text: String,
+    contentColor: Color = TzaddikColors.GoldBorder,
+) {
+    TextButton(
+        onClick = onClick,
+        colors = ButtonDefaults.textButtonColors(contentColor = contentColor),
+    ) {
+        AppText(
+            text,
+            style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Medium),
+            color = contentColor,
+            enableTerms = false,
+        )
     }
 }
 

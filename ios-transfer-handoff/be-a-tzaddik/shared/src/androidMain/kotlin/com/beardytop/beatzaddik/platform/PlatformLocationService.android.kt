@@ -77,9 +77,17 @@ actual class PlatformLocationService(private val context: Context) {
                     } catch (_: Exception) {
                         null
                     }
+                    val hasAltitude = loc.hasAltitude()
                     cont.resume(
                         LocationResult.Success(
-                            LocationSuccess(loc.latitude, loc.longitude, tz, label)
+                            LocationSuccess(
+                                latitude = loc.latitude,
+                                longitude = loc.longitude,
+                                timezoneId = tz,
+                                label = label,
+                                elevationMeters = if (hasAltitude) loc.altitude else null,
+                                hasAltitudeReading = hasAltitude,
+                            )
                         )
                     )
                 }

@@ -24,7 +24,8 @@ object ChecklistZmanEvaluator {
         "hamapil_blessing_according_to_many_opinions",
         "at_least_one_prayer_daily_typically_morning",
         "ashkenaz_korbanot_before_shacharit",
-        "chabad_korbanot_before_shacharit"
+        "chabad_korbanot_before_shacharit",
+        "melave_malkah"
     )
 
     fun appliesTo(itemId: String): Boolean = itemId in zmanItemIds
@@ -89,6 +90,7 @@ object ChecklistZmanEvaluator {
                 nowMillis, z, tz, label = "daily prayer"
             )
             "kiddush_levana" -> kiddushLevanaWindow(prayerDay)
+            "melave_malkah" -> melaveMalkaWindow(nowMillis, z, tz, prayerDay)
             else -> ItemZmanStatus()
         }
     }
@@ -127,7 +129,7 @@ object ChecklistZmanEvaluator {
         tz: String,
         label: String
     ): ItemZmanStatus {
-        val start = z.misheyakirMillis ?: z.sunriseMillis
+        val start = z.alotHaShacharMillis ?: z.misheyakirMillis ?: z.sunriseMillis
         val idealEnd = z.sofZmanTefillaMillis
         val absoluteEnd = z.chatzosMillis
         val lateHint = if (idealEnd != null && now >= idealEnd)
@@ -148,7 +150,7 @@ object ChecklistZmanEvaluator {
      * After this time, the morning Shema obligation cannot be fulfilled — universally accepted.
      */
     private fun shemaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
-        val start = z.misheyakirMillis ?: z.sunriseMillis
+        val start = z.alotHaShacharMillis ?: z.misheyakirMillis ?: z.sunriseMillis
         val end = z.sofZmanShemaMillis   // end of 3rd halachic hour — no obligation can be fulfilled after this
 
         val expiredNote = "Sof zman Shema has passed (${ZmanimFormatter.formatTime(end, tz) ?: "end of 3rd hour"}). " +
@@ -300,12 +302,39 @@ object ChecklistZmanEvaluator {
         )
     }
 
+    private fun melaveMalkaWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        prayerDay: PrayerDayContext,
+    ): ItemZmanStatus {
+        val tzeit = z.tzeitMillis
+            ?: return ItemZmanStatus(hint = "Set location in Settings for tzeit hakochavim times.")
+        val end = ZmanPeriodLogic.nightObligationWindowEnd(z)
+            ?: return ItemZmanStatus(hint = "Set location in Settings for dawn (alot hashachar) times.")
+        val start = if (prayerDay.isShabbat) {
+            tzeit
+        } else {
+            tzeit - 24 * 60 * 60 * 1000L
+        }
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "Melave malkah — after Havdalah, from " +
+                "${ZmanimFormatter.formatAfter(tzeit, tz) ?: "tzeit hakochavim"} through dawn.",
+            expired = "Tonight's melave malkah window ended at dawn (alot hashachar).",
+            makeup = "If you were too full to eat after Shabbat, you are not required to force yourself.",
+            availableAtLabel = "tzeit hakochavim"
+        )
+    }
+
     private fun bedtimeWindow(now: Long, z: ZmanimSnapshot, tz: String, label: String): ItemZmanStatus {
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
         return windowStatus(
             now, start, end,
-            upcoming = "$label — when you are ready for sleep (after ${ZmanimFormatter.formatAfter(start, tz) ?: "sunset"}).",
+            upcoming = "$label — when you are ready for sleep (${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}).",
             expired = "Ideal bedtime Shema time is before dawn (${ZmanimFormatter.formatUntil(end, tz) ?: "alot hashachar"}).",
             makeup = null,
             availableAtLabel = "sunset"
@@ -408,11 +437,14 @@ object ChecklistZmanEvaluator {
                 "Tonight is the last recommended night for Kiddush Levana this month. " +
                 "Tomorrow night (the 15th) is the absolute last opportunity — don't miss it."
             day == 13 ->
-                "Only 2 nights remaining for Kiddush Levana this month (tonight and the 14th). Best said on Motzei Shabbat."
+                "Only 2 nights remaining for Kiddush Levana this month (tonight and the 14th). " +
+                "Say it on the first clear night — Motzei Shabbat is nice if the moon is visible, but do not risk missing the window."
             day == 12 ->
-                "3 nights remaining for Kiddush Levana this month. Best said on Motzei Shabbat."
+                "3 nights remaining for Kiddush Levana this month. " +
+                "Say it on the first clear night — Motzei Shabbat is preferred when practical, not if clouds may make you miss the month."
             else ->
-                "Kiddush Levana window is open. Best said on Motzei Shabbat."
+                "Kiddush Levana window is open. Say it on the first clear weeknight; " +
+                "Motzei Shabbat is a nice time when the moon is visible — do not delay past the ideal early window."
         }
 
         return ItemZmanStatus(

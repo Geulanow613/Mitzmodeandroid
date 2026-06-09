@@ -4,7 +4,9 @@ data class LocationSuccess(
     val latitude: Double,
     val longitude: Double,
     val timezoneId: String,
-    val label: String?
+    val label: String?,
+    val elevationMeters: Double? = null,
+    val hasAltitudeReading: Boolean = false,
 )
 
 sealed class LocationResult {

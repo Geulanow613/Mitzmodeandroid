@@ -74,9 +74,7 @@ object SeasonalChecklistItems {
         if ("erev_pesach" in cal.activeSeasons) {
             addAll(erevPesachItems(cal, profile))
         }
-        if (isWeekBeforePesach(cal)) {
-            add(pesachWeekPrepItem(cal, profile))
-        }
+        festivalWeekPrepItem(cal, profile)?.let { add(it) }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             addAll(cholHamoedItems(cal, profile))
         }
@@ -279,7 +277,13 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
     private fun yomTovShabbatAdvancePrepItem(cal: DayInfo, tomorrowCal: DayInfo, profile: UserProfile): ChecklistItemDef {
         val tomorrowName = tomorrowCal.upcomingChagName ?: "Yom Tov"
         val explanation = YomTovShabbatPrepText.advanceBlock(cal, tomorrowCal, profile).orEmpty()
-        val links = YomTovShabbatPrepText.links(tomorrowCal, profile, tomorrowName)
+        val simchasLinks = if (HebrewCalendarEngine.isShaloshRegalim(tomorrowCal.upcomingChagYomTovIndex)) {
+            SeasonalMitzvahText.simchasYomTovPrepLinks()
+        } else {
+            emptyList()
+        }
+        val links = (YomTovShabbatPrepText.links(tomorrowCal, profile, tomorrowName) + simchasLinks)
+            .distinctBy { it.url }
         val title = if (YomTovShabbatPrepText.isFridayBeforeShabbatErevChag(cal, tomorrowCal)) {
             "Tomorrow: Shabbat & erev $tomorrowName — read before Shabbat"
         } else {
@@ -425,16 +429,19 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         )
     )
 
-    private fun pesachWeekPrepItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
-        id = "pesach_week_prep",
-        title = "Week-before-Pesach prep: clean and organize your home",
-        section = "Pesach prep",
-        timeOfDay = TimeOfDay.DAY,
-        required = false,
-        situational = false,
-        explanation = SeasonalMitzvahText.pesachWeekPrepExplanation(cal, profile),
-        links = SeasonalMitzvahText.pesachWeekLinks(profile)
-    )
+    private fun festivalWeekPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
+        val prep = cal.festivalWeekPrep() ?: return null
+        return ChecklistItemDef(
+            id = "prepare_for_festival_${prep.name.lowercase()}",
+            title = SeasonalMitzvahText.festivalWeekPrepTitle(prep),
+            section = "Prepare for the festival",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            explanation = SeasonalMitzvahText.festivalWeekPrepExplanation(cal, profile, prep),
+            links = SeasonalMitzvahText.festivalWeekPrepLinks(prep, profile)
+        )
+    }
 
     private fun cholHamoedItems(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
         val list = mutableListOf(
@@ -630,12 +637,6 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             val diff = rhDate.toEpochDays() - candidate.toEpochDays()
             if (diff < 4) candidate.plus(-7, DateTimeUnit.DAY) else candidate
         })
-
-    private fun isWeekBeforePesach(cal: DayInfo): Boolean {
-        val month = cal.hebrewMonth ?: return false
-        val day = cal.hebrewDay ?: return false
-        return month == HebrewCalendarEngine.NISSAN && day in 8..13
-    }
 
     private fun isNightAfterYomKippur(cal: DayInfo): Boolean {
         val month = cal.hebrewMonth ?: return false

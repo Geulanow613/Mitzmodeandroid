@@ -17,6 +17,7 @@ private data class ManualCityJson(
     val latitude: Double,
     val longitude: Double,
     val timezoneId: String,
+    val elevationMeters: Double? = null,
 )
 
 object ManualCitiesLoader {
@@ -34,6 +35,7 @@ object ManualCitiesLoader {
                 latitude = row.latitude,
                 longitude = row.longitude,
                 timezoneId = row.timezoneId,
+                elevationMeters = row.elevationMeters,
             )
         }
     }

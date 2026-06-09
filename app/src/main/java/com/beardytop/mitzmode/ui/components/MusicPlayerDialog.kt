@@ -329,7 +329,7 @@ private fun StreamingPlatformLinks() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TranslatableText(
-            text = "Listen to more music from G.E.U.L.A",
+            text = "Listen to more Jewish music from G.E.U.L.A",
             style = MaterialTheme.typography.titleSmall,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface,

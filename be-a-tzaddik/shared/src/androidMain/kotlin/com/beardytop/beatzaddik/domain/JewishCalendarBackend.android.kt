@@ -31,7 +31,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             inIsrael = profile.isInIsrael
             isUseModernHolidays = true
         }
-        val zc = ComplexZmanimCalendar(geo).apply { calendar = now }
+        val zc = zmanimCalendar(geo, now)
 
         val isShabbat = date.dayOfWeek == DayOfWeek.SATURDAY
         val isErevShabbat = date.dayOfWeek == DayOfWeek.FRIDAY
@@ -204,9 +204,11 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
     ): ZmanimSnapshot {
         val chatzos = zc.chatzos?.time ?: zc.getChatzos()?.time
         val tomorrow = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_MONTH, 1) }
-        val zcTomorrow = ComplexZmanimCalendar(geo).apply { calendar = tomorrow }
-        val nightEnd = zcTomorrow.alos72?.time ?: zcTomorrow.getAlos72()?.time
-            ?: zcTomorrow.alosHashachar?.time ?: zcTomorrow.getAlosHashachar()?.time
+        val zcTomorrow = zmanimCalendar(geo, tomorrow)
+        // Alot hashachar = 16.1° below horizon (standard MyZmanim / zmanim-app default).
+        // Do not use getAlos72() here — 72 minutes before sunrise is a separate zman (MGA day start).
+        val nightEnd = zcTomorrow.alosHashachar?.time ?: zcTomorrow.getAlosHashachar()?.time
+            ?: zcTomorrow.getAlos16Point1Degrees()?.time
         return ZmanimSnapshot(
             misheyakirMillis = zc.misheyakir10Point2Degrees?.time ?: zc.getMisheyakir10Point2Degrees()?.time,
             sunriseMillis = zc.sunrise?.time,
@@ -218,8 +220,8 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             plagHaminchaMillis = zc.plagHamincha?.time ?: zc.getPlagHamincha()?.time,
             sunsetMillis = zc.sunset?.time,
             tzeitMillis = zc.nightfallMillis(),
-            alotHaShacharMillis = zc.alos72?.time ?: zc.getAlos72()?.time
-                ?: zc.alosHashachar?.time ?: zc.getAlosHashachar()?.time,
+            alotHaShacharMillis = zc.alosHashachar?.time ?: zc.getAlosHashachar()?.time
+                ?: zc.getAlos16Point1Degrees()?.time,
             nightObligationsEndMillis = nightEnd,
             timezoneId = timezoneId
         )
@@ -254,11 +256,11 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
                 add(Calendar.DAY_OF_MONTH, -1)
             }
         }
-        val zcFriday = ComplexZmanimCalendar(geo).apply { calendar = friday }
+        val zcFriday = zmanimCalendar(geo, friday)
         val candleLighting = zcFriday.candleLighting?.time ?: return null
 
         val saturday = (friday.clone() as Calendar).apply { add(Calendar.DAY_OF_MONTH, 1) }
-        val zcSaturday = ComplexZmanimCalendar(geo).apply { calendar = saturday }
+        val zcSaturday = zmanimCalendar(geo, saturday)
         val havdalah = zcSaturday.nightfallMillis() ?: return null
 
         if (nowEpochMillis < candleLighting || nowEpochMillis >= havdalah) return null
@@ -288,9 +290,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val jc = JewishCalendar(now.time)
         if (!jc.isYomTov || !jc.isAssurBemelacha) return null
 
-        val zc = ComplexZmanimCalendar(geo).apply { calendar = now }
+        val zc = zmanimCalendar(geo, now)
         val previousDay = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_MONTH, -1) }
-        val zcPrev = ComplexZmanimCalendar(geo).apply { calendar = previousDay }
+        val zcPrev = zmanimCalendar(geo, previousDay)
         val start = zcPrev.sunset?.time ?: zc.sunrise?.time ?: return null
         val end = zc.nightfallMillis() ?: zc.sunset?.time ?: return null
 
@@ -415,8 +417,16 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val lat = profile.latitude ?: 40.7128
         val lon = profile.longitude ?: -74.0060
         val tz = JavaTimeZone.getTimeZone(profile.timezoneId)
-        return GeoLocation(profile.locationLabel ?: "User", lat, lon, 0.0, tz)
+        val elevation = LocationElevation.metersFor(profile)
+        return GeoLocation(profile.locationLabel ?: "User", lat, lon, elevation, tz)
     }
+
+    /** Elevation adjusts sunrise/sunset only (KosherJava / MyZmanim-style). */
+    private fun zmanimCalendar(geo: GeoLocation, day: Calendar): ComplexZmanimCalendar =
+        ComplexZmanimCalendar(geo).apply {
+            calendar = day
+            isUseElevation = geo.elevation > 0.0
+        }
 
     private fun calendarFor(date: LocalDate): JewishCalendar {
         val jld = JavaLocalDate.of(date.year, date.monthNumber, date.dayOfMonth)

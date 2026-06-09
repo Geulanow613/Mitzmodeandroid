@@ -101,6 +101,15 @@ object TzaddikPermissionHost {
         }
         if (needed.isNotEmpty()) {
             launcher?.launch(needed.toTypedArray())
+            return
+        }
+        val locationGranted =
+            ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED
+        if (locationGranted) {
+            PlatformLocationService.notifyPermissionResult(true)
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.beardytop.beatzaddik.ui
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -42,12 +40,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -59,7 +51,6 @@ import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.platform.exitApplication
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldButton
-import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
@@ -203,6 +194,7 @@ private fun DisclaimerBody(embeddedMode: Boolean) {
         ) {
             AppText(
                 "Text size",
+                enableTerms = false,
                 style = MaterialTheme.typography.labelSmall,
                 color = TzaddikColors.TextMuted
             )
@@ -232,24 +224,25 @@ private fun DisclaimerBody(embeddedMode: Boolean) {
                     .heightIn(max = scrollMax)
                     .verticalScroll(scrollState)
             ) {
-                CandleEmblem(modifier = Modifier.size((54f * fontScale).dp.coerceIn(40.dp, 80.dp)))
-                Spacer(Modifier.height(12.dp))
                 AppText(
                     AppDisclaimer.WELCOME_HEADLINE,
+                    enableTerms = false,
                     style = scaled(MaterialTheme.typography.titleLarge),
                     color = TzaddikColors.NavyDeep,
                     textAlign = TextAlign.Center
                 )
-                Spacer(Modifier.height(6.dp))
+                Spacer(Modifier.height(14.dp))
                 AppText(
                     AppDisclaimer.welcomeIntro(embeddedMode),
+                    enableTerms = false,
                     style = scaled(MaterialTheme.typography.bodyMedium),
                     color = TzaddikColors.TextBrown,
-                    textAlign = TextAlign.Center
+                    modifier = Modifier.fillMaxWidth(),
                 )
                 Spacer(Modifier.height(16.dp))
-                HalachicClickableText(
-                    text = AppDisclaimer.STARTUP_BODY,
+                AppText(
+                    AppDisclaimer.STARTUP_BODY,
+                    enableTerms = false,
                     style = scaled(MaterialTheme.typography.bodyMedium),
                     color = TzaddikColors.TextBrown,
                     modifier = Modifier.fillMaxWidth(),
@@ -257,59 +250,6 @@ private fun DisclaimerBody(embeddedMode: Boolean) {
                 Spacer(Modifier.height(32.dp))
             }
         }
-    }
-}
-
-/** A small drawn candle flame emblem — warm, no symbols, matches the splash. */
-@Composable
-private fun CandleEmblem(modifier: Modifier = Modifier) {
-    Canvas(modifier = modifier) {
-        val w = size.width
-        val h = size.height
-        val cx = w * 0.5f
-        drawCircle(
-            brush = Brush.radialGradient(
-                colors = listOf(
-                    TzaddikColors.GoldBright.copy(alpha = 0.5f),
-                    TzaddikColors.GoldBorder.copy(alpha = 0.15f),
-                    Color.Transparent
-                ),
-                center = Offset(cx, h * 0.42f),
-                radius = w * 0.5f
-            ),
-            radius = w * 0.5f,
-            center = Offset(cx, h * 0.42f)
-        )
-        val flame = Path().apply {
-            moveTo(cx, h * 0.08f)
-            cubicTo(cx + w * 0.22f, h * 0.32f, cx + w * 0.20f, h * 0.62f, cx, h * 0.7f)
-            cubicTo(cx - w * 0.20f, h * 0.62f, cx - w * 0.22f, h * 0.32f, cx, h * 0.08f)
-            close()
-        }
-        drawPath(
-            flame,
-            brush = Brush.verticalGradient(
-                colors = listOf(
-                    Color(0xFFFFF6D8),
-                    TzaddikColors.GoldBright,
-                    TzaddikColors.GoldBorder
-                ),
-                startY = h * 0.08f,
-                endY = h * 0.7f
-            )
-        )
-        drawLine(
-            color = TzaddikColors.NavyDeep.copy(alpha = 0.5f),
-            start = Offset(cx, h * 0.7f),
-            end = Offset(cx, h * 0.82f),
-            strokeWidth = w * 0.03f
-        )
-        drawRoundRect(
-            color = TzaddikColors.ParchBase,
-            topLeft = Offset(cx - w * 0.07f, h * 0.82f),
-            size = Size(w * 0.14f, h * 0.14f),
-            cornerRadius = CornerRadius(w * 0.02f)
-        )
     }
 }
 

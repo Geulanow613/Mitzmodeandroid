@@ -165,22 +165,28 @@ fun OnboardingScreen(
                 }
             }
 
-            if (step > 0) {
-                ParchmentTextButton(
-                    onClick = { step-- },
-                    text = "Back"
-                )
-            } else if (onBackFromFirstStep != null) {
-                ParchmentTextButton(
-                    onClick = onBackFromFirstStep,
-                    text = "Back"
-                )
-            }
             if (step < TOTAL_STEPS - 1) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        if (step > 0) {
+                            OnboardingFooterTextButton(onClick = { step-- }, text = "Back")
+                        } else if (onBackFromFirstStep != null) {
+                            OnboardingFooterTextButton(onClick = onBackFromFirstStep, text = "Back")
+                        }
+                        if (step == 0) {
+                            OnboardingFooterTextButton(
+                                onClick = { viewModel.skipOnboardingWithDefaults() },
+                                text = "Skip (set to default)",
+                            )
+                        }
+                    }
                     GoldButton(
                         onClick = {
                             if (step == 0) {
@@ -192,6 +198,7 @@ fun OnboardingScreen(
                     )
                 }
             } else {
+                OnboardingFooterTextButton(onClick = { step-- }, text = "Back")
                 GoldButton(
                     onClick = {
                         viewModel.completeOnboarding(gender, married, children, nusach, useGps)
@@ -202,6 +209,16 @@ fun OnboardingScreen(
             }
         }
     }
+}
+
+/** Text actions on the dark onboarding footer — bright gold so they stay readable on navy. */
+@Composable
+private fun OnboardingFooterTextButton(onClick: () -> Unit, text: String) {
+    ParchmentTextButton(
+        onClick = onClick,
+        text = text,
+        contentColor = TzaddikColors.GoldBright,
+    )
 }
 
 @Composable

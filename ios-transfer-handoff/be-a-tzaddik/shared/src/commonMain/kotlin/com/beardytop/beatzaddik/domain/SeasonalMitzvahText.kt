@@ -5,6 +5,133 @@ package com.beardytop.beatzaddik.domain
  */
 object SeasonalMitzvahText {
 
+    // ── Simchas Yom Tov (erev Pesach / Shavuot / Sukkot prep only) ───────────
+
+    fun simchasYomTovPrepBlock(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.simchasYomTovBasics(),
+        """
+Simchas Yom Tov (שִׂמְחַת יוֹם טוֹב) — the mitzvah to rejoice on the festival:
+The Torah commands "V'samachta b'chagecha" — "And you shall rejoice in your festival" (Devarim 16:14). Joy on Yom Tov is a mitzvah for everyone. Halacha recognizes that happiness is personal — the head of household helps each family member rejoice in the way that naturally brings them joy (Pesachim 109a; Shulchan Arukh O.C. 529:2).
+
+Prepare before chag begins:
+• Wife — clothing or jewelry l'fi mamono (within your financial ability): the Shulchan Arukh obligates a husband to buy his wife new clothes or jewelry for Yom Tov. You are not expected to go into debt — an inexpensive but pleasant garment, modest jewelry, or nice shoes fulfills the mitzvah. The goal is her actual joy; if she prefers something else that genuinely makes her happy (a book, houseware, experience), many modern poskim agree that fulfills the spirit of the law.
+• Children — treats that bring joy: the Talmud mentions roasted grains and nuts; today candies, chocolates, and age-appropriate toys. The purpose is to associate Yom Tov with excitement and a break from everyday routine — not merely to give sugar.
+• Men — meat and wine: in Temple times this meant holiday sacrifices; today festive Yom Tov meals with wine and meat (beef is classic; poultry is often acceptable) fulfill personal simchas Yom Tov.
+
+Rambam's crucial condition (Hilchos Yom Tov 6:18):
+When you feed your family, buy your wife clothes, and give your children treats, you must also provide for the poor, the widow, and the orphan. If a household feasts only behind closed doors without helping the needy, the Rambam writes this is not "the joy of a mitzvah" but merely "the joy of one's stomach."
+        """.trim(),
+    )
+
+    fun simchasYomTovPrepLinks(): List<ChecklistLink> = listOf(
+        ChecklistLink(
+            "Shulchan Arukh — Simchas Yom Tov",
+            "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.529",
+            "default"
+        ),
+        ChecklistLink(
+            "Talmud Pesachim 109a",
+            "https://www.sefaria.org/Pesachim.109a",
+            "default"
+        ),
+        ChecklistLink(
+            "Rambam — Laws of Yom Tov 6:18",
+            "https://www.sefaria.org/Mishneh_Torah,_Rest_on_a_Holiday.6.18",
+            "default"
+        ),
+    )
+
+    // ── Week-before festival prep (Pesach, Shavuot, Sukkot) ──────────────────
+
+    fun festivalWeekPrepTitle(prep: FestivalWeekPrep): String = when (prep) {
+        FestivalWeekPrep.PESACH -> "Prepare for the festival — Pesach"
+        FestivalWeekPrep.SHAVUOT -> "Prepare for the festival — Shavuot"
+        FestivalWeekPrep.SUKKOT -> "Prepare for the festival — Sukkot"
+    }
+
+    fun festivalWeekPrepExplanation(
+        cal: DayInfo,
+        profile: UserProfile,
+        prep: FestivalWeekPrep,
+    ): String = when (prep) {
+        FestivalWeekPrep.PESACH -> pesachWeekPrepExplanation(cal, profile)
+        FestivalWeekPrep.SHAVUOT -> shavuotWeekPrepExplanation(profile)
+        FestivalWeekPrep.SUKKOT -> sukkotWeekPrepExplanation(profile)
+    }
+
+    fun festivalWeekPrepLinks(
+        prep: FestivalWeekPrep,
+        profile: UserProfile,
+    ): List<ChecklistLink> = when (prep) {
+        FestivalWeekPrep.PESACH -> pesachWeekLinks(profile)
+        FestivalWeekPrep.SHAVUOT -> shavuotWeekLinks(profile)
+        FestivalWeekPrep.SUKKOT ->
+            (sukkahLinks(profile) + arbaMinimLinks(profile)).distinctBy { it.url }
+    }
+
+    fun shavuotWeekPrepExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.shavuotBasics(),
+        """
+The week before Shavuot is for practical preparation — Shavuot celebrates Matan Torah (receiving the Torah at Sinai).
+
+Food & home:
+• Many have the custom of dairy meals (cheesecake, blintzes, lasagna, ice cream) — plan menus and shop early.
+• Some decorate with flowers and greenery (minhag of a garden around Sinai).
+• Stock wine, grape juice, and Yom Tov staples for festive meals${if (!profile.isInIsrael) " — in the Diaspora, prepare for two days of Yom Tov" else ""}.
+
+Torah & tefillah:
+• Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.
+• Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.
+• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).
+
+Joy & family (simchat Yom Tov):
+• Plan festive meals with meat and wine as well as dairy (many have both).
+• Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
+
+Practical:
+• Finish cooking prep before candle lighting on Erev Shavuot; set blech or hot plate if needed.
+• Turn off devices before Yom Tov — this app is for prep, not use on chag.
+        """.trim(),
+    )
+
+    fun sukkotWeekPrepExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.sukkotBasics(),
+        """
+The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvot ready — many begin the sukkah right after Yom Kippur.
+
+Sukkah:
+• Build or repair your sukkah — walls, frame, and schach (plant covering, not metal or solid roof).
+• Choose a spot with more shade than sun under the schach; avoid blocking by trees or porch roofs.
+• Set up table, chairs, and decorations; plan to eat (and sleep, when possible) in the sukkah all seven days.
+
+Arba Minim (Four Species):
+• Order or buy a kosher set: lulav, etrog, hadassim (myrtle), aravot (willow).
+• Check the etrog (pitom intact if present) and that leaves are fresh — buy early before stores sell out.
+• Get a lulav holder (hoshanah holder / koisan) and an etrog box.
+
+Meals & Yom Tov:
+• Plan menus for seven days of festive meals in and out of the sukkah.
+• Wine, grape juice, challah, and Yom Tov groceries — ${if (profile.isInIsrael) "one day of Yom Tov at the start" else "two days of Yom Tov at the start in the Diaspora"}.
+• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag).
+
+Joy & family:
+• Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
+
+Practical:
+• Confirm shul times for Hallel, Hoshanot, and hakafot (especially Hoshana Raba).
+• Turn off devices before Yom Tov — this app is for prep, not use on chag.
+        """.trim(),
+    )
+
+    fun shavuotWeekLinks(profile: UserProfile) = buildList {
+        if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
+            add(ChecklistLink("Chabad — Shavuot", "https://www.chabad.org/holidays/shavuot/default_cdo/jewish/Shavuot.htm", "chabad"))
+        }
+        add(ChecklistLink("Peninei Halacha — Shavuot", "https://ph.yhb.org.il/en/category/12/12-13/", "default"))
+        add(ChecklistLink("Aish — Shavuot", "https://aish.com/holidays/shavuot/", "default"))
+        add(ChecklistLink("Ohr Somayach — Shavuot", "https://ohr.edu/holidays/shavuot/", "default"))
+    }
+
     // ── Sukkot ───────────────────────────────────────────────────────────────
 
     fun sukkahBuildExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -71,7 +198,7 @@ ${arbaMinimSharedBody(profile)}
 
 Men — Torah obligation:
 • First day of Sukkot (and second day of Yom Tov in the Diaspora per minhag) is Torah-level for men.
-• Bracha: Al netilat lulav before waving on those days; other days many wave without a bracha (follow your siddur).
+• Bracha: Men say Al netilat lulav every day when taking the lulav (except Shabbat). Shehecheyanu is on the first day only.
 • ${arbaMinimMenWave(profile)}
     """.trim(),
     )
@@ -367,7 +494,7 @@ After lighting: sing HaNeiros halalu and Maoz Tzur (custom).
         val base = BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.pesachPrep(),
             """
-The week before Pesach (Nissan 8–13) is for practical preparation — not spring cleaning every closet, but removing chametz where it matters.
+Pesach begins in about a week — use this time for practical preparation (not spring cleaning every closet, but removing chametz where it matters).
 
 Focus areas:
 • Kitchen and dining — where chametz is eaten: counters, stove, microwave, toaster, fridge, pantry.

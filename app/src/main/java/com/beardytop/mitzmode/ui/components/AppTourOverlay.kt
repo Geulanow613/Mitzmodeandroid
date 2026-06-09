@@ -87,6 +87,7 @@ fun AppTourOverlay(
     steps: List<TourStep>,
     stepBounds: Map<Int, Rect>,
     onNext: () -> Unit,
+    onBack: () -> Unit,
     onSkip: () -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
@@ -96,15 +97,18 @@ fun AppTourOverlay(
     val density = LocalDensity.current
     val stepMessage = steps[currentStep].message
     val hasNext = currentStep < steps.lastIndex
+    val hasBack = currentStep > 0
     val paddingPx = with(density) { 24.dp.roundToPx() }
 
     TourContent(
         currentStep = currentStep,
         stepMessage = stepMessage,
         hasNext = hasNext,
+        hasBack = hasBack,
         stepBounds = stepBounds,
         paddingPx = paddingPx,
         onNext = onNext,
+        onBack = onBack,
         onSkip = onSkip,
         onDismiss = onDismiss,
         modifier = modifier
@@ -116,9 +120,11 @@ private fun TourContent(
     currentStep: Int,
     stepMessage: String,
     hasNext: Boolean,
+    hasBack: Boolean,
     stepBounds: Map<Int, Rect>,
     paddingPx: Int,
     onNext: () -> Unit,
+    onBack: () -> Unit,
     onSkip: () -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
@@ -194,6 +200,7 @@ private fun TourContent(
             ) {
                 TranslatableText(
                     text = stepMessage,
+                    enableHalachicTerms = false,
                     style = MaterialTheme.typography.bodyLarge.copy(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,
@@ -209,9 +216,15 @@ private fun TourContent(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    // Skip (left)
-                    TextButton(onClick = onSkip) {
-                        TranslatableText("Skip", color = MaterialTheme.colorScheme.primary)
+                    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                        if (hasBack) {
+                            TextButton(onClick = onBack) {
+                                TranslatableText("Back", enableHalachicTerms = false, color = MaterialTheme.colorScheme.primary)
+                            }
+                        }
+                        TextButton(onClick = onSkip) {
+                            TranslatableText("Skip", enableHalachicTerms = false, color = MaterialTheme.colorScheme.primary)
+                        }
                     }
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -222,7 +235,7 @@ private fun TourContent(
                                     containerColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
-                                TranslatableText("Next")
+                                TranslatableText("Next", enableHalachicTerms = false)
                             }
                         } else {
                             Button(
@@ -231,7 +244,7 @@ private fun TourContent(
                                     containerColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
-                                TranslatableText("Done")
+                                TranslatableText("Done", enableHalachicTerms = false)
                             }
                         }
 

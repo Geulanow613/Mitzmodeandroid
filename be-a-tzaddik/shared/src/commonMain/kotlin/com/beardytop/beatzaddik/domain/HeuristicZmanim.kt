@@ -25,12 +25,15 @@ object HeuristicZmanim {
         val sofTefilla = endOfHour(4)
         val chatzos = endOfHour(6)
         val minchaGedola = sunrise + dayLength * 13 / 24 // 6.5 halachic hours after sunrise
-        val misheyakir = sunrise - 60 * 60 * 1000L
+        // Rough approximations when KosherJava is unavailable (iOS). Prefer under-estimating dawn vs 72-min alos.
+        val misheyakir = sunrise - 52 * 60 * 1000L
         val plag = sunset - (75 * 60 * 1000L)
         // ~8.5° below horizon (~33 min after sunset at mid-latitudes; aligns with MyZmanim-style nightfall)
         val tzeit = sunset + (33 * 60 * 1000L)
-        val alot = sunrise - (72 * 60 * 1000L)
-        val nextAlot = localDateTimeMillis(date.plus(1, DateTimeUnit.DAY), 5, 18, tz)
+        // ~16.1° alos hashachar — typically ~90 min before sunrise at mid-latitudes in summer
+        val alot = sunrise - (90 * 60 * 1000L)
+        val nextDaySunrise = localDateTimeMillis(date.plus(1, DateTimeUnit.DAY), 6, 30, tz)
+        val nextAlot = nextDaySunrise - (90 * 60 * 1000L)
 
         return ZmanimSnapshot(
             misheyakirMillis = misheyakir,

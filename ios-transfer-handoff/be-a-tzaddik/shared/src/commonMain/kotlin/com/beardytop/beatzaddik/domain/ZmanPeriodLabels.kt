@@ -73,8 +73,7 @@ object ZmanPeriodLabels {
         }
 
     private fun eveningSummary(z: ZmanimSnapshot, tz: String): String {
-        val sunset = ZmanimFormatter.formatAfter(z.sunsetMillis, tz)
-            ?: ZmanimFormatter.formatTime(z.sunsetMillis, tz)?.let { "at $it" }
+        val sunset = ZmanimFormatter.formatTime(z.sunsetMillis, tz)
         return if (sunset != null) {
             "Evening prayers available after $sunset"
         } else {

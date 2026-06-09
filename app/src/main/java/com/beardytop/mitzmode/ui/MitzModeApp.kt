@@ -74,19 +74,18 @@ fun MitzModeApp(
     val tourSteps = remember {
         listOf(
             TourStep(
-                "Tap Mitzvah Me any time for a fresh mitzvah suggestion—a quick spark when you want a good deed idea."
+                "Tap the Mitzvah Me button any time for a fresh mitzvah and some instant inspiration."
             ),
             TourStep(
-                "Your Daily Mitzvot Checklist is this gold button—not hidden in the menu. " +
-                    "Use GPS or your city for live zmanim, check off today's mitzvot, tap any item for clear explanations, " +
-                    "follow your nusach, and see this week's parsha."
+                "New to Judaism—or ready to level up your day? 'Check' out the Daily Mitzvot Checklist! " +
+                    "It's your smart Torah companion: GPS powers live zmanim so you know when to daven, observe holidays, light candles, and more! " +
+                    "See the daily mitzvot available to you, tap any item for clear explanations on how to follow the Torah, and ride with Heavenly vibes!"
             ),
             TourStep(
-                "The ⋮ menu has blessings, the Al HaMichya builder, Birkat Hamazon, the Traveler's Prayer, " +
-                    "the app song, and language settings—the checklist is not here."
+                "Tap the menu (⋮) for blessings before and after food, Birkat Hamazon, the Traveler's Prayer, language settings, and more."
             ),
-            TourStep("Suggest a mitzvah for the community—tap here to submit an idea."),
-            TourStep("Tap your mitzvah count to see how many you've completed and your current level.")
+            TourStep("Have a mitzvah idea we should add? Submit it here—help grow the list for everyone."),
+            TourStep("Track your streak here—see how many mitzvot you've completed and your current level.")
         )
     }
 
@@ -693,7 +692,12 @@ fun MitzModeApp(
                         viewModel.completeTour()
                     }
                 },
-                onSkip = { 
+                onBack = {
+                    if (currentTourStep > 0) {
+                        currentTourStep--
+                    }
+                },
+                onSkip = {
                     showMenu = false
                     viewModel.skipTour() 
                 },

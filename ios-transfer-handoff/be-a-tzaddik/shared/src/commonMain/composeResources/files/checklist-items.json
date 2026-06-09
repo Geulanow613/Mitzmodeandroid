@@ -789,6 +789,30 @@
       "sortOrder": 20,
       "persistChecked": false,
       "situational": false
+    },
+    {
+      "id": "melave_malkah",
+      "title": "Melave malkah (escort the Shabbat queen)",
+      "section": "Motzei Shabbat",
+      "timeOfDay": "night",
+      "required": false,
+      "explanation": "Melave malkah (מְלַוֶּה מַלְכָּה — \"escorting the queen\") is a mitzvah to set the table and eat a meal on Saturday night, honoring Shabbat as it departs (Talmud Shabbat 119b).\n\nThe image is like escorting a beloved guest to the door: Shabbat is leaving, but we linger a little longer to savor its holiness. Through this meal we extend Shabbat's light into the weekdays — alongside Vi-yhi No'am said in Maariv (Arizal).\n\nWhen:\nFrom tzeit hakochavim (nightfall / three stars) Saturday night until dawn (alot hashachar) Sunday morning — after Havdalah.\n\nWho:\nMen and women; all nusachim.\n\nPractice:\nIdeally prepare something special — not only Shabbat leftovers. The Talmud (Shabbat 119b) tells of R. Abahu's household preparing a calf for melave malkah. At minimum, set the table and eat with appetite.\n\nObligation:\nA mitzvah, but if you are truly too full from Shabbat to eat, you are not required to force yourself.\n\nTradition:\nOur sages link the indestructible luz bone (preserved for resurrection) to nourishment from melave malkah (Kaf HaChayim; Vayikra Rabba).",
+      "links": [
+        {
+          "displayText": "Shulchan Arukh — Melave malkah",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.300"
+        },
+        {
+          "displayText": "Talmud Shabbat 119b",
+          "url": "https://www.sefaria.org/Shabbat.119b"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "motzeiShabbatOnly": true,
+      "sortOrder": 10,
+      "persistChecked": false,
+      "situational": false
     }
   ]
 }

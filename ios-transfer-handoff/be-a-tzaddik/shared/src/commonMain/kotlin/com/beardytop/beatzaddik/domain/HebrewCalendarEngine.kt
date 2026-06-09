@@ -251,6 +251,10 @@ internal object HebrewCalendarEngine {
         PESACH, SHAVUOS, SUCCOS, SHEMINI_ATZERES, SIMCHAS_TORAH, ROSH_HASHANA, YOM_KIPPUR
     )
 
+    /** Pesach, Shavuot, Sukkot — the three pilgrimage festivals (Shalosh Regalim). */
+    fun isShaloshRegalim(idx: Int?): Boolean =
+        idx == PESACH || idx == SHAVUOS || idx == SUCCOS
+
     /** True for days that are "Yom Tov" (not erev/fast days, not Isru Chag). */
     fun isYomTov(idx: Int): Boolean {
         if (idx == -1) return false

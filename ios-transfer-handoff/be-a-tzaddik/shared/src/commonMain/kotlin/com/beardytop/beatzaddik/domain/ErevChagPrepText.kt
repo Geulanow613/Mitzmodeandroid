@@ -34,11 +34,16 @@ object ErevChagPrepText {
             return PrepContent(
                 title = "Erev $name prep",
                 explanation = "$intro\n\nSet your location in the app for Hebrew date, zmanim, and tailored prep.\n\n$tail",
-                links = defaultChagLinks(profile)
+                links = defaultChagLinks(profile),
             )
         }
         val (specificTitle, specificBody, links) = holidayBlock(idx, name, profile, cal)
-        val allLinks = (links + YomTovShabbatPrepText.links(cal, profile, name))
+        val simchasLinks = if (HebrewCalendarEngine.isShaloshRegalim(idx)) {
+            SeasonalMitzvahText.simchasYomTovPrepLinks()
+        } else {
+            emptyList()
+        }
+        val allLinks = (links + simchasLinks + YomTovShabbatPrepText.links(cal, profile, name))
             .distinctBy { it.url }
         return PrepContent(
             title = specificTitle,
@@ -61,13 +66,19 @@ object ErevChagPrepText {
             } ?: "• Candle lighting & Yom Tov begin at sunset — enable location for your local time."
         }
 
+        val simchasBlock = if (HebrewCalendarEngine.isShaloshRegalim(cal.upcomingChagYomTovIndex)) {
+            "\n\n${SeasonalMitzvahText.simchasYomTovPrepBlock()}"
+        } else {
+            ""
+        }
+
         return """${BeginnerHalachaGlossary.erevChagCommon()}
 
 Before chag — every erev Yom Tov:
 $sunsetLine
 • Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals.
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
-• Confirm shul times for tonight and tomorrow (candle lighting, Kol Nidre / Maariv / Shacharit / Musaf)."""
+• Confirm shul times for tonight and tomorrow (candle lighting, Kol Nidre / Maariv / Shacharit / Musaf).$simchasBlock"""
     }
 
     private fun holidayBlock(
@@ -93,7 +104,7 @@ Tonight & tomorrow:
 Customs:
 • Greet others with wishes for a good year (L'shanah tovah).
 • Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
-• Tashlich (casting sins into water) is often on the first afternoon — follow your community.
+• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.
 
 ${diasporaSecondDayNote(profile, "Rosh Hashana")}""",
             ),
@@ -121,7 +132,7 @@ Today before the fast:
 On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):
 • Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).
 • Many wear white and avoid leather shoes.
-• Ne'ilah and shofar at the end; break fast after nightfall tomorrow.""",
+• Ne'ilah at the end; after nightfall pray Maariv, make Havdalah, then break the fast.""",
             ),
             yomKippurLinks(profile)
         )

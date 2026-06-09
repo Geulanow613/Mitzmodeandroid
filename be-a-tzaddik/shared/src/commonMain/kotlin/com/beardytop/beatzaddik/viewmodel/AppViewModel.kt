@@ -14,6 +14,7 @@ import com.beardytop.beatzaddik.domain.MealCategory
 import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.UpcomingHoliday
 import com.beardytop.beatzaddik.domain.UserProfile
+import com.beardytop.beatzaddik.domain.LocationElevation
 import com.beardytop.beatzaddik.platform.LocationResult
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
@@ -80,12 +81,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
         if (deps.location.hasLocationPermission()) {
             onUiState(true)
+            persistGpsModeEnabled()
             refreshGps()
             return
         }
         deps.location.onPermissionResult = { granted ->
             if (granted) {
                 onUiState(true)
+                persistGpsModeEnabled()
                 refreshGps()
             } else {
                 onUiState(false)
@@ -93,6 +96,19 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             }
         }
         deps.location.requestLocationPermission()
+    }
+
+    /** Keep GPS mode on even when a fix is still pending (emulator / weak signal). */
+    private fun persistGpsModeEnabled() {
+        viewModelScope.launch {
+            deps.repository.saveProfile(
+                profile.value.copy(
+                    useGps = true,
+                    manualCityId = null,
+                    locationSource = LocationSource.GPS,
+                )
+            )
+        }
     }
 
     /** Fired once per day when all required mitzvot are complete. */
@@ -187,7 +203,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         deps.repository.clearDayIfNewDate(today)
         val now = Clock.System.now().toEpochMilliseconds()
         val wait = deps.repository.kashrutWait.first()
-        val prof = deps.repository.profile.first()
+        var prof = deps.repository.profile.first()
         when {
             wait != null && wait.endsAtEpochMillis <= now -> {
                 deps.repository.setKashrutWait(null)
@@ -195,6 +211,15 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             }
             wait != null -> deps.kashrut.scheduleEndNotification(wait, prof)
             else -> deps.kashrut.cancelNotification()
+        }
+        if (prof.useGps && prof.elevationMeters == null) {
+            LocationElevation.backfillForProfile(prof)?.let { elevation ->
+                prof = prof.copy(elevationMeters = elevation)
+                deps.repository.saveProfile(prof)
+            }
+        }
+        if (prof.useGps) {
+            refreshGps()
         }
     }
 
@@ -210,6 +235,16 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             deps.repository.saveProfile(profile)
             applyLauncherIcon(profile.gender)
         }
+    }
+
+    fun skipOnboardingWithDefaults() {
+        completeOnboarding(
+            gender = Gender.MALE,
+            married = false,
+            hasChildren = false,
+            nusach = NusachSelection.ASHKENAZ,
+            useGps = hasLocationPermission(),
+        )
     }
 
     fun completeOnboarding(
@@ -360,12 +395,19 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                 is LocationResult.Success -> {
                     val d = result.data
                     val current = profile.value
+                    val elevation = LocationElevation.resolveForGps(
+                        latitude = d.latitude,
+                        longitude = d.longitude,
+                        gpsAltitudeMeters = d.elevationMeters,
+                        hasAltitudeReading = d.hasAltitudeReading,
+                    )
                     deps.repository.saveProfile(
                         current.copy(
                             latitude = d.latitude,
                             longitude = d.longitude,
                             timezoneId = d.timezoneId,
                             locationLabel = d.label,
+                            elevationMeters = elevation,
                             locationSource = LocationSource.GPS,
                             useGps = true,
                             manualCityId = null
@@ -381,7 +423,8 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                     _showLocationPermissionDialog.value = true
                 }
                 LocationResult.Unavailable ->
-                    _locationMessage.value = "Could not get GPS fix — pick a manual city"
+                    _locationMessage.value =
+                        "Could not get GPS fix yet — still using GPS mode; set emulator location or pick a city below"
             }
         }
     }
@@ -397,6 +440,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                     longitude = city.longitude,
                     timezoneId = city.timezoneId,
                     locationLabel = city.label,
+                    elevationMeters = city.elevationMeters,
                     locationSource = LocationSource.MANUAL,
                     useGps = false
                 )
