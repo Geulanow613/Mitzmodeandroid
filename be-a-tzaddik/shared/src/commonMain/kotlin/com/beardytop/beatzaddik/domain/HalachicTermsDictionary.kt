@@ -88,7 +88,7 @@ object HalachicTermsDictionary {
         line("tefillah — prayer; from a root meaning to judge oneself"),
         line("Kinot — elegies read on Tisha B'Av mourning the Temple"),
         line("Tisha B'Av — fast mourning the destruction of the Temple"),
-        line("Lag BaOmer — 33rd day of the Omer; mourning eased in many communities"),
+        line("Lag BaOmer — 33rd day of the Omer; mourning eased in many Ashkenaz communities; Chabad keeps haircut restrictions until Shavuot"),
         line("Hoshana Raba — seventh day of Sukkot; Minhag Nevi'im — beating aravot five times on the ground"),
         line("Hakafot — dancing while circling around the synagogue with Torah scrolls on Simchat Torah"),
         line("Hagbah — lifting the Torah scroll for the congregation to see; Ashkenazim after reading, Sephardim before"),
@@ -328,19 +328,19 @@ object HalachicTermsDictionary {
             "tzedaka",
         ),
         line(
-            "Yaknehaz — YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach): Yayin (wine blessing) → Kiddush for the festival → Ner (candle blessing, borei me'orei ha'eish) → Havdalah text ending bein kodesh l'kodesh (between holy and holy, not bein kodesh l'chol) → Zeman (Shehecheyanu when it is the first night). Besamim (spices) are omitted because you transition from Shabbat into a holy festival — the joy of Yom Tov itself comforts the soul, so the fragrant spices normally used when Shabbat departs into a weekday are unnecessary. Havdalah is inside Kiddush, not a separate ceremony. Also called Holiday Havdalah when Shabbat leads into Yom Tov. Use your siddur's festival night Kiddush section.",
+            "Yaknehaz — YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach): Yayin (wine blessing) → Kiddush for the festival → Ner (candle blessing, borei me'orei ha'eish — over the Yom Tov candles already on the table; do not pick up or move them, as they are muktzeh once lit) → Havdalah text ending bein kodesh l'kodesh (between holy and holy, not bein kodesh l'chol) → Zeman (Shehecheyanu when it is the first night). Besamim (spices) are omitted because you transition from Shabbat into a holy festival — the joy of Yom Tov itself comforts the soul, so the fragrant spices normally used when Shabbat departs into a weekday are unnecessary. Havdalah is inside Kiddush, not a separate ceremony. Also called Holiday Havdalah when Shabbat leads into Yom Tov. Use your siddur's festival night Kiddush section.",
             "Yaknehaz",
             "YaKNeHaZ",
             "Holiday Havdalah",
             "Havdalah in Kiddush",
         ),
         line(
-            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. That is why the food is set aside before the festival begins. One eruv per household is enough. It also reminds the home to prepare for Shabbat, not only for the festival.",
+            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. Store the designated foods in a safe, labeled spot — if they are eaten before you finish Friday cooking for Shabbat, the eruv is void. One eruv per household is enough. It also reminds the home to prepare for Shabbat, not only for the festival.",
             "eruv tavshilin",
             "Eruv Tavshilin",
         ),
         line(
-            "Melacha — Melacha is transformative labor forbidden on Shabbat and, with important differences, on Yom Tov — not merely \"hard\" work. The Torah lists 39 categories (melachot) such as writing, cooking, building, and kindling fire. Phones, driving, and most business activity fall under rabbinic extensions of these categories. Yom Tov allows ochel nefesh — food preparation for that day — but not melacha for the next day without eruv tavshilin when Shabbat follows. When unsure, ask your rav before acting.",
+            "Melacha — Melacha is transformative labor forbidden on Shabbat — including cooking. On Yom Tov most of the 39 melachot remain forbidden (writing, building, kindling a new fire, etc.), but the Torah permits ochel nefesh — preparing food for that festival day, including cooking transferred from a pre-existing flame (Exodus 12:16). Phones, driving, and most business activity fall under rabbinic extensions. You may not cook on Yom Tov for the next day without eruv tavshilin when Shabbat follows. When unsure, ask your rav before acting.",
             "melacha",
             "Melacha",
             "melachot",
@@ -366,7 +366,7 @@ object HalachicTermsDictionary {
             "Kiddush",
         ),
         line(
-            "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a braided candle, and besamim (spices). The blessing praises G-d who distinguishes bein kodesh l'chol — holy from mundane. Until you have heard Havdalah or said Baruch HaMavdil, melacha remains forbidden. When Shabbat leads into Yom Tov, havdalah is folded into Kiddush (Yaknehaz) without besamim — the joy of the festival comforts the soul, so spices are unnecessary. Follow your machzor text rather than improvising.",
+            "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a braided candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. Yaknehaz exception: When Shabbat leads directly into Yom Tov, spices are omitted — the joy of the festival replaces the extra soul of Shabbat, and havdalah is folded into Kiddush without besamim. The blessing praises G-d who distinguishes bein kodesh l'chol — holy from mundane (or bein kodesh l'kodesh on Yom Tov transitions). Until you have heard Havdalah or said Baruch HaMavdil, melacha remains forbidden. On Motzei Yom Kippur, Havdalah uses wine and a ner she-shavat but omits besamim — Yom Kippur has no neshama yeteira (unless Yom Kippur fell on Shabbat). Follow your machzor text rather than improvising.",
             "havdalah",
             "Havdalah",
         ),
@@ -420,7 +420,7 @@ object HalachicTermsDictionary {
             "libun",
         ),
         line(
-            "chamar medina — Chamar medina (\"drink of the land\") is a significant local beverage — like beer, coffee, tea, or whiskey — that some authorities allow for Kiddush or Havdalah when wine or grape juice is unavailable or difficult. Ask your rav before relying on it for any mitzvah involving wine.",
+            "chamar medina — Chamar medina (\"drink of the land\") is a significant local beverage — such as coffee, tea, or kosher liquor — that some authorities allow for Kiddush or Havdalah when wine or grape juice is unavailable or difficult. On Pesach, only kosher-for-Passover beverages qualify — never beer (beer is chametz). Ask your rav before relying on it for any mitzvah involving wine.",
             "Chamar medina",
             "chamar medinah",
             "Chamar medinah",
@@ -442,7 +442,7 @@ object HalachicTermsDictionary {
             "bedikat",
         ),
         line(
-            "mechirat chametz — Mechirat chametz is selling chametz you must keep (valuable liquor, store inventory) to a non-Jew through your rabbi before Pesach so it is not yours during the holiday. It must be an absolute sale, not a conditional gift (matana al menat lehachzir). Chametz sold should be stored away. Shortly after Pesach, ownership reverts per the contract your rabbi uses.",
+            "mechirat chametz — Mechirat chametz is selling chametz you must keep (valuable liquor, store inventory) to a non-Jew through your rabbi before Pesach so it is not yours during the holiday. Authorize the sale several days before Erev Pesach — most rabbis stop accepting forms by the night before, even though ownership transfers on Erev Pesach morning. It must be an absolute sale, not a conditional gift (matana al menat lehachzir). Chametz sold should be stored away. When including year-round dishes, rabbis typically sell only the absorbed chametz flavor in the vessels — not the physical dishes themselves — to avoid requiring tevilat kelim after Pesach. Shortly after Pesach, ownership reverts per the contract your rabbi uses.",
             "Mechirat chametz",
             "mechirat",
         ),
@@ -452,11 +452,11 @@ object HalachicTermsDictionary {
             "matana al menat lehachzir",
         ),
         line(
-            "Kol Chamira — Kol Chamira is an Aramaic declaration after bedikat chametz nullifying any chametz still in your possession — seen or unseen. It is not a substitute for physical cleaning or biur; it completes the spiritual renunciation. Say it from a siddur in a language you understand if you can not understand the Aramaic.",
+            "Kol Chamira — Kol Chamira is an Aramaic declaration after bedikat chametz nullifying any chametz still in your possession — seen or unseen. It is not a substitute for physical cleaning or biur; it completes the spiritual renunciation. The final Kol Chamira on Erev Pesach morning must be recited before the end of the 5th halachic hour — together with biur — because once the 5th hour ends, chametz becomes assur b'hana'ah and can no longer be nullified. Say it from a siddur in a language you understand if you can not understand the Aramaic.",
             "Kol Chamira",
         ),
         line(
-            "Hallel — Hallel is a set of psalms (113–118, with variations) praising G-d for salvation. Full Hallel is recited on major festivals; Half Hallel on Rosh Chodesh and the last 6 days of Pesach. It is said standing, with joy.",
+            "Hallel — Hallel is a set of psalms (113–118, with variations) praising G-d for salvation. Full Hallel is recited on major festivals; Half Hallel (Partial Hallel) on Rosh Chodesh and the last 6 days of Pesach. Ashkenazic custom permits a blessing over both Full and Partial Hallel; Sephardic custom strictly prohibits a blessing over Partial Hallel (Shulchan Arukh O.C. 422:2). Hallel is not recited on Rosh Hashana or Yom Kippur (Arachin 10b). It is said standing, with joy.",
             "hallel",
             "Hallel",
             "Half Hallel",
@@ -507,12 +507,12 @@ object HalachicTermsDictionary {
             "Muktzeh",
         ),
         line(
-            "Blech — A blech is a metal cover on the stove (often with lowered flame) keeping food warm on Shabbat without cooking. It is part of the permitted way to serve hot food when fully cooked before Shabbat. Rules cover covering knobs, flame level, and not stirring or adding liquid. Yom Tov has different cooking rules — a blech is primarily a Shabbat solution.",
+            "Blech — A blech is a metal cover placed on the stove to cover flames and heat food on Shabbat.",
             "blech",
             "Blech",
         ),
         line(
-            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah after sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating. The blessing Al Netilat Yadayim is said per minhag — Ashkenaz often after washing before bread; some Sefardim and Chabad differ on timing. Do not speak between washing and the blessing of Al Netilat Yadayim — that is a hefsek (interruption) for everyone. Many also strictly avoid speaking between the blessing and eating the bread.",
+            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah after sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating.",
             "Netilat Yadayim",
             "netilat yadayim",
             "Al Netilat Yadayim",
@@ -523,43 +523,43 @@ object HalachicTermsDictionary {
             "Al Netilat Lulav",
         ),
         line(
-            "al hamichya — Al hamichya (Al HaMichya) is the after-blessing on grain foods that are not bread — cake, crackers, pasta, cereal — when you ate a kezayit within k'dei achilat pras. It thanks G-d for food and the Land. If you had a bread meal, Birkat Hamazon covers other foods instead.",
+            "al hamichya — Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4-9 mins). If you had a bread meal, Birkat Hamazon covers other foods instead.",
             "al hamichya",
             "Al HaMichya",
             "Al hamichya",
         ),
         line(
-            "borei nefashot — Borei nefashot is the short after-blessing on many foods and drinks — fruit (aside from dates, grapes, olives, figs, and pomegranates), vegetables, drinks, meat, cheese, etc.",
+            "borei nefashot — Borei nefashot is the short after-blessing on many foods and drinks — fruit (aside from dates, grapes, olives, figs, and pomegranates which use the Me'ein Shalosh bracha), vegetables, drinks, meat, cheese, etc.",
             "borei nefashot",
             "Borei nefashot",
         ),
         line(
-            "pitom — The pitom is the stem (and sometimes flower) on top of the etrog. Many poskim prefer an etrog whose pitom is intact; a broken pitom can affect kashrut depending on when it broke. Handle the etrog carefully when assembling the lulav set.",
+            "pitom — This is the knobby, stem-like protrusion that extends from the top of the etrog (opposite the branch).",
             "pitom",
             "Pitom",
         ),
         line(
-            "Keli — A keli is a vessel used for netilat yadayim — cup, bottle, or washing cup with two handles. Water must be poured from a vessel, not dipped from a running tap, for the rabbinic washing before bread and after sleep.",
+            "Keli — A keli is a vessel, utensil, or tool. It generally refers to any manufactured object or receptacle that holds, processes, or contains something. A keli is used for netilat yadayim — a cup, bottle, or washing cup (usually) with two handles. Water must be poured from a vessel, not dipped from a running tap, for the washing before bread and after sleep.",
             "Keli",
             "keli",
         ),
         line(
-            "Modeh Ani — Modeh Ani is the first words many Jews say upon waking: thanks to the living King for returning the soul with compassion. It is said before getting out of bed, without washing hands first. Men say Modeh; women often say Modah. It sets the day's tone — gratitude before phone, news, or worry. The soul was \"lent\" for sleep; waking is a small resurrection.",
+            "Modeh Ani — Modeh Ani is the first words many Jews say upon waking: thanks to the living and eternal King for returning the soul to their body with compassion. It is said before getting out of bed, without washing hands first. Men say Modeh; women often say Modah.",
             "Modeh Ani",
             "Modah Ani",
         ),
         line(
-            "Mishloach Manot — Mishloach manot are ready-to-eat food gifts sent to at least one friend on Purim day — minimally two different foods in one package. Esther 9:19 describes sending portions to one another. It builds friendship and communal joy. Deliver personally or through a messenger; label packages before Shabbat in Purim Meshulash years when Sunday is the day for mishloach.",
+            "Mishloach Manot — Mishloach manot are ready-to-eat food gifts sent to at least one friend on Purim day — minimally two different foods in one package.",
             "Mishloach Manot",
             "mishloach manot",
         ),
         line(
-            "matanot la'evyonim — Matanot la'evyonim are gifts to at least two poor people on Purim day so they can rejoice too. Money is common; food or vouchers work if they can use them that day. Unlike mishloach manot, this mitzvah focuses on need, not friendship. Many shuls collect on Purim morning; verify distribution happens on Purim itself.",
+            "matanot la'evyonim — Matanot la'evyonim are gifts on Purim day so the poor can rejoice too: at least one gift to each of two different poor people (minimum of two recipients total). Money is common; food or vouchers work if they can use them that day. Unlike mishloach manot, this mitzvah focuses on need, not friendship. Many shuls collect on Purim morning; verify distribution happens on Purim itself.",
             "matanot la'evyonim",
             "Matanot la'evyonim",
         ),
         line(
-            "Purim Meshulash — Purim Meshulash is the rare Jerusalem schedule when Shushan Purim (15 Adar) falls on Shabbat. Megillah and matanot move to Friday; mishloach manot and the seudah move to Sunday. Shabbat has no Purim melacha prep — plan before Shabbat. The app shows a full schedule in advance because the phone is off on Shabbat.",
+            "Purim Meshulash — Purim Meshulash is the rare Jerusalem schedule when Shushan Purim (15 Adar) falls on Shabbat. Megillah and matanot move to Friday; mishloach manot and the seudah move to Sunday. Al HaNissim is said only on that Shabbat in Amidah and bentching — not on Friday or Sunday. Shabbat has no Purim melacha prep — plan before Shabbat. The app shows a full schedule in advance because the phone is off on Shabbat.",
             "Purim Meshulash",
         ),
         line(
@@ -573,7 +573,7 @@ object HalachicTermsDictionary {
             "Shamash",
         ),
         line(
-            "Al HaNissim — Al HaNissim (\"for the miracles\") is added to the Amidah and Birkat Hamazon on Chanukah and Purim. It summarizes the salvation — the Maccabees or Esther — and thanks G-d. If you forgot it, laws differ by day and prayer; ask your rav. Lag BaOmer and ordinary Omer days do not include Al HaNissim.",
+            "Al HaNissim — Al HaNissim (\"for the miracles\") is added to the Amidah and Birkat Hamazon on Chanukah and Purim. It summarizes the salvation — the Maccabees or Esther — and thanks G-d. On Purim Meshulash (Jerusalem when 15 Adar is Shabbat), Al HaNissim is recited only on Shabbat — not on Friday or Sunday when other Purim mitzvot occur. If you forgot it, laws differ by day and prayer; ask your rav.",
             "Al HaNissim",
         ),
         line(
@@ -668,7 +668,7 @@ object HalachicTermsDictionary {
             "zmanim",
         ),
         line(
-            "biur chametz — Biur chametz is destroying chametz the morning after bedikat chametz — usually by burning before the fifth halachic hour of the day. Whatever remains must be gone from your ownership. It completes the removal process together with mechirat chametz for sold items. Do not eat breakfast chametz that morning if your custom is to finish biur first.",
+            "biur chametz — Biur chametz is destroying chametz the morning after bedikat chametz — usually by burning before the fifth halachic hour of the day. The final Kol Chamira nullification must be completed before that same deadline; a late Kol Chamira after the 5th hour is invalid because chametz is then assur b'hana'ah. Whatever remains must be gone from your ownership. It completes the removal process together with mechirat chametz for sold items. Do not eat breakfast chametz that morning if your custom is to finish biur first.",
             "Biur chametz",
             "biur",
         ),
@@ -683,7 +683,7 @@ object HalachicTermsDictionary {
             "gebrochts",
         ),
         line(
-            "Seder — The Seder is the ordered Pesach night meal — reclining, four cups of wine, matzah, maror, and reading the Haggadah so children ask questions. It reenacts leaving Egypt. Timing matters: matzah afikoman before halachic midnight per many poskim. Prepare the plate, Hagaddah, and guests' needs before Yom Tov begins so the night runs with joy, not panic.",
+            "Seder — The Seder is the ordered Pesach night meal — four cups of wine, matzah, maror, and reading the Haggadah so children ask questions. Recline to the left for the four cups, matzah, korech, and afikoman — not during maror or chazeret. It reenacts leaving Egypt. Timing matters: matzah afikoman before halachic midnight per many poskim. Prepare the plate, Hagaddah, and guests' needs before Yom Tov begins so the night runs with joy, not panic.",
             "seder",
             "Seder",
             "First Seder",
@@ -699,7 +699,7 @@ object HalachicTermsDictionary {
             "maror",
         ),
         line(
-            "charoset — Charoset is the sweet paste (apples, wine, nuts) recalling mortar between bricks. It is dipped with maror for Korech. Recipes vary by family — Ashkenazi, Sephardi, and Persian charoset all fulfill the mitzvah when made with intent. It is one of the Seder plate's sensory contrasts: bitter and sweet together.",
+            "charoset — Charoset is the sweet paste (apples, wine, nuts, etc.) recalling mortar between bricks. It is dipped with maror for Korech. Recipes vary by family — Ashkenazi, Sephardi, and Persian charoset all fulfill the mitzvah when made with intent. It is one of the Seder plate's sensory contrasts: bitter and sweet together.",
             "Charoset",
             "charoset",
         ),
@@ -879,7 +879,7 @@ object HalachicTermsDictionary {
             "yahrzeit",
         ),
         line(
-            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazim often light then bless with eyes covered; Sephardim may bless first. Once you accept Shabbat with the blessing, do not light more flames. Yom Tov candles are lit from a pre-existing flame when following that halacha.",
+            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardim may bless first. On Yom Tov you must light exclusively from a pre-existing flame.",
             "Hadlakat Nerot",
             "Light Yom Tov candles",
         ),
@@ -1021,7 +1021,7 @@ object HalachicTermsDictionary {
             "Three Weeks",
         ),
         line(
-            "Nine Days — The Nine Days from Rosh Chodesh Av until Tisha B'Av add mourning customs — no laundry, swimming, or meat/wine until Shabbat cholent rules per minhag. Planning weddings and purchases avoids this period. The goal is to feel the loss of the Temple, not mere inconvenience.",
+            "Nine Days — The Nine Days from Rosh Chodesh Av until Tisha B'Av add mourning customs — no laundry, swimming, or meat/wine until Shabbat cholent rules per minhag. On Motzei Shabbat during the Nine Days, Havdalah requires wine or grape juice; Ashkenazim ideally give the cup to a child (ages 6–9) to drink, or the one reciting Havdalah drinks it if no child is present (Rema O.C. 551:10). Planning weddings and purchases avoids this period. The goal is to feel the loss of the Temple, not mere inconvenience.",
             "Nine Days",
         ),
         line(
@@ -1061,7 +1061,7 @@ object HalachicTermsDictionary {
             "Purim",
         ),
         line(
-            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
+            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi), not matzah. Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
             "Purim seudah",
         ),
         line(
@@ -1088,7 +1088,7 @@ object HalachicTermsDictionary {
             "matzah",
         ),
         line(
-            "Megillah — Megillah means scroll; on Purim it is Esther's book read twice — night and day. Hearing every word is the mitzvah; noise at Haman's name is custom. Follow along in a printed Megillah or listen closely. If you miss words, ask whether you must hear that section again.",
+            "Megillah — Megillah means scroll; on Purim it is Esther's book read twice — night and day. Both readings are obligatory; the daytime reading is the primary fulfillment (mitzvat ha'yom), while the night reading was instituted later. Hearing every word is the mitzvah; noise at Haman's name is custom. Follow along in a printed Megillah or listen closely. If you miss words, ask whether you must hear that section again.",
             "Megillah",
             "megillah",
         ),

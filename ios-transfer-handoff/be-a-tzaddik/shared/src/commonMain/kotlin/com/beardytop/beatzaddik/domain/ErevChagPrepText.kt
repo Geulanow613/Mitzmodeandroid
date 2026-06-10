@@ -72,13 +72,20 @@ object ErevChagPrepText {
             ""
         }
 
+        val isYomKippur = cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
+        val shulServicesLine = if (isYomKippur) {
+            "• Confirm shul times for tonight and tomorrow (Kol Nidre / Maariv / Shacharit / Musaf)."
+        } else {
+            "• Confirm shul times for tonight and tomorrow (Maariv / Shacharit / Musaf)."
+        }
+
         return """${BeginnerHalachaGlossary.erevChagCommon()}
 
 Before chag — every erev Yom Tov:
 $sunsetLine
 • Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals.
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
-• Confirm shul times for tonight and tomorrow (candle lighting, Kol Nidre / Maariv / Shacharit / Musaf).$simchasBlock"""
+$shulServicesLine$simchasBlock"""
     }
 
     private fun holidayBlock(
@@ -125,14 +132,15 @@ ${diasporaSecondDayNote(profile, "Rosh Hashana")}""",
 
 Today before the fast:
 • Eat a festive pre-fast meal (seudah hamafseket) before sunset — finish eating and drinking in time.
-• Light Yom Tov candles before Kol Nidre; many use a bracha and a flame lit before Yom Kippur begins.
+• Light candles before Kol Nidre with the bracha (neir shel Yom Hakippurim per your siddur) — all flames must be lit before sunset. Yom Kippur has the same strict fire restrictions as Shabbat: unlike regular Yom Tov, you cannot transfer a flame once the fast begins.
+• Crucial timing note: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. If you plan to drive to synagogue for Kol Nidre, either arrive early and light at shul, or explicitly make a mental halachic condition (tnai) before lighting at home that you are not accepting the holiday until you arrive at synagogue (ask your rav for guidance).
 • Give tzedakah and ask forgiveness from others.
 • Kaparot (if your custom) is done before Yom Kippur.
 
 On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):
 • Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).
-• Many wear white and avoid leather shoes.
-• Ne'ilah at the end; after nightfall pray Maariv, make Havdalah, then break the fast.""",
+• Clothing & shoes: There is a widespread custom to wear white clothing to look like angels. Separately, it is a strict halachic prohibition for everyone to wear leather shoes or leather footwear of any kind on Yom Kippur (one of the five mandatory inuyim).
+• Ne'ilah at the end; after nightfall pray Maariv, then Havdalah over wine and a ner she-shavat (a flame that burned throughout Yom Kippur, such as a 48-hour candle lit before the fast). Do not use besamim (spices) — Yom Kippur has no neshama yeteira; spices are omitted unless Yom Kippur itself fell on Shabbat. Then break the fast.""",
             ),
             yomKippurLinks(profile)
         )
@@ -167,7 +175,8 @@ Chametz:
 
 Seder (first night):
 • $sederWhen
-• Matzah, maror, four cups of wine, reading the Haggadah, reclining, afikoman.
+• Matzah, maror, four cups of wine, reading the Haggadah, afikoman.
+• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
 • Kiddush, festive meal, Hallel, Nirtzah.
 
 Tomorrow by day:
@@ -190,6 +199,7 @@ Tonight & tomorrow:
 • Light Yom Tov candles; Shehecheyanu on the first night.
 • Many have the custom of dairy meals (cheesecake, blintzes) — also meat meals are permitted.
 • All-night Torah learning (Tikkun Leil Shavuot) is a widespread custom tonight.
+• Staying up all night: If you stay awake all night learning, there are complex rules regarding reciting morning blessings (Birkat HaShachar and Birkat HaTorah) and the blessing over your tzitzit. The universal custom to resolve this is to find a friend who slept in a bed overnight and have them recite the blessings aloud to discharge your obligation, or sleep for a brief period before dawn (ask your rav).
 • Read Megillat Rut in many communities (tomorrow).
 • Full Yom Tov davening with Full Hallel and Musaf; Akdamut/Megillat Rut per minhag.
 
@@ -205,7 +215,7 @@ No melacha; treat meals and prayer with joy and Torah focus.""",
                 """Sukkot (first day) begins tonight — Zman Simchateinu.
 
 Before sunset:
-• Eat and spend time in the sukkah if it is built (mitzvah of sukkah begins with the festival).
+• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
 • Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
 
 Tonight & tomorrow:
@@ -234,7 +244,7 @@ ${if (profile.isInIsrael) """
 • Geshem (prayer for rain) in Musaf; Full Hallel.
 """ else """
 • Shemini Atzeret in the Diaspora: Yizkor is often recited; still a full Yom Tov with no melacha. (Simchat Torah is tomorrow in the Diaspora.)
-• Many Ashkenazim still eat in the sukkah on Shemini Atzeret but do not recite leishev basukkah — confirm with your rav.
+• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
 • Geshem (prayer for rain) begins in Musaf in many communities.
 """}
 • Festive Yom Tov meals.""",
@@ -252,6 +262,7 @@ Tonight & tomorrow:
 • Light Yom Tov candles; Shehecheyanu on the first night.
 • Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.
 • Festive meals and drinking (responsibly) in many communities.
+• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
 • Full Yom Tov — no melacha; Full Hallel and Musaf.
 • In Israel, Simchat Torah coincides with Shemini Atzeret (one day).""",
             ),

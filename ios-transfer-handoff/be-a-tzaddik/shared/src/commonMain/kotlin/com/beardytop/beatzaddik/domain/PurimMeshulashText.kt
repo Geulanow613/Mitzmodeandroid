@@ -75,7 +75,7 @@ Purim Meshulash — Megillah on Friday (14 Adar)
 
 When this year:
 • Thursday night after tzeit — first reading (you should have heard it then).
-• Today (Friday) — second reading, ideally before sunset; many shuls read after Shacharit.
+• Today (Friday) — second reading during the daytime (usually after Shacharit, before sunset) — a universal obligation, not optional.
 
 How (same laws as regular Purim):
 • Hear every word from a kosher megillah scroll; men and women are equally obligated.

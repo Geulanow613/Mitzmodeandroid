@@ -56,6 +56,9 @@ object SeasonalChecklistItems {
                 )
             )
         }
+        if (isKiddushLevanaWindow(cal, profile)) {
+            add(kiddushLevanaItem(profile))
+        }
         if (isTuBshvat(cal)) {
             add(tuBshvatSederItem(profile))
         }
@@ -180,7 +183,7 @@ See Chabad.org Sefirah articles for details on your community.""",
 
 When to hear it:
 • Once on Purim evening — after nightfall (tzeit)
-• Once on Purim day — ideally before sunset; many communities read again in the morning after Shacharit
+• Once on Purim day — you are halachically obligated to hear the Megillah during the daytime (usually right after morning Shacharit and before sunset). The daytime reading is the primary fulfillment of the mitzvah (mitzvat ha'yom); the night reading was instituted later — both are required.
 
 How to fulfill:
 • Hear every word read from a kosher megillah scroll by someone who can discharge your obligation (Shulchan Arukh O.C. 690)
@@ -192,7 +195,10 @@ Blessings before reading:
 • She'asa nissim
 • Shehecheyanu on the first evening (and on the first daytime reading of the year, per custom)
 
-Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.""",
+Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
+
+Prayers & meals:
+• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.""",
             ),
             links = purimMegillahLinks(profile)
         ),
@@ -264,7 +270,7 @@ When:
 • During Purim day — before sunset (many hold the meal in the afternoon after mitzvot are underway).
 
 How:
-• A festive meal with bread (many use two rolls or matzah per custom), meat, wine, and joy.
+• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy. Do not use matzah — there is no Purim custom for matzah, and many avoid matzah in the weeks before Pesach so the Seder taste stays distinct (Rema O.C. 471:2).
 • Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
 • Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
 
@@ -681,7 +687,7 @@ Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Religious Zionist / Modern Orthodox: Many observe a moment of silence and omit Tachanun. Some communities hold special memorial prayers or learning.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — many Ashkenazim omit Tachanun throughout Nisan per Shulchan Arukh O.C. 429:2 anyway; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -711,9 +717,9 @@ Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to 
 
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Religious Zionist / Dati Leumi communities: Observe solemnly; Tachanun is sometimes omitted (varies by community and rav). Memorial prayers may be added.
+Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
 
-Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun.
+Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun throughout the day.
 
 The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations.""",
         links = listOf(
@@ -960,6 +966,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         situational = false,
         explanation = SeasonalMitzvahText.tuBshvatExplanation(),
         links = SeasonalMitzvahText.tuBshvatLinks()
+    )
+
+    private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
+        val day = cal.hebrewDay ?: return false
+        if (day > 15) return false
+        val minDay = when (profile.effectiveNusach()) {
+            EffectiveNusach.SEFARD -> 7
+            else -> 3
+        }
+        return day >= minDay
+    }
+
+    private fun kiddushLevanaItem(profile: UserProfile) = ChecklistItemDef(
+        id = "kiddush_levana",
+        title = "Kiddush Levana — Sanctification of the Moon (once per Hebrew month)",
+        section = "Seasonal",
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        situational = false,
+        monthlyMitzvah = true,
+        explanation = SeasonalMitzvahText.kiddushLevanaExplanation(profile),
+        links = SeasonalMitzvahText.kiddushLevanaLinks(profile)
     )
 
     private fun defaultLinks(profile: UserProfile) =

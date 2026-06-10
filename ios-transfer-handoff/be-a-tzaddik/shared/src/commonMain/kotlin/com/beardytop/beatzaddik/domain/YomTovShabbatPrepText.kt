@@ -211,7 +211,7 @@ $opener
 
 Per Chabad.org (Holiday Havdalah) and widespread halachic practice:
 • Havdalah is recited when entering a day of lesser holiness. Shabbat is holier than Yom Tov, so when Shabbat leads into a festival, havdalah is included in that night's Kiddush — not as a full separate havdalah with spices before Kiddush.
-• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim, cited by STAR-K and Torah Mitzion): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish on the Yom Tov candles) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
+• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim, cited by STAR-K and Torah Mitzion): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles already lit on the table; do NOT pick up, move, or touch them — they are muktzeh once lit; gaze at the flames from where they stand) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
 • Spices (besamim) are omitted for this transition (Chabad.org — Holiday Havdalah).
 • Before Kiddush, melacha permitted on Yom Tov but not on Shabbat: many say Baruch hamavdil bein kodesh l'kodesh, or rely on the Vatodi'enu insert in Maariv — follow your Machzor (Chabad.org).
 
@@ -290,6 +290,7 @@ How (Chabad.org; Peninei Halakha 12:8:2):
 • Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.
 • One eruv per household is sufficient (Chabad.org).
 • Peninei Halakha: food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.
+• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).
 
 Limits (Chabad.org):
 • Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.
@@ -316,7 +317,7 @@ How to make eruv tavshilin (Chabad.org — Eruv Tavshilin; Peninei Halakha 12:8:
 • Foods: challah (or matzah) plus cooked food — commonly fish, meat, or an unpeeled hard-boiled egg.
 • Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv (Peninei Halakha) — use your siddur text.
 • Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation) — use the printed wording; it permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
-• Store the eruv foods safely; many eat them at a Shabbat meal (Peninei Halakha — lechem mishneh / oneg Shabbat).
+• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (Peninei Halakha — lechem mishneh / oneg Shabbat).
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.

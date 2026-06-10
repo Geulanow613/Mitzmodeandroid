@@ -29,6 +29,17 @@ object OmerCountText {
         }
     }
 
+    /** Spoken count text — days 1–6 mention days only; week phrase from day 7 onward (Peninei Halakha). */
+    fun omerCountSpeechPhrase(day: Int): String {
+        require(day in 1..49)
+        val dayWord = if (day == 1) "day" else "days"
+        return if (day < 7) {
+            "Today is $day $dayWord of the Omer."
+        } else {
+            "Today is $day days of the Omer, which is ${weeksAndDays(day)}."
+        }
+    }
+
     fun buildExplanation(cal: DayInfo, profile: UserProfile): String {
         val day = cal.omerDay ?: return ""
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
@@ -65,8 +76,8 @@ $nextNightLine
 
 How to count:
 • Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).
-• Say: "Today is $day ${if (day == 1) "day" else "days"} of the Omer, which is ${weeksAndDays(day)}."
-• Count after nightfall (tzeit); complete before dawn. If you forgot at night, many poskim have you count the next day without a bracha — ask your rav.
+• Say: "${omerCountSpeechPhrase(day)}"
+• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
 
 $nusachWhen
         """.trim().replace("\n\n\n", "\n\n"),

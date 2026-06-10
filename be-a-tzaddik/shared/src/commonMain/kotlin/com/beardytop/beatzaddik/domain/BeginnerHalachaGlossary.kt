@@ -15,7 +15,7 @@ object BeginnerHalachaGlossary {
     // ── Shared term lines ─────────────────────────────────────────────────────
 
     const val MELACHA =
-        "Melacha — transformative labor forbidden on Shabbat and Yom Tov (cooking, writing, using phones/electronics as your rabbi guides, etc.) — not merely \"hard\" or \"creative\" work in the everyday sense"
+        "Melacha — transformative labor forbidden on Shabbat (including cooking). On Yom Tov most melachot remain forbidden, but ochel nefesh — food preparation for that day's meals, including cooking from a pre-existing flame — is permitted (Exodus 12:16). Other examples still restricted on Yom Tov: writing, building, kindling a new fire, most phone/electronics per your rav"
     const val YOM_TOV =
         "Yom Tov — a festival day (Pesach, Sukkot, Rosh Hashana, etc.) with work rules similar to Shabbat; some food prep is allowed on the festival itself"
     const val SHABBAT =
@@ -37,7 +37,7 @@ object BeginnerHalachaGlossary {
     const val KIDDUSH =
         "Kiddush — blessing over wine that sanctifies Shabbat or Yom Tov at the meal"
     const val HAVDALAH =
-        "Havdalah — ceremony separating holy time from weekday (wine, candle, spices on a normal Motzei Shabbat)"
+        "Havdalah — ceremony separating holy time from weekday (wine, candle, and spices on a normal Motzei Shabbat; spices omitted on Motzei Yom Kippur unless Yom Kippur fell on Shabbat; spices also omitted when Shabbat leads directly into Yom Tov — Yaknehaz — because the joy of the festival replaces the extra soul of Shabbat)"
     const val YAKNEHAZ =
         "Yaknehaz — order when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu (Zeman); spices are omitted"
     const val ERUV_TAVSHILIN =
@@ -73,7 +73,7 @@ object BeginnerHalachaGlossary {
     const val KOL_CHAMIRA =
         "Kol Chamira — declaration nullifying any chametz still in your possession"
     const val SIYUM =
-        "Siyum — festive meal celebrating finishing a section of Torah study (often exempts firstborns from Taanit Bechorot)"
+        "Siyum — festive meal (seudat mitzvah) celebrating finishing a section of Torah study; eating at the meal (not merely hearing the siyum) exempts firstborns from Taanit Bechorot"
     const val SEDER =
         "Seder — Pesach night ritual meal with the Haggadah, matzah, four cups of wine, etc."
     const val KITNIYOT =
@@ -87,7 +87,7 @@ object BeginnerHalachaGlossary {
     const val OCHEL_NEFESH =
         "Ochel nefesh — the halachic allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day"
     const val CHAMAR_MEDINA =
-        "Chamar medina — a significant local beverage (like beer, coffee, or tea) used under specific circumstances for Kiddush or Havdalah when wine is unavailable; not valid for the Seder's four cups per most poskim"
+        "Chamar medina — a significant local beverage (such as kosher-for-Passover liquor or coffee, per community standards) used under specific circumstances when wine is unavailable; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)"
     const val SCHACH =
         "Schach — plant covering on the sukkah roof"
     const val LULAV_SET =

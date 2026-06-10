@@ -69,7 +69,7 @@ This year, Erev Pesach is on Shabbat (14 Nisan). Per Peninei Halakha (ch. 14), S
 • Biur chametz: Friday morning (13 Nisan) — burn the chametz found; preferably by the end of the 5th halachic hour as in other years. Do not recite the final Kol Chamira at the burning — keep chametz for the first two Shabbat meals (STAR-K; OU).
 • Mechirat chametz: complete before Shabbat begins Friday evening; seal sold chametz away.
 • Shabbat (14 Nisan): Finish eating chametz by the end of the 4th halachic hour on Shabbat morning. Destroy leftover crumbs without burning on Shabbat (e.g. flush down the toilet). Recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning (Peninei Halakha; STAR-K).
-• Shabbat meals: Use challah or egg matzah for lechem mishneh at the first two meals (many use disposable dishes and KP food for the rest of the meal — see Peninei Halakha). Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach (Peninei Halakha; STAR-K).
+• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira) for the first two meals. Ashkenazim are forbidden egg matzah on Pesach (Rema O.C. 462:4); if you use challah before the 4th halachic hour, eat over disposable liners/plates, shake out garments afterward, and flush any chametz crumbs before the deadline — immense caution required (Peninei Halakha; STAR-K). Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
 • Seder preparations (charoset, maror, zeroa, etc.): finish on Friday before Shabbat — do not prepare on Shabbat for Motzei Shabbat (Peninei Halakha; OU).
 • First Seder: Saturday night after Shabbat (tzeit) — Kiddush with Havdalah (Yaknehaz) in the Haggadah, then the Seder (STAR-K).
 
@@ -83,7 +83,7 @@ This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Sh
 
 • Bedikat chametz: Thursday night (after tzeit) — not Friday night.
 • Taanit Bechorot: today (Friday, 14 Nisan) — fast or attend a siyum.
-• Biur chametz: this morning (14 Nisan), by the usual 4th/5th halachic hour deadlines, with Kol Chamira after burning as usual.
+• Biur chametz: this morning (14 Nisan), by the usual 4th/5th halachic hour deadlines — both destruction and final Kol Chamira must finish before the end of the 5th hour.
 • Mechirat chametz: must be completed before Shabbat candles tonight.
 • First Seder: tonight (Friday night) — Pesach begins at nightfall, not Saturday night.
 • Shabbat (15 Nisan): first day of Yom Tov — no chametz; only Pesach food and dishes. In the Diaspora, the second Seder is Saturday night after Shabbat. Prepare what you can today before Shabbat for tomorrow night where halacha allows.
@@ -144,9 +144,10 @@ Why:
 • On Pesach, owning chametz is forbidden (bal yera'eh / bal yimatzei). Selling transfers ownership so sealed chametz in your home does not belong to you during the festival.
 
 How to do it:
-• Sign or authorize a sale with your rabbi or community (online forms are common). Do this before the final time to own chametz on Erev Pesach morning.
+• Sign or authorize a sale with your rabbi or community (online forms are common). Deadline warning: While the sale takes effect on Erev Pesach morning, you must authorize your rabbi to sell your chametz several days in advance — most rabbis stop accepting sale forms by the night before Erev Pesach. The rabbi needs time to organize contracts and complete the kinyan (legal transfer) before the halachic deadline.
 • Mark cabinets or rooms included in the sale; keep sold chametz separate from what you will burn or discard.
 • Do not eat or use sold chametz after the sale takes effect — it belongs to the buyer until buy-back after Pesach.
+• Dishes used with chametz: Many people include the chametz residue and absorbed flavor within their year-round dishes and pots in the sale, locking them away securely. The physical dishes themselves are not sold, avoiding the halachic requirement to re-immerse them in a Mikveh (tevilat kelim) after Pesach (Shulchan Arukh Y.D. 120). Rabbis structure the contract accordingly — follow your rabbi's sale form.
 • Store the contract or confirmation; many communities sell through a central rabbi (e.g. local kashrut council).
 
 After Pesach: chametz is repurchased per the terms of the sale — follow your rabbi's instructions on when you may use it again.
@@ -159,10 +160,9 @@ Why:
 • Commemorates the plague of the firstborn in Egypt, when Jewish firstborn were spared.
 
 The fast:
-• From dawn until nightfall on Erev Pesach (or until you attend a seudat mitzvah that exempts you).
 • When Erev Pesach is Shabbat (14 Nisan), Taanit Bechorot is moved to Thursday (12 Nisan) per Rama, Peninei Halakha, STAR-K, OU, and Ohr Somayach — not Friday or Shabbat. Attend a siyum that day if that is your minhag.
-• Many firstborns avoid the fast by attending a siyum (completion of a Talmud tractate or similar Torah work) followed by a festive meal — the siyum itself is the exemption per widespread custom.
-• If you fast: no eating or drinking from alot hashachar until after the fast ends (many end at a siyum, at mincha, or at night — follow your rabbi).
+• Many firstborns avoid fasting entirely by attending a siyum (completion of a Talmud tractate or similar Torah work) followed by a seudat mitzvah (festive meal). The exemption: To be exempt from the fast, you must not only hear the conclusion of the siyum but also participate in the seudat mitzvah by eating at least a kezayit (approx. 1 oz) of bread or cake. Leaving after the siyum without eating does not exempt you — you must still fast.
+• If you fast: the fast runs from dawn (alot hashachar) until full nightfall (tzeit) — no eating or drinking in between.
 
 Father of a firstborn son under bar mitzvah:
 • If you are a man with a firstborn son below bar mitzvah age, the widespread custom is that you fast or attend a siyum yourself on his behalf — the young child does not observe the fast.
@@ -200,7 +200,8 @@ Set up before Yom Tov:
 • Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
-• Reclining pillows; festive table; candles for Yom Tov
+• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
+• Festive table; candles for Yom Tov
 
 Kitchen:
 • Only kosher-for-Passover food and utensils from this point
@@ -232,13 +233,13 @@ How to search:
 • Use a candle (or flashlight per many poskim), a wooden spoon, and a feather (or paper bag) to gather crumbs.
 • Search every room where chametz may have been brought during the year — especially kitchen, dining areas, living room, car, office, children's bags, and coat pockets.
 • Check under furniture, cushions, car seats, and appliances where crumbs collect.
-• Place ten pieces of bread (wrapped) in rooms before searching if your custom includes finding known pieces — so you do not miss anything (optional minhag).
+• Place ten pieces of bread (wrapped) in rooms before searching if your custom includes finding known pieces (optional minhag). If you hide them, write down every location and verify all 10 are recovered — a missed piece means known chametz remains in your home.
 
 After the search:
 • Recite the blessing Al bi'ur chametz and the Kol chamira nullification (bitul) — many siddurim print the text.
 • When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning (Peninei Halakha; STAR-K).
 • Gather found chametz in a bag to destroy the next morning at biur chametz.
-• Do not eat a full meal after this point until the Seder (except as allowed for firstborns who attend a siyum, etc. — ask your rav).
+• Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow (Erev Pesach day), avoid eating a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
 
 If you are traveling or staying elsewhere, your host or rabbi can guide which rooms you are responsible to search.
         """.trim()), cal, profile, includePesachSchedule = includePesachScheduleOnBedikatItem(cal))
@@ -257,12 +258,12 @@ If you are traveling or staying elsewhere, your host or rabbi can guide which ro
                 append(" today). ")
             }
             if (end5th != null) {
-                append("Biur (burning) deadline is end of the 5th halachic hour (approx. ")
+                append("Both biur (destruction) and the final Kol Chamira must be completed before end of the 5th halachic hour (approx. ")
                 append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
                 append(" — earlier than solar chatzos midday). ")
             }
             if (isEmpty()) {
-                append("Use a zmanim app for Erev Pesach: end of 4th halachic hour (stop eating chametz) and end of 5th halachic hour (burning deadline). ")
+                append("Use a zmanim app for Erev Pesach: end of 4th halachic hour (stop eating chametz) and end of 5th halachic hour (biur and Kol Chamira deadline). ")
             }
         }
 
@@ -281,7 +282,8 @@ $morningNote
 • Burn or destroy all chametz found last night and any remaining chametz you are not selling.
 • Many burn chametz in a safe outdoor fire; flushing crumbs in the toilet or similar is acceptable for small amounts per many poskim — ask your rav.
 • $zmanNote
-• After destruction, recite Kol chamira again (bitul) — nullifying any chametz still in your possession unknowingly.
+• Timeline guardrail: Both the physical destruction of chametz and the final recitation of Kol Chamira must be fully completed before the end of the 5th halachic hour. Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid.
+• Recite Kol Chamira immediately after destruction while still before that deadline — nullifying any chametz still in your possession unknowingly.
 
 Mechirat chametz:
 • Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.

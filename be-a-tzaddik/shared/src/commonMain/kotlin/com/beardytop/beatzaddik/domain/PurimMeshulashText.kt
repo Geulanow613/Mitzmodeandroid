@@ -33,7 +33,7 @@ Read this entire guide before Shabbat — your phone will be off on Shabbat, so 
 
 The four mitzvot — when they happen this year:
 1. Megillah — Thursday night after tzeit (start of Friday / 14 Adar) AND Friday daytime (before sunset). Two readings, like a normal Purim. Confirm times with your shul; write them down or print them.
-2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). At least two gifts to two poor people; money is common. Prepare cash, envelopes, or charity contacts before Friday.
+2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). Give at least one gift to each of two different poor people (minimum of two recipients total); money is common. Prepare cash, envelopes, or charity contacts before Friday.
 3. Mishloach manot — Sunday (16 Adar) before sunset. At least two ready-to-eat foods to one friend. Prepare and label packages before Shabbat; plan who delivers on Sunday (you, family, or shul list).
 4. Purim seudah — Sunday afternoon (16 Adar), before sunset. Festive meal with bread, joy, and Torah words — not on Shabbat.
 
@@ -46,6 +46,7 @@ What to finish before Shabbat candles (Friday):
 
 Shabbat (15 Adar):
 • No Megillah, matanot, mishloach, or Purim seudah on Shabbat.
+• Davening & meals: Say Al HaNissim in the Shabbat Amidah and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
 • No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
 
 Sunday (16 Adar):
@@ -75,7 +76,7 @@ Purim Meshulash — Megillah on Friday (14 Adar)
 
 When this year:
 • Thursday night after tzeit — first reading (you should have heard it then).
-• Today (Friday) — second reading, ideally before sunset; many shuls read after Shacharit.
+• Today (Friday) — second reading during the daytime (usually after Shacharit, before sunset) — a universal obligation, not optional.
 
 How (same laws as regular Purim):
 • Hear every word from a kosher megillah scroll; men and women are equally obligated.
@@ -92,7 +93,7 @@ Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach man
 Purim Meshulash — matanot la'evyonim on Friday only (14 Adar)
 
 Today (Friday daytime) — not on Shabbat:
-• Give at least two gifts to two poor people — one gift to each.
+• Give at least one gift to each of two different poor people (minimum of two recipients total).
 • Each gift should enable a modest Purim meal (money is common; amounts vary by community).
 • Many give after the daytime Megillah reading.
 

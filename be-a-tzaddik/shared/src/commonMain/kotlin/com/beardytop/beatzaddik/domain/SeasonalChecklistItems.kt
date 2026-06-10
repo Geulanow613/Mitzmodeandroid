@@ -56,6 +56,9 @@ object SeasonalChecklistItems {
                 )
             )
         }
+        if (isKiddushLevanaWindow(cal, profile)) {
+            add(kiddushLevanaItem(profile))
+        }
         if (isTuBshvat(cal)) {
             add(tuBshvatSederItem(profile))
         }
@@ -138,32 +141,28 @@ Follow your community's start and end dates for these practices.""",
             explanationAshkenaz = """Ashkenaz custom: mourning from after Pesach until Lag BaOmer (33rd day of the Omer, 18 Iyar) or until the morning of Lag BaOmer (per your shul). Some continue haircuts/music restrictions until Shavuot or the Three Weeks.
 
 No weddings, no live music, and no haircuts during your community's Sefirah period. Lag BaOmer is a break for many Ashkenazim; ask your rabbi about music and haircuts after that date.""",
-            explanationSefard = """Many Sephardim observe mourning from Rosh Chodesh Iyar through Shavuot (not from Pesach). Music, weddings, and haircuts follow your kehilla's psak — some are lenient on music after Lag BaOmer, others through Shavuot.
+            explanationSefard = """Sephardic communities follow two main traditions: mourning from Pesach until the morning of the 34th day of the Omer (Lamed-Dalet Omer), per Shulchan Arukh O.C. 493:2; or from Rosh Chodesh Iyar through Shavuot, per the Arizal. Music, weddings, and haircuts follow your kehilla's psak.
 
-Ask your rav when Sefirah restrictions begin and end in your tradition.""",
-            explanationChabad = """Chabad: the Rebbe encouraged keeping the Omer period with seriousness; music is generally avoided according to accepted Chabad practice through Shavuot, with Lag BaOmer as a day of joy (no music restrictions that day per common Chabad custom). Weddings and haircuts follow your Chabad rabbi's guidance.
+Ask your rav which tradition you follow and when restrictions begin and end.""",
+            explanationChabad = """Chabad (Alter Rebbe / Arizal): haircut and shaving restrictions continue the entire 49 days through Erev Shavuot — adults do not take haircuts on Lag BaOmer (the sole exception is upsherin for a 3-year-old boy). Lag BaOmer is a day of intense joy with music, bonfires, and celebration, but haircut restrictions remain until Shavuot.
+
+Music is generally avoided through Shavuot per Chabad practice, with Lag BaOmer as a day without music restrictions. Weddings follow your Chabad rabbi's guidance.
 
 See Chabad.org Sefirah articles for details on your community.""",
             links = sefirahMourningLinks(profile)
         )
 
-    private fun chanukahItem(day: Int, profile: UserProfile): ChecklistItemDef {
-        val lighting = when (profile.effectiveNusach()) {
-            EffectiveNusach.CHABAD -> "Light in order: shamash, then rightmost new candle (Chabad custom)."
-            EffectiveNusach.SEFARD -> "Light from left to right (newest candle first, Sefardi custom)."
-            EffectiveNusach.ASHKENAZ -> "Light from right to left (Ashkenazi custom)."
-        }
-        return ChecklistItemDef(
+    private fun chanukahItem(day: Int, profile: UserProfile): ChecklistItemDef =
+        ChecklistItemDef(
             id = "chanukah_lighting_day_$day",
             title = "Light Chanukah candles — Night $day",
             section = "Chanukah",
             timeOfDay = TimeOfDay.NIGHT,
             required = true,
             seasons = listOf("chanukah"),
-            explanation = SeasonalMitzvahText.chanukahLightingExplanation(day, profile) + "\n\n$lighting",
+            explanation = SeasonalMitzvahText.chanukahLightingExplanation(day, profile),
             links = SeasonalMitzvahText.chanukahDayLinks(profile)
         )
-    }
 
     private fun purimItems(profile: UserProfile): List<ChecklistItemDef> = listOf(
         ChecklistItemDef(
@@ -180,7 +179,7 @@ See Chabad.org Sefirah articles for details on your community.""",
 
 When to hear it:
 • Once on Purim evening — after nightfall (tzeit)
-• Once on Purim day — ideally before sunset; many communities read again in the morning after Shacharit
+• Once on Purim day — you are halachically obligated to hear the Megillah during the daytime (usually right after morning Shacharit and before sunset). The daytime reading is the primary fulfillment of the mitzvah (mitzvat ha'yom); the night reading was instituted later — both are required.
 
 How to fulfill:
 • Hear every word read from a kosher megillah scroll by someone who can discharge your obligation (Shulchan Arukh O.C. 690)
@@ -192,7 +191,10 @@ Blessings before reading:
 • She'asa nissim
 • Shehecheyanu on the first evening (and on the first daytime reading of the year, per custom)
 
-Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.""",
+Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
+
+Prayers & meals:
+• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.""",
             ),
             links = purimMegillahLinks(profile)
         ),
@@ -209,7 +211,7 @@ Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mit
                 """Matanot la'evyonim (מתנות לאביונים) helps every Jew celebrate Purim with food and joy (Esther 9:22).
 
 The mitzvah (Peninei Halakha 05-16-03; Chabad.org):
-• Give at least two gifts to two poor people on Purim day — one gift to each person.
+• Give at least one gift to each of two different poor people (minimum of two recipients total) during Purim daytime.
 • Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
 
 How to do it:
@@ -264,7 +266,7 @@ When:
 • During Purim day — before sunset (many hold the meal in the afternoon after mitzvot are underway).
 
 How:
-• A festive meal with bread (many use two rolls or matzah per custom), meat, wine, and joy.
+• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy. Do not use matzah — there is no Purim custom for matzah, and many avoid matzah in the weeks before Pesach so the Seder taste stays distinct (Rema O.C. 471:2).
 • Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
 • Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
 
@@ -603,7 +605,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             }
             EffectiveNusach.CHABAD -> ChecklistItemDef(
                 id = "selichot_elul_chabad",
-                title = "Say Selichot (Chabad custom)",
+                title = "Say Selichot (Chabad — Nusach Ari)",
                 section = "Seasonal",
                 timeOfDay = TimeOfDay.NIGHT,
                 required = false,
@@ -681,7 +683,7 @@ Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Religious Zionist / Modern Orthodox: Many observe a moment of silence and omit Tachanun. Some communities hold special memorial prayers or learning.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — many Ashkenazim omit Tachanun throughout Nisan per Shulchan Arukh O.C. 429:2 anyway; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -711,9 +713,9 @@ Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to 
 
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Religious Zionist / Dati Leumi communities: Observe solemnly; Tachanun is sometimes omitted (varies by community and rav). Memorial prayers may be added.
+Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
 
-Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun.
+Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun throughout the day.
 
 The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations.""",
         links = listOf(
@@ -960,6 +962,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         situational = false,
         explanation = SeasonalMitzvahText.tuBshvatExplanation(),
         links = SeasonalMitzvahText.tuBshvatLinks()
+    )
+
+    private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
+        val day = cal.hebrewDay ?: return false
+        if (day > 15) return false
+        val minDay = when (profile.effectiveNusach()) {
+            EffectiveNusach.SEFARD -> 7
+            else -> 3
+        }
+        return day >= minDay
+    }
+
+    private fun kiddushLevanaItem(profile: UserProfile) = ChecklistItemDef(
+        id = "kiddush_levana",
+        title = "Kiddush Levana — Sanctification of the Moon (once per Hebrew month)",
+        section = "Seasonal",
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        situational = false,
+        monthlyMitzvah = true,
+        explanation = SeasonalMitzvahText.kiddushLevanaExplanation(profile),
+        links = SeasonalMitzvahText.kiddushLevanaLinks(profile)
     )
 
     private fun defaultLinks(profile: UserProfile) =
