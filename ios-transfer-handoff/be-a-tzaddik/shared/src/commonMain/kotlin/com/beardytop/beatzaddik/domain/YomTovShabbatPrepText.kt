@@ -317,7 +317,7 @@ How to make eruv tavshilin (Chabad.org — Eruv Tavshilin; Peninei Halakha 12:8:
 • Foods: challah (or matzah) plus cooked food — commonly fish, meat, or an unpeeled hard-boiled egg.
 • Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv (Peninei Halakha) — use your siddur text.
 • Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation) — use the printed wording; it permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (Peninei Halakha — lechem mishneh / oneg Shabbat).
+• Storage warning: Put the designated eruv foods in a safe, clearly labeled, visible spot before the Friday afternoon rush — they are easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (Peninei Halakha — lechem mishneh / oneg Shabbat).
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.
@@ -351,6 +351,7 @@ This year, today is Rosh Hashana on Friday and Shabbat begins tonight — the Yo
 If you made eruv tavshilin before Rosh Hashana began:
 • You may cook and otherwise prepare food on Yom Tov today for Shabbat meals, within the limits above (food ready with time before Shabbat; no cooking for weekday or for the previous Yom Tov day).
 • Many prepare honey challah, fish, soup, and other Shabbat/Rosh Hashana dishes today.
+• Eruv check: Double-check that your eruv tavshilin foods are in a safe, visible, labeled spot — they are easily discarded during a frantic Friday afternoon prep rush.
 
 Shofar: blown today (if today is a Yom Tov day of Rosh Hashana and not Shabbat) per shul schedule — not on Shabbat itself.
 

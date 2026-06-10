@@ -255,6 +255,26 @@ internal object HebrewCalendarEngine {
     fun isShaloshRegalim(idx: Int?): Boolean =
         idx == PESACH || idx == SHAVUOS || idx == SUCCOS
 
+    /** True when today is 14 Nisan — erev first Seder. */
+    fun isErevFirstPesachSeder(hebrewMonth: Int?, hebrewDay: Int?): Boolean =
+        hebrewMonth == NISSAN && hebrewDay == 14
+
+    /** Opening Yom Tov night(s) of Pesach when Shehecheyanu is recited. */
+    fun pesachOpeningYomTovGetsShehecheyanu(
+        hebrewMonth: Int?,
+        hebrewDay: Int?,
+        inIsrael: Boolean,
+    ): Boolean {
+        if (hebrewMonth != NISSAN || hebrewDay == null) return false
+        return if (inIsrael) hebrewDay == 15 else hebrewDay == 15 || hebrewDay == 16
+    }
+
+    /** Final Yom Tov day of Pesach — Shehecheyanu is never recited (7th Israel, 8th Diaspora). */
+    fun isFinalYomTovDayOfPesach(hebrewMonth: Int?, hebrewDay: Int?, inIsrael: Boolean): Boolean {
+        if (hebrewMonth != NISSAN || hebrewDay == null) return false
+        return if (inIsrael) hebrewDay == 21 else hebrewDay == 22
+    }
+
     /** True for days that are "Yom Tov" (not erev/fast days, not Isru Chag). */
     fun isYomTov(idx: Int): Boolean {
         if (idx == -1) return false

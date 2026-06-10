@@ -15,7 +15,7 @@ object BeginnerHalachaGlossary {
     // ── Shared term lines ─────────────────────────────────────────────────────
 
     const val MELACHA =
-        "Melacha — transformative labor forbidden on Shabbat and Yom Tov (cooking, writing, using phones/electronics as your rabbi guides, etc.) — not merely \"hard\" or \"creative\" work in the everyday sense"
+        "Melacha — transformative labor forbidden on Shabbat (including cooking). On Yom Tov most melachot remain forbidden, but ochel nefesh — food preparation for that day's meals, including cooking from a pre-existing flame — is permitted (Exodus 12:16). Other examples still restricted on Yom Tov: writing, building, kindling a new fire, most phone/electronics per your rav"
     const val YOM_TOV =
         "Yom Tov — a festival day (Pesach, Sukkot, Rosh Hashana, etc.) with work rules similar to Shabbat; some food prep is allowed on the festival itself"
     const val SHABBAT =
@@ -25,7 +25,7 @@ object BeginnerHalachaGlossary {
     const val CHAG =
         "Chag — festival (same idea as Yom Tov in everyday speech)"
     const val TZEIT =
-        "Tzeit — halachic nightfall (when the day ends for mitzvot like candle lighting); often a few minutes after sunset"
+        "Tzeit — halachic nightfall (when three medium stars appear). Required start time for night mitzvot like bedikat chametz, Chanukah candles, Megillah, and counting the Omer — not for Shabbat or Yom Tov candles, which must be lit before sunset"
     const val RAV =
         "Rav — Hebrew title for a senior Torah scholar who rules on halacha (your community's decisor)"
     const val RABBI =
@@ -87,7 +87,7 @@ object BeginnerHalachaGlossary {
     const val OCHEL_NEFESH =
         "Ochel nefesh — the halachic allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day"
     const val CHAMAR_MEDINA =
-        "Chamar medina — a significant local beverage (such as kosher-for-Passover liquor or coffee, per community standards) used under specific circumstances when wine is unavailable; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)"
+        "Chamar medina — a prestigious local beverage (such as kosher liquor or coffee, per community standards) used for daytime Kiddush or Havdalah when wine is unavailable — never for Friday night Shabbat Kiddush, which strictly requires wine, grape juice, or washing for bread; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)"
     const val SCHACH =
         "Schach — plant covering on the sukkah roof"
     const val LULAV_SET =

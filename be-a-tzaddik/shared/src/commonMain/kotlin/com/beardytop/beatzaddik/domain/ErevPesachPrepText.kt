@@ -192,19 +192,27 @@ Second Seder prep (Diaspora this year):
             else ->
                 "In the Diaspora: first seder tonight; second seder tomorrow night."
         }
+        val omerTrigger = if (profile.isInIsrael) {
+            """
+• Omer count trigger: The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table on that night, count Day 1 of the Omer — missing it can cost the blessing for the rest of the year (ask your rav)."""
+        } else {
+            """
+• Omer count trigger: The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — missing it can cost the blessing for the rest of the year (ask your rav)."""
+        }
         val intro = when {
             isErevPesachFridayBeforeShabbatPesach(cal) ->
-                "Pesach begins tonight — use today (Friday) to prepare so tonight's Seder focuses on mitzvot, not logistics."
+                "Pesach begins at the next nightfall — use today (Friday) to prepare so the first Seder focuses on mitzvot, not logistics."
             isErevPesachOnShabbat(cal) ->
-                "Today is Shabbat — Pesach begins tomorrow night (Motzei Shabbat). Prepare before Shabbat began what you can; finish Seder setup after Havdalah."
+                "Today is Shabbat — Pesach begins after Shabbat ends (Motzei Shabbat). Finish what you can before Shabbat; complete Seder setup after Havdalah."
             else ->
-                "Tonight begins Pesach — prepare so the Seder focuses on mitzvot, not logistics."
+                "Use today to prepare so the Seder focuses on mitzvot, not logistics — phones will be off once Yom Tov begins."
         }
         return appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
 $intro
 
 $sederNights
 $secondSederHachana
+$omerTrigger
 
 Set up before Yom Tov:
 • Matzah — shmurah matzah for motzi/matza mitzvah (three matzot on the plate per custom)
@@ -212,6 +220,7 @@ Set up before Yom Tov:
 • Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
+• Seder plate prep: Roast the zeroa (shankbone) and beitzah (egg) on Erev Pesach day before sunset. Because the roasted shankbone is not eaten on Seder night (to avoid resembling the Paschal offering), roasting it after Yom Tov begins violates the laws of Yom Tov cooking (ochel nefesh).
 • Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
 • Festive table; candles for Yom Tov
 
@@ -249,6 +258,7 @@ How to search:
 
 After the search:
 • Recite the blessing Al bi'ur chametz and the Kol chamira nullification (bitul) — many siddurim print the text.
+• Text difference: Use the night version of Kol Chamira from your siddur. It nullifies only chametz you have not seen and do not know about — because you may still legally own chametz for breakfast tomorrow morning.
 • When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning (Peninei Halakha; STAR-K).
 • Gather found chametz in a bag to destroy the next morning at biur chametz.
 • Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow (Erev Pesach day), avoid eating a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
@@ -295,7 +305,8 @@ $morningNote
 • Many burn chametz in a safe outdoor fire; flushing crumbs in the toilet or similar is acceptable for small amounts per many poskim — ask your rav.
 • $zmanNote
 • Timeline guardrail: Both the physical destruction of chametz and the final recitation of Kol Chamira must be fully completed before the end of the 5th halachic hour. Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid.
-• Recite Kol Chamira immediately after destruction while still before that deadline — nullifying any chametz still in your possession unknowingly.
+• Text difference: Use the morning version of Kol Chamira from your siddur — it is structurally different from the night text and completely disowns ALL chametz in your possession, whether you have seen it or not and whether you have destroyed it or not.
+• Recite Kol Chamira immediately after destruction while still before that deadline.
 
 Mechirat chametz:
 • Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.

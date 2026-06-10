@@ -27,13 +27,13 @@ Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Pur
 
 Why the calendar splits:
 • Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
-• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar) has no Purim mitzvot.
+• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar): individual home mitzvot (Megillah, matanot, mishloach, seudah) do not happen today, but Shabbat carries communal Purim obligations — see below.
 
 Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
 
 The four mitzvot — when they happen this year:
 1. Megillah — Thursday night after tzeit (start of Friday / 14 Adar) AND Friday daytime (before sunset). Two readings, like a normal Purim. Confirm times with your shul; write them down or print them.
-2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). At least two gifts to two poor people; money is common. Prepare cash, envelopes, or charity contacts before Friday.
+2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). Give at least one gift to each of two different poor people (minimum of two recipients total); money is common. Prepare cash, envelopes, or charity contacts before Friday.
 3. Mishloach manot — Sunday (16 Adar) before sunset. At least two ready-to-eat foods to one friend. Prepare and label packages before Shabbat; plan who delivers on Sunday (you, family, or shul list).
 4. Purim seudah — Sunday afternoon (16 Adar), before sunset. Festive meal with bread, joy, and Torah words — not on Shabbat.
 
@@ -45,7 +45,9 @@ What to finish before Shabbat candles (Friday):
 • Machatzit haShekel: if your custom, many give before Megillah — handle before or with Thursday/Friday readings.
 
 Shabbat (15 Adar):
-• No Megillah, matanot, mishloach, or Purim seudah on Shabbat.
+• While individual home mitzvot like Megillah, matanot, mishloach, and the seudah do not happen today, Shabbat carries the communal Purim obligations.
+• Synagogue: Attend for the special Purim Torah reading (Parashat Vayavo Amalek, Exodus 17:8–16) and the unique Haftarah for Purim.
+• Davening & meals: Insert Al HaNissim into all Shabbat prayers (Amidah) and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
 • No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
 
 Sunday (16 Adar):
@@ -92,7 +94,7 @@ Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach man
 Purim Meshulash — matanot la'evyonim on Friday only (14 Adar)
 
 Today (Friday daytime) — not on Shabbat:
-• Give at least two gifts to two poor people — one gift to each.
+• Give at least one gift to each of two different poor people (minimum of two recipients total).
 • Each gift should enable a modest Purim meal (money is common; amounts vary by community).
 • Many give after the daytime Megillah reading.
 

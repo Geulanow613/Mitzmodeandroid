@@ -27,7 +27,7 @@ Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Pur
 
 Why the calendar splits:
 • Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
-• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar) has no Purim mitzvot.
+• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar): individual home mitzvot (Megillah, matanot, mishloach, seudah) do not happen today, but Shabbat carries communal Purim obligations — see below.
 
 Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
 
@@ -45,8 +45,9 @@ What to finish before Shabbat candles (Friday):
 • Machatzit haShekel: if your custom, many give before Megillah — handle before or with Thursday/Friday readings.
 
 Shabbat (15 Adar):
-• No Megillah, matanot, mishloach, or Purim seudah on Shabbat.
-• Davening & meals: Say Al HaNissim in the Shabbat Amidah and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
+• While individual home mitzvot like Megillah, matanot, mishloach, and the seudah do not happen today, Shabbat carries the communal Purim obligations.
+• Synagogue: Attend for the special Purim Torah reading (Parashat Vayavo Amalek, Exodus 17:8–16) and the unique Haftarah for Purim.
+• Davening & meals: Insert Al HaNissim into all Shabbat prayers (Amidah) and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
 • No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
 
 Sunday (16 Adar):

@@ -12,7 +12,7 @@ Explanations are aligned with mainstream Orthodox sources (Peninei Halakha, Chab
 - **Shabbat** — weekly Sabbath from Friday sunset until Saturday night (three stars)
 - **Yom Tov / chag** — festival day with work rules similar to Shabbat; some cooking allowed on the festival
 - **Erev** — the eve before (Erev Shabbat = Friday; Erev Pesach = day before Pesach begins at night)
-- **Tzeit** — halachic nightfall for mitzvot like candles and bedikat chametz
+- **Tzeit** — halachic nightfall (three medium stars) for night mitzvot like bedikat chametz, Chanukah candles, and counting the Omer — not for Shabbat or Yom Tov candles, which must be lit before sunset
 - **Kiddush** — blessing over wine that sanctifies Shabbat or Yom Tov at the meal
 - **Havdalah** — ceremony separating holy time from weekday (wine, candle, spices on Motzei Shabbat; spices omitted on Motzei Yom Kippur unless Yom Kippur fell on Shabbat; spices also omitted when Shabbat leads into Yom Tov — Yaknehaz)
 - **Yaknehaz** — when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu; no spices
@@ -231,8 +231,8 @@ See Chabad.org Sefirah articles for details on your community.
 Chanukah night N of 8 — lighting the menorah.
 
 When:
-• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles.
-• Crucial candle size note (Friday only): Standard small Chanukah candles will NOT work on Friday afternoon. Because you must light before Shabbat begins, they need enough fuel or oil to burn for at least 30 minutes past nightfall (about 1.5 hours total). Use long Shabbat-sized candles or extra oil in your menorah today.
+• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
+• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour extra oil so that they burn for at least one full hour (55–60 minutes minimum from lighting).
 • On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
 • Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
 
@@ -342,7 +342,7 @@ Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Pur
 
 Why the calendar splits:
 • Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
-• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar) has no Purim mitzvot.
+• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar): individual home mitzvot (Megillah, matanot, mishloach, seudah) do not happen today, but Shabbat carries communal Purim obligations — see below.
 
 Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
 
@@ -360,8 +360,9 @@ What to finish before Shabbat candles (Friday):
 • Machatzit haShekel: if your custom, many give before Megillah — handle before or with Thursday/Friday readings.
 
 Shabbat (15 Adar):
-• No Megillah, matanot, mishloach, or Purim seudah on Shabbat.
-• Davening & meals: Say Al HaNissim in the Shabbat Amidah and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
+• While individual home mitzvot like Megillah, matanot, mishloach, and the seudah do not happen today, Shabbat carries the communal Purim obligations.
+• Synagogue: Attend for the special Purim Torah reading (Parashat Vayavo Amalek, Exodus 17:8–16) and the unique Haftarah for Purim.
+• Davening & meals: Insert Al HaNissim into all Shabbat prayers (Amidah) and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
 • No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
 
 Sunday (16 Adar):
@@ -440,7 +441,8 @@ Each erev item opens with one of these intros (then holiday-specific text, then 
 
 Before chag — every erev Yom Tov:
 • Candle lighting & Yom Tov begin at sunset today ([your local sunset time when available]) — you must light Yom Tov candles exclusively from a pre-existing flame (such as a 24-hour or 48-hour candle lit before the holiday); you cannot strike a new match or use a lighter on Yom Tov.
-• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals.
+• **Exception — Erev Shavuot only:** Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit). The 49 days of the Omer must be temimot (complete) before Shavuot begins.
+• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals. *(On Erev Shavuot: finish before tzeit, not sunset.)*
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
 • Confirm shul times for tonight and tomorrow (Maariv / Shacharit / Musaf). *(Kol Nidre appears only on Erev Yom Kippur — not on other festivals.)*
 
@@ -484,6 +486,7 @@ Customs:
 Yom Kippur — Day of Atonement. Full 25-hour fast; five afflictions from sunset tonight until nightfall tomorrow.
 
 Today before the fast:
+• The mitzvah of eating: There is a unique halachic obligation to eat and drink throughout the day on Erev Yom Kippur (Berachot 8b). Halacha considers eating today and fasting tomorrow as two halves of the same complete mitzvah — eat regular meals during the day, not only the final pre-fast meal.
 • Eat a festive pre-fast meal (seudah hamafseket) before sunset — finish eating and drinking in time.
 • Light candles before Kol Nidre with the bracha (neir shel Yom Hakippurim per your siddur) — all flames must be lit before sunset. Yom Kippur has the same strict fire restrictions as Shabbat: unlike regular Yom Tov, you cannot transfer a flame once the fast begins.
 • Crucial timing note: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. If you plan to drive to synagogue for Kol Nidre, either arrive early and light at shul, or explicitly make a mental halachic condition (tnai) before lighting at home that you are not accepting the holiday until you arrive at synagogue (ask your rav for guidance).
@@ -522,7 +525,8 @@ Tomorrow by day:
 Shavuot — receiving the Torah at Sinai. Yom Tov from tonight.
 
 Tonight & tomorrow:
-• Light Yom Tov candles; Shehecheyanu on the first night.
+• Do not light candles, begin Maariv, or make Kiddush until full nightfall (tzeit) — see the timing note in the common erev block. Shavuot is the only festival that may not begin before tzeit so the 49 days of the Omer remain temimot (complete).
+• Light Yom Tov candles at tzeit; Shehecheyanu on the first night.
 • Dairy is a cherished Shavuot minhag (cheesecake, blintzes). A festive meat meal with wine fulfills the primary mitzvah of Simchat Yom Tov (O.C. 529:2); many families have dairy first, then a full meat Yom Tov meal.
 • All-night Torah learning (Tikkun Leil Shavuot) is a widespread custom tonight.
 • Staying up all night: If you stay awake all night learning, there are complex rules regarding reciting morning blessings (Birkat HaShachar and Birkat HaTorah) and the blessing over your tzitzit. The universal custom to resolve this is to find a friend who slept in a bed overnight and have them recite the blessings aloud to discharge your obligation, or sleep for a brief period before dawn (ask your rav).
@@ -555,9 +559,9 @@ Tonight & tomorrow:
 • Light Yom Tov candles; Shehecheyanu (first night).
 • No lulav on Shemini Atzeret — the mitzvah ended with the seventh day of Sukkot.
 
-**Israel:** Sukkot has ended — do not eat or sleep in the sukkah; festive meals are indoors. Simchat Torah: hakafot, finishing and restarting the Torah cycle. Geshem in Musaf; Full Hallel.
+**Israel:** Sukkot has ended — do not eat or sleep in the sukkah; festive meals are indoors. Simchat Torah: hakafot, finishing and restarting the Torah cycle. Liturgical shift: During Musaf, universally insert "Mashiv HaRuach U'Morid HaGeshem" and recite Tefillat Geshem; Full Hallel.
 
-**Diaspora:** Yizkor is often recited; full Yom Tov with no melacha (Simchat Torah is tomorrow). Sukkah: due to safek dyoma, Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely (Sephardic and Chabad customs vary — confirm with your rav). Geshem in Musaf in many communities.
+**Diaspora:** Yizkor is often recited; full Yom Tov with no melacha (Simchat Torah is tomorrow). Sukkah: due to safek dyoma, Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely (Sephardic and Chabad customs vary — confirm with your rav). Liturgical shift: During Musaf, universally insert "Mashiv HaRuach U'Morid HaGeshem" and recite Tefillat Geshem.
 
 • Festive Yom Tov meals.
 
@@ -711,6 +715,7 @@ This year, today is Rosh Hashana on Friday and Shabbat begins tonight — the Yo
 If you made eruv tavshilin before Rosh Hashana began:
 • You may cook and otherwise prepare food on Yom Tov today for Shabbat meals, within the limits above (food ready with time before Shabbat; no cooking for weekday or for the previous Yom Tov day).
 • Many prepare honey challah, fish, soup, and other Shabbat/Rosh Hashana dishes today.
+• Eruv check: Double-check that your eruv tavshilin foods are in a safe, visible, labeled spot — they are easily discarded during a frantic Friday afternoon prep rush.
 
 Shofar: blown today (if today is a Yom Tov day of Rosh Hashana and not Shabbat) per shul schedule — not on Shabbat itself.
 
@@ -829,7 +834,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• Finish cooking prep before candle lighting on Erev Shavuot; set blech or hot plate if needed.
+• Finish cooking prep before nightfall (tzeit) on Erev Shavuot — not at sunset; set blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
 
 ### Prepare for the festival — Sukkot
@@ -855,7 +860,8 @@ Joy & family:
 • Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
 
 Practical:
-• Confirm shul times for Hallel, Hoshanot, and hakafot (especially Hoshana Raba).
+• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).
+• Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
 
 ---
@@ -897,9 +903,12 @@ Plan ahead: locate a community siyum in advance if that is your minhag, or confi
 
 ### Prepare for the Seder (matzah, maror, cups, Haggadah)
 
-Tonight begins Pesach — prepare so the Seder focuses on mitzvot, not logistics.
+Use today to prepare so the Seder focuses on mitzvot, not logistics — phones will be off once Yom Tov begins.
 
-**Israel:** one seder tonight (15 Nisan). **Diaspora:** first seder tonight; second seder tomorrow night.
+**Israel:** one seder on the first night (15 Nisan). **Diaspora:** first seder on the first night; second seder on the second night.
+
+• **Omer count trigger (Diaspora):** The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — missing it can cost the blessing for the rest of the year (ask your rav).
+• **Omer count trigger (Israel):** The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table that night, count Day 1 — missing it can cost the blessing for the year (ask your rav).
 
 Set up before Yom Tov:
 • Matzah — shmurah matzah for motzi/matza mitzvah (three matzot on the plate per custom)
@@ -907,6 +916,7 @@ Set up before Yom Tov:
 • Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
+• Seder plate prep: Roast the zeroa (shankbone) and beitzah (egg) on Erev Pesach day before sunset. Because the roasted shankbone is not eaten on Seder night (to avoid resembling the Paschal offering), roasting it after Yom Tov begins violates the laws of Yom Tov cooking (ochel nefesh).
 • Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
 • Festive table; candles for Yom Tov
 
@@ -934,6 +944,7 @@ How to search:
 
 After the search:
 • Recite the blessing Al bi'ur chametz and the Kol chamira nullification (bitul) — many siddurim print the text.
+• Text difference: Use the night version of Kol Chamira from your siddur. It nullifies only chametz you have not seen and do not know about — because you may still legally own chametz for breakfast tomorrow morning.
 • When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning (Peninei Halakha; STAR-K).
 • Gather found chametz in a bag to destroy the next morning at biur chametz.
 • Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow (Erev Pesach day), avoid eating a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
@@ -948,7 +959,9 @@ Morning of Erev Pesach:
 • Burn or destroy all chametz found last night and any remaining chametz you are not selling.
 • Many burn chametz in a safe outdoor fire; flushing crumbs in the toilet or similar is acceptable for small amounts per many poskim — ask your rav.
 • Finish eating chametz by end of the 4th halachic hour; both biur (destruction) and the final Kol Chamira must be fully completed before the end of the 5th halachic hour (earlier than solar chatzos midday — use your zmanim app when location is enabled).
-• Timeline guardrail: Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid. Recite Kol Chamira immediately after destruction while still before that deadline.
+• Timeline guardrail: Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid.
+• Text difference: Use the morning version of Kol Chamira from your siddur — it is structurally different from the night text and completely disowns ALL chametz in your possession, whether you have seen it or not and whether you have destroyed it or not.
+• Recite Kol Chamira immediately after destruction while still before that deadline.
 
 Mechirat chametz:
 • Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.
@@ -969,6 +982,7 @@ Davening:
 • Yaaleh V'yavo in Shmoneh Esrei (all Amidahs of the day) and in Bentching.
 • Hallel — partial (Half) Hallel (custom, not a Torah obligation; Peninei Halakha 05-01-12, 12-02-07). Hallel blessings: Ashkenazic custom permits a blessing over both Full and Partial Hallel. Sephardic custom strictly prohibits reciting a blessing over Partial Hallel (Rosh Chodesh and the last six days of Pesach; Shulchan Arukh O.C. 422:2).
 • Musaf — special Rosh Chodesh Musaf with korban musaf paragraph.
+• Tefillin transition: If you pray Shacharit with tefillin, you MUST remove your tefillin immediately after Partial Hallel (or after the Torah reading, per your nusach) BEFORE starting the Musaf Amidah. Wearing tefillin during Musaf is forbidden — the day's sanctity serves as its own sign (oth), making the physical sign of tefillin a contradiction during that prayer.
 • Tachanun is omitted.
 
 Customs:
@@ -1020,7 +1034,8 @@ Davening — Yaaleh V'yavo and Hallel (wording depends which moed is active):
 • On Pesach Chol HaMoed: no chametz; matzah and KP food only.
 • On Sukkot Chol HaMoed: lulav (not on Shabbat), meals in sukkah when applicable.
 
-Avoid (without halachic guidance): heavy laundry, major home projects, and activities that diminish the festival atmosphere.
+Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
+• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
 
 ### Revi'it of wine — daily mitzvah on Chol HaMoed (recommended)
 
@@ -1079,7 +1094,7 @@ Basic requirements (Shulchan Arukh O.C. 633–635):
 • Walls: At least two full walls plus part of a third (or three full walls). Walls can be wood, fabric on a frame, or existing walls — they must be stationary and not flap in a normal breeze (Shulchan Arukh O.C. 630:10).
 • Fabric / canvas sukkahs: Tie fabric walls down tightly so they do not move or flap in a normal wind, or reinforce with horizontal ropes/straps around the frame spaced less than 3 tefachim apart (lavud) to create valid stationary partitions — ask your rav. Pop-up kits that billow are a common beginner pitfall.
 • Size: Large enough to fit a table and for an adult to sit with head and most of body inside (roughly 7×7 handbreadths minimum; build larger for comfort).
-• Schach (covering): Must be plant material that grew from the ground and is detached (tree branches, bamboo mats certified for schach, etc.) — not metal, plastic, or a solid roof.
+• Schach (covering): Must be plant material that grew from the ground and is detached (tree branches, bamboo mats certified for schach, etc.) — not metal, plastic, or a solid roof. Schach rules: Material must be detached plant life that has NOT been manufactured into a functional tool, vessel, or finished item (such as old furniture parts or wooden slats from crates), as finished objects are susceptible to ritual impurity (kabalat tumah) and are completely invalid for schach.
 • Shade: More shade than sun on the floor under the schach. You may see some sky through gaps — that is fine.
 • Height: Walls at least ~3 ft (10 tefachim); schach can be high, but very high sukkot still need a valid structure below.
 
@@ -1151,7 +1166,7 @@ Yom Tov:
 • Sukkot has ended — in Israel, do not eat or sleep in the sukkah today; festive meals are indoors (not in the sukkah).
 
 Davening highlights:
-• Tefillat Geshem — prayer for rain inserted in Musaf (we begin mentioning mashiv haruach umorid hagashem in Shmoneh Esrei from this point per minhag).
+• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
 • Yizkor — memorial prayer in many Ashkenaz communities.
 • Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
 • Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
@@ -1172,7 +1187,7 @@ Yom Tov:
 • Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
 
 Davening:
-• Tefillat Geshem in Musaf — begin the winter insert for rain (mashiv haruach) per community calendar.
+• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
 • Yizkor — Ashkenaz communities recite memorial prayers.
 • Full Hallel and Musaf; Yom Tov Amidah.
 
@@ -1240,6 +1255,8 @@ Erev Tisha B'Av (8 Av afternoon): stop learning Torah (except sad topics); eat t
 
 Tisha B'Av (9 Av): full 25-hour fast, kinot. Morning Shacharit without tallit and tefillin; don them for Mincha after halachic chatzos (midday — use your zmanim app, not clock noon). Sit on low stools until chatzos on Tisha B'Av day itself (9 Av).
 
+The 10th of Av extension: Even though the fast ends at nightfall on the 9th of Av, elements of mourning continue. Ashkenazi custom prohibits eating meat, drinking wine, doing laundry, listening to music, or bathing for pleasure until midday (chatzos) on the 10th of Av. Many Sephardim follow similar restrictions — confirm with your rav before celebrating with meat and wine immediately after the fast.
+
 Shabbat Chazon (Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
 
 Nine Days Havdalah: When making Havdalah on Motzei Shabbat during the Nine Days, use wine or grape juice normally. Ashkenazi custom (Rema O.C. 551:10): a child (between ages 6–9) should drink the cup if present; if not, the person reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
@@ -1291,6 +1308,9 @@ How:
 ### Tu B'Shvat Seder (optional)
 
 Tu B'Shvat (15 Shevat) — New Year for Trees — is a day to appreciate Hashem's fruit and Land of Israel.
+
+Liturgical note:
+• Tachanun is completely omitted from standard weekday prayers today — as well as during yesterday afternoon's Mincha service (14 Shevat).
 
 Customs:
 • Eat fruit — especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, dates.

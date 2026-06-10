@@ -89,7 +89,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• Finish cooking prep before candle lighting on Erev Shavuot; set blech or hot plate if needed.
+• Finish cooking prep before nightfall (tzeit) on Erev Shavuot — not at sunset; set blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
         """.trim(),
     )
@@ -118,7 +118,8 @@ Joy & family:
 • Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
 
 Practical:
-• Confirm shul times for Hallel, Hoshanot, and hakafot (especially Hoshana Raba).
+• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).
+• Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
         """.trim(),
     )
@@ -143,7 +144,7 @@ Basic requirements (Shulchan Arukh O.C. 633–635):
 • Walls: At least two full walls plus part of a third (or three full walls). Walls can be wood, fabric on a frame, or existing walls — they must be stationary and not flap in a normal breeze (Shulchan Arukh O.C. 630:10).
 • Fabric / canvas sukkahs: Tie fabric walls down tightly so they do not move or flap in a normal wind, or reinforce with horizontal ropes/straps around the frame spaced less than 3 tefachim apart (lavud) to create valid stationary partitions — ask your rav. Pop-up kits that billow are a common beginner pitfall.
 • Size: Large enough to fit a table and for an adult to sit with head and most of body inside (roughly 7×7 handbreadths minimum; build larger for comfort).
-• Schach (covering): Must be plant material that grew from the ground and is detached (tree branches, bamboo mats certified for schach, etc.) — not metal, plastic, or a solid roof.
+• Schach (covering): Must be plant material that grew from the ground and is detached (tree branches, bamboo mats certified for schach, etc.) — not metal, plastic, or a solid roof. Schach rules: Material must be detached plant life that has NOT been manufactured into a functional tool, vessel, or finished item (such as old furniture parts or wooden slats from crates), as finished objects are susceptible to ritual impurity (kabalat tumah) and are completely invalid for schach.
 • Shade: More shade than sun on the floor under the schach. You may see some sky through gaps — that is fine.
 • Height: Walls at least ~3 ft (10 tefachim); schach can be high, but very high sukkot still need a valid structure below.
 
@@ -273,7 +274,7 @@ Yom Tov:
 • Sukkot has ended — in Israel, do not eat or sleep in the sukkah today; festive meals are indoors (not in the sukkah).
 
 Davening highlights:
-• Tefillat Geshem — prayer for rain inserted in Musaf (we begin mentioning mashiv haruach umorid hagashem in Shmoneh Esrei from this point per minhag).
+• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
 • Yizkor — memorial prayer in many Ashkenaz communities.
 • Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
 • Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
@@ -294,7 +295,7 @@ Yom Tov:
 • Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
 
 Davening:
-• Tefillat Geshem in Musaf — begin the winter insert for rain (mashiv haruach) per community calendar.
+• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
 • Yizkor — Ashkenaz communities recite memorial prayers.
 • Full Hallel and Musaf; Yom Tov Amidah.
 
@@ -363,10 +364,24 @@ Candle lighting last night of Yom Tov; havdalah when Yom Tov ends (often with Su
             if (isPesach) appendLine("• On Pesach Chol HaMoed: no chametz; matzah and KP food only.")
             if (isSukkot) appendLine("• On Sukkot Chol HaMoed: lulav (not on Shabbat), meals in sukkah when applicable.")
         }.trim()
+        val hoshanaRabaBlock = if (
+            isSukkot &&
+            cal.hebrewMonth == HebrewCalendarEngine.TISHREI &&
+            cal.hebrewDay == 20
+        ) {
+            """
+
+Hoshana Raba prep (tomorrow — 21 Tishrei):
+• Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for tomorrow morning — separate from your daily lulav set.
+• At the conclusion of synagogue services tomorrow, the community performs Chagizat Aravah — striking these branches against the ground five times (Minhag Nevi'im). Hoshana Raba is the final sealing of judgment from Yom Kippur."""
+        } else {
+            ""
+        }
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.cholHamoedBasics(),
             """
 Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.
+$hoshanaRabaBlock
 
 Spirit of the day:
 • Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
@@ -378,7 +393,8 @@ $hallelBlock
 • Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
 $festivalLines
 
-Avoid (without halachic guidance): heavy laundry, major home projects, and activities that diminish the festival atmosphere.
+Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
+• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
             """.trim(),
         )
     }
@@ -463,6 +479,7 @@ Davening:
 • Yaaleh V'yavo in Shmoneh Esrei (all Amidahs of the day) and in Bentching.
 • Hallel — partial (Half) Hallel (custom, not a Torah obligation; Peninei Halakha 05-01-12, 12-02-07). Hallel blessings: Ashkenazic custom permits a blessing over both Full and Partial Hallel. Sephardic custom strictly prohibits reciting a blessing over Partial Hallel (Rosh Chodesh and the last six days of Pesach; Shulchan Arukh O.C. 422:2).
 • Musaf — special Rosh Chodesh Musaf with korban musaf paragraph.
+• Tefillin transition: If you pray Shacharit with tefillin, you MUST remove your tefillin immediately after Partial Hallel (or after the Torah reading, per your nusach) BEFORE starting the Musaf Amidah. Wearing tefillin during Musaf is forbidden — the day's sanctity serves as its own sign (oth), making the physical sign of tefillin a contradiction during that prayer.
 • Tachanun is omitted.
 
 Customs:
@@ -482,8 +499,8 @@ If you forget Yaaleh V'yavo in Birkat Hamazon (bentching): On Rosh Chodesh, you 
 Chanukah night $day of 8 — lighting the menorah.
 
 When:
-• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles.
-• Crucial candle size note (Friday only): Standard small Chanukah candles will NOT work on Friday afternoon. Because you must light before Shabbat begins, they need enough fuel or oil to burn for at least 30 minutes past nightfall (about 1.5 hours total). Use long Shabbat-sized candles or extra oil in your menorah today.
+• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
+• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour extra oil so that they burn for at least one full hour (55–60 minutes minimum from lighting).
 • On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
 • Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
 
@@ -629,6 +646,8 @@ Erev Tisha B'Av (8 Av afternoon): stop learning Torah (except sad topics); eat t
 
 Tisha B'Av (9 Av): full 25-hour fast, kinot. Morning Shacharit without tallit and tefillin; don them for Mincha after halachic chatzos (midday — use your zmanim app, not clock noon). Sit on low stools until chatzos on Tisha B'Av day itself (9 Av).
 
+The 10th of Av extension: Even though the fast ends at nightfall on the 9th of Av, elements of mourning continue. Ashkenazi custom prohibits eating meat, drinking wine, doing laundry, listening to music, or bathing for pleasure until midday (chatzos) on the 10th of Av. Many Sephardim follow similar restrictions — confirm with your rav before celebrating with meat and wine immediately after the fast.
+
 Shabbat Chazon (Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
 
 Nine Days Havdalah: When making Havdalah on Motzei Shabbat during the Nine Days, use wine or grape juice normally. Ashkenazi custom (Rema O.C. 551:10): a child (between ages 6–9) should drink the cup if present; if not, the person reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
@@ -678,6 +697,9 @@ This app tracks the monthly window for you — say it on the first clear night; 
         ),
         """
 Tu B'Shvat (15 Shevat) — New Year for Trees — is a day to appreciate Hashem's fruit and Land of Israel.
+
+Liturgical note:
+• Tachanun is completely omitted from standard weekday prayers today — as well as during yesterday afternoon's Mincha service (14 Shevat).
 
 Customs:
 • Eat fruit — especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, dates.
