@@ -82,6 +82,9 @@ object ChecklistItemResolver {
         val nusachSpecific = when (profile.effectiveNusach()) {
             EffectiveNusach.ASHKENAZ -> item.explanationAshkenaz
             EffectiveNusach.SEFARD -> item.explanationSefard
+            EffectiveNusach.EDOT_HAMIZRACH -> item.explanationEdotHamizrach.ifBlank {
+                item.explanationSefard
+            }
             EffectiveNusach.CHABAD -> item.explanationChabad
         }
         val base = item.explanation
@@ -214,9 +217,5 @@ object ChecklistItemResolver {
     private fun normalizeSection(section: String): String =
         if (section == "Shabbat") "Shabbat & Festivals" else section
 
-    private fun EffectiveNusach.displayName() = when (this) {
-        EffectiveNusach.ASHKENAZ -> "Ashkenaz"
-        EffectiveNusach.SEFARD -> "Sefard"
-        EffectiveNusach.CHABAD -> "Nusach Ari / Chabad"
-    }
+    private fun EffectiveNusach.displayName() = displayLabel()
 }

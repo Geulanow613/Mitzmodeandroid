@@ -12,7 +12,7 @@ Explanations are aligned with mainstream Orthodox sources (Peninei Halakha, Chab
 - **Shabbat** — weekly Sabbath from Friday sunset until Saturday night (three stars)
 - **Yom Tov / chag** — festival day with work rules similar to Shabbat; some cooking allowed on the festival
 - **Erev** — the eve before (Erev Shabbat = Friday; Erev Pesach = day before Pesach begins at night)
-- **Tzeit** — halachic nightfall (three medium stars) for night mitzvot like bedikat chametz, Chanukah candles, and counting the Omer — not for Shabbat or Yom Tov candles, which must be lit before sunset
+- **Tzeit** — halachic nightfall (three medium stars) for night mitzvot like bedikat chametz, Chanukah candles, and counting the Omer. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on Motzei Shabbat, Yom Tov candles must be lit only after tzeit, using a pre-existing flame
 - **Kiddush** — blessing over wine that sanctifies Shabbat or Yom Tov at the meal
 - **Havdalah** — ceremony separating holy time from weekday (wine, candle, spices on Motzei Shabbat; spices omitted on Motzei Yom Kippur unless Yom Kippur fell on Shabbat; spices also omitted when Shabbat leads into Yom Tov — Yaknehaz)
 - **Yaknehaz** — when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu; no spices
@@ -232,7 +232,7 @@ Chanukah night N of 8 — lighting the menorah.
 
 When:
 • Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
-• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour extra oil so that they burn for at least one full hour (55–60 minutes minimum from lighting).
+• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least 90 minutes total (roughly 1.5 hours minimum from lighting) to ensure they survive well past dark.
 • On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
 • Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
 
@@ -275,12 +275,17 @@ How to fulfill:
 Blessings before reading:
 • Al mikra megillah
 • She'asa nissim
-• Shehecheyanu on the first evening (and on the first daytime reading of the year, per custom)
 
 Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
 
 Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.
+
+**Ashkenaz:** Shehecheyanu (Ashkenaz — Rema O.C. 692:1): Recite before the first evening Megillah reading. Ashkenazim also recite Shehecheyanu before the first daytime Megillah reading.
+
+**Sefard / Edot HaMizrach:** Shehecheyanu (Sephardic — Shulchan Arukh O.C. 692:1; Yalkut Yosef): Recite only before the first evening Megillah reading. Do not repeat Shehecheyanu at the daytime reading — the blessing from the night covers the entire holiday; repeating it in the daytime is a bracha levatala.
+
+**Chabad:** Same as Ashkenaz (Rema O.C. 692:1): Shehecheyanu on the first evening and on the first daytime Megillah reading.
 
 ### Matanot la'evyonim — gifts to the poor
 
@@ -381,9 +386,16 @@ When this year:
 How (same laws as regular Purim):
 • Hear every word from a kosher megillah scroll; men and women are equally obligated.
 • Stand for the blessings; customs at Haman's name vary by shul.
-• Blessings: al mikra megillah, she'asa nissim; Shehecheyanu on the first evening reading per custom.
+
+Blessings before reading:
+• Al mikra megillah
+• She'asa nissim
 
 Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach manot and the seudah are Sunday — prepare packages before Shabbat if you have not already.
+
+**Ashkenaz / Chabad:** Shehecheyanu (Rema O.C. 692:1): on the first evening (Thursday night) and again before the first daytime reading (Friday).
+
+**Sefard / Edot HaMizrach:** Shehecheyanu only on Thursday night — do not repeat on Friday daytime (Yalkut Yosef).
 
 ### Purim Meshulash (Friday): Matanot la'evyonim
 
@@ -440,7 +452,7 @@ Each erev item opens with one of these intros (then holiday-specific text, then 
 **Common block (every erev chag):**
 
 Before chag — every erev Yom Tov:
-• Candle lighting & Yom Tov begin at sunset today ([your local sunset time when available]) — you must light Yom Tov candles exclusively from a pre-existing flame (such as a 24-hour or 48-hour candle lit before the holiday); you cannot strike a new match or use a lighter on Yom Tov.
+• Candle lighting & Yom Tov begin at sunset today ([your local sunset time when available]) — before sunset you may strike a new match normally to light Yom Tov candles and to kindle a 24- or 48-hour transfer candle for use after the holiday begins. Once Yom Tov has started, light candles only from a pre-existing flame (not a new match or lighter).
 • **Exception — Erev Shavuot only:** Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit). The 49 days of the Omer must be temimot (complete) before Shavuot begins.
 • Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals.
 • **On Erev Shavuot only:** Daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed.
@@ -530,7 +542,7 @@ Tonight & tomorrow:
 • Light Yom Tov candles at tzeit; Shehecheyanu on the first night.
 • Dairy is a cherished Shavuot minhag (cheesecake, blintzes). A festive meat meal with wine fulfills the primary mitzvah of Simchat Yom Tov (O.C. 529:2); many families have dairy first, then a full meat Yom Tov meal.
 • All-night Torah learning (Tikkun Leil Shavuot) is a widespread custom tonight.
-• Staying up all night: If you stay awake all night learning, there are complex rules regarding reciting morning blessings (Birkat HaShachar and Birkat HaTorah) and the blessing over your tzitzit. The universal custom to resolve this is to find a friend who slept in a bed overnight and have them recite the blessings aloud to discharge your obligation, or sleep for a brief period before dawn (ask your rav).
+• Staying up all night: If you remain awake the entire night studying, standard Ashkenazi practice is to hear the morning blessings and Torah blessings from someone who slept, to avoid halachic doubts. However, according to Chabad custom (and several Sephardic authorities), you personally recite the entire sequence of morning and Torah blessings yourself after dawn (alot hashachar), even with zero sleep.
 • Read Megillat Rut in many communities (tomorrow).
 • Full Yom Tov davening with Full Hallel and Musaf; Akdamut/Megillat Rut per minhag.
 
@@ -645,7 +657,7 @@ Havdalah inside Kiddush (Yaknehaz):
 • Use the Machzor or siddur nusach for Rosh Hashana — do not rely on memory for the long havdalah text.
 
 Before or at Maariv:
-• Chabad.org: you may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidav of Maariv — follow your community.
+• Chabad.org: you may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidah of Maariv — follow your community.
 
 Rosh Hashana–specific prep before Shabbat ends:
 • Have round challah, honey, apples, and symbolic foods ready for tomorrow's Yom Tov meals (minhag, per Rosh Hashana guides).
@@ -854,7 +866,7 @@ Arba Minim (Four Species):
 Meals & Yom Tov:
 • Plan menus for seven days of festive meals in and out of the sukkah.
 • Wine, grape juice, challah, and Yom Tov groceries — one day of Yom Tov at the start in Israel; two days in the Diaspora.
-• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh).
+• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh); many Sephardic decisors (Yalkut Yosef) add that it is praiseworthy to eat a kezayit in the sukkah at the very end of the meal without leishev basukkah.
 
 Joy & family:
 • Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
@@ -916,7 +928,7 @@ Set up before Yom Tov:
 • Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
-• Seder plate prep: Roast the zeroa (shankbone) and beitzah (egg) on Erev Pesach day before sunset. Because the roasted shankbone is not eaten on Seder night (to avoid resembling the Paschal offering), roasting it after Yom Tov begins violates the laws of Yom Tov cooking (ochel nefesh).
+• Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.
 • Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
 • Festive table; candles for Yom Tov
 
@@ -999,7 +1011,9 @@ If you forget Yaaleh V'yavo in Birkat Hamazon (bentching): On Rosh Chodesh, you 
 
 ### Kiddush Levana — Sanctification of the Moon (once per Hebrew month)
 
-Recited once a month when the moon is visible in the night sky — usually from the 3rd night of the month until the 15th (Ashkenaz / Chabad); Sephardic custom waits until the 7th night.
+Recited once a month when the moon is visible in the night sky — Ashkenaz / Chabad usually begin after the 3rd night; Sephardic custom waits until the 7th night.
+
+Deadline: The window ends at the moment of the full moon (roughly 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. Always check the specific Sof Zman Kiddush Levana for your location.
 
 When:
 • After nightfall (tzeit), standing outdoors under the open sky — not under a roof or porch ceiling.
@@ -1107,7 +1121,7 @@ Practical steps:
 
 First night rain protocol (if it rains on the first night):
 • Ashkenaz (Rema O.C. 639:5): Wait up to one hour. If rain does not stop, enter the sukkah, make Kiddush, eat a kezayit of bread without leishev basukkah, then finish the rest of the meal indoors.
-• Sephardic (Shulchan Arukh): If rain is heavy enough to spoil the meal, you are exempt from the sukkah entirely — make Kiddush and eat the full meal indoors from the start, without leishev basukkah.
+• Sephardic (Shulchan Arukh): If rain is heavy enough to spoil the meal, you are exempt from eating the full meal in the sukkah — make Kiddush and eat the full meal indoors from the start, without leishev basukkah. Nevertheless, many Sephardic decisors (including Yalkut Yosef) rule that it remains proper and praiseworthy at the very end of the meal to go out to the sukkah and eat a single kezayit of bread without reciting leishev basukkah — honoring the first night's unique obligation in part.
 
 First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah. Throughout Sukkot: eat bread and sleep in sukkah when possible (rain and illness have exemptions — ask your rabbi).
 
@@ -1337,7 +1351,7 @@ Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — many Ashkenazim omit Tachanun throughout Nisan per Shulchan Arukh O.C. 429:2 anyway; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 

@@ -27,6 +27,7 @@ private data class ChecklistItemJson(
     val explanationFemale: String = "",
     val explanationAshkenaz: String = "",
     val explanationSefard: String = "",
+    val explanationEdotHamizrach: String = "",
     val explanationChabad: String = "",
     val links: List<ChecklistLinkJson> = emptyList(),
     val hideOnShabbat: Boolean = false,
@@ -72,6 +73,7 @@ object ChecklistLoader {
         val key = when (effective) {
             EffectiveNusach.CHABAD -> "chabad"
             EffectiveNusach.SEFARD -> "sefard"
+            EffectiveNusach.EDOT_HAMIZRACH -> "sefard"
             EffectiveNusach.ASHKENAZ -> "ashkenaz"
         }
         item.links.firstOrNull { it.nusach == key }?.let { return it }
@@ -81,7 +83,7 @@ object ChecklistLoader {
 
     fun defaultUrl(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> "https://www.chabad.org"
-        EffectiveNusach.SEFARD -> "https://www.sefaria.org"
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "https://www.sefaria.org"
         EffectiveNusach.ASHKENAZ -> "https://www.sefaria.org"
     }
 
@@ -104,6 +106,7 @@ object ChecklistLoader {
         explanationFemale = explanationFemale,
         explanationAshkenaz = explanationAshkenaz,
         explanationSefard = explanationSefard,
+        explanationEdotHamizrach = explanationEdotHamizrach,
         explanationChabad = explanationChabad,
         links = links.map { ChecklistLink(it.displayText, it.url, it.nusach) },
         hideOnShabbat = hideOnShabbat,

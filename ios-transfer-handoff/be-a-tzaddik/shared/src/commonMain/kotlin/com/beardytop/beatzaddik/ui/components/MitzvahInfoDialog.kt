@@ -64,7 +64,8 @@ fun MitzvahInfoDialog(
                         AppText(
                             item.displayTitle,
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold),
-                            color = TzaddikColors.GoldBright
+                            color = TzaddikColors.GoldBright,
+                            enableTerms = false,
                         )
                         // Gold accent underline
                         Box(

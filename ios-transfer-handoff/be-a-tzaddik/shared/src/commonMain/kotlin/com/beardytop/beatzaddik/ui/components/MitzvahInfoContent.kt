@@ -19,6 +19,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -67,7 +69,19 @@ fun MitzvahExplanationContent(
     modifier: Modifier = Modifier
 ) {
     val uriHandler = LocalUriHandler.current
+    val pageKey = remember(explanation, zmanHint, zmanMakeupNote, situational) {
+        buildString {
+            append(explanation)
+            append('|')
+            append(zmanHint.orEmpty())
+            append('|')
+            append(zmanMakeupNote.orEmpty())
+            if (situational) append("|situational")
+        }
+    }
+    val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
 
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -143,6 +157,7 @@ fun MitzvahExplanationContent(
                 prefix = "↗ "
             )
         }
+    }
     }
 }
 

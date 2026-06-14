@@ -25,30 +25,55 @@ fun Gender.displayLabel(): String = when (this) {
 enum class NusachSelection {
     ASHKENAZ,
     SEFARD,
+    /** Middle Eastern & North African communities (Nusach Edot HaMizrach). */
+    EDOT_HAMIZRACH,
     CHABAD,
     NOT_SURE;
 
     companion object {
         /** Choices shown in onboarding and settings (excludes removed legacy values). */
-        val selectable: List<NusachSelection> = listOf(ASHKENAZ, SEFARD, CHABAD, NOT_SURE)
+        val selectable: List<NusachSelection> = listOf(
+            ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD, NOT_SURE,
+        )
     }
 }
 
 @Serializable
-enum class EffectiveNusach { ASHKENAZ, SEFARD, CHABAD }
+enum class EffectiveNusach { ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD }
 
 fun NusachSelection.toEffective(): EffectiveNusach = when (this) {
     NusachSelection.ASHKENAZ -> EffectiveNusach.ASHKENAZ
     NusachSelection.SEFARD -> EffectiveNusach.SEFARD
+    NusachSelection.EDOT_HAMIZRACH -> EffectiveNusach.EDOT_HAMIZRACH
     NusachSelection.CHABAD, NusachSelection.NOT_SURE -> EffectiveNusach.CHABAD
 }
 
 fun NusachSelection.displayLabel(): String = when (this) {
     NusachSelection.ASHKENAZ -> "Ashkenaz"
-    NusachSelection.SEFARD -> "Sefard / Sephardi / Mizrachi"
+    NusachSelection.SEFARD -> "Sephardi"
+    NusachSelection.EDOT_HAMIZRACH -> "Edot HaMizrach"
     NusachSelection.CHABAD -> "Chabad (Nusach Ari)"
     NusachSelection.NOT_SURE -> "I'm not sure"
 }
+
+fun EffectiveNusach.displayLabel(): String = when (this) {
+    EffectiveNusach.ASHKENAZ -> "Ashkenaz"
+    EffectiveNusach.SEFARD -> "Sephardi"
+    EffectiveNusach.EDOT_HAMIZRACH -> "Edot HaMizrach"
+    EffectiveNusach.CHABAD -> "Nusach Ari / Chabad"
+}
+
+/** Lowercase tag used in checklist JSON [ChecklistItemDef.nusach] lists. */
+fun EffectiveNusach.jsonTag(): String = when (this) {
+    EffectiveNusach.ASHKENAZ -> "ashkenaz"
+    EffectiveNusach.SEFARD -> "sefard"
+    EffectiveNusach.EDOT_HAMIZRACH -> "edot_hamizrach"
+    EffectiveNusach.CHABAD -> "chabad"
+}
+
+/** Sephardi and Edot HaMizrach both follow Shulchan Aruch on many lifecycle rules. */
+fun EffectiveNusach.followsShulchanAruchMizrachi(): Boolean =
+    this == EffectiveNusach.SEFARD || this == EffectiveNusach.EDOT_HAMIZRACH
 
 @Serializable
 enum class LocationSource { GPS, MANUAL, NONE }
@@ -120,7 +145,7 @@ data class UserProfile(
     fun dairyToMeatWaitMinutes(): Int =
         KashrutWaitTimes.resolveDairyToMeatMinutes(meatAfterDairyHours)
             ?: when (effectiveNusach()) {
-                EffectiveNusach.SEFARD -> 6 * 60
+                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 6 * 60
                 else -> 60
             }
 
@@ -152,13 +177,14 @@ data class ChecklistItemDef(
     val explanationFemale: String = "",
     val explanationAshkenaz: String = "",
     val explanationSefard: String = "",
+    val explanationEdotHamizrach: String = "",
     val explanationChabad: String = "",
     val links: List<ChecklistLink> = emptyList(),
     val hideOnShabbat: Boolean = false,
     val shabbatOnly: Boolean = false,
     /** Candles, etc. — show on Erev Shabbat / prep, not on Shabbat day itself */
     val shabbatEveOnly: Boolean = false,
-    /** Melave malkah, etc. — show from tzeit Saturday until dawn Sunday */
+    /** Melave Malka, etc. — show from tzeit Saturday until dawn Sunday */
     val motzeiShabbatOnly: Boolean = false,
     /** Lower = earlier within the same [section]. */
     val sortOrder: Int = 0,

@@ -220,7 +220,7 @@ Set up before Yom Tov:
 • Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
-• Seder plate prep: Roast the zeroa (shankbone) and beitzah (egg) on Erev Pesach day before sunset. Because the roasted shankbone is not eaten on Seder night (to avoid resembling the Paschal offering), roasting it after Yom Tov begins violates the laws of Yom Tov cooking (ochel nefesh).
+• Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.
 • Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
 • Festive table; candles for Yom Tov
 

@@ -51,7 +51,8 @@ object OmerCountText {
 
         val nusachWhen = when (profile.effectiveNusach()) {
             EffectiveNusach.CHABAD -> "Many in Chabad count after Maariv (Tehillat Hashem)."
-            EffectiveNusach.SEFARD -> "Many Sefardim count after Maariv."
+            EffectiveNusach.SEFARD -> "Many Sephardim count after Maariv."
+            EffectiveNusach.EDOT_HAMIZRACH -> "Many Edot HaMizrach kehillot count after Maariv."
             EffectiveNusach.ASHKENAZ -> "Many Ashkenazim count after Maariv."
         }
 

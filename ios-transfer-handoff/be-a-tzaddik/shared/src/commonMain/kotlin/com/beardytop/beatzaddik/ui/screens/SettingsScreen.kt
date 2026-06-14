@@ -165,10 +165,7 @@ fun SettingsScreen(
                     modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)
                 )
             }
-            val effectiveName = profile.effectiveNusach().name
-                .replace('_', ' ')
-                .lowercase()
-                .replaceFirstChar { it.uppercase() }
+            val effectiveName = profile.effectiveNusach().displayLabel()
             Spacer(Modifier.height(6.dp))
             AppText(
                 "Currently using: $effectiveName",

@@ -1,7 +1,9 @@
 package com.beardytop.beatzaddik.ui.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -35,10 +37,13 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.domain.HalachicTerm
 import com.beardytop.beatzaddik.domain.HalachicTermsDictionary
 import com.beardytop.beatzaddik.ui.screens.ShabbatGuideData
+import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
@@ -47,6 +52,9 @@ val LocalHalachicTermExtras = compositionLocalOf { emptyList<HalachicTerm>() }
 
 /** When set (e.g. on Today), glossary taps for guide-linked terms open the Shabbat guide. */
 val LocalOpenShabbatGuide = compositionLocalOf<((String?) -> Unit)?> { null }
+
+/** Tracks term ids already underlined on the current page; first occurrence only. */
+val LocalHalachicTermsUsedOnPage = compositionLocalOf<MutableSet<String>?> { null }
 
 /** Term text keeps body color; gold underline is drawn separately in [drawHalachicTermUnderlines]. */
 private fun halachicTermSpanStyle(bodyColor: Color): SpanStyle = SpanStyle(
@@ -127,14 +135,34 @@ fun HalachicTermOverlay(
     content: @Composable () -> Unit,
 ) {
     var selected by remember { mutableStateOf<HalachicTerm?>(null) }
+    var showShabbatGuide by remember { mutableStateOf(false) }
+    var shabbatGuideAnchor by remember { mutableStateOf<String?>(null) }
+    val openShabbatGuide: (String?) -> Unit = { anchor ->
+        shabbatGuideAnchor = anchor
+        showShabbatGuide = true
+    }
     CompositionLocalProvider(
         LocalShowHalachicTerm provides { term -> selected = term },
+        LocalOpenShabbatGuide provides openShabbatGuide,
     ) {
         content()
         HalachicTermDefinitionDialog(
             term = selected,
             onDismiss = { selected = null },
         )
+        if (showShabbatGuide) {
+            Dialog(
+                onDismissRequest = { showShabbatGuide = false },
+                properties = DialogProperties(usePlatformDefaultWidth = false),
+            ) {
+                Box(Modifier.fillMaxSize()) {
+                    ShabbatGuideScreen(
+                        initialAnchor = shabbatGuideAnchor,
+                        onDismiss = { showShabbatGuide = false },
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -148,6 +176,8 @@ fun HalachicTermDefinitionDialog(
     onDismiss: () -> Unit,
 ) {
     if (term == null) return
+    val openShabbatGuide = LocalOpenShabbatGuide.current
+    val guideAnchor = ShabbatGuideData.anchorForTerm(term)
     val appTranslation = LocalAppTranslation.current
     var dialogTitle by remember(term.id) { mutableStateOf(term.title) }
     var dialogDefinition by remember(term.id) { mutableStateOf(term.definition) }
@@ -195,6 +225,21 @@ fun HalachicTermDefinitionDialog(
                 style = MaterialTheme.typography.bodyMedium,
                 enableTerms = false,
             )
+        }
+        if (guideAnchor != null && openShabbatGuide != null) {
+            TextButton(
+                onClick = {
+                    onDismiss()
+                    openShabbatGuide(guideAnchor)
+                },
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                AppText(
+                    "More in Shabbat Guide",
+                    color = TzaddikColors.NavyMid,
+                    enableTerms = false,
+                )
+            }
         }
         TextButton(
             onClick = onDismiss,
@@ -244,7 +289,7 @@ fun HalachicClickableText(
 ) {
     val showTerm = LocalShowHalachicTerm.current
     val extras = LocalHalachicTermExtras.current
-    val openShabbatGuide = LocalOpenShabbatGuide.current
+    val usedOnPage = LocalHalachicTermsUsedOnPage.current
     val appTranslation = LocalAppTranslation.current
     val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
@@ -271,6 +316,7 @@ fun HalachicClickableText(
             enableTerms = enableTerms,
             additionalTerms = extras,
             bodyColor = color,
+            usedOnPage = usedOnPage,
         )
     }
     val hasTerms = annotated.getStringAnnotations(HalachicTermsDictionary.annotationTag(), 0, annotated.length).isNotEmpty()
@@ -301,11 +347,6 @@ fun HalachicClickableText(
             ?.item
             ?.let { id -> HalachicTermsDictionary.termById(id) ?: HalachicGuideTerms.termById(id) }
         if (term != null) {
-            val guideAnchor = ShabbatGuideData.anchorForTerm(term)
-            if (guideAnchor != null && openShabbatGuide != null) {
-                openShabbatGuide(guideAnchor)
-                return
-            }
             showTerm(term)
             return
         }
@@ -346,11 +387,12 @@ internal fun buildBodyAnnotatedString(
     enableTerms: Boolean = true,
     additionalTerms: List<HalachicTerm> = emptyList(),
     bodyColor: Color = TzaddikColors.TextBrown,
+    usedOnPage: MutableSet<String>? = null,
 ): AnnotatedString {
     if (text.contains("](")) {
-        return buildMarkdownWithTerms(text, enableTerms, additionalTerms, bodyColor)
+        return buildMarkdownWithTerms(text, enableTerms, additionalTerms, bodyColor, usedOnPage)
     }
-    return buildPlainBodyAnnotatedString(text, knownLinks, enableTerms, additionalTerms, bodyColor)
+    return buildPlainBodyAnnotatedString(text, knownLinks, enableTerms, additionalTerms, bodyColor, usedOnPage)
 }
 
 private fun buildMarkdownWithTerms(
@@ -358,6 +400,7 @@ private fun buildMarkdownWithTerms(
     enableTerms: Boolean,
     additionalTerms: List<HalachicTerm>,
     bodyColor: Color,
+    usedOnPage: MutableSet<String>?,
 ): AnnotatedString {
     val markdownLinkRegex = Regex("""\[([^\]]+)\]\(([^)]+)\)""")
     val protected = mutableListOf<IntRange>()
@@ -365,7 +408,7 @@ private fun buildMarkdownWithTerms(
         var cursor = 0
         markdownLinkRegex.findAll(text).forEach { match ->
             val plain = text.substring(cursor, match.range.first)
-            appendPlainWithTerms(plain, enableTerms, additionalTerms, protected, bodyColor)
+            appendPlainWithTerms(plain, enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
             protected.add(match.range)
             pushStringAnnotation(tag = "URL", annotation = match.groupValues[2].trim())
             withStyle(linkSpanStyle(bodyColor)) {
@@ -375,7 +418,7 @@ private fun buildMarkdownWithTerms(
             cursor = match.range.last + 1
         }
         if (cursor < text.length) {
-            appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor)
+            appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
         }
     }
 }
@@ -392,6 +435,7 @@ private fun buildPlainBodyAnnotatedString(
     enableTerms: Boolean,
     additionalTerms: List<HalachicTerm>,
     bodyColor: Color,
+    usedOnPage: MutableSet<String>?,
 ): AnnotatedString {
     val patterns = knownLinks
         .flatMap { link ->
@@ -413,7 +457,7 @@ private fun buildPlainBodyAnnotatedString(
 
     if (patterns.isEmpty()) {
         return buildAnnotatedString {
-            appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor)
+            appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage)
         }
     }
     return buildAnnotatedString {
@@ -428,12 +472,12 @@ private fun buildPlainBodyAnnotatedString(
                 }
                 .minByOrNull { it.first }
             if (match == null) {
-                appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor)
+                appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
                 break
             }
             val (start, label, url) = match
             if (start > cursor) {
-                appendPlainWithTerms(text.substring(cursor, start), enableTerms, additionalTerms, protected, bodyColor)
+                appendPlainWithTerms(text.substring(cursor, start), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
             }
             val end = start + label.length
             protected.add(start until end)
@@ -453,13 +497,23 @@ private fun AnnotatedString.Builder.appendPlainWithTerms(
     additionalTerms: List<HalachicTerm>,
     protected: List<IntRange>,
     bodyColor: Color,
+    usedOnPage: MutableSet<String>? = null,
 ) {
     if (plain.isEmpty()) return
     if (!enableTerms) {
         append(plain)
         return
     }
-    val matches = HalachicTermsDictionary.findMatches(plain, protected, additionalTerms)
+    var matches = HalachicTermsDictionary.findMatches(plain, protected, additionalTerms)
+    if (usedOnPage != null) {
+        matches = matches.filter { match ->
+            if (match.term.id in usedOnPage) false
+            else {
+                usedOnPage.add(match.term.id)
+                true
+            }
+        }
+    }
     var pos = 0
     for (match in matches) {
         if (match.start > pos) append(plain.substring(pos, match.start))

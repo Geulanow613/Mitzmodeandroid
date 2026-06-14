@@ -44,7 +44,9 @@ Candles are lit before Shabbat begins (before sunset). The amount of time before
 • Most Ashkenazi communities outside Israel: 18 minutes before sunset
 • Jerusalem: 40 minutes before sunset
 • Many other communities: 20–22 minutes, or other local customs
-Always check your local community Shabbat calendar for the exact time in your area.""",
+Always check your local community Shabbat calendar for the exact time in your area.
+
+Note: There is a strict earliest boundary for this mitzvah. You cannot light candles prior to Plag HaMincha (approximately 1.25 halachic hours before sunset). Lighting before this time invalidates the mitzvah and makes the blessing unnecessary.""",
             learnMoreUrl = "https://halachipedia.com/index.php?title=Shabbat_Candles"
         ),
         GuideTopic(
@@ -59,7 +61,8 @@ Key rules:
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
-• On Shabbat morning, if wine is unavailable, beer or whiskey (chamar medinah — a locally significant beverage) may be used. Wine is always preferred. Consult your rabbi for specifics.""",
+• On Shabbat morning, if wine is unavailable, beer or whiskey (chamar medinah — a locally significant beverage) may be used. Wine is always preferred. Consult your rabbi for specifics.
+• Unlike Friday night, bread can never substitute for Kiddush on Shabbat morning — saying Hamotzi without wine or chamar medina means you have skipped daytime Kiddush entirely.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/610626/jewish/Kiddush.htm"
         ),
         GuideTopic(
@@ -160,7 +163,7 @@ How to do it (order is mandatory — SA OC 108:1):
 2. Pause briefly (enough time to walk four cubits).
 3. Second: pray the Amidah again as the tashlumin for the missed prayer.
 
-Penalty for reversing the order: If you accidentally say the makeup first and the current prayer second, the first one is absorbed into the current obligation. You would need to pray a third time to actually have a valid tashlumin (Mishnah Berurah 108:2).
+Penalty for reversing the order: If you accidentally say the makeup first intending it as the makeup, halacha automatically applies that first Amidah to your current obligation instead (Mishnah Berurah 108:2). The second Amidah you pray then immediately counts as your valid makeup. You do not need to pray a third time.
 
 If you missed the window entirely — Tefilat Nedavah:
 If Shacharit was missed, Mincha was also missed, and it is now Maariv — the formal tashlumin is gone forever. However, you may pray a second voluntary Amidah as a gift to G-d (Tefilat Nedavah — prayer of donation), subject to two conditions (SA OC 107:1):
@@ -187,6 +190,11 @@ Additional notes:
             "Cooking & baking",
             "Forbidden",
             "Permitted for the sake of that day's needs"
+        ),
+        ComparisonRow(
+            "Reheating dry food & keeping food warm",
+            "Dry, fully cooked food only — reheat with a shinui (unusual method), e.g. upside-down on blech or inside another vessel. Food on blech from before Shabbat may stay.",
+            "All cooking is permitted for that day's needs — including liquids (soups, coffee, etc.), not only dry food."
         ),
         ComparisonRow(
             "Kindling a flame",
@@ -216,7 +224,7 @@ Additional notes:
         ComparisonRow(
             "Candle lighting",
             "Required before sunset",
-            "Required before Yom Tov — may light from a pre-existing flame (not from scratch)"
+            "Unlike Shabbat, not required before the day begins. Second Diaspora night or Motzei Shabbat: light after nightfall only, from a pre-existing flame — never early. Other nights: may light before sunset from pre-existing flame per custom"
         )
     )
 
@@ -228,7 +236,7 @@ Additional notes:
             "Any action that promotes or sustains plant growth is forbidden: planting seeds, grafting branches, or watering your garden. Because watering actively fosters growth, even indoor houseplants may not be watered on Shabbat, no matter how dry the soil looks.",
             "https://www.chabad.org/library/article_cdo/aid/4739388/jewish/Zoraya-Planting.htm"),
         GuideTopic("choresh", "Choresh — Plowing", "חוֹרֵשׁ",
-            "Loosening, leveling, or improving the earth in any way — plowing, digging, aerating — is forbidden. The prohibition extends beyond gardening: dragging heavy benches or strollers across soft outdoor dirt can carve a furrow and is therefore avoided.",
+            "Loosening, leveling, or improving the earth in any way — plowing, digging, aerating — is forbidden. The prohibition extends to dragging heavy objects: dragging a massive iron or wooden lawn bench across soft dirt can easily carve a deep furrow and must be avoided. Standard baby strollers and wheelchairs, however, are fully permitted to be pushed across dirt or grass, as normal wheel tracking is not considered an act of plowing.",
             "https://www.chabad.org/library/article_cdo/aid/4739406/jewish/Choresh-Plowing.htm"),
         GuideTopic("kotzer", "Kotzer — Reaping", "קוֹצֵר",
             "Picking fruit, plucking a flower, or detaching anything from its source of growth is forbidden. This includes herbs from a kitchen windowsill pot. The Sages further forbade making direct use of a tree on Shabbat — climbing, leaning, or hanging hammocks is out.",
@@ -566,7 +574,9 @@ It is a minor fast — from dawn until nightfall (not a full 25-hour fast like Y
             hebrewTitle = "עֲשָׂרָה בְּטֵבֵת",
             body = """The Fast of 10 Tevet commemorates the day Nebuchadnezzar, king of Babylon, began the siege of Jerusalem — the event that ultimately led to the destruction of the First Temple.
 
-It is a minor fast from dawn until nightfall. It is also observed as a general Kaddish day for Holocaust victims whose date of death is unknown.""",
+It is a minor fast from dawn until nightfall. It is also observed as a general Kaddish day for Holocaust victims whose date of death is unknown.
+
+Note: This is the only fast in the calendar that is never postponed if it falls on a Friday (because the biblical verse requires observing it "on this very day"). When it lands on a Friday, continue fasting directly into Friday night — welcome Shabbat while fasting — and break the fast only after nightfall following the recitation of Friday night Kiddush.""",
             learnMoreUrl = "https://www.chabad.org/holidays/10tevet/default_cdo/jewish/Asarah-BeTevet.htm"
         ),
         GuideTopic(

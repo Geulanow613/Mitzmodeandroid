@@ -310,7 +310,7 @@ object ChecklistZmanEvaluator {
     ): ItemZmanStatus {
         val tzeit = z.tzeitMillis
             ?: return ItemZmanStatus(hint = "Set location in Settings for tzeit hakochavim times.")
-        val end = ZmanPeriodLogic.nightObligationWindowEnd(z)
+        val end = MotzeiShabbatWindow.melaveMalkaEndMillis(z, !prayerDay.isShabbat)
             ?: return ItemZmanStatus(hint = "Set location in Settings for dawn (alot hashachar) times.")
         val start = if (prayerDay.isShabbat) {
             tzeit
@@ -321,9 +321,9 @@ object ChecklistZmanEvaluator {
             now = now,
             start = start,
             end = end,
-            upcoming = "Melave malkah — after Havdalah, from " +
+            upcoming = "Melave Malka — after Havdalah, from " +
                 "${ZmanimFormatter.formatAfter(tzeit, tz) ?: "tzeit hakochavim"} through dawn.",
-            expired = "Tonight's melave malkah window ended at dawn (alot hashachar).",
+            expired = "Tonight's Melave Malka window ended at dawn (alot hashachar).",
             makeup = "If you were too full to eat after Shabbat, you are not required to force yourself.",
             availableAtLabel = "tzeit hakochavim"
         )
@@ -383,7 +383,8 @@ object ChecklistZmanEvaluator {
      * Kiddush Levana — Sanctification of the New Moon.
      *
      * Window opens: Ashkenaz/Chabad from day 3, Sephardi from day 7 (days after the molad).
-     * Window closes: the night of the 15th of the Hebrew month is the latest — day 16+ expired.
+     * Window closes: at the moment of the full moon (~14 days, 18 hours, 22 minutes from the molad).
+     * This evaluator uses Hebrew calendar day as a coarse proxy; check Sof Zman Kiddush Levana for your location.
      *
      * Source: Shulchan Aruch OC 426:3–4; Rama ibid.; Mishnah Berurah 426:20.
      */
@@ -394,51 +395,55 @@ object ChecklistZmanEvaluator {
                 hint = "Set your location so the app knows the Hebrew date and when Kiddush Levana opens this month."
             )
 
-        // Day 16+: window has closed for all opinions
+        // Day 16+: window has likely closed (coarse proxy — full moon may fall earlier on the 15th)
         if (day > 15) {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.EXPIRED,
-                hint = "The Kiddush Levana window has closed for this month. " +
-                    "It will reopen after the new moon, once enough days have passed (see your nusach).",
+                hint = "The Kiddush Levana window has likely closed for this month — it ends at the full moon, not calendar midnight on the 15th. " +
+                    "Check Sof Zman Kiddush Levana for your location. It will reopen after the new moon.",
                 makeupNote = null
             )
         }
 
-        // Day 15: last chance — say it tonight if you haven't yet
+        // Day 15: may already be past Sof Zman — say it tonight only if still within time
         if (day == 15) {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.ACTIVE,
-                hint = "Tonight is the last night to say Kiddush Levana this month. " +
-                    "Say it as soon as possible — the window closes after tonight."
+                hint = "If you have not yet said Kiddush Levana, check Sof Zman for your location — the window ends at the full moon, which often falls during the 15th and may already be past."
             )
         }
 
         // Earliest: 3 days after the molad (Ashkenaz/Chabad); Sephardim wait 7 days (Shulchan Aruch).
         // Hebrew calendar day is a practical proxy (molad is usually near Rosh Chodesh).
         val minDay = when (prayerDay.nusach) {
-            EffectiveNusach.SEFARD -> 7
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
             else -> 3  // Ashkenaz and Chabad
         }
         if (day < minDay) {
-            val waitNote = if (prayerDay.nusach == EffectiveNusach.SEFARD)
-                "Sephardi custom: wait 7 days after the new moon before saying Kiddush Levana."
-            else
-                "Ashkenazi / Chabad custom: wait at least 3 days after the new moon before saying Kiddush Levana."
+            val waitNote = when (prayerDay.nusach) {
+                EffectiveNusach.SEFARD ->
+                    "Sephardi custom: wait until the 7th of the month (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
+                EffectiveNusach.EDOT_HAMIZRACH ->
+                    "Edot HaMizrach: most wait until the 7th (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after 3 days (Peninei Halakha 05-01-18) — follow your kehilla."
+                else ->
+                    "Ashkenazi / Chabad custom: wait at least 3 days after the new moon before saying Kiddush Levana."
+            }
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.UPCOMING,
                 hint = "Not yet time for Kiddush Levana. $waitNote",
-                availableAtLabel = if (prayerDay.nusach == EffectiveNusach.SEFARD) "7 days after the new moon" else "3 days after the new moon"
+                availableAtLabel = when (prayerDay.nusach) {
+                    EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "7 days after the new moon"
+                    else -> "3 days after the new moon"
+                }
             )
         }
 
         // Active window: day minDay..14
         val activeHint = when {
             day == 14 ->
-                "Tonight is the last recommended night for Kiddush Levana this month. " +
-                "Tomorrow night (the 15th) is the absolute last opportunity — don't miss it."
+                "Tonight may be your last practical chance for Kiddush Levana this month — the window ends at the full moon (roughly 14.75 days from the molad), which often falls during the 15th. Check Sof Zman for your location."
             day == 13 ->
-                "Only 2 nights remaining for Kiddush Levana this month (tonight and the 14th). " +
-                "Say it on the first clear night — Motzei Shabbat is nice if the moon is visible, but do not risk missing the window."
+                "Only a few nights may remain before Sof Zman Kiddush Levana — the window ends at the full moon, not simply at the end of the 15th. Say it on the first clear night."
             day == 12 ->
                 "3 nights remaining for Kiddush Levana this month. " +
                 "Say it on the first clear night — Motzei Shabbat is preferred when practical, not if clouds may make you miss the month."

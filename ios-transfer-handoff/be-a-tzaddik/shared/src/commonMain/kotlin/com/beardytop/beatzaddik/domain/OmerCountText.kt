@@ -51,7 +51,8 @@ object OmerCountText {
 
         val nusachWhen = when (profile.effectiveNusach()) {
             EffectiveNusach.CHABAD -> "Many in Chabad count after Maariv (Tehillat Hashem)."
-            EffectiveNusach.SEFARD -> "Many Sefardim count after Maariv."
+            EffectiveNusach.SEFARD -> "Many Sephardim count after Maariv."
+            EffectiveNusach.EDOT_HAMIZRACH -> "Many Edot HaMizrach kehillot count after Maariv."
             EffectiveNusach.ASHKENAZ -> "Many Ashkenazim count after Maariv."
         }
 
@@ -77,7 +78,7 @@ $nextNightLine
 How to count:
 • Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).
 • Say: "${omerCountSpeechPhrase(day)}"
-• Count after nightfall (tzeit); complete before dawn. If you forgot at night, many poskim have you count the next day without a bracha — ask your rav.
+• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
 
 $nusachWhen
         """.trim().replace("\n\n\n", "\n\n"),

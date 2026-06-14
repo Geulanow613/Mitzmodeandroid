@@ -112,7 +112,7 @@ Arba Minim (Four Species):
 Meals & Yom Tov:
 • Plan menus for seven days of festive meals in and out of the sukkah.
 • Wine, grape juice, challah, and Yom Tov groceries — ${if (profile.isInIsrael) "one day of Yom Tov at the start" else "two days of Yom Tov at the start in the Diaspora"}.
-• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh).
+• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.
 
 Joy & family:
 • Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
@@ -157,7 +157,7 @@ Practical steps:
 
 First night rain protocol (if it rains on the first night):
 • Ashkenaz (Rema O.C. 639:5): Wait up to one hour. If rain does not stop, enter the sukkah, make Kiddush, eat a kezayit of bread without leishev basukkah, then finish the rest of the meal indoors.
-• Sephardic (Shulchan Arukh): If rain is heavy enough to spoil the meal, you are exempt from the sukkah entirely — make Kiddush and eat the full meal indoors from the start, without leishev basukkah.
+• Sephardic (Shulchan Arukh): If rain is heavy enough to spoil the meal, you are exempt from eating the full meal in the sukkah — make Kiddush and eat the full meal indoors from the start, without leishev basukkah. Nevertheless, many Sephardic decisors (including Yalkut Yosef) rule that it remains proper and praiseworthy at the very end of the meal to go out to the sukkah and eat a single kezayit of bread without reciting leishev basukkah — honoring the first night's unique obligation in part.
 
 First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah (sit in the sukkah — a blessing said before eating bread in the sukkah). Throughout Sukkot: eat bread and sleep in sukkah when possible (rain and illness have exemptions — ask your rabbi).
     """.trim(),
@@ -191,7 +191,7 @@ If a species is missing or invalid, ask your rabbi — there are limited substit
     private fun arbaMinimMenWave(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD ->
             "Hold lulav in right hand, etrog in left (stem/pitom down). Say Al netilat lulav, then wave three times in each direction: right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east."
-        EffectiveNusach.SEFARD ->
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
             "Hold lulav and etrog together; say bracha, then wave right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east. Hoshanot on Hoshana Raba in many kehillot."
         EffectiveNusach.ASHKENAZ ->
             "Hold lulav in right, etrog in left (pitom down). Say bracha, then wave east, south, west, north, up, down (often two waves per direction)."
@@ -216,14 +216,14 @@ The ownership rule (lakhem — u'lekachtem lakhem):
 
     fun arbaMinimExplanationFemale(profile: UserProfile): String {
         val brachaLine = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD ->
-                "Sephardi women: Following standard Sephardic authorities, most wave without saying the bracha (still a meaningful mitzvah)."
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                "Sephardi / Edot HaMizrach women: Following standard Sephardic authorities, most wave without saying the bracha (still a meaningful mitzvah)."
             EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
                 "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave."
         }
         val waveLine = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD ->
-                "Sephardi women: Not strictly required to wave in all six directions — a simple shake of the lulav is sufficient to fulfill the recommended practice."
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                "Sephardi / Edot HaMizrach women: Not strictly required to wave in all six directions — a simple shake of the lulav is sufficient to fulfill the recommended practice."
             EffectiveNusach.CHABAD ->
                 "Chabad women: Wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
             EffectiveNusach.ASHKENAZ ->
@@ -500,7 +500,7 @@ Chanukah night $day of 8 — lighting the menorah.
 
 When:
 • Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
-• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour extra oil so that they burn for at least one full hour (55–60 minutes minimum from lighting).
+• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least 90 minutes total (roughly 1.5 hours minimum from lighting) to ensure they survive well past dark.
 • On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
 • Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
 
@@ -569,10 +569,10 @@ Children & family: assign zones, check school bags, plan chametz finish-up meals
     }
 
     fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
-        EffectiveNusach.SEFARD -> BeginnerHalachaGlossary.withKeyTerms(
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.selichotBasics(),
             """
-Selichot (סליחות) — penitential prayers — begin in Elul for Sefardim (Peninei Halakha 15-02-05; Shulchan Arukh 581:1).
+Selichot (סליחות) — penitential prayers — begin in Elul for Sefardim and Edot HaMizrach (Shulchan Arukh O.C. 581:1; Peninei Halakha, Laws of the Festivals 15-02-05).
 
 How:
 • Said at night (often after chatzos layla / before dawn) or early morning per community.
@@ -657,16 +657,21 @@ Nine Days Havdalah: When making Havdalah on Motzei Shabbat during the Nine Days,
     private fun nusachMourningLine(profile: UserProfile, period: String): String =
         when (profile.effectiveNusach()) {
             EffectiveNusach.ASHKENAZ -> "Ashkenaz $period: follow your community calendar for music, haircuts, and laundry."
-            EffectiveNusach.SEFARD -> "Sefard $period: timing may start Rosh Chodesh Av — follow your kehilla."
+            EffectiveNusach.SEFARD ->
+                "Sephardi $period: many follow Shulchan Arukh O.C. 493 — restrictions often until the morning of the 34th day of the Omer (Peninei Halakha 05-03-03). Follow your kehilla."
+            EffectiveNusach.EDOT_HAMIZRACH ->
+                "Edot HaMizrach $period: communities differ — some follow Shulchan Arukh until the 34th morning; many who follow the Ari are strict on haircuts until the day before Shavuot (Kaf HaChaim 493:13, cited in Peninei Halakha 05-03-03). Follow your rav."
             EffectiveNusach.CHABAD -> "Chabad $period: follow accepted Chabad psak and your rabbi."
         }
 
     fun kiddushLevanaExplanation(profile: UserProfile): String {
         val waitLine = when (profile.effectiveNusach()) {
             EffectiveNusach.SEFARD ->
-                "Recited once a month when the moon is visible, usually from the 7th night of the Hebrew month until the 15th (Sephardic custom)."
+                "Recited once a month when the moon is visible, usually beginning on the 7th night of the Hebrew month (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
+            EffectiveNusach.EDOT_HAMIZRACH ->
+                "Recited once a month when the moon is visible. The majority of Sefardim wait until the 7th of the month (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days (Peninei Halakha 05-01-18) — follow your community."
             else ->
-                "Recited once a month when the moon is visible, usually from the 3rd night of the Hebrew month until the 15th (Ashkenaz / Chabad custom)."
+                "Recited once a month when the moon is visible, usually beginning on the 3rd night of the Hebrew month (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
         }
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.daveningBasics(),
@@ -674,6 +679,8 @@ Nine Days Havdalah: When making Havdalah on Motzei Shabbat during the Nine Days,
 Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah.
 
 $waitLine
+
+Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. Always check the specific Sof Zman Kiddush Levana for your location.
 
 When:
 • After nightfall (tzeit), standing outdoors under the open sky — not under a roof or porch ceiling.
@@ -684,7 +691,7 @@ How:
 • You must be able to see the moon clearly; if it is completely blocked by clouds, do not begin the blessing — wait for a clear night within the window.
 • Use your siddur; it is praise of G-d for creation's cycles — not worship of the moon.
 
-This app tracks the monthly window for you — say it on the first clear night; do not delay past the ideal early window.
+This app tracks the monthly window for you — say it on the first clear night; do not delay past the ideal early window. Check Sof Zman Kiddush Levana for your location before the month ends.
             """.trim(),
         )
     }

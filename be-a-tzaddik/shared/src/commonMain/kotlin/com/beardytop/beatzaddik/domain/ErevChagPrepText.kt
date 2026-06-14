@@ -67,7 +67,7 @@ object ErevChagPrepText {
                 "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit — approx. $it today). The 49 days of the Omer must be temimot (complete) before Shavuot begins — accepting the holiday before tzeit would cut the count short."
             } ?: "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit). The 49 days of the Omer must be temimot (complete) before Shavuot begins."
             else -> ZmanimFormatter.formatTime(sunset, tz)?.let {
-                "• Candle lighting & Yom Tov begin at sunset today ($it) — you must light Yom Tov candles exclusively from a pre-existing flame (such as a 24-hour or 48-hour candle lit before the holiday); you cannot strike a new match or use a lighter on Yom Tov."
+                "• Candle lighting & Yom Tov begin at sunset today ($it) — before sunset you may strike a new match normally to light Yom Tov candles and to kindle a 24- or 48-hour transfer candle for use after the holiday begins. Once Yom Tov has started, light candles only from a pre-existing flame (not a new match or lighter)."
             } ?: "• Candle lighting & Yom Tov begin at sunset — enable location for your local time."
         }
 
@@ -268,7 +268,7 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.SHAVUOS, tomorrowCal, profile)}
 • Dairy is a cherished Shavuot minhag (cheesecake, blintzes). A festive meat meal with wine fulfills the primary mitzvah of Simchat Yom Tov (O.C. 529:2); many families have dairy first, then a full meat Yom Tov meal.
 • All-night Torah learning (Tikkun Leil Shavuot) is a widespread custom tonight.
-• Staying up all night: If you stay awake all night learning, there are complex rules regarding reciting morning blessings (Birkat HaShachar and Birkat HaTorah) and the blessing over your tzitzit. The universal custom to resolve this is to find a friend who slept in a bed overnight and have them recite the blessings aloud to discharge your obligation, or sleep for a brief period before dawn (ask your rav).
+• Staying up all night: If you remain awake the entire night studying, standard Ashkenazi practice is to hear the morning blessings and Torah blessings from someone who slept, to avoid halachic doubts. However, according to Chabad custom (and several Sephardic authorities), you personally recite the entire sequence of morning and Torah blessings yourself after dawn (alot hashachar), even with zero sleep.
 • Read Megillat Rut in many communities (tomorrow).
 • Full Yom Tov davening with Full Hallel and Musaf; Akdamut/Megillat Rut per minhag.
 

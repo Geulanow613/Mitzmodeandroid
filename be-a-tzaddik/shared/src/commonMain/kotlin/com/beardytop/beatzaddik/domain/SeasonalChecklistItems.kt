@@ -141,9 +141,15 @@ Follow your community's start and end dates for these practices.""",
             explanationAshkenaz = """Ashkenaz custom: mourning from after Pesach until Lag BaOmer (33rd day of the Omer, 18 Iyar) or until the morning of Lag BaOmer (per your shul). Some continue haircuts/music restrictions until Shavuot or the Three Weeks.
 
 No weddings, no live music, and no haircuts during your community's Sefirah period. Lag BaOmer is a break for many Ashkenazim; ask your rabbi about music and haircuts after that date.""",
-            explanationSefard = """Sephardic communities follow two main traditions: mourning from Pesach until the morning of the 34th day of the Omer (Lamed-Dalet Omer), per Shulchan Arukh O.C. 493:2; or from Rosh Chodesh Iyar through Shavuot, per the Arizal. Music, weddings, and haircuts follow your kehilla's psak.
+            explanationSefard = """Sephardi custom (Shulchan Arukh O.C. 493:1-2; Peninei Halakha 05-03-03): mourning from Pesach until the morning of the 34th day of the Omer (Lamed-Dalet). Music on Lag BaOmer in honor of R. Shimon bar Yochai is permitted, but weddings and haircuts remain restricted until the 34th morning per prevalent Sephardi psak (Rav Ovadia Yosef, Yechaveh Daat 3:31). Some communities (e.g. Turkey, Egypt) end mourning on Lag BaOmer — follow your kehilla.
 
 Ask your rav which tradition you follow and when restrictions begin and end.""",
+            explanationEdotHamizrach = """Edot HaMizrach communities follow different Omer traditions (Peninei Halakha 05-03-03):
+• Many follow Shulchan Arukh O.C. 493:1-2 — mourning until the morning of the 34th day of the Omer.
+• Many who follow the Ari act strictly and refrain from haircuts until the day before Shavuot (Kaf HaChaim 493:13, cited in Peninei Halakha 05-03-03).
+• Some North African kehillot end mourning on Lag BaOmer.
+
+Music, weddings, and haircuts follow your kehilla's psak — ask your rav.""",
             explanationChabad = """Chabad (Alter Rebbe / Arizal): haircut and shaving restrictions continue the entire 49 days through Erev Shavuot — adults do not take haircuts on Lag BaOmer (the sole exception is upsherin for a 3-year-old boy). Lag BaOmer is a day of intense joy with music, bonfires, and celebration, but haircut restrictions remain until Shavuot.
 
 Music is generally avoided through Shavuot per Chabad practice, with Lag BaOmer as a day without music restrictions. Weddings follow your Chabad rabbi's guidance.
@@ -189,13 +195,16 @@ How to fulfill:
 Blessings before reading:
 • Al mikra megillah
 • She'asa nissim
-• Shehecheyanu on the first evening (and on the first daytime reading of the year, per custom)
 
 Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
 
 Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.""",
             ),
+            explanationAshkenaz = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
+            explanationSefard = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+            explanationEdotHamizrach = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+            explanationChabad = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
             links = purimMegillahLinks(profile)
         ),
         ChecklistItemDef(
@@ -590,16 +599,25 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         val day = cal.hebrewDay ?: return null
         if (month != HebrewCalendarEngine.ELUL) return null
         return when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD -> {
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> {
                 if (day == 1) return null
+                val title = if (profile.effectiveNusach() == EffectiveNusach.EDOT_HAMIZRACH) {
+                    "Say Selichot (Edot HaMizrach — from Elul)"
+                } else {
+                    "Say Selichot (Sephardi — from Elul)"
+                }
                 ChecklistItemDef(
-                id = "selichot_elul_sefard",
-                title = "Say Selichot (Sefard custom)",
+                id = if (profile.effectiveNusach() == EffectiveNusach.EDOT_HAMIZRACH) {
+                    "selichot_elul_edot_hamizrach"
+                } else {
+                    "selichot_elul_sefard"
+                },
+                title = title,
                 section = "Seasonal",
                 timeOfDay = TimeOfDay.NIGHT,
                 required = false,
                 situational = false,
-                explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.SEFARD),
+                explanation = SeasonalMitzvahText.selichotExplanation(profile.effectiveNusach()),
                 links = selichotLinks(profile)
                 )
             }
@@ -683,7 +701,7 @@ Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — many Ashkenazim omit Tachanun throughout Nisan per Shulchan Arukh O.C. 429:2 anyway; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -876,6 +894,10 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             situational = false,
             seasons = listOf("purim_meshulash_friday"),
             explanation = PurimMeshulashText.fridayMegillahExplanation(),
+            explanationAshkenaz = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
+            explanationSefard = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+            explanationEdotHamizrach = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+            explanationChabad = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
             links = purimMegillahLinks(profile)
         ),
         ChecklistItemDef(
@@ -968,7 +990,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         val day = cal.hebrewDay ?: return false
         if (day > 15) return false
         val minDay = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD -> 7
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
             else -> 3
         }
         return day >= minDay

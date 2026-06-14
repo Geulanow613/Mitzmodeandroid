@@ -25,7 +25,7 @@ object BeginnerHalachaGlossary {
     const val CHAG =
         "Chag — festival (same idea as Yom Tov in everyday speech)"
     const val TZEIT =
-        "Tzeit — halachic nightfall (when three medium stars appear). Required start time for night mitzvot like bedikat chametz, Chanukah candles, Megillah, and counting the Omer — not for Shabbat or Yom Tov candles, which must be lit before sunset"
+        "Tzeit — halachic nightfall (when three medium stars appear). Required start time for night mitzvot like bedikat chametz, Chanukah candles, Megillah, and counting the Omer. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame"
     const val RAV =
         "Rav — Hebrew title for a senior Torah scholar who rules on halacha (your community's decisor)"
     const val RABBI =

@@ -68,6 +68,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.ui.components.GUIDE_TERM_TAG
+import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsUsedOnPage
 import com.beardytop.beatzaddik.ui.components.LocalOpenShabbatGuide
 import com.beardytop.beatzaddik.ui.components.drawHalachicTermUnderlines
 import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
@@ -105,7 +106,6 @@ fun TodayScreen(
     holyFlash: HolyFlashController,
     onOpenTimer: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
-    onOpenShabbatGuide: (anchor: String?) -> Unit = {}
 ) {
     val day by viewModel.dayChecklists.collectAsState()
     val profile by viewModel.profile.collectAsState()
@@ -143,7 +143,13 @@ fun TodayScreen(
         }
     }
 
-    CompositionLocalProvider(LocalOpenShabbatGuide provides onOpenShabbatGuide) {
+    val openShabbatGuide = LocalOpenShabbatGuide.current ?: {}
+    val pageKey = remember(day?.header?.civilDateLabel, day?.items?.size) {
+        "${day?.header?.civilDateLabel.orEmpty()}|${day?.items?.size ?: 0}"
+    }
+    val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
+
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -158,10 +164,10 @@ fun TodayScreen(
                 locationLabel = profile.locationLabel,
                 onNusachClick = onOpenSettings,
                 onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
-                onOpenShabbatGuide = onOpenShabbatGuide,
+                onOpenShabbatGuide = openShabbatGuide,
             )
             if (upcoming.isNotEmpty()) {
-                UpcomingHolidaysBlock(upcoming, onOpenShabbatGuide)
+                UpcomingHolidaysBlock(upcoming, openShabbatGuide)
             }
             kashrut?.let { wait ->
                 val isDone = nowMillis >= wait.endsAtEpochMillis

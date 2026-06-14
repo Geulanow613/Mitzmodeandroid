@@ -248,7 +248,7 @@ Havdalah inside Kiddush (Yaknehaz):
 • Use the Machzor or siddur nusach for Rosh Hashana — do not rely on memory for the long havdalah text.
 
 Before or at Maariv:
-• Chabad.org: you may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidav of Maariv — follow your community.
+• Chabad.org: you may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidah of Maariv — follow your community.
 
 $prepLead:
 • Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag, per Rosh Hashana guides).

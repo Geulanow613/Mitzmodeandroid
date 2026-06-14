@@ -3,16 +3,28 @@ package com.beardytop.beatzaddik.domain
 import kotlinx.datetime.DayOfWeek
 
 /**
- * Melave malkah and similar Motzei Shabbat mitzvot: from tzeit hakochavim Saturday
+ * Melave Malka and similar Motzei Shabbat mitzvot: from tzeit hakochavim Saturday
  * until alot hashachar Sunday. Excludes Motzei Shabbat into Yom Tov.
  */
 object MotzeiShabbatWindow {
+
+    /**
+     * Dawn that ends Melave Malka (Sunday alot after Motzei Shabbat).
+     * On a Sunday [ZmanimSnapshot], [ZmanPeriodLogic.nightObligationWindowEnd] is Monday dawn —
+     * use today's alot hashachar for this mitzvah instead.
+     */
+    fun melaveMalkaEndMillis(z: ZmanimSnapshot, isSundayCivilDay: Boolean): Long? =
+        if (isSundayCivilDay) {
+            z.alotHaShacharMillis ?: z.sunriseMillis
+        } else {
+            ZmanPeriodLogic.nightObligationWindowEnd(z)
+        }
 
     fun isActive(cal: DayInfo, tomorrowCal: DayInfo, nowMillis: Long): Boolean {
         val z = cal.zmanim ?: return false
         if (!z.hasLocationTimes) return false
         val tzeit = z.tzeitMillis ?: return false
-        val dawn = ZmanPeriodLogic.nightObligationWindowEnd(z) ?: return false
+        val dawn = melaveMalkaEndMillis(z, cal.date.dayOfWeek == DayOfWeek.SUNDAY) ?: return false
 
         if (cal.isShabbat && !cal.isErevShabbat) {
             if (nowMillis < tzeit) return false
@@ -40,6 +52,8 @@ object MotzeiShabbatWindow {
         }
     }
 
-    fun endMillis(cal: DayInfo): Long? =
-        cal.zmanim?.let { ZmanPeriodLogic.nightObligationWindowEnd(it) }
+    fun endMillis(cal: DayInfo): Long? {
+        val z = cal.zmanim ?: return null
+        return melaveMalkaEndMillis(z, cal.date.dayOfWeek == DayOfWeek.SUNDAY)
+    }
 }

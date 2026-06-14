@@ -10,7 +10,9 @@
       "required": true,
       "situational": false,
       "gender": "male",
-      "nusach": ["chabad"],
+      "nusach": [
+        "chabad"
+      ],
       "nusachOnly": true,
       "nusachTag": "Nusach Ari",
       "explanation": "Chabad custom: daily Chumash, Tehillim, and Tanya (Chitas), plus Hayom Yom. Many complete it after morning prayers, but you may learn today's portion anytime before the next Hebrew day — including at night if you did not finish earlier.",
@@ -33,7 +35,9 @@
       "timeOfDay": "day",
       "required": true,
       "situational": false,
-      "nusach": ["ashkenaz"],
+      "nusach": [
+        "ashkenaz"
+      ],
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Ashkenaz siddurim include Korbanot (Temple offerings) before Pesukei Dezimra. Many say at least Parshat HaTamid; follow your siddur and rabbi.",
@@ -56,7 +60,9 @@
       "timeOfDay": "day",
       "required": true,
       "situational": false,
-      "nusach": ["chabad"],
+      "nusach": [
+        "chabad"
+      ],
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Tehillat Hashem includes Korbanot and other passages before Pesukei Dezimra. Follow the order in your Chabad siddur.",
@@ -73,16 +79,19 @@
     },
     {
       "id": "sefard_birkat_kohanim",
-      "title": "Birkat Kohanim in Shacharit (Sefard / Mizrahi)",
+      "title": "Birkat Kohanim in Shacharit (Sephardi / Edot HaMizrach)",
       "section": "Morning Prayer (Shacharit)",
       "sortOrder": 45,
       "timeOfDay": "day",
       "required": true,
       "situational": false,
-      "nusach": ["sefard"],
+      "nusach": [
+        "sefard",
+        "edot_hamizrach"
+      ],
       "nusachOnly": true,
       "gender": "male",
-      "explanation": "Many Sefardi and Mizrahi communities recite Birkat Kohanim daily during Shacharit (outside Israel, customs vary — follow your kehilla).",
+      "explanation": "Sephardi and Edot HaMizrach communities in the Diaspora commonly recite Birkat Kohanim daily during Shacharit (customs vary — follow your kehilla and Shulchan Aruch O.C. 128).",
       "links": [
         {
           "displayText": "Birkat Kohanim (Bamidbar 6)",
@@ -102,7 +111,9 @@
       "timeOfDay": "day",
       "required": true,
       "situational": false,
-      "nusach": ["ashkenaz"],
+      "nusach": [
+        "ashkenaz"
+      ],
       "nusachOnly": true,
       "gender": "male",
       "hideOnShabbat": true,

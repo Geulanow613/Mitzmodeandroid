@@ -349,14 +349,20 @@ private fun PrayerTraditionStep(
             onClick = { onNusach(NusachSelection.ASHKENAZ) }
         )
         NusachOption(
-            label = "Sefard / Sephardi / Mizrachi",
-            description = "Common among Jews from Middle Eastern, North African, and related communities. Also used by many Chassidic communities (Nusach Sefard).",
+            label = "Sephardi",
+            description = "Prayer tradition of Iberian and Mediterranean diaspora communities (Nusach Sefard / Bet Yosef). Halachic guidance in this app follows Shulchan Aruch and poskim such as Rav Ovadia Yosef where noted.",
             selected = nusach == NusachSelection.SEFARD,
             onClick = { onNusach(NusachSelection.SEFARD) }
         )
         NusachOption(
+            label = "Edot HaMizrach",
+            description = "Prayer tradition of Middle Eastern and North African kehillot (Iraqi, Syrian, Moroccan, Persian, Yemenite, and related communities), usually Nusach Edot HaMizrach. Customs vary by community — follow your kehilla and rav.",
+            selected = nusach == NusachSelection.EDOT_HAMIZRACH,
+            onClick = { onNusach(NusachSelection.EDOT_HAMIZRACH) }
+        )
+        NusachOption(
             label = "Chabad — Nusach Ari",
-            description = "Used by Chabad-Lubavitch. Siddur: Tehillat Hashem.",
+            description = "Used by Chabad-Lubavitch. Siddur: Tehillat Hashem. Not the same as Sephardi or Edot HaMizrach.",
             selected = nusach == NusachSelection.CHABAD,
             onClick = { onNusach(NusachSelection.CHABAD) }
         )

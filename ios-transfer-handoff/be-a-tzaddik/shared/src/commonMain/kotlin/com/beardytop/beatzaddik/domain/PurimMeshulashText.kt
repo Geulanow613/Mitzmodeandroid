@@ -82,7 +82,8 @@ When this year:
 How (same laws as regular Purim):
 • Hear every word from a kosher megillah scroll; men and women are equally obligated.
 • Stand for the blessings; customs at Haman's name vary by shul.
-• Blessings: al mikra megillah, she'asa nissim; Shehecheyanu on the first evening reading per custom.
+
+${PurimBrachotText.MEGILLAH_BLESSINGS_COMMON}
 
 Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach manot and the seudah are Sunday — prepare packages before Shabbat if you have not already.
         """.trim(),

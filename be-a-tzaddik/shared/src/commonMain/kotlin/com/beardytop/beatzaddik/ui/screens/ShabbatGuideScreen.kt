@@ -47,6 +47,7 @@ import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.HalachicGuideTerms
 import com.beardytop.beatzaddik.ui.components.LocalHalachicTermExtras
+import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsUsedOnPage
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import androidx.compose.runtime.CompositionLocalProvider
 
@@ -97,7 +98,11 @@ fun ShabbatGuideScreen(
 
     PlatformBackHandler(onBack = ::goBack)
 
-    CompositionLocalProvider(LocalHalachicTermExtras provides HalachicGuideTerms.terms) {
+    val usedTermsOnPage = remember(current) { mutableSetOf<String>() }
+    CompositionLocalProvider(
+        LocalHalachicTermExtras provides HalachicGuideTerms.terms,
+        LocalHalachicTermsUsedOnPage provides usedTermsOnPage,
+    ) {
     Box(
         modifier = Modifier
             .fillMaxSize()

@@ -127,13 +127,7 @@ class ChecklistEngine(
                 statusChips = cal.statusChips,
                 timeLabel = cal.activePeriodLabel
             ),
-            nusachLabel = profile.effectiveNusach().let {
-                when (it) {
-                    EffectiveNusach.ASHKENAZ -> "Ashkenaz"
-                    EffectiveNusach.SEFARD -> "Sefard"
-                    EffectiveNusach.CHABAD -> "Nusach Ari / Chabad"
-                }
-            },
+            nusachLabel = profile.effectiveNusach().displayLabel(),
             holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
         )
     }
@@ -208,13 +202,8 @@ class ChecklistEngine(
 
     private fun matchesNusach(item: ChecklistItemDef, profile: UserProfile): Boolean {
         val allowed = item.nusach ?: return true
-        val eff = profile.effectiveNusach().name.lowercase()
-        return allowed.any { tag ->
-            tag.equals(eff, ignoreCase = true) ||
-                (tag == "chabad" && eff == "chabad") ||
-                (tag == "ashkenaz" && eff == "ashkenaz") ||
-                (tag == "sefard" && eff == "sefard")
-        }
+        val eff = profile.effectiveNusach().jsonTag()
+        return allowed.any { tag -> tag.equals(eff, ignoreCase = true) }
     }
 
     private fun matchesSeason(item: ChecklistItemDef, cal: DayInfo): Boolean {

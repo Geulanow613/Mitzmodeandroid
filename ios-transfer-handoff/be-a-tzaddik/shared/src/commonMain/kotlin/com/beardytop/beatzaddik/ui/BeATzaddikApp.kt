@@ -63,7 +63,6 @@ import com.beardytop.beatzaddik.ui.components.rememberHolyFlashController
 import com.beardytop.beatzaddik.ui.screens.AboutScreen
 import com.beardytop.beatzaddik.ui.screens.OnboardingScreen
 import com.beardytop.beatzaddik.ui.screens.SettingsScreen
-import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.screens.ShabbatRestScreen
 import com.beardytop.beatzaddik.ui.screens.SplashScreen
 import com.beardytop.beatzaddik.ui.screens.TimerScreen
@@ -264,8 +263,6 @@ private fun MainShell(
     var scrollSettingsToKashrut by remember { mutableStateOf(false) }
     val holyFlash = rememberHolyFlashController()
     val candlelightReward = rememberCandlelightRewardController()
-    var shabbatGuideAnchor by remember { mutableStateOf<String?>(null) }
-    var showShabbatGuide by remember { mutableStateOf(false) }
     var showExitConfirm by remember { mutableStateOf(false) }
     var showReturnToMainConfirm by remember { mutableStateOf(false) }
 
@@ -279,16 +276,11 @@ private fun MainShell(
         viewModel.candlelightReward.collect { candlelightReward.trigger() }
     }
 
-    fun openShabbatGuide(anchor: String? = null) {
-        shabbatGuideAnchor = anchor
-        showShabbatGuide = true
-    }
-
     // Registered first; inner screens (guide, dialogs) register later and take priority.
     PlatformBackHandler(enabled = !showExitConfirm) {
-        if (!showShabbatGuide && tab != 0) {
+        if (tab != 0) {
             tab = 0
-        } else if (!showShabbatGuide) {
+        } else {
             showExitConfirm = true
         }
     }
@@ -353,7 +345,6 @@ private fun MainShell(
         holyFlash = holyFlash,
         candlelightReward = candlelightReward,
         bottomBar = {
-            if (!showShabbatGuide) {
                 MitzModeBottomNav(
                     selectedTab = tab,
                     onTabSelected = { selected ->
@@ -379,7 +370,6 @@ private fun MainShell(
                         add("About" to { Icon(Icons.Default.Info, null) })
                     }
                 )
-            }
         }
     ) { padding ->
         Box(Modifier.padding(padding).fillMaxSize()) {
@@ -388,7 +378,6 @@ private fun MainShell(
                     viewModel, holyFlash,
                     onOpenTimer = { tab = 1 },
                     onOpenSettings = { tab = settingsTabIndex },
-                    onOpenShabbatGuide = ::openShabbatGuide
                 )
                 1 -> TimerScreen(
                     viewModel = viewModel,
@@ -403,14 +392,6 @@ private fun MainShell(
                     onScrollTargetConsumed = { scrollSettingsToKashrut = false }
                 )
                 aboutTabIndex -> AboutScreen(appTitle = appTitle)
-            }
-
-            // Shabbat Guide overlay — slides over everything including the bottom bar
-            if (showShabbatGuide) {
-                ShabbatGuideScreen(
-                    initialAnchor = shabbatGuideAnchor,
-                    onDismiss = { showShabbatGuide = false }
-                )
             }
         }
     }
