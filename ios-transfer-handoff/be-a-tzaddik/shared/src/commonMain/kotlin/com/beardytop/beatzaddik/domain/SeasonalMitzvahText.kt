@@ -89,7 +89,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• Finish cooking prep before nightfall (tzeit) on Erev Shavuot — not at sunset; set blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
+• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
         """.trim(),
     )

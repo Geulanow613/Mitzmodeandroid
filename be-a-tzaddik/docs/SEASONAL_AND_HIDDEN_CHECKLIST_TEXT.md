@@ -442,7 +442,8 @@ Each erev item opens with one of these intros (then holiday-specific text, then 
 Before chag — every erev Yom Tov:
 • Candle lighting & Yom Tov begin at sunset today ([your local sunset time when available]) — you must light Yom Tov candles exclusively from a pre-existing flame (such as a 24-hour or 48-hour candle lit before the holiday); you cannot strike a new match or use a lighter on Yom Tov.
 • **Exception — Erev Shavuot only:** Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit). The 49 days of the Omer must be temimot (complete) before Shavuot begins.
-• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals. *(On Erev Shavuot: finish before tzeit, not sunset.)*
+• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals.
+• **On Erev Shavuot only:** Daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed.
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
 • Confirm shul times for tonight and tomorrow (Maariv / Shacharit / Musaf). *(Kol Nidre appears only on Erev Yom Kippur — not on other festivals.)*
 
@@ -503,7 +504,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
 Pesach begins tonight. Torah-level Yom Tov — no melacha.
 
 Chametz:
-• All chametz must be gone before sunset (sold, burned, or removed). Use today's Erev Pesach checklist items for bedikat chametz, biur, and mechirat chametz if still on your list.
+• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (midday threshold) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Use today's Erev Pesach checklist items for bedikat chametz, biur, and mechirat chametz if still on your list.
 
 Seder (first night):
 • **Israel:** one seder tonight.
@@ -664,7 +665,6 @@ Why (Peninei Halakha 12:8; Chabad.org — Eruv Tavshilin):
 When: (one of these, depending on the year)
 • Today (Friday) before Yom Tov candle lighting — [holiday] begins tonight and Shabbat is tomorrow (Chabad.org).
 • Today, before the first day of [holiday] tomorrow — in the Diaspora the next two days are Yom Tov, then Shabbat (Chabad.org: set eruv on the day before the festival begins).
-• Today (Friday) before Shabbat and Yom Tov candle lighting — Pesach begins tonight; tomorrow is Shabbat and the first day of Yom Tov. Make eruv before candles so you may cook on that Yom Tov for Shabbat meals.
 • Before Yom Tov begins — follow Chabad.org and your Machzor for the exact time.
 
 How (Chabad.org; Peninei Halakha 12:8:2):
@@ -834,7 +834,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• Finish cooking prep before nightfall (tzeit) on Erev Shavuot — not at sunset; set blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
+• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
 
 ### Prepare for the festival — Sukkot

@@ -27,7 +27,11 @@ NUSACH_EXPLANATIONS = {
             "Tachanun at Mincha (Ashkenaz): Often after Mincha on weekdays. Omitted on festive days."
         ),
         "explanationSefard": (
-            "Tachanun at Mincha (Sefard / Mizrahi): Often not said at Mincha — follow your community."
+            "Tachanun at Mincha (Edot HaMizrach): Recited completely normally on weekdays, including the Vidui "
+            "(Ashamnu confession) and the Thirteen Attributes of Mercy. However, following the Arizal "
+            "(per Kaf HaChaim and Yalkut Yosef), you do not perform nefilat apayim (leaning your head on your arm) "
+            "at Mincha — recite the entire prayer sitting completely upright, including Psalm 25 (LeDavid Alecha). "
+            "Omitted on Rosh Chodesh, holidays, and standard festive days."
         ),
         "explanationChabad": (
             "Tachanun at Mincha (Chabad): Often shorter Tachanun after Mincha on weekdays; omitted on festive days."

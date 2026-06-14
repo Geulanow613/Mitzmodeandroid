@@ -169,7 +169,7 @@ If Shacharit was missed, Mincha was also missed, and it is now Maariv — the fo
 
 Additional notes:
 • Tashlumin applies only when the prayer was missed unintentionally (forgetfulness or unavoidable circumstances). Deliberate skipping has no makeup.
-• On days with Musaf (Shabbat, Rosh Chodesh, Yom Tov), the tashlumin for missed Shacharit is said after Musaf.
+• If you missed Shacharit on Shabbat, Rosh Chodesh, or Yom Tov, make it up at Mincha — not at Musaf. Musaf is a separate holiday Amidah, not a standard daily boundary prayer. Pray Mincha first, pause, then a second Amidah as tashlumin (SA O.C. 108:9).
 • When in doubt about any situation, ask your rabbi.""",
             learnMoreUrl = "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.108"
         )
@@ -234,7 +234,7 @@ Additional notes:
             "Picking fruit, plucking a flower, or detaching anything from its source of growth is forbidden. This includes herbs from a kitchen windowsill pot. The Sages further forbade making direct use of a tree on Shabbat — climbing, leaning, or hanging hammocks is out.",
             "https://www.chabad.org/library/article_cdo/aid/4740235/jewish/Kotzeir-Reaping.htm"),
         GuideTopic("meameir", "Me'ameir — Gathering", "מְעַמֵּר",
-            "Taking scattered items that grew from the ground and collecting them into a single pile or unit. If apples fall from your tree, you may not gather them into a basket. However, if they have already been gathered once and spill on your kitchen floor, picking them up is permitted — the melacha of gathering is considered complete.",
+            "Taking scattered items that grew from the ground and collecting them into a single pile or unit. If apples fall from your tree, you may not gather them into a basket. However, the prohibition of gathering applies strictly to the place where the items naturally grow (like a field or orchard). Gathering items that spill on a kitchen floor does not violate Me'ameir under any circumstances.",
             "https://www.chabad.org/library/article_cdo/aid/4740248/jewish/Meamer-Gathering.htm"),
         GuideTopic("dosh", "Dosh — Threshing", "דָּשׁ",
             "Separating a food product from its outer shell or casing. This applies today primarily to squeezing: squeezing grapes or olives for juice is a direct Torah-level violation. The Sages extended this to other fruits — freshly squeezing oranges or grapefruits is forbidden.",
@@ -339,7 +339,7 @@ Additional notes:
             "Any final action that takes an incomplete or broken object and renders it fully functional. Snipping a loose thread from a freshly tailored shirt, snapping a detached zipper back onto its track, or removing a protruding nail to make a surface safe — all are finishing acts of creation. Leave all repairs and assembly until after Havdalah.",
             "https://www.chabad.org/library/article_cdo/aid/5358316/jewish/Makeh-Bepatish-Completing.htm"),
         GuideTopic("hotza_ah", "Hotza'ah — Carrying", "הוֹצָאָה",
-            "Moving an object from a private domain to a public domain, or vice versa, or carrying an object four cubits (~6 feet) within a public domain. Most modern streets are rabbinically classified as a semi-public area (karmelit), where carrying is still restricted. Communities establish an eruv — a symbolic enclosure — to permit carrying within a shared area. Without an eruv, house keys may be worn as functional jewelry to avoid the prohibition.",
+            "Moving an object from a private domain to a public domain, or vice versa, or carrying an object four cubits (~6 feet) within a public domain. Most modern streets are rabbinically classified as a semi-public area (karmelit), where carrying is still restricted. Communities establish an eruv — a symbolic enclosure — to permit carrying within a shared area. Without an eruv, a house key can only be worn outdoors if it is structurally integrated by a specialist into a functional piece of clothing or jewelry (such as a belt clasp or decorative pin). Simply hanging a loose key on a string around your neck is a direct violation of carrying.",
             "https://www.chabad.org/library/article_cdo/aid/6897566/jewish/Hotzaah-Transferring.htm")
     )
 
@@ -511,7 +511,7 @@ In Kabbalistic tradition (particularly from the 16th-century Safed mystics), Tu 
 
 Today, Pesach Sheni is a minor holiday. It is not observed with full Yom Tov restrictions. The main custom is to eat matzah on this day. Tachanun (the penitential prayer) is not recited.
 
-The Baal Shem Tov taught that Pesach Sheni represents the idea that "it's never too late" — that there is always an opportunity for a second chance.""",
+A classic Chabad teaching — attributed to the Lubavitcher Rebbeim (Rabbi Yosef Yitzchak Schneersohn, citing his father the Rebbe Rashab) — holds that Pesach Sheni means "ein davar avud": nothing is lost; it is always possible to correct and return.""",
             learnMoreUrl = "https://www.chabad.org/holidays/PesachSheni/default_cdo/jewish/Pesach-Sheni.htm"
         ),
         GuideTopic(

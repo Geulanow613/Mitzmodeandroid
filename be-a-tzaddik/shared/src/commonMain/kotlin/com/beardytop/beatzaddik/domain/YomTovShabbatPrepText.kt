@@ -65,7 +65,6 @@ object YomTovShabbatPrepText {
     fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile): Boolean =
         isErevChagYomTovStartsBeforeShabbat(cal) ||
             isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ||
-            ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal) ||
             isYomTovFridayLeadsIntoShabbat(cal)
 
     fun scheduleBlock(
@@ -330,8 +329,6 @@ Shofar & davening: eruv does not change shofar rules — shofar is blown on Yom 
     }
 
     private fun eruvWhenLine(cal: DayInfo, profile: UserProfile, chagName: String): String = when {
-        ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal) ->
-            "When: Today (Friday) before Shabbat and Yom Tov candle lighting — Pesach begins tonight; tomorrow is Shabbat and the first day of Yom Tov. Make eruv before candles so you may cook on that Yom Tov for Shabbat meals (Peninei Halakha 12:8; Chabad.org)."
         isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ->
             "When: Today, before the first day of $chagName tomorrow — in the Diaspora the next two days are Yom Tov, then Shabbat (Chabad.org: set eruv on the day before the festival begins)."
         isErevChagYomTovStartsBeforeShabbat(cal) ->

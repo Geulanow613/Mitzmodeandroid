@@ -72,7 +72,7 @@ object ErevChagPrepText {
         }
 
         val cookingLine = if (isShavuos) {
-            "• Finish cooking and reheating food before nightfall (tzeit) on Erev Shavuot — not at sunset; set up a blech or hot plate if needed for Yom Tov meals."
+            "• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed."
         } else {
             "• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals."
         }
@@ -218,7 +218,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
                     """$pesachBegins
 
 Chametz:
-• All chametz must be gone before Shabbat or Yom Tov begins (sold, burned, or removed). Use today's Erev Pesach checklist items for bedikat chametz, biur, and mechirat chametz if still on your list.
+• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (midday threshold) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Use today's Erev Pesach checklist items for bedikat chametz, biur, and mechirat chametz if still on your list.
 
 Seder (first night):
 • $sederWhen

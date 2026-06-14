@@ -150,7 +150,7 @@ object HalachicTermsDictionary {
         line("Shalom bayit — peace in the home; a central Jewish value"),
         line("tzedakah box — charity box; collecting coins for those in need is itself a mitzvah"),
         line("Parshat — weekly Torah portion read in synagogue", "parsha"),
-        line("Birkat Kohanim — priestly blessing; Sephardim daily worldwide; Diaspora Ashkenazim on festivals"),
+        line("Birkat Kohanim — Priestly blessing; recited daily by everyone in Israel and by Sephardim worldwide; recited strictly on festivals by Ashkenazim in the Diaspora"),
         line("Birkat HaMazon — Grace After Meals after eating bread"),
         line("Shmoneh Esrei — the nineteen blessings of the standing Amidah prayer"),
         line("Krias Shema — recitation of the Shema and its blessings"),
@@ -277,7 +277,7 @@ object HalachicTermsDictionary {
             "Minyan",
         ),
         line(
-            "Amen — Amen seals a bracha someone else recited, affirming \"so may it be.\" The Talmud praises one who answers Amen even more than the one who made the blessing, when answered with focus. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. Literally it's a acronym for G-d, King who is faithful)",
+            "Amen — Amen seals a bracha someone else recited, affirming \"so may it be.\" The Talmud praises one who answers Amen even more than the one who made the blessing, when answered with focus. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. (Literally, it's an acronym for 'G-d, King Who is faithful' — Kel Melech Ne'eman).",
         ),
         line(
             "Chazal — Chazal (חז\"ל) is an acronym for \"our Sages of blessed memory\" — the rabbis of the Mishnah, Talmud, and midrash who transmitted halacha and values. When a source says \"Chazal teach,\" it refers to this collective tradition rather than a single author.",
@@ -767,7 +767,7 @@ object HalachicTermsDictionary {
             "hamotzi",
         ),
         line(
-            "tevilat keilim — Tevilat keilim immerses new food utensils bought from a non-Jew in a mikveh — recalling the vessels Israel immersed after the Midian war. Metal and glass usually require a bracha; glazed ceramic often requires immersion without a bracha. A Jew's manufacture may exempt. Labels \"tovel before use\" remind you — immersion is quick at a keilim mikveh or community event.",
+            "tevilat keilim — Tevilat keilim immerses new food utensils manufactured by a non-Jew in a mikveh — recalling the vessels Israel immersed after the Midian war. The obligation follows the manufacturer, not the retailer. Metal and glass usually require a bracha; glazed ceramic often requires immersion without a bracha. Items manufactured by a Jew are generally exempt. Labels \"tovel before use\" remind you — immersion is quick at a keilim mikveh or community event.",
             "Tevilat keilim",
             "tevilat keilim",
         ),
@@ -846,7 +846,7 @@ object HalachicTermsDictionary {
             "Revi'it",
         ),
         line(
-            "kezayit — A kezayit is the olive-sized portion in Jewish law used to measure how much food you must consume for mitzvot — eating matzah at the Seder, maror, bentching after bread, and after-blessings. Because ancient volumes are difficult to calculate precisely, rabbis have established modern equivalents. Halachically, a kezayit is tied to the size of an egg — usually calculated as either half or one-third of an egg's volume depending on the authority. Many major organizations (such as Star-K) equate a kezayit to about 1.2 to 1.3 fluid ounces (approx. 35–40 ml), which visually translates to the size of a golf ball or a roll of quarters. By weight, this generally ranges between 25 and 33 grams — the stringent opinion of the Chazon Ish is approx. 33 g; the more lenient opinion of Rabbi Chayim Na'eh is approx. 27 g. The exact size depends on which authority you follow; ask your rav or use a community chart for the specific food or mitzvah you are measuring. Eating less than a kezayit may mean the mitzvah was not fulfilled.",
+            "kezayit — A kezayit is the olive-sized portion in Jewish law used to measure how much food you must consume for mitzvot — eating matzah at the Seder, maror, bentching after bread, and after-blessings. Because ancient volumes are difficult to calculate precisely, rabbis have established modern equivalents. Halachically, a kezayit is tied to the size of an egg — usually calculated as either half or one-third of an egg's volume depending on the authority. Many major organizations (such as Star-K) equate a kezayit to about 1.2 to 1.3 fluid ounces (approx. 35–40 ml), which visually translates to the size of a golf ball or a roll of quarters. By weight, this generally ranges between 25 and 33 grams — the stringent opinion of the Chazon Ish is approx. 33 g; the more lenient opinion of Rabbi Chayim Na'eh is approx. 27 g. (Note: For porous foods like matzah, the required weight is typically lower — around 15–20 grams depending on your rav.) The exact size depends on which authority you follow; ask your rav or use a community chart for the specific food or mitzvah you are measuring. Eating less than a kezayit may mean the mitzvah was not fulfilled.",
             "kezayit",
             "Kezayit",
         ),
@@ -993,7 +993,7 @@ object HalachicTermsDictionary {
             "klaf",
         ),
         line(
-            "Shaddai — Shaddai (one of Hashem's names you shouldn't pronouce in vain) on the mezuzah back is a divine name and acronym for Shomer Daltot Yisrael — Guardian of Israel's doors. The letter shin on the case often points outward. It is a reminder of faith that Hashem has the power to guard you at every doorway.",
+            "Shaddai — Shaddai (one of Hashem's names you shouldn't pronounce in vain) on the mezuzah back is a divine name and acronym for Shomer Daltot Yisrael — Guardian of Israel's doors. The letter shin on the case often points outward. It is a reminder of faith that Hashem has the power to guard you at every doorway.",
             "Shaddai",
         ),
         line(
@@ -1221,7 +1221,7 @@ object HalachicTermsDictionary {
             "Rosh Chodesh",
         ),
         line(
-            "Tashlumin — Tashlumin is making up a missed Amidah at the very next service: missed Shacharit at Mincha, missed Mincha at Maariv, missed Maariv at tomorrow's Shacharit. Pray the current Amidah first, pause, then the makeup. This applies only if you missed the prayer by accident or unavoidable delay — if you missed intentionally, there is no tashlumin. Musaf adds complexity; ask your rav.",
+            "Tashlumin — Tashlumin is making up a missed Amidah at the very next service: missed Shacharit at Mincha, missed Mincha at Maariv, missed Maariv at tomorrow's Shacharit. Pray the current Amidah first, pause, then the makeup. This applies only if you missed the prayer by accident or unavoidable delay — if you missed intentionally, there is no tashlumin. Missed holiday Shacharit is made up at Mincha, not at Musaf (SA O.C. 108:9).",
             "Tashlumin",
             "tashlumin",
         ),

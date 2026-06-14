@@ -61,7 +61,7 @@ Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopp
 Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
 
 If you need to say a blessing before you can wash (e.g. urgent bathroom need and no water nearby):
-Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called kuach and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).
+Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called Nikuy (ניקוי — cleaning by friction) and permits saying holy words, but does NOT remove the spiritual impurity. You must still wash with water as soon as possible (Shulchan Aruch OC 4:22, Mishnah Berurah 4:61).
 
 After naps:
 • Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)
