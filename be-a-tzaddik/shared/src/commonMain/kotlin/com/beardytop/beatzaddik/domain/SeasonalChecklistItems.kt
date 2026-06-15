@@ -43,6 +43,7 @@ object SeasonalChecklistItems {
             add(erevChanukahPrepItem(profile))
         }
         if (cal.isRoshChodesh) {
+            add(roshChodeshMonthlyItem(profile))
             addAll(yaalehVyavoRoshChodeshItems(profile))
             when (RoshChodeshRules.hallelKind(cal)) {
                 RoshChodeshRules.HallelKind.HALF -> add(roshChodeshHalfHallelItem(profile))
@@ -1049,15 +1050,23 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.roshChodeshLinks(profile),
     )
 
+    /** Days 1–15 of the Hebrew month — zman evaluator marks too-early nights as UPCOMING. */
     private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
         val day = cal.hebrewDay ?: return false
-        if (day > 15) return false
-        val minDay = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
-            else -> 3
-        }
-        return day >= minDay
+        return day in 1..15
     }
+
+    private fun roshChodeshMonthlyItem(profile: UserProfile) = ChecklistItemDef(
+        id = "rosh_chodesh_observances",
+        title = "Rosh Chodesh — honor the new month",
+        section = "Monthly",
+        sortOrder = 10,
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        explanation = SeasonalMitzvahText.roshChodeshObservancesExplanation(),
+        links = SeasonalMitzvahText.roshChodeshLinks(profile),
+    )
 
     private fun kiddushLevanaItem(profile: UserProfile) = ChecklistItemDef(
         id = "kiddush_levana",

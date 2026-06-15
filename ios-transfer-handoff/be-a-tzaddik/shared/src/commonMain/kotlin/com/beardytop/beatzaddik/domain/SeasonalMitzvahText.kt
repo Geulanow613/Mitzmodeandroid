@@ -544,8 +544,28 @@ Chabad — Full Hallel (Chanukah):
 Follow Ashkenazic custom — recite the blessings before Full Hallel (Alter Rebbe's Siddur).
     """.trim()
 
-    /** @deprecated Replaced by [roshChodeshHalfHallelExplanation]. */
-    fun roshChodeshMonthlyExplanation(): String = roshChodeshHalfHallelExplanation()
+    fun roshChodeshObservancesExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.daveningBasics(),
+        """
+Rosh Chodesh (ראש חודש) marks the start of the Hebrew month — a semi-holiday with extra prayer and customs.
+
+Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
+• Yaaleh V'yavo in Shacharit, Mincha, and Maariv Amidah — and in bentching when you eat bread
+• Half Hallel at Shacharit (Full Hallel if Rosh Chodesh falls during Chanukah; no Hallel on Rosh Chodesh Tishrei / Rosh Hashanah)
+• Musaf after Shacharit — remove tefillin before Musaf
+• Tachanun is omitted all day
+
+Spirit of the day:
+• Many eat a slightly nicer meal in honor of the day
+• Fasting and eulogies are generally not done on Rosh Chodesh
+• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details
+
+When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
+        """.trim(),
+    )
+
+    /** @deprecated Replaced by [roshChodeshObservancesExplanation]. */
+    fun roshChodeshMonthlyExplanation(): String = roshChodeshObservancesExplanation()
 
     /** @deprecated Replaced by [roshChodeshHalfHallelAshkenazNote]. */
     fun roshChodeshMonthlyAshkenazNote(): String = roshChodeshHalfHallelAshkenazNote()
