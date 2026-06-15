@@ -2,11 +2,13 @@ package com.beardytop.beatzaddik.domain
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Halachic-aware upcoming observance list.
@@ -32,6 +34,10 @@ internal object UpcomingHolidayPlanner {
         var nextPurim: UpcomingHoliday? = null
         var nextRoshChodesh: UpcomingHoliday? = null
         var nextMinorHoliday: UpcomingHoliday? = null
+
+        if (nowInfo.isRoshChodesh) {
+            nextRoshChodesh = activeRoshChodeshHoliday(nowInfo, nowEpochMillis, backend, profile)
+        }
 
         for (i in 0..60) {
             val d = from.plus(i, DateTimeUnit.DAY)
@@ -92,7 +98,7 @@ internal object UpcomingHolidayPlanner {
                     beginsTonightWhenImminent = true,
                 )
             } else if (nextRoshChodesh == null && info.isRoshChodesh && i > 0) {
-                // Count down to the calendar day of Rosh Chodesh (not the erev).
+                // Count down to the next Rosh Chodesh (not the day already in progress tonight).
                 nextRoshChodesh = UpcomingHoliday(
                     name = "Rosh Chodesh",
                     daysAway = i,
@@ -123,6 +129,71 @@ internal object UpcomingHolidayPlanner {
         )
             .sortedBy { it.daysAway }
             .take(8)
+    }
+
+    private fun activeRoshChodeshHoliday(
+        nowInfo: DayInfo,
+        nowMillis: Long,
+        backend: JewishCalendarBackend,
+        profile: UserProfile,
+    ): UpcomingHoliday {
+        val endMillis = roshChodeshPeriodEndMillis(nowInfo, nowMillis, backend, profile)
+        val tz = profile.timezoneId
+        val whenLabel = buildRoshChodeshActiveWhenLabel(endMillis, tz)
+        return UpcomingHoliday(
+            name = "Rosh Chodesh",
+            daysAway = 0,
+            hint = "Yaaleh V'yavo, Hallel",
+            beginsTonightWhenImminent = false,
+            whenLabelOverride = whenLabel,
+        )
+    }
+
+    /** Tzeit when the current Rosh Chodesh stint ends (start of the first non–Rosh Chodesh day). */
+    private fun roshChodeshPeriodEndMillis(
+        nowInfo: DayInfo,
+        nowMillis: Long,
+        backend: JewishCalendarBackend,
+        profile: UserProfile,
+    ): Long? {
+        var lastRcDate = nowInfo.date
+        for (j in 0..2) {
+            val nextDate = lastRcDate.plus(1, DateTimeUnit.DAY)
+            val nextInfo = backend.dayInfoAt(nextDate.toEpochMillisAtNoon(profile), profile)
+            if (nextInfo.isRoshChodesh) {
+                lastRcDate = nextDate
+            } else {
+                break
+            }
+        }
+        fun tzeitOn(date: LocalDate): Long? =
+            backend.dayInfoAt(date.toEpochMillisAtNoon(profile), profile)
+                .zmanim?.tzeitMillis
+                ?: backend.dayInfoAt(date.toEpochMillisAtNoon(profile), profile)
+                    .zmanim?.sunsetMillis
+
+        val lastDayTzeit = tzeitOn(lastRcDate)
+        if (lastDayTzeit != null && lastDayTzeit > nowMillis) return lastDayTzeit
+        return tzeitOn(lastRcDate.plus(1, DateTimeUnit.DAY)) ?: lastDayTzeit
+    }
+
+    private fun buildRoshChodeshActiveWhenLabel(endMillis: Long?, timezoneId: String): String {
+        if (endMillis == null) return "Now"
+        val time = ZmanimFormatter.formatTime(endMillis, timezoneId)
+        val night = weekdayNightLabel(endMillis, timezoneId)
+        return if (time != null) "Now — ends $time $night" else "Now — ends $night"
+    }
+
+    private fun weekdayNightLabel(epochMillis: Long, timezoneId: String): String {
+        val dayName = runCatching {
+            Instant.fromEpochMilliseconds(epochMillis)
+                .toLocalDateTime(TimeZone.of(timezoneId))
+                .dayOfWeek
+                .name
+                .lowercase()
+                .replaceFirstChar { it.uppercase() }
+        }.getOrNull()
+        return if (dayName != null) "$dayName night" else "at nightfall"
     }
 
     private fun minorHolidayOnDay(info: DayInfo, profile: UserProfile): Pair<String, String>? {

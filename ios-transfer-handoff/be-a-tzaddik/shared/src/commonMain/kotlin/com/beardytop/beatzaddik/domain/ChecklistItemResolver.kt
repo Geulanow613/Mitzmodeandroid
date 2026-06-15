@@ -201,7 +201,7 @@ object ChecklistItemResolver {
         return bare !in setOf(
             "https://www.sefaria.org",
             "https://www.chabad.org",
-            "https://www.chabad.org/shabbat"
+            "https://www.chabad.org/library/article_cdo/aid/4687/jewish/Shabbat.htm"
         )
     }
 

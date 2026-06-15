@@ -162,7 +162,7 @@ $body
                 add(
                     ChecklistLink(
                         "Chabad — Rosh Hashana",
-                        "https://www.chabad.org/holidays/jewishnewyear/default_cdo/jewish/Jewish-New-Year.htm",
+                        "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm",
                         "chabad"
                     )
                 )

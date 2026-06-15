@@ -19,6 +19,11 @@ object ChecklistZmanEvaluator {
         "ashkenaz_musaf_tachanun",
         "evening_shema_with_its_blessings",
         "maariv_shemoneh_esrei",
+        "rosh_chodesh_half_hallel",
+        "rosh_chodesh_full_hallel_chanukah",
+        "yaaleh_vyavo_rosh_chodesh_shacharit",
+        "yaaleh_vyavo_rosh_chodesh_mincha",
+        "yaaleh_vyavo_rosh_chodesh",
         "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
         "bedtime_shema_women",
         "hamapil_blessing_according_to_many_opinions",
@@ -81,6 +86,13 @@ object ChecklistZmanEvaluator {
             "mincha_shemoneh_esrei_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Mincha")
             "evening_shema_with_its_blessings" -> eveningShemaWindow(nowMillis, z, tz)
             "maariv_shemoneh_esrei" -> maarivWindow(nowMillis, z, tz)
+            "rosh_chodesh_half_hallel",
+            "rosh_chodesh_full_hallel_chanukah" -> shacharitPartsWindow(
+                nowMillis, z, tz, label = "Hallel at Shacharit",
+            )
+            "yaaleh_vyavo_rosh_chodesh_shacharit" -> yaalehVyavoShacharitWindow(nowMillis, z, tz)
+            "yaaleh_vyavo_rosh_chodesh_mincha" -> yaalehVyavoMinchaWindow(nowMillis, z, tz)
+            "yaaleh_vyavo_rosh_chodesh" -> yaalehVyavoMaarivWindow(nowMillis, z, tz)
             "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
             "bedtime_shema_women" ->
                 bedtimeWindow(nowMillis, z, tz, "Bedtime Shema")
@@ -283,6 +295,32 @@ object ChecklistZmanEvaluator {
             expired = "Tonight's primary window for evening Shema has passed (before alot hashachar).",
             makeup = "If you missed it, ask your rabbi — some fulfill later the same night with guidance; morning Shema is a separate obligation.",
             availableAtLabel = "sunset"
+        )
+    }
+
+    private fun yaalehVyavoShacharitWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
+        amidahWindow(now, z, tz).copy(
+            makeupNote = "Forgot Yaaleh V'yavo at Shacharit on Rosh Chodesh? Repeat the Shacharit Amidah (Shulchan Arukh O.C. 422:1).",
+        )
+
+    private fun yaalehVyavoMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
+        minchaWindow(now, z, tz, label = "Yaaleh V'yavo at Mincha").copy(
+            makeupNote = "Forgot Yaaleh V'yavo at Mincha on Rosh Chodesh? Repeat the Mincha Amidah (Shulchan Arukh O.C. 422:1).",
+        )
+
+    private fun yaalehVyavoMaarivWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
+        val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
+        val tzeitNote = z.tzeitMillis?.let { tzeit ->
+            if (now >= tzeit) return@let null
+            " Many daven Maariv ideally ${ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"}."
+        }.orEmpty()
+        return windowStatus(
+            now, start, end,
+            upcoming = "Yaaleh V'yavo at Maariv — available ${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}.$tzeitNote",
+            expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
+            makeup = "Forgot Yaaleh V'yavo at Maariv on Rosh Chodesh? You do not repeat the Amidah (Shulchan Arukh O.C. 422:1).",
+            availableAtLabel = "sunset",
         )
     }
 

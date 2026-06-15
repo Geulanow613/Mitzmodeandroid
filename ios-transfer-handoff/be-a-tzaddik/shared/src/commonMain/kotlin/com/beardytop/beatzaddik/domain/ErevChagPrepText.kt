@@ -360,7 +360,7 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile
 
     private fun roshHashanaLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Rosh Hashana", "https://www.chabad.org/holidays/jewishnewyear/default_cdo/jewish/Jewish-New-Year.htm", "chabad"))
+            add(ChecklistLink("Chabad — Rosh Hashana", "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Rosh Hashana", "https://ph.yhb.org.il/en/category/15/15-03/", "default"))
         add(ChecklistLink("Aish — Rosh Hashana", "https://aish.com/holidays/rosh-hashanah/", "default"))
@@ -369,7 +369,7 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile
 
     private fun yomKippurLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Yom Kippur", "https://www.chabad.org/holidays/yomkippur/default_cdo/jewish/Yom-Kippur.htm", "chabad"))
+            add(ChecklistLink("Chabad — Yom Kippur", "https://www.chabad.org/library/article_cdo/aid/4688/jewish/What-Is-Yom-Kippur.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Yom Kippur", "https://ph.yhb.org.il/en/category/15/15-06/", "default"))
         add(ChecklistLink("Aish — Yom Kippur", "https://aish.com/holidays/yom-kippur/", "default"))
@@ -395,7 +395,7 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile
 
     private fun sukkotLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Sukkot", "https://www.chabad.org/holidays/sukkot/default_cdo/jewish/Sukkot.htm", "chabad"))
+            add(ChecklistLink("Chabad — Sukkot", "https://www.chabad.org/library/article_cdo/aid/4784/jewish/What-Is-Sukkot.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Sukkot", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
         add(ChecklistLink("Aish — Sukkot", "https://aish.com/holidays/sukkot/", "default"))
@@ -403,14 +403,14 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile
 
     private fun sheminiAtzeretLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Shemini Atzeret", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1771/jewish/Shemini-Atzeret.htm", "chabad"))
+            add(ChecklistLink("Chabad — Shemini Atzeret", "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Sukkot festivals", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
     }
 
     private fun simchatTorahLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1772/jewish/Simchat-Torah.htm", "chabad"))
+            add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/category/13/13-01/", "default"))
         add(ChecklistLink("Aish — Simchat Torah", "https://aish.com/holidays/sukkot/", "default"))

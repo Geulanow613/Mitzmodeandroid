@@ -270,4 +270,6 @@ data class UpcomingHoliday(
     val hint: String = "",
     /** When [daysAway] is 0: true → label "Tonight" (begins at sunset); false → "today". */
     val beginsTonightWhenImminent: Boolean = true,
+    /** When set, Today screen uses this instead of [daysAway] / [beginsTonightWhenImminent]. */
+    val whenLabelOverride: String? = null,
 )

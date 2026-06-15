@@ -984,30 +984,73 @@ After biur:
 
 ---
 
-## Rosh Chodesh
+## Morning Prayer (Rosh Chodesh)
 
-### Rosh Chodesh — add Yaaleh V'yavo & Hallel
+### Yaaleh V'yavo — Rosh Chodesh (in Shacharit Amidah)
 
-Rosh Chodesh (ראש חודש) — the new Hebrew month — is a minor festival.
+Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-Davening:
-• Yaaleh V'yavo in Shmoneh Esrei (all Amidahs of the day) and in Bentching.
-• Hallel — partial (Half) Hallel (custom, not a Torah obligation; Peninei Halakha 05-01-12, 12-02-07). Hallel blessings: Ashkenazic custom permits a blessing over both Full and Partial Hallel. Sephardic custom strictly prohibits reciting a blessing over Partial Hallel (Rosh Chodesh and the last six days of Pesach; Shulchan Arukh O.C. 422:2).
-• Musaf — special Rosh Chodesh Musaf with korban musaf paragraph.
-• Tefillin transition: If you pray Shacharit with tefillin, you MUST remove your tefillin immediately after Partial Hallel (or after the Torah reading, per your nusach) BEFORE starting the Musaf Amidah. Wearing tefillin during Musaf is forbidden — the day's sanctity serves as its own sign (oth), making the physical sign of tefillin a contradiction during that prayer.
-• Tachanun is omitted.
+If you forgot:
+You must repeat the Shacharit Amidah. If you already finished Musaf, ask your rabbi — you may repeat only the Amidah itself rather than the full service (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
 
-Customs:
-• Some eat a festive meal; many women have a custom not to do melacha they avoid on Rosh Chodesh (heavy sewing, etc.) — per family minhag.
-• Work is permitted; it is not Yom Tov.
+Also add Yaaleh V'yavo in bentching if you eat bread today.
 
-If you forget Yaaleh V'yavo at Maariv on Rosh Chodesh, you do not repeat the Amidah (Shulchan Arukh O.C. 422:1 — universal across Ashkenaz, Sephard, and Chabad). If you forget it during Shacharit or Mincha, you are required to repeat the Amidah.
+### Half Hallel — Rosh Chodesh
 
-If you forget Yaaleh V'yavo in Birkat Hamazon (bentching): On Rosh Chodesh, you do not repeat bentching. On Yom Tov (during the mandatory night and day festive meals), you are halachically required to repeat Birkat Hamazon from the beginning if you forgot the holiday insertion.
+Recite Half Hallel after the Shacharit Amidah on Rosh Chodesh (a cherished custom; not a Torah obligation — Peninei Halakha 05-01-12).
+
+Before Musaf:
+Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
+
+Tachanun is omitted on Rosh Chodesh.
+
+**Ashkenaz:** Recite the blessings before Half Hallel on Rosh Chodesh (Mishnah Berurah 422:8).
+
+**Sephardi / Edot HaMizrach:** Do not recite a blessing over Partial (Half) Hallel — say the psalms without a bracha (Shulchan Arukh O.C. 422:2; Peninei Halakha 05-01-12).
+
+**Chabad:** Follow Ashkenazic custom — recite the blessings before Half Hallel (Alter Rebbe's Siddur; ask your rav if unsure).
+
+**Not shown:** Rosh Chodesh Tishrei (Rosh Hashanah) — Hallel is not recited (Arachin 10b).
+
+### Full Hallel — Rosh Chodesh during Chanukah
+
+When Rosh Chodesh falls during Chanukah (e.g. Tevet), recite Full Hallel at Shacharit — the Chanukah obligation — not Half Hallel (Peninei Halakha 12-02-07).
+
+Remove tefillin before Musaf. Tachanun is omitted.
+
+**Ashkenaz / Chabad:** Recite the blessings before Full Hallel as on Chanukah.
+
+**Sephardi / Edot HaMizrach:** Recite the blessings before Full Hallel as on Chanukah.
+
+Musaf on Rosh Chodesh is listed separately in Morning Prayer as “Musaf (Additional prayer on special days).”
 
 ---
 
-## Kiddush Levana
+## Afternoon Prayer (Rosh Chodesh)
+
+### Yaaleh V'yavo — Rosh Chodesh (in Mincha Amidah)
+
+Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+If you forgot:
+You must repeat the Mincha Amidah (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). If you already davened Maariv, ask your rabbi how to proceed.
+
+---
+
+## Evening Prayer (Rosh Chodesh)
+
+### Yaaleh V'yavo — Rosh Chodesh (in Maariv Amidah)
+
+Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+If you forgot at Maariv:
+On Rosh Chodesh you do not repeat the Amidah if Yaaleh V'yavo was omitted at Maariv (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue with the rest of davening.
+
+Also add Yaaleh V'yavo in bentching if you eat bread tonight.
+
+---
+
+## Monthly
 
 ### Kiddush Levana — Sanctification of the Moon (once per Hebrew month)
 
@@ -1024,7 +1067,7 @@ How:
 • You must be able to see the moon clearly; if it is completely blocked by clouds, do not begin the blessing — wait for a clear night within the window.
 • Use your siddur; it is praise of G-d for creation's cycles — not worship of the moon.
 
-This app tracks the monthly window for you — the item appears in the Seasonal section when the window is open.
+This app tracks the monthly window for you — say it on the first clear night; do not delay past the ideal early window. Check Sof Zman Kiddush Levana for your location before the month ends.
 
 ---
 

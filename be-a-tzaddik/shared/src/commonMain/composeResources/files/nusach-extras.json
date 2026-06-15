@@ -31,7 +31,7 @@
       "id": "ashkenaz_korbanot_before_shacharit",
       "title": "Korbanot before Pesukei Dezimra (Ashkenaz)",
       "section": "Morning Prayer (Shacharit)",
-      "sortOrder": 22,
+      "sortOrder": 28,
       "timeOfDay": "day",
       "required": true,
       "situational": false,
@@ -56,7 +56,7 @@
       "id": "chabad_korbanot_before_shacharit",
       "title": "Korbanot & preliminaries (Nusach Ari)",
       "section": "Morning Prayer (Shacharit)",
-      "sortOrder": 22,
+      "sortOrder": 28,
       "timeOfDay": "day",
       "required": true,
       "situational": false,
@@ -117,7 +117,7 @@
       "nusachOnly": true,
       "gender": "male",
       "hideOnShabbat": true,
-      "explanation": "Some Ashkenaz communities have an extra emphasis on saying Tachanun at Mincha if it was skipped at Shacharit that day. On a normal weekday, Tachanun at Mincha is already part of the standard service (often the shorter form). Skip on Rosh Chodesh, festivals, and other days your siddur lists.",
+      "explanation": "Tachanun at Shacharit (weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum and the full penitential section), shorter on other weekdays. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nTachanun at Mincha: Some Ashkenaz communities especially emphasize saying Tachanun at Mincha if it was skipped at Shacharit that day. On a normal weekday, Tachanun at Mincha is already part of the standard service (often the shorter form). Omitted on the same festive days — Mincha itself is still said.",
       "links": [
         {
           "displayText": "Shulchan Arukh — Tachanun",

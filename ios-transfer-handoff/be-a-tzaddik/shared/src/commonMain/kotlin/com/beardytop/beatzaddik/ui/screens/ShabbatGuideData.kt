@@ -372,7 +372,7 @@ Key observances:
 • Eating symbolic foods: apples and honey for a sweet new year, pomegranate, fish head, dates, and other simanim (signs)
 • Tashlich — a custom to go to a body of water on the afternoon of the first day of Rosh Hashana and recite verses from Micah (7:18–20) symbolizing casting away sins. The custom involves the prayers at the water, not throwing bread crumbs (many authorities including the Vilna Gaon and Chabad discourage or omit the bread crumb practice entirely)
 • Rosh Hashana is a full Yom Tov — all Shabbat-like restrictions apply, with the exception of cooking and carrying""",
-            learnMoreUrl = "https://www.chabad.org/holidays/JewishNewYear/default_cdo/jewish/Rosh-Hashanah.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm"
         ),
         GuideTopic(
             id = "yom_kippur",
@@ -385,7 +385,7 @@ Five forms of affliction (inuyim) are observed: no eating or drinking, no bathin
 Key prayers: Kol Nidrei (the night before), Yizkor (Ashkenaz custom on Yom Kippur morning — many Sefard communities omit or observe different memorial customs), the Neilah closing prayer, and the final single shofar blast at the conclusion of the fast.
 
 Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restrictions — including a prohibition on carrying in most opinions. Melachah (labor) is fully forbidden.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/YomKippur/default_cdo/jewish/Yom-Kippur.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4688/jewish/What-Is-Yom-Kippur.htm"
         ),
         GuideTopic(
             id = "sukkot",
@@ -406,7 +406,7 @@ Arba Minim — by nusach:
 Hallel:
 • Full Hallel every day of Sukkot in most communities
 • Some Yemenite and other traditions differ on certain days — follow your siddur""",
-            learnMoreUrl = "https://www.chabad.org/holidays/sukkos/default_cdo/jewish/Sukkot.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4784/jewish/What-Is-Sukkot.htm"
         ),
         GuideTopic(
             id = "shemini_atzeret",
@@ -423,7 +423,7 @@ Simchat Torah:
 • Ashkenaz / most Sefard: seven hakafot (processional circuits) with the Torah scrolls, singing and dancing; final portion (V'Zot HaBeracha) read, then Bereishit restarted
 • Chabad: hakafot with singing; often one aliyah per scroll taken out
 • Yemenite and other communities may have distinct hakafah and reading customs — follow your synagogue""",
-            learnMoreUrl = "https://www.chabad.org/holidays/sukkos/article_cdo/aid/1695/jewish/Shemini-Atzeret-Simchat-Torah.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm"
         ),
         GuideTopic(
             id = "chanukah",
@@ -498,7 +498,7 @@ Synagogue service — customs vary by nusach:
 • Yemenite: distinct hoshanot liturgy and customs
 
 Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz custom, referring to the final sealing of one's decree for the year.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/sukkos/article_cdo/aid/2474/jewish/Hoshana-Rabbah.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/757453/jewish/Hoshana-Rabbah.htm"
         ),
         GuideTopic(
             id = "tu_bshvat",
@@ -509,7 +509,7 @@ Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz cus
 Tu B'Shvat is not a fast day, and work is permitted. It is customary to eat fruits of Israel, especially the seven species: wheat, barley, grapes, figs, pomegranates, olives, and dates. Many communities hold a "Tu B'Shvat seder" with fruits and wine.
 
 In Kabbalistic tradition (particularly from the 16th-century Safed mystics), Tu B'Shvat became associated with the spiritual rectification of the world through eating fruits with intention.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/tubishvat/default_cdo/jewish/Tu-BShvat.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/468738/jewish/Tu-BiShvat-What-and-How.htm"
         ),
         GuideTopic(
             id = "pesach_sheni",
@@ -520,7 +520,7 @@ In Kabbalistic tradition (particularly from the 16th-century Safed mystics), Tu 
 Today, Pesach Sheni is a minor holiday. It is not observed with full Yom Tov restrictions. The main custom is to eat matzah on this day. Tachanun (the penitential prayer) is not recited.
 
 A classic Chabad teaching — attributed to the Lubavitcher Rebbeim (Rabbi Yosef Yitzchak Schneersohn, citing his father the Rebbe Rashab) — holds that Pesach Sheni means "ein davar avud": nothing is lost; it is always possible to correct and return.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/PesachSheni/default_cdo/jewish/Pesach-Sheni.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4377624/jewish/What-Is-Pesach-Sheni-the-Second-Passover.htm"
         ),
         GuideTopic(
             id = "lag_baomer",
@@ -531,7 +531,7 @@ A classic Chabad teaching — attributed to the Lubavitcher Rebbeim (Rabbi Yosef
 The restrictions of the Omer period (no haircuts, no weddings, no music) are lifted on Lag BaOmer. In Israel, large bonfires are lit, especially in Meron at Rabbi Shimon's tomb.
 
 It is also a day celebrated for the cessation of a plague that killed 24,000 students of Rabbi Akiva during the Omer period.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/lagbaomer/default_cdo/jewish/Lag-BaOmer.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/679300/jewish/What-Is-Lag-BaOmer.htm"
         ),
         GuideTopic(
             id = "tu_beav",
@@ -542,7 +542,7 @@ It is also a day celebrated for the cessation of a plague that killed 24,000 stu
 Historically, it marked several positive events, including the end of the plague that killed those who accepted the report of the spies in the wilderness. In the era of the Temple, it was a day when unmarried women would dance in the vineyards.
 
 Today, Tu B'Av is observed as a minor holiday of joy. Tachanun is not recited. Many communities treat it as an auspicious day for marriage and love.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/tubeav/default_cdo/jewish/Tu-BAv.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/717167/jewish/7-Joyous-Events-That-Happened-on-the-15th-of-Av.htm"
         ),
         GuideTopic(
             id = "tisha_beav",
@@ -555,7 +555,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
 
 The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a period of increasing mourning.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/tisha_bav/default_cdo/jewish/Tisha-BAv.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"
         ),
         GuideTopic(
             id = "fast_gedaliah",
@@ -566,7 +566,7 @@ The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a 
 His death marked the end of the last vestiges of Jewish autonomy in the Land of Israel following the first exile.
 
 It is a minor fast — from dawn until nightfall (not a full 25-hour fast like Yom Kippur or Tisha B'Av).""",
-            learnMoreUrl = "https://www.chabad.org/holidays/fastofgedaliah/default_cdo/jewish/Fast-of-Gedaliah.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/2316462/jewish/Tzom-Gedaliah-Fast-Day.htm"
         ),
         GuideTopic(
             id = "fast_10_tevet",
@@ -577,7 +577,7 @@ It is a minor fast — from dawn until nightfall (not a full 25-hour fast like Y
 It is a minor fast from dawn until nightfall. It is also observed as a general Kaddish day for Holocaust victims whose date of death is unknown.
 
 Note: This is the only fast in the calendar that is never postponed if it falls on a Friday (because the biblical verse requires observing it "on this very day"). When it lands on a Friday, continue fasting directly into Friday night — welcome Shabbat while fasting — and break the fast only after nightfall following the recitation of Friday night Kiddush.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/10tevet/default_cdo/jewish/Asarah-BeTevet.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/3170662/jewish/What-Is-Asarah-BTevet-Tevet-10.htm"
         ),
         GuideTopic(
             id = "fast_17_tammuz",
@@ -586,7 +586,7 @@ Note: This is the only fast in the calendar that is never postponed if it falls 
             body = """The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks the day the walls of Jerusalem were breached by the Romans in the first century CE. It begins the "Three Weeks" — a period of mourning culminating in Tisha B'Av.
 
 It is a minor fast from dawn until nightfall. During the Three Weeks, weddings are not held and music is generally avoided. During the final nine days of this period (1–9 Av), additional mourning customs apply.""",
-            learnMoreUrl = "https://www.chabad.org/holidays/17tammuz/default_cdo/jewish/17-Tammuz.htm"
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/479885/jewish/The-17th-of-Tammuz.htm"
         ),
         GuideTopic(
             id = "fast_esther",

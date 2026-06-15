@@ -80,7 +80,7 @@ SORT_OVERRIDES = {
     "minimum_pesukei_d_zimra": 30,
     "morning_shema_with_its_blessings": 40,
     "shemoneh_esrei_tachanun": 50,
-    "put_on_tefillin_during_morning_prayers_except_shabbat_festiv": 55,
+    "put_on_tefillin_during_morning_prayers_except_shabbat_festiv": 25,
     "musaf_only_on_rosh_chodesh_festivals_and_shabbat": 60,
     "mincha_shemoneh_esrei_tachanun": 10,
     "evening_shema_with_its_blessings": 10,

@@ -104,6 +104,8 @@ class JewishCalendarService(
     }
 
     private fun daysUntilRoshChodesh(from: LocalDate, profile: UserProfile): Int? {
+        val today = backend.dayInfoAt(from.toEpochMillisAtNoon(profile), profile)
+        if (today.isRoshChodesh) return null
         for (i in 0..45) {
             val cal = backend.dayInfoAt(
                 from.plus(i, DateTimeUnit.DAY).toEpochMillisAtNoon(profile),

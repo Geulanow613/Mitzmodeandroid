@@ -22,6 +22,7 @@ class ChecklistEngine(
             "Daily Prayer",
             "Afternoon Prayer",
             "Evening Prayer",
+            "Monthly",
             "Important Lifestyle Mitzvot",
             "Prepare for Shabbat",
             "Motzei Shabbat",
@@ -36,17 +37,15 @@ class ChecklistEngine(
             "My mitzvot"
         )
 
-        private fun sectionIndex(section: String): Int {
-            val base = section.substringBefore(" (")
-            return sectionOrder.indexOf(base).takeIf { it >= 0 }
-                ?: sectionOrder.indexOf(section).takeIf { it >= 0 }
-                ?: 200
-        }
     }
 
-    private fun sortDefs(defs: List<ChecklistItemDef>): List<ChecklistItemDef> =
+    private fun sortDefs(defs: List<ChecklistItemDef>, activePeriod: TimeOfDay): List<ChecklistItemDef> =
         defs.sortedWith(
-            compareBy({ sectionIndex(it.section) }, { it.sortOrder }, { it.title })
+            compareBy(
+                { ChecklistSectionOrder.sortIndex(it.section, activePeriod) },
+                { it.sortOrder },
+                { it.title },
+            )
         )
     fun resolve(
         profile: UserProfile,
@@ -86,9 +85,12 @@ class ChecklistEngine(
         val allDefs = if (hideChecklist) {
             emptyList()
         } else {
-            sortDefs((catalog + seasonal + customDefs).filter {
-                matches(it, profile, cal, nowMillis, tomorrowCal)
-            })
+            sortDefs(
+                (catalog + seasonal + customDefs).filter {
+                    matches(it, profile, cal, nowMillis, tomorrowCal)
+                },
+                cal.activeTimeOfDay,
+            )
         }
 
         val prayerDay = PrayerDayContext.from(cal, profile.effectiveNusach())
@@ -175,6 +177,14 @@ class ChecklistEngine(
         }
         if (item.id == "musaf_only_on_rosh_chodesh_festivals_and_shabbat") {
             if (!cal.isShabbat && !cal.isYomTov && !cal.isRoshChodesh) return false
+        } else if (item.id == "rosh_chodesh_half_hallel") {
+            if (RoshChodeshRules.hallelKind(cal) != RoshChodeshRules.HallelKind.HALF) return false
+        } else if (item.id == "rosh_chodesh_full_hallel_chanukah") {
+            if (RoshChodeshRules.hallelKind(cal) != RoshChodeshRules.HallelKind.FULL_DURING_CHANUKAH) {
+                return false
+            }
+        } else if (TachanunRules.isTachanunOnlyItem(item.id) && !TachanunRules.isRecited(cal)) {
+            return false
         } else if (item.shabbatOnly && !cal.isShabbatOrYomTov && !cal.isErevShabbat) {
             return false
         }

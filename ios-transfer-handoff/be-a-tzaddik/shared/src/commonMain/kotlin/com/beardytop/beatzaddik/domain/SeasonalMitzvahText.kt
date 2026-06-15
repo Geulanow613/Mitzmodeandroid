@@ -468,29 +468,110 @@ How:
     """.trim(),
     )
 
-    // ── Rosh Chodesh, Chanukah, Pesach week, Selichot, mourning, Tu B'Shvat ───
+    private const val CHABAD_ROSH_CHODESH_URL =
+        "https://www.chabad.org/library/article_cdo/aid/4909907/jewish/12-Rosh-Chodesh-Facts.htm"
 
-    fun roshChodeshExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.daveningBasics(),
-        """
-Rosh Chodesh (ראש חודש) — the new Hebrew month — is a minor festival.
+    fun yaalehVyavoShacharitExplanation(): String = """
+Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-Davening:
-• Yaaleh V'yavo in Shmoneh Esrei (all Amidahs of the day) and in Bentching.
-• Hallel — partial (Half) Hallel (custom, not a Torah obligation; Peninei Halakha 05-01-12, 12-02-07). Hallel blessings: Ashkenazic custom permits a blessing over both Full and Partial Hallel. Sephardic custom strictly prohibits reciting a blessing over Partial Hallel (Rosh Chodesh and the last six days of Pesach; Shulchan Arukh O.C. 422:2).
-• Musaf — special Rosh Chodesh Musaf with korban musaf paragraph.
-• Tefillin transition: If you pray Shacharit with tefillin, you MUST remove your tefillin immediately after Partial Hallel (or after the Torah reading, per your nusach) BEFORE starting the Musaf Amidah. Wearing tefillin during Musaf is forbidden — the day's sanctity serves as its own sign (oth), making the physical sign of tefillin a contradiction during that prayer.
-• Tachanun is omitted.
+If you forgot:
+You must repeat the Shacharit Amidah. If you already finished Musaf, ask your rabbi — you may repeat only the Amidah itself rather than the full service (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
 
-Customs:
-• Some eat a festive meal; many women have a custom not to do melacha they avoid on Rosh Chodesh (heavy sewing, etc.) — per family minhag.
-• Work is permitted; it is not Yom Tov.
+Also add Yaaleh V'yavo in bentching if you eat bread today.
+    """.trim()
 
-If you forget Yaaleh V'yavo at Maariv on Rosh Chodesh, you do not repeat the Amidah (Shulchan Arukh O.C. 422:1 — universal across Ashkenaz, Sephard, and Chabad). If you forget it during Shacharit or Mincha, you are required to repeat the Amidah.
+    fun yaalehVyavoMinchaExplanation(): String = """
+Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-If you forget Yaaleh V'yavo in Birkat Hamazon (bentching): On Rosh Chodesh, you do not repeat bentching. On Yom Tov (during the mandatory night and day festive meals), you are halachically required to repeat Birkat Hamazon from the beginning if you forgot the holiday insertion.
-    """.trim(),
-    )
+If you forgot:
+You must repeat the Mincha Amidah (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). If you already davened Maariv, ask your rabbi how to proceed.
+    """.trim()
+
+    fun yaalehVyavoMaarivExplanation(): String = """
+Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+If you forgot at Maariv:
+On Rosh Chodesh you do not repeat the Amidah if Yaaleh V'yavo was omitted at Maariv (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue with the rest of davening.
+
+Also add Yaaleh V'yavo in bentching if you eat bread tonight.
+    """.trim()
+
+    fun roshChodeshHalfHallelExplanation(): String = """
+Recite Half Hallel after the Shacharit Amidah on Rosh Chodesh (a cherished custom; not a Torah obligation — Peninei Halakha 05-01-12).
+
+Before Musaf:
+Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
+
+Tachanun is omitted on Rosh Chodesh.
+    """.trim()
+
+    fun roshChodeshFullHallelChanukahExplanation(): String = """
+Rosh Chodesh falls during Chanukah — recite Full Hallel at Shacharit (the Chanukah obligation), not the usual Half Hallel of Rosh Chodesh (Peninei Halakha 12-02-07).
+
+Before Musaf:
+Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
+
+Tachanun is omitted.
+    """.trim()
+
+    fun roshChodeshHalfHallelAshkenazNote(): String = """
+Ashkenaz — Half Hallel:
+Recite the blessings before Half Hallel on Rosh Chodesh (Mishnah Berurah 422:8).
+    """.trim()
+
+    fun roshChodeshHalfHallelSephardNote(): String = """
+Sephardi — Half Hallel:
+Do not recite a blessing over Partial (Half) Hallel — say the psalms without a bracha (Shulchan Arukh O.C. 422:2; Peninei Halakha 05-01-12).
+    """.trim()
+
+    fun roshChodeshHalfHallelChabadNote(): String = """
+Chabad — Half Hallel:
+Follow Ashkenazic custom — recite the blessings before Half Hallel (Alter Rebbe's Siddur; ask your rav if unsure).
+    """.trim()
+
+    fun roshChodeshFullHallelAshkenazNote(): String = """
+Ashkenaz — Full Hallel (Chanukah):
+Recite the blessings before Full Hallel as on Chanukah (Mishnah Berurah 422:8).
+    """.trim()
+
+    fun roshChodeshFullHallelSephardNote(): String = """
+Sephardi — Full Hallel (Chanukah):
+Recite the blessings before Full Hallel as on Chanukah (Shulchan Arukh O.C. 422:2).
+    """.trim()
+
+    fun roshChodeshFullHallelChabadNote(): String = """
+Chabad — Full Hallel (Chanukah):
+Follow Ashkenazic custom — recite the blessings before Full Hallel (Alter Rebbe's Siddur).
+    """.trim()
+
+    /** @deprecated Replaced by [roshChodeshHalfHallelExplanation]. */
+    fun roshChodeshMonthlyExplanation(): String = roshChodeshHalfHallelExplanation()
+
+    /** @deprecated Replaced by [roshChodeshHalfHallelAshkenazNote]. */
+    fun roshChodeshMonthlyAshkenazNote(): String = roshChodeshHalfHallelAshkenazNote()
+
+    /** @deprecated Replaced by [roshChodeshHalfHallelSephardNote]. */
+    fun roshChodeshMonthlySephardNote(): String = roshChodeshHalfHallelSephardNote()
+
+    /** @deprecated Replaced by [roshChodeshHalfHallelChabadNote]. */
+    fun roshChodeshMonthlyChabadNote(): String = roshChodeshHalfHallelChabadNote()
+
+    fun yaalehVyavoLinks(profile: UserProfile) = buildList {
+        add(
+            ChecklistLink(
+                "Sefaria — Shulchan Arukh O.C. 422:1",
+                "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.422.1",
+                "default",
+            )
+        )
+        add(ChecklistLink("Peninei Halacha — Rosh Chodesh", "https://ph.yhb.org.il/en/05-01-01/", "default"))
+        if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
+            add(ChecklistLink("Chabad — 12 Rosh Chodesh Facts", CHABAD_ROSH_CHODESH_URL, "chabad"))
+        }
+    }
+
+    /** @deprecated Split into [yaalehVyavoMaarivExplanation] and [roshChodeshHalfHallelExplanation]. */
+    fun roshChodeshExplanation(): String = roshChodeshHalfHallelExplanation()
 
     fun chanukahLightingExplanation(day: Int, profile: UserProfile): String {
         return BeginnerHalachaGlossary.withKeyTerms(
@@ -743,7 +824,7 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
 
     fun sheminiAtzeretLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Shemini Atzeret", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1771/jewish/Shemini-Atzeret.htm", "chabad"))
+            add(ChecklistLink("Chabad — Shemini Atzeret & Simchat Torah", "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Festivals", "https://ph.yhb.org.il/en/category/13/13-07/", "default"))
         add(ChecklistLink("Aish — Shemini Atzeret", "https://aish.com/holidays/sukkot/", "default"))
@@ -751,7 +832,7 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
 
     fun simchatTorahLinks(profile: UserProfile) = buildList {
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
-            add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/holidays/sukkot/article_cdo/aid/1772/jewish/Simchat-Torah.htm", "chabad"))
+            add(ChecklistLink("Chabad — Simchat Torah", "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Simchat Torah", "https://ph.yhb.org.il/en/category/13/13-07/", "default"))
         add(ChecklistLink("Aish — Simchat Torah", "https://aish.com/holidays/sukkot/", "default"))
@@ -780,7 +861,9 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
     }
 
     fun roshChodeshLinks(profile: UserProfile) = buildList {
-        add(ChecklistLink("Chabad — Rosh Chodesh", "https://www.chabad.org/library/article_cdo/aid/4770/jewish/Rosh-Chodesh.htm", "chabad"))
+        if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
+            add(ChecklistLink("Chabad — 12 Rosh Chodesh Facts", CHABAD_ROSH_CHODESH_URL, "chabad"))
+        }
         add(ChecklistLink("Peninei Halacha — Rosh Chodesh", "https://ph.yhb.org.il/en/05-01-01/", "default"))
         add(ChecklistLink("Aish — Rosh Chodesh", "https://aish.com/43-rosh-chodesh-2/", "default"))
     }
@@ -805,7 +888,7 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
     }
 
     fun tuBshvatLinks() = listOf(
-        ChecklistLink("Chabad — Tu B'Shvat", "https://www.chabad.org/holidays/jewishnewyear/article_cdo/aid/1185/jewish/Tu-BShvat.htm", "chabad"),
+        ChecklistLink("Chabad — Tu B'Shvat", "https://www.chabad.org/library/article_cdo/aid/468738/jewish/Tu-BiShvat-What-and-How.htm", "chabad"),
         ChecklistLink("Aish — Tu B'Shvat", "https://aish.com/48965616/", "default"),
         ChecklistLink("Peninei Halacha — Tu B'Shvat", "https://ph.yhb.org.il/tu-beshvat/", "default")
     )

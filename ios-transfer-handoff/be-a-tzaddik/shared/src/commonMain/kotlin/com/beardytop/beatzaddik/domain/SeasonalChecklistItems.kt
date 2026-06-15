@@ -43,18 +43,13 @@ object SeasonalChecklistItems {
             add(erevChanukahPrepItem(profile))
         }
         if (cal.isRoshChodesh) {
-            add(
-                ChecklistItemDef(
-                    id = "rosh_chodesh_prayers",
-                    title = "Rosh Chodesh — add Yaaleh V'yavo & Hallel",
-                    section = "Seasonal",
-                    timeOfDay = TimeOfDay.DAY,
-                    required = true,
-                    situational = false,
-                    explanation = SeasonalMitzvahText.roshChodeshExplanation(),
-                    links = SeasonalMitzvahText.roshChodeshLinks(profile)
-                )
-            )
+            addAll(yaalehVyavoRoshChodeshItems(profile))
+            when (RoshChodeshRules.hallelKind(cal)) {
+                RoshChodeshRules.HallelKind.HALF -> add(roshChodeshHalfHallelItem(profile))
+                RoshChodeshRules.HallelKind.FULL_DURING_CHANUKAH ->
+                    add(roshChodeshFullHallelDuringChanukahItem(profile))
+                RoshChodeshRules.HallelKind.NONE -> Unit
+            }
         }
         if (isKiddushLevanaWindow(cal, profile)) {
             add(kiddushLevanaItem(profile))
@@ -845,7 +840,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             add(
                 ChecklistLink(
                     "Chabad — The Megillah",
-                    "https://www.chabad.org/holidays/purim/article_cdo/aid/1362/jewish/The-Megillah.htm",
+                    "https://www.chabad.org/holidays/purim/article_cdo/aid/644322/jewish/Laws-and-Customs.htm",
                     "chabad"
                 )
             )
@@ -861,7 +856,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             add(
                 ChecklistLink(
                     "Chabad — Gifts to the poor",
-                    "https://www.chabad.org/library/article_cdo/aid/1363/jewish/Gifts-to-the-Poor.htm",
+                    "https://www.chabad.org/holidays/purim/article_cdo/aid/5846239/jewish/Matanot-Laevyonim-FAQs.htm",
                     "chabad"
                 )
             )
@@ -875,7 +870,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             add(
                 ChecklistLink(
                     "Chabad — Mishloach manot",
-                    "https://www.chabad.org/library/article_cdo/aid/1364/jewish/Food-Gifts.htm",
+                    "https://www.chabad.org/holidays/purim/article_cdo/aid/261101/jewish/Mishloach-Manot-Sending-Food-Gifts-on-Purim.htm",
                     "chabad"
                 )
             )
@@ -943,7 +938,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             add(
                 ChecklistLink(
                     "Chabad — Wine on Chol HaMoed",
-                    "https://www.chabad.org/library/article_cdo/aid/5280/jewish/Drinking-on-Chol-Hamoed.htm",
+                    "https://www.chabad.org/library/article_cdo/aid/5279/jewish/Chol-Hamoed.htm",
                     "chabad"
                 )
             )
@@ -964,7 +959,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
     )
 
     private fun mourningLinks(profile: UserProfile) = listOf(
-        ChecklistLink("Chabad — The Three Weeks", "https://www.chabad.org/library/article_cdo/aid/144568/jewish/The-Three-Weeks.htm", "chabad"),
+        ChecklistLink("Chabad — The Three Weeks", "https://www.chabad.org/library/article_cdo/aid/144558/jewish/Tisha-BAv-and-the-3-Weeks.htm", "chabad"),
         ChecklistLink("Aish — Nine Days overview", "https://aish.com/48943916/", "default"),
         ChecklistLink("Peninei Halacha — Three Weeks and Nine Days", "https://ph.yhb.org.il/en/category/zemanim/05-08/", "default")
     )
@@ -986,6 +981,74 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.tuBshvatLinks()
     )
 
+    private fun yaalehVyavoRoshChodeshItems(profile: UserProfile) = listOf(
+        ChecklistItemDef(
+            id = "yaaleh_vyavo_rosh_chodesh_shacharit",
+            title = "Yaaleh V'yavo — Rosh Chodesh (in Shacharit Amidah)",
+            section = "Morning Prayer (Shacharit)",
+            sortOrder = 52,
+            timeOfDay = TimeOfDay.ANY,
+            required = true,
+            gender = "male",
+            explanation = SeasonalMitzvahText.yaalehVyavoShacharitExplanation(),
+            links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+        ),
+        ChecklistItemDef(
+            id = "yaaleh_vyavo_rosh_chodesh_mincha",
+            title = "Yaaleh V'yavo — Rosh Chodesh (in Mincha Amidah)",
+            section = "Afternoon Prayer",
+            sortOrder = 15,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            gender = "male",
+            explanation = SeasonalMitzvahText.yaalehVyavoMinchaExplanation(),
+            links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+        ),
+        ChecklistItemDef(
+            id = "yaaleh_vyavo_rosh_chodesh",
+            title = "Yaaleh V'yavo — Rosh Chodesh (in Maariv Amidah)",
+            section = "Evening Prayer",
+            sortOrder = 25,
+            timeOfDay = TimeOfDay.NIGHT,
+            required = true,
+            gender = "male",
+            explanation = SeasonalMitzvahText.yaalehVyavoMaarivExplanation(),
+            links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+        ),
+    )
+
+    private fun roshChodeshHalfHallelItem(profile: UserProfile) = ChecklistItemDef(
+        id = "rosh_chodesh_half_hallel",
+        title = "Half Hallel — Rosh Chodesh",
+        section = "Morning Prayer (Shacharit)",
+        sortOrder = 54,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        gender = "male",
+        explanation = SeasonalMitzvahText.roshChodeshHalfHallelExplanation(),
+        explanationAshkenaz = SeasonalMitzvahText.roshChodeshHalfHallelAshkenazNote(),
+        explanationSefard = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
+        explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
+        explanationChabad = SeasonalMitzvahText.roshChodeshHalfHallelChabadNote(),
+        links = SeasonalMitzvahText.roshChodeshLinks(profile),
+    )
+
+    private fun roshChodeshFullHallelDuringChanukahItem(profile: UserProfile) = ChecklistItemDef(
+        id = "rosh_chodesh_full_hallel_chanukah",
+        title = "Full Hallel — Rosh Chodesh during Chanukah",
+        section = "Morning Prayer (Shacharit)",
+        sortOrder = 54,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        gender = "male",
+        explanation = SeasonalMitzvahText.roshChodeshFullHallelChanukahExplanation(),
+        explanationAshkenaz = SeasonalMitzvahText.roshChodeshFullHallelAshkenazNote(),
+        explanationSefard = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationChabad = SeasonalMitzvahText.roshChodeshFullHallelChabadNote(),
+        links = SeasonalMitzvahText.roshChodeshLinks(profile),
+    )
+
     private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
         val day = cal.hebrewDay ?: return false
         if (day > 15) return false
@@ -999,7 +1062,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
     private fun kiddushLevanaItem(profile: UserProfile) = ChecklistItemDef(
         id = "kiddush_levana",
         title = "Kiddush Levana — Sanctification of the Moon (once per Hebrew month)",
-        section = "Seasonal",
+        section = "Monthly",
+        sortOrder = 20,
         timeOfDay = TimeOfDay.NIGHT,
         required = true,
         situational = false,

@@ -75,6 +75,7 @@ import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
 import com.beardytop.beatzaddik.domain.DayChecklists
 import com.beardytop.beatzaddik.domain.HolyDayPhoneNotice
 import com.beardytop.beatzaddik.domain.ChecklistEngine
+import com.beardytop.beatzaddik.domain.ChecklistSectionOrder
 import com.beardytop.beatzaddik.domain.Gender
 import com.beardytop.beatzaddik.domain.ItemZmanAvailability
 import com.beardytop.beatzaddik.domain.MealCategory
@@ -162,6 +163,7 @@ fun TodayScreen(
                 day = day,
                 timezoneId = profile.timezoneId,
                 locationLabel = profile.locationLabel,
+                upcoming = upcoming,
                 onNusachClick = onOpenSettings,
                 onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
                 onOpenShabbatGuide = openShabbatGuide,
@@ -358,12 +360,8 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
     }
 }
 
-private fun sectionSortKey(section: String): Int {
-    val base = section.substringBefore(" (")
-    return ChecklistEngine.sectionOrder.indexOf(base).takeIf { it >= 0 }
-        ?: ChecklistEngine.sectionOrder.indexOf(section).takeIf { it >= 0 }
-        ?: 200
-}
+private fun sectionSortKey(section: String, activePeriod: TimeOfDay): Int =
+    ChecklistSectionOrder.sortIndex(section, activePeriod)
 
 /** Sections that start collapsed — mostly one-time or infrequent setup. */
 private val defaultCollapsedSectionNames = setOf(
@@ -371,7 +369,6 @@ private val defaultCollapsedSectionNames = setOf(
     "Important Lifestyle Mitzvot",
     // "Married women's mitzvot" is intentionally expanded by default when present.
     "Prepare for Shabbat",
-    "Seasonal",
     "Pesach prep",
     "Sefirat HaOmer",
     "Chanukah",
@@ -451,7 +448,7 @@ private fun ChecklistSections(
     val collapsedSet = remember(collapsedSectionKeys) { collapsedSectionKeys.toSet() }
     items.groupBy { it.sectionLabel }
         .toList()
-        .sortedBy { (section, _) -> sectionSortKey(section) }
+        .sortedBy { (section, _) -> sectionSortKey(section, activePeriod) }
         .forEach { (section, sectionItems) ->
             val sectionKey = sectionPrefix + section
             val expanded = sectionKey !in collapsedSet
@@ -527,12 +524,13 @@ private fun ChecklistSections(
         }
 }
 
-private fun upcomingWhenLabel(holiday: UpcomingHoliday): String = when {
-    holiday.daysAway == 0 && holiday.beginsTonightWhenImminent -> "Tonight"
-    holiday.daysAway == 0 -> "today"
-    holiday.daysAway == 1 -> "tomorrow"
-    else -> "in ${holiday.daysAway} days"
-}
+private fun upcomingWhenLabel(holiday: UpcomingHoliday): String =
+    holiday.whenLabelOverride ?: when {
+        holiday.daysAway == 0 && holiday.beginsTonightWhenImminent -> "Tonight"
+        holiday.daysAway == 0 -> "today"
+        holiday.daysAway == 1 -> "tomorrow"
+        else -> "in ${holiday.daysAway} days"
+    }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -688,6 +686,7 @@ private fun CalendarHeader(
     day: DayChecklists?,
     timezoneId: String,
     locationLabel: String?,
+    upcoming: List<UpcomingHoliday> = emptyList(),
     onNusachClick: () -> Unit = {},
     onPeriodClick: () -> Unit = {},
     onOpenShabbatGuide: (anchor: String?) -> Unit = {},
@@ -742,66 +741,90 @@ private fun CalendarHeader(
             }
             Spacer(Modifier.height(10.dp))
 
-            // Bottom row: Nusach pill + meaningful status chips side by side
+            // Bottom row: Nusach pill + extra status chips (not already in Upcoming & seasonal)
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(6.dp),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
-                // Nusach pill
-                Row(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(TzaddikColors.GoldBorder.copy(alpha = 0.22f))
-                        .clickable(onClick = onNusachClick)
-                        .padding(horizontal = 12.dp, vertical = 5.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(5.dp)
-                            .rotate(45f)
-                            .background(TzaddikColors.GoldBright, RoundedCornerShape(1.dp))
-                    )
-                    Spacer(Modifier.width(7.dp))
-                    AppText(
-                        d.nusachLabel,
-                        color = TzaddikColors.GoldBright,
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                    Spacer(Modifier.width(6.dp))
-                    Text(
-                        "›",
-                        color = TzaddikColors.GoldBright.copy(alpha = 0.65f),
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
+                HeaderNusachPill(label = d.nusachLabel, onClick = onNusachClick)
 
-                // Only show meaningful status chips — skip bare day-of-week names
-                val meaningfulChips = d.header.statusChips.filter { chip ->
-                    chip !in setOf(
-                        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-                        "Erev Shabbat", // shown as "Shabbat — Tonight" in upcoming list
-                    )
-                }
-                meaningfulChips.forEach { chip ->
+                headerStatusChips(d.header.statusChips, upcoming).forEach { chip ->
                     val guideAnchor = ShabbatGuideData.anchorForLabel(chip)
-                    AssistChip(
-                        onClick = { guideAnchor?.let { onOpenShabbatGuide(it) } },
-                        label = {
-                            AppText(
-                                chip,
-                                color = TzaddikColors.ParchTop,
-                                style = MaterialTheme.typography.labelMedium,
-                            )
-                        },
-                        colors = AssistChipDefaults.assistChipColors(
-                            containerColor = TzaddikColors.NavyMid.copy(alpha = 0.7f)
-                        ),
-                        border = null
+                    HeaderStatusPill(
+                        label = chip,
+                        onClick = guideAnchor?.let { anchor -> { onOpenShabbatGuide(anchor) } },
                     )
                 }
             }
         }
     }
     Spacer(Modifier.height(12.dp))
+}
+
+/** Status chips already covered by the Upcoming & seasonal block — skip to avoid duplicate labels. */
+private fun headerStatusChips(
+    chips: List<String>,
+    upcoming: List<UpcomingHoliday>,
+): List<String> {
+    val coveredByUpcoming = upcoming
+        .filter { it.daysAway == 0 || it.whenLabelOverride != null }
+        .map { it.name }
+        .toSet()
+    return chips.filter { chip ->
+        chip !in setOf(
+            "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+            "Erev Shabbat",
+        )
+            && chip !in coveredByUpcoming
+            && coveredByUpcoming.none { chip.startsWith(it) }
+    }
+}
+
+@Composable
+private fun HeaderNusachPill(label: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .background(TzaddikColors.GoldBorder.copy(alpha = 0.22f))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 12.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(5.dp)
+                .rotate(45f)
+                .background(TzaddikColors.GoldBright, RoundedCornerShape(1.dp))
+        )
+        Spacer(Modifier.width(7.dp))
+        AppText(
+            label,
+            color = TzaddikColors.GoldBright,
+            style = MaterialTheme.typography.labelMedium,
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            "›",
+            color = TzaddikColors.GoldBright.copy(alpha = 0.65f),
+            style = MaterialTheme.typography.labelMedium,
+        )
+    }
+}
+
+@Composable
+private fun HeaderStatusPill(label: String, onClick: (() -> Unit)?) {
+    Row(
+        modifier = Modifier
+            .clip(RoundedCornerShape(50))
+            .background(TzaddikColors.NavyMid.copy(alpha = 0.7f))
+            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
+            .padding(horizontal = 12.dp, vertical = 5.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        AppText(
+            label,
+            color = TzaddikColors.ParchTop,
+            style = MaterialTheme.typography.labelMedium,
+        )
+    }
 }
