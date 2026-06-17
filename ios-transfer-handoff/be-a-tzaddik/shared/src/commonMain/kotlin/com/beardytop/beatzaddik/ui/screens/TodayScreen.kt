@@ -85,6 +85,7 @@ import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.UpcomingHoliday
 import com.beardytop.beatzaddik.domain.ZmanimFormatter
 import com.beardytop.beatzaddik.ui.ChecklistPeriodScroll
+import com.beardytop.beatzaddik.ui.components.ChecklistDebugMenu
 import com.beardytop.beatzaddik.ui.components.CollapsibleChecklistSectionHeader
 import com.beardytop.beatzaddik.ui.components.CurrentTimeLine
 import com.beardytop.beatzaddik.ui.components.GoldButton
@@ -113,7 +114,15 @@ fun TodayScreen(
     val progress by viewModel.requiredProgress.collectAsState()
     val kashrut by viewModel.kashrutWait.collectAsState()
     val upcoming by viewModel.upcomingHolidays.collectAsState()
-    val nowMillis by produceState(Clock.System.now().toEpochMilliseconds()) {
+    val debugOverride by viewModel.checklistDebugOverride.collectAsState()
+    val nowMillis by produceState(
+        initialValue = debugOverride?.epochMillis ?: Clock.System.now().toEpochMilliseconds(),
+        debugOverride,
+    ) {
+        if (debugOverride != null) {
+            value = debugOverride!!.epochMillis
+            return@produceState
+        }
         while (true) {
             value = Clock.System.now().toEpochMilliseconds()
             delay(1000)
@@ -121,6 +130,8 @@ fun TodayScreen(
     }
     var customText by remember { mutableStateOf("") }
     var infoItem by remember { mutableStateOf<ResolvedChecklistItem?>(null) }
+    var guideTopic by remember { mutableStateOf<GuideTopic?>(null) }
+    var omerExplainer by remember { mutableStateOf<String?>(null) }
     val scrollState = rememberScrollState()
     val scrollScope = rememberCoroutineScope()
     var periodScrollOffsets by remember { mutableStateOf<Map<TimeOfDay, Int>>(emptyMap()) }
@@ -159,6 +170,11 @@ fun TodayScreen(
             .padding(horizontal = 4.dp, vertical = 8.dp)
     ) {
         ParchmentContentCard {
+            ChecklistDebugMenu(
+                viewModel = viewModel,
+                activeOverride = debugOverride,
+                timezoneId = profile.timezoneId,
+            )
             CalendarHeader(
                 day = day,
                 timezoneId = profile.timezoneId,
@@ -167,9 +183,15 @@ fun TodayScreen(
                 onNusachClick = onOpenSettings,
                 onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
                 onOpenShabbatGuide = openShabbatGuide,
+                onOpenGuideTopic = { topic -> guideTopic = topic },
+                onOpenOmerExplainer = { omerExplainer = day?.header?.omerExplainerText },
             )
             if (upcoming.isNotEmpty()) {
-                UpcomingHolidaysBlock(upcoming, openShabbatGuide)
+                UpcomingHolidaysBlock(
+                    holidays = upcoming,
+                    onOpenGuideTopic = { topic -> guideTopic = topic },
+                    onOpenShabbatGuide = openShabbatGuide,
+                )
             }
             kashrut?.let { wait ->
                 val isDone = nowMillis >= wait.endsAtEpochMillis
@@ -278,6 +300,7 @@ fun TodayScreen(
                     onInfo = { infoItem = it },
                     activePeriod = d.activePeriod,
                     profile = profile,
+                    prioritizePrepSections = d.prioritizePrepSections,
                     expandPeriodRequest = expandPeriodRequest,
                     onExpandPeriodConsumed = { expandPeriodRequest = null },
                     scrollRootY = scrollRootY,
@@ -316,6 +339,22 @@ fun TodayScreen(
 
     infoItem?.let { item ->
         MitzvahInfoDialog(item = item, onDismiss = { infoItem = null })
+    }
+    guideTopic?.let { topic ->
+        GuideTopicExplainerDialog(topic = topic, onDismiss = { guideTopic = null })
+    }
+    omerExplainer?.let { body ->
+        ParchmentDialog(
+            onDismiss = { omerExplainer = null },
+            title = "Sefirat HaOmer",
+            confirmButton = { GoldButton(onClick = { omerExplainer = null }, text = "Done") },
+        ) {
+            HalachicClickableText(
+                text = body,
+                style = MaterialTheme.typography.bodyMedium,
+                color = TzaddikColors.NavyDeep,
+            )
+        }
     }
     }
 }
@@ -360,8 +399,11 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
     }
 }
 
-private fun sectionSortKey(section: String, activePeriod: TimeOfDay): Int =
-    ChecklistSectionOrder.sortIndex(section, activePeriod)
+private fun sectionSortKey(
+    section: String,
+    activePeriod: TimeOfDay,
+    prioritizePrepSections: Set<String> = emptySet(),
+): Int = ChecklistSectionOrder.sortIndex(section, activePeriod, prioritizePrepSections)
 
 /** Sections that start collapsed — mostly one-time or infrequent setup. */
 private val defaultCollapsedSectionNames = setOf(
@@ -378,9 +420,11 @@ private val defaultCollapsedSectionNames = setOf(
 private fun defaultCollapsedSectionKeys(
     sectionPrefix: String,
     activePeriod: TimeOfDay,
-    profile: UserProfile
+    profile: UserProfile,
+    prioritizePrepSections: Set<String> = emptySet(),
 ): Set<String> {
     val names = defaultCollapsedSectionNames.toMutableSet()
+    prioritizePrepSections.forEach { names.remove(it) }
     if (profile.gender == Gender.FEMALE) {
         if (profile.married) {
             names.remove("Important Lifestyle Mitzvot")
@@ -417,6 +461,7 @@ private fun ChecklistSections(
     activePeriod: TimeOfDay = TimeOfDay.DAY,
     collapsibleSections: Boolean = true,
     profile: UserProfile = UserProfile(),
+    prioritizePrepSections: Set<String> = emptySet(),
     expandPeriodRequest: TimeOfDay? = null,
     onExpandPeriodConsumed: () -> Unit = {},
     scrollRootY: Float = 0f,
@@ -430,8 +475,21 @@ private fun ChecklistSections(
         )
         return
     }
-    var collapsedSectionKeys by rememberSaveable(sectionPrefix, activePeriod, profile.married, profile.gender) {
-        mutableStateOf(defaultCollapsedSectionKeys(sectionPrefix, activePeriod, profile).toList())
+    var collapsedSectionKeys by rememberSaveable(
+        sectionPrefix,
+        activePeriod,
+        profile.married,
+        profile.gender,
+        prioritizePrepSections,
+    ) {
+        mutableStateOf(
+            defaultCollapsedSectionKeys(
+                sectionPrefix,
+                activePeriod,
+                profile,
+                prioritizePrepSections,
+            ).toList()
+        )
     }
 
     LaunchedEffect(expandPeriodRequest) {
@@ -448,7 +506,9 @@ private fun ChecklistSections(
     val collapsedSet = remember(collapsedSectionKeys) { collapsedSectionKeys.toSet() }
     items.groupBy { it.sectionLabel }
         .toList()
-        .sortedBy { (section, _) -> sectionSortKey(section, activePeriod) }
+        .sortedBy { (section, _) ->
+            sectionSortKey(section, activePeriod, prioritizePrepSections)
+        }
         .forEach { (section, sectionItems) ->
             val sectionKey = sectionPrefix + section
             val expanded = sectionKey !in collapsedSet
@@ -532,11 +592,27 @@ private fun upcomingWhenLabel(holiday: UpcomingHoliday): String =
         else -> "in ${holiday.daysAway} days"
     }
 
+@Composable
+private fun GuideTopicExplainerDialog(topic: GuideTopic, onDismiss: () -> Unit) {
+    ParchmentDialog(
+        onDismiss = onDismiss,
+        title = topic.title,
+        confirmButton = { GoldButton(onClick = onDismiss, text = "Done") },
+    ) {
+        HalachicClickableText(
+            text = topic.body,
+            style = MaterialTheme.typography.bodyMedium,
+            color = TzaddikColors.NavyDeep,
+        )
+    }
+}
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun UpcomingHolidaysBlock(
     holidays: List<UpcomingHoliday>,
-    onOpenShabbatGuide: (anchor: String?) -> Unit
+    onOpenGuideTopic: (GuideTopic) -> Unit,
+    onOpenShabbatGuide: (anchor: String?) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -563,41 +639,48 @@ private fun UpcomingHolidaysBlock(
         Spacer(Modifier.height(8.dp))
         holidays.forEach { h ->
             val whenLabel = upcomingWhenLabel(h)
-            // Determine anchor: map holiday name to a guide section
-            val anchor = ShabbatGuideData.anchorForLabel(h.name)
+            val topic = ShabbatGuideData.topicForUpcomingHoliday(h.name)
+            val fallbackTopic = remember(h.name, h.hint) {
+                GuideTopic(
+                    id = "upcoming_${h.name.lowercase().replace(' ', '_').replace('\'', '_')}",
+                    title = h.name,
+                    body = buildString {
+                        if (h.hint.isNotBlank()) {
+                            appendLine(h.hint.trim())
+                            appendLine()
+                        }
+                        append(
+                            "Details and customs vary by community. Tap “Shabbat guide” above for longer explainers and related halachic topics."
+                        )
+                    },
+                )
+            }
+            val openTopic = topic ?: fallbackTopic
 
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(8.dp))
-                    .then(
-                        if (anchor != null)
-                            Modifier.clickable { onOpenShabbatGuide(anchor) }
-                        else Modifier
-                    )
                     .padding(vertical = 4.dp, horizontal = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = h.name,
+                        color = TzaddikColors.ParchTop,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            textDecoration = TextDecoration.Underline,
+                        ),
+                        modifier = Modifier.clickable { onOpenGuideTopic(openTopic) },
+                    )
                     AppText(
-                        "${h.name} — $whenLabel",
+                        " — $whenLabel",
                         color = TzaddikColors.ParchTop,
                         enableTerms = false,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    if (h.hint.isNotBlank()) {
-                        Spacer(Modifier.height(3.dp))
-                        // Render hint words — tap any known term to open its guide entry
-                        HintWithTermLinks(h.hint, onOpenShabbatGuide)
-                    }
-                }
-                if (anchor != null) {
-                    Text(
-                        "›",
-                        color = TzaddikColors.GoldBright.copy(alpha = 0.6f),
                         style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(start = 6.dp)
                     )
+                }
+                if (h.hint.isNotBlank()) {
+                    Spacer(Modifier.height(3.dp))
+                    HintWithTermLinks(h.hint, onOpenShabbatGuide)
                 }
             }
         }
@@ -690,6 +773,8 @@ private fun CalendarHeader(
     onNusachClick: () -> Unit = {},
     onPeriodClick: () -> Unit = {},
     onOpenShabbatGuide: (anchor: String?) -> Unit = {},
+    onOpenGuideTopic: (GuideTopic) -> Unit = {},
+    onOpenOmerExplainer: () -> Unit = {},
 ) {
     Column(
         modifier = Modifier
@@ -708,6 +793,56 @@ private fun CalendarHeader(
             modifier = Modifier.padding(bottom = 6.dp)
         )
         day?.let { d ->
+            d.header.todayOccasionLabel?.let { occasion ->
+                val topic = d.header.todayOccasionGuideAnchor
+                    ?.let(ShabbatGuideData::topicForAnchor)
+                    ?: ShabbatGuideData.topicForUpcomingHoliday(occasion)
+                Column {
+                    if (topic != null) {
+                        Text(
+                            text = occasion,
+                            color = TzaddikColors.GoldBright,
+                            style = MaterialTheme.typography.titleSmall.copy(
+                                fontWeight = FontWeight.SemiBold,
+                                textDecoration = TextDecoration.Underline,
+                            ),
+                            modifier = Modifier.clickable { onOpenGuideTopic(topic) },
+                        )
+                    } else {
+                        AppText(
+                            occasion,
+                            color = TzaddikColors.GoldBright,
+                            enableTerms = false,
+                            style = MaterialTheme.typography.titleSmall.copy(
+                                fontWeight = FontWeight.SemiBold,
+                            ),
+                        )
+                    }
+                    d.header.todayOccasionSubtitle?.let { subtitle ->
+                        AppText(
+                            subtitle,
+                            color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
+                            enableTerms = false,
+                            style = MaterialTheme.typography.bodySmall,
+                            modifier = Modifier.padding(top = 2.dp),
+                        )
+                    }
+                }
+                Spacer(Modifier.height(4.dp))
+            }
+            d.header.omerTodayLabel?.let { omerLabel ->
+                AppText(
+                    omerLabel,
+                    color = TzaddikColors.ParchTop.copy(alpha = 0.9f),
+                    enableTerms = false,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontWeight = FontWeight.Medium,
+                        textDecoration = TextDecoration.Underline,
+                    ),
+                    modifier = Modifier.clickable(onClick = onOpenOmerExplainer),
+                )
+                Spacer(Modifier.height(6.dp))
+            }
             // Civil + Hebrew dates on the same visual tier — same weight, clear step down from clock
             AppText(
                 d.header.civilDateLabel,
@@ -748,7 +883,11 @@ private fun CalendarHeader(
             ) {
                 HeaderNusachPill(label = d.nusachLabel, onClick = onNusachClick)
 
-                headerStatusChips(d.header.statusChips, upcoming).forEach { chip ->
+                headerStatusChips(
+                    chips = d.header.statusChips,
+                    upcoming = upcoming,
+                    todayOccasion = d.header.todayOccasionLabel,
+                ).forEach { chip ->
                     val guideAnchor = ShabbatGuideData.anchorForLabel(chip)
                     HeaderStatusPill(
                         label = chip,
@@ -765,6 +904,7 @@ private fun CalendarHeader(
 private fun headerStatusChips(
     chips: List<String>,
     upcoming: List<UpcomingHoliday>,
+    todayOccasion: String? = null,
 ): List<String> {
     val coveredByUpcoming = upcoming
         .filter { it.daysAway == 0 || it.whenLabelOverride != null }
@@ -777,7 +917,19 @@ private fun headerStatusChips(
         )
             && chip !in coveredByUpcoming
             && coveredByUpcoming.none { chip.startsWith(it) }
+            && !chipCoveredByTodayOccasion(chip, todayOccasion)
     }
+}
+
+private fun chipCoveredByTodayOccasion(chip: String, todayOccasion: String?): Boolean {
+    if (todayOccasion == null) return false
+    if (todayOccasion.contains(chip, ignoreCase = true)) return true
+    if (chip == "Fast day" && todayOccasion.contains("Fast", ignoreCase = true)) return true
+    if (chip.startsWith("Chanukah") && todayOccasion.contains("Chanukah", ignoreCase = true)) return true
+    if (chip == "Purim" && todayOccasion.contains("Purim", ignoreCase = true)) return true
+    if (chip == "Shabbat" && todayOccasion.contains("Shabbat", ignoreCase = true)) return true
+    if (chip == "Rosh Chodesh" && todayOccasion.contains("Rosh Chodesh", ignoreCase = true)) return true
+    return false
 }
 
 @Composable

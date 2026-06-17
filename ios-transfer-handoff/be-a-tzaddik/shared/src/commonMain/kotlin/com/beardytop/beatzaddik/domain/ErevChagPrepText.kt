@@ -90,9 +90,7 @@ object ErevChagPrepText {
             "• Confirm shul times for tonight and tomorrow (Maariv / Shacharit / Musaf)."
         }
 
-        return """${BeginnerHalachaGlossary.erevChagCommon()}
-
-Before chag — every erev Yom Tov:
+        return """Before chag — every erev Yom Tov:
 $sunsetLine
 $cookingLine
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
@@ -211,14 +209,21 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
             val shabbatBlock = ErevPesachPrepText.erevPesachShabbatScheduleBlock(cal)
                 ?.let { if (YomTovShabbatPrepText.isShabbatErevChag(cal)) null else "\n\n$it" }
                 ?: ""
+            val chametzNote = when {
+                ErevPesachPrepText.isErevPesachOnShabbat(cal) ->
+                    """Chametz:
+• Biur was Friday morning (13 Nisan). On Shabbat morning, finish eating chametz by the end of the 4th halachic hour and recite the final Kol Chamira before the end of the 5th halachic hour — do not burn on Shabbat. Bedikat was Thursday night; mechirat chametz should already be authorized."""
+                else ->
+                    """Chametz:
+• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (midday threshold) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Bedikat chametz was last night; mechirat chametz should already be authorized with your rabbi — use today's biur chametz checklist item if still on your list."""
+            }
             Triple(
                 "Erev Pesach prep — Yom Tov & seder",
                 BeginnerHalachaGlossary.withKeyTerms(
                     BeginnerHalachaGlossary.pesachPrep(),
                     """$pesachBegins
 
-Chametz:
-• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (midday threshold) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Use today's Erev Pesach checklist items for bedikat chametz, biur, and mechirat chametz if still on your list.
+$chametzNote
 
 Seder (first night):
 • $sederWhen

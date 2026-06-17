@@ -1,5 +1,9 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+
 /**
  * Prayer-related checklist rows follow zmanim windows and show friendly gray states
  * when upcoming or past today's ideal time.
@@ -24,13 +28,21 @@ object ChecklistZmanEvaluator {
         "yaaleh_vyavo_rosh_chodesh_shacharit",
         "yaaleh_vyavo_rosh_chodesh_mincha",
         "yaaleh_vyavo_rosh_chodesh",
+        "rosh_chodesh_observances",
         "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
         "bedtime_shema_women",
         "hamapil_blessing_according_to_many_opinions",
         "at_least_one_prayer_daily_typically_morning",
         "ashkenaz_korbanot_before_shacharit",
         "chabad_korbanot_before_shacharit",
-        "melave_malkah"
+        "sefard_korbanot_before_mincha",
+        "edot_hamizrach_korbanot_before_mincha",
+        "ldovid_hashem_ori",
+        "birkat_hachamah",
+        "birkat_hailanot",
+        "melave_malkah",
+        "public_fast_day",
+        "motzei_yom_kippur_meal",
     )
 
     fun appliesTo(itemId: String): Boolean = itemId in zmanItemIds
@@ -63,6 +75,13 @@ object ChecklistZmanEvaluator {
             "chabad_korbanot_before_shacharit" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "Korbanot"
             )
+            "ldovid_hashem_ori" -> shacharitPartsWindow(
+                nowMillis, z, tz, label = "L'Dovid (Psalm 27)"
+            )
+            "sefard_korbanot_before_mincha",
+            "edot_hamizrach_korbanot_before_mincha" -> minchaWindow(
+                nowMillis, z, tz, label = "Korbanot before Mincha"
+            )
             "minimum_pesukei_d_zimra" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "Pesukei DeZimra"
             )
@@ -93,6 +112,7 @@ object ChecklistZmanEvaluator {
             "yaaleh_vyavo_rosh_chodesh_shacharit" -> yaalehVyavoShacharitWindow(nowMillis, z, tz)
             "yaaleh_vyavo_rosh_chodesh_mincha" -> yaalehVyavoMinchaWindow(nowMillis, z, tz)
             "yaaleh_vyavo_rosh_chodesh" -> yaalehVyavoMaarivWindow(nowMillis, z, tz)
+            "rosh_chodesh_observances" -> roshChodeshObservancesWindow(nowMillis, z, tz)
             "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
             "bedtime_shema_women" ->
                 bedtimeWindow(nowMillis, z, tz, "Bedtime Shema")
@@ -102,7 +122,11 @@ object ChecklistZmanEvaluator {
                 nowMillis, z, tz, label = "daily prayer"
             )
             "kiddush_levana" -> kiddushLevanaWindow(prayerDay)
+            "birkat_hachamah" -> birkatHachamahWindow(nowMillis, z, tz)
+            "birkat_hailanot" -> birkatHaIlanotHint(prayerDay)
             "melave_malkah" -> melaveMalkaWindow(nowMillis, z, tz, prayerDay)
+            "public_fast_day" -> publicFastWindow(nowMillis, z, tz, prayerDay.fastDayIndex)
+            "motzei_yom_kippur_meal" -> motzeiYomKippurMealWindow(nowMillis, z, tz)
             else -> ItemZmanStatus()
         }
     }
@@ -250,15 +274,16 @@ object ChecklistZmanEvaluator {
         }
         val label = day.musafDayLabel()
         val start = z.sunriseMillis
-        // SA OC 286:1: ideal before end of 7th hour (chatzos); bedi'eved "its time is all day"
+        // SA OC 286:1: ideal before end of 7th halachic hour; bedi'eved "its time is all day"
         // (זמנה כל היום) — does not expire until sunset.
-        val idealEnd = z.chatzosMillis
+        val idealEnd = ZmanimHelpers.endOfHalachicHourMillis(z, 7)
         val absoluteEnd = z.sunsetMillis
         val shabbatNote = if (day.isShabbatOrYomTov) {
             " On Shabbat and Festivals, fulfill this without using your phone."
         } else ""
+        val idealEndLabel = ZmanimFormatter.formatTime(idealEnd, tz) ?: "end of the 7th hour"
         val lateHint = if (idealEnd != null && now >= idealEnd)
-            "Musaf should ideally be prayed before midday (chatzos). You can still fulfill it — if Mincha time has arrived, pray Mincha first (SA OC 286:4).$shabbatNote"
+            "Ideal Musaf time passed ($idealEndLabel — end of the 7th halachic hour). You can still fulfill it until sunset — if Mincha time has arrived, pray Mincha first (SA OC 286:4).$shabbatNote"
         else null
         return windowStatus(
             now, start, absoluteEnd,
@@ -300,12 +325,12 @@ object ChecklistZmanEvaluator {
 
     private fun yaalehVyavoShacharitWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
         amidahWindow(now, z, tz).copy(
-            makeupNote = "Forgot Yaaleh V'yavo at Shacharit on Rosh Chodesh? Repeat the Shacharit Amidah (Shulchan Arukh O.C. 422:1).",
+            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; between Retzei and Modim — say it then Modim; after Modim started — return to Retzei; after Yihiyu L'ratzon — repeat only Shacharit Amidah (SA O.C. 422:1).",
         )
 
     private fun yaalehVyavoMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
         minchaWindow(now, z, tz, label = "Yaaleh V'yavo at Mincha").copy(
-            makeupNote = "Forgot Yaaleh V'yavo at Mincha on Rosh Chodesh? Repeat the Mincha Amidah (Shulchan Arukh O.C. 422:1).",
+            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; between Retzei and Modim — say it then Modim; after Modim started — return to Retzei; after Yihiyu L'ratzon — repeat only Mincha Amidah (SA O.C. 422:1).",
         )
 
     private fun yaalehVyavoMaarivWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
@@ -319,7 +344,7 @@ object ChecklistZmanEvaluator {
             now, start, end,
             upcoming = "Yaaleh V'yavo at Maariv — available ${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}.$tzeitNote",
             expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
-            makeup = "Forgot Yaaleh V'yavo at Maariv on Rosh Chodesh? You do not repeat the Amidah (Shulchan Arukh O.C. 422:1).",
+            makeup = "Forgot Yaaleh V'yavo at Maariv on Rosh Chodesh? After Retzei or after the Amidah — do not repeat (Berachot 30b; SA O.C. 422:1). Still in Retzei before God's name — insert there.",
             availableAtLabel = "sunset",
         )
     }
@@ -379,6 +404,71 @@ object ChecklistZmanEvaluator {
         )
     }
 
+    private fun roshChodeshObservancesWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = z.alotHaShacharMillis ?: z.sunriseMillis
+        val end = z.tzeitMillis ?: z.sunsetMillis
+        return windowStatus(
+            now, start, end,
+            upcoming = "Rosh Chodesh observances — from dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"}) through nightfall tonight.",
+            expired = "Tonight's Rosh Chodesh ended at nightfall (tzeit).",
+            makeup = null,
+            availableAtLabel = "dawn",
+            activeHint = "It is a mitzvah to have a festive meal during the day in honor of Rosh Chodesh.",
+        )
+    }
+
+    private fun publicFastWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        fastIdx: Int?,
+    ): ItemZmanStatus {
+        val idx = fastIdx ?: return ItemZmanStatus()
+        val subtitle = PublicFastDayText.fastDaySubtitle(idx, z, tz)
+        val end = z.tzeitMillis
+            ?: return ItemZmanStatus(hint = subtitle)
+        if (PublicFastDayRules.fastStartsAtSunset(idx)) {
+            val start = z.alotHaShacharMillis ?: z.sunriseMillis ?: 0L
+            return windowStatus(
+                now = now,
+                start = start,
+                end = end,
+                upcoming = "$subtitle — fast begins at sunset.",
+                expired = "The fast ended at nightfall.",
+                makeup = null,
+                availableAtLabel = "nightfall",
+                activeHint = subtitle,
+            )
+        }
+        val start = z.alotHaShacharMillis ?: z.sunriseMillis
+            ?: return ItemZmanStatus(hint = subtitle)
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "$subtitle — begins at dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "alot hashachar"}).",
+            expired = "Today's fast ended at nightfall.",
+            makeup = null,
+            availableAtLabel = "dawn",
+            activeHint = subtitle,
+        )
+    }
+
+    private fun motzeiYomKippurMealWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = z.tzeitMillis
+            ?: return ItemZmanStatus(hint = "Break-fast meal — available after nightfall when Yom Kippur ends.")
+        return windowStatus(
+            now = now,
+            start = start,
+            end = null,
+            upcoming = "Motzei Yom Kippur meal — after nightfall (${ZmanimFormatter.formatAfter(start, tz) ?: "tzeit"}).",
+            expired = "Tonight's break-fast window has passed.",
+            makeup = null,
+            availableAtLabel = "nightfall",
+            activeHint = "Eat a proper meal after Maariv and Havdalah.",
+        )
+    }
+
     private fun windowStatus(
         now: Long,
         start: Long?,
@@ -426,6 +516,43 @@ object ChecklistZmanEvaluator {
      *
      * Source: Shulchan Aruch OC 426:3–4; Rama ibid.; Mishnah Berurah 426:20.
      */
+    private fun birkatHaIlanotHint(prayerDay: PrayerDayContext): ItemZmanStatus =
+        ItemZmanStatus(hint = BirkatHaIlanotRules.listSubtextHint(prayerDay.latitude))
+
+    private fun birkatHachamahWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val today = Instant.fromEpochMilliseconds(now).toLocalDateTime(TimeZone.of(tz)).date
+        val occurrence = BirkatHachamahRules.visibleOccurrence(today) ?: return ItemZmanStatus()
+        val dateLabel = BirkatHachamahRules.formatOccurrenceDate(occurrence)
+        if (!BirkatHachamahRules.isRecitationDay(today)) {
+            val days = BirkatHachamahRules.daysUntilOccurrence(today, occurrence)
+            val whenLabel = when (days) {
+                1 -> "tomorrow"
+                else -> "in $days days"
+            }
+            return ItemZmanStatus(
+                availability = ItemZmanAvailability.UPCOMING,
+                hint = "Birkat Hachamah $whenLabel — $dateLabel. Plan to recite outdoors at sunrise.",
+                availableAtLabel = dateLabel,
+            )
+        }
+        val start = z.sunriseMillis ?: z.alotHaShacharMillis
+        val idealEnd = z.sofZmanTefillaMillis
+        val absoluteEnd = z.chatzosMillis
+        val lateHint = if (idealEnd != null && now >= idealEnd)
+            "Ideal time passed (${ZmanimFormatter.formatTime(idealEnd, tz) ?: "third hour"}). According to some opinions, you may still recite it until chatzos (halachic midday)."
+        else "Recite Birkat Hachamah outdoors at sunrise while viewing the sun."
+        return windowStatus(
+            now = now,
+            start = start,
+            end = absoluteEnd,
+            upcoming = "Today — Birkat Hachamah at sunrise ($dateLabel). Recite outdoors while viewing the sun.",
+            expired = "Today's window for Birkat Hachamah has passed. This opportunity comes only once every 28 years.",
+            makeup = null,
+            availableAtLabel = ZmanimFormatter.formatTime(start, tz) ?: "sunrise",
+            activeHint = lateHint,
+        )
+    }
+
     private fun kiddushLevanaWindow(prayerDay: PrayerDayContext): ItemZmanStatus {
         val day = prayerDay.hebrewDay
             ?: return ItemZmanStatus(
@@ -433,12 +560,16 @@ object ChecklistZmanEvaluator {
                 hint = "Set your location so the app knows the Hebrew date and when Kiddush Levana opens this month."
             )
 
+        val moladNote =
+            "Hebrew calendar day is only a rough guide — the real window follows the molad (~3 or 7 days after) until the full moon (~14.75 days). " +
+                "Always verify Sof Zman Kiddush Levana for your location."
+
         // Day 16+: window has likely closed (coarse proxy — full moon may fall earlier on the 15th)
         if (day > 15) {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.EXPIRED,
-                hint = "The Kiddush Levana window has likely closed for this month — it ends at the full moon, not calendar midnight on the 15th. " +
-                    "Check Sof Zman Kiddush Levana for your location. It will reopen after the new moon.",
+                hint = "The Kiddush Levana window has likely closed for this month — it ends at the full moon, not at calendar midnight on the 15th. " +
+                    "$moladNote It will reopen after the new moon.",
                 makeupNote = null
             )
         }
@@ -447,7 +578,7 @@ object ChecklistZmanEvaluator {
         if (day == 15) {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.ACTIVE,
-                hint = "If you have not yet said Kiddush Levana, check Sof Zman for your location — the window ends at the full moon, which often falls during the 15th and may already be past."
+                hint = "If you have not yet said Kiddush Levana, $moladNote The deadline often falls during the 15th and may already be past tonight."
             )
         }
 
@@ -479,15 +610,13 @@ object ChecklistZmanEvaluator {
         // Active window: day minDay..14
         val activeHint = when {
             day == 14 ->
-                "Tonight may be your last practical chance for Kiddush Levana this month — the window ends at the full moon (roughly 14.75 days from the molad), which often falls during the 15th. Check Sof Zman for your location."
+                "Tonight may be your last practical chance this month. $moladNote"
             day == 13 ->
-                "Only a few nights may remain before Sof Zman Kiddush Levana — the window ends at the full moon, not simply at the end of the 15th. Say it on the first clear night."
+                "Only a few nights may remain. $moladNote Say it on the first clear night."
             day == 12 ->
-                "3 nights remaining for Kiddush Levana this month. " +
-                "Say it on the first clear night — Motzei Shabbat is preferred when practical, not if clouds may make you miss the month."
+                "A few nights may remain. $moladNote Say it on the first clear night — Motzei Shabbat is nice when practical, not if clouds may make you miss the month."
             else ->
-                "Kiddush Levana window is open. Say it on the first clear weeknight; " +
-                "Motzei Shabbat is a nice time when the moon is visible — do not delay past the ideal early window."
+                "Kiddush Levana window is likely open. $moladNote Say it on the first clear weeknight when the moon is visible."
         }
 
         return ItemZmanStatus(

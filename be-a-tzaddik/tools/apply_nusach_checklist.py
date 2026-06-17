@@ -34,7 +34,11 @@ NUSACH_EXPLANATIONS = {
             "Omitted on Rosh Chodesh, holidays, and standard festive days."
         ),
         "explanationChabad": (
-            "Tachanun at Mincha (Chabad): Often shorter Tachanun after Mincha on weekdays; omitted on festive days."
+            "Mincha (Chabad / Nusach Ari): The communal service begins with Ashrei — not Korbanot "
+            "(Sefer HaMinhagim, Mincha). Korbanot may be read privately after Mincha Gedolah as "
+            "midat chasidut (Shulchan Arukh HaRav O.C. 234, Kuntres Acharon 2; Hayom Yom, 11 Nissan) "
+            "— not as part of the minyan. Tachanun at Mincha: shorter form on weekdays; omitted on "
+            "festive days."
         ),
     },
     "morning_blessings_birchot_hashachar": {

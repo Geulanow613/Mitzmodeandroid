@@ -247,7 +247,9 @@ data class DayChecklists(
     val header: CalendarHeader,
     val nusachLabel: String,
     /** Shabbat or (chutz) 2nd-day Yom Tov: show holy-day notice instead of checklist. */
-    val holyDayPhoneNotice: HolyDayPhoneNotice? = null
+    val holyDayPhoneNotice: HolyDayPhoneNotice? = null,
+    /** Prep sections pinned to the top of the Today checklist (erev chag, festival week, etc.). */
+    val prioritizePrepSections: Set<String> = emptySet(),
 )
 
 data class CalendarHeader(
@@ -255,7 +257,14 @@ data class CalendarHeader(
     val hebrewDateLabel: String,
     val parshaLabel: String?,
     val statusChips: List<String>,
-    val timeLabel: String? = null
+    val timeLabel: String? = null,
+    /** e.g. "3rd day of Pesach", "Fast of 17 Tammuz" — shown below the clock. */
+    val todayOccasionLabel: String? = null,
+    val todayOccasionSubtitle: String? = null,
+    val todayOccasionGuideAnchor: String? = null,
+    /** e.g. "Today is 14 days of the Omer, which is 2 weeks." */
+    val omerTodayLabel: String? = null,
+    val omerExplainerText: String? = null,
 )
 
 data class KashrutWait(

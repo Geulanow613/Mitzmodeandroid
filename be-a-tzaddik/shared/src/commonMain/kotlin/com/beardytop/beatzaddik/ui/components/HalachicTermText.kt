@@ -26,6 +26,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.SpanStyle
@@ -47,6 +48,8 @@ import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 val LocalHalachicTermExtras = compositionLocalOf { emptyList<HalachicTerm>() }
 
@@ -291,13 +294,90 @@ fun HalachicClickableText(
     val extras = LocalHalachicTermExtras.current
     val usedOnPage = LocalHalachicTermsUsedOnPage.current
     val appTranslation = LocalAppTranslation.current
-    val uriHandler = androidx.compose.ui.platform.LocalUriHandler.current
+    val uriHandler = LocalUriHandler.current
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
-    var displayText by remember(text) { mutableStateOf(text) }
 
-    val glossaryTermsPresent = remember(text, enableTerms, extras) {
-        hasGlossaryTerms(text, enableTerms, extras)
+    if (!enableTerms && knownLinks.isEmpty() && !text.contains("](")) {
+        Text(
+            text = text,
+            style = resolvedStyle,
+            color = color,
+            modifier = modifier,
+            maxLines = maxLines,
+            overflow = TextOverflow.Ellipsis,
+        )
+        return
     }
+
+    if (!enableTerms) {
+        val annotated = remember(text, knownLinks, color) {
+            buildBodyAnnotatedString(
+                text = text,
+                knownLinks = knownLinks,
+                enableTerms = false,
+                additionalTerms = extras,
+                bodyColor = color,
+            )
+        }
+        val hasUrls = annotated.getStringAnnotations("URL", 0, annotated.length).isNotEmpty()
+        if (!hasUrls) {
+            Text(
+                text = text,
+                style = resolvedStyle,
+                color = color,
+                modifier = modifier,
+                maxLines = maxLines,
+                overflow = TextOverflow.Ellipsis,
+            )
+            return
+        }
+        ClickableText(
+            text = annotated,
+            style = resolvedStyle.copy(color = color),
+            modifier = modifier,
+            maxLines = maxLines,
+            overflow = TextOverflow.Ellipsis,
+            onClick = { offset ->
+                annotated.getStringAnnotations("URL", offset, offset)
+                    .firstOrNull()
+                    ?.item
+                    ?.let { uriHandler.openUri(it) }
+            },
+        )
+        return
+    }
+
+    var displayText by remember(text) { mutableStateOf(text) }
+    var annotated by remember(text, knownLinks, enableTerms, extras, color) {
+        mutableStateOf<AnnotatedString?>(null)
+    }
+
+    LaunchedEffect(text, knownLinks, enableTerms, extras, color, usedOnPage) {
+        HalachicAnnotationCache.get(text, knownLinks, enableTerms, extras, color)?.let {
+            annotated = it
+            return@LaunchedEffect
+        }
+        val localUsed = usedOnPage?.toMutableSet()
+        val built = withContext(Dispatchers.Default) {
+            buildBodyAnnotatedString(
+                text = text,
+                knownLinks = knownLinks,
+                enableTerms = enableTerms,
+                additionalTerms = extras,
+                bodyColor = color,
+                usedOnPage = localUsed,
+            )
+        }
+        HalachicAnnotationCache.put(text, knownLinks, enableTerms, extras, color, built)
+        if (usedOnPage != null && localUsed != null) {
+            usedOnPage.addAll(localUsed)
+        }
+        annotated = built
+    }
+
+    val glossaryTermsPresent = annotated?.let { ann ->
+        ann.getStringAnnotations(HalachicTermsDictionary.annotationTag(), 0, ann.length).isNotEmpty()
+    } ?: false
 
     LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode, glossaryTermsPresent) {
         displayText = when {
@@ -308,24 +388,26 @@ fun HalachicClickableText(
         }
     }
 
-    // Always annotate from English source so glossary labels match on every device/locale.
-    val annotated = remember(text, knownLinks, enableTerms, extras, color) {
-        buildBodyAnnotatedString(
-            text = text,
-            knownLinks = knownLinks,
-            enableTerms = enableTerms,
-            additionalTerms = extras,
-            bodyColor = color,
-            usedOnPage = usedOnPage,
+    // Annotate from English source so glossary labels match on every device/locale.
+    val resolvedAnnotated = annotated
+    if (resolvedAnnotated == null) {
+        Text(
+            text = displayText,
+            style = resolvedStyle,
+            color = color,
+            modifier = modifier,
+            maxLines = maxLines,
+            overflow = TextOverflow.Ellipsis,
         )
+        return
     }
-    val hasTerms = annotated.getStringAnnotations(HalachicTermsDictionary.annotationTag(), 0, annotated.length).isNotEmpty()
-    val hasUrls = annotated.getStringAnnotations("URL", 0, annotated.length).isNotEmpty()
+    val hasTerms = resolvedAnnotated.getStringAnnotations(HalachicTermsDictionary.annotationTag(), 0, resolvedAnnotated.length).isNotEmpty()
+    val hasUrls = resolvedAnnotated.getStringAnnotations("URL", 0, resolvedAnnotated.length).isNotEmpty()
     val density = LocalDensity.current
     val underlineColor = halachicTermUnderlineColor(color)
     val underlineStrokePx = with(density) { 0.75.dp.toPx() }
     val underlineOffsetPx = with(density) { 2.dp.toPx() }
-    var textLayout by remember(annotated) { mutableStateOf<TextLayoutResult?>(null) }
+    var textLayout by remember(resolvedAnnotated) { mutableStateOf<TextLayoutResult?>(null) }
 
     if (!hasTerms && !hasUrls) {
         Text(
@@ -339,10 +421,10 @@ fun HalachicClickableText(
         return
     }
 
-    val visibleText = if (hasTerms || hasUrls) annotated else AnnotatedString(displayText)
+    val visibleText = if (hasTerms || hasUrls) resolvedAnnotated else AnnotatedString(displayText)
 
     fun handleTap(offset: Int) {
-        val term = annotated.getStringAnnotations(HalachicTermsDictionary.annotationTag(), offset, offset)
+        val term = resolvedAnnotated.getStringAnnotations(HalachicTermsDictionary.annotationTag(), offset, offset)
             .firstOrNull()
             ?.item
             ?.let { id -> HalachicTermsDictionary.termById(id) ?: HalachicGuideTerms.termById(id) }
@@ -350,7 +432,7 @@ fun HalachicClickableText(
             showTerm(term)
             return
         }
-        annotated.getStringAnnotations("URL", offset, offset)
+        resolvedAnnotated.getStringAnnotations("URL", offset, offset)
             .firstOrNull()
             ?.item
             ?.let { uriHandler.openUri(it) }
@@ -366,7 +448,7 @@ fun HalachicClickableText(
                 textLayout?.let { layout ->
                     drawHalachicTermUnderlines(
                         layoutResult = layout,
-                        annotated = annotated,
+                        annotated = resolvedAnnotated,
                         underlineColor = underlineColor,
                         strokeWidthPx = underlineStrokePx,
                         underlineOffsetPx = underlineOffsetPx,
@@ -525,4 +607,49 @@ private fun AnnotatedString.Builder.appendPlainWithTerms(
         pos = match.end
     }
     if (pos < plain.length) append(plain.substring(pos))
+}
+
+private object HalachicAnnotationCache {
+    private const val MAX_ENTRIES = 64
+    private val cache = object : LinkedHashMap<String, AnnotatedString>(MAX_ENTRIES, 0.75f, true) {
+        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, AnnotatedString>?) =
+            size > MAX_ENTRIES
+    }
+
+    private fun key(
+        text: String,
+        knownLinks: List<ChecklistLink>,
+        enableTerms: Boolean,
+        extras: List<HalachicTerm>,
+        bodyColor: Color,
+    ): String = buildString {
+        append(enableTerms)
+        append('|')
+        append(bodyColor.value)
+        append('|')
+        append(extras.joinToString { it.id })
+        append('|')
+        append(knownLinks.joinToString { it.url })
+        append('|')
+        append(text)
+    }
+
+    fun get(
+        text: String,
+        knownLinks: List<ChecklistLink>,
+        enableTerms: Boolean,
+        extras: List<HalachicTerm>,
+        bodyColor: Color,
+    ): AnnotatedString? = cache[key(text, knownLinks, enableTerms, extras, bodyColor)]
+
+    fun put(
+        text: String,
+        knownLinks: List<ChecklistLink>,
+        enableTerms: Boolean,
+        extras: List<HalachicTerm>,
+        bodyColor: Color,
+        annotated: AnnotatedString,
+    ) {
+        cache[key(text, knownLinks, enableTerms, extras, bodyColor)] = annotated
+    }
 }

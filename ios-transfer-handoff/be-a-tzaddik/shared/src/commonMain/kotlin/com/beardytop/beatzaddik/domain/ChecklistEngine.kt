@@ -31,6 +31,7 @@ class ChecklistEngine(
             "Seasonal",
             "Prepare for the festival",
             "Pesach prep",
+            "Fasts",
             "Sefirat HaOmer",
             "Chanukah",
             "Purim",
@@ -39,10 +40,14 @@ class ChecklistEngine(
 
     }
 
-    private fun sortDefs(defs: List<ChecklistItemDef>, activePeriod: TimeOfDay): List<ChecklistItemDef> =
+    private fun sortDefs(
+        defs: List<ChecklistItemDef>,
+        activePeriod: TimeOfDay,
+        prioritizePrepSections: Set<String> = emptySet(),
+    ): List<ChecklistItemDef> =
         defs.sortedWith(
             compareBy(
-                { ChecklistSectionOrder.sortIndex(it.section, activePeriod) },
+                { ChecklistSectionOrder.sortIndex(it.section, activePeriod, prioritizePrepSections) },
                 { it.sortOrder },
                 { it.title },
             )
@@ -53,10 +58,10 @@ class ChecklistEngine(
         customItems: List<CustomChecklistItem>,
         customChecked: Map<String, Boolean>,
         monthlyCheckedMonths: Map<String, String> = emptyMap(),
-        weeklyCheckedWeeks: Map<String, String> = emptyMap()
+        weeklyCheckedWeeks: Map<String, String> = emptyMap(),
+        nowMillis: Long = Clock.System.now().toEpochMilliseconds(),
+        calendarDebugPreview: Boolean = false,
     ): DayChecklists {
-        val now = Clock.System.now()
-        val nowMillis = now.toEpochMilliseconds()
         val cal = calendar.dayInfoAt(nowMillis, profile)
         val tomorrowCal = calendar.dayInfoForDate(cal.date.plus(1, DateTimeUnit.DAY), profile)
         val dayAfterTomorrowCal = calendar.dayInfoForDate(cal.date.plus(2, DateTimeUnit.DAY), profile)
@@ -81,7 +86,11 @@ class ChecklistEngine(
             )
         }
 
-        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
+        val hideChecklist = !calendarDebugPreview &&
+            HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
+        val prioritizePrepSections = ChecklistSectionOrder.prioritizedPrepSections(
+            cal, tomorrowCal, profile,
+        )
         val allDefs = if (hideChecklist) {
             emptyList()
         } else {
@@ -90,10 +99,11 @@ class ChecklistEngine(
                     matches(it, profile, cal, nowMillis, tomorrowCal)
                 },
                 cal.activeTimeOfDay,
+                prioritizePrepSections,
             )
         }
 
-        val prayerDay = PrayerDayContext.from(cal, profile.effectiveNusach())
+        val prayerDay = PrayerDayContext.from(cal, profile.effectiveNusach(), profile.latitude)
         fun resolveList(defs: List<ChecklistItemDef>) = defs.map { def ->
             val checked = when {
                 def.id.startsWith("custom_") -> customChecked[def.id] == true
@@ -113,12 +123,18 @@ class ChecklistEngine(
             )
         }
 
+        val occasion = TodayOccasionLabels.primary(cal)
+        val omerLabel = TodayOccasionLabels.omerTodayLabel(cal)
+
         return DayChecklists(
             activePeriod = cal.activeTimeOfDay,
             activePeriodLabel = cal.activePeriodLabel,
             activePeriodHint = cal.activePeriodHint,
             inactivePeriodHint = cal.inactivePeriodHint,
-            items = resolveList(allDefs),
+            items = resolveList(allDefs).filter { item ->
+                item.def.id != "rosh_chodesh_observances" ||
+                    item.zmanAvailability != ItemZmanAvailability.EXPIRED
+            },
             inactiveItemCount = 0,
             inactiveItems = emptyList(),
             date = cal.date,
@@ -126,21 +142,38 @@ class ChecklistEngine(
                 civilDateLabel = cal.civilLabel,
                 hebrewDateLabel = cal.hebrewLabel,
                 parshaLabel = cal.parsha,
-                statusChips = cal.statusChips,
-                timeLabel = cal.activePeriodLabel
+                statusChips = cal.statusChips.filterNot { chip ->
+                    chip.startsWith("Omer day") ||
+                        (chip.startsWith("Today is") && chip.contains("Omer", ignoreCase = true))
+                },
+                timeLabel = cal.activePeriodLabel,
+                todayOccasionLabel = occasion?.label,
+                todayOccasionSubtitle = occasion?.subtitle,
+                todayOccasionGuideAnchor = occasion?.guideAnchor,
+                omerTodayLabel = omerLabel,
+                omerExplainerText = if (omerLabel != null) {
+                    OmerCountText.buildExplanation(cal, profile)
+                } else {
+                    null
+                },
             ),
             nusachLabel = profile.effectiveNusach().displayLabel(),
-            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
+            holyDayPhoneNotice = if (calendarDebugPreview) {
+                null
+            } else {
+                HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
+            },
+            prioritizePrepSections = prioritizePrepSections,
         )
     }
 
     fun allItems(day: DayChecklists): List<ResolvedChecklistItem> =
         day.items + day.inactiveItems
 
-    fun requiredProgress(day: DayChecklists): Pair<Int, Int> {
+    fun requiredProgress(day: DayChecklists, profile: UserProfile): Pair<Int, Int> {
         val all = allItems(day)
         val required = all.filter {
-            it.def.required &&
+            ChecklistGenderRules.isEffectivelyRequired(it.def, profile) &&
                 !it.def.situational &&
                 !it.def.persistChecked &&
                 it.zmanAvailability == ItemZmanAvailability.ACTIVE
@@ -151,8 +184,8 @@ class ChecklistEngine(
         return done to required.size
     }
 
-    fun allRequiredComplete(day: DayChecklists): Boolean {
-        val (done, total) = requiredProgress(day)
+    fun allRequiredComplete(day: DayChecklists, profile: UserProfile): Boolean {
+        val (done, total) = requiredProgress(day, profile)
         return total > 0 && done == total
     }
 

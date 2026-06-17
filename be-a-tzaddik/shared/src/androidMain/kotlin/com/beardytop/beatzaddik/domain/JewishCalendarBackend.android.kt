@@ -80,6 +80,21 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val upcomingChagYomTovIndex = if (isErevChag) jcTomorrow.yomTovIndex else null
         val isErevPurim = !isPurim && jcTomorrow.isPurim
         val isErevChanukah = !isChanukah && jcTomorrow.isChanukah
+        val todayIdx = jc.yomTovIndex
+        val tomorrowIdx = jcTomorrow.yomTovIndex
+        val fastDayIndex = todayIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val fastDayName = fastDayIndex?.let { PublicFastDayRules.displayName(it) }
+        val upcomingFastDayIndex = tomorrowIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val upcomingFastDayName = upcomingFastDayIndex?.let { PublicFastDayRules.displayName(it) }
+        val isErevMinorFast = PublicFastDayRules.isErevMinorFast(todayIdx, tomorrowIdx)
+        val isErevYomKippur = PublicFastDayRules.isErevYomKippur(todayIdx)
+        val isErevTishaBeav = PublicFastDayRules.isErevTishaBeav(
+            todayIdx,
+            tomorrowIdx,
+            isShabbat,
+            jc.jewishMonth,
+            jc.jewishDayOfMonth,
+        )
 
         val seasons = buildSet {
             if (isSefirah) add("sefirah")
@@ -114,6 +129,10 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             }
             if (jc.yomTovIndex == JewishCalendar.ROSH_HASHANA) add("rosh_hashana")
             if (jc.yomTovIndex == JewishCalendar.YOM_KIPPUR) add("yom_kippur")
+            if (jc.isTaanis) add("fast_day")
+            if (isErevMinorFast) add("erev_minor_fast")
+            if (isErevYomKippur) add("erev_yom_kippur")
+            if (isErevTishaBeav) add("erev_tisha_beav")
         }
 
         val zmanim = buildZmanimSnapshot(zc, geo, now, profile.timezoneId)
@@ -192,7 +211,11 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             zmanim = zmanim,
             upcomingShabbatParsha = upcomingShabbatParsha,
             upcomingChagName = upcomingChagName,
-            upcomingChagYomTovIndex = upcomingChagYomTovIndex
+            upcomingChagYomTovIndex = upcomingChagYomTovIndex,
+            fastDayIndex = fastDayIndex,
+            fastDayName = fastDayName,
+            upcomingFastDayIndex = upcomingFastDayIndex,
+            upcomingFastDayName = upcomingFastDayName,
         )
     }
 
@@ -383,8 +406,8 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         JewishCalendar.SUCCOS -> "Yom Tov — Lulav & etrog, sukkah"
         JewishCalendar.SHEMINI_ATZERES -> "Yom Tov — Shemini Atzeret"
         JewishCalendar.SIMCHAS_TORAH -> "Yom Tov — Simchat Torah, hakafot"
-        JewishCalendar.PESACH -> "Yom Tov — Matzah, no chametz, seder"
-        JewishCalendar.SHAVUOS -> "Yom Tov — Torah, dairy foods"
+        JewishCalendar.PESACH -> "Yom Tov — Seder night(s), matzah, no chametz"
+        JewishCalendar.SHAVUOS -> "Yom Tov — Matan Torah, learning, dairy foods"
         // Chol HaMoed (intermediate festival days — work somewhat restricted)
         JewishCalendar.CHOL_HAMOED_PESACH -> "Chol HaMoed Pesach — intermediate festival day"
         JewishCalendar.CHOL_HAMOED_SUCCOS -> "Chol HaMoed Sukkot — intermediate festival day"

@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "items": [
     {
       "id": "chabad_hayom_yom",
@@ -96,6 +96,56 @@
         {
           "displayText": "Birkat Kohanim (Bamidbar 6)",
           "url": "https://www.sefaria.org/Numbers.6.24",
+          "nusach": "default"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "sefard_korbanot_before_mincha",
+      "title": "Korbanot before Mincha (Sephardi)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 5,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "sefard"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Sephardi siddurim open Mincha with Korbanot — especially Parshat HaTamid (the daily Temple offering) — before Ashrei and the Amidah (Shulchan Arukh O.C. 1:5, 232:1). Follow your siddur and kehilla.",
+      "links": [
+        {
+          "displayText": "Shulchan Arukh — Mincha order",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.232",
+          "nusach": "default"
+        }
+      ],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "edot_hamizrach_korbanot_before_mincha",
+      "title": "Korbanot before Mincha (Edot HaMizrach)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 5,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "edot_hamizrach"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Edot HaMizrach siddurim open Mincha with Korbanot — especially Parshat HaTamid — before Ashrei and the Amidah, matching the Shulchan Arukh order (O.C. 1:5, 232:1). Some kehillot include additional passages; follow your siddur.",
+      "links": [
+        {
+          "displayText": "Shulchan Arukh — Mincha order",
+          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.232",
           "nusach": "default"
         }
       ],

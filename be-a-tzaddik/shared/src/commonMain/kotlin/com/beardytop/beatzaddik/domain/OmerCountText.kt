@@ -12,8 +12,9 @@ object OmerCountText {
     fun buildTitle(day: Int): String =
         "Count the Omer — day $day of 49 (${weeksAndDays(day)})"
 
-    fun statusChipLabel(day: Int): String =
-        "Omer day $day — ${weeksAndDays(day)}"
+    fun headerLabel(day: Int): String = omerCountSpeechPhrase(day).removeSuffix(".")
+
+    fun statusChipLabel(day: Int): String = headerLabel(day)
 
     fun weeksAndDays(day: Int): String {
         require(day in 1..49)

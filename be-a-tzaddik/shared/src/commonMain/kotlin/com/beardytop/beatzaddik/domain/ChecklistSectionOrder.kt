@@ -13,6 +13,35 @@ object ChecklistSectionOrder {
         return trimmed.substringBefore(" (")
     }
 
+    private val prepSectionSortPriority = mapOf(
+        "Pesach prep" to -40,
+        "Prepare for the festival" to -30,
+        "Fasts" to -35,
+        "Chanukah" to -25,
+    )
+
+    fun prioritizedPrepSections(
+        cal: DayInfo,
+        tomorrowCal: DayInfo,
+        profile: UserProfile,
+    ): Set<String> = buildSet {
+        if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
+        if (
+            "erev_chag" in cal.activeSeasons ||
+            cal.festivalWeekPrep() != null ||
+            YomTovShabbatPrepText.shouldShowAdvancePrepDay(cal, tomorrowCal, profile)
+        ) {
+            add("Prepare for the festival")
+        }
+        if ("erev_purim" in cal.activeSeasons) add("Purim")
+        if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
+        if ("erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||
+            "erev_tisha_beav" in cal.activeSeasons
+        ) {
+            add("Fasts")
+        }
+    }
+
     /**
      * Lower index = higher on the Today checklist.
      *
@@ -20,8 +49,15 @@ object ChecklistSectionOrder {
      * - **Afternoon:** Mincha, then Upon waking, then Morning Prayer (if still open), then rest.
      * - **Night:** Evening Prayer, then Upon waking, then Monthly (Kiddush Levana / RC), then rest.
      */
-    fun sortIndex(section: String, activePeriod: TimeOfDay): Int {
+    fun sortIndex(
+        section: String,
+        activePeriod: TimeOfDay,
+        prioritizePrepSections: Set<String> = emptySet(),
+    ): Int {
         val base = baseName(section)
+        if (base in prioritizePrepSections) {
+            return prepSectionSortPriority[base] ?: -20
+        }
         val defaultIndex = ChecklistEngine.sectionOrder.indexOf(base).takeIf { it >= 0 } ?: 200
         val rest = 1000 + defaultIndex
 

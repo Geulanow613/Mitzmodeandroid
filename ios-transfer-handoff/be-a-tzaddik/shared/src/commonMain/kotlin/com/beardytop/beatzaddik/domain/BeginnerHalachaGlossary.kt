@@ -1,13 +1,13 @@
 package com.beardytop.beatzaddik.domain
 
 /**
- * Short definitions for beginners — prepended to seasonal explainers.
- * Halacha summaries follow Peninei Halakha, Chabad.org, Aish, and Ohr Somayach; ask your rav for psak.
+ * Term definitions used by [HalachicTermsDictionary] for in-text glossary links.
+ * [withKeyTerms] no longer prepends a "Key terms" block — explainers show body text only.
  */
 object BeginnerHalachaGlossary {
 
-    fun withKeyTerms(terms: String, body: String): String =
-        if (terms.isBlank()) body.trim() else "${terms.trim()}\n\n${body.trim()}"
+    /** Prepends nothing — callers may still pass [terms] for API stability; body only is shown. */
+    fun withKeyTerms(terms: String, body: String): String = body.trim()
 
     fun block(vararg lines: String): String =
         "Key terms:\n" + lines.joinToString("\n") { "• $it" }

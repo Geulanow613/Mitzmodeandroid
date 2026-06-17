@@ -455,15 +455,15 @@ If you avoid alcohol for health or preference, ask your rav which option fits yo
             BeginnerHalachaGlossary.RAV,
         ),
         """
-Eating matzah on Pesach after the Seder nights is a mitzvah many observe, though not with the same strict obligation as the first Seder night.
+Eating matzah on Pesach after the Seder night(s) is a mitzvah many observe, though not with the same strict obligation as the first Seder night(s).
 
 Levels:
-• First Seder night: Torah obligation (k'zayit) for men; women per minhag.
-• Rest of Pesach including Chol HaMoed: Rabbinic/optional mitzvah to eat matzah — especially at Yom Tov and Shabbat meals.
+• First Seder night: Torah obligation (k'zayit) for men and women.
+• Rest of Pesach including Chol HaMoed: Rabbinic command (if you have a second seder) and optional mitzvah to eat matzah every day of Pesach. Most will eat matzah at all Yom Tov and Shabbat meals.
 
 How:
-• Use shmurah matzah if that is your custom for mitzvah eating.
-• A kezayit at the meal is sufficient; you need not eat matzah at every meal if it is difficult.
+• Use shmurah matzah for the seder if available.
+• A kezayit per meal is sufficient.
 • No chametz or kitniyot (per your custom) the entire Pesach.
     """.trim(),
     )
@@ -471,29 +471,76 @@ How:
     private const val CHABAD_ROSH_CHODESH_URL =
         "https://www.chabad.org/library/article_cdo/aid/4909907/jewish/12-Rosh-Chodesh-Facts.htm"
 
+    private const val YAALEH_VYAVO_HALACHA_SOURCE =
+        "Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10"
+
+    /** Shacharit, Mincha, or Maariv on Chol HaMoed / Yom Tov — full correction rules. */
+    private fun yaalehVyavoForgotAmidahCorrection(service: String): String = """
+If you forgot:
+• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).
+• Finished Retzei but not yet started Modim (e.g. at HaMachazir Shechinato LeZion) — say Yaaleh V'yavo there, then continue with Modim ($YAALEH_VYAVO_HALACHA_SOURCE).
+• Already said "Baruch" of Modim or anything after — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).
+• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).
+    """.trim()
+
+    /** Shacharit or Mincha on Rosh Chodesh — same in-Amidah rules; repeat Amidah if finished. */
+    private fun yaalehVyavoForgotShacharitOrMincha(service: String): String =
+        yaalehVyavoForgotAmidahCorrection(service)
+
+    /** Maariv on Rosh Chodesh only — no repeat; limited in-Amidah correction. */
+    private fun yaalehVyavoForgotMaarivRoshChodesh(): String = """
+If you forgot at Maariv on Rosh Chodesh:
+• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue ($YAALEH_VYAVO_HALACHA_SOURCE).
+• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; $YAALEH_VYAVO_HALACHA_SOURCE). Continue davening.
+    """.trim()
+
     fun yaalehVyavoShacharitExplanation(): String = """
 Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-If you forgot:
-You must repeat the Shacharit Amidah. If you already finished Musaf, ask your rabbi — you may repeat only the Amidah itself rather than the full service (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
 
 Also add Yaaleh V'yavo in bentching if you eat bread today.
+    """.trim()
+
+    private fun yaalehVyavoFemaleAmidahLead(service: String): String =
+        "If you recite the $service Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah)."
+
+    fun yaalehVyavoShacharitExplanationFemale(): String = """
+${yaalehVyavoFemaleAmidahLead("Shacharit")}
+
+${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
     """.trim()
 
     fun yaalehVyavoMinchaExplanation(): String = """
 Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-If you forgot:
-You must repeat the Mincha Amidah (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). If you already davened Maariv, ask your rabbi how to proceed.
+${yaalehVyavoForgotShacharitOrMincha("Mincha")}
+    """.trim()
+
+    fun yaalehVyavoMinchaExplanationFemale(): String = """
+${yaalehVyavoFemaleAmidahLead("Mincha")}
+
+${yaalehVyavoForgotShacharitOrMincha("Mincha")}
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
     """.trim()
 
     fun yaalehVyavoMaarivExplanation(): String = """
 Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-If you forgot at Maariv:
-On Rosh Chodesh you do not repeat the Amidah if Yaaleh V'yavo was omitted at Maariv (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue with the rest of davening.
+${yaalehVyavoForgotMaarivRoshChodesh()}
 
 Also add Yaaleh V'yavo in bentching if you eat bread tonight.
+    """.trim()
+
+    fun yaalehVyavoMaarivExplanationFemale(): String = """
+${yaalehVyavoFemaleAmidahLead("Maariv")}
+
+${yaalehVyavoForgotMaarivRoshChodesh()}
+
+If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
     """.trim()
 
     fun roshChodeshHalfHallelExplanation(): String = """
@@ -505,11 +552,23 @@ Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
 Tachanun is omitted on Rosh Chodesh.
     """.trim()
 
+    fun roshChodeshHalfHallelExplanationFemale(): String = """
+Recite Half Hallel after Shacharit on Rosh Chodesh if you say Hallel — a cherished custom, not obligatory for women (Peninei Halakha 05-01-12). Many Ashkenazi women omit Hallel; many Sephardi women recite it. Follow your community.
+
+Tachanun is omitted on Rosh Chodesh.
+    """.trim()
+
     fun roshChodeshFullHallelChanukahExplanation(): String = """
 Rosh Chodesh falls during Chanukah — recite Full Hallel at Shacharit (the Chanukah obligation), not the usual Half Hallel of Rosh Chodesh (Peninei Halakha 12-02-07).
 
 Before Musaf:
 Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
+
+Tachanun is omitted.
+    """.trim()
+
+    fun roshChodeshFullHallelChanukahExplanationFemale(): String = """
+Rosh Chodesh during Chanukah — if you recite Hallel, say Full Hallel at Shacharit (the Chanukah practice), not Half Hallel (Peninei Halakha 12-02-07). Optional for women — follow your minhag.
 
 Tachanun is omitted.
     """.trim()
@@ -544,10 +603,13 @@ Chabad — Full Hallel (Chanukah):
 Follow Ashkenazic custom — recite the blessings before Full Hallel (Alter Rebbe's Siddur).
     """.trim()
 
-    fun roshChodeshObservancesExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.daveningBasics(),
-        """
-Rosh Chodesh (ראש חודש) marks the start of the Hebrew month — a semi-holiday with extra prayer and customs.
+    fun roshChodeshObservancesExplanation(): String = """
+Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.
+
+Festive meal (mitzvah):
+• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
+• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
+• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
 
 Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
 • Yaaleh V'yavo in Shacharit, Mincha, and Maariv Amidah — and in bentching when you eat bread
@@ -555,14 +617,35 @@ Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
 • Musaf after Shacharit — remove tefillin before Musaf
 • Tachanun is omitted all day
 
-Spirit of the day:
-• Many eat a slightly nicer meal in honor of the day
+Other customs:
 • Fasting and eulogies are generally not done on Rosh Chodesh
 • Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details
 
 When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
-        """.trim(),
-    )
+    """.trim()
+
+    fun roshChodeshObservancesExplanationFemale(): String = """
+Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.
+
+Festive meal (mitzvah):
+• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
+• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
+• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
+
+Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
+• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, between Retzei and Modim, return to Retzei after Modim started, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)
+• If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too
+• Ashkenazi custom — most authorities obligate Shacharit and Mincha Amidah on these days
+• Sephardic custom — many women fulfill the daily obligation with one prayer; if you daven an extra Amidah and forget Yaaleh V'yavo, ask your rabbi about a voluntary (nedavah) stipulation
+• Half Hallel at Shacharit if you say Hallel (optional — follow your minhag; Full Hallel if Rosh Chodesh falls during Chanukah)
+• Tachanun is omitted all day
+
+Other customs:
+• Fasting and eulogies are generally not done on Rosh Chodesh
+• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details
+
+When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
+    """.trim()
 
     /** @deprecated Replaced by [roshChodeshObservancesExplanation]. */
     fun roshChodeshMonthlyExplanation(): String = roshChodeshObservancesExplanation()
@@ -601,7 +684,7 @@ Chanukah night $day of 8 — lighting the menorah.
 
 When:
 • Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
-• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. You MUST use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least 90 minutes total (roughly 1.5 hours minimum from lighting) to ensure they survive well past dark.
+• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.
 • On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
 • Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
 
@@ -668,6 +751,123 @@ Children & family: assign zones, check school bags, plan chametz finish-up meals
         }
         return if (shabbatSchedule.isNotEmpty()) "$base\n\n$shabbatSchedule" else base
     }
+
+    fun birkatHaIlanotExplanation(profile: UserProfile): String {
+        val southern = BirkatHaIlanotRules.isSouthernHemisphere(profile.latitude)
+        val whenBlock = if (southern) {
+            """
+When (Southern Hemisphere — your location):
+The Shulchan Arukh places this blessing in Nissan, when spring arrives in Israel. Mainstream poskim rule that the blessing follows the natural blossoming of fruit trees in your locale — not the calendar month alone (Yalkut Yosef; Peninei Halakha). In Australia, South America, southern Africa, and similar regions, local spring falls in Elul and Tishrei (typically September–October). Say it once during that window, as soon as you see the first blossoms.
+            """.trimIndent()
+        } else if (profile.latitude != null) {
+            """
+When (Northern Hemisphere — your location):
+Say it during Nissan, when fruit trees in your area begin to blossom — ideally as early in the month as you first see flowers (Shulchan Arukh O.C. 226:1).
+            """.trimIndent()
+        } else {
+            """
+When:
+In the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulchan Arukh O.C. 226:1). In the Southern Hemisphere, say it when local fruit trees blossom in Elul–Tishrei. Set your city or GPS in Settings so the app shows this item in the correct season for you.
+            """.trimIndent()
+        }
+        return """
+Birkat Ha'Ilanot (בִּרְכַּת הָאִילָנוֹת — Blessing of the Trees) is recited once each Jewish year upon seeing fruit trees in bloom — thanking Hashem for the beauty and renewal of creation.
+
+This checklist appears during the likely season for your hemisphere — a reminder to go look for blossoms, not an obligation to recite before you see them.
+
+$whenBlock
+
+The blessing (said once per year):
+Baruch Atah Ado-nai Eloheinu Melech ha'olam shelo chiser be'olamo kelum u'vara vo beriyot tovot v'ilanot tovim lehanot bahem benei adam.
+(בָּרוּךְ אַתָּה ה' אֱלֹקֵינוּ מֶלֶךְ הָעוֹלָם שֶׁלֹּא חִסֵּר בְּעוֹלָמוֹ כְּלוּם וּבָרָא בוֹ בְּרִיּוֹת טוֹבוֹת וְאִילָנוֹת טוֹבִים לֵהָנוֹת בָּהֶם בְּנֵי אָדָם)
+"Blessed are You, L-rd our G-d, King of the universe, Who has withheld nothing from His world and created in it good creatures and good trees for people to enjoy."
+
+How to fulfill it:
+• Go outdoors to fruit-bearing trees — at least one tree; preferably two or more of the same or different species.
+• The trees should show new buds or blossoms — not yet fully formed fruit.
+• Recite the blessing once while viewing the blossoms. Many add Tehillim 104 or other verses; follow your siddur or community custom.
+• Once a year: if you said it in your local spring, you do not repeat it when traveling to another hemisphere later in the same Jewish year.
+• Many communities avoid saying it on Shabbat — go during the week when you first see suitable blossoms.
+
+Spiritual note:
+Nissan is the month of redemption; blossoming trees recall that creation itself waits to praise Hashem. Even a brief walk among flowering orchards can be a mitzvah.
+        """.trim()
+    }
+
+    fun birkatHaIlanotChabadNote(profile: UserProfile): String {
+        if (!BirkatHaIlanotRules.isSouthernHemisphere(profile.latitude)) return ""
+        return """
+Chabad in the Southern Hemisphere:
+Some Chabad communities look for rare late-blooming fruit trees during Nissan (local autumn) to align with the traditional month. If no suitable blossoms are found in Nissan, rely on the general rule and recite the blessing in Elul–Tishrei when local trees flower — as above.
+        """.trim()
+    }
+
+    fun birkatHaIlanotLinks() = listOf(
+        ChecklistLink(
+            displayText = "Shulchan Arukh O.C. 226 (Sefaria)",
+            url = "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.226",
+        ),
+        ChecklistLink(
+            displayText = "Peninei Halakha — Blessing on Trees",
+            url = "https://ph.yhb.org.il/en/14-11-01/",
+        ),
+        ChecklistLink(
+            displayText = "Chabad.org — Blessing on Fruit Trees",
+            url = "https://www.chabad.org/library/article_cdo/aid/4731/jewish/Blessing-on-Fruit-Trees.htm",
+            nusach = "chabad",
+        ),
+    )
+
+    fun birkatHachamahExplanation(occurrence: kotlinx.datetime.LocalDate): String {
+        val dateLabel = BirkatHachamahRules.formatOccurrenceDate(occurrence)
+        return """
+Birkat Hachamah (בִּרְכַּת הַחַמָּה — Blessing of the Sun) is recited once every 28 years, when the sun completes the machzor gadol (מחזור גדול) — the great 28-year solar cycle described in the Talmud (Berakhot 59b).
+
+The cycle:
+Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at sundown, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, it is recited the following morning — Wednesday at sunrise.
+
+This occurrence: $dateLabel.
+
+The blessing:
+Baruch Atah Ado-nai Eloheinu Melech ha'olam oseh ma'aseh bereishit.
+(בָּרוּךְ אַתָּה ה' אֱלֹקֵינוּ מֶלֶךְ הָעוֹלָם עוֹשֵׂה מַעֲשֵׂה בְרֵאשִׁית)
+"Blessed are You, L-rd our G-d, King of the universe, Who makes the works of creation."
+
+How to fulfill it:
+• Go outdoors where the sun is visible — not through a window, per most poskim.
+• Recite at sunrise on the morning of the occurrence, when you can see the sun. Many communities gather for a public recitation with additional Tehillim and passages — follow your kehilla.
+• Ideal time: from sunrise through the third halachic hour of the day (sof zman tefillah). According to some opinions, you may still recite it until chatzos (halachic midday).
+• If the sky is completely overcast and the sun cannot be seen, many hold the blessing is not recited without visible sunlight; some communities still gather when clouds hide the sun.
+
+Notes:
+• This mitzvah comes only once every 28 years.
+• Check your local synagogue or Chabad center — large communal gatherings are common.
+        """.trim()
+    }
+
+    fun ldovidExplanation(nusach: EffectiveNusach): String = """
+Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
+
+When:
+• Said after the morning service (often after Shacharit Amidah, before concluding prayers — follow your siddur).
+• Start and end dates vary by minhag — this item follows your nusach setting.
+
+Why:
+• "The L-rd is my light and my salvation — whom shall I fear?" (Tehillim 27:1) — trust in divine protection through judgment season.
+• A widespread custom in Elul–Tishrei; widely adopted across Ashkenaz, Sephard, and Edot HaMizrach with different calendars.
+    """.trim()
+
+    fun ldovidAshkenazNote(): String =
+        "Ashkenaz minhag: from 2 Elul through Shemini Atzeret (22 Tishrei). Some communities end on Hoshana Rabbah (21 Tishrei) — follow your kehilla (Mishna Berurah 581:2; Rama)."
+
+    fun ldovidSephardNote(): String =
+        "Sephardi minhag: from Rosh Chodesh Elul through Yom Kippur (10 Tishrei) — prevalent custom (Ben Ish Chai). Some kehillot continue through Sukkot or Shemini Atzeret; ask your rav."
+
+    fun ldovidEdotHamizrachNote(): String =
+        "Edot HaMizrach minhag: from Rosh Chodesh Elul through Shemini Atzeret (22 Tishrei) in many communities; some end on Yom Kippur or Hoshana Rabbah — follow your kehilla."
+
+    fun ldovidChabadNote(): String =
+        "Chabad minhag: from 2 Elul through Hoshana Rabbah (21 Tishrei). Some continue through Shemini Atzeret — follow your Chabad rabbi."
 
     fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
         EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> BeginnerHalachaGlossary.withKeyTerms(
@@ -781,7 +981,7 @@ Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah.
 
 $waitLine
 
-Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. Always check the specific Sof Zman Kiddush Levana for your location.
+Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
 
 When:
 • After nightfall (tzeit), standing outdoors under the open sky — not under a roof or porch ceiling.
@@ -881,6 +1081,7 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
     }
 
     fun roshChodeshLinks(profile: UserProfile) = buildList {
+        add(ChecklistLink("Shulchan Arukh O.C. 419 (Sefaria)", "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.419", "default"))
         if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
             add(ChecklistLink("Chabad — 12 Rosh Chodesh Facts", CHABAD_ROSH_CHODESH_URL, "chabad"))
         }

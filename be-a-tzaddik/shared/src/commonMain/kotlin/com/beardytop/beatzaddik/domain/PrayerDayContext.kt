@@ -10,7 +10,10 @@ data class PrayerDayContext(
     val hebrewDay: Int? = null,
     /** Current Hebrew month number (1 = Nissan … 7 = Tishrei, etc., per KosherJava convention). */
     val hebrewMonth: Int? = null,
-    val nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ
+    /** User latitude when known — used for hemisphere-specific seasonal mitzvot. */
+    val latitude: Double? = null,
+    val nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
+    val fastDayIndex: Int? = null,
 ) {
     val isShabbatOrYomTov: Boolean = isShabbat || isYomTov
 
@@ -27,14 +30,20 @@ data class PrayerDayContext(
     }
 
     companion object {
-        fun from(cal: DayInfo, nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ) = PrayerDayContext(
+        fun from(
+            cal: DayInfo,
+            nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
+            latitude: Double? = null,
+        ) = PrayerDayContext(
             isShabbat = cal.isShabbat,
             isYomTov = cal.isYomTov,
             isRoshChodesh = cal.isRoshChodesh,
             isErevShabbat = cal.isErevShabbat,
             hebrewDay = cal.hebrewDay,
             hebrewMonth = cal.hebrewMonth,
-            nusach = nusach
+            latitude = latitude,
+            nusach = nusach,
+            fastDayIndex = cal.fastDayIndex,
         )
     }
 }

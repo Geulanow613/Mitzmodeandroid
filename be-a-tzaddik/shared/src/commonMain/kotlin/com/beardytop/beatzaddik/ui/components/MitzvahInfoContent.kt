@@ -42,6 +42,9 @@ import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 
 private val MarkdownLinkRegex = Regex("""\[([^\]]+)\]\(([^)]+)\)""")
 
+/** Long explainer dialogs skip glossary scanning — it freezes the UI on first open. */
+private const val InfoDialogEnableTerms = false
+
 /**
  * Richly renders a structured explanation string.
  *
@@ -69,19 +72,8 @@ fun MitzvahExplanationContent(
     modifier: Modifier = Modifier
 ) {
     val uriHandler = LocalUriHandler.current
-    val pageKey = remember(explanation, zmanHint, zmanMakeupNote, situational) {
-        buildString {
-            append(explanation)
-            append('|')
-            append(zmanHint.orEmpty())
-            append('|')
-            append(zmanMakeupNote.orEmpty())
-            if (situational) append("|situational")
-        }
-    }
-    val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
 
-    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -118,13 +110,15 @@ fun MitzvahExplanationContent(
             AppText(
                 "Makeup prayer",
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
-                color = TzaddikColors.NavyDeep
+                color = TzaddikColors.NavyDeep,
+                enableTerms = InfoDialogEnableTerms,
             )
             Spacer(Modifier.height(4.dp))
             HalachicClickableText(
                 text = makeup,
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextBrown,
+                enableTerms = InfoDialogEnableTerms,
             )
         }
 
@@ -204,6 +198,7 @@ private fun LinkableBodyText(
         modifier = modifier,
         color = TzaddikColors.TextBrown,
         knownLinks = knownLinks,
+        enableTerms = InfoDialogEnableTerms,
     )
 }
 
@@ -220,6 +215,7 @@ private fun InfoBadge(text: String, containerColor: Color, textColor: Color) {
             text = text,
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = textColor,
+            enableTerms = InfoDialogEnableTerms,
         )
     }
 }
@@ -270,6 +266,7 @@ private fun RichExplanationText(
                             lineHeight = 22.sp
                         ),
                         color = TzaddikColors.TextMuted,
+                        enableTerms = InfoDialogEnableTerms,
                     )
                 }
                 else -> {
@@ -297,7 +294,8 @@ private fun SectionHeading(title: String) {
         AppText(
             title,
             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
-            color = TzaddikColors.NavyDeep
+            color = TzaddikColors.NavyDeep,
+            enableTerms = InfoDialogEnableTerms,
         )
     }
     Box(
@@ -346,6 +344,7 @@ private fun NumberedRow(line: String, knownLinks: List<ChecklistLink> = emptyLis
             text = line,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
             color = TzaddikColors.TextBrown,
+            enableTerms = InfoDialogEnableTerms,
         )
         return
     }

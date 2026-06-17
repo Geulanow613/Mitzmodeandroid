@@ -106,7 +106,13 @@ Half Hallel (certain paragraphs omitted) is also recited on Rosh Chodesh."""
 
 The text asks G-d to remember us, our fathers, Jerusalem, the Davidic dynasty, and the entire Jewish people for good — for life and peace — on the day being observed.
 
-If Yaaleh V'Yavo is forgotten in the Amidah on Chol HaMoed, the Amidah must be repeated even if omitted at Maariv (evening). On Rosh Chodesh at Maariv only, if forgotten, the Amidah does not need to be repeated. If unsure about any situation, consult a rabbi."""
+If forgotten in Shacharit or Mincha (also Chol HaMoed / Yom Tov at any Amidah including Maariv):
+• Still in Retzei — insert Yaaleh V'yavo in its place and continue.
+• Between Retzei and Modim (e.g. HaMachazir Shechinato LeZion) — say it there, then Modim.
+• After "Baruch" of Modim or later — return to the beginning of Retzei, insert it, and complete the remaining blessings.
+• After the final Yihiyu L'ratzon — repeat only that Amidah (Shemoneh Esrei), never the full service.
+
+Rosh Chodesh Maariv only: if forgotten after finishing Retzei, or after the entire Amidah — do not repeat (Berachot 30b; Shulchan Arukh O.C. 422:1). If still in Retzei before God's name at the conclusion, insert it there."""
         ),
         GuideTopic(
             id = "rosh_chodesh",
@@ -596,7 +602,130 @@ It is a minor fast from dawn until nightfall. During the Three Weeks, weddings a
 
 It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the fast is moved to 11 Adar. Machatzit HaShekel (a half-shekel donation to charity) is given on Purim morning, sometimes before Megillah reading on the night before.""",
             learnMoreUrl = "https://www.chabad.org/holidays/purim/article_cdo/aid/1473/jewish/Fast-of-Esther.htm"
-        )
+        ),
+        GuideTopic(
+            id = "sefirat_haomer",
+            title = "Sefirat HaOmer",
+            hebrewTitle = "סְפִירַת הָעֹמֶר",
+            body = """Sefirat HaOmer is the mitzvah to count the 49 days from the second night of Pesach until Shavuot — linking the Exodus to receiving the Torah.
+
+When to count:
+• Count each night after tzeit (nightfall), before dawn.
+• Many Ashkenazim count after Maariv; many Sephardim and Chabad also count after Maariv. Follow your community.
+
+The blessing:
+• Before counting on the first night, recite the blessing "…al sefirat ha'omer."
+• Then say the count for that night (e.g. "Today is one day of the Omer").
+
+If you forgot at night:
+• Count the next day during the daytime without a bracha.
+• If you do this before sunset, you can continue counting on subsequent nights with a bracha.
+• You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
+
+The Omer period is also a time of mourning in many communities (no haircuts, weddings, or live music) until Lag BaOmer or Shavuot, depending on custom.""",
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4886/jewish/Counting-the-Omer.htm"
+        ),
+        GuideTopic(
+            id = "yom_hashoah",
+            title = "Yom HaShoah",
+            hebrewTitle = "יוֹם הַשּׁוֹאָה",
+            body = """Yom HaShoah (Holocaust Remembrance Day) is observed in Israel on 27 Nisan. It commemorates the six million Jews murdered in the Holocaust and honors survivors.
+
+In Israel, a siren brings the country to a standstill. Many communities hold memorial programs, recite Tehillim, and learn about the Shoah. It is not a Torah-mandated fast or Yom Tov; customs vary by community.""",
+        ),
+        GuideTopic(
+            id = "yom_hazikaron",
+            title = "Yom HaZikaron",
+            hebrewTitle = "יוֹם הַזִּכָּרוֹן",
+            body = """Yom HaZikaron (Memorial Day) falls on 4 Iyar in Israel, immediately before Yom Ha'atzmaut. It honors fallen soldiers and victims of terror.
+
+The day is marked by memorial ceremonies and sirens. Many observe it as a solemn day before the celebration of independence.""",
+        ),
+        GuideTopic(
+            id = "yom_haatzmaut",
+            title = "Yom Ha'atzmaut",
+            hebrewTitle = "יוֹם הָעַצְמָאוּת",
+            body = """Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
+
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.""",
+        ),
+        GuideTopic(
+            id = "yom_yerushalayim",
+            title = "Yom Yerushalayim",
+            hebrewTitle = "יוֹם יְרוּשָׁלַיִם",
+            body = """Yom Yerushalayim marks the reunification of Jerusalem in 1967, observed on 28 Iyar.
+
+Many communities recite Hallel and hold festive gatherings. As with Yom Ha'atzmaut, customs and halachic rulings vary — consult your rav.""",
+        ),
+        GuideTopic(
+            id = "chol_hamoed_pesach",
+            title = "Chol HaMoed Pesach",
+            hebrewTitle = "חול המועד פסח",
+            body = """Chol HaMoed Pesach — the intermediate days of Passover — is not full Yom Tov, but it is not ordinary weekdays either.
+
+Key points:
+• No chametz; eat kosher-for-Passover food only. Matzah is eaten on many days.
+• Half Hallel at Shacharit (not Full Hallel — Ashkenazic custom permits a bracha on Partial Hallel; Sephardic custom often does not).
+• Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+• Melacha is restricted but less than Yom Tov — work needed to avoid loss may be permitted; ask your rav.
+• Simchat moed — nicer meals, family time, Torah learning; avoid treating the day like a regular workweek.
+• Shaving and haircuts are generally prohibited on Chol HaMoed unless under specific exceptions — ask your rav.""",
+        ),
+        GuideTopic(
+            id = "chol_hamoed_sukkot",
+            title = "Chol HaMoed Sukkot",
+            hebrewTitle = "חול המועד סוכות",
+            body = """Chol HaMoed Sukkot — the intermediate days of Sukkot — is not full Yom Tov, but it is not ordinary weekdays either.
+
+Key points:
+• Full Hallel each day of Sukkot including Chol HaMoed.
+• Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+• Lulav and etrog each weekday (not on Shabbat); meals in the sukkah when applicable.
+• Melacha is restricted but less than Yom Tov — work needed to avoid loss may be permitted; ask your rav.
+• Simchat moed — nicer meals, time in the sukkah, Torah learning.
+• Shaving and haircuts are generally prohibited on Chol HaMoed unless under specific exceptions — ask your rav.
+• Hoshana Raba (21 Tishrei) is the seventh day of Sukkot with special hoshanot customs.""",
+        ),
+        GuideTopic(
+            id = "simchat_torah",
+            title = "Simchat Torah",
+            hebrewTitle = "שִׂמְחַת תּוֹרָה",
+            body = """Simchat Torah celebrates the completion and immediate restart of the annual Torah reading cycle.
+
+In the Diaspora it falls on 23 Tishrei (day after Shemini Atzeret). In Israel it is observed together with Shemini Atzeret on 22 Tishrei.
+
+Customs:
+• Hakafot — joyous processional circuits with Torah scrolls, singing and dancing
+• Final parsha V'Zot HaBeracha read; Bereishit begun again
+• Festive Kiddush and meals; Yizkor in many Ashkenaz communities on Shemini Atzeret/Simchat Torah
+
+It is a full Yom Tov in the Diaspora; in Israel it shares the day with Shemini Atzeret.""",
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm"
+        ),
+        GuideTopic(
+            id = "purim_katan",
+            title = "Purim Katan",
+            hebrewTitle = "פורים קטן",
+            body = """In a Jewish leap year, 14 Adar I is Purim Katan ("little Purim"). The full Purim mitzvot — Megillah, mishloach manot, matanot l'evyonim, and the festive meal — apply only on regular Purim (14 Adar, or 15 Adar in walled cities).
+
+Purim Katan is marked by a slightly more festive tone; some communities add a special meal or omit Tachanun. It is not a substitute for Purim observance.""",
+        ),
+        GuideTopic(
+            id = "erev_pesach",
+            title = "Erev Pesach",
+            hebrewTitle = "עֶרֶב פֶּסַח",
+            body = """Erev Pesach (14 Nissan) is the day of final Pesach preparation before the Seder.
+
+Key preparations:
+• Finish eating chametz by the end of the morning (check your local zmanim).
+• Bedikat chametz — search for chametz by candlelight after nightfall the night before (or according to your community's schedule).
+• Biur chametz — destroy remaining chametz the next morning.
+• Sell chametz through your rabbi if needed.
+• Prepare the Seder plate, matzah, wine, and Haggadot for the first night(s).
+
+The Seder is held after nightfall on 15 Nissan (and the second night in the Diaspora). No chametz may be eaten after the morning deadline on Erev Pesach.""",
+            learnMoreUrl = "https://www.chabad.org/holidays/passover/default_cdo/jewish/Passover.htm"
+        ),
     )
 
     // Terms that appear in the upcoming/seasonal block and need an explanation anchor
@@ -616,11 +745,15 @@ It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the f
         "Yom Kippur" to "yom_kippur",
         "Sukkot" to "sukkot",
         "Shemini Atzeret" to "shemini_atzeret",
-        "Simchat Torah" to "shemini_atzeret",
+        "Simchat Torah" to "simchat_torah",
         "Chanukah" to "chanukah",
         "Purim" to "purim",
+        "Purim Katan" to "purim_katan",
         "Pesach" to "pesach",
+        "Erev Pesach" to "erev_pesach",
         "Passover" to "pesach",
+        "Chol HaMoed Pesach" to "chol_hamoed_pesach",
+        "Chol HaMoed Sukkot" to "chol_hamoed_sukkot",
         "Chol HaMoed" to "pesach",
         "Shavuot" to "shavuot",
         "Hoshana Raba" to "hoshana_raba",
@@ -632,7 +765,14 @@ It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the f
         "Fast of Gedaliah" to "fast_gedaliah",
         "Fast of 10 Tevet" to "fast_10_tevet",
         "Fast of 17 Tammuz" to "fast_17_tammuz",
-        "Fast of Esther" to "fast_esther"
+        "Fast of Esther" to "fast_esther",
+        "Fast of Esther (Taanit Esther)" to "fast_esther",
+        "Yom HaShoah" to "yom_hashoah",
+        "Yom HaZikaron" to "yom_hazikaron",
+        "Yom Ha'atzmaut" to "yom_haatzmaut",
+        "Yom Yerushalayim" to "yom_yerushalayim",
+        "Sefirat HaOmer" to "sefirat_haomer",
+        "Omer" to "sefirat_haomer",
     )
 
     /** Glossary terms that share a word with a guide topic but are a different concept. */
@@ -663,12 +803,62 @@ It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the f
         "chamar_medina",
     )
 
+    /** Exact display names from [UpcomingHolidayPlanner] and calendar backends. */
+    private val upcomingHolidayTopicIds = mapOf(
+        "Shabbat" to "shabbat_overview",
+        "Rosh Chodesh" to "rosh_chodesh",
+        "Chanukah" to "chanukah",
+        "Purim" to "purim",
+        "Purim Katan" to "purim_katan",
+        "Pesach" to "pesach",
+        "Erev Pesach" to "erev_pesach",
+        "Chol HaMoed Pesach" to "chol_hamoed_pesach",
+        "Shavuot" to "shavuot",
+        "Sukkot" to "sukkot",
+        "Chol HaMoed Sukkot" to "chol_hamoed_sukkot",
+        "Hoshana Raba" to "hoshana_raba",
+        "Shemini Atzeret" to "shemini_atzeret",
+        "Simchat Torah" to "simchat_torah",
+        "Rosh Hashana" to "rosh_hashana",
+        "Yom Kippur" to "yom_kippur",
+        "Yom Tov" to "yom_tov",
+        "Tu B'Shvat" to "tu_bshvat",
+        "Pesach Sheni" to "pesach_sheni",
+        "Lag BaOmer" to "lag_baomer",
+        "Tu B'Av" to "tu_beav",
+        "Tisha B'Av" to "tisha_beav",
+        "Fast of Gedaliah" to "fast_gedaliah",
+        "Fast of 10 Tevet" to "fast_10_tevet",
+        "Fast of Esther" to "fast_esther",
+        "Fast of 17 Tammuz" to "fast_17_tammuz",
+        "Yom HaShoah" to "yom_hashoah",
+        "Yom HaZikaron" to "yom_hazikaron",
+        "Yom Ha'atzmaut" to "yom_haatzmaut",
+        "Yom Yerushalayim" to "yom_yerushalayim",
+    )
+
+    private fun normalizeHolidayLabel(label: String): String =
+        label.replace('\u2019', '\'').trim()
+
     /** Longest matching label wins (e.g. "Rosh Hashana" before "Rosh"). */
-    fun anchorForLabel(label: String): String? =
-        termAnchorMap.entries
+    fun anchorForLabel(label: String): String? {
+        val normalized = normalizeHolidayLabel(label)
+        upcomingHolidayTopicIds[normalized]?.let { return it }
+        return termAnchorMap.entries
             .sortedByDescending { it.key.length }
-            .firstOrNull { (term, _) -> label.contains(term, ignoreCase = true) }
+            .firstOrNull { (term, _) -> normalized.contains(term, ignoreCase = true) }
             ?.value
+    }
+
+    fun topicForAnchor(anchor: String): GuideTopic? =
+        glossary.firstOrNull { it.id == anchor }
+
+    fun topicForLabel(label: String): GuideTopic? =
+        anchorForLabel(label)?.let(::topicForAnchor)
+
+    /** Resolves a guide topic for upcoming-holiday rows and header occasions. */
+    fun topicForUpcomingHoliday(name: String): GuideTopic? =
+        topicForLabel(name)
 
     fun anchorForTerm(term: HalachicTerm): String? {
         if (term.id in glossaryOnlyTermIds) return null

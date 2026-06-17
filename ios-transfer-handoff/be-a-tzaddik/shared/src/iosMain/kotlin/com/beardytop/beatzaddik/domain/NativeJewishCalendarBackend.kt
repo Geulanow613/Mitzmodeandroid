@@ -149,6 +149,15 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isSefirah     = omerDay != null && omerDay in 1..49 && !isLagBaomer
         val isRoshChodesh = (hd.day == 1 && hd.month != HebrewCalendarEngine.TISHREI) || hd.day == 30
         val isTaanis      = isTaanisIndex(idx)
+        val fastDayIndex = idx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val fastDayName = fastDayIndex?.let { PublicFastDayRules.displayName(it) }
+        val upcomingFastDayIndex = tomorrowIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val upcomingFastDayName = upcomingFastDayIndex?.let { PublicFastDayRules.displayName(it) }
+        val isErevMinorFast = PublicFastDayRules.isErevMinorFast(idx, tomorrowIdx)
+        val isErevYomKippur = PublicFastDayRules.isErevYomKippur(idx)
+        val isErevTishaBeav = PublicFastDayRules.isErevTishaBeav(
+            idx, tomorrowIdx, date.dayOfWeek == DayOfWeek.SATURDAY, hd.month, hd.day,
+        )
 
         val isYomHaShoah       = idx == HebrewCalendarEngine.YOM_HASHOAH
         val isYomHaZikaron     = idx == HebrewCalendarEngine.YOM_HAZIKARON
@@ -192,6 +201,10 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             if (idx == HebrewCalendarEngine.SUCCOS || idx == HebrewCalendarEngine.CHOL_HAMOED_SUCCOS) add("sukkot")
             if (idx == HebrewCalendarEngine.ROSH_HASHANA) add("rosh_hashana")
             if (idx == HebrewCalendarEngine.YOM_KIPPUR) add("yom_kippur")
+            if (isTaanis) add("fast_day")
+            if (isErevMinorFast) add("erev_minor_fast")
+            if (isErevYomKippur) add("erev_yom_kippur")
+            if (isErevTishaBeav) add("erev_tisha_beav")
         }
 
         val zmanim       = HeuristicZmanim.build(nowEpochMillis, profile)
@@ -260,7 +273,11 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             zmanim                = zmanim,
             upcomingShabbatParsha = upcomingShabbatParsha,
             upcomingChagName      = upcomingChagName,
-            upcomingChagYomTovIndex = upcomingChagYomTovIndex
+            upcomingChagYomTovIndex = upcomingChagYomTovIndex,
+            fastDayIndex          = fastDayIndex,
+            fastDayName           = fastDayName,
+            upcomingFastDayIndex  = upcomingFastDayIndex,
+            upcomingFastDayName   = upcomingFastDayName,
         )
     }
 
@@ -459,8 +476,8 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         HebrewCalendarEngine.SUCCOS             -> "Yom Tov — Lulav & etrog, sukkah"
         HebrewCalendarEngine.SHEMINI_ATZERES    -> "Yom Tov — Shemini Atzeret"
         HebrewCalendarEngine.SIMCHAS_TORAH      -> "Yom Tov — Simchat Torah, hakafot"
-        HebrewCalendarEngine.PESACH             -> "Yom Tov — Matzah, no chametz, seder"
-        HebrewCalendarEngine.SHAVUOS            -> "Yom Tov — Torah, dairy foods"
+        HebrewCalendarEngine.PESACH             -> "Yom Tov — Seder night(s), matzah, no chametz"
+        HebrewCalendarEngine.SHAVUOS            -> "Yom Tov — Matan Torah, learning, dairy foods"
         HebrewCalendarEngine.CHOL_HAMOED_PESACH -> "Chol HaMoed Pesach — intermediate festival day"
         HebrewCalendarEngine.CHOL_HAMOED_SUCCOS -> "Chol HaMoed Sukkot — intermediate festival day"
         HebrewCalendarEngine.HOSHANA_RABBA      -> "Chol HaMoed Sukkot — last intermediate day"

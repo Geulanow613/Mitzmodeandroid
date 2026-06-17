@@ -50,5 +50,11 @@ data class DayInfo(
     /** Display name of tomorrow's Yom Tov when today is erev chag (e.g. "Pesach", "Rosh Hashana"). */
     val upcomingChagName: String? = null,
     /** KosherJava [yomTovIndex] for tomorrow when today is erev chag; drives erev prep copy. */
-    val upcomingChagYomTovIndex: Int? = null
+    val upcomingChagYomTovIndex: Int? = null,
+    /** Today's public fast day index ([HebrewCalendarEngine] yomTovIndex), if any. */
+    val fastDayIndex: Int? = null,
+    val fastDayName: String? = null,
+    /** Tomorrow's public fast day index when today is erev prep. */
+    val upcomingFastDayIndex: Int? = null,
+    val upcomingFastDayName: String? = null,
 )

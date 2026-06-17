@@ -17,6 +17,11 @@ import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.LocationElevation
 import com.beardytop.beatzaddik.platform.LocationResult
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
+import com.beardytop.beatzaddik.domain.ChecklistDebugDateFinder
+import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
+import com.beardytop.beatzaddik.domain.ChecklistDebugOverride
+import com.beardytop.beatzaddik.domain.ChecklistDebugScenario
+import com.beardytop.beatzaddik.domain.ChecklistDebugTimeSlot
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.HolyDayPhoneRules
 import com.beardytop.beatzaddik.domain.RestKind
@@ -148,13 +153,48 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         ChecklistInput(prof, checked, custom, customChecked, monthly, weekly)
     }
 
+    private val _checklistDebugOverride = MutableStateFlow<ChecklistDebugOverride?>(null)
+    val checklistDebugOverride: StateFlow<ChecklistDebugOverride?> = _checklistDebugOverride
+
+    private val effectiveNowMillis = combine(_checklistDebugOverride, clockTick) { debug, tick ->
+        debug?.epochMillis ?: tick
+    }
+
+    fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
+        val profile = profile.value
+        val override = ChecklistDebugDateFinder.resolve(
+            calendar = deps.calendar,
+            profile = profile,
+            scenario = scenario,
+            timeSlot = timeSlot,
+        )
+        if (override == null) {
+            _locationMessage.value = "Debug: no calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
+            return
+        }
+        _checklistDebugOverride.value = override
+    }
+
+    fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {
+        val current = _checklistDebugOverride.value ?: return
+        val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
+        applyChecklistDebugScenario(scenario, timeSlot)
+    }
+
+    fun clearChecklistDebug() {
+        _checklistDebugOverride.value = null
+    }
+
     val dayChecklists: StateFlow<DayChecklists?> = combine(
         checklistInput,
-        clockTick
-    ) { input, _ ->
+        effectiveNowMillis,
+        checklistDebugOverride,
+    ) { input, nowMillis, debug ->
         deps.checklistEngine.resolve(
             input.profile, input.checked, input.custom, input.customChecked,
-            input.monthlyMonths, input.weeklyWeeks
+            input.monthlyMonths, input.weeklyWeeks,
+            nowMillis = nowMillis,
+            calendarDebugPreview = debug != null,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -162,16 +202,24 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         viewModelScope, SharingStarted.WhileSubscribed(5000), null
     )
 
-    val requiredProgress: StateFlow<Pair<Int, Int>> = dayChecklists.map { d ->
+    val requiredProgress: StateFlow<Pair<Int, Int>> = combine(dayChecklists, profile) { d, prof ->
         if (d == null) 0 to 0
-        else deps.checklistEngine.requiredProgress(d)
+        else deps.checklistEngine.requiredProgress(d, prof)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0 to 0)
 
-    val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(profile, clockTick) { prof, now ->
+    val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(
+        profile,
+        effectiveNowMillis,
+    ) { prof, now ->
         deps.calendar.upcomingHolidays(nowEpochMillis = now, profile = prof)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    val electronicsRest: StateFlow<ElectronicsRestPeriod?> = combine(profile, clockTick) { prof, now ->
+    val electronicsRest: StateFlow<ElectronicsRestPeriod?> = combine(
+        profile,
+        effectiveNowMillis,
+        checklistDebugOverride,
+    ) { prof, now, debug ->
+        if (debug != null) return@combine null
         deps.calendar.electronicsRestPeriod(nowEpochMillis = now, profile = prof)
             ?: shabbatRestFallback(now, prof)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
@@ -184,10 +232,10 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
         viewModelScope.launch { runStartupMaintenance() }
         viewModelScope.launch {
-            combine(dayChecklists, profile) { day, prof -> day to prof }
-                .collect { (day, prof) ->
-                    if (day == null) return@collect
-                    if (!deps.checklistEngine.allRequiredComplete(day)) return@collect
+            combine(dayChecklists, profile, checklistDebugOverride) { day, prof, debug -> Triple(day, prof, debug) }
+                .collect { (day, prof, debug) ->
+                    if (day == null || debug != null) return@collect
+                    if (!deps.checklistEngine.allRequiredComplete(day, prof)) return@collect
                     val today = day.date.toString()
                     if (prof.tzaddikShownDate == today) return@collect
                     viewModelScope.launch {

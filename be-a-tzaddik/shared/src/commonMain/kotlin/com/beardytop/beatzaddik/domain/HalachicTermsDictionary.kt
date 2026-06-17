@@ -483,7 +483,7 @@ object HalachicTermsDictionary {
             "Shmoneh Esrei",
         ),
         line(
-            "Yaaleh V'yavo — Yaaleh V'yavo is the special paragraph inserted in the Amidah and Grace After Meals on Rosh Chodesh and festivals. Forgetting it may require repeating the prayers. Ask a rav or look in your siddur for clarification.",
+            "Yaaleh V'yavo — Paragraph in Amidah and bentching on Rosh Chodesh and festivals. Forgot: insert in Retzei if still there; between Retzei and Modim say it then Modim; after Modim started return to Retzei; after final Yihiyu L'ratzon repeat only that Amidah. Rosh Chodesh Maariv only: no repeat after Retzei (SA O.C. 422:1).",
             "Yaaleh V'yavo",
             "Yaaleh V'Yavo",
         ),
@@ -935,7 +935,7 @@ object HalachicTermsDictionary {
             "Bar Mitzvah",
         ),
         line(
-            "bat mitzvah — Bat mitzvah is when a girl reaches twelve and becomes obligated in mitzvot not dependent on the Temple's time — the standard age of obligation in traditional halacha. Customs for celebration vary — speeches, learning projects, family meal. Women's mitzvot include Shabbat candles, kashrut, charity, and Torah study — specifics follow family and rav.",
+            "bat mitzvah — Bat mitzvah is when a girl reaches twelve years and one day and becomes obligated in mitzvot not dependent on the Temple's time — the standard age of obligation in traditional halacha. Customs for celebration vary — speeches, learning projects, family meal. Women's mitzvot include Shabbat candles, kashrut, charity, and Torah study — specifics follow family and rav.",
             "bat mitzvah",
             "Bat Mitzvah",
         ),
@@ -1679,6 +1679,8 @@ object HalachicTermsDictionary {
         buildMatchers(allTerms)
     }
 
+    private val longerPhraseRangesCache = mutableMapOf<String, List<IntRange>>()
+
     fun termById(id: String): HalachicTerm? = byIdMap[id]
 
     fun findMatches(
@@ -1693,29 +1695,25 @@ object HalachicTermsDictionary {
             buildMatchers(allTerms + additionalTerms)
         }
         val multiWordLabels = matchers.map { it.first }.filter { ' ' in it }
-        val longerPhraseRanges = longerPhraseRangesIn(text, multiWordLabels)
+        val longerPhraseRanges = longerPhraseRangesFor(text, multiWordLabels)
         val candidates = mutableListOf<HalachicTermMatch>()
         for ((label, term) in matchers) {
-            var start = 0
-            while (start < text.length) {
-                val idx = text.indexOf(label, start, ignoreCase = true)
-                if (idx < 0) break
-                val end = idx + label.length
-                if (
-                    isWordBoundary(text, idx, end) &&
-                    !overlapsAny(idx until end, excludeRanges) &&
-                    !isInsideLongerPhrase(idx until end, label, longerPhraseRanges)
-                ) {
-                    candidates.add(
-                        HalachicTermMatch(
-                            start = idx,
-                            end = end,
-                            term = term,
-                            matchedText = text.substring(idx, end),
-                        )
+            val idx = text.indexOf(label, startIndex = 0, ignoreCase = true)
+            if (idx < 0) continue
+            val end = idx + label.length
+            if (
+                isWordBoundary(text, idx, end) &&
+                !overlapsAny(idx until end, excludeRanges) &&
+                !isInsideLongerPhrase(idx until end, label, longerPhraseRanges)
+            ) {
+                candidates.add(
+                    HalachicTermMatch(
+                        start = idx,
+                        end = end,
+                        term = term,
+                        matchedText = text.substring(idx, end),
                     )
-                }
-                start = idx + 1
+                )
             }
         }
         return firstOccurrencePerTerm(selectNonOverlapping(candidates))
@@ -1727,18 +1725,21 @@ object HalachicTermsDictionary {
         return matches.filter { seen.add(it.term.id) }
     }
 
+    private fun longerPhraseRangesFor(text: String, multiWordLabels: List<String>): List<IntRange> {
+        if (multiWordLabels.isEmpty()) return emptyList()
+        return longerPhraseRangesCache.getOrPut(text) {
+            longerPhraseRangesIn(text, multiWordLabels)
+        }
+    }
+
     private fun longerPhraseRangesIn(text: String, multiWordLabels: List<String>): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
         for (longer in multiWordLabels) {
-            var search = 0
-            while (search < text.length) {
-                val idx = text.indexOf(longer, search, ignoreCase = true)
-                if (idx < 0) break
-                val end = idx + longer.length
-                if (isWordBoundary(text, idx, end)) {
-                    ranges.add(idx until end)
-                }
-                search = idx + 1
+            val idx = text.indexOf(longer, startIndex = 0, ignoreCase = true)
+            if (idx < 0) continue
+            val end = idx + longer.length
+            if (isWordBoundary(text, idx, end)) {
+                ranges.add(idx until end)
             }
         }
         return ranges

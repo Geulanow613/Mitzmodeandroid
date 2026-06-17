@@ -5,9 +5,178 @@ import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.plus
 
 /**
- * Full explainers for Erev Pesach checklist items (14 Nisan).
+ * Full explainers and checklist timing for Pesach prep (8–14 Nisan).
  */
 object ErevPesachPrepText {
+
+    enum class PesachErevDow { WEEKDAY, FRIDAY, SHABBAT }
+
+    /** True during Nissan 8–14 when Pesach-prep checklist items may appear. */
+    fun isPesachPrepWindow(cal: DayInfo): Boolean {
+        val month = cal.hebrewMonth ?: return false
+        val day = cal.hebrewDay ?: return false
+        return month == HebrewCalendarEngine.NISSAN && day in 8..14
+    }
+
+    fun pesachErevDow(cal: DayInfo): PesachErevDow? {
+        val erev = erevPesachCivilDate(cal) ?: return null
+        return when (erev.dayOfWeek) {
+            DayOfWeek.SATURDAY -> PesachErevDow.SHABBAT
+            DayOfWeek.FRIDAY -> PesachErevDow.FRIDAY
+            else -> PesachErevDow.WEEKDAY
+        }
+    }
+
+    /** Hebrew date (Nissan) on which bedikat is performed after tzeit. */
+    private fun bedikatNissanDay(dow: PesachErevDow): Int = when (dow) {
+        PesachErevDow.SHABBAT -> 12
+        else -> 13
+    }
+
+    /** Hebrew date (Nissan) on which biur is performed in the morning. */
+    private fun biurNissanDay(dow: PesachErevDow): Int = when (dow) {
+        PesachErevDow.SHABBAT -> 13
+        else -> 14
+    }
+
+    /** Hebrew date (Nissan) for Taanit Bechorot (moved earlier when Erev Pesach is Shabbat). */
+    private fun taanitNissanDay(dow: PesachErevDow): Int = when (dow) {
+        PesachErevDow.SHABBAT -> 12
+        else -> 14
+    }
+
+    /** Last Nissan day to authorize mechirat with your rabbi (sale takes effect Erev Pesach morning). */
+    private fun mechiratAuthorizeThroughNissanDay(dow: PesachErevDow): Int = when (dow) {
+        PesachErevDow.FRIDAY -> 14
+        else -> 13
+    }
+
+    fun pesachPrepItemsForDay(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
+        if (!isPesachPrepWindow(cal)) return emptyList()
+        val nissanDay = cal.hebrewDay ?: return emptyList()
+        val dow = pesachErevDow(cal) ?: return emptyList()
+        return buildList {
+            if (nissanDay in 8..mechiratAuthorizeThroughNissanDay(dow)) {
+                add(mechiratItem(cal, profile, nissanDay, dow))
+            }
+            if (nissanDay == bedikatNissanDay(dow)) {
+                add(bedikatItem(cal, profile))
+            }
+            if (nissanDay == biurNissanDay(dow)) {
+                add(biurItem(cal, profile))
+            }
+            if (nissanDay == taanitNissanDay(dow)) {
+                add(taanitItem(cal, profile))
+            }
+            if (nissanDay == 14 || (nissanDay == 13 && dow == PesachErevDow.SHABBAT)) {
+                add(sederPrepItem(cal, profile))
+            }
+        }
+    }
+
+    private fun mechiratItem(
+        cal: DayInfo,
+        profile: UserProfile,
+        nissanDay: Int,
+        dow: PesachErevDow,
+    ) = ChecklistItemDef(
+        id = "erev_pesach_mechirat_chametz",
+        title = mechiratTitle(nissanDay, dow),
+        section = "Pesach prep",
+        sortOrder = 10,
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        explanation = mechiratExplanation(cal, profile, nissanDay, dow),
+        links = mechiratLinks(profile),
+    )
+
+    private fun taanitItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "erev_pesach_taanit_bechorot",
+        title = taanitTitle(cal),
+        section = "Pesach prep",
+        sortOrder = 20,
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        explanation = taanitBechorExplanation(cal, profile),
+        links = taanitBechorLinks(profile),
+    )
+
+    private fun sederPrepItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "erev_pesach_prepare_seder",
+        title = sederPrepTitle(cal),
+        section = "Pesach prep",
+        sortOrder = 30,
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        explanation = sederPrepExplanation(cal, profile),
+        links = sederPrepLinks(profile),
+    )
+
+    private fun bedikatItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "bedikat_chametz",
+        title = "Bedikat chametz — search tonight after nightfall",
+        section = "Pesach prep",
+        sortOrder = 40,
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        situational = false,
+        explanation = bedikatExplanation(cal, profile),
+        links = bedikatLinks(profile),
+    )
+
+    private fun biurItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "erev_pesach_biur_chametz",
+        title = biurTitle(cal),
+        section = "Pesach prep",
+        sortOrder = 50,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        situational = false,
+        explanation = biurExplanation(cal, profile),
+        links = biurLinks(profile),
+    )
+
+    private fun mechiratTitle(nissanDay: Int, dow: PesachErevDow): String {
+        val last = mechiratAuthorizeThroughNissanDay(dow)
+        return when {
+            nissanDay < last ->
+                "Mechirat chametz — authorize sale with your rabbi"
+            dow == PesachErevDow.FRIDAY ->
+                "Mechirat chametz — complete before Shabbat candles tonight"
+            dow == PesachErevDow.SHABBAT ->
+                "Mechirat chametz — complete before Shabbat begins tonight"
+            else ->
+                "Mechirat chametz — last day to authorize with your rabbi"
+        }
+    }
+
+    private fun biurTitle(cal: DayInfo): String =
+        if (pesachErevDow(cal) == PesachErevDow.SHABBAT) {
+            "Biur chametz — burn/remove chametz this morning (before Shabbat)"
+        } else {
+            "Biur chametz — burn/remove chametz this morning"
+        }
+
+    private fun taanitTitle(cal: DayInfo): String =
+        if (pesachErevDow(cal) == PesachErevDow.SHABBAT && cal.hebrewDay == 12) {
+            "Taanit Bechorot — Fast of the Firstborn (moved to Thursday)"
+        } else {
+            "Taanit Bechorot — Fast of the Firstborn (or siyum)"
+        }
+
+    private fun sederPrepTitle(cal: DayInfo): String = when {
+        isErevPesachOnShabbat(cal) ->
+            "Prepare for the Seder after Shabbat (Motzei Shabbat)"
+        isErevPesachFridayBeforeShabbatPesach(cal) ->
+            "Prepare for the Seder (matzah, maror, cups, Haggadah)"
+        cal.hebrewDay == 13 && pesachErevDow(cal) == PesachErevDow.SHABBAT ->
+            "Prepare for the Seder — finish before Shabbat begins"
+        else ->
+            "Prepare for the Seder (matzah, maror, cups, Haggadah)"
+    }
 
     /** Gregorian date of 14 Nisan in the current Hebrew year, when today is on or before Erev Pesach. */
     fun erevPesachCivilDate(cal: DayInfo) = run {
@@ -132,12 +301,23 @@ This year, Erev Pesach is Shabbat (14 Nisan). Today (Friday, 13 Nisan): biur cha
         }
     }
 
-    /** Bedikat row appears on 14 Nisan; full Pesach–Shabbat timeline is shown earlier on week-before prep. */
-    private fun includePesachScheduleOnBedikatItem(cal: DayInfo): Boolean =
-        !isErevPesachOnShabbat(cal) && !isErevPesachFridayBeforeShabbatPesach(cal)
+    /** Bedikat row on the night before Erev Pesach day; Shabbat-year schedule in week-before prep. */
+    private fun includePesachScheduleOnBedikatItem(cal: DayInfo): Boolean = false
 
-    fun mechiratExplanation(cal: DayInfo, profile: UserProfile): String =
-        appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
+    fun mechiratExplanation(
+        cal: DayInfo,
+        profile: UserProfile,
+        nissanDay: Int = cal.hebrewDay ?: 14,
+        dow: PesachErevDow = pesachErevDow(cal) ?: PesachErevDow.WEEKDAY,
+    ): String {
+        val urgency = when {
+            nissanDay >= mechiratAuthorizeThroughNissanDay(dow) ->
+                "\n\nToday is the deadline to authorize mechirat chametz with your rabbi. The sale takes effect on Erev Pesach morning, but rabbis need your form in advance — most stop accepting by the night before Erev Pesach at the latest."
+            nissanDay >= 11 ->
+                "\n\nAuthorize mechirat chametz with your rabbi soon — do not wait until Erev Pesach day."
+            else -> ""
+        }
+        return appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
 Mechirat chametz (מְכִירַת חָמֵץ) — selling your chametz to a non-Jew through your rabbi before Pesach — lets you keep chametz products locked away without owning them during Pesach (Shulchan Arukh O.C. 448).
 
 Why:
@@ -151,8 +331,9 @@ How to do it:
 • Store the contract or confirmation; many communities sell through a central rabbi (e.g. local kashrut council).
 
 After Pesach: chametz is repurchased per the terms of the sale — follow your rabbi's instructions on when you may use it again.
+$urgency
     """.trim()), cal, profile)
-
+    }
     fun taanitBechorExplanation(cal: DayInfo, profile: UserProfile): String = appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
 Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — Fast of the Firstborn — is observed on Erev Pesach day by firstborn males (and some communities include firstborn females — ask your rav).
 
@@ -187,6 +368,8 @@ Second Seder prep (Diaspora this year):
                 "This year: first Seder is tonight (Friday night). The second Seder in the Diaspora is tomorrow night (Saturday night), after Shabbat."
             isErevPesachOnShabbat(cal) ->
                 "This year: first Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havdalah in Kiddush (Yaknehaz), then Seder."
+            cal.hebrewDay == 13 && pesachErevDow(cal) == PesachErevDow.SHABBAT ->
+                "This year: finish all Seder setup today (Friday) before Shabbat. First Seder is Saturday night after Havdalah."
             profile.isInIsrael ->
                 "In Israel: one seder tonight (15 Nisan)."
             else ->
@@ -194,16 +377,18 @@ Second Seder prep (Diaspora this year):
         }
         val omerTrigger = if (profile.isInIsrael) {
             """
-• Omer count trigger: The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table on that night, count Day 1 of the Omer — missing it can cost the blessing for the rest of the year (ask your rav)."""
+• Omer count trigger: The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table on that night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item)."""
         } else {
             """
-• Omer count trigger: The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — missing it can cost the blessing for the rest of the year (ask your rav)."""
+• Omer count trigger: The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item)."""
         }
         val intro = when {
             isErevPesachFridayBeforeShabbatPesach(cal) ->
                 "Pesach begins at the next nightfall — use today (Friday) to prepare so the first Seder focuses on mitzvot, not logistics."
             isErevPesachOnShabbat(cal) ->
                 "Today is Shabbat — Pesach begins after Shabbat ends (Motzei Shabbat). Finish what you can before Shabbat; complete Seder setup after Havdalah."
+            cal.hebrewDay == 13 && pesachErevDow(cal) == PesachErevDow.SHABBAT ->
+                "Erev Pesach is tomorrow (Shabbat). Finish Seder preparations today before Shabbat candles — you cannot prepare on Shabbat for Motzei Shabbat."
             else ->
                 "Use today to prepare so the Seder focuses on mitzvot, not logistics — phones will be off once Yom Tov begins."
         }
@@ -235,18 +420,19 @@ At the Seder: follow your Haggadah step by step — Kiddush, the order of the ni
     fun bedikatExplanation(cal: DayInfo, profile: UserProfile): String {
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
         val tzeit = cal.zmanim?.tzeitMillis ?: cal.zmanim?.sunsetMillis
-        val whenLine = when {
-            isErevPesachFridayBeforeShabbatPesach(cal) ->
-                "This year bedikat was due last night (Thursday night after tzeit). If you already searched, you are set; if not, ask your rabbi right away."
-            isErevPesachOnShabbat(cal) ->
-                "This year bedikat was due Thursday night (13 Nisan after tzeit), not tonight."
+        val dow = pesachErevDow(cal)
+        val whenLine = when (dow) {
+            PesachErevDow.SHABBAT ->
+                "Tonight after nightfall (Thursday night, beginning 13 Nisan) — not on Shabbat and not the usual Erev Pesach night."
+            PesachErevDow.FRIDAY ->
+                "Tonight after nightfall (Thursday night, beginning 14 Nisan) — not Friday night."
             else -> ZmanimFormatter.formatTime(tzeit, tz)?.let { time ->
-                "Tonight after nightfall — ideally after $time (tzeit). Begin once it is fully dark."
-            } ?: "Tonight after nightfall (tzeit). Enable location in the app for your local time."
+                "Tonight after nightfall (beginning 14 Nisan) — ideally after $time (tzeit)."
+            } ?: "Tonight after nightfall (beginning 14 Nisan). Enable location in the app for your local time."
         }
 
         return appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
-Bedikat chametz (בְּדִיקַת חָמֵץ) — the formal search for chametz — is a rabbinic mitzvah on the night of 14 Nisan (Erev Pesach).
+Bedikat chametz (בְּדִיקַת חָמֵץ) — the formal search for chametz — is a rabbinic mitzvah on the night **before** Erev Pesach day (after tzeit when the Hebrew date becomes 14 Nisan).
 
 $whenLine
 
@@ -261,7 +447,7 @@ After the search:
 • Text difference: Use the night version of Kol Chamira from your siddur. It nullifies only chametz you have not seen and do not know about — because you may still legally own chametz for breakfast tomorrow morning.
 • When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning (Peninei Halakha; STAR-K).
 • Gather found chametz in a bag to destroy the next morning at biur chametz.
-• Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow (Erev Pesach day), avoid eating a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
+• Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow morning is biur chametz — avoid a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
 
 If you are traveling or staying elsewhere, your host or rabbi can guide which rooms you are responsible to search.
         """.trim()), cal, profile, includePesachSchedule = includePesachScheduleOnBedikatItem(cal))
@@ -270,6 +456,7 @@ If you are traveling or staying elsewhere, your host or rabbi can guide which ro
     fun biurExplanation(cal: DayInfo, profile: UserProfile): String {
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
         val zmanim = cal.zmanim
+        val dow = pesachErevDow(cal) ?: PesachErevDow.WEEKDAY
         val end4th = zmanim?.let { ZmanimHelpers.endOfHalachicHourMillis(it, 4) }
             ?: zmanim?.sofZmanTefillaMillis
         val end5th = zmanim?.let { ZmanimHelpers.endOfHalachicHourMillis(it, 5) }
@@ -289,12 +476,12 @@ If you are traveling or staying elsewhere, your host or rabbi can guide which ro
             }
         }
 
-        val morningNote = when {
-            isErevPesachOnShabbat(cal) ->
-                "This year biur was due Friday morning (before Shabbat). On Shabbat you cannot burn chametz — it should already be destroyed or sold."
-            isErevPesachFridayBeforeShabbatPesach(cal) ->
-                "Morning of Erev Pesach (today, Friday) — complete biur before Shabbat:"
-            else -> "Morning of Erev Pesach:"
+        val morningNote = when (dow) {
+            PesachErevDow.SHABBAT ->
+                "Friday morning of 13 Nisan (before Shabbat) — complete biur. Do not recite the final Kol Chamira at the burning — keep chametz for Shabbat meals (STAR-K; OU)."
+            PesachErevDow.FRIDAY ->
+                "Morning of Erev Pesach (today, Friday, 14 Nisan) — complete biur before Shabbat:"
+            else -> "Morning of Erev Pesach (14 Nisan) — complete biur today:"
         }
 
         return appendShabbatSchedule(BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.pesachPrep(), """
@@ -313,10 +500,10 @@ Mechirat chametz:
 
 After biur:
 • Eat only kosher-for-Passover food until Pesach ends.
-• Firstborns: Taanit Bechorot or siyum earlier in the day; Seder ${
-            when {
-                isErevPesachOnShabbat(cal) -> "after Shabbat (see schedule above)"
-                isErevPesachFridayBeforeShabbatPesach(cal) -> "tonight (first Seder); second Seder tomorrow night in the Diaspora"
+• Firstborns: Taanit Bechorot earlier per schedule; Seder ${
+            when (dow) {
+                PesachErevDow.SHABBAT -> "after Shabbat (Motzei Shabbat)"
+                PesachErevDow.FRIDAY -> "tonight (first Seder); second Seder tomorrow night in the Diaspora"
                 else -> "tonight"
             }
         }.

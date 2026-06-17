@@ -248,8 +248,8 @@ internal object UpcomingHolidayPlanner {
         "Sukkot" -> "Yom Tov — Lulav & etrog, sukkah"
         "Shemini Atzeret" -> "Yom Tov — Shemini Atzeret"
         "Simchat Torah" -> "Yom Tov — Simchat Torah, hakafot"
-        "Pesach" -> "Yom Tov — Matzah, no chametz, seder"
-        "Shavuot" -> "Yom Tov — Torah, dairy foods"
+        "Pesach" -> "Yom Tov — Seder night(s), matzah, no chametz"
+        "Shavuot" -> "Yom Tov — Matan Torah, learning, dairy foods"
         else -> "Yom Tov — candles, festive meals"
     }
 

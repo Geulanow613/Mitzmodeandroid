@@ -70,8 +70,8 @@ object SeasonalChecklistItems {
         if (cal.isYomYerushalayim) {
             add(yomYerushalayimItem(profile))
         }
-        if ("erev_pesach" in cal.activeSeasons) {
-            addAll(erevPesachItems(cal, profile))
+        if (ErevPesachPrepText.isPesachPrepWindow(cal)) {
+            addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile))
         }
         festivalWeekPrepItem(cal, profile)?.let { add(it) }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
@@ -96,6 +96,24 @@ object SeasonalChecklistItems {
             add(nineDaysMourningItem(profile))
         }
         selichotItemForDay(cal, profile)?.let { add(it) }
+        ldovidItemForDay(cal, profile)?.let { add(it) }
+        birkatHachamahItemForDay(cal)?.let { add(it) }
+        birkatHaIlanotItemForDay(cal, profile)?.let { add(it) }
+        if ("erev_minor_fast" in cal.activeSeasons && cal.upcomingFastDayIndex != null) {
+            add(erevMinorFastPrepItem(cal, profile))
+        }
+        if ("erev_yom_kippur" in cal.activeSeasons) {
+            add(erevYomKippurEatItem(cal, profile))
+        }
+        if ("erev_tisha_beav" in cal.activeSeasons) {
+            add(erevTishaBeavPrepItem(cal, profile))
+        }
+        if ("fast_day" in cal.activeSeasons && cal.fastDayIndex != null) {
+            add(publicFastDayItem(cal, profile))
+            if (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR) {
+                add(motzeiYomKippurMealItem(cal, profile))
+            }
+        }
     }
 
     private fun omerItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
@@ -177,7 +195,7 @@ See Chabad.org Sefirah articles for details on your community.""",
             seasons = listOf("purim"),
             explanation = BeginnerHalachaGlossary.withKeyTerms(
                 BeginnerHalachaGlossary.purimBasics(),
-                """Mikra Megillah (hearing the Book of Esther) is a Torah-level mitzvah (Esther 9:28). Men and women are equally obligated.
+                """Mikra Megillah (hearing the Book of Esther) is a rabbinic mitzvah instituted for Purim (Esther 9:28; Megillah 19a). Men and women are equally obligated.
 
 When to hear it:
 • Once on Purim evening — after nightfall (tzeit)
@@ -299,10 +317,11 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         return ChecklistItemDef(
             id = "yom_tov_shabbat_advance_prep",
             title = title,
-            section = "Seasonal",
+            section = "Prepare for the festival",
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
+            sortOrder = 5,
             explanation = explanation,
             links = links
         )
@@ -313,10 +332,11 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         return ChecklistItemDef(
             id = "erev_chag_prep",
             title = prep.title,
-            section = "Seasonal",
+            section = "Prepare for the festival",
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
+            sortOrder = 0,
             seasons = listOf("erev_chag"),
             explanation = prep.explanation,
             links = prep.links
@@ -373,69 +393,6 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         links = erevChanukahPrepLinks()
     )
 
-    private fun erevPesachItems(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> = listOf(
-        ChecklistItemDef(
-            id = "erev_pesach_mechirat_chametz",
-            title = "Mechirat chametz — sell chametz before Pesach",
-            section = "Pesach prep",
-            sortOrder = 10,
-            timeOfDay = TimeOfDay.DAY,
-            required = false,
-            situational = false,
-            seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.mechiratExplanation(cal, profile),
-            links = ErevPesachPrepText.mechiratLinks(profile)
-        ),
-        ChecklistItemDef(
-            id = "erev_pesach_taanit_bechorot",
-            title = "Taanit Bechorot — Fast of the Firstborn (or siyum)",
-            section = "Pesach prep",
-            sortOrder = 20,
-            timeOfDay = TimeOfDay.DAY,
-            required = false,
-            situational = false,
-            seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.taanitBechorExplanation(cal, profile),
-            links = ErevPesachPrepText.taanitBechorLinks(profile)
-        ),
-        ChecklistItemDef(
-            id = "erev_pesach_prepare_seder",
-            title = "Prepare for the Seder (matzah, maror, cups, Haggadah)",
-            section = "Pesach prep",
-            sortOrder = 30,
-            timeOfDay = TimeOfDay.DAY,
-            required = false,
-            situational = false,
-            seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.sederPrepExplanation(cal, profile),
-            links = ErevPesachPrepText.sederPrepLinks(profile)
-        ),
-        ChecklistItemDef(
-            id = "bedikat_chametz",
-            title = "Bedikat chametz — search tonight",
-            section = "Pesach prep",
-            sortOrder = 40,
-            timeOfDay = TimeOfDay.NIGHT,
-            required = true,
-            situational = false,
-            seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.bedikatExplanation(cal, profile),
-            links = ErevPesachPrepText.bedikatLinks(profile)
-        ),
-        ChecklistItemDef(
-            id = "erev_pesach_biur_chametz",
-            title = "Biur chametz — burn/remove chametz tomorrow morning",
-            section = "Pesach prep",
-            sortOrder = 50,
-            timeOfDay = TimeOfDay.DAY,
-            required = true,
-            situational = false,
-            seasons = listOf("erev_pesach"),
-            explanation = ErevPesachPrepText.biurExplanation(cal, profile),
-            links = ErevPesachPrepText.biurLinks(profile)
-        )
-    )
-
     private fun festivalWeekPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val prep = cal.festivalWeekPrep() ?: return null
         return ChecklistItemDef(
@@ -445,6 +402,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
+            sortOrder = 10,
             explanation = SeasonalMitzvahText.festivalWeekPrepExplanation(cal, profile, prep),
             links = SeasonalMitzvahText.festivalWeekPrepLinks(prep, profile)
         )
@@ -589,6 +547,79 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         explanationChabad = SeasonalMitzvahText.nineDaysExplanation(profile),
         links = mourningLinks(profile)
     )
+
+    private fun birkatHaIlanotItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
+        if (!BirkatHaIlanotRules.isInWindow(cal, profile.latitude)) return null
+        return ChecklistItemDef(
+            id = "birkat_hailanot",
+            title = "Birkat Ha'Ilanot — Blessing on Fruit Trees",
+            section = "Seasonal",
+            timeOfDay = TimeOfDay.ANY,
+            required = false,
+            situational = false,
+            persistChecked = true,
+            hideOnShabbat = false,
+            sortOrder = 8,
+            explanation = SeasonalMitzvahText.birkatHaIlanotExplanation(profile),
+            explanationChabad = SeasonalMitzvahText.birkatHaIlanotChabadNote(profile),
+            links = SeasonalMitzvahText.birkatHaIlanotLinks(),
+        )
+    }
+
+    private fun birkatHachamahItemForDay(cal: DayInfo): ChecklistItemDef? {
+        val occurrence = BirkatHachamahRules.visibleOccurrence(cal.date) ?: return null
+        val isRecitationDay = BirkatHachamahRules.isRecitationDay(cal.date)
+        return ChecklistItemDef(
+            id = "birkat_hachamah",
+            title = "Birkat Hachamah — Blessing the Sun",
+            section = "Seasonal",
+            timeOfDay = TimeOfDay.DAY,
+            required = isRecitationDay,
+            situational = !isRecitationDay,
+            persistChecked = true,
+            sortOrder = 5,
+            explanation = SeasonalMitzvahText.birkatHachamahExplanation(occurrence),
+            links = listOf(
+                ChecklistLink(
+                    displayText = "Berakhot 59b (Sefaria)",
+                    url = "https://www.sefaria.org/Berakhot.59b",
+                ),
+                ChecklistLink(
+                    displayText = "Peninei Halakha — Blessing the Sun",
+                    url = "https://ph.yhb.org.il/en/category/14/14-01/",
+                ),
+                ChecklistLink(
+                    displayText = "Chabad.org — Birkat Hachama",
+                    url = "https://www.chabad.org/library/article_cdo/aid/3731/jewish/Birkat-Hachama.htm",
+                    nusach = "chabad",
+                ),
+            ),
+        )
+    }
+
+    private fun ldovidItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
+        val nusach = profile.effectiveNusach()
+        if (!LDovidRules.isRecited(cal, nusach)) return null
+        return ChecklistItemDef(
+            id = "ldovid_hashem_ori",
+            title = "Psalm 27 — L'Dovid Hashem Ori",
+            section = "Morning Prayer (Shacharit)",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            explanation = SeasonalMitzvahText.ldovidExplanation(nusach),
+            explanationAshkenaz = SeasonalMitzvahText.ldovidAshkenazNote(),
+            explanationSefard = SeasonalMitzvahText.ldovidSephardNote(),
+            explanationEdotHamizrach = SeasonalMitzvahText.ldovidEdotHamizrachNote(),
+            explanationChabad = SeasonalMitzvahText.ldovidChabadNote(),
+            links = listOf(
+                ChecklistLink(
+                    displayText = "Psalm 27 (Sefaria)",
+                    url = "https://www.sefaria.org/Psalms.27",
+                ),
+            ),
+        )
+    }
 
     private fun selichotItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val month = cal.hebrewMonth ?: return null
@@ -990,8 +1021,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             sortOrder = 52,
             timeOfDay = TimeOfDay.ANY,
             required = true,
-            gender = "male",
             explanation = SeasonalMitzvahText.yaalehVyavoShacharitExplanation(),
+            explanationFemale = SeasonalMitzvahText.yaalehVyavoShacharitExplanationFemale(),
             links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
         ),
         ChecklistItemDef(
@@ -1001,8 +1032,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             sortOrder = 15,
             timeOfDay = TimeOfDay.DAY,
             required = true,
-            gender = "male",
             explanation = SeasonalMitzvahText.yaalehVyavoMinchaExplanation(),
+            explanationFemale = SeasonalMitzvahText.yaalehVyavoMinchaExplanationFemale(),
             links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
         ),
         ChecklistItemDef(
@@ -1012,8 +1043,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             sortOrder = 25,
             timeOfDay = TimeOfDay.NIGHT,
             required = true,
-            gender = "male",
             explanation = SeasonalMitzvahText.yaalehVyavoMaarivExplanation(),
+            explanationFemale = SeasonalMitzvahText.yaalehVyavoMaarivExplanationFemale(),
             links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
         ),
     )
@@ -1025,8 +1056,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         sortOrder = 54,
         timeOfDay = TimeOfDay.DAY,
         required = true,
-        gender = "male",
         explanation = SeasonalMitzvahText.roshChodeshHalfHallelExplanation(),
+        explanationFemale = SeasonalMitzvahText.roshChodeshHalfHallelExplanationFemale(),
         explanationAshkenaz = SeasonalMitzvahText.roshChodeshHalfHallelAshkenazNote(),
         explanationSefard = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
         explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
@@ -1041,8 +1072,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         sortOrder = 54,
         timeOfDay = TimeOfDay.DAY,
         required = true,
-        gender = "male",
         explanation = SeasonalMitzvahText.roshChodeshFullHallelChanukahExplanation(),
+        explanationFemale = SeasonalMitzvahText.roshChodeshFullHallelChanukahExplanationFemale(),
         explanationAshkenaz = SeasonalMitzvahText.roshChodeshFullHallelAshkenazNote(),
         explanationSefard = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
         explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
@@ -1058,13 +1089,14 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
 
     private fun roshChodeshMonthlyItem(profile: UserProfile) = ChecklistItemDef(
         id = "rosh_chodesh_observances",
-        title = "Rosh Chodesh — honor the new month",
+        title = "Rosh Chodesh — the New Month",
         section = "Monthly",
         sortOrder = 10,
-        timeOfDay = TimeOfDay.DAY,
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         explanation = SeasonalMitzvahText.roshChodeshObservancesExplanation(),
+        explanationFemale = SeasonalMitzvahText.roshChodeshObservancesExplanationFemale(),
         links = SeasonalMitzvahText.roshChodeshLinks(profile),
     )
 
@@ -1079,6 +1111,72 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         monthlyMitzvah = true,
         explanation = SeasonalMitzvahText.kiddushLevanaExplanation(profile),
         links = SeasonalMitzvahText.kiddushLevanaLinks(profile)
+    )
+
+    private fun erevMinorFastPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
+        val idx = cal.upcomingFastDayIndex!!
+        return ChecklistItemDef(
+            id = "erev_public_fast_prep",
+            title = PublicFastDayText.erevMinorFastPrepTitle(PublicFastDayRules.displayName(idx)),
+            section = "Fasts",
+            sortOrder = 5,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            seasons = listOf("erev_minor_fast"),
+            explanation = PublicFastDayText.erevMinorFastPrepExplanation(cal, idx, profile),
+            links = PublicFastDayText.erevMinorFastLinks(),
+        )
+    }
+
+    private fun erevYomKippurEatItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "erev_yom_kippur_eat",
+        title = PublicFastDayText.erevYomKippurTitle(),
+        section = "Fasts",
+        sortOrder = 5,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        seasons = listOf("erev_yom_kippur"),
+        explanation = PublicFastDayText.erevYomKippurExplanation(cal, profile),
+        links = PublicFastDayText.erevYomKippurLinks(profile),
+    )
+
+    private fun erevTishaBeavPrepItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "erev_tisha_beav_prep",
+        title = PublicFastDayText.erevTishaBeavTitle(),
+        section = "Fasts",
+        sortOrder = 5,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        seasons = listOf("erev_tisha_beav"),
+        explanation = PublicFastDayText.erevTishaBeavExplanation(cal, profile),
+        links = PublicFastDayText.erevTishaBeavLinks(),
+    )
+
+    private fun publicFastDayItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
+        val idx = cal.fastDayIndex!!
+        return ChecklistItemDef(
+            id = "public_fast_day",
+            title = PublicFastDayText.fastDayTitle(idx),
+            section = "Fasts",
+            sortOrder = 10,
+            timeOfDay = TimeOfDay.ANY,
+            required = true,
+            seasons = listOf("fast_day"),
+            explanation = PublicFastDayText.fastDayExplanation(idx, cal, profile),
+            links = PublicFastDayText.fastDayLinks(idx, profile),
+        )
+    }
+
+    private fun motzeiYomKippurMealItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "motzei_yom_kippur_meal",
+        title = PublicFastDayText.motzeiYomKippurMealTitle(),
+        section = "Fasts",
+        sortOrder = 20,
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        seasons = listOf("fast_day"),
+        explanation = PublicFastDayText.motzeiYomKippurMealExplanation(cal, profile),
+        links = PublicFastDayText.erevYomKippurLinks(profile),
     )
 
     private fun defaultLinks(profile: UserProfile) =

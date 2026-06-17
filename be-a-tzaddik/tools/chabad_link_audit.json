@@ -1,0 +1,862 @@
+{
+  "total": 144,
+  "bad_count": 120,
+  "bad": [
+    {
+      "url": "https://www.chabad.org/",
+      "status": 403,
+      "files": [
+        "data/checklist-items.json",
+        "shared/src/commonMain/composeResources/files/checklist-items.json"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/chanukah/article_cdo/aid/103868/jewish/How-to-Light-Chanukah-Candles.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/chanukah/default_cdo/jewish/Chanukah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/default_cdo/jewish/Jewish-Holidays.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevChagPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1719/jewish/Erev-Pesach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevPesachPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1720/jewish/Sale-of-Chametz.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevPesachPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1721/jewish/Bedikat-Chametz.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevPesachPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1722/jewish/Fast-of-the-Firstborn.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevPesachPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/passover/pesach_cdo/aid/1723/jewish/Destroying-Chametz.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevPesachPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/purim/article_cdo/aid/261101/jewish/Mishloach-Manot-Sending-Food-Gifts-on-Purim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/purim/article_cdo/aid/5846239/jewish/Matanot-Laevyonim-FAQs.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/purim/article_cdo/aid/644322/jewish/Laws-and-Customs.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/purim/default_cdo/jewish/Purim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/holidays/shavuot/default_cdo/jewish/Shavuot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevChagPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/107801/jewish/Yom-HaAtzmaut.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/1904288/jewish/Kiddush-Levana-Sanctification-of-the-Moon.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/2316462/jewish/Tzom-Gedaliah-Fast-Day.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/2327/jewish/Eruv-Tavshilin.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/YomTovShabbatPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/3170662/jewish/What-Is-Asarah-BTevet-Tevet-10.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4198870/jewish/Havdalah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/420822/jewish/How-to-Build-a-Sukkah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/420823/jewish/Eating-in-the-Sukkah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/420824/jewish/The-Four-Species.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/420825/jewish/Women-and-Lulav.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevChagPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4687/jewish/Shabbat.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ChecklistItemResolver.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/468738/jewish/Tu-BiShvat-What-and-How.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4688/jewish/What-Is-Yom-Kippur.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevChagPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4739388/jewish/Zoraya-Planting.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4739406/jewish/Choresh-Plowing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4740235/jewish/Kotzeir-Reaping.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4740248/jewish/Meamer-Gathering.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4740282/jewish/Tochen-Grinding.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4744/jewish/Selichot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ErevChagPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/YomTovShabbatPrepText.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4786919/jewish/Dosh-Threshing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4788763/jewish/Zoreh-Winnowing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4788764/jewish/Borer-Selecting.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/479885/jewish/The-17th-of-Tammuz.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4817714/jewish/Meraked-Sifting.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4819033/jewish/Losh-Kneading.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4844108/jewish/Gozez-Shearing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4909907/jewish/12-Rosh-Chodesh-Facts.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4917849/jewish/Toveh-Spinning.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4937160/jewish/Koshair-Tying.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/4943184/jewish/Matir-Untying.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5009500/jewish/Tzod-Trapping.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5028250/jewish/Shochait-Slaughtering.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5106334/jewish/Meabeid-Tanning-Hides.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5128235/jewish/Memachek-Smoothing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5139146/jewish/Mechateich-Cutting.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5152314/jewish/Koteiv-Writing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5154283/jewish/Mochek-Erasing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5279/jewish/Chol-Hamoed.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt",
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalMitzvahText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/528529/jewish/Yom-Hazikaron.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/528538/jewish/Yom-Yerushalayim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/SeasonalChecklistItems.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5344896/jewish/Sotair-Demolishing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5358316/jewish/Makeh-Bepatish-Completing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5580653/jewish/Mechabeh-Extinguishing.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/5784342/jewish/Parenting-Horim.htm",
+      "status": 403,
+      "files": [
+        "data/checklist-items.json",
+        "shared/src/commonMain/composeResources/files/checklist-items.json"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/610626/jewish/Kiddush.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/611296/jewish/Holiday-Havdalah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/YomTovShabbatPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/629832/jewish/Bedtime-Shema.htm",
+      "status": 403,
+      "files": [
+        "data/checklist-items.json",
+        "shared/src/commonMain/composeResources/files/checklist-items.json"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/6897566/jewish/Hotzaah-Transferring.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/6897613/jewish/Mavir-Kindling-a-Fire.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/7230155/jewish/What-You-Need-to-Know-About-Washing-Hands-Not-for-Bread.htm",
+      "status": 403,
+      "files": [
+        "data/checklist-items.json",
+        "shared/src/commonMain/composeResources/files/checklist-items.json"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/7292713/jewish/What-You-Need-to-Know-About-Eruv-Tavshilin.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/YomTovShabbatPrepText.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/library/article_cdo/aid/757453/jewish/Hoshana-Rabbah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/ui/screens/ShabbatGuideData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15554/jewish/Vayishlach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15555/jewish/Vayeshev.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15556/jewish/Miketz.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15557/jewish/Vayigash.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15558/jewish/Vayechi.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15559/jewish/Shemot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15560/jewish/Vaera.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15562/jewish/Beshalach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15563/jewish/Yitro.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15565/jewish/Terumah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15566/jewish/Tetzaveh.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15569/jewish/Vayakhel-Pekudei.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15570/jewish/Pekudei.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15574/jewish/Vayikra.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15575/jewish/Tzav.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15576/jewish/Shemini.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15579/jewish/Metzora.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15580/jewish/Acharei-Mot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15582/jewish/Kedoshim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15583/jewish/Emor.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15584/jewish/Behar.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15585/jewish/Behar-Bechukotai.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/15586/jewish/Bechukotai.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36232/jewish/Devarim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36233/jewish/Vaetchanan.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36234/jewish/Eikev.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36235/jewish/Reeh.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36236/jewish/Shoftim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36237/jewish/Ki-Teitzei.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36238/jewish/Ki-Tavo.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36239/jewish/Nitzavim.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36240/jewish/Vayelech.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36241/jewish/Haazinu.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36242/jewish/VZot-HaBerachah.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36466/jewish/Bamidbar.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/36744/jewish/Behaalotecha.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/39589/jewish/Naso.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/45586/jewish/Shelach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/45591/jewish/Korach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/45612/jewish/Chukat.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/45614/jewish/Balak.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/45615/jewish/Pinchas.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/52598/jewish/Matot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/52599/jewish/Matot-Masei.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/52600/jewish/Masei.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/53151/jewish/Nitzavim-Vayelech.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/7781/jewish/Bereshit.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/9168/jewish/Noach.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/9169/jewish/Lech-Lecha.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/9170/jewish/Vayera.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    },
+    {
+      "url": "https://www.chabad.org/parshah/default_cdo/aid/9172/jewish/Toldot.htm",
+      "status": 403,
+      "files": [
+        "shared/src/commonMain/kotlin/com/beardytop/beatzaddik/domain/ParshaData.kt"
+      ]
+    }
+  ]
+}
