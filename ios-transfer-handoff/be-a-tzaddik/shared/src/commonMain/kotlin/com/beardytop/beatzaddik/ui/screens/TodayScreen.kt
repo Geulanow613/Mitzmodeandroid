@@ -301,6 +301,7 @@ fun TodayScreen(
                     activePeriod = d.activePeriod,
                     profile = profile,
                     prioritizePrepSections = d.prioritizePrepSections,
+                    sinkMorningPrayerSection = d.sinkMorningPrayerSection,
                     expandPeriodRequest = expandPeriodRequest,
                     onExpandPeriodConsumed = { expandPeriodRequest = null },
                     scrollRootY = scrollRootY,
@@ -403,7 +404,13 @@ private fun sectionSortKey(
     section: String,
     activePeriod: TimeOfDay,
     prioritizePrepSections: Set<String> = emptySet(),
-): Int = ChecklistSectionOrder.sortIndex(section, activePeriod, prioritizePrepSections)
+    sinkMorningPrayerSection: Boolean = false,
+): Int = ChecklistSectionOrder.sortIndex(
+    section,
+    activePeriod,
+    prioritizePrepSections,
+    sinkMorningPrayerSection,
+)
 
 /** Sections that start collapsed — mostly one-time or infrequent setup. */
 private val defaultCollapsedSectionNames = setOf(
@@ -462,6 +469,7 @@ private fun ChecklistSections(
     collapsibleSections: Boolean = true,
     profile: UserProfile = UserProfile(),
     prioritizePrepSections: Set<String> = emptySet(),
+    sinkMorningPrayerSection: Boolean = false,
     expandPeriodRequest: TimeOfDay? = null,
     onExpandPeriodConsumed: () -> Unit = {},
     scrollRootY: Float = 0f,
@@ -507,7 +515,7 @@ private fun ChecklistSections(
     items.groupBy { it.sectionLabel }
         .toList()
         .sortedBy { (section, _) ->
-            sectionSortKey(section, activePeriod, prioritizePrepSections)
+            sectionSortKey(section, activePeriod, prioritizePrepSections, sinkMorningPrayerSection)
         }
         .forEach { (section, sectionItems) ->
             val sectionKey = sectionPrefix + section
@@ -639,23 +647,9 @@ private fun UpcomingHolidaysBlock(
         Spacer(Modifier.height(8.dp))
         holidays.forEach { h ->
             val whenLabel = upcomingWhenLabel(h)
-            val topic = ShabbatGuideData.topicForUpcomingHoliday(h.name)
-            val fallbackTopic = remember(h.name, h.hint) {
-                GuideTopic(
-                    id = "upcoming_${h.name.lowercase().replace(' ', '_').replace('\'', '_')}",
-                    title = h.name,
-                    body = buildString {
-                        if (h.hint.isNotBlank()) {
-                            appendLine(h.hint.trim())
-                            appendLine()
-                        }
-                        append(
-                            "Details and customs vary by community. Tap “Shabbat guide” above for longer explainers and related halachic topics."
-                        )
-                    },
-                )
+            val openTopic = remember(h.name, h.hint) {
+                ShabbatGuideData.guideTopicForUpcoming(h.name, h.hint)
             }
-            val openTopic = topic ?: fallbackTopic
 
             Column(
                 modifier = Modifier

@@ -424,7 +424,7 @@ This applies each day of Chol HaMoed — it is a simple daily way to mark the mo
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.cholHamoedBasics(),
             """
-Drinking wine on Chol HaMoed is part of simchat ha'moed — rejoicing on the festival (Peninei Halakha 12-10-03; OU Torah). The Talmud teaches that there is no joy without wine; men especially mark simchat Yom Tov with wine, and everyone should enjoy nicer meals than on weekdays.
+Drinking wine on Chol HaMoed is part of simchat ha'moed — rejoicing on the festival (Peninei Halakha 12-10-03). The Talmud teaches that there is no joy without wine; men especially mark simchat Yom Tov with wine, and everyone should enjoy nicer meals than on weekdays.
 
 This is not like the four cups at the Seder or Shabbat-day Kiddush — Torah-level obligations where many communities require a stricter revi'it (~5.1 fl oz / 150 ml per Chazon Ish). For this optional Chol HaMoed custom, many poskim encourage at least a lenient revi'it of wine (~2.9 fl oz / 86 ml per Rav Chaim Na'eh; Peninei Halakha) at a festive Chol HaMoed meal. Confirm with your rav.
 
@@ -728,7 +728,7 @@ Pesach dishes vs selling chametz dishes:
 • Many people include the chametz residue and absorbed flavor within their year-round dishes and pots in the sale, locking them away securely. The physical dishes themselves are not sold, avoiding the halachic requirement to re-immerse them in a Mikveh (tevilat kelim) after Pesach (Shulchan Arukh Y.D. 120). Rabbis structure the contract accordingly — list items clearly and do not use sealed dishes until buy-back.
 
 Mechirat chametz (plan this week):
-• Authorize the sale with your rabbi or community several days before Erev Pesach — most rabbis stop accepting sale forms by the night before Erev Pesach, even though the sale takes effect on Erev Pesach morning. Many accept online forms (local rabbi, kashrut council, or Chabad.org-style sale). The sale must be valid halachically; follow your rabbi's instructions on what to include and when it takes effect.
+• Authorize the sale with your rabbi or community several days before Erev Pesach — most rabbis stop accepting sale forms by the night before Erev Pesach, even though the sale takes effect on Erev Pesach morning. Many accept online forms through your local rabbi or kashrut council. The sale must be valid halachically; follow your rabbi's instructions on what to include and when it takes effect.
 • Selling transfers ownership so chametz you are not destroying can sit sealed in your home without belonging to you during Pesach.
 
 After Pesach — chametz owned by a Jew during Pesach:
@@ -912,58 +912,144 @@ How:
         )
     }
 
-    fun threeWeeksExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
+    private fun threeWeeksIntro(): String = """
 The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the destruction of the Temple and Jewish tragedies.
 
 Why we mourn:
-• On 17 Tammuz the walls of Jerusalem were breached; on 9 Av the Temple was destroyed (both First and Second Temple, among other calamities).
+• On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
 
-Common practices (intensify in the Nine Days):
-• No weddings, parties, or live music.
-• No haircuts or shaving (unless for a mitzvah need — ask your rav).
-• Avoid major purchases purely for joy; reduce entertainment.
-• Increase Torah study about the Temple and ahavat Yisrael.
+Shabbat during the Three Weeks: mourning practices do not apply on Shabbat itself — observe Shabbat fully.
+    """.trim()
 
-Ashkenaz: restrictions apply from 17 Tammuz. Many Sefardim intensify from Rosh Chodesh Av. Chabad follows accepted Chabad psak from 17 Tammuz with stricter Nine Days.
-
-Shabbat during the Three Weeks: no mourning practices on Shabbat itself.
-    """.trim(),
-    ) + "\n\n" + nusachMourningLine(profile, "Three Weeks")
-
-    fun nineDaysExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
+    fun threeWeeksAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.mourningBasics(),
         """
-The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) are the strictest part of summer mourning.
+${threeWeeksIntro()}
 
-Practices (Ashkenaz — many Sefardim follow similar from Rosh Chodesh Av):
-• No eating meat or drinking wine (except Shabbat or seudat mitzvah like a siyum — ask your rav).
-• No swimming, laundry (except young children's needs per some poskim), and home improvements for pleasure.
-• No cutting hair; avoid buying new clothes for pleasure.
-• Reduce joyous activities; prepare spiritually for Tisha B'Av.
+Ashkenazi custom observes a longer, stricter mourning throughout the Three Weeks, intensifying during the Nine Days.
 
-Erev Tisha B'Av (8 Av afternoon): stop learning Torah (except sad topics); eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn normally all day on Erev Tisha B'Av — the restriction applies to Tisha B'Av day itself.
+From 17 Tammuz (general Three Weeks):
+• Haircuts & shaving: prohibited for the entire Three Weeks.
+• Music: instrumental music is not listened to throughout the period.
+• Weddings: not held.
+• Shehecheyanu: traditionally not recited on new clothes or new fruits; permitted on Shabbat.
 
-Tisha B'Av (9 Av): full 25-hour fast, kinot. Morning Shacharit without tallit and tefillin; don them for Mincha after halachic chatzos (midday — use your zmanim app, not clock noon). Sit on low stools until chatzos on Tisha B'Av day itself (9 Av).
+From 1 Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
+        """.trim(),
+    )
 
-The 10th of Av extension: Even though the fast ends at nightfall on the 9th of Av, elements of mourning continue. Ashkenazi custom prohibits eating meat, drinking wine, doing laundry, listening to music, or bathing for pleasure until midday (chatzos) on the 10th of Av. Many Sephardim follow similar restrictions — confirm with your rav before celebrating with meat and wine immediately after the fast.
+    fun threeWeeksSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        """
+${threeWeeksIntro()}
 
-Shabbat Chazon (Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
+Sephardic and Edot HaMizrach communities, following Shulchan Arukh, generally take a more lenient approach than Ashkenazim during the early Three Weeks.
 
-Nine Days Havdalah: When making Havdalah on Motzei Shabbat during the Nine Days, use wine or grape juice normally. Ashkenazi custom (Rema O.C. 551:10): a child (between ages 6–9) should drink the cup if present; if not, the person reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
-    """.trim(),
-    ) + "\n\n" + nusachMourningLine(profile, "Nine Days")
+From 17 Tammuz (general Three Weeks):
+• Haircuts & shaving: permitted during most of the Three Weeks; shaving is usually prohibited only during the week in which Tisha B'Av falls (shavuah she'chal bo).
+• Music: live or recorded music is avoided.
+• Weddings: some communities avoid weddings from 17 Tammuz; others are lenient and avoid them only from Rosh Chodesh Av — follow your kehilla.
+• Shehecheyanu: avoided on new items for the duration of the period.
 
-    private fun nusachMourningLine(profile: UserProfile, period: String): String =
-        when (profile.effectiveNusach()) {
-            EffectiveNusach.ASHKENAZ -> "Ashkenaz $period: follow your community calendar for music, haircuts, and laundry."
-            EffectiveNusach.SEFARD ->
-                "Sephardi $period: many follow Shulchan Arukh O.C. 493 — restrictions often until the morning of the 34th day of the Omer (Peninei Halakha 05-03-03). Follow your kehilla."
-            EffectiveNusach.EDOT_HAMIZRACH ->
-                "Edot HaMizrach $period: communities differ — some follow Shulchan Arukh until the 34th morning; many who follow the Ari are strict on haircuts until the day before Shavuot (Kaf HaChaim 493:13, cited in Peninei Halakha 05-03-03). Follow your rav."
-            EffectiveNusach.CHABAD -> "Chabad $period: follow accepted Chabad psak and your rabbi."
-        }
+From Rosh Chodesh Av or the week of Tisha B'Av: additional restrictions apply — see the Nine Days checklist item. Some communities (e.g. Syrian, Mashadi) are stricter on meat and wine from Rosh Chodesh Av.
+        """.trim(),
+    )
+
+    fun threeWeeksEdotHamizrachExplanation(): String = threeWeeksSephardicExplanation()
+
+    fun threeWeeksChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        """
+${threeWeeksIntro()}
+
+Chabad follows strict Ashkenazi mourning customs, with specific emphasis from the Lubavitcher Rebbe on spiritual growth during this period.
+
+From 17 Tammuz (general Three Weeks):
+• Haircuts, music & weddings: prohibited throughout the entire Three Weeks.
+• Shehecheyanu: avoided entirely, except on Shabbat or when required for a mitzvah (e.g. brit milah).
+• Torah & charity: increase Torah study — especially subjects about the Holy Temple's layout and construction — and give extra tzedakah during this time.
+
+From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
+        """.trim(),
+    )
+
+    fun threeWeeksExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> threeWeeksAshkenazExplanation()
+        EffectiveNusach.SEFARD -> threeWeeksSephardicExplanation()
+        EffectiveNusach.EDOT_HAMIZRACH -> threeWeeksEdotHamizrachExplanation()
+        EffectiveNusach.CHABAD -> threeWeeksChabadExplanation()
+    }
+
+    private fun nineDaysSharedHalacha(): String = """
+Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself.
+
+Tisha B'Av (9 Av): full 25-hour fast; kinot at Shacharit without tallit and tefillin; don them at Mincha after halachic chatzos (use your zmanim app). Sit on low stools until chatzos on 9 Av.
+
+Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
+    """.trim()
+
+    fun nineDaysAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        """
+The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
+
+From 1 Av:
+• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
+• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
+• Bathing: bathing or showering for pleasure is prohibited.
+• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
+
+${nineDaysSharedHalacha()}
+
+After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
+
+Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
+        """.trim(),
+    )
+
+    fun nineDaysSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        """
+The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
+
+From Rosh Chodesh Av (1 Av):
+• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
+
+From the week in which Tisha B'Av falls (shavuah she'chal bo):
+• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
+• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
+
+${nineDaysSharedHalacha()}
+
+After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
+        """.trim(),
+    )
+
+    fun nineDaysEdotHamizrachExplanation(): String = nineDaysSephardicExplanation()
+
+    fun nineDaysChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        """
+The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) follow strict Ashkenazi mourning in Chabad practice.
+
+From Rosh Chodesh Av:
+• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum).
+• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, and buying new garments are observed.
+
+${nineDaysSharedHalacha()}
+
+After the fast (10 Av): follow accepted Chabad psak on meat, wine, music, laundry, and bathing until chatzos on 10 Av — ask your rav if unsure.
+
+Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
+        """.trim(),
+    )
+
+    fun nineDaysExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> nineDaysAshkenazExplanation()
+        EffectiveNusach.SEFARD -> nineDaysSephardicExplanation()
+        EffectiveNusach.EDOT_HAMIZRACH -> nineDaysEdotHamizrachExplanation()
+        EffectiveNusach.CHABAD -> nineDaysChabadExplanation()
+    }
 
     fun kiddushLevanaExplanation(profile: UserProfile): String {
         val waitLine = when (profile.effectiveNusach()) {
@@ -984,15 +1070,16 @@ $waitLine
 Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
 
 When:
-• After nightfall (tzeit), standing outdoors under the open sky — not under a roof or porch ceiling.
-• Ideally on Motzei Shabbat while still in your Shabbat clothes, when the moon is clearly visible.
-• Not on Shabbat or Yom Tov itself — say it on a regular weeknight or Motzei Shabbat/Yom Tov.
+• After nightfall (tzeit), standing outdoors under the open sky.
+• Ideally on Motzei Shabbat while still in nice clothes — a widespread custom because you are already dressed up.
+• In Av, many wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur — but say sooner on Motzei Shabbat if waiting risks cloudy nights.
+• Not on Shabbat or Yom Tov itself.
 
 How:
-• You must be able to see the moon clearly; if it is completely blocked by clouds, do not begin the blessing — wait for a clear night within the window.
-• Use your siddur; it is praise of G-d for creation's cycles — not worship of the moon.
+• The moon must be clearly visible — if clouds block it, wait for a clear night within the window.
+• Use your siddur; it praises G-d for creation — not worship of the moon.
 
-This app tracks the monthly window for you — say it on the first clear night; do not delay past the ideal early window. Check Sof Zman Kiddush Levana for your location before the month ends.
+Window closes at the full moon (~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
             """.trim(),
         )
     }

@@ -143,7 +143,7 @@ $shulServicesLine$simchasBlock"""
                 BeginnerHalachaGlossary.daveningBasics(),
                 """Rosh Hashana — Jewish New Year; Day of Judgment. No melacha from tonight.
 
-If this year Rosh Hashana meets Shabbat, a detailed section follows (eruv tavshilin, Yaknehaz Kiddush–havdalah, etc.) based on Chabad.org, Peninei Halakha, and your Machzor — only in years when the calendar requires it.
+If this year Rosh Hashana meets Shabbat, a detailed section follows (eruv tavshilin, Yaknehaz Kiddush–havdalah, etc.) — only in years when the calendar requires it. Use your Machzor for the exact wording.
 
 Tonight & tomorrow:
 • Light Yom Tov candles before sunset.

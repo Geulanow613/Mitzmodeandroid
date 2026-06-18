@@ -852,6 +852,7 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
 
     fun topicForAnchor(anchor: String): GuideTopic? =
         glossary.firstOrNull { it.id == anchor }
+            ?: holidays.firstOrNull { it.id == anchor }
 
     fun topicForLabel(label: String): GuideTopic? =
         anchorForLabel(label)?.let(::topicForAnchor)
@@ -859,6 +860,16 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
     /** Resolves a guide topic for upcoming-holiday rows and header occasions. */
     fun topicForUpcomingHoliday(name: String): GuideTopic? =
         topicForLabel(name)
+
+    /** Always returns a topic for an upcoming row — full explainer when mapped, hint-only last resort. */
+    fun guideTopicForUpcoming(name: String, hint: String = ""): GuideTopic =
+        topicForUpcomingHoliday(name) ?: GuideTopic(
+            id = "upcoming_${name.lowercase().replace(' ', '_').replace('\'', '_')}",
+            title = name,
+            body = hint.trim().ifBlank {
+                "Open “Shabbat guide” above for holiday explainers and related halachic topics."
+            },
+        )
 
     fun anchorForTerm(term: HalachicTerm): String? {
         if (term.id in glossaryOnlyTermIds) return null

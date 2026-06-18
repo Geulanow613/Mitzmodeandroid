@@ -650,7 +650,7 @@ object HalachicTermsDictionary {
             "lechatchila",
         ),
         line(
-            "bedieved — Bedieved describes halachic guidance after the ideal was missed — unintentionally or unavoidably. It is not permission to plan poorly; it is how to recover. Example categories: Amidah repeats, chametz found on Pesach, missed Omer count. Your rav applies bedieved rules to your case; articles in the app summarize common patterns from sources like Peninei Halakha and Chabad.org.",
+            "bedieved — Bedieved describes halachic guidance after the ideal was missed — unintentionally or unavoidably. It is not permission to plan poorly; it is how to recover. Example categories: Amidah repeats, chametz found on Pesach, missed Omer count. Your rav applies bedieved rules to your case; articles in the app summarize common patterns from standard halachic sources.",
             "bedieved",
             "b'dieved",
         ),
@@ -1020,11 +1020,11 @@ object HalachicTermsDictionary {
             "Pirsumei Nisa",
         ),
         line(
-            "Three Weeks — The Three Weeks from 17 Tammuz to Tisha B'Av mourn the Temple's destruction — no weddings, music, and haircuts per many Ashkenazim. The Nine Days from Rosh Chodesh Av intensify restrictions. Kinot on Tisha B'Av are the climax. Sephardi customs differ in timing — follow your rav.",
+            "Three Weeks — The Three Weeks from 17 Tammuz to Tisha B'Av mourn the Temple's destruction. Ashkenazim and Chabad prohibit haircuts, weddings, and instrumental music for the full period; Sephardim and Edot HaMizrach are generally more lenient until the week of Tisha B'Av. Restrictions intensify in the Nine Days — customs differ by nusach.",
             "Three Weeks",
         ),
         line(
-            "Nine Days — The Nine Days from Rosh Chodesh Av until Tisha B'Av add mourning customs — no laundry, swimming, or meat/wine until Shabbat cholent rules per minhag. After the fast ends on Motzei Tisha B'Av, Ashkenazi custom continues meat, wine, music, laundry, and bathing restrictions until chatzos on 10 Av. On Motzei Shabbat during the Nine Days, Havdalah requires wine or grape juice; Ashkenazim ideally give the cup to a child (ages 6–9) to drink, or the one reciting Havdalah drinks it if no child is present (Rema O.C. 551:10). Planning weddings and purchases avoids this period. The goal is to feel the loss of the Temple, not mere inconvenience.",
+            "Nine Days — The Nine Days intensify mourning before Tisha B'Av. Ashkenazim restrict meat, wine, laundry, and bathing from 1 Av; Sephardim and Edot HaMizrach often restrict from the week of Tisha B'Av (some communities from Rosh Chodesh Av). Tisha B'Av is a full fast with kinot; Ashkenazim continue some restrictions until chatzos on 10 Av.",
             "Nine Days",
         ),
         line(

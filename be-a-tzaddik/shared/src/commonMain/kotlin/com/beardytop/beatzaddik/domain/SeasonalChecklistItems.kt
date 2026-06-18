@@ -168,7 +168,7 @@ Music, weddings, and haircuts follow your kehilla's psak — ask your rav.""",
 
 Music is generally avoided through Shavuot per Chabad practice, with Lag BaOmer as a day without music restrictions. Weddings follow your Chabad rabbi's guidance.
 
-See Chabad.org Sefirah articles for details on your community.""",
+Ask your Chabad rabbi for details on your community.""",
             links = sefirahMourningLinks(profile)
         )
 
@@ -233,7 +233,7 @@ Prayers & meals:
                 BeginnerHalachaGlossary.purimBasics(),
                 """Matanot la'evyonim (מתנות לאביונים) helps every Jew celebrate Purim with food and joy (Esther 9:22).
 
-The mitzvah (Peninei Halakha 05-16-03; Chabad.org):
+The mitzvah (Peninei Halakha 05-16-03):
 • Give at least one gift to each of two different poor people (minimum of two recipients total) during Purim daytime.
 • Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
 
@@ -527,10 +527,11 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
-        explanation = SeasonalMitzvahText.threeWeeksExplanation(profile),
-        explanationAshkenaz = SeasonalMitzvahText.threeWeeksExplanation(profile),
-        explanationSefard = SeasonalMitzvahText.threeWeeksExplanation(profile),
-        explanationChabad = SeasonalMitzvahText.threeWeeksExplanation(profile),
+        explanation = "",
+        explanationAshkenaz = SeasonalMitzvahText.threeWeeksAshkenazExplanation(),
+        explanationSefard = SeasonalMitzvahText.threeWeeksSephardicExplanation(),
+        explanationEdotHamizrach = SeasonalMitzvahText.threeWeeksEdotHamizrachExplanation(),
+        explanationChabad = SeasonalMitzvahText.threeWeeksChabadExplanation(),
         links = mourningLinks(profile)
     )
 
@@ -541,10 +542,11 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
-        explanation = SeasonalMitzvahText.nineDaysExplanation(profile),
-        explanationAshkenaz = SeasonalMitzvahText.nineDaysExplanation(profile),
-        explanationSefard = SeasonalMitzvahText.nineDaysExplanation(profile),
-        explanationChabad = SeasonalMitzvahText.nineDaysExplanation(profile),
+        explanation = "",
+        explanationAshkenaz = SeasonalMitzvahText.nineDaysAshkenazExplanation(),
+        explanationSefard = SeasonalMitzvahText.nineDaysSephardicExplanation(),
+        explanationEdotHamizrach = SeasonalMitzvahText.nineDaysEdotHamizrachExplanation(),
+        explanationChabad = SeasonalMitzvahText.nineDaysChabadExplanation(),
         links = mourningLinks(profile)
     )
 

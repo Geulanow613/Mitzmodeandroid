@@ -44,10 +44,18 @@ class ChecklistEngine(
         defs: List<ChecklistItemDef>,
         activePeriod: TimeOfDay,
         prioritizePrepSections: Set<String> = emptySet(),
+        sinkMorningPrayerSection: Boolean = false,
     ): List<ChecklistItemDef> =
         defs.sortedWith(
             compareBy(
-                { ChecklistSectionOrder.sortIndex(it.section, activePeriod, prioritizePrepSections) },
+                {
+                    ChecklistSectionOrder.sortIndex(
+                        it.section,
+                        activePeriod,
+                        prioritizePrepSections,
+                        sinkMorningPrayerSection,
+                    )
+                },
                 { it.sortOrder },
                 { it.title },
             )
@@ -91,6 +99,9 @@ class ChecklistEngine(
         val prioritizePrepSections = ChecklistSectionOrder.prioritizedPrepSections(
             cal, tomorrowCal, profile,
         )
+        val sinkMorningPrayerSection = cal.zmanim?.let { z ->
+            !ZmanPeriodLogic.isMorningPrayerSectionPriority(nowMillis, z)
+        } ?: false
         val allDefs = if (hideChecklist) {
             emptyList()
         } else {
@@ -100,6 +111,7 @@ class ChecklistEngine(
                 },
                 cal.activeTimeOfDay,
                 prioritizePrepSections,
+                sinkMorningPrayerSection,
             )
         }
 
@@ -164,6 +176,7 @@ class ChecklistEngine(
                 HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
             },
             prioritizePrepSections = prioritizePrepSections,
+            sinkMorningPrayerSection = sinkMorningPrayerSection,
         )
     }
 

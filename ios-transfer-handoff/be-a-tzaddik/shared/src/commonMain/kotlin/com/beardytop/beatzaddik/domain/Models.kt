@@ -250,6 +250,8 @@ data class DayChecklists(
     val holyDayPhoneNotice: HolyDayPhoneNotice? = null,
     /** Prep sections pinned to the top of the Today checklist (erev chag, festival week, etc.). */
     val prioritizePrepSections: Set<String> = emptySet(),
+    /** After chatzos until chatzos halayla — Morning Prayer section moves to the bottom. */
+    val sinkMorningPrayerSection: Boolean = false,
 )
 
 data class CalendarHeader(
@@ -262,7 +264,7 @@ data class CalendarHeader(
     val todayOccasionLabel: String? = null,
     val todayOccasionSubtitle: String? = null,
     val todayOccasionGuideAnchor: String? = null,
-    /** e.g. "Today is 14 days of the Omer, which is 2 weeks." */
+    /** e.g. "Today is 14 days, which is 2 weeks of the Omer." */
     val omerTodayLabel: String? = null,
     val omerExplainerText: String? = null,
 )

@@ -23,6 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -59,7 +61,9 @@ fun ChecklistDebugMenu(
     modifier: Modifier = Modifier,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    val resolving by viewModel.checklistDebugResolving.collectAsState()
 
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -94,7 +98,7 @@ fun ChecklistDebugMenu(
                         modifier = Modifier.padding(top = 2.dp),
                     )
                 } ?: Text(
-                    "Tap to pick a holiday, fast, or season (erev / day of)",
+                    if (resolving) "Finding calendar date…" else "Tap to pick a holiday, fast, or season (erev / day of)",
                     style = MaterialTheme.typography.labelSmall,
                     color = TzaddikColors.TextMuted,
                     modifier = Modifier.padding(top = 2.dp),
@@ -144,7 +148,7 @@ fun ChecklistDebugMenu(
                                     viewModel.setChecklistDebugTimeSlot(slot)
                                 }
                             },
-                            label = { AppText(slot.label, color = TzaddikColors.NavyDeep) },
+                            label = { Text(slot.label, color = TzaddikColors.NavyDeep) },
                             colors = AssistChipDefaults.assistChipColors(
                                 containerColor = if (selected) {
                                     TzaddikColors.GoldBright.copy(alpha = 0.45f)
@@ -185,10 +189,11 @@ fun ChecklistDebugMenu(
                                 DebugPhaseChip(
                                     label = "Erev",
                                     selected = activeOverride?.scenarioId == scenario.id,
+                                    enabled = !resolving,
                                     onClick = {
                                         viewModel.applyChecklistDebugScenario(
                                             scenario,
-                                            activeOverride?.timeSlot ?: ChecklistDebugTimeSlot.AFTERNOON,
+                                            activeOverride?.timeSlot ?: ChecklistDebugTimeSlot.MORNING,
                                         )
                                     },
                                 )
@@ -197,6 +202,7 @@ fun ChecklistDebugMenu(
                                 DebugPhaseChip(
                                     label = "Day",
                                     selected = activeOverride?.scenarioId == scenario.id,
+                                    enabled = !resolving,
                                     onClick = {
                                         viewModel.applyChecklistDebugScenario(
                                             scenario,
@@ -211,17 +217,20 @@ fun ChecklistDebugMenu(
             }
         }
     }
+    }
 }
 
 @Composable
 private fun DebugPhaseChip(
     label: String,
     selected: Boolean,
+    enabled: Boolean = true,
     onClick: () -> Unit,
 ) {
     AssistChip(
         onClick = onClick,
-        label = { AppText(label, color = TzaddikColors.NavyDeep) },
+        enabled = enabled,
+        label = { Text(label, color = TzaddikColors.NavyDeep) },
         colors = AssistChipDefaults.assistChipColors(
             containerColor = if (selected) {
                 TzaddikColors.NavyMid.copy(alpha = 0.2f)

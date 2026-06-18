@@ -10,7 +10,7 @@ import kotlinx.datetime.plus
 object OmerCountText {
 
     fun buildTitle(day: Int): String =
-        "Count the Omer — day $day of 49 (${weeksAndDays(day)})"
+        "Count the Omer — ${omerDaySummary(day)}"
 
     fun headerLabel(day: Int): String = omerCountSpeechPhrase(day).removeSuffix(".")
 
@@ -30,16 +30,20 @@ object OmerCountText {
         }
     }
 
-    /** Spoken count text — days 1–6 mention days only; week phrase from day 7 onward (Peninei Halakha). */
-    fun omerCountSpeechPhrase(day: Int): String {
+    /** e.g. "10 days, which is 1 week and 3 days of the Omer" (days 1–6: "3 days of the Omer"). */
+    fun omerDaySummary(day: Int): String {
         require(day in 1..49)
         val dayWord = if (day == 1) "day" else "days"
         return if (day < 7) {
-            "Today is $day $dayWord of the Omer."
+            "$day $dayWord of the Omer"
         } else {
-            "Today is $day days of the Omer, which is ${weeksAndDays(day)}."
+            "$day days, which is ${weeksAndDays(day)} of the Omer"
         }
     }
+
+    /** Spoken count text — days 1–6 mention days only; week phrase from day 7 onward (Peninei Halakha). */
+    fun omerCountSpeechPhrase(day: Int): String =
+        "Today is ${omerDaySummary(day)}."
 
     fun buildExplanation(cal: DayInfo, profile: UserProfile): String {
         val day = cal.omerDay ?: return ""
@@ -58,22 +62,22 @@ object OmerCountText {
         }
 
         val nextNightLine = if (day < 49) {
-            "\n• ${tomorrowNight} night: you will count day ${day + 1} (${weeksAndDays(day + 1)})."
+            "\n• ${tomorrowNight} night: you will count ${omerDaySummary(day + 1)}."
         } else {
             ""
         }
 
-        val weeksPhrase = weeksAndDays(day)
+        val todaySummary = omerDaySummary(day)
 
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.omerBasics(),
             """
 Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.
 
-Today in the Omer: day $day of 49 — $weeksPhrase.
+Today in the Omer: $todaySummary (day $day of 49).
 
 Tonight's count:
-• $tonight night — count day $day ($weeksPhrase) after nightfall$timePart.
+• $tonight night — count $todaySummary after nightfall$timePart.
 $nextNightLine
 
 How to count:

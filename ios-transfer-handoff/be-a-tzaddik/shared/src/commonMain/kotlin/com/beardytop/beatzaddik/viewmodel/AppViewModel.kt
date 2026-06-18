@@ -28,7 +28,10 @@ import com.beardytop.beatzaddik.domain.RestKind
 import com.beardytop.beatzaddik.domain.SHABBAT_REST_TITLE
 import com.beardytop.beatzaddik.domain.shabbatMessage
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -156,23 +159,36 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     private val _checklistDebugOverride = MutableStateFlow<ChecklistDebugOverride?>(null)
     val checklistDebugOverride: StateFlow<ChecklistDebugOverride?> = _checklistDebugOverride
 
+    private val _checklistDebugResolving = MutableStateFlow(false)
+    val checklistDebugResolving: StateFlow<Boolean> = _checklistDebugResolving
+
+    private var checklistDebugResolveJob: Job? = null
+
     private val effectiveNowMillis = combine(_checklistDebugOverride, clockTick) { debug, tick ->
         debug?.epochMillis ?: tick
     }
 
     fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
-        val profile = profile.value
-        val override = ChecklistDebugDateFinder.resolve(
-            calendar = deps.calendar,
-            profile = profile,
-            scenario = scenario,
-            timeSlot = timeSlot,
-        )
-        if (override == null) {
-            _locationMessage.value = "Debug: no calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
-            return
+        checklistDebugResolveJob?.cancel()
+        checklistDebugResolveJob = viewModelScope.launch {
+            _checklistDebugResolving.value = true
+            val profile = profile.value
+            val override = withContext(Dispatchers.Default) {
+                ChecklistDebugDateFinder.resolve(
+                    calendar = deps.calendar,
+                    profile = profile,
+                    scenario = scenario,
+                    timeSlot = timeSlot,
+                )
+            }
+            _checklistDebugResolving.value = false
+            if (override == null) {
+                _locationMessage.value =
+                    "Debug: no calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
+                return@launch
+            }
+            _checklistDebugOverride.value = override
         }
-        _checklistDebugOverride.value = override
     }
 
     fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {

@@ -53,7 +53,7 @@ Shabbat (15 Adar):
 Sunday (16 Adar):
 • Send mishloach manot and celebrate the Purim seudah. The app will show today's items after Shabbat ends.
 
-Ask your rav about edge cases (travel, illness, minhag). Sources: Peninei Halakha; local Jerusalem psak for Purim Meshulash.
+Ask your rav about edge cases (travel, illness, minhag).
     """.trim()
 
     fun advancePrepExplanation(): String = """

@@ -14,6 +14,7 @@ object ChecklistSectionOrder {
     }
 
     private val prepSectionSortPriority = mapOf(
+        "Seasonal" to -50,
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
         "Fasts" to -35,
@@ -25,6 +26,7 @@ object ChecklistSectionOrder {
         tomorrowCal: DayInfo,
         profile: UserProfile,
     ): Set<String> = buildSet {
+        if (BirkatHachamahRules.visibleOccurrence(cal.date) != null) add("Seasonal")
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
         if (
             "erev_chag" in cal.activeSeasons ||
@@ -46,13 +48,14 @@ object ChecklistSectionOrder {
      * Lower index = higher on the Today checklist.
      *
      * - **Day:** Upon waking, then Morning Prayer, then everything else.
-     * - **Afternoon:** Mincha, then Upon waking, then Morning Prayer (if still open), then rest.
-     * - **Night:** Evening Prayer, then Upon waking, then Monthly (Kiddush Levana / RC), then rest.
+     * - **Afternoon:** Mincha, then Upon waking, then rest; Morning Prayer sinks after chatzos.
+     * - **Night:** Evening Prayer, then Upon waking, then Monthly, then rest; past prayer sections sink.
      */
     fun sortIndex(
         section: String,
         activePeriod: TimeOfDay,
         prioritizePrepSections: Set<String> = emptySet(),
+        sinkMorningPrayerSection: Boolean = false,
     ): Int {
         val base = baseName(section)
         if (base in prioritizePrepSections) {
@@ -60,6 +63,17 @@ object ChecklistSectionOrder {
         }
         val defaultIndex = ChecklistEngine.sectionOrder.indexOf(base).takeIf { it >= 0 } ?: 200
         val rest = 1000 + defaultIndex
+
+        if (sinkMorningPrayerSection) {
+            when (base) {
+                "Morning Prayer (Shacharit)" -> return BOTTOM_SECTION_BASE + 1
+                "Afternoon Prayer" -> return when (activePeriod) {
+                    TimeOfDay.AFTERNOON -> 0
+                    TimeOfDay.NIGHT -> BOTTOM_SECTION_BASE + 2
+                    else -> BOTTOM_SECTION_BASE
+                }
+            }
+        }
 
         return when (activePeriod) {
             TimeOfDay.DAY -> when (base) {
@@ -82,6 +96,8 @@ object ChecklistSectionOrder {
             TimeOfDay.ANY -> defaultIndex
         }
     }
+
+    private const val BOTTOM_SECTION_BASE = 10_000
 
     /** Section to scroll to when the user taps the active zman period label. */
     fun scrollTargetForPeriod(period: TimeOfDay): String = when (period) {

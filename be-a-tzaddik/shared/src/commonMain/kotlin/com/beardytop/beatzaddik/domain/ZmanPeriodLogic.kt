@@ -79,11 +79,7 @@ object ZmanPeriodLogic {
     fun nightObligationWindowEnd(zmanim: ZmanimSnapshot): Long? =
         zmanim.nightObligationsEndMillis ?: zmanim.alotHaShacharMillis
 
-    /**
-     * Civil date for counting days until upcoming observances.
-     * Before alot hashachar we still count as the previous morning-day
-     * (e.g. Friday 4am → Shabbat is tomorrow, not tonight).
-     */
+    /** Civil date for counting days until upcoming observances. */
     fun effectivePlanningDate(
         nowMillis: Long,
         civilDate: LocalDate,
@@ -94,5 +90,15 @@ object ZmanPeriodLogic {
             return civilDate.plus(-1, DateTimeUnit.DAY)
         }
         return civilDate
+    }
+
+    /**
+     * Morning Prayer stays near the top from chatzos halayla until halachic midday (chatzos).
+     * After chatzos until the next chatzos halayla, Shacharit items are mostly past — sink the section.
+     */
+    fun isMorningPrayerSectionPriority(nowMillis: Long, zmanim: ZmanimSnapshot): Boolean {
+        val chatzos = zmanim.chatzosMillis ?: return true
+        val chatzosLayla = ZmanimHelpers.chatzosLaylaMillis(zmanim, nowMillis) ?: return nowMillis < chatzos
+        return nowMillis >= chatzosLayla && nowMillis < chatzos
     }
 }

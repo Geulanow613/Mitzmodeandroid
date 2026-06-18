@@ -231,16 +231,16 @@ object ErevPesachPrepText {
     private fun erevPesachOnShabbatFullSchedule(bedikatLeadIn: String): String = """
 $bedikatLeadIn
 
-This year, Erev Pesach is on Shabbat (14 Nisan). Per Peninei Halakha (ch. 14), STAR-K, OU, and Ohr Somayach — the schedule moves earlier:
+This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the schedule moves earlier (Peninei Halakha ch. 14):
 
 • Taanit Bechorot: Thursday (12 Nisan) — not on Shabbat or Friday. Ashkenazim (Rama) fast or attend a siyum; some Sephardic authorities omit the moved fast — many still attend a siyum (ask your rav).
 • Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) after the search as in a normal year.
-• Biur chametz: Friday morning (13 Nisan) — burn the chametz found; preferably by the end of the 5th halachic hour as in other years. Do not recite the final Kol Chamira at the burning — keep chametz for the first two Shabbat meals (STAR-K; OU).
+• Biur chametz: Friday morning (13 Nisan) — burn the chametz found; preferably by the end of the 5th halachic hour as in other years. Do not recite the final Kol Chamira at the burning — keep chametz for the first two Shabbat meals.
 • Mechirat chametz: complete before Shabbat begins Friday evening; seal sold chametz away.
-• Shabbat (14 Nisan): Finish eating chametz by the end of the 4th halachic hour on Shabbat morning. Destroy leftover crumbs without burning on Shabbat (e.g. flush down the toilet). Recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning (Peninei Halakha; STAR-K).
-• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira) for the first two meals. Ashkenazim are forbidden egg matzah on Pesach (Rema O.C. 462:4); if you use challah before the 4th halachic hour, eat over disposable liners/plates, shake out garments afterward, and flush any chametz crumbs before the deadline — immense caution required (Peninei Halakha; STAR-K). Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
-• Seder preparations (charoset, maror, zeroa, etc.): finish on Friday before Shabbat — do not prepare on Shabbat for Motzei Shabbat (Peninei Halakha; OU).
-• First Seder: Saturday night after Shabbat (tzeit) — Kiddush with Havdalah (Yaknehaz) in the Haggadah, then the Seder (STAR-K).
+• Shabbat (14 Nisan): Finish eating chametz by the end of the 4th halachic hour on Shabbat morning. Destroy leftover crumbs without burning on Shabbat (e.g. flush down the toilet). Recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
+• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira) for the first two meals. Ashkenazim are forbidden egg matzah on Pesach (Rema O.C. 462:4); if you use challah before the 4th halachic hour, eat over disposable liners/plates, shake out garments afterward, and flush any chametz crumbs before the deadline — immense caution required. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
+• Seder preparations (charoset, maror, zeroa, etc.): finish on Friday before Shabbat — do not prepare on Shabbat for Motzei Shabbat.
+• First Seder: Saturday night after Shabbat (tzeit) — Kiddush with Havdalah (Yaknehaz) in the Haggadah, then the Seder.
 
 Plan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.
     """.trim()
@@ -341,7 +341,7 @@ Why:
 • Commemorates the plague of the firstborn in Egypt, when Jewish firstborn were spared.
 
 The fast:
-• When Erev Pesach is Shabbat (14 Nisan), Taanit Bechorot is moved to Thursday (12 Nisan) per Rama, Peninei Halakha, STAR-K, OU, and Ohr Somayach — not Friday or Shabbat. Attend a siyum that day if that is your minhag.
+• When Erev Pesach is Shabbat (14 Nisan), Taanit Bechorot is moved to Thursday (12 Nisan) per Rama and Peninei Halakha — not Friday or Shabbat. Attend a siyum that day if that is your minhag.
 • Many firstborns avoid fasting entirely by attending a siyum (completion of a Talmud tractate or similar Torah work) followed by a seudat mitzvah (festive meal). The exemption: To be exempt from the fast, you must not only hear the conclusion of the siyum but also participate in the seudat mitzvah by eating at least a kezayit (approx. 1 oz) of bread or cake. Leaving after the siyum without eating does not exempt you — you must still fast.
 • If you fast: the fast runs from dawn (alot hashachar) until full nightfall (tzeit) — no eating or drinking in between.
 
@@ -445,7 +445,7 @@ How to search:
 After the search:
 • Recite the blessing Al bi'ur chametz and the Kol chamira nullification (bitul) — many siddurim print the text.
 • Text difference: Use the night version of Kol Chamira from your siddur. It nullifies only chametz you have not seen and do not know about — because you may still legally own chametz for breakfast tomorrow morning.
-• When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning (Peninei Halakha; STAR-K).
+• When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning.
 • Gather found chametz in a bag to destroy the next morning at biur chametz.
 • Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow morning is biur chametz — avoid a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
 
@@ -478,7 +478,7 @@ If you are traveling or staying elsewhere, your host or rabbi can guide which ro
 
         val morningNote = when (dow) {
             PesachErevDow.SHABBAT ->
-                "Friday morning of 13 Nisan (before Shabbat) — complete biur. Do not recite the final Kol Chamira at the burning — keep chametz for Shabbat meals (STAR-K; OU)."
+                "Friday morning of 13 Nisan (before Shabbat) — complete biur. Do not recite the final Kol Chamira at the burning — keep chametz for Shabbat meals."
             PesachErevDow.FRIDAY ->
                 "Morning of Erev Pesach (today, Friday, 14 Nisan) — complete biur before Shabbat:"
             else -> "Morning of Erev Pesach (14 Nisan) — complete biur today:"
