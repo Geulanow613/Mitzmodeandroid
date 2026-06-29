@@ -39,6 +39,7 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -55,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.text.style.TextOverflow
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 
@@ -164,7 +166,9 @@ fun MitzModeBottomNav(
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontWeight = if (selectedTab == index) FontWeight.SemiBold else FontWeight.Normal
                             ),
-                            enableTerms = false
+                            enableTerms = false,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                         )
                     }
                 } else null,
@@ -282,8 +286,10 @@ fun CollapsibleChecklistSectionHeader(
                         )
                 )
                 Spacer(Modifier.width(8.dp))
+                // Translate the bare section name first; appending the count beforehand would
+                // produce a string like "Upon waking (2)" which has no bundle entry.
                 AppText(
-                    text = if (itemCount > 0) "$title ($itemCount)" else title,
+                    text = title,
                     enableTerms = false,
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold,
@@ -291,6 +297,16 @@ fun CollapsibleChecklistSectionHeader(
                     ),
                     color = TzaddikColors.NavyDeep
                 )
+                if (itemCount > 0) {
+                    Text(
+                        text = " ($itemCount)",
+                        style = MaterialTheme.typography.titleMedium.copy(
+                            fontWeight = FontWeight.Bold,
+                            letterSpacing = 0.3.sp
+                        ),
+                        color = TzaddikColors.NavyDeep
+                    )
+                }
             }
             Icon(
                 imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
@@ -533,7 +549,15 @@ fun TextScaleControl(
                 FilterChip(
                     selected = selected,
                     onClick = { onScaleChange(value) },
-                    label = { AppText(label, style = MaterialTheme.typography.labelSmall.copy(fontSize = 12.sp), enableTerms = false) },
+                    label = {
+                        AppText(
+                            label,
+                            style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
+                            enableTerms = false,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                        )
+                    },
                     modifier = Modifier.weight(1f),
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = TzaddikColors.GoldBright.copy(alpha = 0.4f)

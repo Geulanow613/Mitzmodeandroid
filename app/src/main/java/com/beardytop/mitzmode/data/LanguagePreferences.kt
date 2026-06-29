@@ -42,13 +42,19 @@ class LanguagePreferencesManager @Inject constructor(
     fun setCurrentLanguage(languageCode: String) {
         // Update StateFlow immediately
         _currentLanguage.value = languageCode
-        
+        if (languageCode != "en") {
+            _translationEnabled.value = true
+        }
+
         // Save to SharedPreferences in background thread
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val success = prefs.edit()
+                val editor = prefs.edit()
                     .putString("current_language", languageCode)
-                    .commit()
+                if (languageCode != "en") {
+                    editor.putBoolean("translation_enabled", true)
+                }
+                val success = editor.commit()
                     
                 if (!success) {
                     android.util.Log.w("LanguagePreferences", "Failed to save current language")

@@ -13,10 +13,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
+import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 data class Bracha(
     val name: String,
@@ -29,6 +33,12 @@ data class Bracha(
 fun BrachotDialog(
     onDismiss: () -> Unit
 ) {
+    val translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
+    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
+    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
+    val isTranslationActive = translationEnabled && currentLanguage != "en"
+
     var fontScale by remember { mutableStateOf(1f) }
     var showEnglish by remember { mutableStateOf(false) }
 
@@ -121,7 +131,7 @@ fun BrachotDialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TranslatableText(
-                    text = "English translation",
+                    text = if (isTranslationActive) "Show translation" else "English translation",
                     style = MaterialTheme.typography.labelLarge,
                     color = DialogTextPrimary
                 )

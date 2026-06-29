@@ -102,15 +102,6 @@ fun LanguageSelectionDialog(
                         checked = translationEnabled,
                         onCheckedChange = { enabled ->
                             translationViewModel.setTranslationEnabled(enabled)
-                            // Translating requires a non-English target; leaving "en" makes every TranslatableText a no-op.
-                            if (enabled && currentLanguage == "en") {
-                                val fallback =
-                                    supportedLanguages.firstOrNull { it.code != "en" }?.code ?: "he"
-                                translationViewModel.setCurrentLanguage(fallback)
-                                supportedLanguages.firstOrNull { it.code == fallback }?.let { lang ->
-                                    onNonEnglishLanguageSelected(lang.code, lang.name)
-                                }
-                            }
                         }
                     )
                 }

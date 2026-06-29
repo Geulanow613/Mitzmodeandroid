@@ -127,7 +127,7 @@ object BeginnerHalachaGlossary {
 - **Melaben** — laundering melacha
 - **Melacha** — transformative labor forbidden on Shabbat (including cooking). On Yom Tov most melachot remain forbidden, but ochel nefesh — food preparation for that day's meals, including cooking from a pre-existing flame — is permitted (Exodus 12:16). Other examples still restricted on Yom Tov: writing, building, kindling a new fire, most phone/electronics per your rav
 - **melachot** — the 39 categories of transformative labor forbidden on Shabbat
-- **Melave Malka** — meal escorting the Shabbat Queen — saying goodbye to Shabbat at its departure (Motzei Shabbat through dawn)
+- **Melave Malka** — escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday
 - **melicha** — salting meat to remove blood after shechita
 - **menorah** — Chanukah candelabra; candles are lit each night
 - **mesorah** — tradition faithfully transmitted generation to generation
@@ -1101,7 +1101,7 @@ the 39 categories of transformative labor forbidden on Shabbat
 
 ### Melave Malka
 
-meal escorting the Shabbat Queen — saying goodbye to Shabbat at its departure (Motzei Shabbat through dawn)
+escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday
 
 ### melicha
 
@@ -5338,30 +5338,25 @@ In Temple times, special extra offerings (musaf korbanot) were brought on these 
 Timing:
 Said after Shacharit (the main morning service), ideally before the end of the 7th halachic hour; bedi'eved valid until sunset (Shulchan Arukh O.C. 286:1).
 
-### Melave Malka (escort the Shabbat queen)
+### Melave Malka (festival meal after Shabbat)
 
 *Section: Motzei Shabbat · ID: `melave_malkah`*
 
-Melave Malka:
-
-מְלַוֶּה מַלְכָּה — "escorting the queen" — is a mitzvah to set the table and eat a meal on Saturday night, honoring Shabbat as it departs (Talmud Shabbat 119b).
-
-The image is like escorting a beloved guest to the door: Shabbat is leaving, but we linger a little longer to savor its holiness. Through this meal we extend Shabbat's light into the weekdays.
+Melave Malka (מְלַוֶּה מַלְכָּה) means "escorting the queen" — a meal Saturday night to escort the Shabbat Queen as she departs, the way one would honor a beloved guest at the door (Talmud Shabbat 119b). It is also called Seudat David HaMelech: King David held a Motzei Shabbat feast each week after learning he would die on Shabbat (Shabbat 30a).
 
 When:
-From tzeit hakochavim (nightfall / three stars) Saturday night until dawn (alot hashachar) Sunday morning — after Havdalah.
+After Havdalah, from tzeit (nightfall) until dawn Sunday. Men and women; all nusachim.
 
-Who:
-Men and women; all nusachim.
+What to do:
+• Spread a clean tablecloth and set the table — the sages say to set the table even if you will eat only a small amount
+• Sit and eat at the table. The ideal is a meal with bread: wash hands (netilat yadayim), say hamotzi, and eat. If you are too full for bread, you can still fulfill the mitzvah with cake or another meaningful portion of food — netilat yadayim applies only when you eat bread
+• When you can, prepare something for this meal rather than only finishing Shabbat leftovers
+• Many light candles on or near the table
 
-Practice:
-Ideally prepare something special — not only Shabbat leftovers. The Talmud (Shabbat 119b) tells of R. Abahu's household preparing a calf for Melave Malka. Set the table respectfully — many lay a clean tablecloth, as when escorting an honored guest. At minimum, set the table and eat with appetite.
+Four candles (optional — Baal Shem Tov, Siddur Tzelota D'Yisrael; Sefer Amrei Esh):
+Some light four candles at Melave Malka. Chassidic tradition teaches that King David is spiritually present at this meal. A common practice (Rabbi Aaron Roth, Shulchan HaTahor): dedicate one candle each to King David, Eliyahu HaNavi, Rabbi Meir Baal HaNess, and the Baal Shem Tov — or choose any four tzaddikim. Light them at the table, name each dedication, and ask then for your needs for the week ahead in the merit of the tzaddikim.
 
-Obligation:
-A mitzvah, but if you are truly too full from Shabbat to eat, you are not required to force yourself.
-
-Tradition:
-Our sages link the indestructible luz bone (preserved for resurrection) to nourishment from Melave Malka (Kaf HaChayim; Vayikra Rabba).
+If you are truly too full from Shabbat, you are not required to force yourself — but even a little food at a set table honors the mitzvah.
 
 ### Kippah (Head covering for men)
 

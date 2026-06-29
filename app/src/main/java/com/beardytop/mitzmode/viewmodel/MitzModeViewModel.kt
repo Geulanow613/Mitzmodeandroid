@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 import com.google.gson.Gson
 import com.beardytop.mitzmode.BuildConfig
+import com.beardytop.mitzmode.util.MitzvahLevels
 import com.beardytop.mitzmode.util.SentryUtil
 
 @HiltViewModel
@@ -231,28 +232,7 @@ class MitzModeViewModel @Inject constructor(
         ))
     }
     
-    private fun getCurrentLevel(count: Int): String {
-        if (BuildConfig.DEBUG) Log.d(TAG, "Calculating level for count: $count")
-        val level = when (count) {
-            in 1..9 -> "Beginner"
-            in 10..49 -> "Ba'al Teshuva"
-            in 50..99 -> "Master Cholent Chef"
-            in 100..199 -> "Aspiring Kiddush Maker"
-            in 200..299 -> "Assistant Gabbai"
-            in 300..399 -> "Guy who hands out candy at shul"
-            in 400..499 -> "Western Wall Reveler"
-            in 500..599 -> "Sofer"
-            in 600..699 -> "Tzaddik"
-            in 700..799 -> "Living Sefer Torah"
-            in 800..899 -> "Eliyahu HaNavi"
-            in 900..999 -> "King David"
-            in 1000..1799 -> "Moshiach!!!"
-            in 1800..Int.MAX_VALUE -> "Mitz Mode!"
-            else -> "Beginner"  // Default case, should never happen
-        }
-        if (BuildConfig.DEBUG) Log.d(TAG, "Level calculated as: $level")
-        return level
-    }
+    private fun getCurrentLevel(count: Int): String = MitzvahLevels.forCount(count)
     
     private fun getVideoNumberForLevel(count: Int): Int {
         return when (count) {
@@ -285,6 +265,9 @@ class MitzModeViewModel @Inject constructor(
 
                 // Calculate new count
                 val newCount = currentCount + 1
+                withContext(Dispatchers.Main) {
+                    _acceptedMitzvotCount.value = newCount
+                }
                 if (BuildConfig.DEBUG) {
                     Log.d(TAG, "New mitzvot count will be: $newCount")
                     Log.d(TAG, "New level will be: ${getCurrentLevel(newCount)}")

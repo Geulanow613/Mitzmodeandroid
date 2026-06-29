@@ -174,15 +174,17 @@ private fun LevelUpOverlay(level: String) {
                 style = MaterialTheme.typography.headlineLarge,
                 color = textColor,
                 fontSize = 36.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                enableHalachicTerms = false,
             )
             
-            Text(
+            TranslatableText(
                 text = level,
                 style = MaterialTheme.typography.headlineMedium,
                 color = textColor,
                 fontSize = 32.sp,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                enableHalachicTerms = false,
             )
         }
     }

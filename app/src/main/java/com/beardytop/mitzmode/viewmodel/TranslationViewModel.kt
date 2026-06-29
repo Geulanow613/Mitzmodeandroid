@@ -6,8 +6,11 @@ import com.beardytop.mitzmode.BuildConfig
 import com.beardytop.mitzmode.data.LanguageInfo
 import com.beardytop.mitzmode.data.LanguagePreferencesManager
 import com.beardytop.mitzmode.service.TranslationService
+import com.beardytop.beatzaddik.data.BundledTranslationsCatalog
 import com.beardytop.beatzaddik.ui.translation.resolveAppTranslation
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -33,12 +36,27 @@ class TranslationViewModel @Inject constructor(
     /** Avoid bursts of parallel API calls (menu + dialogs → 429 → silent fallback to English). */
     private val translateMutex = Mutex()
 
+    /**
+     * Loads all bundled translation JSON files eagerly at ViewModel creation so that the first
+     * call to [translateText] never races against an empty catalog.  Without this, any
+     * translation requested before [AppDependencies.create] is called (e.g. main-screen labels)
+     * would hit an empty [BundledTranslationsCatalog], receive an English fallback, and cache
+     * that English value forever — making the UI appear untranslated even after the language is set.
+     */
+    private val bundleLoadJob: Deferred<Unit> = viewModelScope.async {
+        BundledTranslationsCatalog.loadFromAssets()
+        // Purge any stale English-fallback values that may have been cached before the bundle
+        // finished loading (possible on very fast first composition).
+        _translationCache.clear()
+    }
+
     private companion object {
         private const val TAG = "TranslationViewModel"
     }
     
     fun setCurrentLanguage(languageCode: String) {
         languagePreferencesManager.setCurrentLanguage(languageCode)
+        _translationCache.clear()
     }
     
     fun setTranslationEnabled(enabled: Boolean) {
@@ -61,6 +79,8 @@ class TranslationViewModel @Inject constructor(
     }
 
     suspend fun translateText(text: String): String {
+        // Ensure the bundled catalog is loaded before any lookup; fast no-op after first load.
+        bundleLoadJob.await()
         if (BuildConfig.DEBUG) {
             Log.d(
                 TAG,
@@ -94,10 +114,13 @@ class TranslationViewModel @Inject constructor(
                         sourceLanguage = "auto"
                     ) ?: apiText
                 }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 text
+            } finally {
+                _isTranslating.value = false
             }
-            _isTranslating.value = false
             _translationCache[cacheKey] = translatedText
             translatedText
         }
@@ -116,6 +139,7 @@ class TranslationViewModel @Inject constructor(
     
     // Method to translate text to a specific language without changing current language setting
     suspend fun translateTextToLanguage(text: String, targetLanguage: String): String {
+        bundleLoadJob.await()
         if (targetLanguage == "en") {
             return text
         }
@@ -139,10 +163,13 @@ class TranslationViewModel @Inject constructor(
                         sourceLanguage = "auto"
                     ) ?: apiText
                 }
+            } catch (e: kotlinx.coroutines.CancellationException) {
+                throw e
             } catch (e: Exception) {
                 text
+            } finally {
+                _isTranslating.value = false
             }
-            _isTranslating.value = false
             _translationCache[cacheKey] = translatedText
             translatedText
         }

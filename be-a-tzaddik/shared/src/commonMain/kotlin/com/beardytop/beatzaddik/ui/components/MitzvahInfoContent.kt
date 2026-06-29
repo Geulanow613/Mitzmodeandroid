@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -29,11 +28,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
-
-/** Long explainer dialogs skip glossary scanning — it freezes the UI on first open. */
-private const val InfoDialogEnableTerms = false
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 
 /**
  * Richly renders a structured explanation string.
@@ -58,7 +54,14 @@ fun MitzvahExplanationContent(
     situational: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
+    val translatedExplanation = rememberAppTranslatedText(explanation)
+    val translatedHint = zmanHint?.let { rememberAppTranslatedText(it) }
+    val translatedMakeup = zmanMakeupNote?.let { rememberAppTranslatedText(it) }
+    val situationalBadge = rememberAppTranslatedText(
+        "Situational — required when this situation applies, not necessarily every day."
+    )
+    val makeupHeading = rememberAppTranslatedText("Makeup prayer")
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -69,13 +72,13 @@ fun MitzvahExplanationContent(
         // Status badges above explanation
         if (situational) {
             InfoBadge(
-                text = "Situational — required when this situation applies, not necessarily every day.",
+                text = situationalBadge,
                 containerColor = TzaddikColors.NavyMid.copy(alpha = 0.12f),
                 textColor = TzaddikColors.NavyMid
             )
             Spacer(Modifier.height(10.dp))
         }
-        zmanHint?.let { hint ->
+        translatedHint?.let { hint ->
             InfoBadge(
                 text = hint,
                 containerColor = TzaddikColors.GoldBorder.copy(alpha = 0.14f),
@@ -84,29 +87,26 @@ fun MitzvahExplanationContent(
             Spacer(Modifier.height(10.dp))
         }
 
-        // Main explanation — structured rendering (markdown links in text still work)
-        RichExplanationText(explanation)
+        // Translate the full explainer body once, then split for layout (not for lookup).
+        RichExplanationText(translatedExplanation)
 
         // Makeup / teshuvah note
-        zmanMakeupNote?.let { makeup ->
+        translatedMakeup?.let { makeup ->
             Spacer(Modifier.height(14.dp))
             GoldFlourishDivider(widthFraction = 0.45f)
             Spacer(Modifier.height(10.dp))
-            AppText(
-                "Makeup prayer",
+            Text(
+                text = makeupHeading,
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
                 color = TzaddikColors.NavyDeep,
-                enableTerms = InfoDialogEnableTerms,
             )
             Spacer(Modifier.height(4.dp))
-            HalachicClickableText(
+            Text(
                 text = makeup,
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextBrown,
-                enableTerms = InfoDialogEnableTerms,
             )
         }
-    }
     }
 }
 
@@ -115,15 +115,12 @@ private fun LinkableBodyText(
     text: String,
     style: androidx.compose.ui.text.TextStyle,
     modifier: Modifier = Modifier,
-    knownLinks: List<ChecklistLink> = emptyList()
 ) {
-    HalachicClickableText(
+    Text(
         text = text,
         style = style,
         modifier = modifier,
         color = TzaddikColors.TextBrown,
-        knownLinks = knownLinks,
-        enableTerms = InfoDialogEnableTerms,
     )
 }
 
@@ -136,11 +133,10 @@ private fun InfoBadge(text: String, containerColor: Color, textColor: Color) {
             .background(containerColor)
             .padding(horizontal = 12.dp, vertical = 8.dp)
     ) {
-        HalachicClickableText(
+        Text(
             text = text,
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = textColor,
-            enableTerms = InfoDialogEnableTerms,
         )
     }
 }
@@ -148,7 +144,6 @@ private fun InfoBadge(text: String, containerColor: Color, textColor: Color) {
 @Composable
 private fun RichExplanationText(
     text: String,
-    knownLinks: List<ChecklistLink> = emptyList()
 ) {
     val paragraphs = text.split("\n\n")
     paragraphs.forEachIndexed { pIdx, para ->
@@ -167,7 +162,7 @@ private fun RichExplanationText(
                     Spacer(Modifier.height(4.dp))
                 }
                 line.startsWith("• ") -> {
-                    GoldBulletRow(line.removePrefix("• ").trim(), knownLinks = knownLinks)
+                    GoldBulletRow(line.removePrefix("• ").trim())
                 }
                 lIdx == 0 && lines.size > 1 && !line.startsWith("\"") && !isBulletOrNumber(line) -> {
                     // First line of multi-line paragraph — slight emphasis
@@ -177,28 +172,25 @@ private fun RichExplanationText(
                             lineHeight = 22.sp,
                             fontWeight = FontWeight.Medium
                         ),
-                        knownLinks = knownLinks
                     )
                 }
                 isNumberedItem(line) -> {
-                    NumberedRow(line, knownLinks = knownLinks)
+                    NumberedRow(line)
                 }
                 line.startsWith("\"") -> {
-                    HalachicClickableText(
+                    Text(
                         text = line.trim('"'),
                         style = MaterialTheme.typography.bodyMedium.copy(
                             fontStyle = FontStyle.Italic,
                             lineHeight = 22.sp
                         ),
                         color = TzaddikColors.TextMuted,
-                        enableTerms = InfoDialogEnableTerms,
                     )
                 }
                 else -> {
                     LinkableBodyText(
                         text = line,
                         style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
-                        knownLinks = knownLinks
                     )
                 }
             }
@@ -216,11 +208,10 @@ private fun SectionHeading(title: String) {
                 .background(TzaddikColors.GoldBright, RoundedCornerShape(1.dp))
         )
         Spacer(Modifier.width(8.dp))
-        AppText(
-            title,
+        Text(
+            text = title,
             style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.NavyDeep,
-            enableTerms = InfoDialogEnableTerms,
         )
     }
     Box(
@@ -237,7 +228,7 @@ private fun SectionHeading(title: String) {
 }
 
 @Composable
-private fun GoldBulletRow(text: String, knownLinks: List<ChecklistLink> = emptyList()) {
+private fun GoldBulletRow(text: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -256,20 +247,18 @@ private fun GoldBulletRow(text: String, knownLinks: List<ChecklistLink> = emptyL
             text = text,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
             modifier = Modifier.weight(1f),
-            knownLinks = knownLinks
         )
     }
 }
 
 @Composable
-private fun NumberedRow(line: String, knownLinks: List<ChecklistLink> = emptyList()) {
+private fun NumberedRow(line: String) {
     val dotIndex = line.indexOf('.')
     if (dotIndex < 0) {
-        HalachicClickableText(
+        Text(
             text = line,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
             color = TzaddikColors.TextBrown,
-            enableTerms = InfoDialogEnableTerms,
         )
         return
     }
@@ -298,7 +287,6 @@ private fun NumberedRow(line: String, knownLinks: List<ChecklistLink> = emptyLis
             text = body,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
             modifier = Modifier.weight(1f),
-            knownLinks = knownLinks
         )
     }
 }

@@ -28,6 +28,7 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -50,6 +51,11 @@ import com.beardytop.beatzaddik.domain.ItemZmanAvailability
 import com.beardytop.beatzaddik.domain.ResolvedChecklistItem
 import com.beardytop.beatzaddik.domain.ZmanCountdownFormatter
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
+import com.beardytop.beatzaddik.ui.translation.fillTranslationTemplate
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
+import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -109,12 +115,31 @@ private fun CollapsedZmanChecklistRow(
         }
     }
 
-    val collapsedSummary = ZmanCountdownFormatter.unavailableCollapsedSummary(
-        availability = item.zmanAvailability,
-        windowStartMillis = item.zmanWindowStartMillis,
-        nowMillis = nowMillis,
-        atLabel = item.zmanAvailableAtLabel
-    )
+    val collapsedTemplate = item.zmanCollapsedTemplate
+        ?: ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
+            availability = item.zmanAvailability,
+            windowStartMillis = item.zmanWindowStartMillis,
+            nowMillis = nowMillis,
+            atLabel = item.zmanAvailableAtLabel,
+        )?.first
+    val collapsedArgs = item.zmanCollapsedArgs.ifEmpty {
+        ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
+            availability = item.zmanAvailability,
+            windowStartMillis = item.zmanWindowStartMillis,
+            nowMillis = nowMillis,
+            atLabel = item.zmanAvailableAtLabel,
+        )?.second.orEmpty()
+    }
+    val collapsedSummary = if (collapsedTemplate != null) {
+        rememberAppTranslatedTemplate(collapsedTemplate, collapsedArgs)
+    } else {
+        ZmanCountdownFormatter.unavailableCollapsedSummary(
+            availability = item.zmanAvailability,
+            windowStartMillis = item.zmanWindowStartMillis,
+            nowMillis = nowMillis,
+            atLabel = item.zmanAvailableAtLabel
+        )?.let { rememberAppTranslatedText(it) }
+    }
 
     Column(modifier = modifier.fillMaxWidth().padding(vertical = 3.dp)) {
         Box(
@@ -143,8 +168,12 @@ private fun CollapsedZmanChecklistRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
+                    val translatedBase = rememberAppTranslatedText(item.titleTranslationKey)
+                    val collapsedTitle = if (item.displayTitle.startsWith(item.titleTranslationKey)) {
+                        translatedBase + item.displayTitle.substring(item.titleTranslationKey.length)
+                    } else translatedBase
                     AppText(
-                        text = item.displayTitle,
+                        text = collapsedTitle,
                         enableTerms = false,
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                         color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
@@ -293,54 +322,36 @@ private fun ActiveChecklistRow(
                 )
             )
             Column(modifier = Modifier.weight(1f).padding(start = 2.dp)) {
-                // Split title: main name on line 1, parenthetical translation on line 2
-                val title = item.displayTitle
-                val parenStart = title.indexOf(" (")
-                if (!item.checked && parenStart > 0) {
-                    val main = title.substring(0, parenStart)
-                    val paren = title.substring(parenStart + 1) // trim the leading space
-                    AppText(
-                        text = main,
-                        enableTerms = false,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.SemiBold
-                        ),
-                        color = if (zmanMuted) TzaddikColors.TextMuted.copy(alpha = 0.78f) else TzaddikColors.TextBrown
-                    )
-                    AppText(
-                        text = paren,
-                        enableTerms = false,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = TzaddikColors.TextMuted.copy(alpha = 0.75f)
-                    )
-                } else {
-                    AppText(
-                        text = title,
-                        enableTerms = false,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontSize = 15.sp,
-                            fontWeight = if (!item.checked && !zmanMuted) FontWeight.SemiBold else FontWeight.Normal
-                        ),
-                        color = when {
-                            zmanMuted -> TzaddikColors.TextMuted.copy(alpha = 0.78f)
-                            item.checked -> TzaddikColors.TextMuted
-                            else -> TzaddikColors.TextBrown
-                        }
-                    )
-                }
+                ChecklistItemTitle(
+                    rawTitle = item.displayTitle,
+                    translationKey = item.titleTranslationKey,
+                    checked = item.checked,
+                    zmanMuted = zmanMuted,
+                )
                 item.zmanHint?.let { hint ->
-                    AppText(
-                        text = hint,
-                        enableTerms = false,
+                    val displayHint = if (item.zmanHintTemplate != null) {
+                        rememberAppTranslatedTemplate(item.zmanHintTemplate, item.zmanHintArgs)
+                    } else {
+                        rememberAppTranslatedText(hint)
+                    }
+                    Text(
+                        text = displayHint,
                         style = MaterialTheme.typography.labelSmall,
                         color = TzaddikColors.TextMuted,
                     )
                 }
-                item.zmanMakeupNote?.takeIf { zmanMuted && item.zmanAvailability == ItemZmanAvailability.EXPIRED }?.let { note ->
-                    AppText(
-                        text = note,
-                        enableTerms = false,
+                val makeupTemplate = item.zmanMakeupTemplate
+                val makeupPlain = item.zmanMakeupNote
+                if (zmanMuted && item.zmanAvailability == ItemZmanAvailability.EXPIRED &&
+                    (makeupTemplate != null || makeupPlain != null)
+                ) {
+                    val displayNote = if (makeupTemplate != null) {
+                        rememberAppTranslatedTemplate(makeupTemplate, item.zmanMakeupArgs)
+                    } else {
+                        rememberAppTranslatedText(makeupPlain!!)
+                    }
+                    Text(
+                        text = displayNote,
                         style = MaterialTheme.typography.labelSmall,
                         color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
                     )
@@ -373,5 +384,89 @@ private fun ActiveChecklistRow(
                 )
             }
         }
+    }
+}
+
+/**
+ * Translates [translationKey] (the static bundle key, e.g. "Modeh Ani (Thank G-d upon waking)")
+ * and then re-appends any dynamic suffix that is part of [rawTitle] but not the key — such as
+ * " · Ashkenaz" (nusach tag) or " — Parshat Pinchas" (weekly parsha name).  The translated result
+ * is then split at the first " (" for the standard two-line display.
+ */
+@Composable
+private fun ChecklistItemTitle(
+    rawTitle: String,
+    translationKey: String,
+    checked: Boolean,
+    zmanMuted: Boolean,
+) {
+    val appTranslation = LocalAppTranslation.current
+    var displayTitle by remember(rawTitle) { mutableStateOf(rawTitle) }
+
+    val dynamicSuffix = if (rawTitle.startsWith(translationKey)) {
+        rawTitle.substring(translationKey.length)
+    } else ""
+
+    LaunchedEffect(translationKey, dynamicSuffix, appTranslation.enabled, appTranslation.languageCode) {
+        val translatedKey = when {
+            !appTranslation.enabled || appTranslation.languageCode == "en" -> translationKey
+            shouldSkipMachineTranslation(translationKey, appTranslation.languageCode) -> translationKey
+            else -> appTranslation.translator.translate(translationKey)
+        }
+        val translatedSuffix = when {
+            dynamicSuffix.startsWith(" — Parshat ") -> {
+                val parshaName = dynamicSuffix.removePrefix(" — Parshat ")
+                val template = when {
+                    !appTranslation.enabled || appTranslation.languageCode == "en" ->
+                        " — Parshat {parsha}"
+                    else -> appTranslation.translator.translate(" — Parshat {parsha}")
+                }
+                fillTranslationTemplate(template, mapOf("parsha" to parshaName))
+            }
+            dynamicSuffix.startsWith(" · ") -> {
+                val tag = dynamicSuffix.removePrefix(" · ")
+                val translatedTag = when {
+                    !appTranslation.enabled || appTranslation.languageCode == "en" -> tag
+                    else -> appTranslation.translator.translate(tag)
+                }
+                " · $translatedTag"
+            }
+            else -> dynamicSuffix
+        }
+        displayTitle = translatedKey + translatedSuffix
+    }
+
+    val mainColor = when {
+        zmanMuted -> TzaddikColors.TextMuted.copy(alpha = 0.78f)
+        checked -> TzaddikColors.TextMuted
+        else -> TzaddikColors.TextBrown
+    }
+
+    val parenIdx = displayTitle.indexOf(" (")
+    if (!checked && parenIdx > 0) {
+        val main = displayTitle.substring(0, parenIdx)
+        val paren = displayTitle.substring(parenIdx + 1)
+        Text(
+            text = main,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+            ),
+            color = mainColor,
+        )
+        Text(
+            text = paren,
+            style = MaterialTheme.typography.bodySmall,
+            color = TzaddikColors.TextMuted.copy(alpha = 0.75f),
+        )
+    } else {
+        Text(
+            text = displayTitle,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontSize = 15.sp,
+                fontWeight = if (!checked && !zmanMuted) FontWeight.SemiBold else FontWeight.Normal,
+            ),
+            color = mainColor,
+        )
     }
 }

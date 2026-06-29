@@ -13,15 +13,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.beardytop.mitzmode.data.TefilatHaderechData
-import com.beardytop.mitzmode.data.TefilatSection
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.beardytop.mitzmode.data.TefilatHaderechData
+import com.beardytop.mitzmode.data.TefilatSection
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
+import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 @Composable
 fun TefilatHaderechDialog(onDismiss: () -> Unit) {
+    val translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
+    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
+    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
+    val isTranslationActive = translationEnabled && currentLanguage != "en"
+
     var showEnglish by remember { mutableStateOf(false) }
     val sections = TefilatHaderechData.sections
     var fontScale by remember { mutableStateOf(1f) }
@@ -82,7 +92,13 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     TextButton(onClick = { showEnglish = !showEnglish }) {
-                        TranslatableText(if (showEnglish) "Hide English" else "Show English")
+                        TranslatableText(
+                            if (showEnglish) {
+                                if (isTranslationActive) "Hide translation" else "Hide English"
+                            } else {
+                                if (isTranslationActive) "Show translation" else "Show English"
+                            }
+                        )
                     }
                     
                     Row(

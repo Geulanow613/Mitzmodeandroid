@@ -74,11 +74,14 @@ def load_human() -> dict[str, dict[str, str]]:
     skip_work |= {p.name for p in human_dir.glob("_*")}
     skip_argos_bulk = {p.name for p in human_dir.glob("content_long_*.json")}
     skip_argos_bulk |= {p.name for p in human_dir.glob("content_medium_*.json")}
-    priority_last = {
-        "prayers_liturgy.json",
-        "ui_templates.json",
+    # Order matters — later entries overwrite earlier ones.
+    # prayers_liturgy.json MUST be last so it wins over quality_overrides.
+    priority_last_ordered = [
         "quality_overrides.json",
-    }
+        "ui_templates.json",
+        "prayers_liturgy.json",
+    ]
+    priority_last = set(priority_last_ordered)
     priority_he_fix = sorted(
         p.name for p in human_dir.glob("he_fix_*.json") if "_only" not in p.name and "_src" not in p.name
     )
@@ -90,7 +93,7 @@ def load_human() -> dict[str, dict[str, str]]:
     )
     paths = [p for p in paths if p.name not in priority_last and p.name not in priority_he_fix]
     paths += [human_dir / n for n in priority_he_fix if (human_dir / n).is_file()]
-    paths += [human_dir / n for n in sorted(priority_last) if (human_dir / n).is_file()]
+    paths += [human_dir / n for n in priority_last_ordered if (human_dir / n).is_file()]
     for path in paths:
         data = json.loads(path.read_text(encoding="utf-8"))
         for lang in LANGS:
@@ -107,7 +110,12 @@ def is_hebrew_source(text: str) -> bool:
 
 
 def is_passthrough_key(text: str) -> bool:
-    if text in {"$mitzvotCount", "halachic_term", "www.beardy.top", "Beardy Top Productions", "https://www.beardy.top", "G.E.U.L.A"}:
+    if text in {
+        "$mitzvotCount", "halachic_term", "www.beardy.top", "Beardy Top Productions",
+        "https://www.beardy.top", "G.E.U.L.A",
+        # Proper names / Hebrew terms used in all languages without translation
+        "Purim", "Sofer", "Ba'al Teshuva", "Mitz Mode!", "Sefirat HaOmer",
+    }:
         return True
     if text.startswith("(?i)") or text.startswith("$translated"):
         return True
@@ -122,7 +130,9 @@ def count_missing(lang: str, required: list[str], entries: dict[str, str]) -> li
             continue
         if tr != s:
             continue
-        if lang == "he" and (is_hebrew_source(s) or is_passthrough_key(s)):
+        if is_passthrough_key(s):
+            continue
+        if lang == "he" and is_hebrew_source(s):
             continue
         missing.append(s)
     return missing

@@ -34,8 +34,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -267,6 +267,7 @@ fun AppText(
     enableTerms: Boolean = true,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip,
 ) {
     HalachicClickableText(
         text = text,
@@ -277,6 +278,35 @@ fun AppText(
         enableTerms = enableTerms,
         textAlign = textAlign,
         maxLines = maxLines,
+        overflow = overflow,
+    )
+}
+
+@Composable
+private fun SimpleTranslatedText(
+    text: String,
+    style: TextStyle,
+    color: Color,
+    modifier: Modifier,
+    maxLines: Int,
+    overflow: TextOverflow = TextOverflow.Clip,
+) {
+    val appTranslation = LocalAppTranslation.current
+    var displayText by remember(text) { mutableStateOf(text) }
+    LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode) {
+        displayText = when {
+            !appTranslation.enabled || appTranslation.languageCode == "en" -> text
+            shouldSkipMachineTranslation(text, appTranslation.languageCode) -> text
+            else -> appTranslation.translator.translate(text)
+        }
+    }
+    Text(
+        text = displayText,
+        style = style,
+        color = color,
+        modifier = modifier,
+        maxLines = maxLines,
+        overflow = overflow,
     )
 }
 
@@ -290,6 +320,7 @@ fun HalachicClickableText(
     enableTerms: Boolean = true,
     textAlign: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Clip,
 ) {
     val showTerm = LocalShowHalachicTerm.current
     val extras = LocalHalachicTermExtras.current
@@ -299,13 +330,13 @@ fun HalachicClickableText(
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
 
     if (!enableTerms && knownLinks.isEmpty() && !text.contains("](")) {
-        Text(
+        SimpleTranslatedText(
             text = text,
             style = resolvedStyle,
             color = color,
             modifier = modifier,
             maxLines = maxLines,
-            overflow = TextOverflow.Ellipsis,
+            overflow = overflow,
         )
         return
     }
@@ -322,13 +353,13 @@ fun HalachicClickableText(
         }
         val hasUrls = annotated.getStringAnnotations("URL", 0, annotated.length).isNotEmpty()
         if (!hasUrls) {
-            Text(
+            SimpleTranslatedText(
                 text = text,
                 style = resolvedStyle,
                 color = color,
                 modifier = modifier,
                 maxLines = maxLines,
-                overflow = TextOverflow.Ellipsis,
+                overflow = overflow,
             )
             return
         }
@@ -411,6 +442,21 @@ fun HalachicClickableText(
     var textLayout by remember(resolvedAnnotated) { mutableStateOf<TextLayoutResult?>(null) }
 
     if (!hasTerms && !hasUrls) {
+        Text(
+            text = displayText,
+            style = resolvedStyle,
+            color = color,
+            modifier = modifier,
+            maxLines = maxLines,
+            overflow = TextOverflow.Ellipsis,
+        )
+        return
+    }
+
+    // When the UI is translated the annotation offsets (built from English source) no longer
+    // correspond to the translated text, so we show the translated plain text and skip
+    // term-underlines and URL taps for this render pass.
+    if (appTranslation.enabled && appTranslation.languageCode != "en") {
         Text(
             text = displayText,
             style = resolvedStyle,

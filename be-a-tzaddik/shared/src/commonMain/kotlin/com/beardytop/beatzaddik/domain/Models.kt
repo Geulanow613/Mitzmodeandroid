@@ -226,6 +226,12 @@ data class ResolvedChecklistItem(
     val def: ChecklistItemDef,
     val checked: Boolean,
     val displayTitle: String = def.title,
+    /**
+     * The translation bundle key for this item's title — identical to [displayTitle] except that
+     * dynamically-appended suffixes like " · Ashkenaz" (nusach tag) and " — Parshat X" (weekly
+     * parsha) are stripped. The bundle entry is keyed on the static base title only.
+     */
+    val titleTranslationKey: String = def.title,
     val displayExplanation: String = def.explanation,
     val learnMoreUrl: String? = null,
     val learnMoreLabel: String? = null,
@@ -234,7 +240,13 @@ data class ResolvedChecklistItem(
     val sectionLabel: String = def.section,
     val zmanAvailability: ItemZmanAvailability = ItemZmanAvailability.ACTIVE,
     val zmanHint: String? = null,
+    val zmanHintTemplate: String? = null,
+    val zmanHintArgs: Map<String, String> = emptyMap(),
     val zmanMakeupNote: String? = null,
+    val zmanMakeupTemplate: String? = null,
+    val zmanMakeupArgs: Map<String, String> = emptyMap(),
+    val zmanCollapsedTemplate: String? = null,
+    val zmanCollapsedArgs: Map<String, String> = emptyMap(),
     val zmanWindowStartMillis: Long? = null,
     val zmanWindowEndMillis: Long? = null,
     val zmanAvailableAtLabel: String? = null

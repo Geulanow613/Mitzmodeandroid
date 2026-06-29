@@ -38,6 +38,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import com.beardytop.beatzaddik.ui.components.AppText
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -623,7 +624,9 @@ private fun UpcomingHolidayLine(
 ) {
     val bodyStyle = MaterialTheme.typography.bodyMedium
     val timingStyle = MaterialTheme.typography.labelSmall
-    val annotated = remember(holiday.name, whenLabel, holiday.timingHint) {
+    val translatedName = rememberAppTranslatedText(holiday.name)
+    val translatedWhenLabel = rememberAppTranslatedText(whenLabel)
+    val annotated = remember(translatedName, translatedWhenLabel, holiday.timingHint) {
         buildAnnotatedString {
             pushStringAnnotation(UPCOMING_HOLIDAY_NAME_TAG, holiday.name)
             withStyle(
@@ -632,11 +635,11 @@ private fun UpcomingHolidayLine(
                     textDecoration = TextDecoration.Underline,
                 )
             ) {
-                append(holiday.name)
+                append(translatedName)
             }
             pop()
             withStyle(SpanStyle(color = TzaddikColors.ParchTop)) {
-                append(" — $whenLabel")
+                append(" — $translatedWhenLabel")
             }
             holiday.timingHint?.takeIf { it.isNotBlank() }?.let { hint ->
                 withStyle(
@@ -746,8 +749,8 @@ private fun HintWithTermLinks(
     onOpenShabbatGuide: (anchor: String?) -> Unit
 ) {
     val hintColor = TzaddikColors.ParchTop.copy(alpha = 0.8f)
-    val segments = hint.split(", ")
-    val hasLinkedTerms = segments.any { seg -> ShabbatGuideData.anchorForLabel(seg) != null }
+    val originalSegments = hint.split(", ")
+    val hasLinkedTerms = originalSegments.any { seg -> ShabbatGuideData.anchorForLabel(seg) != null }
 
     if (!hasLinkedTerms) {
         AppText(
@@ -759,11 +762,18 @@ private fun HintWithTermLinks(
         return
     }
 
-    val annotated = remember(hint) {
+    // Translate the full hint string and split into segments matching the originals.
+    // Original segments are still used for anchor lookups; translated segments are displayed.
+    val translatedHint = rememberAppTranslatedText(hint)
+    val translatedSegments = translatedHint.split(", ")
+        .let { if (it.size == originalSegments.size) it else originalSegments }
+
+    val annotated = remember(translatedHint) {
         buildAnnotatedString {
-            segments.forEachIndexed { index, seg ->
+            originalSegments.forEachIndexed { index, seg ->
                 val anchor = ShabbatGuideData.anchorForLabel(seg)
-                val segmentText = if (anchor != null) "$seg ›" else seg
+                val displaySeg = translatedSegments.getOrElse(index) { seg }
+                val segmentText = if (anchor != null) "$displaySeg ›" else displaySeg
                 if (anchor != null) {
                     pushStringAnnotation(GUIDE_TERM_TAG, anchor)
                 }
@@ -773,7 +783,7 @@ private fun HintWithTermLinks(
                 if (anchor != null) {
                     pop()
                 }
-                if (index < segments.lastIndex) {
+                if (index < originalSegments.lastIndex) {
                     append(", ")
                 }
             }

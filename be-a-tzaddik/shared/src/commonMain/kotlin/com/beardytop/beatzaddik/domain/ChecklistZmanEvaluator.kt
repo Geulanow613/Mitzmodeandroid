@@ -142,11 +142,16 @@ object ChecklistZmanEvaluator {
         return windowStatus(
             now = now,
             start = start,
-            end = null,   // No expiry — valid throughout the day once the day begins
-            upcoming = "Available after halachic midnight (chatzos halayla) — " +
-                "${ZmanimFormatter.formatAfter(start, tz) ?: "later tonight"}. " +
-                "Most say $label when they wake, even after a nap.",
+            end = null,
+            upcoming = "Available after halachic midnight (chatzos halayla) — later tonight. Most say $label when they wake, even after a nap.",
+            upcomingTemplate = "Available after halachic midnight (chatzos halayla) — {time}. Most say {label} when they wake, even after a nap.",
+            upcomingArgs = mapOf(
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "later tonight"),
+                "label" to label,
+            ),
             expired = "$label can be said any time during the day.",
+            expiredTemplate = "{label} can be said any time during the day.",
+            expiredArgs = mapOf("label" to label),
             makeup = null,
             availableAtLabel = "halachic midnight"
         )
@@ -165,36 +170,58 @@ object ChecklistZmanEvaluator {
         val start = z.alotHaShacharMillis ?: z.misheyakirMillis ?: z.sunriseMillis
         val idealEnd = z.sofZmanTefillaMillis
         val absoluteEnd = z.chatzosMillis
-        val lateHint = if (idealEnd != null && now >= idealEnd)
-            "Ideal time for Shacharit passed (${ZmanimFormatter.formatTime(idealEnd, tz) ?: "late morning"}). You can still daven until midday."
+        val lateTemplate = if (idealEnd != null && now >= idealEnd)
+            "The time to fulfill {label} has passed ({time}). You can still pray until midday."
         else null
+        val lateArgs = if (idealEnd != null && now >= idealEnd)
+            mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatTime(idealEnd, tz) ?: "late morning"),
+            )
+        else emptyMap()
         return windowStatus(
             now, start, absoluteEnd,
-            upcoming = "$label is part of the morning Shacharit service, from dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"}).",
+            upcoming = "$label is part of the morning Shacharit service, from dawn (after dawn).",
+            upcomingTemplate = "{label} is part of the morning Shacharit service, from dawn ({time}).",
+            upcomingArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"),
+            ),
             expired = "The morning Shacharit window has closed (past halachic midday / chatzos).",
             makeup = "If you missed Shacharit today, at Mincha pray two Amidot — Mincha first, then tashlumin for Shacharit.",
             availableAtLabel = "dawn",
-            activeHint = lateHint
+            activeHintTemplate = lateTemplate,
+            activeHintArgs = lateArgs,
         )
     }
 
     /**
-     * Morning Shema — expires at sof zman Shema (end of 3rd halachic hour).
-     * After this time, the morning Shema obligation cannot be fulfilled — universally accepted.
+     * Morning Shema — biblical deadline is sof zman Shema (end of 3rd halachic hour).
+     * Bedi'eved it is still recited with its blessings as part of Shacharit until chatzos (midday).
+     * The item therefore stays active until midday; after sofZmanShema an explanatory hint is shown.
      */
     private fun shemaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
         val start = z.alotHaShacharMillis ?: z.misheyakirMillis ?: z.sunriseMillis
-        val end = z.sofZmanShemaMillis   // end of 3rd halachic hour — no obligation can be fulfilled after this
+        val sofZmanShema = z.sofZmanShemaMillis
+        val absoluteEnd = z.chatzosMillis  // bedi'eved window extends to midday
 
-        val expiredNote = "Sof zman Shema has passed (${ZmanimFormatter.formatTime(end, tz) ?: "end of 3rd hour"}). " +
-            "The biblical morning Shema obligation cannot be fulfilled today."
+        val lateTemplate = if (sofZmanShema != null && now >= sofZmanShema)
+            "The time to fulfill the mitzvah of Shema has passed ({time}). Still say Shema with its blessings during Shacharit until midday — even if you missed it, say it during prayer."
+        else null
+        val lateArgs = if (sofZmanShema != null && now >= sofZmanShema)
+            mapOf("time" to (ZmanimFormatter.formatTime(sofZmanShema, tz) ?: "end of 3rd hour"))
+        else emptyMap()
 
         return windowStatus(
-            now, start, end,
-            upcoming = "Morning Shema opens at dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"}).",
-            expired = expiredNote,
-            makeup = "Bedi'eved: still say Shema with its blessings in Shacharit until chatzos — this does not fulfill the biblical obligation. Evening Shema is separate.",
-            availableAtLabel = "dawn"
+            now, start, absoluteEnd,
+            upcoming = "Morning Shema opens at dawn (after dawn).",
+            upcomingTemplate = "Morning Shema opens at dawn ({time}).",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after dawn")),
+            expired = "Shacharit window closed at halachic midday (chatzos). Evening Shema fulfills a separate obligation tonight.",
+            makeup = "Evening Shema is a separate biblical mitzvah — recite it tonight after nightfall.",
+            availableAtLabel = "dawn",
+            activeHintTemplate = lateTemplate,
+            activeHintArgs = lateArgs,
         )
     }
 
@@ -217,27 +244,39 @@ object ChecklistZmanEvaluator {
         val sunrise = z.sunriseMillis
         val idealEnd = z.sofZmanTefillaMillis
         val absoluteEnd = z.chatzosMillis
-        val lateHint = when {
+        val lateTemplate = when {
             idealEnd != null && now >= idealEnd ->
-                "Ideal Shacharit time passed (${ZmanimFormatter.formatTime(idealEnd, tz) ?: "late morning"}). Still valid until midday (chatzos)."
+                "The time to fulfill Shacharit has passed ({time}). You can still daven until midday."
             sunrise != null && start != null && now >= start && now < sunrise ->
-                "Available from dawn. Ideal at sunrise (${ZmanimFormatter.formatTime(sunrise, tz) ?: "sunrise"}) or later — if you're in a hurry you may say it now."
+                "Available from dawn. Ideal at sunrise ({time}) or later — if you're in a hurry you may say it now."
             else -> null
         }
-        val upcomingBase =
-            "$label is available from dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"})."
-        val upcomingIdeal = if (sunrise != null) {
-            " Ideal at sunrise (${ZmanimFormatter.formatAfter(sunrise, tz) ?: "sunrise"}) or later."
+        val lateArgs = when {
+            idealEnd != null && now >= idealEnd ->
+                mapOf("time" to (ZmanimFormatter.formatTime(idealEnd, tz) ?: "late morning"))
+            sunrise != null && start != null && now >= start && now < sunrise ->
+                mapOf("time" to (ZmanimFormatter.formatTime(sunrise, tz) ?: "sunrise"))
+            else -> emptyMap()
+        }
+        val upcomingTime = ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"
+        val sunriseTime = sunrise?.let { ZmanimFormatter.formatAfter(it, tz) ?: "sunrise" }
+        val (upcomingTemplate, upcomingArgs) = if (sunriseTime != null) {
+            "{label} is available from dawn ({startTime}). Ideal at sunrise ({sunriseTime}) or later." to
+                mapOf("label" to label, "startTime" to upcomingTime, "sunriseTime" to sunriseTime)
         } else {
-            " Ideal from sunrise or later."
+            "{label} is available from dawn ({startTime}). Ideal from sunrise or later." to
+                mapOf("label" to label, "startTime" to upcomingTime)
         }
         return windowStatus(
             now, start, absoluteEnd,
-            upcoming = upcomingBase + upcomingIdeal,
+            upcoming = "$label is available from dawn ($upcomingTime).",
+            upcomingTemplate = upcomingTemplate,
+            upcomingArgs = upcomingArgs,
             expired = "Shacharit window closed at halachic midday (chatzos).",
             makeup = "Missed Shacharit? At Mincha, pray two Amidot — first for Mincha itself, then second as tashlumin for the missed Shacharit.",
             availableAtLabel = "dawn",
-            activeHint = lateHint
+            activeHintTemplate = lateTemplate,
+            activeHintArgs = lateArgs,
         )
     }
 
@@ -249,16 +288,22 @@ object ChecklistZmanEvaluator {
         val start = z.misheyakirMillis ?: z.sunriseMillis
         val idealEnd = z.sofZmanTefillaMillis
         val absoluteEnd = z.sunsetMillis
-        val lateHint = if (idealEnd != null && now >= idealEnd)
-            "Ideal time for putting on tefillin (with morning prayer) has passed. Tefillin are still valid to wear until sunset (${ZmanimFormatter.formatTime(absoluteEnd, tz) ?: "sunset"})."
+        val lateTemplate = if (idealEnd != null && now >= idealEnd)
+            "The time to fulfill the mitzvah of tefillin has passed. Tefillin are still valid to wear until sunset ({time})."
         else null
+        val lateArgs = if (idealEnd != null && now >= idealEnd)
+            mapOf("time" to (ZmanimFormatter.formatTime(absoluteEnd, tz) ?: "sunset"))
+        else emptyMap()
         return windowStatus(
             now, start, absoluteEnd,
-            upcoming = "Recite brachos on tallit and tefillin at misheyakir (${ZmanimFormatter.formatAfter(start, tz) ?: "when daylight permits"}) — ideally during Shacharit. See explainer if you must leave earlier.",
+            upcoming = "Recite brachos on tallit and tefillin at misheyakir (when daylight permits) — ideally during Shacharit. See explainer if you must leave earlier.",
+            upcomingTemplate = "Recite brachos on tallit and tefillin at misheyakir ({time}) — ideally during Shacharit. See explainer if you must leave earlier.",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "when daylight permits")),
             expired = "Tefillin are not worn after sunset.",
             makeup = null,
             availableAtLabel = "misheyakir",
-            activeHint = lateHint
+            activeHintTemplate = lateTemplate,
+            activeHintArgs = lateArgs,
         )
     }
 
@@ -284,16 +329,30 @@ object ChecklistZmanEvaluator {
             " On Shabbat and Festivals, fulfill this without using your phone."
         } else ""
         val idealEndLabel = ZmanimFormatter.formatTime(idealEnd, tz) ?: "end of the 7th hour"
-        val lateHint = if (idealEnd != null && now >= idealEnd)
-            "Ideal Musaf time passed ($idealEndLabel — end of the 7th halachic hour). You can still fulfill it until sunset — if Mincha time has arrived, pray Mincha first (SA OC 286:4).$shabbatNote"
+        val lateHintTemplate = if (idealEnd != null && now >= idealEnd)
+            "The time to fulfill Musaf has passed ({time} — end of the 7th halachic hour). You can still fulfill it until sunset — if Mincha time has arrived, pray Mincha first (SA OC 286:4).{shabbatNote}"
         else null
+        val lateHintArgs = if (idealEnd != null && now >= idealEnd)
+            mapOf(
+                "time" to idealEndLabel,
+                "shabbatNote" to shabbatNote,
+            )
+        else emptyMap()
         return windowStatus(
             now, start, absoluteEnd,
-            upcoming = "Musaf ($label) — after the morning Amidah, from ${ZmanimFormatter.formatAfter(start, tz) ?: "sunrise"}.",
+            upcoming = "Musaf ($label) — after the morning Amidah, from sunrise.",
+            upcomingTemplate = "Musaf ({label}) — after the morning Amidah, from {time}.",
+            upcomingArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "sunrise"),
+            ),
             expired = "Musaf window has closed (sunset).$shabbatNote",
+            expiredTemplate = "Musaf window has closed (sunset).{shabbatNote}",
+            expiredArgs = mapOf("shabbatNote" to shabbatNote),
             makeup = "If you missed Musaf entirely, there is no makeup (tashlumin) for it (SA OC 286:1).",
             availableAtLabel = "sunrise",
-            activeHint = lateHint
+            activeHintTemplate = lateHintTemplate,
+            activeHintArgs = lateHintArgs,
         )
     }
 
@@ -302,8 +361,18 @@ object ChecklistZmanEvaluator {
         val end = z.tzeitMillis ?: z.sunsetMillis ?: z.plagHaminchaMillis
         return windowStatus(
             now, start, end,
-            upcoming = "$label appears ${ZmanimFormatter.formatAfter(start, tz) ?: "about 30 min after chatzos (midday)"} — Mincha Gedolah.",
-            expired = "Today's $label window ended ${ZmanimFormatter.formatUntil(end, tz) ?: "at nightfall"}.",
+            upcoming = "$label appears about 30 min after chatzos (midday) — Mincha Gedolah.",
+            upcomingTemplate = "{label} appears {time} — Mincha Gedolah.",
+            upcomingArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "about 30 min after chatzos (midday)"),
+            ),
+            expired = "Today's $label window ended at nightfall.",
+            expiredTemplate = "Today's {label} window ended {time}.",
+            expiredArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatUntil(end, tz) ?: "at nightfall"),
+            ),
             makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha. You may make up only the service immediately before Maariv (Mincha) — not an earlier missed service such as Shacharit, which can only be made up at Mincha.",
             availableAtLabel = "midday"
         )
@@ -312,13 +381,21 @@ object ChecklistZmanEvaluator {
     private fun eveningShemaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
-        val tzeitNote = z.tzeitMillis?.let { tzeit ->
-            if (now >= tzeit) return@let null
-            " Maariv may begin at sunset, but biblical evening Shema begins ${ZmanimFormatter.formatAfter(tzeit, tz) ?: "at nightfall (tzeit)"}. If you daven Maariv early, repeat Shema then."
-        }.orEmpty()
+        val obligationTime = ZmanimFormatter.formatAfter(z.tzeitMillis ?: start, tz) ?: "at nightfall (tzeit)"
+        val tzeitTime = z.tzeitMillis?.let { tzeit ->
+            if (now >= tzeit) null else ZmanimFormatter.formatAfter(tzeit, tz) ?: "at nightfall (tzeit)"
+        }
+        val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
+            "Evening Shema — biblical obligation {time}. Maariv may begin at sunset, but biblical evening Shema begins {tzeitTime}. If you daven Maariv early, repeat Shema then." to
+                mapOf("time" to obligationTime, "tzeitTime" to tzeitTime)
+        } else {
+            "Evening Shema — biblical obligation {time}." to mapOf("time" to obligationTime)
+        }
         return windowStatus(
             now, start, end,
-            upcoming = "Evening Shema — biblical obligation ${ZmanimFormatter.formatAfter(z.tzeitMillis ?: start, tz) ?: "at nightfall (tzeit)"}.$tzeitNote",
+            upcoming = "Evening Shema — biblical obligation $obligationTime.",
+            upcomingTemplate = upcomingTemplate,
+            upcomingArgs = upcomingArgs,
             expired = "Tonight's primary window for evening Shema has passed (before alot hashachar).",
             makeup = "If you missed it, ask your rabbi — some fulfill later the same night with guidance; morning Shema is a separate obligation.",
             availableAtLabel = "sunset"
@@ -339,12 +416,24 @@ object ChecklistZmanEvaluator {
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
         val tzeitNote = z.tzeitMillis?.let { tzeit ->
-            if (now >= tzeit) return@let null
+            if (now >= tzeit) return@let ""
             " Many daven Maariv ideally ${ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"}."
         }.orEmpty()
+        val tzeitTime = z.tzeitMillis?.let { tzeit ->
+            if (now >= tzeit) null else ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"
+        }
+        val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
+            "Yaaleh V'yavo at Maariv — available {time}. Many daven Maariv ideally {tzeitTime}." to
+                mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"), "tzeitTime" to tzeitTime)
+        } else {
+            "Yaaleh V'yavo at Maariv — available {time}." to
+                mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"))
+        }
         return windowStatus(
             now, start, end,
-            upcoming = "Yaaleh V'yavo at Maariv — available ${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}.$tzeitNote",
+            upcoming = "Yaaleh V'yavo at Maariv — available after sunset.$tzeitNote",
+            upcomingTemplate = upcomingTemplate,
+            upcomingArgs = upcomingArgs,
             expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
             makeup = "Forgot Yaaleh V'yavo at Maariv on Rosh Chodesh? After Retzei or after the Amidah — do not repeat (Berachot 30b; SA O.C. 422:1). Still in Retzei before God's name — insert there.",
             availableAtLabel = "sunset",
@@ -355,12 +444,24 @@ object ChecklistZmanEvaluator {
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
         val tzeitNote = z.tzeitMillis?.let { tzeit ->
-            if (now >= tzeit) return@let null
+            if (now >= tzeit) return@let ""
             " Many daven Maariv ideally ${ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"} — ask your rabbi."
         }.orEmpty()
+        val tzeitTime = z.tzeitMillis?.let { tzeit ->
+            if (now >= tzeit) null else ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"
+        }
+        val startTime = ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"
+        val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
+            "Maariv — available {time}. Many daven Maariv ideally {tzeitTime} — ask your rabbi." to
+                mapOf("time" to startTime, "tzeitTime" to tzeitTime)
+        } else {
+            "Maariv — available {time}." to mapOf("time" to startTime)
+        }
         return windowStatus(
             now, start, end,
-            upcoming = "Maariv — available ${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}.$tzeitNote",
+            upcoming = "Maariv — available $startTime.$tzeitNote",
+            upcomingTemplate = upcomingTemplate,
+            upcomingArgs = upcomingArgs,
             expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
             makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha only. Shacharit cannot be made up at Maariv — its makeup was only at Mincha.",
             availableAtLabel = "sunset"
@@ -386,8 +487,9 @@ object ChecklistZmanEvaluator {
             now = now,
             start = start,
             end = end,
-            upcoming = "Melave Malka — after Havdalah, from " +
-                "${ZmanimFormatter.formatAfter(tzeit, tz) ?: "tzeit hakochavim"} through dawn.",
+            upcoming = "Melave Malka — after Havdalah, from tzeit hakochavim through dawn.",
+            upcomingTemplate = "Melave Malka — after Havdalah, from {time} through dawn.",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(tzeit, tz) ?: "tzeit hakochavim")),
             expired = "Tonight's Melave Malka window ended at dawn (alot hashachar).",
             makeup = "If you were too full to eat after Shabbat, you are not required to force yourself.",
             availableAtLabel = "tzeit hakochavim"
@@ -399,8 +501,15 @@ object ChecklistZmanEvaluator {
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
         return windowStatus(
             now, start, end,
-            upcoming = "$label — when you are ready for sleep (${ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"}).",
-            expired = "Ideal bedtime Shema time is before dawn (${ZmanimFormatter.formatUntil(end, tz) ?: "alot hashachar"}).",
+            upcoming = "$label — when you are ready for sleep (after sunset).",
+            upcomingTemplate = "{label} — when you are ready for sleep ({time}).",
+            upcomingArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"),
+            ),
+            expired = "Ideal bedtime Shema time is before dawn (alot hashachar).",
+            expiredTemplate = "Ideal bedtime Shema time is before dawn ({time}).",
+            expiredArgs = mapOf("time" to (ZmanimFormatter.formatUntil(end, tz) ?: "alot hashachar")),
             makeup = null,
             availableAtLabel = "sunset"
         )
@@ -411,7 +520,9 @@ object ChecklistZmanEvaluator {
         val end = z.tzeitMillis ?: z.sunsetMillis
         return windowStatus(
             now, start, end,
-            upcoming = "Rosh Chodesh observances — from dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"}) through nightfall tonight.",
+            upcoming = "Rosh Chodesh observances — from dawn (after dawn) through nightfall tonight.",
+            upcomingTemplate = "Rosh Chodesh observances — from dawn ({time}) through nightfall tonight.",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after dawn")),
             expired = "Tonight's Rosh Chodesh ended at nightfall (tzeit).",
             makeup = null,
             availableAtLabel = "dawn",
@@ -436,6 +547,8 @@ object ChecklistZmanEvaluator {
                 start = start,
                 end = end,
                 upcoming = "$subtitle — fast begins at sunset.",
+                upcomingTemplate = "{subtitle} — fast begins at sunset.",
+                upcomingArgs = mapOf("subtitle" to subtitle),
                 expired = "The fast ended at nightfall.",
                 makeup = null,
                 availableAtLabel = "nightfall",
@@ -448,7 +561,12 @@ object ChecklistZmanEvaluator {
             now = now,
             start = start,
             end = end,
-            upcoming = "$subtitle — begins at dawn (${ZmanimFormatter.formatAfter(start, tz) ?: "alot hashachar"}).",
+            upcoming = "$subtitle — begins at dawn (alot hashachar).",
+            upcomingTemplate = "{subtitle} — begins at dawn ({time}).",
+            upcomingArgs = mapOf(
+                "subtitle" to subtitle,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "alot hashachar"),
+            ),
             expired = "Today's fast ended at nightfall.",
             makeup = null,
             availableAtLabel = "dawn",
@@ -463,7 +581,9 @@ object ChecklistZmanEvaluator {
             now = now,
             start = start,
             end = null,
-            upcoming = "Motzei Yom Kippur meal — after nightfall (${ZmanimFormatter.formatAfter(start, tz) ?: "tzeit"}).",
+            upcoming = "Motzei Yom Kippur meal — after nightfall (tzeit).",
+            upcomingTemplate = "Motzei Yom Kippur meal — after nightfall ({time}).",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "tzeit")),
             expired = "Tonight's break-fast window has passed.",
             makeup = null,
             availableAtLabel = "nightfall",
@@ -479,13 +599,25 @@ object ChecklistZmanEvaluator {
         expired: String,
         makeup: String?,
         availableAtLabel: String? = null,
-        activeHint: String? = null
+        activeHint: String? = null,
+        activeHintTemplate: String? = null,
+        activeHintArgs: Map<String, String> = emptyMap(),
+        upcomingTemplate: String? = null,
+        upcomingArgs: Map<String, String> = emptyMap(),
+        expiredTemplate: String? = null,
+        expiredArgs: Map<String, String> = emptyMap(),
+        makeupTemplate: String? = null,
+        makeupArgs: Map<String, String> = emptyMap(),
     ): ItemZmanStatus {
         if (start != null && now < start) {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.UPCOMING,
                 hint = upcoming,
+                hintTemplate = upcomingTemplate,
+                hintArgs = upcomingArgs,
                 makeupNote = makeup,
+                makeupTemplate = makeupTemplate,
+                makeupArgs = makeupArgs,
                 windowStartMillis = start,
                 windowEndMillis = end,
                 availableAtLabel = availableAtLabel
@@ -495,7 +627,11 @@ object ChecklistZmanEvaluator {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.EXPIRED,
                 hint = expired,
+                hintTemplate = expiredTemplate,
+                hintArgs = expiredArgs,
                 makeupNote = makeup,
+                makeupTemplate = makeupTemplate,
+                makeupArgs = makeupArgs,
                 windowStartMillis = start,
                 windowEndMillis = end,
                 availableAtLabel = availableAtLabel
@@ -503,6 +639,11 @@ object ChecklistZmanEvaluator {
         }
         return ItemZmanStatus(
             hint = activeHint,
+            hintTemplate = activeHintTemplate,
+            hintArgs = activeHintArgs,
+            makeupNote = makeup,
+            makeupTemplate = makeupTemplate,
+            makeupArgs = makeupArgs,
             windowStartMillis = start,
             windowEndMillis = end,
             availableAtLabel = availableAtLabel
@@ -527,31 +668,42 @@ object ChecklistZmanEvaluator {
         val dateLabel = BirkatHachamahRules.formatOccurrenceDate(occurrence)
         if (!BirkatHachamahRules.isRecitationDay(today)) {
             val days = BirkatHachamahRules.daysUntilOccurrence(today, occurrence)
-            val whenLabel = when (days) {
-                1 -> "tomorrow"
-                else -> "in $days days"
+            val (whenTemplate, whenArgs) = when (days) {
+                1 -> "Birkat Hachamah tomorrow — {date}. Plan to recite outdoors at sunrise." to
+                    mapOf("date" to dateLabel)
+                else -> "Birkat Hachamah in {count} days — {date}. Plan to recite outdoors at sunrise." to
+                    mapOf("count" to days.toString(), "date" to dateLabel)
             }
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.UPCOMING,
-                hint = "Birkat Hachamah $whenLabel — $dateLabel. Plan to recite outdoors at sunrise.",
+                hint = "Birkat Hachamah in $days days — $dateLabel. Plan to recite outdoors at sunrise.",
+                hintTemplate = whenTemplate,
+                hintArgs = whenArgs,
                 availableAtLabel = dateLabel,
             )
         }
         val start = z.sunriseMillis ?: z.alotHaShacharMillis
         val idealEnd = z.sofZmanTefillaMillis
         val absoluteEnd = z.chatzosMillis
-        val lateHint = if (idealEnd != null && now >= idealEnd)
-            "Ideal time passed (${ZmanimFormatter.formatTime(idealEnd, tz) ?: "third hour"}). According to some opinions, you may still recite it until chatzos (halachic midday)."
-        else "Recite Birkat Hachamah outdoors at sunrise while viewing the sun."
+        val lateHintTemplate = if (idealEnd != null && now >= idealEnd)
+            "The time to fulfill Birkat Hachamah has passed ({time}). According to some opinions, you may still recite it until chatzos (halachic midday)."
+        else null
+        val lateHintArgs = if (idealEnd != null && now >= idealEnd)
+            mapOf("time" to (ZmanimFormatter.formatTime(idealEnd, tz) ?: "third hour"))
+        else emptyMap()
         return windowStatus(
             now = now,
             start = start,
             end = absoluteEnd,
             upcoming = "Today — Birkat Hachamah at sunrise ($dateLabel). Recite outdoors while viewing the sun.",
+            upcomingTemplate = "Today — Birkat Hachamah at sunrise ({date}). Recite outdoors while viewing the sun.",
+            upcomingArgs = mapOf("date" to dateLabel),
             expired = "Today's window for Birkat Hachamah has passed. This opportunity comes only once every 28 years.",
             makeup = null,
             availableAtLabel = ZmanimFormatter.formatTime(start, tz) ?: "sunrise",
-            activeHint = lateHint,
+            activeHint = if (lateHintTemplate == null) "Recite Birkat Hachamah outdoors at sunrise while viewing the sun." else null,
+            activeHintTemplate = lateHintTemplate,
+            activeHintArgs = lateHintArgs,
         )
     }
 
@@ -586,22 +738,30 @@ object ChecklistZmanEvaluator {
             return ItemZmanStatus(
                 availability = ItemZmanAvailability.UPCOMING,
                 hint = "Opens around $opens this month.",
+                hintTemplate = "Opens around {day} this month.",
+                hintArgs = mapOf("day" to opens),
                 availableAtLabel = if (minDay == 7) "7th of the month" else "3rd of the month",
             )
         }
 
-        return ItemZmanStatus(
-            availability = ItemZmanAvailability.ACTIVE,
-            hint = kiddushLevanaActiveHint(prayerDay, day),
-        )
-    }
-
-    private fun kiddushLevanaActiveHint(prayerDay: PrayerDayContext, day: Int): String {
         val preferred = kiddushLevanaPreferredTiming(prayerDay)
         return when {
-            day >= 14 -> "Last chance this month — $preferred"
-            day >= 12 -> "$preferred Window closes at the full moon."
-            else -> preferred
+            day >= 14 -> ItemZmanStatus(
+                availability = ItemZmanAvailability.ACTIVE,
+                hint = "Last chance this month — $preferred",
+                hintTemplate = "Last chance this month — {timing}",
+                hintArgs = mapOf("timing" to preferred),
+            )
+            day >= 12 -> ItemZmanStatus(
+                availability = ItemZmanAvailability.ACTIVE,
+                hint = "$preferred Window closes at the full moon.",
+                hintTemplate = "{timing} Window closes at the full moon.",
+                hintArgs = mapOf("timing" to preferred),
+            )
+            else -> ItemZmanStatus(
+                availability = ItemZmanAvailability.ACTIVE,
+                hint = preferred,
+            )
         }
     }
 

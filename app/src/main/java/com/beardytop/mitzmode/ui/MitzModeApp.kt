@@ -40,6 +40,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import com.beardytop.mitzmode.ui.components.*
+import com.beardytop.mitzmode.util.MitzvahLevels
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import kotlinx.coroutines.delay
 
@@ -123,6 +124,8 @@ fun MitzModeApp(
                 onDismiss = { viewModel.clearCurrentMitzvah() },
                 onAccept = {
                     viewModel.onMitzvahAccepted()
+                    viewModel.clearCurrentMitzvah()
+                    showThankYou = true
                 },
                 onNext = { viewModel.onMitzvahButtonPressed() }
             )
@@ -623,24 +626,7 @@ fun MitzModeApp(
         // Show level dialog when clicking mitzvah count
         if (showMitzvahLevel) {
             val count = completedMitzvot.size
-            val currentLevel = when (count) {
-                0 -> "Secular"
-                in 1..9 -> "Beginner"
-                in 10..49 -> "Ba'al Teshuva"
-                in 50..99 -> "Master Cholent Chef"
-                in 100..199 -> "Aspiring Kiddush Maker"
-                in 200..299 -> "Assistant Gabbai"
-                in 300..399 -> "Guy who hands out candy at shul"
-                in 400..499 -> "Western Wall Reveler"
-                in 500..599 -> "Sofer"
-                in 600..699 -> "Tzaddik"
-                in 700..799 -> "Living Sefer Torah"
-                in 800..899 -> "Eliyahu HaNavi"
-                in 900..999 -> "King David"
-                in 1000..1799 -> "Moshiach!!!"
-                in 1800..Int.MAX_VALUE -> "Mitz Mode!"
-                else -> "Secular"  // Default case for 0 or negative
-            }
+            val currentLevel = MitzvahLevels.forCount(count)
             MitzvahLevelDialog(
                 count = count,
                 currentLevel = currentLevel,

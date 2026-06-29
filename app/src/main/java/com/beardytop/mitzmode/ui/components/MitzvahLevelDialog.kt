@@ -26,6 +26,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import android.graphics.BitmapFactory
+import com.beardytop.mitzmode.util.MitzvahLevels
 import com.beardytop.mitzmode.ui.theme.Cinzel
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -37,27 +38,9 @@ fun MitzvahLevelDialog(
     /** At 1800+ tier: tap app icon to replay `finalreward.mp4`. */
     onRequestFinalRewardVideo: () -> Unit = {}
 ) {
-    val numStars = when (currentLevel) {
-        "Secular" -> 0
-        "Beginner" -> 1
-        "Ba'al Teshuva" -> 2
-        "Master Cholent Chef" -> 3
-        "Aspiring Kiddush Maker" -> 4
-        "Assistant Gabbai" -> 5
-        "Guy who hands out candy at shul" -> 6
-        "Western Wall Reveler" -> 7
-        "Sofer" -> 8
-        "Tzaddik" -> 9
-        "Living Sefer Torah" -> 10
-        "Eliyahu HaNavi" -> 11
-        "King David" -> 12
-        "Moshiach!!!" -> 13
-        // Ultimate tier: certificate uses app icon + video replay only, never ✡ rows.
-        "Mitz Mode!" -> 0
-        else -> 0
-    }
+    val numStars = MitzvahLevels.starCount(currentLevel)
 
-    val isUltimateMitzMode = currentLevel == "Mitz Mode!"
+    val isUltimateMitzMode = currentLevel == MitzvahLevels.MITZ_MODE
     val ultimateNeon = remember {
         listOf(
             Color(0xFF00F0FF),
@@ -262,38 +245,34 @@ fun MitzvahLevelDialog(
             )
 
             // The big count
-            val countLabel = if (count == 1) "1 Mitzvah" else "$count Mitzvot"
             if (isUltimateMitzMode) {
-                TranslatableText(
-                    text = countLabel,
+                MitzvahCountLabel(
+                    count = count,
+                    modifier = Modifier.fillMaxWidth(),
                     style = MaterialTheme.typography.headlineLarge.copy(
-                        fontFamily = Cinzel,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center,
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                Color(0xFF7DF9FF),
-                                Color(0xFFE8B4FF),
-                                Color(0xFFFF9AD5),
-                                Color(0xFFFFF4B8)
-                            ),
-                            start = Offset(0f, 40f),
-                            end = Offset(600f, 120f)
-                        )
                     ),
-                    color = Color.Unspecified,
-                    textAlign = TextAlign.Center
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color(0xFF7DF9FF),
+                            Color(0xFFE8B4FF),
+                            Color(0xFFFF9AD5),
+                            Color(0xFFFFF4B8)
+                        ),
+                        start = Offset(0f, 40f),
+                        end = Offset(600f, 120f)
+                    ),
                 )
             } else {
-                TranslatableText(
-                    text = countLabel,
+                MitzvahCountLabel(
+                    count = count,
+                    modifier = Modifier.fillMaxWidth(),
                     style = MaterialTheme.typography.headlineLarge.copy(
-                        fontFamily = Cinzel,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     ),
                     color = DialogGoldBorder,
-                    textAlign = TextAlign.Center,
                 )
             }
 
@@ -343,7 +322,8 @@ fun MitzvahLevelDialog(
                             fontWeight = FontWeight.Bold,
                             brush = ultimateFrameBrush
                         ),
-                        color = Color.Unspecified
+                        color = Color.Unspecified,
+                        enableHalachicTerms = false,
                     )
                 } else {
                     TranslatableText(
@@ -352,7 +332,8 @@ fun MitzvahLevelDialog(
                             fontFamily = Cinzel,
                             fontWeight = FontWeight.SemiBold
                         ),
-                        color = DialogGoldBorder
+                        color = DialogGoldBorder,
+                        enableHalachicTerms = false,
                     )
                 }
             }
