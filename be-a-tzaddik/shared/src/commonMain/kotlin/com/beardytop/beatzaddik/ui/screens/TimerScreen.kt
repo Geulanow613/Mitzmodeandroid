@@ -47,6 +47,7 @@ import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 import com.beardytop.beatzaddik.viewmodel.AppViewModel
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
@@ -108,13 +109,21 @@ fun TimerScreen(
                 color = TzaddikColors.GoldBright
             )
             Spacer(Modifier.height(4.dp))
+            val meatHours = profile.meatToDairyHours()
+            val dairyWait = KashrutWaitTimes.formatDairyToMeatWait(profile.dairyToMeatWaitMinutes())
             WaitTimeRow(
                 emoji = "🥩",
-                text = "After meat: wait ${profile.meatToDairyHours()} hours before dairy"
+                text = rememberAppTranslatedTemplate(
+                    "After meat: wait {hours} hours before dairy",
+                    mapOf("hours" to meatHours.toString()),
+                ),
             )
             WaitTimeRow(
                 emoji = "🧀",
-                text = "After dairy: wait ${KashrutWaitTimes.formatDairyToMeatWait(profile.dairyToMeatWaitMinutes())} before meat"
+                text = rememberAppTranslatedTemplate(
+                    "After dairy: wait {wait} before meat",
+                    mapOf("wait" to dairyWait),
+                ),
             )
             Spacer(Modifier.height(4.dp))
             AppText(

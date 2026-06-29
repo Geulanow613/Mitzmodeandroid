@@ -81,6 +81,78 @@ object ParshaData {
         "VZOS_HABERACHA"      to ParshaInfo("Vezot Habracha",     "https://www.chabad.org/parshah/default_cdo/aid/36242/jewish/VZot-HaBerachah.htm",    "Deuteronomy.33.1-34.12"),
     )
 
+    /** Standard Hebrew names for weekly parsha display (Ashkenazi Israeli convention). */
+    private val hebrewNames: Map<String, String> = mapOf(
+        "Bereishit" to "בראשית",
+        "Noach" to "נח",
+        "Lech Lecha" to "לך לך",
+        "Vayera" to "וירא",
+        "Chayei Sara" to "חיי שרה",
+        "Toldot" to "תולדות",
+        "Vayetze" to "ויצא",
+        "Vayishlach" to "וישלח",
+        "Vayeshev" to "וישב",
+        "Miketz" to "מקץ",
+        "Vayigash" to "ויגש",
+        "Vayechi" to "ויחי",
+        "Shemot" to "שמות",
+        "Va'era" to "וארא",
+        "Bo" to "בא",
+        "Beshalach" to "בשלח",
+        "Yitro" to "יתרו",
+        "Mishpatim" to "משפטים",
+        "Terumah" to "תרומה",
+        "Tetzaveh" to "תצוה",
+        "Ki Tisa" to "כי תשא",
+        "Vayakhel" to "ויקהל",
+        "Pekudei" to "פקודי",
+        "Vayakhel-Pekudei" to "ויקהל-פקודי",
+        "Vayikra" to "ויקרא",
+        "Tzav" to "צו",
+        "Shemini" to "שמיני",
+        "Tazria" to "תזריע",
+        "Metzora" to "מצורע",
+        "Tazria-Metzora" to "תזריע-מצורע",
+        "Achrei Mot" to "אחרי מות",
+        "Kedoshim" to "קדושים",
+        "Achrei Mot-Kedoshim" to "אחרי מות-קדושים",
+        "Emor" to "אמור",
+        "Behar" to "בהר",
+        "Bechukotai" to "בחוקתי",
+        "Behar-Bechukotai" to "בהר-בחוקתי",
+        "Bamidbar" to "במדבר",
+        "Nasso" to "נשא",
+        "Beha'alotcha" to "בהעלותך",
+        "Shelach" to "שלח",
+        "Korach" to "קרח",
+        "Chukat" to "חוקת",
+        "Balak" to "בלק",
+        "Chukat-Balak" to "חוקת-בלק",
+        "Pinchas" to "פינחס",
+        "Matot" to "מטות",
+        "Masei" to "מסעי",
+        "Matot-Masei" to "מטות-מסעי",
+        "Devarim" to "דברים",
+        "Va'etchanan" to "ואתחנן",
+        "Eikev" to "עקב",
+        "Re'eh" to "ראה",
+        "Shoftim" to "שופטים",
+        "Ki Teitzei" to "כי תצא",
+        "Ki Tavo" to "כי תבוא",
+        "Nitzavim" to "נצבים",
+        "Vayelech" to "וילך",
+        "Nitzavim-Vayelech" to "נצבים-וילך",
+        "Ha'azinu" to "האזינו",
+        "Vezot Habracha" to "וזאת הברכה",
+    )
+
+    /** Localized parsha name for UI templates (e.g. checklist title, calendar header). */
+    fun localizedDisplayName(englishDisplayName: String, languageCode: String): String =
+        when (languageCode) {
+            "he", "yi" -> hebrewNames[englishDisplayName] ?: englishDisplayName
+            else -> englishDisplayName
+        }
+
     /** Returns display info for a KosherJava parsha enum name, or null if unknown/no parsha. */
     fun forKey(kosherJavaName: String?): ParshaInfo? =
         if (kosherJavaName == null || kosherJavaName == "NONE") null

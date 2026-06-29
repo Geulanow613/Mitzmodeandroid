@@ -4,27 +4,39 @@
     "Rav": "רב",
     "Yom Tov": "יום טוב",
     "ברכת המזון": "ברכת המזון",
-    "תפילת הדרך": "תפילת הדרך"
+    "תפילת הדרך": "תפילת הדרך",
+    "Hamapil blessing": "ברכת המפיל",
+    "Bedtime Shema": "שמע על המיטה",
+    "later tonight": "מאוחר יותר הלילה"
   },
   "es": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traducción cambiada a $languageName.\n$translatedPleaseNote",
     "Rav": "Rabino",
     "Yom Tov": "Fiesta judía",
     "ברכת המזון": "Birkat Hamazón (bendición después de las comidas)",
-    "תפילת הדרך": "Tefilat HaDerech (oración del camino)"
+    "תפילת הדרך": "Tefilat HaDerech (oración del camino)",
+    "Hamapil blessing": "Bendición Hamapil",
+    "Bedtime Shema": "Shema al acostarse",
+    "later tonight": "más tarde esta noche"
   },
   "fr": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traduction changée en $languageName.\n$translatedPleaseNote",
     "Rav": "Rav (rabbin)",
     "Yom Tov": "Fête juive",
     "ברכת המזון": "Birkat Hamazón (bénédiction après les repas)",
-    "תפילת הדרך": "Tefilat HaDerech (prière du voyage)"
+    "תפילת הדרך": "Tefilat HaDerech (prière du voyage)",
+    "Hamapil blessing": "Bénédiction Hamapil",
+    "Bedtime Shema": "Shema au coucher",
+    "later tonight": "plus tard ce soir"
   },
   "ru": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Перевод переключён на $languageName.\n$translatedPleaseNote",
     "Rav": "Рав",
     "Yom Tov": "Йом Тов",
     "ברכת המזון": "Биркат а-Мазон (благословение после еды)",
-    "תפילת הדרך": "Тефилат а-Дерех (молитва в пути)"
+    "תפילת הדרך": "Тефилат а-Дерех (молитва в пути)",
+    "Hamapil blessing": "Благословение Гамапил",
+    "Bedtime Shema": "Шма перед сном",
+    "later tonight": "позже сегодня вечером"
   }
 }

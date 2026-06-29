@@ -27,7 +27,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import com.beardytop.beatzaddik.ui.components.AppText
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -43,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
+import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.HalachicGuideTerms
@@ -416,10 +417,7 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
         item { SubHeading("The 39 Melachot") }
         item {
             BodyCard(
-                "The 39 categories of creative labor (melachot) forbidden on Shabbat are derived from the types of work " +
-                    "performed in constructing the Mishkan (Tabernacle) in the desert. The Talmud lists them in Tractate " +
-                    "Shabbat 73a.\n\nEach melacha has practical applications in modern life, from cooking and writing to " +
-                    "carrying and electricity. Tap below to browse all 39."
+                "The 39 categories of creative labor (melachot) forbidden on Shabbat are derived from the types of work performed in constructing the Mishkan (Tabernacle) in the desert. The Talmud lists them in Tractate Shabbat 73a.\n\nEach melacha has practical applications in modern life, from cooking and writing to carrying and electricity. Tap below to browse all 39."
             )
         }
         item {
@@ -493,8 +491,7 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
         }
         item {
             BodyCard(
-                "The 39 categories of creative labor forbidden on Shabbat. " +
-                    "Tap any to read a full explanation."
+                "The 39 categories of creative labor forbidden on Shabbat. Tap any to read a full explanation."
             )
             Spacer(Modifier.height(4.dp))
         }
@@ -719,6 +716,7 @@ private fun SubHeading(text: String) {
 
 @Composable
 private fun BodyCard(text: String) {
+    val translated = rememberAppTranslatedText(text)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -727,7 +725,7 @@ private fun BodyCard(text: String) {
             .border(1.dp, TzaddikColors.GoldBorder.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
             .padding(16.dp)
     ) {
-        text.split("\n\n").forEach { paragraph ->
+        translated.split("\n\n").forEach { paragraph ->
             val lines = paragraph.lines()
             val isBulletBlock = lines.any { it.trim().startsWith("•") }
             if (isBulletBlock) {
@@ -745,6 +743,7 @@ private fun BodyCard(text: String) {
                                 text = t.removePrefix("•").trim(),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = TzaddikColors.TextBrown,
+                                enableTerms = false,
                             )
                         }
                     } else if (t.isNotBlank()) {
@@ -752,6 +751,7 @@ private fun BodyCard(text: String) {
                             text = t,
                             style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.TextBrown,
+                            enableTerms = false,
                             modifier = Modifier.padding(bottom = 4.dp),
                         )
                     }
@@ -761,6 +761,7 @@ private fun BodyCard(text: String) {
                     text = paragraph.trim(),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                     color = TzaddikColors.TextBrown,
+                    enableTerms = false,
                     modifier = Modifier.padding(bottom = 6.dp),
                 )
             }

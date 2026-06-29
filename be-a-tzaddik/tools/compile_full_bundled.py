@@ -79,6 +79,10 @@ def load_human() -> dict[str, dict[str, str]]:
     priority_last_ordered = [
         "quality_overrides.json",
         "ui_templates.json",
+        "shabbat_guide_ui.json",
+        "shabbat_guide_polish.json",
+        "glossary_polish.json",
+        "hebrew_terms.json",
         "prayers_liturgy.json",
     ]
     priority_last = set(priority_last_ordered)
@@ -113,8 +117,8 @@ def is_passthrough_key(text: str) -> bool:
     if text in {
         "$mitzvotCount", "halachic_term", "www.beardy.top", "Beardy Top Productions",
         "https://www.beardy.top", "G.E.U.L.A",
-        # Proper names / Hebrew terms used in all languages without translation
-        "Purim", "Sofer", "Ba'al Teshuva", "Mitz Mode!", "Sefirat HaOmer",
+        # Proper names / technical passthrough only (Jewish terms → hebrew_terms.json)
+        "Mitz Mode!", "G.E.U.L.A",
     }:
         return True
     if text.startswith("(?i)") or text.startswith("$translated"):

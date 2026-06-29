@@ -46,6 +46,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beardytop.beatzaddik.domain.ParshaData
 import com.beardytop.beatzaddik.domain.ChecklistZmanEvaluator
 import com.beardytop.beatzaddik.domain.ItemZmanAvailability
 import com.beardytop.beatzaddik.domain.ResolvedChecklistItem
@@ -416,12 +417,16 @@ private fun ChecklistItemTitle(
         val translatedSuffix = when {
             dynamicSuffix.startsWith(" — Parshat ") -> {
                 val parshaName = dynamicSuffix.removePrefix(" — Parshat ")
+                val localizedParsha = ParshaData.localizedDisplayName(
+                    parshaName,
+                    appTranslation.languageCode,
+                )
                 val template = when {
                     !appTranslation.enabled || appTranslation.languageCode == "en" ->
                         " — Parshat {parsha}"
                     else -> appTranslation.translator.translate(" — Parshat {parsha}")
                 }
-                fillTranslationTemplate(template, mapOf("parsha" to parshaName))
+                fillTranslationTemplate(template, mapOf("parsha" to localizedParsha))
             }
             dynamicSuffix.startsWith(" · ") -> {
                 val tag = dynamicSuffix.removePrefix(" · ")

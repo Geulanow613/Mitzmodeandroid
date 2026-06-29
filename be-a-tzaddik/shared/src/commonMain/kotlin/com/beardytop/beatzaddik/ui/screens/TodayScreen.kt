@@ -38,7 +38,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import com.beardytop.beatzaddik.ui.components.AppText
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
+import com.beardytop.beatzaddik.ui.translation.embedLtrForRtlMix
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
+import kotlinx.datetime.LocalDate
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -74,6 +79,7 @@ import com.beardytop.beatzaddik.ui.components.LocalOpenShabbatGuide
 import com.beardytop.beatzaddik.ui.components.drawHalachicTermUnderlines
 import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
 import com.beardytop.beatzaddik.domain.DayChecklists
+import com.beardytop.beatzaddik.domain.ParshaData
 import com.beardytop.beatzaddik.domain.HolyDayPhoneNotice
 import com.beardytop.beatzaddik.domain.ChecklistEngine
 import com.beardytop.beatzaddik.domain.ChecklistSectionOrder
@@ -610,7 +616,7 @@ private fun upcomingWhenLabel(holiday: UpcomingHoliday): String =
         holiday.daysAway == 0 && holiday.beginsTonightWhenImminent -> "Tonight"
         holiday.daysAway == 0 -> "today"
         holiday.daysAway == 1 -> "tomorrow"
-        else -> "in ${holiday.daysAway} days"
+        else -> "in {count} days"
     }
 
 private const val UPCOMING_HOLIDAY_NAME_TAG = "upcoming_holiday_name"
@@ -625,8 +631,48 @@ private fun UpcomingHolidayLine(
     val bodyStyle = MaterialTheme.typography.bodyMedium
     val timingStyle = MaterialTheme.typography.labelSmall
     val translatedName = rememberAppTranslatedText(holiday.name)
-    val translatedWhenLabel = rememberAppTranslatedText(whenLabel)
-    val annotated = remember(translatedName, translatedWhenLabel, holiday.timingHint) {
+    val translatedWhenLabel = when {
+        holiday.whenLabelOverride != null -> rememberAppTranslatedText(whenLabel)
+        holiday.daysAway > 1 -> rememberAppTranslatedTemplate(
+            "in {count} days",
+            mapOf("count" to holiday.daysAway.toString()),
+        )
+        else -> rememberAppTranslatedText(whenLabel)
+    }
+    val rawHint = holiday.timingHint.orEmpty()
+    val isCandlesHint = rawHint.startsWith("Candles ")
+    val candlesTimeRaw = if (isCandlesHint) rawHint.removePrefix("Candles ").trim() else ""
+    val candlesTimeLastSpace = candlesTimeRaw.lastIndexOf(' ')
+    val candlesTimePart = when {
+        !isCandlesHint -> ""
+        candlesTimeLastSpace > 0 -> candlesTimeRaw.substring(0, candlesTimeLastSpace)
+        else -> candlesTimeRaw
+    }
+    val candlesWeekdayKey = if (isCandlesHint && candlesTimeLastSpace > 0) {
+        candlesTimeRaw.substring(candlesTimeLastSpace + 1)
+    } else {
+        ""
+    }
+    val translatedCandlesWeekday = rememberAppTranslatedText(candlesWeekdayKey)
+    val embeddedCandlesTime = remember(candlesTimePart, translatedCandlesWeekday) {
+        val displayTime = if (translatedCandlesWeekday.isNotBlank()) {
+            "$candlesTimePart $translatedCandlesWeekday"
+        } else {
+            candlesTimePart
+        }
+        embedLtrForRtlMix(displayTime)
+    }
+    val translatedCandlesHint = rememberAppTranslatedTemplate(
+        "Candles {time}",
+        mapOf("time" to if (isCandlesHint) embeddedCandlesTime else ""),
+    )
+    val translatedPlainHint = rememberAppTranslatedText(if (!isCandlesHint) rawHint else "")
+    val translatedTimingHint = when {
+        isCandlesHint && embeddedCandlesTime.isNotBlank() -> translatedCandlesHint
+        !isCandlesHint && rawHint.isNotBlank() -> translatedPlainHint
+        else -> null
+    }
+    val annotated = remember(translatedName, translatedWhenLabel, translatedTimingHint) {
         buildAnnotatedString {
             pushStringAnnotation(UPCOMING_HOLIDAY_NAME_TAG, holiday.name)
             withStyle(
@@ -641,7 +687,7 @@ private fun UpcomingHolidayLine(
             withStyle(SpanStyle(color = TzaddikColors.ParchTop)) {
                 append(" — $translatedWhenLabel")
             }
-            holiday.timingHint?.takeIf { it.isNotBlank() }?.let { hint ->
+            translatedTimingHint?.takeIf { it.isNotBlank() }?.let { hint ->
                 withStyle(
                     SpanStyle(
                         color = TzaddikColors.ParchTop.copy(alpha = 0.65f),
@@ -674,15 +720,17 @@ private fun UpcomingHolidayLine(
 
 @Composable
 private fun GuideTopicExplainerDialog(topic: GuideTopic, onDismiss: () -> Unit) {
+    val translatedBody = rememberAppTranslatedText(topic.body)
     ParchmentDialog(
         onDismiss = onDismiss,
         title = topic.title,
         confirmButton = { GoldButton(onClick = onDismiss, text = "Done") },
     ) {
         HalachicClickableText(
-            text = topic.body,
+            text = translatedBody,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.NavyDeep,
+            enableTerms = false,
         )
     }
 }
@@ -907,15 +955,15 @@ private fun CalendarHeader(
                 Spacer(Modifier.height(6.dp))
             }
             // Civil + Hebrew dates on the same visual tier — same weight, clear step down from clock
-            AppText(
-                d.header.civilDateLabel,
+            TranslatedCivilDate(
+                date = d.date,
+                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.ParchTop,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
-            Text(
-                d.header.hebrewDateLabel,
+            TranslatedHebrewDate(
+                label = d.header.hebrewDateLabel,
+                style = MaterialTheme.typography.bodyMedium,
                 color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
-                style = MaterialTheme.typography.bodyMedium
             )
             d.header.timeLabel?.let { periodLabel ->
                 Spacer(Modifier.height(2.dp))
@@ -930,11 +978,21 @@ private fun CalendarHeader(
                     modifier = Modifier.clickable(onClick = onPeriodClick)
                 )
             }
-            d.header.parshaLabel?.let {
+            d.header.parshaLabel?.let { parsha ->
+                val appTranslation = LocalAppTranslation.current
+                val localizedParsha = ParshaData.localizedDisplayName(
+                    parsha,
+                    appTranslation.languageCode,
+                )
+                val parshaLine = rememberAppTranslatedTemplate(
+                    "Parsha: {parsha}",
+                    mapOf("parsha" to localizedParsha),
+                )
                 AppText(
-                    "Parsha: $it",
+                    parshaLine,
                     color = TzaddikColors.ParchTop.copy(alpha = 0.5f),
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall,
+                    enableTerms = false,
                 )
             }
             Spacer(Modifier.height(10.dp))
@@ -1043,4 +1101,59 @@ private fun HeaderStatusPill(label: String, onClick: (() -> Unit)?) {
             style = MaterialTheme.typography.labelMedium,
         )
     }
+}
+
+@Composable
+private fun TranslatedCivilDate(
+    date: LocalDate,
+    style: TextStyle,
+    color: androidx.compose.ui.graphics.Color,
+    modifier: Modifier = Modifier,
+) {
+    val weekday = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+    val month = date.month.name.lowercase().replaceFirstChar { it.uppercase() }
+    val line = rememberAppTranslatedTemplate(
+        "{weekday}, {month} {day}, {year}",
+        mapOf(
+            "weekday" to weekday,
+            "month" to month,
+            "day" to date.dayOfMonth.toString(),
+            "year" to date.year.toString(),
+        ),
+    )
+    AppText(
+        line,
+        color = color,
+        style = style,
+        modifier = modifier,
+        enableTerms = false,
+    )
+}
+
+@Composable
+private fun TranslatedHebrewDate(
+    label: String,
+    style: TextStyle,
+    color: androidx.compose.ui.graphics.Color,
+    modifier: Modifier = Modifier,
+) {
+    val parts = label.trim().split(" ")
+    val display = if (parts.size >= 3) {
+        val year = parts.last()
+        val day = parts.first()
+        val month = parts.subList(1, parts.size - 1).joinToString(" ")
+        rememberAppTranslatedTemplate(
+            "{day} {month} {year}",
+            mapOf("day" to day, "month" to month, "year" to year),
+        )
+    } else {
+        rememberAppTranslatedText(label)
+    }
+    AppText(
+        display,
+        color = color,
+        style = style,
+        modifier = modifier,
+        enableTerms = false,
+    )
 }

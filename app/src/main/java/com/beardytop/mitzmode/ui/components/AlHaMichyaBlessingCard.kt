@@ -101,7 +101,7 @@ fun AlHaMichyaBlessingCard(
             }
         }
 
-        Text(
+        TranslatableText(
             text = "What did you have?",
             style = MaterialTheme.typography.labelMedium,
             color = DialogTextMuted
@@ -116,7 +116,7 @@ fun AlHaMichyaBlessingCard(
             SelectionChip("Seven species fruit", hasFruit) { hasFruit = it }
         }
 
-        Text(
+        TranslatableText(
             text = "Today is also:",
             style = MaterialTheme.typography.labelMedium,
             color = DialogTextMuted,
@@ -163,7 +163,7 @@ private fun SelectionChip(
         selected = selected,
         onClick = { onSelected(!selected) },
         label = {
-            Text(
+            TranslatableText(
                 text = label,
                 style = MaterialTheme.typography.labelMedium
             )

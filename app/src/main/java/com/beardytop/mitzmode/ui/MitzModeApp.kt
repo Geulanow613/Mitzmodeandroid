@@ -124,8 +124,6 @@ fun MitzModeApp(
                 onDismiss = { viewModel.clearCurrentMitzvah() },
                 onAccept = {
                     viewModel.onMitzvahAccepted()
-                    viewModel.clearCurrentMitzvah()
-                    showThankYou = true
                 },
                 onNext = { viewModel.onMitzvahButtonPressed() }
             )

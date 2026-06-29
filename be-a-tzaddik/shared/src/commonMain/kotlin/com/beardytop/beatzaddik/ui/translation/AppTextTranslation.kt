@@ -8,6 +8,94 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.compositionLocalOf
 
+/** Keeps Latin clock times readable when embedded in RTL paragraphs. */
+fun embedLtrForRtlMix(text: String): String =
+    if (text.isBlank()) text else "\u2066$text\u2069"
+
+private fun isRtlLanguage(languageCode: String): Boolean =
+    languageCode == "he" || languageCode == "yi"
+
+private fun looksLikeCountdown(value: String): Boolean =
+    value == "soon" || Regex("""\d+[dhms](?:\s+\d+[dhms])*""").containsMatchIn(value)
+
+private fun looksLikeZmanTimePhrase(value: String): Boolean =
+    value.startsWith("after ") || value.startsWith("until ") || value.startsWith("before ")
+
+private fun looksLikeClockOrLatinTime(value: String): Boolean {
+    if (value.any { it.isDigit() } &&
+        (value.contains("am", ignoreCase = true) || value.contains("pm", ignoreCase = true) ||
+            value.contains(':') || value.contains('h') || value.contains('m') || value.contains('d'))
+    ) {
+        return true
+    }
+    return Regex("""\d{1,2}:\d{2}""").containsMatchIn(value)
+}
+
+private fun shouldSkipTemplateArgTranslation(value: String): Boolean {
+    if (value.contains('\u2066')) return true
+    return looksLikeCountdown(value) || looksLikeZmanTimePhrase(value) || looksLikeClockOrLatinTime(value)
+}
+
+private fun localizeCountdownForRtl(value: String, languageCode: String): String {
+    if (!isRtlLanguage(languageCode)) return embedLtrForRtlMix(value)
+    if (value == "soon") return "בקרוב"
+    Regex("""(\d+)h (\d+)m""").matchEntire(value)?.let { m ->
+        return embedLtrForRtlMix("${m.groupValues[1]} שע׳ ${m.groupValues[2]} דק׳")
+    }
+    Regex("""(\d+)h""").matchEntire(value)?.let { m ->
+        return embedLtrForRtlMix("${m.groupValues[1]} שע׳")
+    }
+    Regex("""(\d+)m""").matchEntire(value)?.let { m ->
+        return embedLtrForRtlMix("${m.groupValues[1]} דק׳")
+    }
+    Regex("""(\d+)d (\d+)h""").matchEntire(value)?.let { m ->
+        return embedLtrForRtlMix("${m.groupValues[1]} ימ׳ ${m.groupValues[2]} שע׳")
+    }
+    Regex("""(\d+)d""").matchEntire(value)?.let { m ->
+        return embedLtrForRtlMix("${m.groupValues[1]} ימ׳")
+    }
+    return embedLtrForRtlMix(value)
+}
+
+private fun localizeZmanTimePhraseForRtl(value: String, languageCode: String): String {
+    if (!isRtlLanguage(languageCode)) return embedLtrForRtlMix(value)
+    return when {
+        value.startsWith("after ") ->
+            "אחרי ${embedLtrForRtlMix(value.removePrefix("after "))}"
+        value.startsWith("until ") ->
+            "עד ${embedLtrForRtlMix(value.removePrefix("until "))}"
+        value.startsWith("before ") ->
+            "לפני ${embedLtrForRtlMix(value.removePrefix("before "))}"
+        else -> embedLtrForRtlMix(value)
+    }
+}
+
+/** Localizes countdowns and clock phrases for Hebrew/Yiddish template args. */
+fun localizeTemplateArgsForRtl(
+    args: Map<String, String>,
+    languageCode: String,
+): Map<String, String> {
+    if (!isRtlLanguage(languageCode)) return args
+    return args.mapValues { (key, value) ->
+        if (value.contains('\u2066')) return@mapValues value
+        when {
+            key == "countdown" || looksLikeCountdown(value) ->
+                localizeCountdownForRtl(value, languageCode)
+            looksLikeZmanTimePhrase(value) ->
+                localizeZmanTimePhraseForRtl(value, languageCode)
+            looksLikeClockOrLatinTime(value) ->
+                embedLtrForRtlMix(value)
+            else -> value
+        }
+    }
+}
+
+fun fillLocalizedTranslationTemplate(
+    template: String,
+    args: Map<String, String>,
+    languageCode: String,
+): String = fillTranslationTemplate(template, localizeTemplateArgsForRtl(args, languageCode))
+
 /** Fills `{name}` placeholders in a translated template string. */
 fun fillTranslationTemplate(template: String, args: Map<String, String>): String {
     var out = template
@@ -24,7 +112,7 @@ suspend fun resolveAppTranslationTemplate(
     apiTranslate: suspend (String) -> String,
 ): String {
     val translated = resolveAppTranslation(templateKey, languageCode, apiTranslate)
-    return fillTranslationTemplate(translated, args)
+    return fillLocalizedTranslationTemplate(translated, args, languageCode)
 }
 
 /** Google Translate (or other) bridge supplied by the host app on Android. */
@@ -88,20 +176,21 @@ fun rememberAppTranslatedTemplate(templateKey: String, args: Map<String, String>
     val appTranslation = LocalAppTranslation.current
     val argsKey = args.entries.sortedBy { it.key }.joinToString("|") { "${it.key}=${it.value}" }
     var display by remember(templateKey, argsKey) {
-        mutableStateOf(fillTranslationTemplate(templateKey, args))
+        mutableStateOf(fillLocalizedTranslationTemplate(templateKey, args, appTranslation.languageCode))
     }
     LaunchedEffect(templateKey, argsKey, appTranslation.enabled, appTranslation.languageCode) {
         display = when {
             !appTranslation.enabled || appTranslation.languageCode == "en" ->
                 fillTranslationTemplate(templateKey, args)
             shouldSkipMachineTranslation(templateKey, appTranslation.languageCode) ->
-                fillTranslationTemplate(templateKey, args)
+                fillLocalizedTranslationTemplate(templateKey, args, appTranslation.languageCode)
             else -> {
                 val translatedTemplate = appTranslation.translator.translate(templateKey)
                 val translatedArgs = args.mapValues { (_, value) ->
-                    appTranslation.translator.translate(value)
+                    if (shouldSkipTemplateArgTranslation(value)) value
+                    else appTranslation.translator.translate(value)
                 }
-                fillTranslationTemplate(translatedTemplate, translatedArgs)
+                fillLocalizedTranslationTemplate(translatedTemplate, translatedArgs, appTranslation.languageCode)
             }
         }
     }
