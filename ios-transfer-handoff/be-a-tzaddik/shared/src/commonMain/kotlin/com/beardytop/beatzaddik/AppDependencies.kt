@@ -1,6 +1,7 @@
 package com.beardytop.beatzaddik
 
 import com.beardytop.beatzaddik.data.AppRepository
+import com.beardytop.beatzaddik.data.BundledTranslationsCatalog
 import com.beardytop.beatzaddik.data.ChecklistCatalog
 import com.beardytop.beatzaddik.data.ManualCitiesCatalog
 import com.beardytop.beatzaddik.data.HolidayOverlayEntry
@@ -30,6 +31,7 @@ class AppDependencies(
         ): AppDependencies {
             ChecklistCatalog.loadFromAssets()
             ManualCitiesCatalog.loadFromAssets()
+            BundledTranslationsCatalog.loadFromAssets()
             val holidays = HolidaysLoader.load()
             return AppDependencies(platformContext, locationService, holidays)
         }

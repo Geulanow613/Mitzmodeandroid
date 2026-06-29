@@ -89,7 +89,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit so the Omer count remains temimot (complete).
+• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
         """.trim(),
     )
@@ -208,9 +208,10 @@ Men — Torah obligation:
 • ${arbaMinimMenWave(profile)}
 
 The ownership rule (lakhem — u'lekachtem lakhem):
-• The strict requirement to fully own your lulav and etrog set applies only on the very first day of Sukkot worldwide (15 Tishrei; Shulchan Arukh O.C. 658:3).
-• On that day only: if you do not own a set, ask the owner to give it to you as matana al menat lehachzir (gift on condition of return) before you wave.
-• In the Diaspora: on the second day of Yom Tov and throughout Chol HaMoed, you may borrow a shared or synagogue set without a formal gift — the rabbinic extension does not carry the Torah ownership requirement (Peninei Halakha, Laws of Sukkot 13:13).
+• In Israel: the strict requirement to fully own your lulav and etrog set applies on the first day of Sukkot (15 Tishrei; Shulchan Arukh O.C. 658:3). If you do not own a set, ask the owner for matana al menat lehachzir (gift on condition of return) before you wave.
+• In the Diaspora: because the second day of Yom Tov is kept as a safek de'oraita, the same lakhem ownership requirement applies on both Day 1 and Day 2 — you cannot simply borrow a synagogue set; it must be given to you as matana al menat lehachzir.
+• In the Diaspora from the third day onward (the first day of Chol HaMoed): you may borrow a shared or synagogue set without a formal gift — the rabbinic continuation no longer carries the Torah ownership requirement (Peninei Halakha, Laws of Sukkot 13:13).
+• In Israel on Chol HaMoed: borrowing without a gift is permitted — ownership was required only on the first day.
     """.trim(),
     )
 
@@ -240,8 +241,8 @@ Women — recommended mitzvah (not obligatory):
 Do women need their own set?
 • No. Most women use a shared family set (usually owned by a husband or father) or a synagogue set.
 
-The ownership rule (for men on the first day):
-• On the first day of Sukkot worldwide only, a man must own the set he waves (see men's explanation for matana al menat lehachzir). In the Diaspora, borrowing without a gift is permitted from the second day of Yom Tov onward.
+The ownership rule (for men):
+• In Israel: on the first day of Sukkot only, a man must own the set he waves (matana al menat lehachzir if needed). In the Diaspora, lakhem applies on Day 1 and Day 2; borrowing without a gift is permitted from the first day of Chol HaMoed (Day 3) onward.
 
 Bracha:
 • $brachaLine
@@ -478,8 +479,7 @@ How:
     private fun yaalehVyavoForgotAmidahCorrection(service: String): String = """
 If you forgot:
 • Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).
-• Finished Retzei but not yet started Modim (e.g. at HaMachazir Shechinato LeZion) — say Yaaleh V'yavo there, then continue with Modim ($YAALEH_VYAVO_HALACHA_SOURCE).
-• Already said "Baruch" of Modim or anything after — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).
+• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).
 • Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).
     """.trim()
 
@@ -633,7 +633,7 @@ Festive meal (mitzvah):
 • Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
 
 Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
-• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, between Retzei and Modim, return to Retzei after Modim started, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)
+• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, return to the beginning of Retzei if already concluded, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)
 • If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too
 • Ashkenazi custom — most authorities obligate Shacharit and Mincha Amidah on these days
 • Sephardic custom — many women fulfill the daily obligation with one prayer; if you daven an extra Amidah and forget Yaaleh V'yavo, ask your rabbi about a voluntary (nedavah) stipulation
@@ -784,10 +784,20 @@ Baruch Atah Ado-nai Eloheinu Melech ha'olam shelo chiser be'olamo kelum u'vara v
 
 How to fulfill it:
 • Go outdoors to fruit-bearing trees — at least one tree; preferably two or more of the same or different species.
-• The trees should show new buds or blossoms — not yet fully formed fruit.
 • Recite the blessing once while viewing the blossoms. Many add Tehillim 104 or other verses; follow your siddur or community custom.
 • Once a year: if you said it in your local spring, you do not repeat it when traveling to another hemisphere later in the same Jewish year.
 • Many communities avoid saying it on Shabbat — go during the week when you first see suitable blossoms.
+
+What stage must the tree be in (melav'lave — מְלַבְלְבֵי)?
+The rabbis require the tree to be actively flowering — not merely sprouting leaves. Shulchan Arukh O.C. 226:1 defines the Talmudic stage of melav'lave as when trees "put forth flowers" (shemotzi'in perach): you need open, visible blossoms that you can recognize as flowers. The blessing praises Hashem for creating "good trees for people to enjoy" — that response is meant to come from seeing beautiful, open blooms.
+
+L'chatchilah (ideal): the tree has moved past the leaf-only stage and shows open flowers, but the petals have not yet fallen and fruit has not begun to form.
+
+What does not work:
+• Green leaf buds alone — invalid; do not recite the blessing on leaves without open flowers.
+• After petals have dropped and fruit is forming — too late for this year's blessing.
+
+Bedieved (after the fact): some contemporary poskim allow reciting on swollen, tightly closed flower buds that are clearly about to open when no properly blooming trees are available — ask your rav if that is your only option.
 
 Spiritual note:
 Nissan is the month of redemption; blossoming trees recall that creation itself waits to praise Hashem. Even a brief walk among flowering orchards can be a mitzvah.
@@ -1063,7 +1073,7 @@ Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives 
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.daveningBasics(),
             """
-Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah.
+Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obligated in this time-bound positive mitzvah; women are exempt and the widespread custom is that women do not recite it at all (see Deracheha link below).
 
 $waitLine
 
@@ -1164,6 +1174,7 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
             add(ChecklistLink("Chabad — Kiddush Levana", "https://www.chabad.org/library/article_cdo/aid/1904288/jewish/Kiddush-Levana-Sanctification-of-the-Moon.htm", "chabad"))
         }
         add(ChecklistLink("Peninei Halacha — Blessing the New Moon", "https://ph.yhb.org.il/en/05-01-17/", "default"))
+        add(ChecklistLink("Deracheha — Women & Kiddush Levana", "https://www.deracheha.org/answers/kiddush-levana/", "default"))
         add(ChecklistLink("Shulchan Arukh OC 426 (Sefaria)", "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.426", "default"))
     }
 

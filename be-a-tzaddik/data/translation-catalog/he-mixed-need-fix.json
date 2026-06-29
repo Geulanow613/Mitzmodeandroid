@@ -1,0 +1,657 @@
+[
+  {
+    "key": "Parsha: $it",
+    "len": 11,
+    "he": "פרשה: $it"
+  },
+  {
+    "key": "e.g., Sarah B.",
+    "len": 14,
+    "he": "לדוגמה, Sarah B."
+  },
+  {
+    "key": "Beardy Top Productions",
+    "len": 22,
+    "he": "הפקות Beardy Top"
+  },
+  {
+    "key": "Performed by G.E.U.L.A © 2026",
+    "len": 29,
+    "he": "בוצע על ידי G.E.U.L.A © 2026"
+  },
+  {
+    "key": "Currently using: $effectiveName",
+    "len": 31,
+    "he": "בשימוש כעת: $effectiveName"
+  },
+  {
+    "key": "Enjoy the official Mitz Mode song!",
+    "len": 34,
+    "he": "תהנו משיר Mitz Mode הרשמי!"
+  },
+  {
+    "key": "You can eat $allowedFood as of ${endedAt ?:",
+    "len": 43,
+    "he": "מותר לאכול $allowedFood מ-${endedAt ?:"
+  },
+  {
+    "key": "Yaknehaz order when Shabbat leads into Yom Tov",
+    "len": 46,
+    "he": "סדר Yaknehaz כששבת נכנסת ליום טוב"
+  },
+  {
+    "key": "You may open the app again $tzeitNote — $endLabel.",
+    "len": 50,
+    "he": "ניתן לפתוח שוב את האפליקציה $tzeitNote — $endLabel."
+  },
+  {
+    "key": "blessing over fire in Yaknehaz and regular Havdalah",
+    "len": 51,
+    "he": "ברכה על האש ב-Yaknehaz ובהavdalah הרגילה"
+  },
+  {
+    "key": "Ten Days of Repentance from Rosh Hashana to Yom Kippur",
+    "len": 54,
+    "he": "עשרת ימי teshuvah מראש השנה עד יום kippur"
+  },
+  {
+    "key": "Shalom bayit — peace in the home; a central Jewish value",
+    "len": 56,
+    "he": "שalom bayit — שלום בית; ערך יהודי מרכזי"
+  },
+  {
+    "key": "guarding one's speech from lashon hara and harmful words",
+    "len": 56,
+    "he": "שmirat halashon — שמירה על הדibur מלashon hara ומילים מזיקות"
+  },
+  {
+    "key": "tradition faithfully transmitted generation to generation",
+    "len": 57,
+    "he": "mesorah — מסורה שנמסרה נאmanh מדור לדור"
+  },
+  {
+    "key": "Gemara — Talmudic commentary and discussion on the Mishnah",
+    "len": 58,
+    "he": "גemara — פרשנות ודיון talmudi על המשנה"
+  },
+  {
+    "key": "fearing of Heaven; living with awareness that G-d is present",
+    "len": 60,
+    "he": "yirat Shamayim — יirat shamayim; חיים עם מודעות לנוכחות ה'"
+  },
+  {
+    "key": "gabbai — synagogue officer who coordinates aliyot and services",
+    "len": 62,
+    "he": "gabbai — גabbaי בית כנסת שמתאם עליות ותפילות"
+  },
+  {
+    "key": "assur bemelacha — forbidden to do melacha on Shabbat or Yom Tov",
+    "len": 63,
+    "he": "assur bemelacha — אסור לעשות מלאכה בשבת או ביום טוב"
+  },
+  {
+    "key": "karmelit — rabbinic semi-public area with carrying restrictions",
+    "len": 63,
+    "he": "karmelit — אזור חצי-ציבורי דרabbanan עם הגבלות על הוצאה"
+  },
+  {
+    "key": "HaNeiros halalu — paragraph sung after lighting Chanukah candles",
+    "len": 64,
+    "he": "HaNeiros halalu — פסוקה הנשירה לאחר הדלקת נרות חנוכה"
+  },
+  {
+    "key": "festive meal tied to a mitzvah (e.g. brit, siyum, wedding, etc.)",
+    "len": 64,
+    "he": "seudat מצווה — סעודה חגיגית הקשורה למצווה (למשל brit, siyum, חupah וכו')"
+  },
+  {
+    "key": "Nachum Ish Gamzu — sage known for finding good in every situation",
+    "len": 65,
+    "he": "נחum Ish Gamzu — חכam הידוע במציאת טוב בכל מצב"
+  },
+  {
+    "key": "imitating divine kindness (clothing the needy, visiting the sick)",
+    "len": 65,
+    "he": "הליכה בדרכי ה' — חקיית חסד אלוקי (הלבשת עneiim, בikur cholim)"
+  },
+  {
+    "key": "charity box; collecting coins for those in need is itself a mitzvah",
+    "len": 67,
+    "he": "קupat tzedakah — איסוף מטבעות לneedyim הוא בפני עצmo מצווה"
+  },
+  {
+    "key": "mesorah — tradition faithfully transmitted generation to generation",
+    "len": 67,
+    "he": "mesorah — מסורה שנמסרה נאmanh מדור לדור"
+  },
+  {
+    "key": "Give the next person you see a blessing for a long and healthy life.",
+    "len": 68,
+    "he": "תנו לnext person שתפגשu ברכה לחיים ארukim ובריאim."
+  },
+  {
+    "key": "Eruv techumin — extends the Shabbat walking boundary in special cases",
+    "len": 69,
+    "he": "Eruv techumin — מרחיב את תחום הליכת השבת במקרים מיוחדים"
+  },
+  {
+    "key": "hakarat hatov — recognizing the good; thanking someone for a kindness",
+    "len": 69,
+    "he": "hakarat hatov — הכרת הטוב; הודאה למישהו על טובה"
+  },
+  {
+    "key": "refuah shleimah — complete healing; said when praying for someone ill",
+    "len": 69,
+    "he": "refuah shleimah — רפואה שלמה; נאמר בתפילה עבור חולה"
+  },
+  {
+    "key": "\"guard (Shabbat)\" from the Deuteronomy version of the Ten Commandments",
+    "len": 70,
+    "he": "\"שmor (שבת)\" מנוסח דvarim של עשרת הדibrot"
+  },
+  {
+    "key": "loving your fellow Jew — central Torah principle taught by Rabbi Akiva",
+    "len": 70,
+    "he": "אהבat l'reacha kamocha — עיקרון תורה מרכזי שלמד רבי עקיבא"
+  },
+  {
+    "key": "palm branch waved with the etrog, willows, and myrtle branches on Sukkot",
+    "len": 72,
+    "he": "lulav — ענף דקל שננענע עם etrog, aravot vehadasim בסוכות"
+  },
+  {
+    "key": "melachot — the 39 categories of transformative labor forbidden on Shabbat",
+    "len": 73,
+    "he": "melachot — ל\"ט קטegorיות של מלאכה משנה האסורה בשבת"
+  },
+  {
+    "key": "Shamor — \"guard (Shabbat)\" from the Deuteronomy version of the Ten Commandments",
+    "len": 79,
+    "he": "Shamor — \"שmor (שבת)\" מנוסח דvarim של עשרת הדibrot"
+  },
+  {
+    "key": "This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.",
+    "len": 126,
+    "he": "השנה שבת היא ערב $chagName — $chagName מתחיל הלילה עם צאת השבת. זה לא קורה בכל שנה."
+  },
+  {
+    "key": "Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}",
+    "len": 138,
+    "he": "הוסיפו יעלה ויבוא בעמידת מנחה בראש חודש — בברכת רצה (עבודה).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}"
+  },
+  {
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Maariv\")}\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nIf you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.",
+    "len": 165,
+    "he": "${yaalehVyavoFemaleAmidahLead(\"Maariv\")}\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nאם אומרים ברכת המזון כשאוכלים לחם הלילה, יש להוסיף גם שם יעלה ויבוא."
+  },
+  {
+    "key": "Today is $holidayName (Yom Tov — a festival day). Please put away your device and keep the day holy. Melacha (forbidden labor) applies on Yom Tov similar to Shabbat.",
+    "len": 165,
+    "he": "היום $holidayName (יום טוב — יום חג). אנא הניחו את המכשיר ושמרו על קדושת היום. Melacha (מלאכה אסורהa) chala beYom Tov kmo beShabbat."
+  },
+  {
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Mincha\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.",
+    "len": 171,
+    "he": "${yaalehVyavoFemaleAmidahLead(\"Mincha\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}\n\nאם אומרים ברכת המזון כשאוכלים לחם היום, יש להוסיף גם שם יעלה ויבוא."
+  },
+  {
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Shacharit\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.",
+    "len": 177,
+    "he": "${yaalehVyavoFemaleAmidahLead(\"Shacharit\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nאם אומרים ברכת המזון כשאוכלים לחם היום, יש להוסיף גם שם יעלה ויבוא."
+  },
+  {
+    "key": "Please put away your device and keep Shabbat. Rest, pray, learn Torah, and enjoy time with family and community. Melacha (forbidden labor) applies on Shabbat, including most phone and device use.",
+    "len": 195,
+    "he": "אנא הניחו את המכשיר ושמרו על שבת. נוחu, התפללu, למdu Torah, והנu מזמן עם משפחה וקהילה. Melacha (מלאכה אסורהa) chala beShabbat, כולל רוב השימוש בטלפון ובמכשירים."
+  },
+  {
+    "key": "Discover the deeper meaning of the beard in Judaism! 🧔 Did you know? Kabbalists say that the 13 attributes of Divine mercy can emanate through the hairs of the beard! Now that's what I call a valuable hairloom.",
+    "len": 210,
+    "he": "גלו את המשמעות העמוקה של הזקן ביהדות! 🧔 ידעתם? קabbalistim omrim she-13 midot ha'rachamim yecholim le'histalek דרך שערות הזקן! זו באמת ירושה שיערית יקרת ערך."
+  },
+  {
+    "key": "Shehecheyanu (Sephardic — Shulchan Arukh O.C. 692:1; Yalkut Yosef): Recite only before the first evening Megillah reading. Do not repeat Shehecheyanu at the daytime reading — the blessing from the night covers the entire holiday; repeating it in the daytime is a bracha levatala.",
+    "len": 279,
+    "he": "Shehecheyanu()ספרדי c - שולחן ערוך 692:1;Yalkut Yosef Recite only before the first Evening Megillah קריאה. אל תחזור Shehecheyanu בקריאת היום - הברכה מן הלילה מכסה את כל החג; החזרה על זה בשעות היום היא ברכה.bracha le"
+  },
+  {
+    "key": "• Omer count trigger: The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table on that night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item).",
+    "len": 279,
+    "he": "•Omer המונחים: לילה אחרי הראשון Seder 16 Nisan מתחיל באופן רשמיSefirat Ha Omer לפני שעזב את השולחן באותו לילה, לספור יום 1 של Omer אם אתם מתגעגעים למחזור יום-יומי מלא, שאלו את עצמכם rav על המשך עם bracha(ראה)Omer רשימת הפריט)."
+  },
+  {
+    "key": "oleh — The oleh (one who goes up) recites blessings before and after the Torah reading at an aliyah. Immigrating to Israel is also called aliyah. Honoring aliyot respects kohanim, leviim, yahrzeits, and life-cycle events. Prepare the Hebrew blessings or follow along in transliteration.",
+    "len": 286,
+    "he": "oleh - The oleh(מי שהולך למעלה) מדקלם ברכה לפני ואחרי התורה קורא בתורה.aliyah הגירה לישראל נקראת גם aliyah כבוד לאליווט kohanim,levi im,yahrzeit אירועים ואירועי מחזור חיים. היכונו את הברכות העבריות או המשיכו בגלגול."
+  },
+  {
+    "key": "Shulchan Aruch — The Shulchan Aruch (\"Set Table\") is the classic 16th-century code of halacha (Jewish Law) by Rabbi Yosef Karo. Ashkenazim often study it with the Rema's glosses; Sephardim generally follow Rabbi Karo, but rabbis have debated about almost everything throughout the years.",
+    "len": 287,
+    "he": "Shulchan Aruch - The Shulchan Aruch(Set Table) הוא הקוד הקלאסי מהמאה ה-16 של halacha(חוק יהודי) מאת הרב יוסף קארו.אשכנזים לעתים קרובות ללמוד את זה עם Rema\"ברקים;ספרדי m בדרך כלל לעקוב אחר הרב קארו, אבל רבנים דנים כמעט בכל השנים."
+  },
+  {
+    "key": "Elul is the month before Rosh Hashana — daily selichot (in Ashkenaz from before Rosh Hashana, Sephardim all month), blowing shofar after services, and cheshbon hanefesh. It is the runway for teshuvah. Increase charity, repair relationships, and learn one new halacha before the Days of Awe.",
+    "len": 290,
+    "he": "אלול הוא החודש שלפני Rosh Hashana - יום יומי selichot(in)אשכנז קודם Rosh Hashana,ספרדי m כל החודש - מפוצץ shofar לאחר שירות, ו- chshbon hanefesh. זה המסלול עבור teshuvah להגדיל את צדקה, לתקן מערכות יחסים וללמוד אחד חדש halacha לפני ימיו."
+  },
+  {
+    "key": "• Omer count trigger: The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item).",
+    "len": 290,
+    "he": "•Omer המונחים: הלילה השני של פסח(שני)Seder באופן רשמי מתחילSefirat Ha Omer לפני היציאה Seder טבלה בלילה השני, יום מספר 1 של Omer אם אתם מתגעגעים למחזור יום-יומי מלא, שאלו את עצמכם rav על המשך עם bracha(ראה)Omer רשימת הפריט)."
+  },
+  {
+    "key": "Aliyah means \"going up\" — being called to bless the Torah reading in shul, or immigrating to Israel. In shul, the oleh says blessings before and after the portion; the baal koreh chants. Honoring aliyot goes to kohanim, leviim, a groom, bar mitzvah, and yahrzeit per order on the gabbai's list.",
+    "len": 294,
+    "he": "העלייה פירושה \"לקום\" – שכינה לברך את התורה בקריאה בפסוק או להגר לישראל. ב sh,oleh אומרים ברכות לפני ואחרי החלק;baal koreh מזמורים הכבוד לאוליוט הולך kohanim,levi im חתן,bar מצווה ו yahrzeit על הסדרgabbai\"רשימה."
+  },
+  {
+    "key": "Targum Onkelos is the Aramaic translation of the Torah read in Shnayim Mikra v'Echad Targum. It was taught at Ezra's time to understand Torah. One who finds Onkelos difficult may substitute Rashi's commentary for the third reading (O.C. 285:2). Some use an accurate English translation instead.",
+    "len": 294,
+    "he": "Targum Onkelos תרגום ramaic של התורה קורא Shnayim Mikra V'Echad Targum הוא למד בזמנו של עזרא כדי להבין את התורה. מי שמוצא את Onkelos קשה יכול להחליף Rashi פרשנות לקריאה שלישית (O.C. 285:2) חלקם משתמשים בתרגום אנגלי מדויק במקום."
+  },
+  {
+    "key": "Hamotzi is the blessing over bread — \"Who brings forth bread from the earth\" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat, lechem mishneh — two whole loaves.",
+    "len": 295,
+    "he": "Hamotzi הברכה על הלחם - \"מי מביא לחם מן האדמה\" - מתחיל ארוחה שדורשת ייסורים. כביסה netilat yadayim לפני ארוחות לחם לחתוך לחם לאחרים לאחר שתברך אם אתה מארח. ב פסח ham הוא על matzah על שבת,lechem mishneh שתי כיכרות שלמות."
+  },
+  {
+    "key": "Rashi is Rabbi Shlomo Yitzhaki's eleventh-century commentary — the first stop for Chumash and Talmud learners. He explains pshat (plain meaning) in concise Hebrew (or Aramaic in Talmud). Shnayim Mikra often uses Rashi as the \"third\" reading. His commentary shaped Jewish education for centuries.",
+    "len": 295,
+    "he": "Rashi הפרשנות של הרב שלמה יצחקי מהמאה ה-11 - התחנה הראשונה Chumash ו Talmud לומדים. הוא מסביר פשטות (משמעות ברורה) בעברית (או ramaic in concise Hebrew)Talmud).Shnayim Mikra לעתים קרובות משתמשים Rashi כקריאה שלישית. הפרשנות שלו עיצבה את החינוך היהודי במשך מאות שנים."
+  },
+  {
+    "key": "The Mishnah is the first major written compilation of the Oral Torah, edited around 200 CE. It organizes halacha by topic (Shabbat, blessings, damages, and so on) in concise Hebrew. The Gemara and Talmud Yerushalmi explain and debate the Mishnah. Beginners often start Mishnah before full Talmud.",
+    "len": 296,
+    "he": "The Mishnah הוא האוסף הראשון שנכתב של התורה הפה, שנערך בסביבות 200 לספירה. הוא מארגן halacha נושא (שבת ברכות, נזקים וכו') בזינוק עברית. The Gemara ו Talmud יצחק מסביר ודן את Mishnah מתחילים לעתים קרובות Mishnah לפני מלא Talmud."
+  },
+  {
+    "key": "yad soledet bo — Yad soledet bo (\"when the hand recoils\") is the heat threshold for bishul on Shabbat — roughly 110–113°F (43–45°C). Food already fully cooked may sometimes be reheated dry on Shabbat; liquids are stricter. This is why a blech keeps food warm without reaching cooking temperature.",
+    "len": 296,
+    "he": "yad soledet bo(עמוד יד) \"When the Hand recoils\" הוא סף חום עבור bishul על שבת 110–11 °F (5–45°C). מזון מבושל במלואו עשוי לפעמים להיות יבש על שבת נוזלים הם נוקשים יותר. זו הסיבה blech לשמור על מזון חם בלי להגיע לטמפרטורת הבישול."
+  },
+  {
+    "key": "Elul — Elul is the month before Rosh Hashana — daily selichot (in Ashkenaz from before Rosh Hashana, Sephardim all month), blowing shofar after services, and cheshbon hanefesh. It is the runway for teshuvah. Increase charity, repair relationships, and learn one new halacha before the Days of Awe.",
+    "len": 297,
+    "he": "אלול – אלול הוא החודש שלפני Rosh Hashana - יום יומי selichot(in)אשכנז קודם Rosh Hashana,ספרדי m כל החודש - מפוצץ shofar לאחר שירות, ו- chshbon hanefesh. זה המסלול עבור teshuvah להגדיל את צדקה, לתקן מערכות יחסים וללמוד אחד חדש halacha לפני ימיו."
+  },
+  {
+    "key": "Shaddai (one of Hashem's names you shouldn't pronounce in vain) on the mezuzah back is a divine name and acronym for Shomer Daltot Yisrael — Guardian of Israel's doors. The letter shin on the case often points outward. It is a reminder of faith that Hashem has the power to guard you at every doorway.",
+    "len": 301,
+    "he": "Shaddai(אחד Hashem שמות שאסור לבטא לשווא)mezuzah חזרה היא שם אלוהי וראשי התיבות של Shomer Deltot Israel - שומר על דלתות ישראל. המכתב נשמע לעתים קרובות בחוץ. זוהי תזכורת לאמונה Hashem יש לכם את הכוח לשמור עליכם בכל דלת."
+  },
+  {
+    "key": "Rashi — Rashi is Rabbi Shlomo Yitzhaki's eleventh-century commentary — the first stop for Chumash and Talmud learners. He explains pshat (plain meaning) in concise Hebrew (or Aramaic in Talmud). Shnayim Mikra often uses Rashi as the \"third\" reading. His commentary shaped Jewish education for centuries.",
+    "len": 303,
+    "he": "RashiRashi הפרשנות של הרב שלמה יצחקי מהמאה ה-11 - התחנה הראשונה Chumash ו Talmud לומדים. הוא מסביר פשטות (משמעות ברורה) בעברית (או ramaic in concise Hebrew)Talmud).Shnayim Mikra לעתים קרובות משתמשים Rashi כקריאה שלישית. הפרשנות שלו עיצבה את החינוך היהודי במשך מאות שנים."
+  },
+  {
+    "key": "aliyah — Aliyah means \"going up\" — being called to bless the Torah reading in shul, or immigrating to Israel. In shul, the oleh says blessings before and after the portion; the baal koreh chants. Honoring aliyot goes to kohanim, leviim, a groom, bar mitzvah, and yahrzeit per order on the gabbai's list.",
+    "len": 303,
+    "he": "aliyah העלייה פירושה \"להתרומם\" – שכינה לברך את התורה בקריאה בקול רם, או להגר לישראל. ב sh,oleh אומרים ברכות לפני ואחרי החלק;baal koreh מזמורים הכבוד לאוליוט הולך kohanim,levi im חתן,bar מצווה ו yahrzeit על הסדרgabbai\"רשימה."
+  },
+  {
+    "key": "Hamotzi — Hamotzi is the blessing over bread — \"Who brings forth bread from the earth\" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat, lechem mishneh — two whole loaves.",
+    "len": 305,
+    "he": "HamotziHamotzi הברכה על הלחם - \"מי מביא לחם מן האדמה\" - מתחיל ארוחה שדורשת ייסורים. כביסה netilat yadayim לפני ארוחות לחם לחתוך לחם לאחרים לאחר שתברך אם אתה מארח. ב פסח ham הוא על matzah על שבת,lechem mishneh שתי כיכרות שלמות."
+  },
+  {
+    "key": "Mishnah — The Mishnah is the first major written compilation of the Oral Torah, edited around 200 CE. It organizes halacha by topic (Shabbat, blessings, damages, and so on) in concise Hebrew. The Gemara and Talmud Yerushalmi explain and debate the Mishnah. Beginners often start Mishnah before full Talmud.",
+    "len": 306,
+    "he": "Mishnah - The Mishnah הוא האוסף הראשון שנכתב של התורה הפה, שנערך בסביבות 200 לספירה. הוא מארגן halacha נושא (שבת ברכות, נזקים וכו') בזינוק עברית. The Gemara ו Talmud יצחק מסביר ודן את Mishnah מתחילים לעתים קרובות Mishnah לפני מלא Talmud."
+  },
+  {
+    "key": "Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a multi-wick candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. After Yom Tov there's usually no spices or candle. After Yom Kippur we do use a candle which was lit throughout Yom Kippur.",
+    "len": 309,
+    "he": "Havdalah מפריד זמן קדוש מיום שבוע. על נורמלי Motzei שבת הוא משתמש יין, נר רב-וויק,besamim(צילום: מנחם את הנפש כתוספת)neshama yeteira יוצאים. אחרי יום טוב בדרך כלל אין תבלינים או נר. אחרי Yom Kippur אנחנו משתמשים בנר שהדליק בכל רחבי העולם.Yom Kippur."
+  },
+  {
+    "key": "Chitas — Chitas (חיט\"ס) is Chabad's daily study cycle: Chumash (weekly Torah portion with Rashi), Tehillim (Psalms divided by day of month), and Tanya. Many complete it after morning prayers, but you may learn today's portions anytime before the next Hebrew day. Hayom Yom is an additional short daily reading.",
+    "len": 310,
+    "he": "ChitasChitas(שם בדוי)חב\"ד מחזור לימוד יומי:Chumash(בעיקר תורה)Rashi)Tehillim()Psalmמחולק עד יום חודש),Tanya רבים השלימו זאת לאחר תפילות הבוקר, אך אתם עשויים ללמוד את החלקים של היום בכל עת לפני היום העברי הבא.Hayom Yom קריאה יומית קצרה נוספת."
+  },
+  {
+    "key": "Matzah is unleavened bread eaten all Pesach and central at the Seder — at least a kezayit when hamotzi is said, again for the afikoman. It recalls haste leaving Egypt. Shmurah matzah is guarded from moisture; many use it at the Seder. Store carefully — broken matzah still counts if kezayit-sized pieces remain.",
+    "len": 311,
+    "he": "מטז'ה הוא לחם ללא מעצורים פסח מרכז במרכז Seder לפחות kezayit כאשר הוא אומר, שוב עבורafikomanזה מזכיר לי לעזוב את מצרים. Shmurah matzah הוא נשמר מהלחות; רבים משתמשים בו.Seder חנות בזהירות - שבור matzah עדיין נחשב אם kezayit חתיכות גדולות נשארות"
+  },
+  {
+    "key": "Shaddai — Shaddai (one of Hashem's names you shouldn't pronounce in vain) on the mezuzah back is a divine name and acronym for Shomer Daltot Yisrael — Guardian of Israel's doors. The letter shin on the case often points outward. It is a reminder of faith that Hashem has the power to guard you at every doorway.",
+    "len": 311,
+    "he": "Shaddai- - -Shaddai(אחד Hashem שמות שאסור לבטא לשווא)mezuzah חזרה היא שם אלוהי וראשי התיבות של Shomer Deltot Israel - שומר על דלתות ישראל. המכתב נשמע לעתים קרובות בחוץ. זוהי תזכורת לאמונה Hashem יש לכם את הכוח לשמור עליכם בכל דלת."
+  },
+  {
+    "key": "Targum Onkelos — Targum Onkelos is the Aramaic translation of the Torah read in Shnayim Mikra v'Echad Targum. It was taught at Ezra's time to understand Torah. One who finds Onkelos difficult may substitute Rashi's commentary for the third reading (O.C. 285:2). Some use an accurate English translation instead.",
+    "len": 311,
+    "he": "Targum OnkelosTargum Onkelos תרגום ramaic של התורה קורא Shnayim Mikra V'Echad Targum הוא למד בזמנו של עזרא כדי להבין את התורה. מי שמוצא את Onkelos קשה יכול להחליף Rashi פרשנות לקריאה שלישית (O.C. 285:2) חלקם משתמשים בתרגום אנגלי מדויק במקום."
+  },
+  {
+    "key": "Mishnah Berurah — Mishnah Berurah is Rabbi Yisrael Meir Kagan's detailed commentary on Orach Chaim — daily halacha for prayer, Shabbat, and festivals. It explains Shulchan Aruch with practical rulings. Many Ashkenazim rely on it for home practice. It pairs with the Chofetz Chaim's other works on speech and mitzvot.",
+    "len": 316,
+    "he": "Mishnah BerurahMishnah Berurah הוא הפרשנות המפורטת של הרב ישראל מאיר קגן על אורך חיים - יום יומי halacha תפילה,שבת חגים וחגים זה מסביר Shulchan Aruch עם החלטות מעשיות. רבים אשכנזים מסתמך על זה על תרגול ביתי. זוגות עם Chofetz Chaim\"אחרים עובדים על דיבור ו מצוות."
+  },
+  {
+    "key": "Arba Minim are the Four Species: lulav (palm), etrog (citron), hadas (myrtle), and aravah (willow). They are waved during Hallel on Sukkot (except Shabbat). The etrog must be kosher — not punctured or dried. Many check etrogim before buying. Holding them together unifies the Jewish people's diversity in one mitzvah.",
+    "len": 317,
+    "he": "Arba Minim ארבעת המינים:lulav(palm)etrog(בלטינית: Hadas) and a rav א) הם מוצצים במהלך Hallel על Sukkot(מלבד שבת). The etrog חייב להיות כשר - לא מפונק או יבש. רבים בודקים etrog לפני הקנייה החזקתם יחדיו שוללת את המגוון של העם היהודי באחד מצווה."
+  },
+  {
+    "key": "Zemiroth (zemirot) are Shabbat table songs — some biblical phrases, many composed by mystics and poets. Singing zemiroth turns the meal into oneg Shabbat. Common tunes include Menucha v'Simcha and Yah Ribon. No musical instruments on Shabbat per most poskim — voices only. Children learn Shabbat joy through zemiroth.",
+    "len": 317,
+    "he": "Zemiroth (zemirot)שבת שירים שולחניים - כמה ביטויים תנ\"כיים, רבים המורכבים ממיסטיקה ומשוררים. לשיר zemiroth הופך את הארוחה ל oneg שבת. Common tunes כוללים את התפריט cha v'Simcha ו- Yah Ribon. אין כלי נגינה שבת לרובposkimקולות בלבד ילדים לומדים שבת שמחה דרך zemiroth."
+  },
+  {
+    "key": "Haggadah — The Haggadah (\"telling\") is the book guiding the Seder — questions, answers, plagues, Dayeinu, and Hallel. Its core is making the next generation feel they left Egypt. Many editions add commentaries; the mitzvah is participation and understanding, not speed. Mah Nishtanah is the children's opening question.",
+    "len": 319,
+    "he": "Haggadah - The Haggadah(ספר) הוא הספר המנחה את Seder שאלות, תשובות, מגפות,Dayeinu ו Hallel הליבה שלה היא לגרום לדור הבא להרגיש שהם עזבו את מצרים. מהדורות רבות מוסיפים הערות;מצווה זה שיתוף והבנה, לא מהירות.Mah Nishtanah זו שאלת הפתיחה של הילדים."
+  },
+  {
+    "key": "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a multi-wick candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. After Yom Tov there's usually no spices or candle. After Yom Kippur we do use a candle which was lit throughout Yom Kippur.",
+    "len": 320,
+    "he": "HavdalahHavdalah מפריד זמן קדוש מיום שבוע. על נורמלי Motzei שבת הוא משתמש יין, נר רב-וויק,besamim(צילום: מנחם את הנפש כתוספת)neshama yeteira יוצאים. אחרי יום טוב בדרך כלל אין תבלינים או נר. אחרי Yom Kippur אנחנו משתמשים בנר שהדליק בכל רחבי העולם.Yom Kippur."
+  },
+  {
+    "key": "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi), not matzah. Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
+    "len": 320,
+    "he": "Purim סעודה – The Purim סעודה היא ארוחת ערב חגיגית על Purim יום - חלק מהשמחה של היום לצד Megillah, mishloach manot, and מתנות לאביונים. זה דורש לחם ולא matzah רבים מתחילים את הארוחה לפני השקיעה וממשיכים בערב. זה סוד מצווה חגיגה, לא יום צום."
+  },
+  {
+    "key": "The Days of Awe (Aseret Yemei Teshuvah) span Rosh Hashana through Yom Kippur — a time of judgment, prayer, and teshuvah. Customs intensify: Selichot, charity, and asking forgiveness. Even Jews who are less observant year-round often attend services. The tone is solemn but hopeful — repentance can change a harsh decree.",
+    "len": 320,
+    "he": "The Days of Awe (Aseret Yemei Teshuvah)Rosh Hashana דרך Yom Kippur זמן של שיפוט, תפילה,teshuvah המונחים:Selichot צדקה ובקש סליחה. אפילו יהודים שהם פחות שומרי ראש השנה מבקרים לעתים קרובות בשירות. הטון אינו אלא תקווה – חרטה יכולה לשנות צו נוקשה."
+  },
+  {
+    "key": "chazzan — The chazzan (cantor) leads the congregation in prayer — especially when the service is sung or when a minyan needs a skilled voice for repetition of the Amidah. The role is shaliach tzibur (emissary of the community), not a performer. Many weekday services have no professional chazzan; a member leads instead.",
+    "len": 320,
+    "he": "chazzan - The chazzan(קנרטור) מוביל את הקהילה בתפילה - במיוחד כאשר השירות מוקרן או כאשר minyan צריך קול מיומן לחזרה Amidah התפקיד הוא shaliach tzibur(של הקהילה), לא שחקן. שירותים ימיים רבים אינם מקצועיים chazzan חבר מוביל במקום."
+  },
+  {
+    "key": "matzah — Matzah is unleavened bread eaten all Pesach and central at the Seder — at least a kezayit when hamotzi is said, again for the afikoman. It recalls haste leaving Egypt. Shmurah matzah is guarded from moisture; many use it at the Seder. Store carefully — broken matzah still counts if kezayit-sized pieces remain.",
+    "len": 320,
+    "he": "matzah ממזרה היא לחם ללא מעצורים פסח מרכז במרכז Seder לפחות kezayit כאשר הוא אומר, שוב עבורafikomanזה מזכיר לי לעזוב את מצרים. Shmurah matzah הוא נשמר מהלחות; רבים משתמשים בו.Seder חנות בזהירות - שבור matzah עדיין נחשב אם kezayit חתיכות גדולות נשארות"
+  },
+  {
+    "key": "The Three Weeks from 17 Tammuz to Tisha B'Av mourn the Temple's destruction. Ashkenazim and Chabad prohibit haircuts, weddings, and instrumental music for the full period; Sephardim and Edot HaMizrach are generally more lenient until the week of Tisha B'Av. Restrictions intensify in the Nine Days — customs differ by nusach.",
+    "len": 325,
+    "he": "The Three Weeks 17 Tammuz to Tisha B'Av מתאבלים על הרס המקדש.אשכנזים m ו חב\"ד לאסור תספורת, חתונות ומוסיקה אינסטרומנטלית לתקופה מלאה;ספרדי m ו Edot HaMizrach בדרך כלל יותר נוח עד השבוע Tisha B'Av המונחים: Restrictions in the Nine Days מנהגים שונים על ידי nusach."
+  },
+  {
+    "key": "Borei Pri HaGafen — Borei pri hagafen is the blessing on wine and grape juice — \"Who creates the fruit of the vine.\" It is required before Kiddush, the four cups at the Seder, and drinking wine for simcha. After the blessing, drink a meaningful amount (revi'it per many poskim). Ordinary table grapes use a different blessing.",
+    "len": 326,
+    "he": "Borei Pri HaGafen Borei pri Hagafen הוא ברכה על יין מיץ ענבים - \"מי יוצר את הפירות של הגפן\". נדרש לפני Kiddush ארבעת הכוסות על Seder שתיית יין בשביל צ'ה. לאחר הברכה, שתו כמות משמעותית (revi'it לרביםposkim). ענבים רגילים משתמשים בברכות שונות."
+  },
+  {
+    "key": "The Nine Days intensify mourning before Tisha B'Av. Ashkenazim restrict meat, wine, laundry, and bathing from 1 Av; Sephardim and Edot HaMizrach often restrict from the week of Tisha B'Av (some communities from Rosh Chodesh Av). Tisha B'Av is a full fast with kinot; Ashkenazim continue some restrictions until chatzos on 10 Av.",
+    "len": 328,
+    "he": "The Nine Days להגביר את האבל לפני Tisha B'Av.אשכנזים מ' מגביל בשר, יין, כביסה, רחצה מאב 1 ספרדי m ו Edot HaMizrach לעתים קרובות להגביל את שבוע Tisha B'Av(כמה קהילות ראש חודש א).Tisha B'Av הוא צום עםkinot;אשכנזים המשך הגבלות עד chatzos 10 אב"
+  },
+  {
+    "key": "zemiroth — Zemiroth (zemirot) are Shabbat table songs — some biblical phrases, many composed by mystics and poets. Singing zemiroth turns the meal into oneg Shabbat. Common tunes include Menucha v'Simcha and Yah Ribon. No musical instruments on Shabbat per most poskim — voices only. Children learn Shabbat joy through zemiroth.",
+    "len": 328,
+    "he": "zemiroth Zemiroth (zemirot)שבת שירים שולחניים - כמה ביטויים תנ\"כיים, רבים המורכבים ממיסטיקה ומשוררים. לשיר zemiroth הופך את הארוחה ל oneg שבת. Common tunes כוללים את התפריט cha v'Simcha ו- Yah Ribon. אין כלי נגינה שבת לרובposkimקולות בלבד ילדים לומדים שבת שמחה דרך zemiroth."
+  },
+  {
+    "key": "Arba Minim — Arba Minim are the Four Species: lulav (palm), etrog (citron), hadas (myrtle), and aravah (willow). They are waved during Hallel on Sukkot (except Shabbat). The etrog must be kosher — not punctured or dried. Many check etrogim before buying. Holding them together unifies the Jewish people's diversity in one mitzvah.",
+    "len": 330,
+    "he": "Arba MinimArba Minim ארבעת המינים:lulav(palm)etrog(בלטינית: Hadas) and a rav א) הם מוצצים במהלך Hallel על Sukkot(מלבד שבת). The etrog חייב להיות כשר - לא מפונק או יבש. רבים בודקים etrog לפני הקנייה החזקתם יחדיו שוללת את המגוון של העם היהודי באחד מצווה."
+  },
+  {
+    "key": "Kaddish sanctifies G-d's Name in Aramaic — exalting G-d publicly. Mourners recite Kaddish for eleven months for parents and thirty days for other close relatives. It requires a minyan. There are half-Kaddish, whole-Kaddish, and rabbinic Kaddish placements in the service. Saying Kaddish connects the living to the deceased's merit.",
+    "len": 331,
+    "he": "Kaddish דיקטטורים ה' שם הספר: Aramaic - exalting ה' בפומבי. מורן מדקלם Kaddish במשך 11 חודשים להורים ו-30 ימים עבור קרובי משפחה קרובים אחרים. זה דורש minyan יש חצי- Kaddish שלם - Kaddish רבני Kaddish מיקומים בשירות. אומרים Kaddish מחבר את החיים לתועלתו של המנוח."
+  },
+  {
+    "key": "Korech is the \"Hillel sandwich\" at the Seder — matzah and maror together, recalling Temple-era practice. You eat a kezayit of matzah and maror combined after dipping maror in charoset. It is one of the Seder's core tastes: slavery's bitterness held with redemption's bread. Follow your Haggadah's order after the main matzah mitzvah.",
+    "len": 333,
+    "he": "Korech שם הספר: Hillel Sandwich Sedermatzah ו maror יחד, זוכרים את התרגול מתקופת המקדש. את אוכלת kezayit של matzah ו maror עקבו אחרי dipping maror פנימה charoset זה אחד Seder\"טעם הליבה: המרירות של העבדות התנהלה עם לחם הגאולה. עקוב אחריך Haggadah\"הסדר אחרי הראשי matzah מצווה."
+  },
+  {
+    "key": "Days of Awe — The Days of Awe (Aseret Yemei Teshuvah) span Rosh Hashana through Yom Kippur — a time of judgment, prayer, and teshuvah. Customs intensify: Selichot, charity, and asking forgiveness. Even Jews who are less observant year-round often attend services. The tone is solemn but hopeful — repentance can change a harsh decree.",
+    "len": 334,
+    "he": "ימים של Awe - ימי Awe (Aseret Yemei Teshuvah)Rosh Hashana דרך Yom Kippur זמן של שיפוט, תפילה,teshuvah המונחים:Selichot צדקה ובקש סליחה. אפילו יהודים שהם פחות שומרי ראש השנה מבקרים לעתים קרובות בשירות. הטון אינו אלא תקווה – חרטה יכולה לשנות צו נוקשה."
+  },
+  {
+    "key": "Bentching is Birkat Hamazon — Grace After Meals after eating a kezayit of bread within a meal. It thanks G-d for food and the Land. On Shabbat and festivals, Psalm 126 (Shir HaMaalot) precedes the second blessing. Yaaleh V'yavo is added on Rosh Chodesh and chag. Zimun invites others when three or more men ate bread together per minhag.",
+    "len": 337,
+    "he": "Bentching הוא Birkat Hamazon גרייס אחרי הארוחות kezayit לחם בתוך ארוחה תודה ה' לאוכל ולארץ. ב שבת חגים,Psalm126 (Shir HaMaalot) לפני הברכה השנייה.Yaaleh V'yavo נוסף על ראש חודש וכו'. זימון מזמין אחרים כאשר שלושה או יותר גברים אכלו לחם יחד minhag."
+  },
+  {
+    "key": "Three Weeks — The Three Weeks from 17 Tammuz to Tisha B'Av mourn the Temple's destruction. Ashkenazim and Chabad prohibit haircuts, weddings, and instrumental music for the full period; Sephardim and Edot HaMizrach are generally more lenient until the week of Tisha B'Av. Restrictions intensify in the Nine Days — customs differ by nusach.",
+    "len": 339,
+    "he": "Three Weeks - The Three Weeks 17 Tammuz to Tisha B'Av מתאבלים על הרס המקדש.אשכנזים m ו חב\"ד לאסור תספורת, חתונות ומוסיקה אינסטרומנטלית לתקופה מלאה;ספרדי m ו Edot HaMizrach בדרך כלל יותר נוח עד השבוע Tisha B'Av המונחים: Restrictions in the Nine Days מנהגים שונים על ידי nusach."
+  },
+  {
+    "key": "Nine Days — The Nine Days intensify mourning before Tisha B'Av. Ashkenazim restrict meat, wine, laundry, and bathing from 1 Av; Sephardim and Edot HaMizrach often restrict from the week of Tisha B'Av (some communities from Rosh Chodesh Av). Tisha B'Av is a full fast with kinot; Ashkenazim continue some restrictions until chatzos on 10 Av.",
+    "len": 340,
+    "he": "Nine Days - The Nine Days להגביר את האבל לפני Tisha B'Av.אשכנזים מ' מגביל בשר, יין, כביסה, רחצה מאב 1 ספרדי m ו Edot HaMizrach לעתים קרובות להגביל את שבוע Tisha B'Av(כמה קהילות ראש חודש א).Tisha B'Av הוא צום עםkinot;אשכנזים המשך הגבלות עד chatzos 10 אב"
+  },
+  {
+    "key": "Kaddish — Kaddish sanctifies G-d's Name in Aramaic — exalting G-d publicly. Mourners recite Kaddish for eleven months for parents and thirty days for other close relatives. It requires a minyan. There are half-Kaddish, whole-Kaddish, and rabbinic Kaddish placements in the service. Saying Kaddish connects the living to the deceased's merit.",
+    "len": 341,
+    "he": "KaddishKaddish דיקטטורים ה' שם הספר: Aramaic - exalting ה' בפומבי. מורן מדקלם Kaddish במשך 11 חודשים להורים ו-30 ימים עבור קרובי משפחה קרובים אחרים. זה דורש minyan יש חצי- Kaddish שלם - Kaddish רבני Kaddish מיקומים בשירות. אומרים Kaddish מחבר את החיים לתועלתו של המנוח."
+  },
+  {
+    "key": "The shofar is a ram's horn (or other kosher horn) blown on Rosh Hashana as a wake-up call to teshuvah. Tekiah, shevarim, and teruah patterns follow minhag. It is not blown on Shabbat. Hearing shofar in shul with kavannah fulfills the mitzvah for most men; women's obligation follows community psak. Practice times are posted before the chag.",
+    "len": 341,
+    "he": "The shofar הוא קרן של ram (או קרן כשרה אחרת) המכה על Rosh Hashana כקריאה מתעוררת teshuvah טוואי,shevarim ו teruah דפוסים עוקבים minhag זה לא מפוצץ על שבת שמיעה shofar עם kavannah למלא את מצווה עבור רוב הגברים, המחויבות של נשים באה בעקבות הקהילה. זמני התרגול פורסמו לפני ה-CHGA."
+  },
+  {
+    "key": "Korech — Korech is the \"Hillel sandwich\" at the Seder — matzah and maror together, recalling Temple-era practice. You eat a kezayit of matzah and maror combined after dipping maror in charoset. It is one of the Seder's core tastes: slavery's bitterness held with redemption's bread. Follow your Haggadah's order after the main matzah mitzvah.",
+    "len": 342,
+    "he": "KorechKorech שם הספר: Hillel Sandwich Sedermatzah ו maror יחד, זוכרים את התרגול מתקופת המקדש. את אוכלת kezayit של matzah ו maror עקבו אחרי dipping maror פנימה charoset זה אחד Seder\"טעם הליבה: המרירות של העבדות התנהלה עם לחם הגאולה. עקוב אחריך Haggadah\"הסדר אחרי הראשי matzah מצווה."
+  },
+  {
+    "key": "leishev baSukkah — Leishev baSukkah is the blessing \"to dwell in the sukkah\" — said when eating bread meals in the sukkah on Sukkot. Dwelling means spending meaningful time there, not only a quick snack. Rain may exempt you per halacha. Decorate the sukkah and make children feel at home in it — the booth recalls clouds of glory in the desert.",
+    "len": 344,
+    "he": "Leishev baSukkah - Leishev ba Sukkah הוא הברכה \"לשתתיישב ב sukkah\"אמר מתי לאכול לחם בארוחות.sukkah על Sukkot נפיחות פירושה לבזבז זמן משמעותי שם, לא רק חטיף צום. גשם יכול לפטור אותך halacha קישוט The sukkah לגרום לילדים להרגיש בבית – הבקתה נזכרת בענני תהילה במדבר."
+  },
+  {
+    "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is also Simchat Torah.\" else \".\"}\n\nTonight & tomorrow:\n• Light Yom Tov candles.\n${shehecheyanuErevLines(HebrewCalendarEngine.SHEMINI_ATZERES, tomorrowCal, profile)}\n• No lulav on Shemini Atzeret — the mitzvah ended with the seventh day of Sukkot.\n${if (profile.isInIsrael)",
+    "len": 347,
+    "he": "Shemini Atzeret מתחיל הערב${if (profile.isInIsrael) \" — in Israel this is also Simchat Torah.\" else \".\"}הערב ומחר:\nאור יום טוב נרות\n${shehecheyanuErevLines(HebrewCalendarEngine.SHEMINI_ATZERES, tomorrowCal, profile)}• לא lulav על Shemini Atzeret - The מצווה הסתיים ביום השביעי של Sukkot.\n${if (profile.isInIsrael)"
+  },
+  {
+    "key": "Tanya — The Tanya is Rabbi Schneur Zalman of Liadi's foundational Chabad work on the Jewish soul, divine service, and practical mysticism. Its full Hebrew name is Likutei Amarim (\"collected sayings\"). Chabad's daily Chitas program includes a portion of Tanya each day alongside Chumash and Tehillim. You can read it in Hebrew or English on Sefaria.",
+    "len": 348,
+    "he": "Tanya - The Tanya הרב שטיינ זלמן מהבסיס של ליאדי חב\"ד עבודה על הנפש היהודית, השירות האלוהי והמסתורין המעשי. שמו העברי המלא הוא Likutei Amarim (\"הדברים המוסמכים\").חב\"ד\"יום יומי Chitas התוכנית כוללת חלק Tanya כל יום לצד Chumash ו Tehillim אפשר לקרוא את זה בעברית או באנגלית.Sefaria."
+  },
+  {
+    "key": "Bentching — Bentching is Birkat Hamazon — Grace After Meals after eating a kezayit of bread within a meal. It thanks G-d for food and the Land. On Shabbat and festivals, Psalm 126 (Shir HaMaalot) precedes the second blessing. Yaaleh V'yavo is added on Rosh Chodesh and chag. Zimun invites others when three or more men ate bread together per minhag.",
+    "len": 349,
+    "he": "BentchingBentching הוא Birkat Hamazon גרייס אחרי הארוחות kezayit לחם בתוך ארוחה תודה ה' לאוכל ולארץ. ב שבת חגים,Psalm126 (Shir HaMaalot) לפני הברכה השנייה.Yaaleh V'yavo נוסף על ראש חודש וכו'. זימון מזמין אחרים כאשר שלושה או יותר גברים אכלו לחם יחד minhag."
+  },
+  {
+    "key": "shofar — The shofar is a ram's horn (or other kosher horn) blown on Rosh Hashana as a wake-up call to teshuvah. Tekiah, shevarim, and teruah patterns follow minhag. It is not blown on Shabbat. Hearing shofar in shul with kavannah fulfills the mitzvah for most men; women's obligation follows community psak. Practice times are posted before the chag.",
+    "len": 350,
+    "he": "shofar - The shofar הוא קרן של ram (או קרן כשרה אחרת) המכה על Rosh Hashana כקריאה מתעוררת teshuvah טוואי,shevarim ו teruah דפוסים עוקבים minhag זה לא מפוצץ על שבת שמיעה shofar עם kavannah למלא את מצווה עבור רוב הגברים, המחויבות של נשים באה בעקבות הקהילה. זמני התרגול פורסמו לפני ה-CHGA."
+  },
+  {
+    "key": "Simchat Torah (\"rejoicing in the Torah\") celebrates completing and restarting the annual Torah cycle with hakafot and joy. Biblically the day is Shemini Atzeret. In Israel, Simchat Torah is celebrated on that single biblical day. In the Diaspora, Shemini Atzeret is the first Yom Tov day and Simchat Torah is the second — separate calendar days with distinct focus.",
+    "len": 365,
+    "he": "Simchat Torah(\"השיבה בתורה\") חוגגת את השלמת מחזור התורה השנתי עם hakafot שמחה. התנ\"ך היום Shemini Atzeret בישראל,Simchat Torah הוא נחגג ביום התנ\"ך הבודד הזה. בתפוצות,Shemini Atzeret הראשון יום טוב יום ויום Simchat Torah הוא השני - ימי לוח שנה נפרדים עם מיקוד ייחודי."
+  },
+  {
+    "key": "Nusach is the prayer \"style\" of a community: which words are said, in what order, and often which melodies are used. Common examples include Nusach Ashkenaz, Nusach Sefard (Sephardi / Iberian diaspora), Nusach Edot HaMizrach (Middle Eastern and North African kehillot), Nusach Sefard on a Chasidic siddur (Ashkenazi-Chasidic — not Sephardi), and Nusach Ari (Chabad).",
+    "len": 366,
+    "he": "נושך הוא התפילה \"סגנון\" של קהילה: אשר נאמרו מילים, באיזו סדר, ולעתים קרובות משתמשים בהמלודיות. דוגמאות נפוצות כוללותNusach אשכנז נוסח Sefard ספרדי Iberian diaspora, נוסח Edot HaMizrach(מזרח וצפון אפריקה kehillot), נוסח Sefard על Chasidic סידור()אשכנזים צ'לסי – לא ספרדי וכן נוסח Ari()חב\"ד)."
+  },
+  {
+    "key": "New mitzvah submission from the Mitz Mode app:\n            \n            Submitted by: $submitterName\n            Mitzvah text: $mitzvahText\n            \n            Submitted on: ${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}\n            \n            Please review and consider adding to the mitzvah database.",
+    "len": 371,
+    "he": "חדש חדש חדש מצווה אפליקציית Mitz Mode: נכתב על ידי:$submitterNameהמונחים:$mitzvahTextנכתב על:${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}אנא בדקו ושימו לב להוספת מצווה מסד נתונים."
+  },
+  {
+    "key": "Edot HaMizrach (communities of the East) refers to Middle Eastern and North African Jewish kehillot — Iraqi, Syrian, Moroccan, Persian, Yemenite, and related traditions — usually praying Nusach Edot HaMizrach. Halacha generally follows Shulchan Aruch, but customs vary by kehilla. Not the same as Sephardi (Iberian diaspora / Nusach Sefard), though both differ from Ashkenaz.",
+    "len": 375,
+    "he": "Edot HaMizrach(קהילות המזרח) מתייחסות לשקית המזרח התיכון וצפון אפריקה – עיראק, סורית, מרוקאית, פרסית, תימן ומסורות קשורות – בדרך כלל מתפללים נושך Edot HaMizrach הלכה בדרך כלל Shulchan Aruch אבל המכס משתנה על ידי kehilla. לא אותו דבר ספרדי(Iberian diaspora / נוסח Sefard), אם כי שניהם שונים אשכנז."
+  },
+  {
+    "key": "nusach — Nusach is the prayer \"style\" of a community: which words are said, in what order, and often which melodies are used. Common examples include Nusach Ashkenaz, Nusach Sefard (Sephardi / Iberian diaspora), Nusach Edot HaMizrach (Middle Eastern and North African kehillot), Nusach Sefard on a Chasidic siddur (Ashkenazi-Chasidic — not Sephardi), and Nusach Ari (Chabad).",
+    "len": 375,
+    "he": "נושך הוא התפילה \"סגנון\" של קהילה: אילו מילים נאמרות, באיזו סדר, ולעתים קרובות משמשים מלודיות. דוגמאות נפוצות כוללותNusach אשכנז נוסח Sefard ספרדי Iberian diaspora, נוסח Edot HaMizrach(מזרח וצפון אפריקה kehillot), נוסח Sefard על Chasidic סידור()אשכנזים צ'לסי – לא ספרדי וכן נוסח Ari()חב\"ד)."
+  },
+  {
+    "key": "If you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; $YAALEH_VYAVO_HALACHA_SOURCE). Continue davening.",
+    "len": 379,
+    "he": "אם שכחת מעריב על ראש חודש:\n• עדיין Retzei לפני שמו של אלוהים, הכנס Yaaleh V'yavo שם ולהמשיך ($YAALEH_VYAVO_HALACHA_SOURCE).\n• לאחר שסיימת Retzei או אחרי הכל Amidah אל תחזור ולא תחזור. בית דין קידש את החודש החדש ביום, לא בלילה.Berachot30b;$YAALEH_VYAVO_HALACHA_SOURCE(המשך דפוק."
+  },
+  {
+    "key": "Shemini Atzeret (\"eighth day of assembly\") is the biblical festival day immediately after the seven days of Sukkot — a day of special closeness with G-d. In Israel, with one day of Yom Tov, the rabbinic celebrations of Simchat Torah are folded into this biblical day. In the Diaspora, Shemini Atzeret is the first day and Simchat Torah is celebrated separately on the second day.",
+    "len": 379,
+    "he": "Shemini Atzeret(יום האספה) הוא יום החג התנ\"כי מיד לאחר שבעת הימים של Sukkot יום של קרבה מיוחדת ה' בישראל, עם יום אחד יום טוב חגיגות הרבנים Simchat Torah מתקפלים אל היום התנ\"ך הזה. בתפוצות,Shemini Atzeret זה היום הראשון,Simchat Torah הוא נחגג בנפרד ביום השני."
+  },
+  {
+    "key": "Simchat Torah — Simchat Torah (\"rejoicing in the Torah\") celebrates completing and restarting the annual Torah cycle with hakafot and joy. Biblically the day is Shemini Atzeret. In Israel, Simchat Torah is celebrated on that single biblical day. In the Diaspora, Shemini Atzeret is the first Yom Tov day and Simchat Torah is the second — separate calendar days with distinct focus.",
+    "len": 381,
+    "he": "Simchat TorahSimchat Torah(\"השיבה בתורה\") חוגגת את השלמת מחזור התורה השנתי עם hakafot שמחה. התנ\"ך היום Shemini Atzeret בישראל,Simchat Torah הוא נחגג ביום התנ\"ך הבודד הזה. בתפוצות,Shemini Atzeret הראשון יום טוב יום ויום Simchat Torah הוא השני - ימי לוח שנה נפרדים עם מיקוד ייחודי."
+  },
+  {
+    "key": "taharat hamishpacha — Taharat hamishpacha (family purity) regulates intimacy through the niddah cycle and mikveh immersion. After menstruation, counting seven clean days and immersing in a mikveh permits reuniting. It is a private mitzvah with detailed laws — classes and rabbis guide couples. Healthy observance is associated with marital renewal and sanctity in Jewish tradition.",
+    "len": 381,
+    "he": "taharat hamishpachaTaharat Hurtishpacha (טוהר המשפחה) מסדיר את האינטימיות דרך niddah מעגל ו mikveh immersion לאחר הווסת, לספור שבעה ימים נקיים ומכניסים פנימה mikveh אישורים לעונש. זה פרטי מצווה עם חוקים מפורטים - שיעורים ורבנים להנחות זוגות. שמירה בריאה קשורה להתחדשות הנישואין וקדושה במסורת היהודית."
+  },
+  {
+    "key": "In a Jewish leap year, 14 Adar I is Purim Katan (\"little Purim\"). The full Purim mitzvot — Megillah, mishloach manot, matanot l'evyonim, and the festive meal — apply only on regular Purim (14 Adar, or 15 Adar in walled cities).\n\nPurim Katan is marked by a slightly more festive tone; some communities add a special meal or omit Tachanun. It is not a substitute for Purim observance.",
+    "len": 382,
+    "he": "בשנת קפיצה יהודית 14 אדר אני Purim קטן (Little Purim\"). המלא Purim mitzvotMegillah, mishloach manot, matanot l'evyonim, ואת הארוחה חגיגית - חל רק על קבוע Purim(14 אדר, או 15 אדר בערים מוקירות). Purim קטן מסומן על ידי טון חגיגי מעט יותר; חלק מהקהילות מוסיפים ארוחה מיוחדת או mit Tachanun זה לא תחליף Purim שמירה."
+  },
+  {
+    "key": "A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and its the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.",
+    "len": 388,
+    "he": "gemach(gemilut chasadim) הוא קרן חינם או חברה טובה - הלוואות פריטים או כסף ללא ריבית, או ערוץ צדקה. ב Purim לתת דרך אמין gemach יכול למלא את la'evyonim אם העניים מקבלים כספים Purim יום (ובאותו יום אתה חוגג)Purim). Gemachim גם להפעיל ציוד לתינוקות, שמלת חתונה והלוואות ציוד רפואי בקהילות רבות."
+  },
+  {
+    "key": "A parsha (parashah) is the weekly Torah portion read in synagogue on Shabbat morning. The Torah is divided into 54 portions so the whole five books are completed each year (with combined portions sometimes depending on the calendar). Shnayim Mikra means studying the same parsha during the week before it is read publicly. The name appears as \"Parshat Bereishit,\" \"Parshat Noach,\" and so on.",
+    "len": 391,
+    "he": "parsha()parashahחלק התורה השבועי קורא בבית הכנסת שבת בוקר. התורה מחולקת ל-54 חלקים, כך שכל חמשת הספרים יושלמו מדי שנה (עם חלקים משולבים לפעמים בהתאם ללוח השנה).Shnayim Mikra לימוד אותו הדבר parsha במהלך השבוע לפני שהוא קורא בפומבי. שם השיר: \"Parshat\"Bereishit\"Parshat Noach\" וכן הלאה."
+  },
+  {
+    "key": "Edot HaMizrach — Edot HaMizrach (communities of the East) refers to Middle Eastern and North African Jewish kehillot — Iraqi, Syrian, Moroccan, Persian, Yemenite, and related traditions — usually praying Nusach Edot HaMizrach. Halacha generally follows Shulchan Aruch, but customs vary by kehilla. Not the same as Sephardi (Iberian diaspora / Nusach Sefard), though both differ from Ashkenaz.",
+    "len": 392,
+    "he": "Edot HaMizrachEdot HaMizrach(קהילות המזרח) מתייחסות לשקית המזרח התיכון וצפון אפריקה – עיראק, סורית, מרוקאית, פרסית, תימן ומסורות קשורות – בדרך כלל מתפללים נושך Edot HaMizrach הלכה בדרך כלל Shulchan Aruch אבל המכס משתנה על ידי kehilla. לא אותו דבר ספרדי(Iberian diaspora / נוסח Sefard), אם כי שניהם שונים אשכנז."
+  },
+  {
+    "key": "Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4-9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot- depending on the type of food. Ask your rav.",
+    "len": 396,
+    "he": "אל חמישיה (אל HaMichya) הוא העודף על mezonot, מזונות דגנים שאינם לחם - עוגה, סדקים, פסטה, דגנים וכו ' - כאשר אכלת לחם kezayit(approx כדור גולף בגודל מזון)k'dei achilat pras(4-9 דקות). אם אכלת לחם,Birkat Hamazon מכסה את כל המזונות ייתכן גם שתצטרך לומר Birkat Hamazon אם אכלת הרבה מאזוט - תלוי בסוג המזון. שאל את rav."
+  },
+  {
+    "key": "Shemini Atzeret — Shemini Atzeret (\"eighth day of assembly\") is the biblical festival day immediately after the seven days of Sukkot — a day of special closeness with G-d. In Israel, with one day of Yom Tov, the rabbinic celebrations of Simchat Torah are folded into this biblical day. In the Diaspora, Shemini Atzeret is the first day and Simchat Torah is celebrated separately on the second day.",
+    "len": 397,
+    "he": "Shemini AtzeretShemini Atzeret(יום האספה) הוא יום החג התנ\"כי מיד לאחר שבעת הימים של Sukkot יום של קרבה מיוחדת ה' בישראל, עם יום אחד יום טוב חגיגות הרבנים Simchat Torah מתקפלים אל היום התנ\"ך הזה. בתפוצות,Shemini Atzeret זה היום הראשון,Simchat Torah הוא נחגג בנפרד ביום השני."
+  },
+  {
+    "key": "gemach — A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and its the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.",
+    "len": 397,
+    "he": "gemach - A gemach(gemilut chasadim) הוא קרן חינם או חברה טובה - הלוואות פריטים או כסף ללא ריבית, או ערוץ צדקה. ב Purim לתת דרך אמין gemach יכול למלא את la'evyonim אם העניים מקבלים כספים Purim יום (ובאותו יום אתה חוגג)Purim). Gemachim גם להפעיל ציוד לתינוקות, שמלת חתונה והלוואות ציוד רפואי בקהילות רבות."
+  },
+  {
+    "key": "parsha — A parsha (parashah) is the weekly Torah portion read in synagogue on Shabbat morning. The Torah is divided into 54 portions so the whole five books are completed each year (with combined portions sometimes depending on the calendar). Shnayim Mikra means studying the same parsha during the week before it is read publicly. The name appears as \"Parshat Bereishit,\" \"Parshat Noach,\" and so on.",
+    "len": 400,
+    "he": "parsha - A parsha()parashahחלק התורה השבועי קורא בבית הכנסת שבת בוקר. התורה מחולקת ל-54 חלקים, כך שכל חמשת הספרים יושלמו מדי שנה (עם חלקים משולבים לפעמים בהתאם ללוח השנה).Shnayim Mikra לימוד אותו הדבר parsha במהלך השבוע לפני שהוא קורא בפומבי. שם השיר: \"Parshat\"Bereishit\"Parshat Noach\" וכן הלאה."
+  },
+  {
+    "key": "Another Yom Tov day of Pesach begins after sunset today — no melacha from then.\n\nTomorrow:\n• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom).\n• Festive meals in kosher-for-Passover utensils only.\n• Light Yom Tov candles before sunset.\n${shehecheyanuErevLines(HebrewCalendarEngine.PESACH, tomorrowCal, profile)}${diasporaFinalPesachAdvanceNote(tomorrowCal, profile)}",
+    "len": 403,
+    "he": "עוד יום טוב יום פסח החל מהשקיעה היום - לא ממלכה. מחר:\n•יום טוב עם חצי Hallel ו Musaf לא;חמץ אוkitniyot(אולי המנהג שלך).\nארוחות חגיגיות בשירות כשר-עבור בלבד.\nאור יום טוב נרות לפני השקיעה\n${shehecheyanuErevLines(HebrewCalendarEngine.PESACH, tomorrowCal, profile)}${diasporaFinalPesachAdvanceNote(tomorrowCal, profile)}"
+  },
+  {
+    "key": "Hoshana Raba prep (tomorrow — 21 Tishrei):\n• Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for tomorrow morning — separate from your daily lulav set.\n• At the conclusion of synagogue services tomorrow, the community performs Chagizat Aravah — striking these branches against the ground five times (Minhag Nevi'im). Hoshana Raba is the final sealing of judgment from Yom Kippur.",
+    "len": 404,
+    "he": "Hoshana Raba prep (Tomorrow - 21 Tishrei):\n• לקנות או להכין חבילה ייעודית של 5 סניפי ילו טריים (a rav מחר בבוקר - נפרד מהיום שלך lulav להגדיר.\n• בסיום שירותי בית הכנסת מחר, הקהילה מבצעת צ'אגאזט A rav Ah - להכות את הענפים האלה נגד הקרקע חמש פעמים (Minhag Nevi'im).Hoshana Raba זהו חותם השיפוט הסופי של Yom Kippur."
+  },
+  {
+    "key": "Alot hashachar is halachic dawn — when the sky begins to lighten. Many morning laws start here, such as the beginning of public fast days. It is before sunrise (netz). It is not the normal time for the bracha on tallit and tefillin — see misheyakir. In great need, Igros Moshe (O.C. 4:6) allows putting them on after alot hashachar without a bracha and reciting the brachos after misheyakir — ask your rav.",
+    "len": 406,
+    "he": "Alot Hashachar הלכתי שחר – כשהשמיים מתחילים להאיר. חוקי בוקר רבים מתחילים כאן, כמו תחילת ימי הציבור. לפני הזריחה (netz). זה לא הזמן הרגיל עבור bracha על גבוה ועל tefillin - ראהmisheyakirבצורך רב, איגרו משה (O.C. 4:6) מאפשר לשים אותם לאחר מכן.alot hashacharללא bracha וחזור על ה bra לאחרmisheyakirשאל את שלך rav."
+  },
+  {
+    "key": "Bein kodesh l'chol means \"between holy and mundane\" — the wording in regular Saturday-night Havdalah when Shabbat ends and weekday begins. People say 'Baruch hamavdil bein kodesh l'chol' before doing melacha if they have not yet heard full Havdalah or recited the maariv amidah with the Havdalah insert. When Shabbat flows into Yom Tov instead, the wording is bein kodesh l'kodesh (holy to holy), not l'chol.",
+    "len": 408,
+    "he": "Bein kodesh l'chol פירושו \"בין קדוש ומדהים\" - המילה ב- שבת רגיל Havdalah מתי שבת סוף השבוע מתחיל. אנשים אומרים \"ברקצ'ויל בבדש\" לפני שעשו מלאצ'ה אם עדיין לא שמעו מלאים Havdalah או לדקלם את המנורה עם Havdalah הכנס. מתי שבת זורם לתוך יום טוב במקום זאת, המילה היא bein kodesh l'kodesh (holy to Sacred), לא l'chol."
+  },
+  {
+    "key": "al hamichya — Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4-9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot- depending on the type of food. Ask your rav.",
+    "len": 410,
+    "he": "al hamichya - אל חמישיה (אל HaMichya) הוא חסר מנוחה על mezonot, מזונות דגנים שאינם לחם - עוגה, סדקים, פסטה, דגנים וכו ' - כאשר אכלת לחם kezayit(approx כדור גולף בגודל מזון)k'dei achilat pras(4-9 דקות). אם אכלת לחם,Birkat Hamazon מכסה את כל המזונות ייתכן גם שתצטרך לומר Birkat Hamazon אם אכלת הרבה מאזוט - תלוי בסוג המזון. שאל את rav."
+  },
+  {
+    "key": "K'dei achilat pras is the halachic time limit to consume a specific volume of food so it counts as one act of eating — about 4–7 minutes per many poskim. It applies to eating a kezayit of matzah at the Seder, maror, and eating enough bread or cake within that window to require an after-blessing (Birkat Hamazon or al hamichya). If you ate a kezayit of bread within k'dei achilat pras, Birkat Hamazon covers the whole meal.",
+    "len": 423,
+    "he": "K'dei achilat pras הלכתי הגבלת זמן לצרוך כמות מסוימת של מזון, כך שהוא נחשב כמעשה אחד של אכילה - כ-4-7 דקות לכל רבים.poskimזה נכון לאכול kezayit של matzah על Seder,maror לאכול מספיק לחם או עוגה בתוך החלון הזה כדי לדרוש דימום לאחר.Birkat Hamazon או al hamichya). אם אכלת kezayit לחם בתוךk'dei achilat pras,Birkat Hamazon מכסה את כל הארוחה."
+  },
+  {
+    "key": "alot hashachar — Alot hashachar is halachic dawn — when the sky begins to lighten. Many morning laws start here, such as the beginning of public fast days. It is before sunrise (netz). It is not the normal time for the bracha on tallit and tefillin — see misheyakir. In great need, Igros Moshe (O.C. 4:6) allows putting them on after alot hashachar without a bracha and reciting the brachos after misheyakir — ask your rav.",
+    "len": 423,
+    "he": "alot hashacharAlot Hashachar הלכתי שחר – כשהשמיים מתחילים להאיר. חוקי בוקר רבים מתחילים כאן, כמו תחילת ימי הציבור. לפני הזריחה (netz). זה לא הזמן הרגיל עבור bracha על גבוה ועל tefillin - ראהmisheyakirבצורך רב, איגרו משה (O.C. 4:6) מאפשר לשים אותם לאחר מכן.alot hashacharללא bracha וחזור על ה bra לאחרmisheyakirשאל את שלך rav."
+  },
+  {
+    "key": "bein kodesh l'chol — Bein kodesh l'chol means \"between holy and mundane\" — the wording in regular Saturday-night Havdalah when Shabbat ends and weekday begins. People say 'Baruch hamavdil bein kodesh l'chol' before doing melacha if they have not yet heard full Havdalah or recited the maariv amidah with the Havdalah insert. When Shabbat flows into Yom Tov instead, the wording is bein kodesh l'kodesh (holy to holy), not l'chol.",
+    "len": 429,
+    "he": "Bein kodesh l'chol - Bein kodesh l'chol פירושו \"בין קדושה ומדהימה\" - המילה ב- שבת רגיל הavdalah כאשר שבת מסתיימת ושבוע מתחיל. אנשים אומרים \"ברקצ'ויל בבדש\" לפני שעשו את מלאצ'ה אם הם עדיין לא שמעו מלא הavdalah או לדקלם את המנורה עם הכנסת הavdalah. כאשר שבת זורם לתוך יום טוב במקום זאת, המילה היא bein kodesh l'kodesh (holy to Sacred), לא l'chol."
+  },
+  {
+    "key": "If you forgot:\n• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).",
+    "len": 541,
+    "he": "אם שכחת:\nובכל זאת ב-Retzei (לפני התכנסות הברכה) – הכנסו את יאלה ו'יאיבו במקומו וימשיכו (והמשך)$YAALEH_VYAVO_HALACHA_SOURCE).\nלאחר סיום Retzei - חזרה לתחילתו של רצ'י, הכנס את יאלה V'yavo, ולהשלים את הברכות הנותרים ($YAALEH_VYAVO_HALACHA_SOURCE).\n• סיים את כל האימידה (לאחר ה-Yhiyu L'ratzonzon) – חזר רק על$serviceאימידה (Shemoneh Esrei), אף פעם לא את השירות המלא, גם אם אתה כבר davened Musaf, מעריב, או כל דבר אחר לאחר מכן.$YAALEH_VYAVO_HALACHA_SOURCE)."
+  },
+  {
+    "key": "Mincha (Sephardi): The service opens with Korbanot (Parshat HaTamid), then Ashrei, the Amidah, Tachanun on weekdays, and Aleinu (Shulchan Arukh O.C. 232; follow your siddur).\n\nTachanun (Sephardi): At Shacharit on weekdays — longer on Mondays and Thursdays; shorter on other days (Vidui, Thirteen Attributes, Psalm 25). At Mincha, recited after the Amidah where applicable. Rav Ovadia Yosef (Yechaveh Daat 6:7) and the Ben Ish Chai rule against physical nefilat apayim — recite sitting upright. Omitted on Rosh Chodesh, holidays, and standard festive days.",
+    "len": 555,
+    "he": "מנחה (ספרדי): השירות נפתח עם Korbanot (Parshat HaTamid), ולאחר מכן Ashrei, עמידה, תחנון בימי שבוע, ו- Aleinu (שולחן ערוך O.C. 232; Follow your סידור). תחנון (ספרדי): ב-שחרית בימי השבוע - יותר בימי שני וחמישי; קצר יותר בימים אחרים (Vidui, 13 Attributes, מזמור 25). במינוצ'ה, דקלם לאחר האיומה שבה חלים. הרב אווואדיה יוסף (YecHaveh Daat 6:7) ואת בן Ish Chai לשלוט נגד ערפיליות פיזיות apayim - לדקלם. מוחרם על ראש חודש, חגים, ימי חגיגית סטנדרטיים."
+  },
+  {
+    "key": "Simchat Torah celebrates the completion and immediate restart of the annual Torah reading cycle.\n\nIn the Diaspora it falls on 23 Tishrei (day after Shemini Atzeret). In Israel it is observed together with Shemini Atzeret on 22 Tishrei.\n\nCustoms:\n• Hakafot — joyous processional circuits with Torah scrolls, singing and dancing\n• Final parsha V'Zot HaBeracha read; Bereishit begun again\n• Festive Kiddush and meals; Yizkor in many Ashkenaz communities on Shemini Atzeret/Simchat Torah\n\nIt is a full Yom Tov in the Diaspora; in Israel it shares the day with Shemini Atzeret.",
+    "len": 572,
+    "he": "התורה Simchat חוגגת את ההשלמה והפעלה מיידית של מחזור קריאה התורה השנתי. בתפוצות הוא נופל על 23 Tishrei (יום לאחר Shemini Atzeret). בישראל ניתן לראות יחד עם שמיני אטצרט ב-22 צ'רי. Customs:\nHakafot - מעגלים תהלוכיים שמחים עם ספרי תורה, שירה וריקודים\nFinal parsha V'Zot HaBeracha; Bereishit החל שוב\n• קידש טריס וארוחות; Yizkor בקהילות רבות של אשכנaz על Shemini Atzeret / Simchat תורה זהו יום שלם בתפוצות; בישראל הוא חולק את היום עם שמיני אטצרט."
+  },
+  {
+    "key": "$pesachBegins\n\n$chametzNote\n\nSeder (first night):\n• $sederWhen\n• Matzah, maror, four cups of wine, reading the Haggadah, afikoman.\n• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).\n• Kiddush, festive meal, Hallel, Nirtzah.\n\nTomorrow by day:\n• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom).\n• Only eat food prepared for Pesach in kosher-for-Passover utensils.\n\n${diasporaSecondDayNote(profile, \"Pesach\")}$shabbatBlock",
+    "len": 591,
+    "he": "$pesachBegins $חמץNote סדר (הלילה הראשון):\n•$sederWhen\n• Matzah, Maror, 4 כוסות יין, קורא Haggadah, afikoman.\n• Reclining ( Hasebha): Recline שמאלה כאשר שותים את ארבעת הכוסות ואכילת הזנה, korech ו afikoman - לא לתקן בעת אכילת מרמור או צ'צרט (הם מסמלים עבדות).\nקידש, ארוחה חגיגית, הולל, נירנברג. מחר ביום:\n• Yom tov davening with Full Hallel and Musaf; no חמץ or Kitniyot (per your Custom).\n• רק לאכול מזון מוכן לפסח בשירותים כשרים. ${diasporaSecondDayNote(profile, \"Pesach\")}$shabbatBlock"
+  },
+  {
+    "key": "Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.\n\nWhen:\n• Said after the morning service (often after Shacharit Amidah, before concluding prayers — follow your siddur).\n• Start and end dates vary by minhag — this item follows your nusach setting.\n\nWhy:\n• \"The L-rd is my light and my salvation — whom shall I fear?\" (Tehillim 27:1) — trust in divine protection through judgment season.\n• A widespread custom in Elul–Tishrei; widely adopted across Ashkenaz, Sephard, and Edot HaMizrach with different calendars.",
+    "len": 618,
+    "he": "תהילים 27 (מילולית ָ ה ה ה ה ה ה ה Psalm ה ה Psalm ה ה Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm Psalm מתי:\n• אמר לאחר שירות הבוקר (לעיתים קרובות לאחר שכריזיט אבההה, לפני שהתפילות המתועדות - לכו בעקבות סובסדור).\nהתחל וסיום תאריכים להשתנות על ידי minhag - פריט זה עוקב אחר הגדרת nusach שלך. למה:\n\"הל-רד הוא האור שלי והישועה שלי – מי אני מפחד?\" (תת' 27:1) – אמון בהגנה האלוהית בעונת המשפט.\n• מנהג נפוץ באלול-טיריי; מאומץ נרחב על פני אשכנaz, Sephard ו Edot HaMizrach עם לוחות שנה שונים."
+  },
+  {
+    "key": "Mincha (Edot HaMizrach): The service opens with Korbanot (Parshat HaTamid), then Ashrei, the Amidah, Tachanun on weekdays, and Aleinu — per your kehilla's siddur.\n\nTachanun (Edot HaMizrach): At Shacharit on weekdays — longer on Mondays and Thursdays; shorter on other days (Vidui and the Thirteen Attributes per your siddur). At Mincha, recited after the Amidah including Vidui (Ashamnu) and the Thirteen Attributes. Following the Arizal (per Kaf HaChaim and Yalkut Yosef), do not perform nefilat apayim at Mincha — recite sitting upright, including Psalm 25 (LeDavid Alecha). Omitted on Rosh Chodesh, holidays, and standard festive days.",
+    "len": 638,
+    "he": "מינצ'ה (Edot HaMizrach): השירות נפתח עם Korbanot (Parshat HaTamid), ולאחר מכן Ashrei, עמידה, תחנון בימי השבוע, ו-Alinu - per your keh's סידור. תחנון (Edot HaMizrach): ב שחרית בימי השבוע - יותר בימי שני וחמישי; קצר יותר בימים אחרים (Vidui ו- 13 Attributes עבור הסובסד שלך). ב מנחה, מדקלם לאחר האימידה כולל Vidui (Ashamnu) ואת 13 Attributes. לאחר אריזאל (per Kaf HaChaim ו- Yalkut יוסף), לא לבצע תשלום רשלני במינצ'ה - לדקלם ישיבה זקופה, כולל מזמור 25 (LeDavid Alecha). מוחרם על ראש חודש, חגים, ימי חגיגית סטנדרטיים."
+  },
+  {
+    "key": "Simchat Torah begins tonight (Diaspora) — rejoicing with the Torah.\n\nTonight & tomorrow:\n• Light Yom Tov candles.\n${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}\n• Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.\n• Festive meals and drinking (responsibly) in many communities.\n• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.\n• Full Yom Tov — no melacha; Full Hallel and Musaf.\n• In Israel, Simchat Torah coincides with Shemini Atzeret (one day).",
+    "len": 721,
+    "he": "התורה מתחילה הערב (Diaspora) - התאחדה עם התורה. הערב ומחר:\nאור יום טוב נרות\n${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}\nHakafot - רוקד עם מגילות תורה; לסיים את המחזור השנתי ולהתחיל ברישיט.\nארוחות חגיגיות ושתייה (בתגובה) בקהילות רבות.\n• הערת בית הכנסת: מאחר ושתייה מתרחשת לעתים קרובות בשעות היום, בתי כנסת רבים מזיזים את ברכת הכוהנים (Birkat Kohanim) עד מוקדם בבוקר שירות שחרית במקום לשמור אותו במאפר, כך קוהים הם מפוכחים לחלוטין עבור הברכה.\nמלא יום טוב - no melacha; Full Hallel and Musaf.\n• בישראל, התורה מפטפטפט עולה בקנה אחד עם Shemini Atzeret (יום אחד)."
+  },
+  {
+    "key": "Sukkot (first day) begins tonight — Zman Simchateinu.\n\nBefore sunset:\n• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.\n• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).\n\nTonight & tomorrow:\n• Light Yom Tov candles in the sukkah (per custom) or home.\n${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}\n• ${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}\n• Festive meals in the sukkah; Ushpizin welcome guests.\n• No melacha; Full Hallel and Musaf in davening.\n\n${diasporaSecondDayNote(profile, \"Sukkot\")}",
+    "len": 846,
+    "he": "\"יום ראשון\" מתחיל הלילה - זמן סימפטנו. לפני השקיעה:\n• להימנע מאכילה רשמית בתוך הסוקה היום (רמ\"א או\"ח 639:1) כך שהכניסה שלך הערב מוקדשת באופן מובהק לתחילת המצווה.\n• יש arba minim מוכן: lulav, etrog, Hadasim, aravot (אם הסטנדרטים של הרב שלך). הערב ומחר:\n• אור יום טוב נרות בסוכה (בהתאמה אישית) או בבית.\n${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}\n•${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}\nארוחות חגיגיות בסוכה; אורחים מוזמנים לקבל בברכה.\nNo melacha; Full Hallel and Musaf in davening ${diasporaSecondDayNote(profile, \"Sukkot\")}"
+  },
+  {
+    "key": "Mincha (Chabad / Nusach Ari): The communal service begins with Ashrei — not Korbanot (Sefer HaMinhagim, Mincha). The gabbai or chazan opens the minyan with Psalm 145; the congregation does not wait for or jointly recite Korbanot at Mincha.\n\nKorbanot privately (optional): The Alter Rebbe (Shulchan Arukh HaRav, O.C. 234, Kuntres Acharon 2) writes that after Mincha Gedolah an individual who is meticulous may read the Tamid and Ketoret passages on his own — a personal stringency (midat chasidut), not part of the communal service. Hayom Yom (11 Nissan) treats this as private preparation before joining the minyan.\n\nTachanun (Chabad): At Shacharit on ordinary weekdays — longer on Mondays and Thursdays (Vehu Rachum), shorter on other days. At Mincha, typically the shorter Tachanun (Vayomer David el Gad). Omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other special occasions — Mincha itself is still said.",
+    "len": 917,
+    "he": "מנחה (חabad / נוסח ארי): השירות הקהילתי מתחיל עם אשרי - לא Korbanot (Sefer HaMinhagim, מנחה). ה- gabbai או chazan פותחים את המניין עם מזמור 145; הקהילה לא מחכה או לדקלם במשותף Korbanot ב מנחה. Korbanot באופן פרטי (אופציונלי): הרבי אלטר (שולף Arukh HaRav, O.C. 234, Kuntres Acharon 2) כותב כי לאחר מנחה Gedolah אדם אשר קפדני יכול לקרוא את מעברי Tamid ו Ketoret בכוחות עצמו - מחרוזת אישית (בתוך chasidut), לא חלק מהשירות הקהילתי. Hayom Yom (11 ניסן) מתייחס לכך כהכנה פרטית לפני שהצטרף למניין. תחנון (חabad): ב-שחרית בימי השבוע הרגילים - יותר בימי שני וחמישי (וואה רכאום), קצר יותר בימים אחרים. במינוס (Vayomer David el Gad). בראש חודש, יום טובב, צ'נוקה, פורים ומקרים מיוחדים אחרים - מינצ'ה עצמו עדיין נאמר."
+  },
+  {
+    "key": "$opener\n\nHavdalah when Shabbat leads into Yom Tov:\n• Havdalah is recited when entering a day of lesser holiness. Shabbat is holier than Yom Tov, so when Shabbat leads into a festival, havdalah is included in that night's Kiddush — not as a full separate havdalah with spices before Kiddush.\n• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles already lit on the table; do NOT pick up, move, or touch them — they are muktzeh once lit; gaze at the flames from where they stand) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).\n• Spices (besamim) are omitted for this transition.\n• Before Kiddush, melacha permitted on Yom Tov but not on Shabbat: many say Baruch hamavdil bein kodesh l'kodesh, or rely on the Vatodi'enu insert in Maariv — follow your Machzor.\n\n$prepWhen: Yom Tov candles from a pre-existing flame; wine; festive meal ready; 48-hour candle or pilot light per your rav.",
+    "len": 1091,
+    "he": "$opener Havdalah כאשר שבת מובילה ל יום טוב:\nהאללה מדקלם כאשר נכנס יום של קדושה פחותה. השבת היא holier מ יום טוב, כך שכאשר שבת מובילה לחג, havdalah כלולה באותו לילה של קידש - לא ככואב נפרד מלא עם תבלינים לפני קידש.\n• הזמנה (mnemonic YaKNe HaZ עבור רבים אשכנז poskim): Yayin (borei prigafen) קידש עבור יום טוב (borei me'orei ha'eish - לדקלם את נרות Yom tov כבר מואר על השולחן; לא להרים, לזוז, או לגעת בהם - הם mutzkahahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\nתבלינים (besamim) מושמטים למעבר זה.\nלפני קידש, מלאצ'ה מותר על יום טוב אבל לא בשבת: רבים אומרים ברוך avavdil bein kodesh l'kodesh, או להסתמך על הכנס Vatodi'enu ב מעריב - לעקוב אחר מאך. $prepWhenנרות Yom tov מן הלהבה טרום-הסחה; יין; ארוחה חגיגית מוכנה; נרות 48 שעות או אור טייס עבור החורבן שלך."
+  },
+  {
+    "key": "$opener\n\nHavdalah inside Kiddush (Yaknehaz):\n• When a biblical holiday begins Saturday night (including Rosh Hashana), that night's Kiddush incorporates havdalah for Shabbat. The order is: (1) wine blessing, (2) holiday Kiddush, (3) candle blessing, (4) havdalah blessing — with the Yom Tov text concluding bein kodesh l'kodesh (not bein kodesh l'chol), (5) Shehecheyanu for the festival.\n• This is the YaKNeHaZ order (Yayin, Kiddush, Ner, Havdalah, Zeman) codified in Shulchan Arukh for Motzei Shabbat into Yom Tov.\n• Spices are not used.\n• Use the Machzor or siddur nusach for Rosh Hashana — do not rely on memory for the long havdalah text.\n\nBefore or at Maariv:\n• You may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidah of Maariv — follow your community.\n\n$prepLead:\n• Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag).\n• Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.\n• Tashlich: when the first day of Rosh Hashana is Shabbat, it is postponed to Sunday (structural rule — avoiding carrying machzorim in public without an eruv).\n\nCandles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (pre-existing flame).",
+    "len": 1358,
+    "he": "$opener Havdalah בתוך Kiddush (Yaknehaz):\n• כאשר חג תנ\"כי מתחיל ביום שבת (כולל רוה Hashana), אותו קידש של הלילה משלב hudalah עבור השבת. ההזמנה היא: (1) ברכת יין, (2) חג קידש, (3) ברכת נרות, (4) ברכת hudalah - עם יום טוב טקסט concluding bein kodesh l'kodesh (לא bein kodesh l'chol), (5) Shehecheyanu עבור החג.\n• זהו צו ה- YaKNe HaZ (Yayin, Kiddush, Ner, Havdalah, Zeman) שהוגדר ב- שולחן ערוך עבור השבת Motzei לתוך יום טוב.\nתבלינים אינם בשימוש.\nהשתמש ב- Machzor או סידור nusach forרוש Hashana - אל תסמכו על זיכרון עבור הטקסט ארוך havdalah. לפני או ב-Mariv:\n• ייתכן שתאמרו ברוך חיסל בודהש כדי להתחיל בפעילויות יום טוביבות לפני קידש, או להסתמך על Vatodi'enu in the Amidah of מעריב - לעקוב אחר הקהילה שלך. $prepLead:\n• יש challah עגול, דבש, תפוחים ומזונות סמליים מוכנים ארוחות יום הכיפורים לאחר שבת (minhag).\n• אישור shofar ו Musaf פעמים ליום הראשון (s) של רוה Hashana לאחר שבת - shofar הוא לא מפוצץ בשבת עצמה.\n* Tashlich: When the First Day ofרוש Hashana הוא השבת, הוא נדחה ליום ראשון (כללי הוראה - הימנעות מנשיאות מצות בציבור ללא טרה). נרות: אחרי שבת מסתיימת, אור יום טובו נרות מהלהבה לפני השבת התחיל (להבה מוקדמת)."
+  },
+  {
+    "key": "$intro\n\n$sederNights\n$secondSederHachana\n$omerTrigger\n\nSet up before Yom Tov:\n• Matzah — shmurah matzah for motzi/matza mitzvah (three matzot on the plate per custom)\n• Maror — romaine, horseradish, or bitter herbs per your minhag\n• Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)\n• Haggadah for each person (or shared)\n• Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret\n• Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.\n• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).\n• Festive table; candles for Yom Tov\n\nKitchen:\n• Only kosher-for-Passover food and utensils from this point\n• Warm food on a blech or pre-set timer for Yom Tov meals\n\nAt the Seder: follow your Haggadah step by step — Kiddush, the order of the night, brachot, and the four cups are all laid out there. ${if (profile.isInIsrael) \"One\" else \"Two\"} Seder night(s) this Pesach.",
+    "len": 1397,
+    "he": "$intro $sederNights\n$secondSederHachana\n$omerTrigger לפני יום הכיפורים:\n• Matzah - shmurah matzah for motzi /matza מצווה (שלוש הזזות על הצלחת להתאמה אישית)\n• Maror - Romanaine, Horseradish, או צמחי מרפא מרים לכל המניין שלך\n• 4 כוסות יין למשתתף (מיץ גרפה משמשות במידה רבה במידת הצורך - שאל את החורבן שלך; לא את אותו דיון כמו יין Chol HaMoed)\nהראגאדה לכל אדם (או משותף)\nחתלת הסדר: אפסה (Shakbone), beitzah (egg), קראפאס, charoset, Maror, chazeret\n• הצלחת הסדר מראש: אתה צריך באופן אידיאלי לקליד את אפסה (שנוך) ביום ערב פסח לפני השקיעה. מכיוון שעמוד השדרה אינו נאכל בליל הסדר, צלוי אותו לאחר החגים מתחיל להפר את חוקי הבישול של יום טוב. עם זאת, הביצה נאכלת באופן מסורתי במהלך הארוחה, כך שהיא עשויה להיות מבושלת באופן חוקי או צלוי בלילה יום הכיפורים במידת הצורך.\n• Reclining ( Hasebha): Recline שמאלה כאשר שותים את ארבעת הכוסות ואכילת הזנה, korech ו afikoman - לא לתקן בעת אכילת מרמור או צ'צרט (הם מסמלים עבדות).\nטבלה חגיגית: נרות ל יום טוב מטבח:\n• רק מזון כשר-לעבור מזון ושירותים מנקודה זו\n• מזון חם על blech or pre-set timer for יום טוב ארוחות בפסגת הסדר: בצעו את צעד ההגדה צעד אחר צעד – קידש, סדר הלילה, צנצ'וט וארבעת הכוסות ממוקמות שם.${if (profile.isInIsrael) \"One\" else \"Two\"}ליל הסדר (s) זה פסח."
+  },
+  {
+    "key": "After eating or drinking, we thank G-d with an after-blessing (bracha acharona). Which blessing you say depends on what you ate or drank — and whether you ate or drank enough, within the required time.\n\nThe after-blessings:\n\nBirkat Hamazon (בִּרְכַּת הַמָּזוֹן — Grace After Meals):\n• After eating bread (Hamotzi)\n• A full multi-paragraph prayer of thanks; a Torah-level commandment (Deuteronomy 8:10)\n• When three or more adult Jewish men eat bread together, Zimmun (זִמּוּן — a formal invitation) is recited together before Birkat Hamazon\n• A bentcher (בֶּנְטְשֶׁר) is a small booklet containing the text — commonly found at Shabbat tables\n• After a bread meal: if you ate at least a kezayit of bread within k'dei achilat pras, Birkat Hamazon (bentching) covers everything else you ate at that same meal — wine, meat, fruit, dessert, etc. You do not say separate after-blessings for those other foods.\n\nAl HaMichya (עַל הַמִּחְיָה — Bracha Achat Me'ein Shalosh):\n• After Mezonot — grain foods that are not bread: cake, crackers, pasta, cereal, etc. (wheat, barley, spelt, oat, rye)\n• A condensed “one blessing like three” derived from Birkat Hamazon\n• At the same sitting, if you also had enough wine/grape juice or enough shivat ha-minim tree fruits (below), use one Al HaMichya text with the inserted phrases (v'al hagafen v'al pri hagafen, v'al ha'etz v'al pri ha'etz) in your siddur\n\nAl HaGafen (עַל הַגָּפֶן וְעַל פְּרִי הַגָּפֶן):\n• After wine or grape juice — the full after-blessing is על הגפן ועל פרי הגפן (the vine and the fruit of the vine), not על הגפן alone\n• At least a revi'it within k'dei shtiyat revi'it (not Borei Nefashot)\n• Same category as the before-blessing Borei pri ha'gafen (בּוֹרֵא פְּרִי הַגָּפֶן)\n• Wine or grape juice only — fresh grapes eaten as fruit take Al HaEtz (see below), not Al HaGafen\n\nAl HaEtz (עַל הָעֵץ וְעַל פְּרִי הָעֵץ — Bracha Achat Me'ein Shalosh):\n• After shivat ha-minim (Seven Species) tree fruits: dates, figs, pomegranates, olives — and fresh grapes eaten as fruit (not grape juice)\n• Fresh grapes: Because grapes are one of the Seven Species, eating a kezayit of fresh grapes always requires Al HaEtz (Me'ein Shalosh), not Borei Nefashot — whereas regular tree fruits like apples or oranges take Borei Nefashot only\n• The full phrase is על העץ ועל פרי העץ (the tree and the fruit of the tree) throughout the blessing — opening, thanks, and closing — not על העץ alone\n• Not for apples, oranges, bananas, berries, or other non–shivat ha-minim tree fruits — those use Borei Nefashot only\n• A kezayit within k'dei achilat pras\n\nBorei Nefashot (בּוֹרֵא נְפָשׁוֹת — \"Who creates souls\"):\n• After most other foods: meat, fish, eggs, dairy, vegetables, and fruits that are not shivat ha-minim\n• After most drinks other than wine/grape juice, if you drank a revi'it within k'dei shtiyat revi'it\n• The shortest after-blessing; can be memorized in minutes\n\nHow much food — k'dei achilat pras (eating):\n• Generally need at least a kezayit (כְּזַיִת — about olive-sized; many use roughly 1 oz / 30 g)\n• Eaten within k'dei achilat pras (כְּדֵי אֲכִילַת פְּרַס — the time to eat about half a loaf): lechatchila about 4 minutes; many poskim allow up to about 6–9 minutes bedi'eved (Shulchan Aruch / Mishnah Berurah)\n• Less than a kezayit, or spread over longer than k'dei achilat pras: no after-blessing on that food\n\nHow much drink — k'dei shtiyat revi'it (drinking) — not the same as k'dei achilat pras:\nHalacha often requires an action within a specific continuous timeframe. For eating a kezayit, that is k'dei achilat pras (minutes — see above). For drinking, it is much faster.\n\nK'dei shtiyat revi'it (כְּדֵי שְׁתִיַּת רְבִיעִית) literally means the time it takes to drink a revi'it (about 3–5 fl oz / 86–150 ml depending on custom). It is a very short span — a few continuous seconds — used as a legal measurement for drinking.\n\nFor bracha acharona on a beverage:\n• You need a revi'it drunk within k'dei shtiyat revi'it\n• If you sip coffee slowly over 20 minutes, you did not drink the required volume within the required time — no after-blessing on that drink\n• How many seconds? Poskim differ:\n  — Sephardic / Rambam / Rav Ovadia Yosef: one continuous drink without removing the cup from your lips — the strictest view; halacha defines this qualitatively (not as a fixed second count), but it is only a brief uninterrupted span — often estimated at just a few seconds for a full revi'it\n  — Ashkenaz / Mishnah Berurah: often estimated as a continuous sequence of normal gulps within 5–9 seconds max. To guarantee your obligation for an after-blessing, drink the beverage in a single, uninterrupted sequence.\n• Cold drinks (water, juice): to be obligated in Borei Nefashot or Al HaGafen, swallow a revi'it quickly and continuously in those few seconds rather than nursing it slowly\n• Hot coffee, tea, or soup: drinking that fast is difficult, so common practice is no after-blessing when you only sip slowly — unless you set aside at least a revi'it and drink it at once when cool enough\n\nDrinks only — which after-blessing?\n• Wine or grape juice: Al HaGafen (עַל הַגָּפֶן וְעַל פְּרִי הַגָּפֶן) if a revi'it within k'dei shtiyat revi'it\n• Water, milk, soda, etc.: Borei Nefashot if a revi'it within k'dei shtiyat revi'it\n• Mezonot snack plus wine at the same sitting: one Al HaMichya including the wine phrase if both meet their thresholds\n\nWhere to find the exact text:\nOpen your siddur or bentcher to the bracha acharona section. In Mitz Mode, tap the menu (⋮) → **Blessings** for before- and after-blessing texts.",
+    "len": 5565,
+    "he": "לאחר אכילת או שתייה, אנו מודים ל-ה' עם חסר מנוחה (ברכה acharona). איזו ברכה אתם אומרים תלויה במה אכלתם או שתהתם, והאם אכלתם או שתהתם מספיק, בזמן הנדרש. החסרונות הבאים: בירקט האזאון (PrimericePSKPSKPSKPSK: Grace After Meals):\n• לאחר אכילת לחם (Hamotzi)\nתפילה רב-פרמטרית מלאה של תודה; מצווה ברמת התורה (דברים 8:10)\n• כאשר שלושה או יותר גברים יהודים מבוגרים אוכלים לחם יחד, זימון (הזמנה הרשמית של אמברוז) מדקלם יחד לפני שברקקט האזון\n• bentcher (Prime Spreicever) הוא חוברת קטנה המכילה את הטקסט - שנמצאת בדרך כלל בטבלאות שבת\nלאחר ארוחה לחם: אם אכלת לפחות קנאות של לחם בתוך פרקי צ'ימלט, בירקאט האזאון מכסה את כל השאר אכלת באותה ארוחה - יין, בשר, פירות, קינוח וכדומה. אתה לא אומר בנפרד לאחר נביחות עבור מזונות אחרים. אל HaMichya (אנ') - Bracha Achat Me'ein Shalosh):\n• לאחר Mezonot - מזונות דגנים שאינם לחם: עוגה, סדקים, פסטה, דגנים וכו ' (חום, barley, spelt, oat, rye)\n* ברכה אחת כמו שלוש\" נגזרת מ-ברכת המזון\nבאותה ישיבה, אם היה לך גם מספיק מיץ יין / גרפה או מספיק פירות עץ שילוט (below), השתמש אחד אל HaMichya טקסט עם ביטויים מוכנסים (v'al Hagafen v'al pri Hagafen, v'al Ha'al haetz v'al pri Ha'al pri Ha'al pri Ha'al Ha'al pri Ha'al hagafen, v'al Ha'al hagafen, v'al Ha'al Ha'al Ha'al Ha'al Ha'al Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'll pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha'll pri Ha'al pri Ha'al pri Ha'al pri Ha'll pri Ha'll pri Ha'll pri Ha'al pri Ha'll pri Ha'al pri Ha'al pri Ha'al pri Ha'al pri Ha Al HaGafen (עַל הַגָּפֶן וְעַל פְּרִי הַגָּפֶן):\n• לאחר יין או מיץ ענבים - המלא לאחר חסר מנוחה הוא קידש ממזר (הגפן ופירות הגפן), לא לתקן לבד לבד\n• לפחות חזרה בתוך k'dei shtiyat reviit (לא Borei Nefashot)\nקטגוריה דומה ל- Borei pri Ha'gafen (Pooleva פְּ פְּ פְּ פְּ פְּ הַ).\nיין או מיץ ענבים רק - ענבים טריים נאכלים כמו פירות לקחת אל HaEtz (ראה להלן), לא אל HaGafen אל HaEtz (עַ ָ ע ע ע ְעַ פְּ פְּ ָ ( ( ( ( ( ( ( ( ( ( ( ( (\nלאחר shivat ha-minim (Seven Species) פירות עץ: תאריכים, figs, pomegranates, זיתים - וענבים טריים נאכלים פירות (לא מיץ ענבים)\nענבים טריים: כי ענבים הם אחד שבעת המינים, אכילת כפייה של ענבים טריים תמיד דורש אל HaEtz (Me'ein Shalosh), לא Borei Nefashot - בעוד פירות עץ רגילים כמו תפוחים או תפוזים לקחת Borei Nefashot רק רק רק\nהביטוי המלא הוא \"העץ והפרי של העץ\" לאורך כל הברכה - פתיחה, תודה וסגירה - לא לבדי, לבד.\n• לא לתפוחים, תפוזים, בננות, פירות יער, או פירות עץ לא-shivat אחרים - אלה משתמשים Borei Nefashot רק\nהמונחים: k'dei achilat pras Borei Nefashot (באנגלית: Borei Nefashot) - בתפקיד: \"מי יוצר נשמות\"\n• לאחר רוב המזונות האחרים: בשר, דגים, ביצים, חלב, ירקות ופירות שאינם shivat Ha-minim\n• לאחר שרוב המשקאות מלבד מיץ יין/גרפה, אם שתיתם אותו בתוך k'dei shtiyat revi'it\n• הקצר ביותר שלאחר המוות; ניתן להזכר תוך דקות כמה אוכל - k'dei achilat pras\n• בדרך כלל צריך לפחות כzayit (שם תהילים גילוח - על גודל זית; רבים משתמשים בערך 1 oz / 30 גרם)\n• לאכול בתוך k'dei achilat pras (בספרדית: ּ ּ א א א פְּ פְּ פְּ פְּ פְּ א א א א א א א א Eat פְּ פְּ פְּ פְּ פְּ פְּ ס ס ס\nפחות מ כzayit, או התפשט יותר מאשר k'dei achilat pras: לא לאחר שנמנע על מזון זה כמה לשתות - קרי צ'ולנט חוזר (דטיפה) - לא אותו דבר כמו k'dei achilat pras:\nההלכה לעתים קרובות דורשת פעולה בתוך מסגרת זמן רציפה מסוימת. עבור אכילת קאזיט, זה k'dei achilat pras ( דקות - ראה לעיל). לשתייה, זה הרבה יותר צום. K'dei shtiyat revi'it (כ ּ ֵי שְׁ שְׁ שְׁ ִי ִי ּ עִ עִ עִ ( ( ( שְׁ שְׁ שְׁ שְׁ שְׁ שְׁ שְׁ ִי ִי ). זהו טווח קצר מאוד – כמה שניות רצופות – המשמשות למדידה משפטית לשתייה. עבור ברכה acharona על משקה:\n• אתה צריך חזרה שיכור בתוך k'dei shtiyat revi\nאם אתה מצלם את הקפה לאט יותר מ-20 דקות, לא שתית את הכרך הנדרש בזמן הנדרש - לא לאחר שנמנעת מהמשקה\nכמה שניות? נקודות שונות:\n— Sephardic / רמב״ם / Rav Ovadia יוסף: משקה רציף אחד מבלי להסיר את הכוס מהשפתיים שלך - הנוף המחמיר ביותר; ההלכה מגדירה זאת בצורה איכותית (לא כספירה שנייה קבועה), אבל זה רק פרק קצר ללא הפרעה - לעתים קרובות מוערך תוך כמה שניות בלבד עבור הפוגה מלאה.\n- אשכנaz / משנה Berurah: לעתים קרובות מוערך כרצף מתמשך של דולפינים נורמליים בתוך 5-9 שניות מקס. כדי להבטיח את חובתך עבור חסר מנוחה, לשתות את המשקה ברצף יחיד, ללא הפרעה.\n• משקאות קרים (מים, מיץ): להיות מחויב ב Borei Nefashot או Al HaGafen, לבלוע revi'it במהירות ובאופן קבוע באותן שניות ולא לנקה אותו לאט.\n• קפה חם, תה או מרק: שתיית כל כך מהר קשה, כל כך נפוץ הוא לא חסר מנוחה כאשר אתה רק מתפוגג לאט - אלא אם כן אתה מסלק את זה לפחות פעם אחת כאשר קריר מספיק. שותים רק – מה חסר מנוחה?\n• יין או מיץ ענבים: אל HaGafen (שם בדוי) / אל- HaGafen (ShadowlyPSK RushPSK: El HaGafen) אם a revi'it בתוך k'dei shviiat revi'itit של k'it\nמים, חלב, סודה וכו ': Borei Nefashot אם revi'it בתוך k'dei shtiyat revi'it\n• חטיף Mezonot בתוספת יין באותו ישיבה: אחד אל HaMichya כולל את הביטוי יין אם שניהם לעמוד בסף שלהם איפה למצוא את הטקסט המדויק:\nפתח את סובסדור או bentcher שלך לסעיף ברכה acharona. ב-Mitz Mode, הקש על התפריט (⋮) **Blessings** עבור טקסטים לפני ואחרי הליעה."
+  }
+]

@@ -26,6 +26,7 @@ import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.HolyDayPhoneRules
 import com.beardytop.beatzaddik.domain.RestKind
 import com.beardytop.beatzaddik.domain.SHABBAT_REST_TITLE
+import com.beardytop.beatzaddik.domain.TzeitDay
 import com.beardytop.beatzaddik.domain.shabbatMessage
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
 import kotlinx.coroutines.Job
@@ -56,6 +57,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     )
 
     private val _prefsLoaded = MutableStateFlow(false)
+    val prefsLoaded: StateFlow<Boolean> = _prefsLoaded
 
     val showDisclaimerDialog: StateFlow<Boolean> = combine(
         _prefsLoaded,
@@ -138,7 +140,8 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         val custom: List<CustomChecklistItem>,
         val customChecked: Map<String, Boolean>,
         val monthlyMonths: Map<String, String>,
-        val weeklyWeeks: Map<String, String>
+        val weeklyWeeks: Map<String, String>,
+        val tzeitDays: Map<String, String>,
     )
 
     private val checklistInput = combine(
@@ -150,11 +153,19 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         combine(
             deps.repository.customChecked,
             deps.repository.monthlyCheckedMonths,
-            deps.repository.weeklyCheckedWeeks
-        ) { customChecked, monthly, weekly -> Triple(customChecked, monthly, weekly) }
-    ) { (prof, checked, custom), (customChecked, monthly, weekly) ->
-        ChecklistInput(prof, checked, custom, customChecked, monthly, weekly)
+            deps.repository.weeklyCheckedWeeks,
+            deps.repository.tzeitCheckedDays,
+        ) { customChecked, monthly, weekly, tzeit -> ChecklistInputPartial(customChecked, monthly, weekly, tzeit) }
+    ) { (prof, checked, custom), partial ->
+        ChecklistInput(prof, checked, custom, partial.customChecked, partial.monthly, partial.weekly, partial.tzeit)
     }
+
+    private data class ChecklistInputPartial(
+        val customChecked: Map<String, Boolean>,
+        val monthly: Map<String, String>,
+        val weekly: Map<String, String>,
+        val tzeit: Map<String, String>,
+    )
 
     private val _checklistDebugOverride = MutableStateFlow<ChecklistDebugOverride?>(null)
     val checklistDebugOverride: StateFlow<ChecklistDebugOverride?> = _checklistDebugOverride
@@ -172,6 +183,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         checklistDebugResolveJob?.cancel()
         checklistDebugResolveJob = viewModelScope.launch {
             _checklistDebugResolving.value = true
+            ChecklistDebugDateFinder.clearCache()
             val profile = profile.value
             val override = withContext(Dispatchers.Default) {
                 ChecklistDebugDateFinder.resolve(
@@ -208,9 +220,8 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     ) { input, nowMillis, debug ->
         deps.checklistEngine.resolve(
             input.profile, input.checked, input.custom, input.customChecked,
-            input.monthlyMonths, input.weeklyWeeks,
+            input.monthlyMonths, input.weeklyWeeks, input.tzeitDays,
             nowMillis = nowMillis,
-            calendarDebugPreview = debug != null,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
@@ -410,6 +421,21 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             val daysUntilSaturday = (6 - cal.date.dayOfWeek.ordinal + 7) % 7
             val saturdayKey = cal.date.plus(daysUntilSaturday, DateTimeUnit.DAY).toString()
             deps.repository.setWeeklyChecked(id, checked, saturdayKey)
+        }
+    }
+
+    /** Women's daily prayer — checked state resets each halachic day at tzeit. */
+    fun setTzeitDayChecked(id: String, checked: Boolean) {
+        viewModelScope.launch {
+            val nowMillis = Clock.System.now().toEpochMilliseconds()
+            val prof = deps.repository.profile.first()
+            val cal = deps.calendar.dayInfoAt(nowMillis, prof)
+            val yesterday = deps.calendar.dayInfoForDate(
+                cal.date.plus(-1, DateTimeUnit.DAY),
+                prof,
+            )
+            val key = TzeitDay.currentKey(nowMillis, cal, yesterday) ?: return@launch
+            deps.repository.setTzeitDayChecked(id, checked, key)
         }
     }
 

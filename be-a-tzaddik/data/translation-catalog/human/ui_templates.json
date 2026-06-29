@@ -1,0 +1,30 @@
+{
+  "he": {
+    "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "התרגום הוחלף ל$languageName.\n$translatedPleaseNote",
+    "Rav": "רב",
+    "Yom Tov": "יום טוב",
+    "ברכת המזון": "ברכת המזון",
+    "תפילת הדרך": "תפילת הדרך"
+  },
+  "es": {
+    "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traducción cambiada a $languageName.\n$translatedPleaseNote",
+    "Rav": "Rabino",
+    "Yom Tov": "Fiesta judía",
+    "ברכת המזון": "Birkat Hamazón (bendición después de las comidas)",
+    "תפילת הדרך": "Tefilat HaDerech (oración del camino)"
+  },
+  "fr": {
+    "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traduction changée en $languageName.\n$translatedPleaseNote",
+    "Rav": "Rav (rabbin)",
+    "Yom Tov": "Fête juive",
+    "ברכת המזון": "Birkat Hamazón (bénédiction après les repas)",
+    "תפילת הדרך": "Tefilat HaDerech (prière du voyage)"
+  },
+  "ru": {
+    "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Перевод переключён на $languageName.\n$translatedPleaseNote",
+    "Rav": "Рав",
+    "Yom Tov": "Йом Тов",
+    "ברכת המזון": "Биркат а-Мазон (благословение после еды)",
+    "תפילת הדרך": "Тефилат а-Дерех (молитва в пути)"
+  }
+}

@@ -6,6 +6,7 @@ import com.beardytop.mitzmode.BuildConfig
 import com.beardytop.mitzmode.data.LanguageInfo
 import com.beardytop.mitzmode.data.LanguagePreferencesManager
 import com.beardytop.mitzmode.service.TranslationService
+import com.beardytop.beatzaddik.ui.translation.resolveAppTranslation
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -86,11 +87,13 @@ class TranslationViewModel @Inject constructor(
 
             _isTranslating.value = true
             val translatedText = try {
-                translationService.translateText(
-                    text = text,
-                    targetLanguage = lang,
-                    sourceLanguage = "auto"
-                ) ?: text
+                resolveAppTranslation(text, lang) { apiText ->
+                    translationService.translateText(
+                        text = apiText,
+                        targetLanguage = lang,
+                        sourceLanguage = "auto"
+                    ) ?: apiText
+                }
             } catch (e: Exception) {
                 text
             }
@@ -129,11 +132,13 @@ class TranslationViewModel @Inject constructor(
 
             _isTranslating.value = true
             val translatedText = try {
-                translationService.translateText(
-                    text = text,
-                    targetLanguage = targetLanguage,
-                    sourceLanguage = "auto"
-                ) ?: text
+                resolveAppTranslation(text, targetLanguage) { apiText ->
+                    translationService.translateText(
+                        text = apiText,
+                        targetLanguage = targetLanguage,
+                        sourceLanguage = "auto"
+                    ) ?: apiText
+                }
             } catch (e: Exception) {
                 text
             }

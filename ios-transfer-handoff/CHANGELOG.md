@@ -1,6 +1,51 @@
 # Changelog (iOS handoff sync)
 
-What the mirrored `be-a-tzaddik/` files and `docs/` contain. Last refresh: **2026-06-05**.
+What the mirrored `be-a-tzaddik/` files and `docs/` contain.
+
+## 2026-06-16 (b) — Shared zmanim, embed docs, verify script
+
+### iOS zmanim parity (Android unchanged)
+- **`domain/zmanim/SolarZmanim.kt`** (new) — KosherJava-compatible NOAA port in `commonMain`
+- **`domain/zmanim/SharedZmanimBuilder.kt`** (new) — location zmanim for iOS; heuristic fallback without GPS
+- **`iosMain/.../NativeJewishCalendarBackend.kt`** — uses `SharedZmanimBuilder`; Shabbat/Yom Tov rest ends at real **tzeit**
+- **`SharedZmanimParityTest`** (androidUnitTest) — golden check vs KosherJava (~90s tolerance)
+- Android production still uses **`JewishCalendarBackend.android.kt` + KosherJava** — not switched
+
+### Handoff tooling
+- **`EMBED.md`** — path-based integration (like Android `settings.gradle`)
+- **`verify-handoff.ps1`** — fails if mirror ≠ `be-a-tzaddik/`
+- **`AGENTS.md`** — updated workflow (embed first, verify after sync)
+
+---
+
+## 2026-06-16 — Upcoming timing, Shabbat rest, parsha, onboarding, women’s prayer
+
+See **`HANDOFF_NOTES_2026-06-16.md`** for full file list and transfer steps.
+
+### Upcoming & seasonal (Today screen)
+- **`CandleLightingRules.kt`**, **`CivilWeek.kt`**, **`UpcomingHolidayTiming.kt`** (new)
+- **`UpcomingHolidayPlanner.kt`**, **`ZmanimFormatter.kt`**, **`Models.kt`**
+- **`TodayScreen.kt`** — inline timing on same line; baseline-aligned smaller text
+- **`PublicFastDayText.kt`** — fast/YK timing copy
+
+### Shabbat / electronics rest
+- **`ShabbatRestScreen.kt`** — end time in **location timezone**; “after tzeit (nightfall)”
+- **`BeATzaddikApp.kt`**, **`AppViewModel.kt`** — onboarding no longer flashes when complete (`prefsLoaded`)
+
+### Parsha header
+- **`ChecklistEngine.kt`**, **`ParshaData.kt`** — upcoming Shabbat parsha; Motzei → next week
+
+### Women’s daily prayer (tzeit → tzeit)
+- **`TzeitDay.kt`** (new), **`ChecklistZmanEvaluator.kt`**, **`ChecklistEngine.kt`**
+- **`AppRepository.kt`**, **`JsonFileAppRepository.kt`**, **`DataStoreAppRepository.kt`**
+- **`AppViewModel.kt`**, **`TodayScreen.kt`**
+
+### Other copy / seasonal
+- **`ErevChagPrepText.kt`**, **`SeasonalMitzvahText.kt`** — Shavuot wording
+- **`BirkatHachamahRules.kt`**, **`ChecklistDebugScenarios.kt`** — debug dates
+- **`checklist-items.json`** (+ composeResources copy)
+
+---
 
 ## Official App Song dialog (Android — iOS native must match)
 

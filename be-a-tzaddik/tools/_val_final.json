@@ -1,0 +1,32 @@
+[
+  {
+    "batch": 1,
+    "lang": "he",
+    "s": "\\s*/\\s*"
+  },
+  {
+    "batch": 3,
+    "lang": "he",
+    "s": "ברכת המזון"
+  },
+  {
+    "batch": 3,
+    "lang": "he",
+    "s": "תפילת הדרך"
+  },
+  {
+    "batch": 4,
+    "lang": "he",
+    "s": "$mitzvotCount"
+  },
+  {
+    "batch": 5,
+    "lang": "he",
+    "s": "www.beardy.top"
+  },
+  {
+    "batch": 6,
+    "lang": "he",
+    "s": "https://www.beardy.top"
+  }
+]

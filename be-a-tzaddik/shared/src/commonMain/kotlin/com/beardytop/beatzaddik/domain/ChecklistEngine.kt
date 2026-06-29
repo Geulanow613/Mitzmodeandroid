@@ -67,10 +67,11 @@ class ChecklistEngine(
         customChecked: Map<String, Boolean>,
         monthlyCheckedMonths: Map<String, String> = emptyMap(),
         weeklyCheckedWeeks: Map<String, String> = emptyMap(),
+        tzeitCheckedDays: Map<String, String> = emptyMap(),
         nowMillis: Long = Clock.System.now().toEpochMilliseconds(),
-        calendarDebugPreview: Boolean = false,
     ): DayChecklists {
         val cal = calendar.dayInfoAt(nowMillis, profile)
+        val yesterdayCal = calendar.dayInfoForDate(cal.date.plus(-1, DateTimeUnit.DAY), profile)
         val tomorrowCal = calendar.dayInfoForDate(cal.date.plus(1, DateTimeUnit.DAY), profile)
         val dayAfterTomorrowCal = calendar.dayInfoForDate(cal.date.plus(2, DateTimeUnit.DAY), profile)
         // Hebrew month key — monthly items reset each new Hebrew month.
@@ -81,6 +82,7 @@ class ChecklistEngine(
             val daysUntilSaturday = (DayOfWeek.SATURDAY.ordinal - cal.date.dayOfWeek.ordinal + 7) % 7
             cal.date.plus(daysUntilSaturday, DateTimeUnit.DAY).toString()
         }
+        val currentTzeitDayKey = TzeitDay.currentKey(nowMillis, cal, yesterdayCal)
 
         val seasonal = SeasonalChecklistItems.forDay(cal, profile, tomorrowCal, dayAfterTomorrowCal)
         val customDefs = customItems.map { custom ->
@@ -94,10 +96,9 @@ class ChecklistEngine(
             )
         }
 
-        val hideChecklist = !calendarDebugPreview &&
-            HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
+        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
         val prioritizePrepSections = ChecklistSectionOrder.prioritizedPrepSections(
-            cal, tomorrowCal, profile,
+            cal, tomorrowCal, profile, nowMillis,
         )
         val sinkMorningPrayerSection = cal.zmanim?.let { z ->
             !ZmanPeriodLogic.isMorningPrayerSectionPriority(nowMillis, z)
@@ -127,6 +128,11 @@ class ChecklistEngine(
                     checkedById[def.id] == true &&
                         weeklyCheckedWeeks[def.id] == currentWeekKey
                 }
+                def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID -> {
+                    checkedById[def.id] == true &&
+                        currentTzeitDayKey != null &&
+                        tzeitCheckedDays[def.id] == currentTzeitDayKey
+                }
                 else -> checkedById[def.id] == true
             }
             ChecklistItemResolver.resolve(
@@ -135,14 +141,15 @@ class ChecklistEngine(
             )
         }
 
-        val occasion = TodayOccasionLabels.primary(cal)
+        val occasion = TodayOccasionLabels.primary(cal, nowMillis, tomorrowCal)
         val omerLabel = TodayOccasionLabels.omerTodayLabel(cal)
+        val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
 
         return DayChecklists(
             activePeriod = cal.activeTimeOfDay,
             activePeriodLabel = cal.activePeriodLabel,
-            activePeriodHint = cal.activePeriodHint,
-            inactivePeriodHint = cal.inactivePeriodHint,
+            activePeriodHint = if (profile.hasZmanimLocation()) cal.activePeriodHint else null,
+            inactivePeriodHint = if (profile.hasZmanimLocation()) cal.inactivePeriodHint else null,
             items = resolveList(allDefs).filter { item ->
                 item.def.id != "rosh_chodesh_observances" ||
                     item.zmanAvailability != ItemZmanAvailability.EXPIRED
@@ -153,12 +160,17 @@ class ChecklistEngine(
             header = CalendarHeader(
                 civilDateLabel = cal.civilLabel,
                 hebrewDateLabel = cal.hebrewLabel,
-                parshaLabel = cal.parsha,
+                parshaLabel = headerParshaLabel(cal),
                 statusChips = cal.statusChips.filterNot { chip ->
                     chip.startsWith("Omer day") ||
                         (chip.startsWith("Today is") && chip.contains("Omer", ignoreCase = true))
+                }.let { chips ->
+                    if (!motzeiShabbatActive) chips
+                    else chips.filterNot { it == "Shabbat" }.let { filtered ->
+                        if ("Motzei Shabbat" in filtered) filtered else filtered + "Motzei Shabbat"
+                    }
                 },
-                timeLabel = cal.activePeriodLabel,
+                timeLabel = if (profile.hasZmanimLocation()) cal.activePeriodLabel else null,
                 todayOccasionLabel = occasion?.label,
                 todayOccasionSubtitle = occasion?.subtitle,
                 todayOccasionGuideAnchor = occasion?.guideAnchor,
@@ -170,15 +182,19 @@ class ChecklistEngine(
                 },
             ),
             nusachLabel = profile.effectiveNusach().displayLabel(),
-            holyDayPhoneNotice = if (calendarDebugPreview) {
-                null
-            } else {
-                HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis)
-            },
+            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis),
             prioritizePrepSections = prioritizePrepSections,
             sinkMorningPrayerSection = sinkMorningPrayerSection,
         )
     }
+
+    /**
+     * Weekly Torah portion for the header. Prefer [DayInfo.upcomingShabbatParsha] so Motzei Shabbat
+     * shows the parsha being read next (not the one just finished). Fall back to [DayInfo.parsha].
+     */
+    private fun headerParshaLabel(cal: DayInfo): String? =
+        ParshaData.displayLabel(cal.upcomingShabbatParsha)
+            ?: cal.parsha?.takeIf { it.isNotBlank() }
 
     fun allItems(day: DayChecklists): List<ResolvedChecklistItem> =
         day.items + day.inactiveItems

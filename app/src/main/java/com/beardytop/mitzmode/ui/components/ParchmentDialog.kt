@@ -44,6 +44,7 @@ fun ParchmentDialog(
     showCloseIcon: Boolean = true,
     dismissOnClickOutside: Boolean = true,
     fullWidth: Float = 0.92f,
+    enableHalachicTerms: Boolean = true,
     confirmButton: (@Composable () -> Unit)? = null,
     dismissButton: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
@@ -93,6 +94,7 @@ fun ParchmentDialog(
                         if (title != null) {
                             TranslatableText(
                                 text = title,
+                                enableHalachicTerms = enableHalachicTerms,
                                 style = MaterialTheme.typography.headlineSmall.copy(
                                     fontWeight = FontWeight.SemiBold,
                                     textAlign = TextAlign.Center

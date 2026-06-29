@@ -1,0 +1,110 @@
+84% Shmoneh Esrei — the nineteen blessings of the standing Amidah prayer
+  Shmoneh Esrei — תשע עשרה brachot shel tefilat ha'amidah
+77% Shemini Atzeret begins tonight${if (profile.isInIsrael) " — in Israel this is al
+  Shemini Atzeret מתחיל הערב${if (profile.isInIsrael) " — in Israel this is also Simchat Torah." else 
+75% 14 Adar (15 in walled cities); Megillah, gifts to friends/poor, and feast
+  י"ד באדר (ט"ו בערים מukafot choma); Megillah, matanot la'evyonim useudah
+70% neutral foods (neither meat nor dairy) such as fish, eggs, and produce
+  pareve — מזonot neutralim (לא בשר ולא חalav) כמו דag, beitzim וyerek
+69% Aseret Yemei Teshuvah — Ten Days of Repentance from Rosh Hashana to Yom Kippur
+  Aseret Yemei Teshuvah — עשרת ימei teshuvah מראש השנה עד יom kippur
+65% garment; tzitzit apply to four-cornered beged
+  beged — בeged; ציצית חלים על beged בעl arba kenafot
+65% Matan Torah — receiving the Torah at Mount Sinai, celebrated on Shavuot
+  Matan Torah — קבלת התורה בהar Sinai, החag בshavuot
+64% You can eat $allowedFood as of ${endedAt ?:
+  מותר לאכול $allowedFood מ-${endedAt ?:
+64% Beardy Top Productions
+  הפקות Beardy Top
+64% Havdalah in Kiddush — Yaknehaz order when Shabbat leads into Yom Tov
+  Havdalah בkiddush — סדר Yaknehaz כששבת נכנסת ליom tov
+61% Sukkot (first day) begins tonight — Zman Simchateinu.
+
+Before sunset:
+• Avoid ea
+  "יום ראשון" מתחיל הלילה - זמן סימפטנו. לפני השקיעה:
+• להימנע מאכילה רשמית בתוך הסוקה היום (Rama O.C.
+61% Today is $holidayName (Yom Tov — a festival day). Please put away your device an
+  היום $holidayName (יום טוב — yom chag). אנא הניחu את המכשיר ושמרu על קדושת היום. Melacha (avoda asur
+60% bitul — nullification (e.g. Kol Chamira nullifying chametz)
+  bitul — ביטul (למשל כל chamira המבטל chametz)
+60% ${yaalehVyavoFemaleAmidahLead("Shacharit")}
+
+${yaalehVyavoForgotShacharitOrMinch
+  ${yaalehVyavoFemaleAmidahLead("Shacharit")} ${yaalehVyavoForgotShacharitOrMincha("Shacharit")} אם או
+59% Kibud Av V'Eim - mitzvah to honor/respect and care for parents
+  Kibud Av V'Eim — מצווה לכבד ולטend לhorim
+59% Currently using: $effectiveName
+  בשימוש כעת: $effectiveName
+59% receiving the Torah at Mount Sinai, celebrated on Shavuot
+  מתan Torah — קבלת התורה בהar Sinai, החag בshavuot
+59% New mitzvah submission from the Mitz Mode app:
+            
+            Submitte
+  חדש חדש חדש מצווה אפליקציית Mitz Mode: נכתב על ידי:$submitterNameהמונחים:$mitzvahTextנכתב על:${java.
+58% ${yaalehVyavoFemaleAmidahLead("Mincha")}
+
+${yaalehVyavoForgotShacharitOrMincha("
+  ${yaalehVyavoFemaleAmidahLead("Mincha")} ${yaalehVyavoForgotShacharitOrMincha("Mincha")} אם אומרים ב
+56% Shehecheyanu (Sephardic — Shulchan Arukh O.C. 692:1; Yalkut Yosef): Recite only 
+  Shehecheyanu()ספרדי c - Shulchan Arukh 692:1;Yalkut Yosef Recite only before the first Evening Megil
+56% $pesachBegins
+
+$chametzNote
+
+Seder (first night):
+• $sederWhen
+• Matzah, maror, 
+  $pesachBegins $chametzNote סדר (הלילה הראשון):
+•$sederWhen
+• Matzah, Maror, 4 כוסות יין, קורא Haggad
+56% palm branch waved with the etrog, willows, and myrtle branches on Sukkot
+  lulav — ענף דקל שננענע עם etrog, aravot vehadasim בסוכות
+55% ${yaalehVyavoFemaleAmidahLead("Maariv")}
+
+${yaalehVyavoForgotMaarivRoshChodesh()
+  ${yaalehVyavoFemaleAmidahLead("Maariv")} ${yaalehVyavoForgotMaarivRoshChodesh()} אם אומרים ברכת המזו
+54% fearing of Heaven; living with awareness that G-d is present
+  yirat Shamayim — יirat shamayim; חיים עם מודעות לנוכחות ה'
+54% Another Yom Tov day of Pesach begins after sunset today — no melacha from then.
+
+  עוד יום טוב יום פסח החל מהשקיעה היום - לא ממלכה. מחר:
+•יום טוב עם חצי Hallel ו Musaf לא;chametz אוki
+53% nullification (e.g. Kol Chamira nullifying chametz)
+  ביטul (למשל כל chamira המבטל chametz)
+52% guarding one's speech from lashon hara and harmful words
+  שmirat halashon — שמירה על הדibur מלashon hara ומילים מזיקות
+51% Ten Days of Repentance from Rosh Hashana to Yom Kippur
+  עשרת ימei teshuvah מראש השנה עד יom kippur
+51% Shamor — "guard (Shabbat)" from the Deuteronomy version of the Ten Commandments
+  Shamor — "שmor (שבת)" מנוסח דvarim של עשרת הדibrot
+50% e.g., Sarah B.
+  לדוגמה, Sarah B.
+50% Chumash — A Chumash (from chamesh, "five") is a printed book of the five books o
+  Chumash - A Chumash(מתוך "חמש") הוא ספר מודפס של חמשת ספרי התורה –Bereishit,Shemot,Vayikra,Bamidbar 
+47% Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei 
+  הוסיפו יעלה ויבוא בעמידת מנחה בראש חודש — בברכת רצה (עבודה). ${yaalehVyavoForgotShacharitOrMincha("M
+46% $opener
+
+Havdalah when Shabbat leads into Yom Tov:
+• Havdalah is recited when en
+  $opener Havdalah כאשר שבת מובילה ל יום טוב:
+האללה מדקלם כאשר נכנס יום של קדושה פחותה. השבת היא holie
+44% blessing over fire in Yaknehaz and regular Havdalah
+  ברכה על האש ב-Yaknehaz ובהavdalah הרגילה
+44% charity box; collecting coins for those in need is itself a mitzvah
+  קupat tzedakah — איסוף מטבעות לneedyim הוא בפני עצmo מצווה
+43% Korech — Korech is the "Hillel sandwich" at the Seder — matzah and maror togethe
+  KorechKorech שם הספר: Hillel Sandwich Sedermatzah ו maror יחד, זוכרים את התרגול מתקופת המקדש. את אוכ
+43% Three Weeks — The Three Weeks from 17 Tammuz to Tisha B'Av mourn the Temple's de
+  Three Weeks - The Three Weeks 17 Tammuz to Tisha B'Av מתאבלים על הרס המקדש.אשכנזים m ו חב"ד לאסור תס
+42% You may open the app again $tzeitNote — $endLabel.
+  ניתן לפתוח שוב את האפליקציה $tzeitNote — $endLabel.
+42% Rosh Hashana — Jewish New Year; Day of Judgment. No melacha from tonight.
+
+If th
+  ראש השנה היהודי - יום הדין לא מלצר הערב. אם ראש השנה ישנה פוגש את השבת, סעיף מפורט להלן (eruv tavshi
+42% "guard (Shabbat)" from the Deuteronomy version of the Ten Commandments
+  "שmor (שבת)" מנוסח דvarim של עשרת הדibrot
+
+TOTAL 166

@@ -25,6 +25,7 @@ fun MitzvahInfoDialog(
     ParchmentDialog(
         onDismiss = onDismiss,
         title = "What's a Mitzvah?",
+        enableHalachicTerms = false,
         confirmButton = { GoldButton(onClick = onDismiss, text = "Close") }
     ) {
         Box(
@@ -41,6 +42,7 @@ fun MitzvahInfoDialog(
 While mitzvah means commandment, it also carries the deeper meaning of "connection." By performing a mitzvah, we fulfill G-d's will and connect with the Divine. It's like following instructions from a loved one; by doing so, you strengthen your bond with them. 
 
 G-d is constantly sending down pure Heavenly Light which sustains the world and everything in it. If you go against His will, it's like putting an umbrella between yourself and this Light. But by performing mitzvot you can connect with the Heavenly Goodness that is G-d Himself, and experience Heaven on Earth- in a state you might like to call "Mitz Mode." It might not happen right away, but do a few mitzvot and see how you feel. This is just the beginning...""",
+                enableHalachicTerms = false,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = fontSize.sp
                 ),

@@ -1,0 +1,15 @@
+{
+  "total_strings": 2066,
+  "issues": [],
+  "summary": {
+    "CRITICAL": 0,
+    "IMPORTANT": 0,
+    "LOW": 0
+  },
+  "coverage": {
+    "he": 2066,
+    "es": 2048,
+    "fr": 2049,
+    "ru": 2049
+  }
+}

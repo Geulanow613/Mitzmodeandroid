@@ -42,6 +42,8 @@ class DataStoreAppRepository(private val context: Context) : AppRepository {
         val monthlyMonthPrefix = "monthly_month_"
         /** Stores the "YYYY-MM-DD" Saturday key for each weekly mitzvah when last checked. */
         val weeklyWeekPrefix = "weekly_week_"
+        /** Stores the tzeit epoch-millis key for tzeit-to-tzeit daily mitzvot when last checked. */
+        val tzeitDayPrefix = "tzeit_day_"
     }
 
     override val profile: Flow<UserProfile> = context.dataStore.data.map { prefs ->
@@ -192,6 +194,23 @@ class DataStoreAppRepository(private val context: Context) : AppRepository {
             val weekKey = stringPreferencesKey(Keys.weeklyWeekPrefix + id)
             prefs[persistKey] = checked
             prefs[weekKey] = saturdayKey
+        }
+    }
+
+    override val tzeitCheckedDays: Flow<Map<String, String>> = context.dataStore.data.map { prefs ->
+        prefs.asMap()
+            .filter { (key, _) -> key.name.startsWith(Keys.tzeitDayPrefix) }
+            .mapKeys { (key, _) -> key.name.removePrefix(Keys.tzeitDayPrefix) }
+            .mapValues { (_, value) -> value as? String ?: "" }
+    }
+
+    override suspend fun setTzeitDayChecked(id: String, checked: Boolean, tzeitDayKey: String) {
+        if (id.isBlank()) return
+        context.dataStore.edit { prefs ->
+            val persistKey = booleanPreferencesKey(Keys.persistPrefix + id)
+            val dayKey = stringPreferencesKey(Keys.tzeitDayPrefix + id)
+            prefs[persistKey] = checked
+            prefs[dayKey] = tzeitDayKey
         }
     }
 

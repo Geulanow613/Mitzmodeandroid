@@ -16,6 +16,9 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Media3 UI layouts reference drawables only from XML; keep them if minify/shrink is enabled later.
+-keep class androidx.media3.ui.** { *; }
+-keepresourcexmlelements layout/exo_player_control_view
+-keepresourcexmlelements layout/exo_player_view
+-keep class androidx.media3.ui.R$drawable { *; }
+-keep class androidx.media3.ui.R$layout { *; }

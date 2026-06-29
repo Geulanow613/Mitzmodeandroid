@@ -52,7 +52,7 @@ object SeasonalChecklistItems {
                 RoshChodeshRules.HallelKind.NONE -> Unit
             }
         }
-        if (isKiddushLevanaWindow(cal, profile)) {
+        if (isKiddushLevanaWindow(cal, profile) && profile.gender.usesMaleChecklistItems()) {
             add(kiddushLevanaItem(profile))
         }
         if (isTuBshvat(cal)) {
@@ -209,6 +209,7 @@ How to fulfill:
 Blessings before reading:
 • Al mikra megillah
 • She'asa nissim
+• Shehecheyanu (recited on the first night; Ashkenazim recite it by day as well)
 
 Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
 
@@ -1110,6 +1111,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         timeOfDay = TimeOfDay.NIGHT,
         required = true,
         situational = false,
+        gender = "male",
         monthlyMitzvah = true,
         explanation = SeasonalMitzvahText.kiddushLevanaExplanation(profile),
         links = SeasonalMitzvahText.kiddushLevanaLinks(profile)

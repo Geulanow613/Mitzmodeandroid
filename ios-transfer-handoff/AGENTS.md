@@ -1,10 +1,11 @@
 # iOS handoff — agent instructions (start here)
 
-This folder is a **file bundle for handoff**, not an installation guide. Copy paths from here into the target iOS / Mitz Mode iOS project, or diff against it. Do not treat `pod install` or Xcode setup as the primary task unless the host project already uses that workflow.
+This folder is a **file bundle for handoff**, not an installation guide. **Preferred integration:** point the iOS/Mac project at the same `be-a-tzaddik/shared` path as Android (see **`EMBED.md`**). Use this mirror when you must copy files; run **`verify-handoff.ps1`** after sync to catch drift.
 
 ## What to do (in order)
 
-1. Read **`docs/PARITY_CHECKLIST.md`** — acceptance criteria (must match Android / embedded Mitz Mode).
+1. Read **`EMBED.md`** — path-based embed (Android model), zmanim split, test commands.
+2. Read **`docs/PARITY_CHECKLIST.md`** — acceptance criteria (must match Android / embedded Mitz Mode).
 2. Read **`docs/SOURCE_MAP.md`** — which files matter and where they live in this mirror.
 3. Apply code from **`be-a-tzaddik/`** into the Mac iOS workspace (same relative paths under `be-a-tzaddik/` or your repo’s `be-a-tzaddik/`).
 4. For **Mitz Mode embed**, read **`docs/SWIFT_KOTLIN_REFERENCE.md`** — `EmbeddedChecklistViewController`, Swift host, `Info.plist` keys.
@@ -23,7 +24,9 @@ This folder is a **file bundle for handoff**, not an installation guide. Copy pa
 | **`be-a-tzaddik/data/`** | Optional duplicate of checklist JSON (source of truth is `shared/.../composeResources/files/`) |
 | **`docs/`** | Parity checklist, source map, Swift/Kotlin snippets, Mitz home background, Android embed pointer |
 | **`CHANGELOG.md`** | What changed in the last sync |
+| **`EMBED.md`** | Path-based integration (preferred), zmanim parity, test workflow |
 | **`sync-to-ios-handoff.ps1`** | Refreshes this mirror from repo `be-a-tzaddik/` (Windows) |
+| **`verify-handoff.ps1`** | Fails if mirror ≠ source (run after sync) |
 
 **Not included on purpose:** `androidApp/`, `tools/`, build caches — Android-only or maintainer scripts.
 
@@ -61,7 +64,8 @@ This folder is a **file bundle for handoff**, not an installation guide. Copy pa
 | `shared/.../ui/screens/AboutScreen.kt` | About tab |
 | `shared/.../domain/HolyDayPhoneRules.kt` | Shabbat / chutz 2nd-day Yom Tov |
 | `shared/.../domain/ZmanPeriodLogic.kt` | Evening period boundaries |
-| `shared/iosMain/.../NativeJewishCalendarBackend.kt` | iOS calendar / seasons |
+| `shared/iosMain/.../NativeJewishCalendarBackend.kt` | iOS calendar / seasons / zmanim (`SharedZmanimBuilder`) |
+| `shared/.../domain/zmanim/SharedZmanimBuilder.kt` | KMP solar zmanim (iOS + tests; Android still KosherJava) |
 
 ## Checklist text on iOS
 
@@ -84,6 +88,14 @@ Edit `be-a-tzaddik/data/checklist-items.json` (and other `data/*.json`), then ru
 ```powershell
 cd c:\apps\hehehe\ios-transfer-handoff
 .\sync-to-ios-handoff.ps1
+.\verify-handoff.ps1
+```
+
+Before handoff, run zmanim parity tests from repo root:
+
+```powershell
+cd c:\apps\hehehe
+.\gradlew :beatzaddik-shared:testDebugUnitTest
 ```
 
 Then re-copy `ios-transfer-handoff/` to the Mac or re-open it in the agent session.

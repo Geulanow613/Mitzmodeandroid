@@ -5,7 +5,7 @@ internal const val SHABBAT_REST_TITLE = "It's Shabbat Now"
 internal fun shabbatMessage(): String =
     "Please put away your device and keep Shabbat. " +
         "Rest, pray, learn Torah, and enjoy time with family and community. " +
-        "Melacha (forbidden work on Shabbat) includes most phone and device use — ask your rav if unsure."
+        "Melacha (forbidden labor) applies on Shabbat, including most phone and device use."
 
 internal fun shabbatApproachingMessage(): String =
     "Shabbat is about to begin. Please finish what you are doing, turn off your phone, " +
@@ -15,7 +15,7 @@ internal fun shabbatApproachingMessage(): String =
 
 internal fun yomTovMessage(holidayName: String): String =
     "Today is $holidayName (Yom Tov — a festival day). Please put away your device and keep the day holy. " +
-        "Melacha (forbidden work) applies on Yom Tov similar to Shabbat — ask your rav if unsure."
+        "Melacha (forbidden labor) applies on Yom Tov similar to Shabbat."
 
 internal fun yomTovApproachingMessage(holidayName: String): String =
     "$holidayName is about to begin. Please finish what you are doing, turn off your phone, " +

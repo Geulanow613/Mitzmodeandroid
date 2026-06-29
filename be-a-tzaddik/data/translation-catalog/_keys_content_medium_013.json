@@ -1,0 +1,22 @@
+[
+  "This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.",
+  "This year, Shabbat is Erev Rosh Hashana — Rosh Hashana begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.",
+  "This year, tomorrow (Shabbat) is Erev $chagName — $chagName begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.",
+  "This year, tomorrow (Shabbat) is Erev Rosh Hashana — Rosh Hashana begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.",
+  "Today is $holidayName (Yom Tov — a festival day). Please put away your device and keep the day holy. Melacha (forbidden labor) applies on Yom Tov similar to Shabbat.",
+  "Today is $name — $meaning\n\nMinor fast rules:\n• No eating or drinking from dawn until nightfall.\n• Washing, music, and showering are generally permitted (unlike Tisha B'Av and Yom Kippur).\n• Special selichot and prayers may be recited in synagogue — check your community schedule.",
+  "Tomorrow is erev $tomorrowChag — the Yom Tov–Shabbat rules below apply starting then. Use today (during the day) to prepare so you are not caught tonight or tomorrow without eruv tavshilin, flames, or food in place.",
+  "Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).\n\n${fullScheduleBlock()}",
+  "Treif means non-kosher — originally torn flesh of improperly slaughtered animals, now any forbidden food. Mixing treif into a kosher kitchen can require kashering. \"Kosher style\" restaurants without supervision are not kosher.",
+  "Trop (ta'amei hamikra) are the cantillation marks above and below Hebrew in a Chumash that tell the baal koreh how to chant Torah — melody and phrase breaks. Learning trop is a skill separate from understanding the words. Congregants follow the chant in their books during the reading.",
+  "Try to make peace between two people you know who are currently arguing. The reward for doing so is very great!",
+  "Tzedakah is usually translated \"charity,\" but the root means justice — sharing what G-d entrusted to you with those in need. The sages list it among the pillars on which the world stands; even a small coin given with a full heart is a great mitzvah.",
+  "Vatodi'enu (\"You have made us know\") is an insert in the Maariv Amidah on Saturday night when Yom Tov begins after Shabbat. It acknowledges that Shabbat has ended and the festival has begun.",
+  "Vatodi'enu — Vatodi'enu (\"You have made us know\") is an insert in the Maariv Amidah on Saturday night when Yom Tov begins after Shabbat. It acknowledges that Shabbat has ended and the festival has begun.",
+  "When (Northern Hemisphere — your location):\nSay it during Nissan, when fruit trees in your area begin to blossom — ideally as early in the month as you first see flowers (Shulchan Arukh O.C. 226:1).",
+  "When:\nIn the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulchan Arukh O.C. 226:1). In the Southern Hemisphere, say it when local fruit trees blossom in Elul–Tishrei. Set your city or GPS in Settings so the app shows this item in the correct season for you.",
+  "YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach). Use your siddur's festival night Kiddush section for instructions.",
+  "Yad soledet bo (\"when the hand recoils\") is the heat threshold for bishul on Shabbat — roughly 110–113°F (43–45°C). Food already fully cooked may sometimes be reheated dry on Shabbat; liquids are stricter. This is why a blech keeps food warm without reaching cooking temperature.",
+  "Yaknehaz — YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach). Use your siddur's festival night Kiddush section for instructions.",
+  "Yetzer hatov is the inclination toward good — conscience, love of mitzvot, shame from wrongdoing. It grows when you learn Torah and see righteous examples. Jewish education (chinuch) cultivates yetzer hatov in children through habit before full understanding."
+]

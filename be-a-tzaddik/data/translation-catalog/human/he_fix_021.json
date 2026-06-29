@@ -1,0 +1,18 @@
+{
+  "he": {
+    "You can eat $allowedFood as of ${endedAt ?: \"now\"}": "מותר לאכול את $allowedFood החל מ-${endedAt ?: \"עכשיו\"}",
+    "Enjoy the official Mitz Mode song!": "תהנו מהשיר הרשמי של מיץ מוד!"
+  },
+  "es": {
+    "You can eat $allowedFood as of ${endedAt ?: \"now\"}": "Puede comer $allowedFood a partir de ${endedAt ?: \"ahora\"}",
+    "Enjoy the official Mitz Mode song!": "¡Disfrute la canción oficial de Mitz Mode!"
+  },
+  "fr": {
+    "You can eat $allowedFood as of ${endedAt ?: \"now\"}": "Vous pouvez manger $allowedFood à partir de ${endedAt ?: \"maintenant\"}",
+    "Enjoy the official Mitz Mode song!": "Profitez de la chanson officielle Mitz Mode !"
+  },
+  "ru": {
+    "You can eat $allowedFood as of ${endedAt ?: \"now\"}": "Можно есть $allowedFood с ${endedAt ?: \"сейчас\"}",
+    "Enjoy the official Mitz Mode song!": "Наслаждайтесь официальной песней Mitz Mode!"
+  }
+}

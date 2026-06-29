@@ -47,6 +47,7 @@ import com.beardytop.beatzaddik.ui.screens.ShabbatGuideData
 import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
+import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
 import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -383,7 +384,7 @@ fun HalachicClickableText(
         displayText = when {
             !appTranslation.enabled || appTranslation.languageCode == "en" -> text
             shouldSkipMachineTranslation(text, appTranslation.languageCode) -> text
-            glossaryTermsPresent -> text
+            glossaryTermsPresent && !BundledTranslationLanguages.isBundled(appTranslation.languageCode) -> text
             else -> appTranslation.translator.translate(text)
         }
     }

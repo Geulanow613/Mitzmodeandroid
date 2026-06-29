@@ -1,7 +1,5 @@
 package com.beardytop.beatzaddik.domain
 
-import com.beardytop.beatzaddik.data.ChecklistLoader
-
 object ChecklistItemResolver {
 
     fun resolve(
@@ -17,24 +15,9 @@ object ChecklistItemResolver {
         val nusachTag = item.nusachTag ?: nusach.displayName()
         val titleSuffix = if (item.nusachOnly) " · $nusachTag" else ""
 
-        // For weekly mitzvot (Shnayim Mikra), append the parsha name to the title
-        // and inject a Chabad link for that parsha.
+        // For weekly mitzvot (Shnayim Mikra), append the parsha name to the title.
         val parshaInfo = if (item.weeklyMitzvah) ParshaData.forKey(upcomingShabbatParsha) else null
         val parshaTitle = parshaInfo?.let { " — Parshat ${it.displayName}" } ?: ""
-
-        val baseLink = ChecklistLoader.pickLink(item, nusach)
-        val resolvedLink = if (parshaInfo != null) {
-            when (nusach) {
-                EffectiveNusach.CHABAD -> ChecklistLink(
-                    displayText = "Read Parshat ${parshaInfo.displayName} on Chabad",
-                    url = parshaInfo.chabadUrl
-                )
-                else -> ChecklistLink(
-                    displayText = "Sefaria — Parshat ${parshaInfo.displayName}",
-                    url = parshaInfo.sefariaUrl
-                )
-            }
-        } else baseLink
 
         val explanation = pickExplanation(item, profile).ifBlank {
             if (item.id.startsWith("custom_")) {
@@ -56,18 +39,19 @@ object ChecklistItemResolver {
                 timeOfDayAvailability(item.timeOfDay, nowMillis, zmanim)
             else -> ItemZmanStatus()
         }
-        val resourceLinks = buildResourceLinks(item, parshaInfo, nusach)
 
         val optionalSuffix = ChecklistGenderRules.optionalTitleSuffix(item, profile)
+        val baseTitle = if (profile.gender == Gender.FEMALE) {
+            ChecklistGenderRules.displayTitleForWomen(item) ?: item.title
+        } else {
+            item.title
+        }
 
         return ResolvedChecklistItem(
             def = item,
             checked = checked,
-            displayTitle = item.title + optionalSuffix + titleSuffix + parshaTitle,
+            displayTitle = baseTitle + optionalSuffix + titleSuffix + parshaTitle,
             displayExplanation = displayExplanation,
-            learnMoreUrl = resolvedLink?.url?.takeIf { isUsefulLink(it) },
-            learnMoreLabel = resolvedLink?.displayText?.takeIf { resolvedLink.url.let { isUsefulLink(it) } },
-            resourceLinks = resourceLinks,
             sectionLabel = sectionWithNusach(item.section, item, profile),
             zmanAvailability = zman.availability,
             zmanHint = zman.hint,
@@ -80,6 +64,9 @@ object ChecklistItemResolver {
 
     private fun pickExplanation(item: ChecklistItemDef, profile: UserProfile): String {
         val nusachSpecific = nusachExplanation(item, profile)
+        if (ChecklistGenderRules.usesMaleExplanationForWomen(item, profile)) {
+            return joinExplanation(item.explanation, nusachSpecific)
+        }
         if (profile.gender == Gender.FEMALE && item.explanationFemale.isNotBlank()) {
             return joinExplanation(item.explanationFemale, nusachSpecific)
         }
@@ -184,52 +171,6 @@ object ChecklistItemResolver {
             }
             else -> ItemZmanStatus()
         }
-    }
-
-    private fun buildResourceLinks(
-        item: ChecklistItemDef,
-        parshaInfo: ParshaData.ParshaInfo?,
-        nusach: EffectiveNusach,
-    ): List<ChecklistLink> {
-        val static = item.links
-            .filter { isUsefulLink(it.url) && !isGenericTorahIndex(it.url) }
-        if (parshaInfo == null) {
-            return static.distinctBy { it.url.trim().lowercase() }
-        }
-        val weekly = buildList {
-            add(
-                ChecklistLink(
-                    displayText = "Sefaria — Parshat ${parshaInfo.displayName}",
-                    url = parshaInfo.sefariaUrl
-                )
-            )
-            if (nusach == EffectiveNusach.CHABAD) {
-                add(
-                    ChecklistLink(
-                        displayText = "Chabad — Parshat ${parshaInfo.displayName}",
-                        url = parshaInfo.chabadUrl
-                    )
-                )
-            }
-            addAll(static)
-        }
-        return weekly.distinctBy { it.url.trim().lowercase() }
-    }
-
-    /** Generic Torah index pages are not useful for a specific weekly portion. */
-    private fun isGenericTorahIndex(url: String): Boolean {
-        val normalized = url.trimEnd('/').lowercase()
-        return normalized.endsWith("sefaria.org/texts/torah")
-    }
-
-    /** Skip bare homepages that don't teach anything on their own. */
-    private fun isUsefulLink(url: String): Boolean {
-        val bare = url.trimEnd('/').lowercase()
-        return bare !in setOf(
-            "https://www.sefaria.org",
-            "https://www.chabad.org",
-            "https://www.chabad.org/library/article_cdo/aid/4687/jewish/Shabbat.htm"
-        )
     }
 
     private fun sectionWithNusach(section: String, item: ChecklistItemDef, profile: UserProfile): String {

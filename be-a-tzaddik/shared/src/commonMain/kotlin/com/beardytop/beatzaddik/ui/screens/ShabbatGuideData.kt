@@ -108,8 +108,7 @@ The text asks G-d to remember us, our fathers, Jerusalem, the Davidic dynasty, a
 
 If forgotten in Shacharit or Mincha (also Chol HaMoed / Yom Tov at any Amidah including Maariv):
 • Still in Retzei — insert Yaaleh V'yavo in its place and continue.
-• Between Retzei and Modim (e.g. HaMachazir Shechinato LeZion) — say it there, then Modim.
-• After "Baruch" of Modim or later — return to the beginning of Retzei, insert it, and complete the remaining blessings.
+• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings.
 • After the final Yihiyu L'ratzon — repeat only that Amidah (Shemoneh Esrei), never the full service.
 
 Rosh Chodesh Maariv only: if forgotten after finishing Retzei, or after the entire Amidah — do not repeat (Berachot 30b; Shulchan Arukh O.C. 422:1). If still in Retzei before God's name at the conclusion, insert it there."""
@@ -390,7 +389,7 @@ Five forms of affliction (inuyim) are observed: no eating or drinking, no bathin
 
 Key prayers: Kol Nidrei (the night before), Yizkor (Ashkenaz custom on Yom Kippur morning — many Sefard communities omit or observe different memorial customs), the Neilah closing prayer, and the final single shofar blast at the conclusion of the fast.
 
-Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restrictions — including a prohibition on carrying in most opinions. Melachah (labor) is fully forbidden.""",
+Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restrictions — including a strict prohibition on carrying outdoors (unless inside a kosher eruv), exactly like Shabbat. Melachah (labor) is fully forbidden.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4688/jewish/What-Is-Yom-Kippur.htm"
         ),
         GuideTopic(

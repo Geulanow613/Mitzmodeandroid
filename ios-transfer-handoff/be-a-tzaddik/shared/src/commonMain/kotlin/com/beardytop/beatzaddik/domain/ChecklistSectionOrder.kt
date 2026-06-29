@@ -14,6 +14,7 @@ object ChecklistSectionOrder {
     }
 
     private val prepSectionSortPriority = mapOf(
+        "Motzei Shabbat" to -60,
         "Seasonal" to -50,
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
@@ -25,6 +26,7 @@ object ChecklistSectionOrder {
         cal: DayInfo,
         tomorrowCal: DayInfo,
         profile: UserProfile,
+        nowMillis: Long,
     ): Set<String> = buildSet {
         if (BirkatHachamahRules.visibleOccurrence(cal.date) != null) add("Seasonal")
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
@@ -41,6 +43,9 @@ object ChecklistSectionOrder {
             "erev_tisha_beav" in cal.activeSeasons
         ) {
             add("Fasts")
+        }
+        if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
+            add("Motzei Shabbat")
         }
     }
 

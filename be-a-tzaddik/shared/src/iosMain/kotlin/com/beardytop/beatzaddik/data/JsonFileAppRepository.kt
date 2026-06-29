@@ -36,7 +36,9 @@ private data class StoredState(
     /** Maps monthly-mitzvah item id → "hebrewYear-hebrewMonth" key when last checked. */
     val monthlyMonths: Map<String, String> = emptyMap(),
     /** Maps weekly-mitzvah item id → "YYYY-MM-DD" Saturday key when last checked. */
-    val weeklyWeeks: Map<String, String> = emptyMap()
+    val weeklyWeeks: Map<String, String> = emptyMap(),
+    /** Maps tzeit-day mitzvah id → tzeit epoch-millis key when last checked. */
+    val tzeitDays: Map<String, String> = emptyMap()
 )
 
 class JsonFileAppRepository : AppRepository {
@@ -52,6 +54,7 @@ class JsonFileAppRepository : AppRepository {
     private val _kashrut = MutableStateFlow<KashrutWait?>(null)
     private val _monthlyMonths = MutableStateFlow<Map<String, String>>(emptyMap())
     private val _weeklyWeeks = MutableStateFlow<Map<String, String>>(emptyMap())
+    private val _tzeitDays = MutableStateFlow<Map<String, String>>(emptyMap())
 
     override val disclaimerAcknowledged: Flow<Boolean> = _disclaimerAcknowledged.asStateFlow()
 
@@ -62,6 +65,7 @@ class JsonFileAppRepository : AppRepository {
     override val kashrutWait = _kashrut.asStateFlow()
     override val monthlyCheckedMonths: Flow<Map<String, String>> = _monthlyMonths.asStateFlow()
     override val weeklyCheckedWeeks: Flow<Map<String, String>> = _weeklyWeeks.asStateFlow()
+    override val tzeitCheckedDays: Flow<Map<String, String>> = _tzeitDays.asStateFlow()
 
     init {
         loadFromDisk()
@@ -114,6 +118,12 @@ class JsonFileAppRepository : AppRepository {
         it.copy(persistChecked = persist, weeklyWeeks = weeks)
     }
 
+    override suspend fun setTzeitDayChecked(id: String, checked: Boolean, tzeitDayKey: String) = update {
+        val persist = it.persistChecked.toMutableMap().apply { put(id, checked) }
+        val days = it.tzeitDays.toMutableMap().apply { put(id, tzeitDayKey) }
+        it.copy(persistChecked = persist, tzeitDays = days)
+    }
+
     override suspend fun clearDayIfNewDate(todayKey: String) = update {
         if (it.checklistDate == todayKey) return@update it
         it.copy(
@@ -159,6 +169,7 @@ class JsonFileAppRepository : AppRepository {
         _kashrut.value = state.kashrut
         _monthlyMonths.value = state.monthlyMonths
         _weeklyWeeks.value = state.weeklyWeeks
+        _tzeitDays.value = state.tzeitDays
     }
 
     private fun rolloverInState(state: StoredState): StoredState {

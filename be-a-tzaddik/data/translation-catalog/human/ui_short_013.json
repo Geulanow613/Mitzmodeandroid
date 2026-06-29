@@ -1,0 +1,30 @@
+{
+  "he": {
+    "ברכת המזון": "ברכת המזון",
+    "תפילת הדרך": "תפילת הדרך",
+    "‹ Back": "‹ חזרה",
+    "✓ You may now eat": "✓ מותר לאכול עכשיו",
+    "🎵 Official App Song": "🎵 שיר האפליקציה הרשמי"
+  },
+  "es": {
+    "ברכת המזון": "Birkat Hamazón (bendición después de las comidas)",
+    "תפילת הדרך": "Tefilat HaDerech (oración del camino)",
+    "‹ Back": "‹ Atrás",
+    "✓ You may now eat": "✓ Ya puede comer",
+    "🎵 Official App Song": "🎵 Canción oficial de la app"
+  },
+  "fr": {
+    "ברכת המזון": "Birkat Hamazón (bénédiction après les repas)",
+    "תפילת הדרך": "Tefilat HaDerech (prière du voyage)",
+    "‹ Back": "‹ Retour",
+    "✓ You may now eat": "✓ Vous pouvez manger",
+    "🎵 Official App Song": "🎵 Chanson officielle de l'app"
+  },
+  "ru": {
+    "ברכת המזון": "Биркат а-Мазон (благословение после еды)",
+    "תפילת הדרך": "Тефилат а-Дерех (молитва в пути)",
+    "‹ Back": "‹ Назад",
+    "✓ You may now eat": "✓ Теперь можно есть",
+    "🎵 Official App Song": "🎵 Официальная песня приложения"
+  }
+}

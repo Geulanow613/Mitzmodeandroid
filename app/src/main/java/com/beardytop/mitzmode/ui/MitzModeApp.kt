@@ -67,6 +67,7 @@ fun MitzModeApp(
 
     var showLanguageSelection by remember { mutableStateOf(false) }
     var showMusicPlayer by remember { mutableStateOf(false) }
+    var translationNoticeTarget by remember { mutableStateOf<Pair<String, String>?>(null) }
 
     var currentTourStep by remember { mutableStateOf(0) }
     var tourStepBounds by remember { mutableStateOf<Map<Int, Rect>>(emptyMap()) }
@@ -661,7 +662,19 @@ fun MitzModeApp(
 
         if (showLanguageSelection) {
             LanguageSelectionDialog(
-                onDismiss = { showLanguageSelection = false }
+                onDismiss = { showLanguageSelection = false },
+                onNonEnglishLanguageSelected = { code, name ->
+                    translationNoticeTarget = code to name
+                }
+            )
+        }
+
+        translationNoticeTarget?.let { (code, name) ->
+            TranslationNoticeDialog(
+                languageName = name,
+                targetLanguageCode = code,
+                onDismiss = { translationNoticeTarget = null },
+                onUnderstood = { translationNoticeTarget = null }
             )
         }
         

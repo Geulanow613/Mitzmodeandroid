@@ -251,9 +251,10 @@ private fun AboutYouStep(
             style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = TzaddikColors.NavyDeep
         )
-        Spacer(Modifier.height(4.dp))
+        Spacer(Modifier.height(12.dp))
         AppText(
-            "The Torah's obligations differ somewhat based on these details — this helps us show you the right checklist.",
+            "This checklist tries to include the basic Torah obligations and relevant information for Jewish people to live a rewarding Torah lifestyle.\n\n" +
+                "The details differ depending on your gender and marital situation. No data is shared with anyone, it all stays locally on your device.",
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted
         )
@@ -282,31 +283,9 @@ private fun AboutYouStep(
             onClick = { onGender(Gender.PREFER_NOT_TO_SAY) },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(4.dp))
-        AppText(
-            "Choose Female for the women's checklist (prayer, Torah study, tzniut). \"Prefer not to say\" uses the men's checklist.",
-            style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.TextMuted
-        )
         Spacer(Modifier.height(8.dp))
         ToggleRow("I am married", married) { onMarried(it) }
-        HalachicClickableText(
-            text = if (gender == Gender.FEMALE) {
-                "When married, your checklist adds a Married women's mitzvot section: hair covering (kisui rosh) and taharat hamishpacha (family purity). You can change this anytime in Settings."
-            } else {
-                "For women, being married adds hair covering and family purity to the checklist. Change anytime in Settings."
-            },
-            style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.TextMuted,
-            modifier = Modifier.padding(start = 4.dp, bottom = 6.dp),
-        )
         ToggleRow("I have children", children) { onChildren(it) }
-        AppText(
-            "Affects: certain Shabbat and holiday preparation items.",
-            style = MaterialTheme.typography.bodySmall,
-            color = TzaddikColors.TextMuted,
-            modifier = Modifier.padding(start = 4.dp)
-        )
     }
 }
 

@@ -141,15 +141,20 @@ data class UserProfile(
             else -> IsraelDetectionSource.MANUAL_FLAG
         }
 
-    /** Minutes to wait after dairy before eating meat (custom or nusach default). */
+    /**
+     * Minutes to wait after dairy before eating meat (custom or nusach default).
+     *
+     * Shulchan Aruch (Y.D. 89:2): after dairy, only rinsing mouth and hands is required before meat —
+     * no timed wait. Most Ashkenaz poskim similarly require no wait. A 30-minute default is used
+     * as a conservative universal baseline. Users can adjust in Settings.
+     */
     fun dairyToMeatWaitMinutes(): Int =
-        KashrutWaitTimes.resolveDairyToMeatMinutes(meatAfterDairyHours)
-            ?: when (effectiveNusach()) {
-                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 6 * 60
-                else -> 60
-            }
+        KashrutWaitTimes.resolveDairyToMeatMinutes(meatAfterDairyHours) ?: 30
 
     fun meatToDairyHours(): Int = dairyAfterMeatHours ?: 6
+
+    /** True when GPS or a manual city has provided coordinates for prayer-time calculations. */
+    fun hasZmanimLocation(): Boolean = latitude != null && longitude != null
 }
 
 @Serializable
@@ -283,4 +288,6 @@ data class UpcomingHoliday(
     val beginsTonightWhenImminent: Boolean = true,
     /** When set, Today screen uses this instead of [daysAway] / [beginsTonightWhenImminent]. */
     val whenLabelOverride: String? = null,
+    /** Smaller secondary line under [hint] (e.g. location-specific fast start time). */
+    val timingHint: String? = null,
 )

@@ -132,18 +132,12 @@ fun SettingsScreen(
             Spacer(Modifier.height(10.dp))
             ProfileToggle(
                 label = "Married",
-                description = if (profile.gender == Gender.FEMALE) {
-                    "Adds the Married women's mitzvot section: kisui rosh (hair covering) and taharat hamishpacha"
-                } else {
-                    "Shows mitzvot related to marriage where applicable"
-                },
                 checked = profile.married,
                 onChange = { viewModel.updateProfile(married = it) }
             )
             Spacer(Modifier.height(4.dp))
             ProfileToggle(
                 label = "Have children",
-                description = "Shows additional Shabbat preparation items",
                 checked = profile.hasChildren,
                 onChange = { viewModel.updateProfile(hasChildren = it) }
             )
@@ -555,9 +549,9 @@ private fun WaitTimeSlider(label: String, value: Int, onValueChange: (Int) -> Un
 @Composable
 private fun ProfileToggle(
     label: String,
-    description: String,
     checked: Boolean,
-    onChange: (Boolean) -> Unit
+    onChange: (Boolean) -> Unit,
+    description: String? = null,
 ) {
     Row(
         Modifier.fillMaxWidth().padding(vertical = 2.dp),
@@ -570,7 +564,9 @@ private fun ProfileToggle(
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
                 color = TzaddikColors.TextBrown
             )
-            AppText(description, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+            if (!description.isNullOrBlank()) {
+                AppText(description, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
+            }
         }
         Spacer(Modifier.width(12.dp))
         Switch(

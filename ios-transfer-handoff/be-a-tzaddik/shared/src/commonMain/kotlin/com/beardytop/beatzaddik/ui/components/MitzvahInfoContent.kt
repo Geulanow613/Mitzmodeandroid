@@ -14,33 +14,23 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
-
-private val MarkdownLinkRegex = Regex("""\[([^\]]+)\]\(([^)]+)\)""")
 
 /** Long explainer dialogs skip glossary scanning — it freezes the UI on first open. */
 private const val InfoDialogEnableTerms = false
@@ -66,13 +56,8 @@ fun MitzvahExplanationContent(
     zmanHint: String? = null,
     zmanMakeupNote: String? = null,
     situational: Boolean = false,
-    learnMoreUrl: String? = null,
-    learnMoreLabel: String? = null,
-    resourceLinks: List<ChecklistLink> = emptyList(),
     modifier: Modifier = Modifier
 ) {
-    val uriHandler = LocalUriHandler.current
-
     CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
     Column(
         modifier = modifier
@@ -99,8 +84,8 @@ fun MitzvahExplanationContent(
             Spacer(Modifier.height(10.dp))
         }
 
-        // Main explanation — structured rendering (markdown + fallback link labels)
-        RichExplanationText(explanation, knownLinks = resourceLinks)
+        // Main explanation — structured rendering (markdown links in text still work)
+        RichExplanationText(explanation)
 
         // Makeup / teshuvah note
         zmanMakeupNote?.let { makeup ->
@@ -110,7 +95,8 @@ fun MitzvahExplanationContent(
             AppText(
                 "Makeup prayer",
                 style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
-                color = TzaddikColors.NavyDeep
+                color = TzaddikColors.NavyDeep,
+                enableTerms = InfoDialogEnableTerms,
             )
             Spacer(Modifier.height(4.dp))
             HalachicClickableText(
@@ -120,68 +106,8 @@ fun MitzvahExplanationContent(
                 enableTerms = InfoDialogEnableTerms,
             )
         }
-
-        val linkedInExplanation = MarkdownLinkRegex.findAll(explanation)
-            .map { it.groupValues[2].trim().lowercase() }
-            .toSet()
-        val extraResourceLinks = resourceLinks.filter { link ->
-            val urlKey = link.url.trim().lowercase()
-            urlKey !in linkedInExplanation &&
-                (learnMoreUrl == null || !link.url.equals(learnMoreUrl, ignoreCase = true))
-        }
-        if (extraResourceLinks.isNotEmpty()) {
-            Spacer(Modifier.height(14.dp))
-            SectionHeading("Resources")
-            Spacer(Modifier.height(6.dp))
-            extraResourceLinks.forEach { link ->
-                TappableLinkLine(label = link.displayText, url = link.url, uriHandler = uriHandler)
-                Spacer(Modifier.height(4.dp))
-            }
-        }
-
-        learnMoreUrl?.let { url ->
-            if (extraResourceLinks.isEmpty()) {
-                Spacer(Modifier.height(14.dp))
-            }
-            TappableLinkLine(
-                label = learnMoreLabel ?: "Further reading",
-                url = url,
-                uriHandler = uriHandler,
-                prefix = "↗ "
-            )
-        }
     }
     }
-}
-
-@Composable
-private fun TappableLinkLine(
-    label: String,
-    url: String,
-    uriHandler: androidx.compose.ui.platform.UriHandler,
-    prefix: String = ""
-) {
-    val linkText = buildAnnotatedString {
-        pushStringAnnotation(tag = "URL", annotation = url)
-        withStyle(
-            SpanStyle(
-                color = TzaddikColors.NavyMid,
-                textDecoration = TextDecoration.Underline,
-                fontWeight = FontWeight.Medium
-            )
-        ) {
-            append("$prefix$label")
-        }
-        pop()
-    }
-    ClickableText(
-        text = linkText,
-        style = MaterialTheme.typography.bodySmall,
-        onClick = { offset ->
-            linkText.getStringAnnotations("URL", offset, offset).firstOrNull()
-                ?.let { uriHandler.openUri(it.item) }
-        }
-    )
 }
 
 @Composable

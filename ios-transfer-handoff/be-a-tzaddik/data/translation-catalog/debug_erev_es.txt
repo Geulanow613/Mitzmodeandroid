@@ -1,0 +1,19 @@
+Hoy es Erev Yom Kippur — un día único de comer antes del ayuno más sagrado del año.
+
+Mitzvah para comer hoy:
+• Es un mitzvá para comer y beber generosamente todo el día Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).
+• Tenga una comida festiva de estilo Yom Tov - muchos comienzan con la iluminación de vela y Kiddush como para Yom Tov (consulte su rav para su minhag).
+• El Talmud compara comer en Erev Yom Kippur para ayunar en Yom Kippur por mérito (Rosh Hashana 9a).
+
+Antes de que comience el ayuno:
+• Tiempo rápido Halachic: Yom Kippur corre desde el atardecer esta noche ${sunset?.let { " (approx. $it)" } ?: ""} hasta la noche de mañana ($tzeitTomorrow).
+• Tosefet (fecha del día de semana): Muchas comunidades comienzan a abstenerse de comer y beber algo antes de la puesta del sol, aceptando el ayuno temprano, como hemos "adido del día de semana al día santo" (Yoma 81b; Shulchan Arukh O.C. 608:1). Cuántos minutos temprano varía por comunidad; pregunte a su rav. El tiempo de puesta de sol en esta aplicación es cuando el ayuno está definitivamente en efecto, no necesariamente cuando su sinagoga comienza Kol Nidrei.
+• Kol Nidrei antes del atardecer: Kol Nidrei es la anulación de votos (hatarat nedarim) antes del Día de la expiación. Un beit din no puede reunirse en Yom Kippur en sí mismo, por lo que Kol Nidrei debe ser completado antes de la puesta de sol mientras que todavía es día de semana (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). Es por eso que los servicios a menudo comienzan bien antes de la puesta de sol, por lo que la congregación puede terminar Kol Nidrei y comenzar el ayuno con el tosefet mientras todavía es erev.
+• Pregunte el perdón de aquellos que usted puede haber herido; dar tzedakah; sumergirse en un mikveh si esa es su costumbre.
+• Luces Yom Kippur velas antes del atardecer (mujeres casadas tradicionalmente luz; otros siguen la comunidad — pregunte su rav).
+
+Motzei Yom Kippur:
+• Después de que el ayuno termine mañana por la noche, es un mitzvá comer una comida adecuada, no sólo un aperitivo. Muchos tienen un descanso festivo.
+• La tradición chabada (Baal HaTanya) enseña que el sustento de uno (parnassa) para el año está especialmente conectado a esta comida post-Yom Kippur — comer con alegría e intención después de la aventura y Havdalah.
+
+Que ayuna mañana: Adultos judíos sanos de la era del bar/bat mitzvah. Aquellos que están enfermos, embarazadas, enfermeros o recién nacidos deben pedir un rav, a menudo comen en cantidades más pequeñas (shiurim) o están exentos.

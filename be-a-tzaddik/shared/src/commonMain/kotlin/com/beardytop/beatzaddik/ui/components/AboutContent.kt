@@ -85,6 +85,39 @@ fun AboutContent(
                 }
             }
         )
+
+        Spacer(Modifier.height(16.dp))
+
+        AppText(
+            AppDisclaimer.FEEDBACK_ABOUT_PROMPT,
+            style = MaterialTheme.typography.bodyMedium,
+            color = TzaddikColors.TextBrown,
+            textAlign = textAlign,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(4.dp))
+        val emailLink = buildAnnotatedString {
+            pushStringAnnotation(tag = "URL", annotation = AppDisclaimer.FEEDBACK_EMAIL_MAILTO)
+            withStyle(
+                SpanStyle(
+                    color = TzaddikColors.NavyMid,
+                    textDecoration = TextDecoration.Underline
+                )
+            ) {
+                append(AppDisclaimer.FEEDBACK_EMAIL)
+            }
+            pop()
+        }
+        ClickableText(
+            text = emailLink,
+            style = MaterialTheme.typography.bodyMedium.copy(textAlign = textAlign),
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { offset ->
+                emailLink.getStringAnnotations("URL", offset, offset).firstOrNull()?.let {
+                    uriHandler.openUri(it.item)
+                }
+            }
+        )
     }
 }
 

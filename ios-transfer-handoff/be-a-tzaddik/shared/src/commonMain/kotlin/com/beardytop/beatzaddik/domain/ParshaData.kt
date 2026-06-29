@@ -85,4 +85,10 @@ object ParshaData {
     fun forKey(kosherJavaName: String?): ParshaInfo? =
         if (kosherJavaName == null || kosherJavaName == "NONE") null
         else map[kosherJavaName]
+
+    fun displayLabel(kosherJavaName: String?): String? =
+        forKey(kosherJavaName)?.displayName
+            ?: kosherJavaName?.takeIf { it.isNotBlank() && it != "NONE" }
+                ?.replace('_', ' ')
+                ?.trim()
 }

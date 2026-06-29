@@ -57,4 +57,12 @@ object BirkatHachamahRules {
         val weekday = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
         return "$weekday, $month ${date.dayOfMonth}, ${date.year}"
     }
+
+    /** Closest occurrence to [anchor] — for debug simulator (fixed Gregorian cycle). */
+    fun nearestOccurrenceTo(anchor: LocalDate): LocalDate? =
+        OCCURRENCE_DATES.minByOrNull { kotlin.math.abs(it.toEpochDays() - anchor.toEpochDays()) }
+
+    /** A civil date in the advance checklist window (not the recitation day itself). */
+    fun sampleAdvanceDay(occurrence: LocalDate): LocalDate =
+        occurrence.plus(-4, DateTimeUnit.DAY)
 }

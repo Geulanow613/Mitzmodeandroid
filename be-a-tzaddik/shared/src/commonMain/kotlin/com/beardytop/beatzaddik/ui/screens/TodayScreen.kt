@@ -81,11 +81,13 @@ import com.beardytop.beatzaddik.domain.ItemZmanAvailability
 import com.beardytop.beatzaddik.domain.MealCategory
 import com.beardytop.beatzaddik.domain.ResolvedChecklistItem
 import com.beardytop.beatzaddik.domain.TimeOfDay
+import com.beardytop.beatzaddik.domain.TzeitDay
 import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.UpcomingHoliday
 import com.beardytop.beatzaddik.domain.ZmanimFormatter
 import com.beardytop.beatzaddik.ui.ChecklistPeriodScroll
 import com.beardytop.beatzaddik.ui.components.ChecklistDebugMenu
+import com.beardytop.beatzaddik.ui.components.ZmanimLocationBanner
 import com.beardytop.beatzaddik.ui.components.CollapsibleChecklistSectionHeader
 import com.beardytop.beatzaddik.ui.components.CurrentTimeLine
 import com.beardytop.beatzaddik.ui.components.GoldButton
@@ -186,6 +188,12 @@ fun TodayScreen(
                 onOpenGuideTopic = { topic -> guideTopic = topic },
                 onOpenOmerExplainer = { omerExplainer = day?.header?.omerExplainerText },
             )
+            if (!profile.hasZmanimLocation()) {
+                ZmanimLocationBanner(
+                    onOpenSettings = onOpenSettings,
+                    modifier = Modifier.padding(top = 10.dp),
+                )
+            }
             if (upcoming.isNotEmpty()) {
                 UpcomingHolidaysBlock(
                     holidays = upcoming,
@@ -241,8 +249,8 @@ fun TodayScreen(
                 AppText("Loading checklist…", color = TzaddikColors.TextMuted, modifier = Modifier.padding(12.dp))
             }
             day?.let { d ->
-                d.holyDayPhoneNotice?.let { notice ->
-                    HolyDayPhoneNoticeCard(notice)
+                if (d.holyDayPhoneNotice != null) {
+                    HolyDayPhoneNoticeCard(d.holyDayPhoneNotice)
                     Spacer(Modifier.height(12.dp))
                     return@let
                 }
@@ -281,17 +289,19 @@ fun TodayScreen(
                         )
                     }
                 }
-                ClickablePeriodLabel(
-                    label = d.activePeriodLabel,
-                    onClick = { scrollToChecklistPeriod(d.activePeriod) }
-                )
-                d.activePeriodHint?.let {
-                    AppText(
-                        it,
-                        enableTerms = false,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = TzaddikColors.TextMuted,
+                if (profile.hasZmanimLocation()) {
+                    ClickablePeriodLabel(
+                        label = d.activePeriodLabel,
+                        onClick = { scrollToChecklistPeriod(d.activePeriod) }
                     )
+                    d.activePeriodHint?.let {
+                        AppText(
+                            it,
+                            enableTerms = false,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = TzaddikColors.TextMuted,
+                        )
+                    }
                 }
                 ChecklistSections(
                     items = d.items,
@@ -575,6 +585,8 @@ private fun ChecklistSections(
                                             viewModel.setMonthlyChecked(item.def.id, checked)
                                         item.def.weeklyMitzvah ->
                                             viewModel.setWeeklyChecked(item.def.id, checked)
+                                        item.def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID ->
+                                            viewModel.setTzeitDayChecked(item.def.id, checked)
                                         else ->
                                             viewModel.setChecked(item.def.id, checked, item.def.persistChecked)
                                     }
@@ -599,6 +611,63 @@ private fun upcomingWhenLabel(holiday: UpcomingHoliday): String =
         holiday.daysAway == 1 -> "tomorrow"
         else -> "in ${holiday.daysAway} days"
     }
+
+private const val UPCOMING_HOLIDAY_NAME_TAG = "upcoming_holiday_name"
+
+@Composable
+private fun UpcomingHolidayLine(
+    holiday: UpcomingHoliday,
+    whenLabel: String,
+    openTopic: GuideTopic,
+    onOpenGuideTopic: (GuideTopic) -> Unit,
+) {
+    val bodyStyle = MaterialTheme.typography.bodyMedium
+    val timingStyle = MaterialTheme.typography.labelSmall
+    val annotated = remember(holiday.name, whenLabel, holiday.timingHint) {
+        buildAnnotatedString {
+            pushStringAnnotation(UPCOMING_HOLIDAY_NAME_TAG, holiday.name)
+            withStyle(
+                SpanStyle(
+                    color = TzaddikColors.ParchTop,
+                    textDecoration = TextDecoration.Underline,
+                )
+            ) {
+                append(holiday.name)
+            }
+            pop()
+            withStyle(SpanStyle(color = TzaddikColors.ParchTop)) {
+                append(" — $whenLabel")
+            }
+            holiday.timingHint?.takeIf { it.isNotBlank() }?.let { hint ->
+                withStyle(
+                    SpanStyle(
+                        color = TzaddikColors.ParchTop.copy(alpha = 0.65f),
+                        fontSize = timingStyle.fontSize,
+                        letterSpacing = timingStyle.letterSpacing,
+                    )
+                ) {
+                    append(" · $hint")
+                }
+            }
+        }
+    }
+    var textLayout by remember(annotated) { mutableStateOf<TextLayoutResult?>(null) }
+    Text(
+        text = annotated,
+        style = bodyStyle,
+        onTextLayout = { textLayout = it },
+        modifier = Modifier.pointerInput(openTopic, annotated) {
+            detectTapGestures { position ->
+                textLayout?.let { layout ->
+                    val offset = layout.getOffsetForPosition(position)
+                    if (annotated.getStringAnnotations(UPCOMING_HOLIDAY_NAME_TAG, offset, offset).isNotEmpty()) {
+                        onOpenGuideTopic(openTopic)
+                    }
+                }
+            }
+        },
+    )
+}
 
 @Composable
 private fun GuideTopicExplainerDialog(topic: GuideTopic, onDismiss: () -> Unit) {
@@ -656,22 +725,12 @@ private fun UpcomingHolidaysBlock(
                     .fillMaxWidth()
                     .padding(vertical = 4.dp, horizontal = 4.dp),
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = h.name,
-                        color = TzaddikColors.ParchTop,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            textDecoration = TextDecoration.Underline,
-                        ),
-                        modifier = Modifier.clickable { onOpenGuideTopic(openTopic) },
-                    )
-                    AppText(
-                        " — $whenLabel",
-                        color = TzaddikColors.ParchTop,
-                        enableTerms = false,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
+                UpcomingHolidayLine(
+                    holiday = h,
+                    whenLabel = whenLabel,
+                    openTopic = openTopic,
+                    onOpenGuideTopic = onOpenGuideTopic,
+                )
                 if (h.hint.isNotBlank()) {
                     Spacer(Modifier.height(3.dp))
                     HintWithTermLinks(h.hint, onOpenShabbatGuide)
@@ -921,6 +980,7 @@ private fun chipCoveredByTodayOccasion(chip: String, todayOccasion: String?): Bo
     if (chip == "Fast day" && todayOccasion.contains("Fast", ignoreCase = true)) return true
     if (chip.startsWith("Chanukah") && todayOccasion.contains("Chanukah", ignoreCase = true)) return true
     if (chip == "Purim" && todayOccasion.contains("Purim", ignoreCase = true)) return true
+    if (chip == "Shabbat" && todayOccasion?.equals("Motzei Shabbat", ignoreCase = true) == true) return true
     if (chip == "Shabbat" && todayOccasion.contains("Shabbat", ignoreCase = true)) return true
     if (chip == "Rosh Chodesh" && todayOccasion.contains("Rosh Chodesh", ignoreCase = true)) return true
     return false

@@ -64,8 +64,8 @@ object ErevChagPrepText {
             YomTovShabbatPrepText.isErevChagBeforeShabbatErevChag(cal, tomorrowCal) ->
                 "• $chagName begins tomorrow night after Shabbat (Motzei Shabbat), not at tonight's sunset — use the Friday “Tomorrow: Shabbat & erev $chagName” item for full prep."
             isShavuos -> ZmanimFormatter.formatTime(tzeit, tz)?.let {
-                "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit — approx. $it today). The 49 days of the Omer must be temimot (complete) before Shavuot begins — accepting the holiday before tzeit would cut the count short."
-            } ?: "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit). The 49 days of the Omer must be temimot (complete) before Shavuot begins."
+                "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit — approx. $it today)."
+            } ?: "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit)."
             else -> ZmanimFormatter.formatTime(sunset, tz)?.let {
                 "• Candle lighting & Yom Tov begin at sunset today ($it) — before sunset you may strike a new match normally to light Yom Tov candles and to kindle a 24- or 48-hour transfer candle for use after the holiday begins. Once Yom Tov has started, light candles only from a pre-existing flame (not a new match or lighter)."
             } ?: "• Candle lighting & Yom Tov begin at sunset — enable location for your local time."
@@ -193,7 +193,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
         HebrewCalendarEngine.PESACH -> if (HebrewCalendarEngine.isErevFirstPesachSeder(cal.hebrewMonth, cal.hebrewDay)) {
             val sederWhen = when {
                 ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal) ->
-                    "First Seder is tonight (Friday night). In the Diaspora, the second Seder is tomorrow night (Saturday night), after Shabbat."
+                    "First Seder is tonight (Friday night, commencing 15 Nisan). In the Diaspora, the second Seder is Saturday night — transitioning from Shabbat directly into the second day of Yom Tov, with Yaknehaz in Kiddush."
                 ErevPesachPrepText.isErevPesachOnShabbat(cal) ->
                     "First Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havdalah in Kiddush (Yaknehaz), then Seder."
                 profile.isInIsrael -> "In Israel: one seder tonight."
@@ -268,7 +268,7 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.PESACH, tomorrowCal, profile)}${dia
                 """Shavuot — receiving the Torah at Sinai. Yom Tov from tonight.
 
 Tonight & tomorrow:
-• Do not light candles, begin Maariv, or make Kiddush until full nightfall (tzeit) — see the timing note above. Shavuot is the only festival that may not begin before tzeit so the 49 days of the Omer remain temimot (complete).
+• Do not light candles, begin Maariv, or make Kiddush until full nightfall (tzeit) — see the timing note above. Shavuot is the only festival that may not begin before tzeit.
 • Light Yom Tov candles at tzeit.
 ${shehecheyanuErevLines(HebrewCalendarEngine.SHAVUOS, tomorrowCal, profile)}
 • Dairy is a cherished Shavuot minhag (cheesecake, blintzes). A festive meat meal with wine fulfills the primary mitzvah of Simchat Yom Tov (O.C. 529:2); many families have dairy first, then a full meat Yom Tov meal.

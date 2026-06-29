@@ -283,4 +283,6 @@ data class UpcomingHoliday(
     val beginsTonightWhenImminent: Boolean = true,
     /** When set, Today screen uses this instead of [daysAway] / [beginsTonightWhenImminent]. */
     val whenLabelOverride: String? = null,
+    /** Smaller secondary line under [hint] (e.g. location-specific fast start time). */
+    val timingHint: String? = null,
 )

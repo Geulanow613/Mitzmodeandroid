@@ -26,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -270,13 +271,12 @@ fun MusicPlayerDialog(
                 
                 Spacer(modifier = Modifier.height(4.dp))
                 
-                // Performer credit
-                Text(
-                    text = "Performed by G.E.U.L.A © 2026",
+                // Performer credit — artist name stays in Latin letters
+                ArtistAttributedLine(
+                    prefix = "Performed by",
+                    artistSuffix = " G.E.U.L.A © 2026",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -328,13 +328,11 @@ private fun StreamingPlatformLinks() {
             .padding(horizontal = 12.dp, vertical = 14.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TranslatableText(
-            text = "Listen to more Jewish music from G.E.U.L.A",
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold,
+        ArtistAttributedLine(
+            prefix = "Listen to more Jewish music from",
+            artistSuffix = " G.E.U.L.A",
+            style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
             color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -400,4 +398,31 @@ private fun formatTime(milliseconds: Int): String {
     val minutes = seconds / 60
     val remainingSeconds = seconds % 60
     return String.format("%d:%02d", minutes, remainingSeconds)
+}
+
+/** Translates the label only; [artistSuffix] (e.g. G.E.U.L.A) is never sent through translation. */
+@Composable
+private fun ArtistAttributedLine(
+    prefix: String,
+    artistSuffix: String,
+    style: TextStyle,
+    color: Color,
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        TranslatableText(
+            text = prefix,
+            style = style,
+            color = color,
+            textAlign = TextAlign.Center,
+        )
+        Text(
+            text = artistSuffix,
+            style = style,
+            color = color,
+        )
+    }
 } 

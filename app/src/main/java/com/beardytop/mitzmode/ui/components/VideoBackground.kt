@@ -1,7 +1,7 @@
 package com.beardytop.mitzmode.ui.components
 
-import android.graphics.Color as AndroidColor
 import android.util.Log
+import android.view.TextureView
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,8 +21,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.ui.AspectRatioFrameLayout
-import androidx.media3.ui.PlayerView
 import com.beardytop.mitzmode.util.VideoManager
 
 private const val TAG = "VideoBackground"
@@ -42,7 +40,7 @@ fun VideoBackground(
     var recreateKey by remember { mutableIntStateOf(0) }
     /** True after a real [ON_PAUSE]; avoids treating initial observer sync ON_RESUME as "recover from lost player". */
     var mayNeedResumeHeal by remember { mutableStateOf(false) }
-    /** When false, [PlayerView] must not hold the player (surface detached for HWUI lifecycle). */
+    /** When false, the background surface must not hold the player (HWUI lifecycle). */
     var surfaceAttached by remember { mutableStateOf(true) }
     val videoManager = remember { VideoManager.getInstance(context) }
 
@@ -67,7 +65,7 @@ fun VideoBackground(
                     if (videoManager.isLowMemoryDevice()) return@LifecycleEventObserver
                     surfaceAttached = true
                     if (videoManager.hasBackgroundPlayer()) {
-                        // Playback resumes after PlayerView reconnects in [AndroidView.update].
+                        // Playback resumes after TextureView reconnects in [AndroidView.update].
                     } else if (mayNeedResumeHeal) {
                         // Returned to foreground without a player (e.g. critical trim) — rebuild once.
                         exoPlayer = null
@@ -124,32 +122,18 @@ fun VideoBackground(
                 .background(Color.Black)
         ) {
             AndroidView(
-                factory = { ctx ->
-                    PlayerView(ctx).apply {
-                        useController = false
-                        setShowBuffering(PlayerView.SHOW_BUFFERING_NEVER)
-                        resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-                        setBackgroundColor(AndroidColor.BLACK)
-                        setShutterBackgroundColor(AndroidColor.BLACK)
-                    }
-                },
-                update = { playerView ->
+                factory = { ctx -> videoManager.createBackgroundTextureView(ctx) },
+                update = { textureView ->
                     if (!surfaceAttached || exoPlayer == null) {
-                        if (playerView.player != null) {
-                            playerView.player = null
-                        }
+                        videoManager.detachBackgroundSurface()
                         return@AndroidView
                     }
-                    if (playerView.player !== exoPlayer) {
-                        playerView.player = exoPlayer
+                    textureView.surfaceTexture?.let { surfaceTexture ->
+                        videoManager.attachBackgroundSurface(surfaceTexture)
                     }
-                    videoManager.prepareBackgroundPlayer()
                     if (isPlaying && isPlayerReady) {
                         videoManager.startBackgroundPlayback()
                     }
-                },
-                onRelease = { playerView ->
-                    playerView.player = null
                 },
                 modifier = Modifier.fillMaxSize()
             )

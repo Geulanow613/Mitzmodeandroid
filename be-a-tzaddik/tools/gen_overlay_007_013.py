@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""Generate overlay_007_013.json with human-quality translations."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+NEEDS = ROOT / "data" / "translation-catalog" / "_needs_007_013.json"
+OUT = ROOT / "data" / "translation-catalog" / "shards" / "overlay_007_013.json"
+LANGS = ("he", "es", "fr", "ru")
+
+# fmt: off
+T: dict[str, dict[str, str]] = {
+"Zorea — planting melacha": {"he": "זורע — מלאכת נטיעה", "es": "Zorea — melajá de siembra", "fr": "Zorea — melakha de plantation", "ru": "Zorea — мелаха посева"},
+"modest dress and conduct": {"he": "לבוש צנוע והתנהגות צנועה", "es": "vestimenta y conducta modestas", "fr": "tenue et conduite modestes", "ru": "скромная одежда и поведение"},
+"Choresh — plowing melacha": {"he": "חורש — מלאכת חרישה", "es": "Choresh — melajá de arado", "fr": "Choresh — melakha de labour", "ru": "Choresh — мелаха вспашки"},
+"Prayer Tradition (Nusach)": {"he": "מסורת תפילה (נוסח)", "es": "Tradición de oración (Nusaj)", "fr": "Tradition de prière (Noussah)", "ru": "Молитвенная традиция (нусах)"},
+"Tochen — grinding melacha": {"he": "טוחן — מלאכת טחינה", "es": "Tochen — melajá de molienda", "fr": "Tochen — melakha de broyage", "ru": "Tochen — мелаха помола"},
+"matana al menat lehachzir": {"he": "מתנה על מנת להחזיר — מתנה בתנאי שיש להחזירה", "es": "matana al menat lehachzir — regalo condicionado a devolución", "fr": "matana al menat lehachzir — don conditionné à restitution", "ru": "matana al menat lehachzir — дар с условием возврата"},
+"peaceful Sabbath greeting": {"he": "ברכת שבת שלום", "es": "saludo pacífico de Shabat", "fr": "salutation de Chabbat paisible", "ru": "мирное шаббатное приветствие"},
+"Tashlumin — Makeup Prayers": {"he": "תשלומין — תפילות השלמה", "es": "Tashlumin — oraciones de compensación", "fr": "Tashlumin — prières de rattrapage", "ru": "Tashlumin — компенсационные молитвы"},
+"Yom Tov — Jewish Festivals": {"he": "יום טוב — חגי ישראל", "es": "Yom Tov — fiestas judías", "fr": "Yom Tov — fêtes juives", "ru": "Yom Tov — еврейские праздники"},
+"extinguishing fire melacha": {"he": "מלאכת כיבוי אש", "es": "melajá de apagar el fuego", "fr": "melakha d'extinction du feu", "ru": "мелаха тушения огня"},
+"trained kosher slaughterer": {"he": "שוחט כשר מיומן", "es": "shochet — matador kosher capacitado", "fr": "shochet — abatteur casher qualifié", "ru": "shochet — обученный kosher-мясник"},
+"}\n• Festive Yom Tov meals.": {"he": "}\n• סעודות חגיגיות ביום טוב.", "es": "}\n• Comidas festivas de Yom Tov.", "fr": "}\n• Repas festifs de Yom Tov.", "ru": "}\n• Праздничные трапезы в Yom Tov."},
+"Soter — demolishing melacha": {"he": "סותר — מלאכת הריסה", "es": "Soter — melajá de demolición", "fr": "Soter — melakha de démolition", "ru": "Soter — мелаха разрушения"},
+"fast day after Rosh Hashana": {"he": "יום צום לאחר ראש השנה", "es": "día de ayuno después de Rosh Hashaná", "fr": "jour de jeûne après Roch Hachana", "ru": "день поста после Рош а-Шана"},
+"Melaben — laundering melacha": {"he": "מלבן — מלאכת כביסה", "es": "Melaben — melajá de lavado", "fr": "Melaben — melakha de blanchissage", "ru": "Melaben — мелаха стирки"},
+"Shnayim Mikra v'Echad Targum": {"he": "שניים מקרא ואחד תרגום", "es": "Shnayim Mikra v'Echad Targum — dos veces en hebreo y una en arameo", "fr": "Shnayim Mikra v'Echad Targum — deux fois en hébreu et une en araméen", "ru": "Shnayim Mikra v'Echad Targum — дважды на иврите и раз на арамейском"},
+"quick staccato shofar blasts": {"he": "תקיעות שופר קצרות ומקוטעות", "es": "toques rápidos y entrecortados del shofar", "fr": "sons de shofar brefs et saccadés", "ru": "короткие прерывистые звуки шофара"},
+"ritual immersion in a mikveh": {"he": "טבילה במקווה", "es": "inmersión ritual en un mikvé", "fr": "immersion rituelle dans un mikvé", "ru": "ритуальное погружение в микве"},
+"Performed by G.E.U.L.A © 2026": {"he": "בוצע על ידי G.E.U.L.A © 2026", "es": "Interpretado por G.E.U.L.A © 2026", "fr": "Interprété par G.E.U.L.A © 2026", "ru": "Исполнено G.E.U.L.A © 2026"},
+"Wear a Kippah (head covering)": {"he": "לבישת כיפה (כיסוי ראש)", "es": "Usar kipá (cobertura de la cabeza)", "fr": "Porter une kippa (couvre-chef)", "ru": "Носить кипу (головной покров)"},
+"Your Name/Initials (Optional)": {"he": "שמך/ראשי תיבות (אופציונלי)", "es": "Tu nombre/iniciales (opcional)", "fr": "Votre nom/initiales (facultatif)", "ru": "Ваше имя/инициалы (необязательно)"},
+"a public or personal fast day": {"he": "יום צום ציבורי או אישי", "es": "día de ayuno público o personal", "fr": "jour de jeûne public ou personnel", "ru": "публичный или личный день поста"},
+"final finishing touch melacha": {"he": "מלאכת מכה בפטיש — גימור סופי", "es": "melajá del toque final de acabado", "fr": "melakha de la touche finale", "ru": "мелаха финального завершения"},
+"kosher for Passover standards": {"he": "כשר לפסח", "es": "estándares kosher para Pesaj", "fr": "normes casher pour Pessah", "ru": "стандарты кошерности для Песаха"},
+"Have Mezuzot on your doorposts": {"he": "הצבת מזוזות על מזוזות הדלתות", "es": "Colocar mezuzot en los marcos de las puertas", "fr": "Avoir des mezouzot sur les montants de porte", "ru": "Повесить меzuzot на дверные косяки"},
+"Immerse food vessels in mikveh": {"he": "טבילת כלי אוכל במקווה", "es": "Sumergir utensilios de comida en el mikvé", "fr": "Immerger les ustensiles alimentaires dans le mikvé", "ru": "Погружать посуду для еды в микве"},
+"blessing on ritual handwashing": {"he": "ברכה על נטילת ידיים", "es": "bendición sobre el lavado ritual de manos", "fr": "bénédiction sur le lavage rituel des mains", "ru": "благословение на ритуальное омовение рук"},
+"shevarim — broken shofar blast": {"he": "שברים — תקיעת שופר שבורה", "es": "shevarim — toque de shofar quebrado", "fr": "shevarim — son de shofar brisé", "ru": "shevarim — прерывистый звук шофара"},
+"Family Purity Laws (if married)": {"he": "חוקי טהרת המשפחה (לנשואים)", "es": "Leyes de pureza familiar (si está casado/a)", "fr": "Lois de pureté familiale (si marié/e)", "ru": "Законы семейной чистоты (для женатых)"},
+"Shemini Atzeret & Simchat Torah": {"he": "שמיני עצרת ושמחת תורה", "es": "Shemini Atzeret y Simjat Torá", "fr": "Chemini Atseret et Sim'hat Torah", "ru": "Шмини Ацерет и Симхат Тора"},
+"Evening Shema with its blessings": {"he": "קריאת שמע של ערבית עם ברכותיה", "es": "Shema vespertino con sus bendiciones", "fr": "Shema du soir avec ses bénédictions", "ru": "Вечерняя Шма с благословениями"},
+"Jewish community or congregation": {"he": "קהילה יהודית או קהל", "es": "comunidad o congregación judía", "fr": "communauté ou congrégation juive", "ru": "еврейская община или приход"},
+"Mincha - Shemoneh Esrei/Tachanun": {"he": "מנחה — שמונה עשרה/תחנון", "es": "Minjá — Shemoneh Esrei/Tajánun", "fr": "Min'ha — Chemoné Esré/Ta'hanoun", "ru": "Минха — Шмоне Эсре/Таханун"},
+"Asher Yatzar after using bathroom": {"he": "אשר יצר לאחר שימוש בשירותים", "es": "Asher Yatzar después de usar el baño", "fr": "Asher Yatzar après les toilettes", "ru": "Asher Yatzar после посещения туалета"},
+"Cover hair in public (if married)": {"he": "כיסוי שיער בציבור (לנשואות)", "es": "Cubrir el cabello en público (si está casada)", "fr": "Couvrir les cheveux en public (si mariée)", "ru": "Покрывать волосы на людях (для замужних)"},
+"myrtle branch in the Four Species": {"he": "ענף הדס בארבעת המינים", "es": "rama de mirto en las Cuatro Especies", "fr": "branche de myrte parmi les Quatre Espèces", "ru": "ветвь мирта среди Четырёх видов"},
+"numerical value of Hebrew letters": {"he": "ערך מספרי של אותיות עבריות", "es": "valor numérico de las letras hebreas", "fr": "valeur numérique des lettres hébraïques", "ru": "числовое значение еврейских букв"},
+"tzniut — modest dress and conduct": {"he": "צניעות — לבוש והתנהגות צנועים", "es": "tzniut — vestimenta y conducta modestas", "fr": "tsniout — tenue et conduite modestes", "ru": "цниют — скромная одежда и поведение"},
+"Eretz Yisrael — the Land of Israel": {"he": "ארץ ישראל — ארץ ישראל", "es": "Eretz Yisrael — la Tierra de Israel", "fr": "Eretz Yisrael — la Terre d'Israël", "ru": "Eretz Yisrael — Земля Израиля"},
+"Grace After Meals after eating bread": {"he": "ברכת המזון לאחר אכילת לחם", "es": "Gracia después de las comidas tras comer pan", "fr": "Grâce après les repas après avoir mangé du pain", "ru": "Благословение после трапезы после хлеба"},
+"festival (everyday term for Yom Tov)": {"he": "חג — מונח יומיומי ליום טוב", "es": "fiesta (término cotidiano para Yom Tov)", "fr": "fête (terme courant pour Yom Tov)", "ru": "праздник (обычное название Yom Tov)"},
+"shochet — trained kosher slaughterer": {"he": "שוחט — שוחט כשר מיומן", "es": "shochet — matador kosher capacitado", "fr": "shochet — abatteur casher qualifié", "ru": "shochet — обученный kosher-мясnik"},
+"Mechabeh — extinguishing fire melacha": {"he": "מכבה — מלאכת כיבוי אש", "es": "Mechabeh — melajá de apagar el fuego", "fr": "Me'habeh — melakha d'extinction du feu", "ru": "Mechabeh — мелаха тушения огня"},
+"Morning Blessings (Birchot HaShachar)": {"he": "ברכות השחר", "es": "Bendiciones matutinas (Birchot HaShachar)", "fr": "Bénédictions du matin (Birkhot HaShakhar)", "ru": "Утренние благословения (Birchot HaShachar)"},
+"Taanit Esther — fast day before Purim": {"he": "תענית אסתר — יום צום לפני פורים", "es": "Taanit Esther — día de ayuno antes de Purim", "fr": "Ta'anit Esther — jour de jeûne avant Pourim", "ru": "Taanit Esther — день поста перед Пуримом"},
+"Torah Blessings + minimal Torah study": {"he": "ברכות התורה + לימוד תורה מינימלי", "es": "Bendiciones de la Torá + estudio mínimo de Torá", "fr": "Bénédictions de la Torah + étude minimale de Torah", "ru": "Благословения на Тору + минимальное изучение Торы"},
+"teruah — quick staccato shofar blasts": {"he": "תרועה — תקיעות שופר קצרות ומקוטעות", "es": "teruah — toques rápidos y entrecortados del shofar", "fr": "teroua — sons de shofar brefs et saccadés", "ru": "teruah — короткие прерывистые звуки шофара"},
+"shearing or cutting hair/nails melacha": {"he": "מלאכת גוזז — גזיזת שיער/ציפורניים", "es": "melajá de esquilar o cortar cabello/uñas", "fr": "melakha de tonte ou coupe de cheveux/ongles", "ru": "мелаха стрижки волос/ногтей"},
+"tevilah — ritual immersion in a mikveh": {"he": "טבילה — טבילה במקווה", "es": "tevilah — inmersión ritual en un mikvé", "fr": "tevila — immersion rituelle dans un mikvé", "ru": "tevilah — ритуальное погружение в микве"},
+"weekly Torah portion read in synagogue": {"he": "פרשת השבוע הנקראת בבית הכנסת", "es": "porción semanal de la Torá leída en la sinagoga", "fr": "portion hebdomadaire de Torah lue à la synagogue", "ru": "еженедельная Torah-порция, читаемая в синагоге"},
+"Birkat Hamazon after eating bread meals": {"he": "ברכת המזון לאחר סעודות לחם", "es": "Birkat Hamazon después de comidas con pan", "fr": "Birkat HaMazon après des repas avec du pain", "ru": "Birkat Hamazon после трапез с хлебом"},
+"Pray for world peace! - submitted by MM": {"he": "התפללו לשלום בעולם! — נשלח על ידי MM", "es": "¡Oren por la paz mundial! — enviado por MM", "fr": "Priez pour la paix dans le monde ! — soumis par MM", "ru": "Молитесь о мире во всём мире! — от MM"},
+"Ta'anit — a public or personal fast day": {"he": "תענית — יום צום ציבורי או אישי", "es": "Ta'anit — día de ayuno público o personal", "fr": "Ta'anit — jour de jeûne public ou personnel", "ru": "Ta'anit — публичный или личный день поста"},
+"hearing the Book of Esther read on Purim": {"he": "שמיעת מגילת אסתר בפורים", "es": "escuchar la lectura del Libro de Ester en Purim", "fr": "entendre la lecture du Livre d'Esther à Pourim", "ru": "слушание чтения Книги Эстер в Пурим"},
+"willow branches used in the Four Species": {"he": "ענפי ערבה בארבעת המינים", "es": "ramas de sauce usadas en las Cuatro Especies", "fr": "branches de saule utilisées dans les Quatre Espèces", "ru": "ивовые ветви среди Четырёх видов"},
+"Jews following Sephardi rites and customs": {"he": "יהודים השומרים על נוסח ומנהג ספרד", "es": "judíos que siguen ritos y costumbres sefardíes", "fr": "Juifs suivant les rites et coutumes séfarades", "ru": "евреи, следующие сефардским обрядам и обычаям"},
+"Pesachdik — kosher for Passover standards": {"he": "פסחדיק — כשר לפסח", "es": "Pesachdik — kosher para Pesaj", "fr": "Pessahdik — casher pour Pessah", "ru": "Pesachdik — кошерно для Песаха"},
+"citron, one of the Four Species on Sukkot": {"he": "אתrog — אחד מארבעת המינים בסוכות", "es": "cidra, una de las Cuatro Especies en Sucot", "fr": "cédrat, l'une des Quatre Espèces à Souccot", "ru": "цитрон, один из Четырёх видов на Суккот"},
+"hadas — myrtle branch in the Four Species": {"he": "הדס — ענף הדס בארבעת המינים", "es": "hadas — rama de mirto en las Cuatro Especies", "fr": "hadass — branche de myrte parmi les Quatre Espèces", "ru": "hadas — ветвь мирта среди Четырёх видов"},
+"laws or legal details (plural of halacha)": {"he": "הלכות — פרטים הלכתיים (רבים של הלכה)", "es": "leyes o detalles legales (plural de halajá)", "fr": "lois ou détails juridiques (pluriel de halakha)", "ru": "законы или правовые детали (мн. ч. от halacha)"},
+"peace in the home; a central Jewish value": {"he": "שלום בית — ערך יהודי מרכזי", "es": "paz en el hogar; un valor judío central", "fr": "paix dans le foyer ; une valeur juive centrale", "ru": "мир в доме; центральная еврейская ценность"},
+"recitation of the Shema and its blessings": {"he": "קריאת שמע וברכותיה", "es": "recitación del Shema y sus bendiciones", "fr": "récitation du Shema et de ses bénédictions", "ru": "чтение Шма и её благословений"},
+"Pray for Moshiach!!!!!!! - submitted by EV": {"he": "התפללו למשיח!!!!!!! — נשלח על ידי EV", "es": "¡Oren por el Mashíaj!!!!!!! — enviado por EV", "fr": "Priez pour le Machia'h !!!!!!! — soumis par EV", "ru": "Молитесь о Машиахе!!!!!!! — от EV"},
+"Shabbat Shalom — peaceful Sabbath greeting": {"he": "שבת שלום — ברכת שבת שלום", "es": "Shabbat Shalom — saludo pacífico de Shabat", "fr": "Shabbat Shalom — salutation de Chabbat paisible", "ru": "Shabbat Shalom — мирное шаббатное приветствие"},
+}
+# fmt: on
+
+def main() -> None:
+    needs: list[str] = json.loads(NEEDS.read_text(encoding="utf-8"))
+    missing = [s for s in needs if s not in T]
+    if missing:
+        raise SystemExit(f"Missing {len(missing)} translations. First: {missing[0]!r}")
+    overlay = {lang: {s: T[s][lang] for s in needs} for lang in LANGS}
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps(overlay, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Wrote {OUT} with {len(needs)} strings x {len(LANGS)} langs")
+
+
+if __name__ == "__main__":
+    main()

@@ -16,13 +16,7 @@
       "nusachOnly": true,
       "nusachTag": "Nusach Ari",
       "explanation": "Chabad custom: daily Chumash, Tehillim, and Tanya (Chitas), plus Hayom Yom. Many complete it after morning prayers, but you may learn today's portion anytime before the next Hebrew day — including at night if you did not finish earlier.",
-      "links": [
-        {
-          "displayText": "Sefaria — Tanya (Chitas)",
-          "url": "https://www.sefaria.org/Tanya",
-          "nusach": "chabad"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -41,13 +35,7 @@
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Ashkenaz siddurim include Korbanot (Temple offerings) before Pesukei Dezimra. Many say at least Parshat HaTamid; follow your siddur and rabbi.",
-      "links": [
-        {
-          "displayText": "Shulchan Arukh — morning order",
-          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.48",
-          "nusach": "default"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -66,13 +54,7 @@
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Tehillat Hashem includes Korbanot and other passages before Pesukei Dezimra. Follow the order in your Chabad siddur.",
-      "links": [
-        {
-          "displayText": "Shulchan Arukh — morning order",
-          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.48",
-          "nusach": "chabad"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -92,13 +74,7 @@
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Sephardi and Edot HaMizrach communities in the Diaspora commonly recite Birkat Kohanim daily during Shacharit (customs vary — follow your kehilla and Shulchan Aruch O.C. 128).",
-      "links": [
-        {
-          "displayText": "Birkat Kohanim (Bamidbar 6)",
-          "url": "https://www.sefaria.org/Numbers.6.24",
-          "nusach": "default"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -117,13 +93,7 @@
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Sephardi siddurim open Mincha with Korbanot — especially Parshat HaTamid (the daily Temple offering) — before Ashrei and the Amidah (Shulchan Arukh O.C. 1:5, 232:1). Follow your siddur and kehilla.",
-      "links": [
-        {
-          "displayText": "Shulchan Arukh — Mincha order",
-          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.232",
-          "nusach": "default"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -142,13 +112,7 @@
       "nusachOnly": true,
       "gender": "male",
       "explanation": "Edot HaMizrach siddurim open Mincha with Korbanot — especially Parshat HaTamid — before Ashrei and the Amidah, matching the Shulchan Arukh order (O.C. 1:5, 232:1). Some kehillot include additional passages; follow your siddur.",
-      "links": [
-        {
-          "displayText": "Shulchan Arukh — Mincha order",
-          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.232",
-          "nusach": "default"
-        }
-      ],
+      "links": [],
       "hideOnShabbat": false,
       "shabbatOnly": false,
       "persistChecked": false
@@ -168,13 +132,7 @@
       "gender": "male",
       "hideOnShabbat": true,
       "explanation": "Tachanun at Shacharit (weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum and the full penitential section), shorter on other weekdays. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nTachanun at Mincha: Some Ashkenaz communities especially emphasize saying Tachanun at Mincha if it was skipped at Shacharit that day. On a normal weekday, Tachanun at Mincha is already part of the standard service (often the shorter form). Omitted on the same festive days — Mincha itself is still said.",
-      "links": [
-        {
-          "displayText": "Shulchan Arukh — Tachanun",
-          "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.131",
-          "nusach": "default"
-        }
-      ],
+      "links": [],
       "shabbatOnly": false,
       "persistChecked": false
     }

@@ -22,12 +22,13 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.data.LanguageInfo
-import com.beardytop.mitzmode.data.LanguagePreferencesManager
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
+import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
 
 @Composable
 fun LanguageSelectionDialog(
     onDismiss: () -> Unit,
+    onNonEnglishLanguageSelected: (languageCode: String, languageName: String) -> Unit = { _, _ -> },
     translationViewModel: TranslationViewModel =
         LocalTranslationViewModel.current ?: hiltViewModel()
 ) {
@@ -106,6 +107,9 @@ fun LanguageSelectionDialog(
                                 val fallback =
                                     supportedLanguages.firstOrNull { it.code != "en" }?.code ?: "he"
                                 translationViewModel.setCurrentLanguage(fallback)
+                                supportedLanguages.firstOrNull { it.code == fallback }?.let { lang ->
+                                    onNonEnglishLanguageSelected(lang.code, lang.name)
+                                }
                             }
                         }
                     )
@@ -128,7 +132,12 @@ fun LanguageSelectionDialog(
                                 language = language,
                                 isSelected = currentLanguage == language.code,
                                 onSelect = { 
-                                    translationViewModel.setCurrentLanguage(language.code)
+                                    if (language.code != "en") {
+                                        translationViewModel.setCurrentLanguage(language.code)
+                                        onNonEnglishLanguageSelected(language.code, language.name)
+                                    } else {
+                                        translationViewModel.setCurrentLanguage(language.code)
+                                    }
                                 }
                             )
                         }
@@ -228,7 +237,12 @@ private fun LanguageItem(
             )
             // Keep English language names as regular Text (not translatable)
             Text(
-                text = language.name,
+                text = buildString {
+                    append(language.name)
+                    if (BundledTranslationLanguages.isBundled(language.code)) {
+                        append(" · offline")
+                    }
+                },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

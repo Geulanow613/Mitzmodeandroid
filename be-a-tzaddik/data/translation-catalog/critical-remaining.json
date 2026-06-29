@@ -1,0 +1,871 @@
+[
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה",
+    "current": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה",
+    "current": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה",
+    "current": "ביום ראש החדש הזה\n            ביום חג המצות הזה\n            ביום חג הסכות הזה"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.",
+    "current": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.",
+    "current": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.",
+    "current": "בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.\nבסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.",
+    "current": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.",
+    "current": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.",
+    "current": "הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן."
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Aleinu — Aleinu is a closing prayer declaring G-d's sovereignty and our hope for universal recognition of His kingship. It ends daily Shacharit and Maariv and appears near the end of High Holiday services. The bow at \"we bend the knee\" is a moment of submission and awe.",
+    "detail": "Holiday",
+    "current": "Aleinu — Aleinu es una oración de clausura que declara D-s 's soberanía y nuestra esperanza para el reconocimiento universal de Su reinado. Termina diariamente Shacharit y Maariv y aparece cerca del final de los servicios High Holiday. El arco en \"nos doblamos la rodilla\" es un momento de sumisión y"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "ru",
+    "key_full": "Aleinu — Aleinu is a closing prayer declaring G-d's sovereignty and our hope for universal recognition of His kingship. It ends daily Shacharit and Maariv and appears near the end of High Holiday services. The bow at \"we bend the knee\" is a moment of submission and awe.",
+    "detail": "Holiday",
+    "current": "Алейну - Алейну - заключительная молитва Б-г суверенитет и наша надежда на всеобщее признание Его царства. Он заканчивается ежедневно Shacharit и Maariv Появляется ближе к концу службы High Holiday. Лук у «мы сгибаем колено» — это момент покорности и благоговения."
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ומפרנס לכל ומטיב לכל ומכין מזון לכל-בריותיו אשר ברא ברוך אתה יי הזן את הכל.",
+    "current": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ו"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ומפרנס לכל ומטיב לכל ומכין מזון לכל-בריותיו אשר ברא ברוך אתה יי הזן את הכל.",
+    "current": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ו"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ומפרנס לכל ומטיב לכל ומכין מזון לכל-בריותיו אשר ברא ברוך אתה יי הזן את הכל.",
+    "current": "ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ו"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "$holidayName is about to begin. Please finish what you are doing, turn off your phone, and prepare to welcome this Yom Tov with joy.\n\nOur Sages teach that rejoicing on Yom Tov is itself a mitzvah — may your observance bring blessing and divine reward to you and your household.",
+    "detail": "en=['$holidayName'] tr=['$holidayNameest']",
+    "current": "$holidayNameestá a punto de empezar. Por favor, termine lo que está haciendo, apague el teléfono y prepárate para dar la bienvenida a esto Yom Tov con alegría.\n\nNuestros Sabios enseñan que regocijarse Yom Tov es en sí mismo mitzvah - que tu observancia traiga bendición y recompensa divina a ti y a t"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "$holidayName is about to begin. Please finish what you are doing, turn off your phone, and prepare to welcome this Yom Tov with joy.\n\nOur Sages teach that rejoicing on Yom Tov is itself a mitzvah — may your observance bring blessing and divine reward to you and your household.",
+    "detail": "en=['$holidayName'] tr=['$holidayNameva']",
+    "current": "$holidayNameva commencer. S'il vous plaît terminer ce que vous faites, éteindre votre téléphone, et se préparer à accueillir ce Yom Tov avec joie.\n\nNos Sages enseignent que se réjouir Yom Tov est elle-même un mitzvah— que votre observance vous apporte bénédiction et récompense divine, vous et votre "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Today is $name — $meaning\n\nMinor fast rules:\n• No eating or drinking from dawn until nightfall.\n• Washing, music, and showering are generally permitted (unlike Tisha B'Av and Yom Kippur).\n• Special selichot and prayers may be recited in synagogue — check your community schedule.",
+    "detail": "en=['$name', '$meaning'] tr=['$name', '$meaningReglas']",
+    "current": "Hoy es$name—$meaningReglas mínimas rápidas:\n• No comer ni beber desde el amanecer hasta la noche.\n• Lavado, música y ducha se permiten generalmente (a diferencia de Tisha B'Av y Yom Kippur).\n• Especial selichot y las oraciones pueden ser recitadas en la sinagoga — compruebe su agenda comunitaria."
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Today is $name — $meaning\n\nMinor fast rules:\n• No eating or drinking from dawn until nightfall.\n• Washing, music, and showering are generally permitted (unlike Tisha B'Av and Yom Kippur).\n• Special selichot and prayers may be recited in synagogue — check your community schedule.",
+    "detail": "en=['$name', '$meaning'] tr=['$name', '$meaningR']",
+    "current": "Aujourd'hui$name—$meaningRègles de jeûne mineures:\n• Ne pas manger ni boire de l'aube jusqu'à la tombée de la nuit.\n• Le lavage, la musique et la douche sont généralement autorisés Tisha B'Av et Yom Kippur) .\n• Spécial selichot et les prières peuvent être récitées dans la synagogue — vérifiez le cal"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם זקנתי, ולא ראיתי צדיק נעזב, וזרעו מבקש לחם. יי עז לעמו יתן, יי יברך את עמו בשלום.",
+    "current": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם זקנתי, ולא ראיתי צדיק נעזב, וזרעו מבקש לחם. יי עז לעמו יתן, יי יברך את עמו בשלום.",
+    "current": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם זקנתי, ולא ראיתי צדיק נעזב, וזרעו מבקש לחם. יי עז לעמו יתן, יי יברך את עמו בשלום.",
+    "current": "יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו",
+    "current": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שבית"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו",
+    "current": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שבית"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו",
+    "current": "בימים שאין בהם תחנון אומרים:\n\nשיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שבית"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת את מחשבתו והשבות-לו גמולו בראשו ותלו אותו ואת בניו על העץ ועשית עמהם נסים ונפלאות ונודה לשמך הגדול סלה.",
+    "current": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת את מחשבתו והשבות-לו גמולו בראשו ותלו אותו ואת בניו על העץ ועשית עמהם נסים ונפלאות ונודה לשמך הגדול סלה.",
+    "current": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת את מחשבתו והשבות-לו גמולו בראשו ותלו אותו ואת בניו על העץ ועשית עמהם נסים ונפלאות ונודה לשמך הגדול סלה.",
+    "current": "בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Read this today (Friday) before Shabbat candles — the app is not for use on Shabbat.\n\nTomorrow is Shabbat and erev $tomorrowChag. $tomorrowChag begins tomorrow night at nightfall (Motzei Shabbat), not tonight. Finish Yaknehaz prep, Yom Tov candles from a pre-existing flame, wine, and festive food before Shabbat ends.",
+    "detail": "en=['$tomorrowChag', '$tomorrowChag'] tr=['$tomorrowChag', '$tomorrowChagcomienza']",
+    "current": "Lea esto hoy (Viernes) antes Shabbat velas — la aplicación no es para uso en Shabbat.\n\nMañana Shabbat and erev$tomorrowChag.$tomorrowChagcomienza mañana por la noche en la noche Motzei Shabbat No esta noche. AcabadoYaknehazPrep,Yom Tov velas de una llama preexistente, vino y comida festiva antes Sha"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Read this today (Friday) before Shabbat candles — the app is not for use on Shabbat.\n\nTomorrow is Shabbat and erev $tomorrowChag. $tomorrowChag begins tomorrow night at nightfall (Motzei Shabbat), not tonight. Finish Yaknehaz prep, Yom Tov candles from a pre-existing flame, wine, and festive food before Shabbat ends.",
+    "detail": "en=['$tomorrowChag', '$tomorrowChag'] tr=['$tomorrowChag', '$tomorrowChagcommence']",
+    "current": "Lisez ceci aujourd'hui (vendredi) avant Shabbat bougies — l'application n'est pas à utiliser sur Shabbat.\n\nDemain est Shabbat et erev$tomorrowChag.$tomorrowChagcommence demain soir à la nuit tombée (Motzei Shabbat Pas ce soir. FinitionYaknehazpréparer,Yom Tov bougies d'une flamme préexistante, vin, "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו, הוא גומלנו, הוא יגמלנו לעד, לחן ולחסד ולרחמים ולרוח הצלה והצלחה, ברכה וישועה, נחמה פרנסה וכלכלה ורחמים וחיים ושלום, וכל טוב; ומכל טוב לעולם אל יחסרנו.",
+    "current": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו,"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו, הוא גומלנו, הוא יגמלנו לעד, לחן ולחסד ולרחמים ולרוח הצלה והצלחה, ברכה וישועה, נחמה פרנסה וכלכלה ורחמים וחיים ושלום, וכל טוב; ומכל טוב לעולם אל יחסרנו.",
+    "current": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו,"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו, הוא גומלנו, הוא יגמלנו לעד, לחן ולחסד ולרחמים ולרוח הצלה והצלחה, ברכה וישועה, נחמה פרנסה וכלכלה ורחמים וחיים ושלום, וכל טוב; ומכל טוב לעולם אל יחסרנו.",
+    "current": "ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו,"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Rosh Chodesh begins the Hebrew month — semi-holiday with Hallel (half), Musaf, Yaaleh V'yavo, and often reduced work for women per custom. Remove tefillin before Musaf — wearing tefillin during Rosh Chodesh Musaf is forbidden. In ancient times the new moon was proclaimed from testimony. Today the calendar is fixed. It is a monthly reset — plan Torah goals and charity.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh comienza el mes hebreo - semi-holiday con Hallel(half),Musaf,Yaaleh V'yavo, y a menudo reducido trabajo para las mujeres por costumbre. Retirar tefillin antes Musaf ropa tefillin durante Rosh Chodesh Musaf Está prohibido. En tiempos antiguos se proclamó la luna nueva del testimonio. Hoy"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Rosh Chodesh begins the Hebrew month — semi-holiday with Hallel (half), Musaf, Yaaleh V'yavo, and often reduced work for women per custom. Remove tefillin before Musaf — wearing tefillin during Rosh Chodesh Musaf is forbidden. In ancient times the new moon was proclaimed from testimony. Today the calendar is fixed. It is a monthly reset — plan Torah goals and charity.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh commence le mois hébreu — semi-holiday avec Hallel(la moitié)Musaf,Yaaleh V'yavo, et souvent réduit le t rav ail pour les femmes par coutume. Supprimer tefillin avant Musaf— porter tefillin pendant Rosh Chodesh Musaf est interdit. Dans les temps anciens, la nouvelle lune a été proclamée"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "New mitzvah submission from the Mitz Mode app:\n            \n            Submitted by: $submitterName\n            Mitzvah text: $mitzvahText\n            \n            Submitted on: ${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}\n            \n            Please review and consider adding to the mitzvah database.",
+    "detail": "en=['${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}', '$submitterName', '$mitzvahText'] tr=['${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}', '$submitterNameMitzvah', '$mitzvahTextPresentado']",
+    "current": "Nuevo mitzvah la aplicación Mitz Mode:\n\nPresentado por:$submitterNameMitzvah text:$mitzvahTextPresentado sobre:${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}Por favor revise y considere la posibilidad de añadir a la mitzvah Base de datos."
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "New mitzvah submission from the Mitz Mode app:\n            \n            Submitted by: $submitterName\n            Mitzvah text: $mitzvahText\n            \n            Submitted on: ${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}\n            \n            Please review and consider adding to the mitzvah database.",
+    "detail": "en=['${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}', '$submitterName', '$mitzvahText'] tr=['${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}', '$submitterNameTexte', '$mitzvahTextPr']",
+    "current": "Nouveau mitzvah soumission de l'application Mitz Mode:\n\nPrésentée par:$submitterNameTexte de Mitzvah:$mitzvahTextPrésenté le:${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}Veuillez examiner et envisager d'ajouter mitzvah base de données."
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "If you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; $YAALEH_VYAVO_HALACHA_SOURCE). Continue davening.",
+    "detail": "en=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCE'] tr=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCEContinuez']",
+    "current": "Si vous avez oublié Maariv le Rosh Chodesh:\n• Toujours Retzei avant le nom de Dieu à la conclusion — insérer Yaaleh V'yavo et continuer ($YAALEH_VYAVO_HALACHA_SOURCE) .\n• Une fois terminé Retzei, ou après Amidah— ne pas revenir en arrière et ne pas répéter. Beit Din sanctifia le nouveau mois de jour"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Rosh Chodesh — Rosh Chodesh begins the Hebrew month — semi-holiday with Hallel (half), Musaf, Yaaleh V'yavo, and often reduced work for women per custom. Remove tefillin before Musaf — wearing tefillin during Rosh Chodesh Musaf is forbidden. In ancient times the new moon was proclaimed from testimony. Today the calendar is fixed. It is a monthly reset — plan Torah goals and charity.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh — Rosh Chodesh comienza el mes hebreo - semi-holiday con Hallel(half),Musaf,Yaaleh V'yavo, y a menudo reducido trabajo para las mujeres por costumbre. Retirar tefillin antes Musaf ropa tefillin durante Rosh Chodesh Musaf Está prohibido. En tiempos antiguos se proclamó la luna nueva del "
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Rosh Chodesh — Rosh Chodesh begins the Hebrew month — semi-holiday with Hallel (half), Musaf, Yaaleh V'yavo, and often reduced work for women per custom. Remove tefillin before Musaf — wearing tefillin during Rosh Chodesh Musaf is forbidden. In ancient times the new moon was proclaimed from testimony. Today the calendar is fixed. It is a monthly reset — plan Torah goals and charity.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh—Rosh Chodesh commence le mois hébreu — semi-holiday avec Hallel(la moitié)Musaf,Yaaleh V'yavo, et souvent réduit le t rav ail pour les femmes par coutume. Supprimer tefillin avant Musaf— porter tefillin pendant Rosh Chodesh Musaf est interdit. Dans les temps anciens, la nouvelle lune a "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולרחמים לחיים ולשלום ביום\nבראש חודש: ראש החדש\nבפסח: חג המצות\nבסוכות: חג הסכות\nזכרנו יהוה אלהינו בו לטובה, ופקדנו בו לברכה, והושיענו בו לחיים ובדבר ישועה ורחמים חוס וחננו, ורחם עלינו, והושיענו כי אליך עינינו, כי אל מלך חנון ורחום אתה.",
+    "current": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולר"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולרחמים לחיים ולשלום ביום\nבראש חודש: ראש החדש\nבפסח: חג המצות\nבסוכות: חג הסכות\nזכרנו יהוה אלהינו בו לטובה, ופקדנו בו לברכה, והושיענו בו לחיים ובדבר ישועה ורחמים חוס וחננו, ורחם עלינו, והושיענו כי אליך עינינו, כי אל מלך חנון ורחום אתה.",
+    "current": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולר"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולרחמים לחיים ולשלום ביום\nבראש חודש: ראש החדש\nבפסח: חג המצות\nבסוכות: חג הסכות\nזכרנו יהוה אלהינו בו לטובה, ופקדנו בו לברכה, והושיענו בו לחיים ובדבר ישועה ורחמים חוס וחננו, ורחם עלינו, והושיענו כי אליך עינינו, כי אל מלך חנון ורחום אתה.",
+    "current": "אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולר"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי אלהינו מהרה מכל צרותינו. ונא אל תצריכנו י אלהינו, לא לידי מתנת בשר ודם ולא לידי הלואתם, כי אם לידך המלאה הפתוחה הקדושה והרחבה, שלא נבוש ולא נכלם לעולם ועד.\n\nובנה ירושלים עיר הקדש במהרה בימינו. ברוך אתה יי, בונה ברחמיו ירושלים. אמן.",
+    "current": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי א"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי אלהינו מהרה מכל צרותינו. ונא אל תצריכנו י אלהינו, לא לידי מתנת בשר ודם ולא לידי הלואתם, כי אם לידך המלאה הפתוחה הקדושה והרחבה, שלא נבוש ולא נכלם לעולם ועד.\n\nובנה ירושלים עיר הקדש במהרה בימינו. ברוך אתה יי, בונה ברחמיו ירושלים. אמן.",
+    "current": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי א"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי אלהינו מהרה מכל צרותינו. ונא אל תצריכנו י אלהינו, לא לידי מתנת בשר ודם ולא לידי הלואתם, כי אם לידך המלאה הפתוחה הקדושה והרחבה, שלא נבוש ולא נכלם לעולם ועד.\n\nובנה ירושלים עיר הקדש במהרה בימינו. ברוך אתה יי, בונה ברחמיו ירושלים. אמן.",
+    "current": "רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי א"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. ועל אכילת מזון שאתה זן ומפרנס אותנו תמיד בכל יום ובכל עת ובכל שעה.\n\nועל הכל יי אלהינו אנחנו מודים לך ומברכים אותך, יתברך שמך בפי כל חי תמיד לעולם ועד, ככתוב: ואכלת ושבעת, וברכת את יי אלהיך על הארץ הטובה אשר נתן לך. ברוך אתה יי, על הארץ ועל המזון.",
+    "current": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. ועל אכילת מזון שאתה זן ומפרנס אותנו תמיד בכל יום ובכל עת ובכל שעה.\n\nועל הכל יי אלהינו אנחנו מודים לך ומברכים אותך, יתברך שמך בפי כל חי תמיד לעולם ועד, ככתוב: ואכלת ושבעת, וברכת את יי אלהיך על הארץ הטובה אשר נתן לך. ברוך אתה יי, על הארץ ועל המזון.",
+    "current": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. ועל אכילת מזון שאתה זן ומפרנס אותנו תמיד בכל יום ובכל עת ובכל שעה.\n\nועל הכל יי אלהינו אנחנו מודים לך ומברכים אותך, יתברך שמך בפי כל חי תמיד לעולם ועד, ככתוב: ואכלת ושבעת, וברכת את יי אלהיך על הארץ הטובה אשר נתן לך. ברוך אתה יי, על הארץ ועל המזון.",
+    "current": "נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.",
+    "current": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את ש"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.",
+    "current": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את ש"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.",
+    "current": "בימים שיש בהם תחנון (ימי חול רגילים) אומרים:\n\nעל נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את ש"
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim. It commemorates the three-day fast of Esther and the Jewish people before she approached King Achashverosh to plead on behalf of her people.\n\nIt is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the fast is moved to 11 Adar. Machatzit HaShekel (a half-shekel donation to charity) is given on Purim morning, sometimes before Megillah reading on the night before.",
+    "detail": "fast day → rápido",
+    "current": "El Rápido de Ester (Ta'anit Ester) se observa en 13 Adar, el día antes de Purim. Conmemora el ayuno de tres días de Ester y el pueblo judío antes de acercarse al rey Ajashverosh para rogar en nombre de su pueblo.\n\nEs un ayuno menor desde el amanecer hasta la noche. Si 13 Adar cae en Shabat, el ayuno"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים את הנוסח שבסוגריים (״אלהינו״ וכו׳).\n\nרבותי, נברך!\nהמסבים עונים: יהי שם יי מברך מעתה ועד עולם.\nהמזמן אומר: ברשות מרנן ורבנן ורבותי, נברך (בעשרה אלהינו) שאכלנו משלו.\nהמסבים עונים: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.\nהמזמן חוזר ואומר: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.",
+    "current": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים את הנוסח שבסוגריים (״אלהינו״ וכו׳).\n\nרבותי, נברך!\nהמסבים עונים: יהי שם יי מברך מעתה ועד עולם.\nהמזמן אומר: ברשות מרנן ורבנן ורבותי, נברך (בעשרה אלהינו) שאכלנו משלו.\nהמסבים עונים: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.\nהמזמן חוזר ואומר: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.",
+    "current": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים "
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים את הנוסח שבסוגריים (״אלהינו״ וכו׳).\n\nרבותי, נברך!\nהמסבים עונים: יהי שם יי מברך מעתה ועד עולם.\nהמזמן אומר: ברשות מרנן ורבנן ורבותי, נברך (בעשרה אלהינו) שאכלנו משלו.\nהמסבים עונים: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.\nהמזמן חוזר ואומר: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.",
+    "current": "זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים "
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Rosh Chodesh (the New Month) is the first day of each Hebrew month, and in some months the 30th day of the previous month as well.\n\nSpecial observances include: Yaaleh V'Yavo in prayers and Grace After Meals, half Hallel, a Musaf (additional) prayer, and a special Torah reading.\n\nRosh Chodesh is a semi-holiday — certain fasting and eulogizing are restricted. There is a widespread custom for women to refrain from certain types of work as an extra mark of honor for the day.",
+    "detail": "holiday",
+    "current": "Rosh Jodesh (el Mes Nuevo) es el primer día de cada mes hebreo, y en algunos meses el día 30 del mes anterior también.\n\nLas celebraciones especiales incluyen: Yaaleh V'Yavo en oraciones y Grace After Meals, mitad Halel, una oración Musaf (adicional) y una lectura especial de la Torá.\n\nRosh Jodesh es"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Rosh Chodesh (the New Month) is the first day of each Hebrew month, and in some months the 30th day of the previous month as well.\n\nSpecial observances include: Yaaleh V'Yavo in prayers and Grace After Meals, half Hallel, a Musaf (additional) prayer, and a special Torah reading.\n\nRosh Chodesh is a semi-holiday — certain fasting and eulogizing are restricted. There is a widespread custom for women to refrain from certain types of work as an extra mark of honor for the day.",
+    "detail": "holiday",
+    "current": "Rosh 'Hodesh (le nouveau mois) est le premier jour de chaque mois hébreu, et dans certains mois aussi le 30e jour du mois précédent.\n\nLes célébrations spéciales comprennent: Yaaleh V'Yavo dans les prières et la grâce après les repas, moitié Hallel, une prière Moussaf (additionnelle) et une lecture s"
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "Yom Kippur is the Day of Atonement — fasting, confession, and prayer. Biblically called Shabbat Shabbaton, it carries the exact same strict labor (melacha) prohibitions as Shabbat, meaning cooking and kindling fire are strictly forbidden (unlike Yom Tov, which permits ochel nefesh). Kol Nidrei opens the eve; Ne'ilah closes the day. The day atones with teshuvah, but serious sins between people still require apology and restitution. Prepare easy break-fast before the fast begins.",
+    "detail": "fast day → rápido",
+    "current": "Yom Kipur es el Día de la Expiación: ayuno, confesión y oración. Bíblicamente llamado Shabat Shabbaton, lleva exactamente las mismas prohibiciones estrictas de trabajo (melajá) como Shabat, que significa cocinar y encender fuego están estrictamente prohibidos (a diferencia de Yom Tov, que permite a "
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "Today is the Fast of Esther (Taanit Esther) — commemorating the fasting Esther called before approaching the king (Esther 4:16).\n\nMinor fast rules with Purim context:\n• No eating or drinking from dawn until nightfall.\n• Music, showering for pleasure, and leather shoes are permitted — this is a minor fast, not like Tisha B'Av.\n• Purim mitzvot begin tonight/tomorrow per your calendar (14 Adar, or 15 in walled cities). This fast is the spiritual preparation before the joy of Purim.",
+    "detail": "fast day → rápido",
+    "current": "Hoy es el Rápido de Ester (Taanit Ester) — conmemorando el ayuno llamado Ester antes de acercarse al rey (Ester 4:16).\n\nReglas mínimas rápidas con contexto Purim:\n• No comer ni beber desde el amanecer hasta la noche.\n• Se permite la música, la ducha para el placer y los zapatos de cuero, esto es un "
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "Yom Kippur — Yom Kippur is the Day of Atonement — fasting, confession, and prayer. Biblically called Shabbat Shabbaton, it carries the exact same strict labor (melacha) prohibitions as Shabbat, meaning cooking and kindling fire are strictly forbidden (unlike Yom Tov, which permits ochel nefesh). Kol Nidrei opens the eve; Ne'ilah closes the day. The day atones with teshuvah, but serious sins between people still require apology and restitution. Prepare easy break-fast before the fast begins.",
+    "detail": "fast day → rápido",
+    "current": "Yom Kipur — Yom Kipur es el Día de la Expiación — ayuno, confesión y oración. Bíblicamente llamado Shabat Shabbaton, lleva exactamente las mismas prohibiciones estrictas de trabajo (melajá) como Shabat, que significa cocinar y encender fuego están estrictamente prohibidos (a diferencia de Yom Tov, q"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "If you forgot:\n• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).",
+    "detail": "en=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCE', '$service', '$YAALEH_VYAVO_HALACHA_SOURCE'] tr=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCE', '$serviceAmidah', '$YAALEH_VYAVO_HALACHA_SOURCE']",
+    "current": "Si te olvidas...\n• Todavía en Retzei (antes de concluir la bendición) – insertar Yaaleh V'yavo en su lugar y continuar ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Después de concluir Retzei – volver al comienzo de Retzei, insertar Yaaleh V'yavo, y completar las bendiciones restantes ($YAALEH_VYAVO_HALACHA_SOU"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "If you forgot:\n• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).",
+    "detail": "en=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCE', '$service', '$YAALEH_VYAVO_HALACHA_SOURCE'] tr=['$YAALEH_VYAVO_HALACHA_SOURCE', '$YAALEH_VYAVO_HALACHA_SOURCE', '$serviceAmida', '$YAALEH_VYAVO_HALACHA_SOURCE']",
+    "current": "Si vous avez oublié :\n• Toujours à Retzei (avant de conclure la bénédiction) – insérer Yaaleh V'yavo à sa place et continuer ($YAALEH_VYAVO_HALACHA_SOURCE) .\n• Après avoir conclu Retzei — retour au début de Retzei, insérer Yaaleh V'yavo, et compléter les bénédictions restantes ($YAALEH_VYAVO_HALACHA"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Tashlumin is making up a missed Amidah at the very next service: missed Shacharit at Mincha, missed Mincha at Maariv, missed Maariv at tomorrow's Shacharit. Pray the current Amidah first, pause, then the makeup. If you accidentally say the makeup first, that Amidah counts as the current obligation and the second counts as tashlumin — no third Amidah needed (Mishnah Berurah 108:2). This applies only if you missed the prayer by accident or unavoidable delay — if you missed intentionally, there is no tashlumin. Missed holiday Shacharit is made up at Mincha, not at Musaf (SA O.C. 108:9).",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Tashlumin está compensando una Amidá perdida en el próximo servicio: se perdió Shajarit en Minjá, se perdió Minjá en Maariv, se perdió Maariv en Shajarit de mañana. Reza la actual Amidá primero, pausa, luego el tashlumin. Si usted accidentalmente dice el tashlumin primero, que Amidá cuenta como la o"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "This year, today is $chagName on Friday and Shabbat begins tonight — the Yom Tov–Shabbat sequence is in progress.\n\nToday on Yom Tov (if you made eruv tavshilin before the festival began):\n• You may cook and prepare for Shabbat meals today — within halachic limits (food ready with time to spare before Shabbat).\n• Finish preparations before Shabbat; set timers/blech as guided by your rav.\n\nIf you have not made eruv tavshilin, ask your rabbi immediately.\n\nShabbat tonight: light candles from a pre-existing flame after Yom Tov ends; follow your siddur for when Yom Tov ends and Shabbat begins.",
+    "detail": "en=['$chagName'] tr=['$chagNameel']",
+    "current": "Este año, hoy es$chagNameel viernes y Shabat comienza esta noche — la secuencia Yom Tov-Shabbat está en progreso.\n\nHoy en Yom Tov (si hiciste eruv tavshilin antes de que empezara el festival):\n• Usted puede cocinar y preparar para las comidas Shabat hoy — dentro de los límites halaquicos (comida lis"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "This year, today is $chagName on Friday and Shabbat begins tonight — the Yom Tov–Shabbat sequence is in progress.\n\nToday on Yom Tov (if you made eruv tavshilin before the festival began):\n• You may cook and prepare for Shabbat meals today — within halachic limits (food ready with time to spare before Shabbat).\n• Finish preparations before Shabbat; set timers/blech as guided by your rav.\n\nIf you have not made eruv tavshilin, ask your rabbi immediately.\n\nShabbat tonight: light candles from a pre-existing flame after Yom Tov ends; follow your siddur for when Yom Tov ends and Shabbat begins.",
+    "detail": "en=['$chagName'] tr=['$chagNamevendredi']",
+    "current": "Cette année,$chagNamevendredi et le Chabbat commence ce soir — la séquence Yom Tov–Shabbat est en cours.\n\nAujourd'hui sur Yom Tov (si vous avez fait eruv tavshilin avant le début du festival):\n• Vous pouvez cuisiner et préparer les repas de Chabbat aujourd'hui — dans des limites halachiques (nourrit"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Tashlumin — Tashlumin is making up a missed Amidah at the very next service: missed Shacharit at Mincha, missed Mincha at Maariv, missed Maariv at tomorrow's Shacharit. Pray the current Amidah first, pause, then the makeup. If you accidentally say the makeup first, that Amidah counts as the current obligation and the second counts as tashlumin — no third Amidah needed (Mishnah Berurah 108:2). This applies only if you missed the prayer by accident or unavoidable delay — if you missed intentionally, there is no tashlumin. Missed holiday Shacharit is made up at Mincha, not at Musaf (SA O.C. 108:9).",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Tashlumin — Tashlumin está compensando una Amidá perdida en el próximo servicio: se perdió Shajarit en Minjá, se perdió Minjá en Maariv, se perdió Maariv en Shajarit de mañana. Reza la actual Amidá primero, pausa, luego el tashlumin. Si usted accidentalmente dice el tashlumin primero, que Amidá cuen"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך ישראל להשכיחם מתורתך ולהעבירם מחקי רצונך ואתה ברחמיך הרבים עמדת להם בעת צרתם רבת את ריבם דנת את דינם נקמת את נקמתם מסרת גבורים ביד חלשים ורבים ביד מעטים וטמאים ביד טהורים ורשעים ביד צדיקים וזדים ביד עוסקי תורתך ולך עשית שם גדול וקדוש בעולמך ולעמך ישראל עשית תשועה גדולה ופרקן כהיום הזה ואחר כך באו בניך לדביר ביתך ופנו את היכלך וטהרו את-מקדשך והדליקו נרות בחצרות קדשך וקבעו שמונת ימי חנכה אלו להודות ולהלל לשמך הגדול.",
+    "current": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך ישראל להשכיחם מתורתך ולהעבירם מחקי רצונך ואתה ברחמיך הרבים עמדת להם בעת צרתם רבת את ריבם דנת את דינם נקמת את נקמתם מסרת גבורים ביד חלשים ורבים ביד מעטים וטמאים ביד טהורים ורשעים ביד צדיקים וזדים ביד עוסקי תורתך ולך עשית שם גדול וקדוש בעולמך ולעמך ישראל עשית תשועה גדולה ופרקן כהיום הזה ואחר כך באו בניך לדביר ביתך ופנו את היכלך וטהרו את-מקדשך והדליקו נרות בחצרות קדשך וקבעו שמונת ימי חנכה אלו להודות ולהלל לשמך הגדול.",
+    "current": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך ישראל להשכיחם מתורתך ולהעבירם מחקי רצונך ואתה ברחמיך הרבים עמדת להם בעת צרתם רבת את ריבם דנת את דינם נקמת את נקמתם מסרת גבורים ביד חלשים ורבים ביד מעטים וטמאים ביד טהורים ורשעים ביד צדיקים וזדים ביד עוסקי תורתך ולך עשית שם גדול וקדוש בעולמך ולעמך ישראל עשית תשועה גדולה ופרקן כהיום הזה ואחר כך באו בניך לדביר ביתך ופנו את היכלך וטהרו את-מקדשך והדליקו נרות בחצרות קדשך וקבעו שמונת ימי חנכה אלו להודות ולהלל לשמך הגדול.",
+    "current": "בחנוכה ובפורים אומרים כאן על הניסים\nעל הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.\n\nבימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "After Yom Kippur ends at nightfall${tzeit?.let { \" (approx. $it tonight)\" } ?: \"\"}, it is a mitzvah to eat a proper meal — not only a quick bite.\n\nWhat to do:\n• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).\n• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.\n\nThis item becomes available at nightfall after the fast ends.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it', '$it']",
+    "current": "לאחר יום הכיפורים מסתיים ב- Nightfall$[עריכת קוד מקור | עריכה]$itהלילה: \"זה מצווה לאכול ארוחה נכונה - לא רק ביס מהיר.\n\nמה לעשות:\nמלא Maariv and Havdalah (Havdalah כולל נר שהדליק בכל יום הכיפורים, יין וללא תבלינים).\n• לאכול חופשת חגיגית - רבים להכין מזון מראש כי הגבלות בישול על יום קלפור בסוף הלילה.\n"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "After Yom Kippur ends at nightfall${tzeit?.let { \" (approx. $it tonight)\" } ?: \"\"}, it is a mitzvah to eat a proper meal — not only a quick bite.\n\nWhat to do:\n• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).\n• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.\n\nThis item becomes available at nightfall after the fast ends.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it'] tr=['${tzeit?.let { \" (aprox.$itEsta noche) \"\" \"\"}', '$itEsta']",
+    "current": "Después de que Yom Kippur termine en el anochecer${tzeit?.let { \" (aprox.$itEsta noche) \"\" \"\"}, es una mitzvá para comer una comida adecuada — no sólo una mordida rápida.\n\nQué hacer:\n• Maariv completo y Havdalah (Havdalah incluye una vela que se encendió a lo largo de Yom Kippur, vino y no especias)"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "After Yom Kippur ends at nightfall${tzeit?.let { \" (approx. $it tonight)\" } ?: \"\"}, it is a mitzvah to eat a proper meal — not only a quick bite.\n\nWhat to do:\n• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).\n• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.\n\nThis item becomes available at nightfall after the fast ends.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it tonight)\" }', '$itce', '$it']",
+    "current": "Après la fin de Yom Kippur à la tombée de la nuit $ {tzeit?.let { \" (approx.$itce soir)\"} ?: \"\"}, c'est une mitsvah de manger un bon repas — pas seulement une bouchée rapide.\n\nQue faire:\n• Maariv complet et Havdalah (Havdalah comprend une bougie qui a été allumée dans tout Yom Kippour, vin, et pas d"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "After Yom Kippur ends at nightfall${tzeit?.let { \" (approx. $it tonight)\" } ?: \"\"}, it is a mitzvah to eat a proper meal — not only a quick bite.\n\nWhat to do:\n• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).\n• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.\n\nThis item becomes available at nightfall after the fast ends.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it tonight)\" }', '$it', '$it']",
+    "current": "После Йом Кипур заканчивается с наступлением темноты.$itЭто мицва — есть правильную еду, а не только быстрый укус.\n\nЧто делать:\nПолная Маарив и Хавдала (Хавдала включает в себя свечу, которая была зажжена в Йом Кипур, вино и без специй).\nЕшьте праздничный перерыв — многие готовят еду заранее, потому"
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "Who must fast:\nJewish adults from bar/bat mitzvah age who are healthy enough to fast. Children are trained gradually — ask your rav. Women who are pregnant, nursing, or recently gave birth, and anyone who is ill, should ask a posek — many eat in measured amounts (shiurim) or are fully exempt.\n\nIf you ate by mistake:\nIf you forgot and ate or drank unintentionally, you may continue fasting once you remember — the fast remains valid (Shulchan Arukh O.C. 568:1).\n\nIf you cannot fast:\nDo not endanger your health. Ask a rav about shiurim (small amounts at intervals), postponing the fast, or exemption. Pikuach nefesh overrides fasting.",
+    "detail": "fast day → rápido",
+    "current": "Quien debe ayunar:\nLos adultos judíos de edad de bar/bat mitzvá que son lo suficientemente saludables para ayunar. Los niños son entrenados gradualmente — pregunte su rav. Las mujeres que están embarazadas, enfermeros o recién dieron a luz, y cualquiera que esté enfermo, deben pedir una posek —mucho"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Simchat Yom Tov (שִׂמְחַת יוֹם טוֹב) is the Torah mitzvah \"V'samachta b'chagecha\" — rejoice in your festival (Devarim 16:14). The head of household facilitates joy for each family member in the way that brings them happiness (Pesachim 109a; SA OC 529:2): wife — new clothing or jewelry l'fi mamono (within means); children — treats (today candies and toys; Talmud: grains and nuts); men — festive meat and wine meals. Halacha requires including the poor — joy only among yourselves without helping the needy is \"joy of one's stomach,\" not mitzvah joy. At the least it's recommended to provide the poor with tzedaka so they can enjoy the holiday as well.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Simjat Yom Tov es la Torá mitzvá \"V'samachta b'chagecha\" — regocijaos en vuestro festival (Devarim 16:14). La cabeza del hogar facilita alegría para cada miembro de la familia de la manera que los trae felicidad (Pesachim 109a; SA OC 529:2): esposa — ropa nueva o joyería l'fi mamono (dentro de medio"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Simchat Yom Tov — Simchat Yom Tov (שִׂמְחַת יוֹם טוֹב) is the Torah mitzvah \"V'samachta b'chagecha\" — rejoice in your festival (Devarim 16:14). The head of household facilitates joy for each family member in the way that brings them happiness (Pesachim 109a; SA OC 529:2): wife — new clothing or jewelry l'fi mamono (within means); children — treats (today candies and toys; Talmud: grains and nuts); men — festive meat and wine meals. Halacha requires including the poor — joy only among yourselves without helping the needy is \"joy of one's stomach,\" not mitzvah joy. At the least it's recommended to provide the poor with tzedaka so they can enjoy the holiday as well.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Simjat Yom Tov — Simjat Yom Tov (V'samachta b'chagecha) — regocijarse en su festival (Devarim 16:14). La cabeza del hogar facilita alegría para cada miembro de la familia de la manera que los trae felicidad (Pesachim 109a; SA OC 529:2): esposa — ropa nueva o joyería l'fi mamono (dentro de medios); n"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם׃\n                וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ וּמִכָּל מִינֵי פֻּרְעָנִיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם׃\n                וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ וְתִתְּנֵנוּ לְחֵן וּלְחֶסֶד וּלְרַחֲמִים בְּעֵינֶיךָ וּבְעֵינֵי כָל רוֹאֵינוּ׃\n                וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אָתָּה׃\n                בָּרוּךְ אַתָּה ה׳ שׁוֹמֵעַ תְּפִלָּה׃",
+    "current": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם׃\n                וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ וּמִכָּל מִינֵי פֻּרְעָנִיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם׃\n                וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ וְתִתְּנֵנוּ לְחֵן וּלְחֶסֶד וּלְרַחֲמִים בְּעֵינֶיךָ וּבְעֵינֵי כָל רוֹאֵינוּ׃\n                וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אָתָּה׃\n                בָּרוּךְ אַתָּה ה׳ שׁוֹמֵעַ תְּפִלָּה׃",
+    "current": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם׃\n                וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ וּמִכָּל מִינֵי פֻּרְעָנִיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם׃\n                וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ וְתִתְּנֵנוּ לְחֵן וּלְחֶסֶד וּלְרַחֲמִים בְּעֵינֶיךָ וּבְעֵינֵי כָל רוֹאֵינוּ׃\n                וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אָתָּה׃\n                בָּרוּךְ אַתָּה ה׳ שׁוֹמֵעַ תְּפִלָּה׃",
+    "current": "יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃\n                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Today is Yom Kippur — the Day of Atonement.\n\nThe fast:\n• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"}.\n• Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Many wear white; married men who normally wear a kittel do so; tallit is worn all day.\n• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.\n\nAfter nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it)\" }', '$it', '$it']",
+    "current": "היום הוא יום הכיפורים - יום ההנצחה.\n\nמהיר:\n• Began בשקיעה אמש (קהילות ממאניות קיבלו אותה מוקדם יותר עם טוסטפט - הוספת זמן מחזרה על Yom Kippur) ומסתיים באפלה הערב?$it(1): \"\n5 חסרונות: לא אכילה / נביחות, לא נעלי עור, לא רחצה להנאה, שום נביחות, ללא יחסי נישואין.\n• רבים לובשים לבן; גברים נשואים שבדרך כל"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Today is Yom Kippur — the Day of Atonement.\n\nThe fast:\n• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"}.\n• Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Many wear white; married men who normally wear a kittel do so; tallit is worn all day.\n• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.\n\nAfter nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['$it']",
+    "current": "Hoy es Yom Kippur — el Día de la Expiación.\n\nEl ayuno:\n• Began al atardecer de anoche (muchas comunidades lo aceptaron antes con tosefet – añadiendo tiempo de erev a Yom Kippur) y termina en la noche pasada esta noche ${tzeit?.let { \" (aprox.$it\"\n• Cinco aflicciones: sin comer ni beber, sin zapatos "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Today is Yom Kippur — the Day of Atonement.\n\nThe fast:\n• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"}.\n• Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Many wear white; married men who normally wear a kittel do so; tallit is worn all day.\n• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.\n\nAfter nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx.$it)}', '$it']",
+    "current": "Aujourd'hui est Yom Kippur — le jour de l'expiation.\n\nLe jeûne :\n• A commencé au coucher du soleil la nuit dernière (de nombreuses communautés l'ont accepté plus tôt avec tosefet — ajoutant du temps d'erev à Yom Kippur) et se termine à la tombée de la nuit ce soir${tzeit?.let { \" (approx.$it)} ?: \"\""
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Today is Yom Kippur — the Day of Atonement.\n\nThe fast:\n• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"}.\n• Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Many wear white; married men who normally wear a kittel do so; tallit is worn all day.\n• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.\n\nAfter nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it)\" }', '$it', '$it']",
+    "current": "Сегодня Йом Кипур — День Искупления.\n\nБыстрый:\nНачался на закате прошлой ночью (многие общины приняли его ранее с тосефет — добавление времени от Эрева до Йом-Киппура) и заканчивается ночью сегодня вечером.$it) } ?: }\nПять недугов: нет еды / питья, нет кожаной обуви, нет купания для удовольствия, не"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "es",
+    "key_full": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צוארנו, והוא יוליכנו קוממיות לארצנו. הרחמן הוא ישלח לנו ברכה מרבה בבית הזה, ועל שלחן זה שאכלנו עליו. הרחמן הוא ישלח לנו את אליהו הנביא זכור לטוב, ויבשר לנו בשורות טובות ישועות ונחמות.\n\nבבית אביו אומר: הרחמן הוא יברך את אבי מורי בעל הבית הזה, ואת אמי מורתי בעלת הבית הזה.\nנשוי אומר: הרחמן הוא יברך אותי, (אם אביו ואמו בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת אשתי, ואת זרעי, ואת כל אשר לי.\nנשואה אומרת: הרחמן הוא יברך אותי, (אם איה ואמה בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת בעלי, ואת זרעי, ואת כל אשר לי.\nאורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.",
+    "current": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צ"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "fr",
+    "key_full": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צוארנו, והוא יוליכנו קוממיות לארצנו. הרחמן הוא ישלח לנו ברכה מרבה בבית הזה, ועל שלחן זה שאכלנו עליו. הרחמן הוא ישלח לנו את אליהו הנביא זכור לטוב, ויבשר לנו בשורות טובות ישועות ונחמות.\n\nבבית אביו אומר: הרחמן הוא יברך את אבי מורי בעל הבית הזה, ואת אמי מורתי בעלת הבית הזה.\nנשוי אומר: הרחמן הוא יברך אותי, (אם אביו ואמו בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת אשתי, ואת זרעי, ואת כל אשר לי.\nנשואה אומרת: הרחמן הוא יברך אותי, (אם איה ואמה בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת בעלי, ואת זרעי, ואת כל אשר לי.\nאורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.",
+    "current": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צ"
+  },
+  {
+    "reason": "untranslated_long",
+    "lang": "ru",
+    "key_full": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צוארנו, והוא יוליכנו קוממיות לארצנו. הרחמן הוא ישלח לנו ברכה מרבה בבית הזה, ועל שלחן זה שאכלנו עליו. הרחמן הוא ישלח לנו את אליהו הנביא זכור לטוב, ויבשר לנו בשורות טובות ישועות ונחמות.\n\nבבית אביו אומר: הרחמן הוא יברך את אבי מורי בעל הבית הזה, ואת אמי מורתי בעלת הבית הזה.\nנשוי אומר: הרחמן הוא יברך אותי, (אם אביו ואמו בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת אשתי, ואת זרעי, ואת כל אשר לי.\nנשואה אומרת: הרחמן הוא יברך אותי, (אם איה ואמה בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת בעלי, ואת זרעי, ואת כל אשר לי.\nאורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.",
+    "current": "הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.\nהרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צ"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\nToday in the Omer: $todaySummary (day $day of 49).\n\nTonight's count:\n• $tonight night — count $todaySummary after nightfall$timePart.\n$nextNightLine\n\nHow to count:\n• Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).\n• Say: \"${omerCountSpeechPhrase(day)}\"\n• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.\n\n$nusachWhen",
+    "detail": "en=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$day', '$tonight', '$todaySummary', '$timePart', '$nextNightLine', '$nusachWhen'] tr=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$day49', '$tonight', '$todaySummary', '$timePart', '$nextNightLine', '$nusachWhen']",
+    "current": "פיראט HaOmer מקשר את פסח לשוואוט - ספירה כל יום מן Exodus לקראת קבלת התורה.\n\nהיום ב עומר:$todaySummary(היום)$day49).\n\nספירת הערב:\n•$tonightלילה - ספירה$todaySummaryאחרי Nightfall$timePart.\n$nextNightLine\n\nאיך לספור:\nלעמוד ולדקלם את הברכה לפני הספירה אם אתה עדיין אומר את זה עם ברכה (אם פספסת יום, שאל"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\nToday in the Omer: $todaySummary (day $day of 49).\n\nTonight's count:\n• $tonight night — count $todaySummary after nightfall$timePart.\n$nextNightLine\n\nHow to count:\n• Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).\n• Say: \"${omerCountSpeechPhrase(day)}\"\n• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.\n\n$nusachWhen",
+    "detail": "en=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$day', '$tonight', '$todaySummary', '$timePart', '$nextNightLine', '$nusachWhen'] tr=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$dayde', '$tonightnoche', '$todaySummarydespu', '$timePart', '$nextNightLine', '$nusachWhen']",
+    "current": "Sefirat HaOmer vincula Pesach a Shavuot — contando cada día desde el Éxodo hacia la recepción de la Torá.\n\nHoy en el Omer:$todaySummary(día$dayde 49).\n\nEsta noche cuenta:\n•$tonightnoche — cuenta$todaySummarydespués de la noche$timePart.\n$nextNightLine\n\nCómo contar:\n• Párese y recite la bendición ant"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\nToday in the Omer: $todaySummary (day $day of 49).\n\nTonight's count:\n• $tonight night — count $todaySummary after nightfall$timePart.\n$nextNightLine\n\nHow to count:\n• Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).\n• Say: \"${omerCountSpeechPhrase(day)}\"\n• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.\n\n$nusachWhen",
+    "detail": "en=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$day', '$tonight', '$todaySummary', '$timePart', '$nextNightLine', '$nusachWhen'] tr=['${omerCountSpeechPhrase(day)}', '$todaySummary', '$dayde', '$tonightnuit', '$todaySummaryApr', '$timePart', '$nextNightLine', '$nusachWhen']",
+    "current": "Sefirat HaOmer relie Pesach à Shavuot, en comptant chaque jour de l'Exode vers la Torah.\n\nAujourd'hui dans l'Omer:$todaySummary(jour)$dayde 49).\n\nLe compte de ce soir :\n•$tonightnuit — compter$todaySummaryAprès la nuit tombée$timePart.\n$nextNightLine\n\nComment compter :\n• Tenez-vous debout et récitez"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Sukkot (first day) begins tonight — Zman Simchateinu.\n\nBefore sunset:\n• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.\n• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).\n\nTonight & tomorrow:\n• Light Yom Tov candles in the sukkah (per custom) or home.\n${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}\n• ${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}\n• Festive meals in the sukkah; Ushpizin welcome guests.\n• No melacha; Full Hallel and Musaf in davening.\n\n${diasporaSecondDayNote(profile, \"Sukkot\")}",
+    "detail": "en=['${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}', '${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}', '${diasporaSecondDayNote(profile, \"Sukkot\")}'] tr=['${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}', '${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on EL first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}', '${diasporaSecondDayNote(profile, \"Sukkot\")}']",
+    "current": "Sukkot (primer día) comienza esta noche — Zman Simchateinu.\n\nAntes del atardecer:\n• Evite comer una comida formal dentro de la sukkah hoy (Rama O.C. 639:1) para que su entrada esta noche sea claramente dedicada al comienzo de la mitzvá.\n• Tenga arba minim listo: lulav, etrog, hadasim, aravot (por lo"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Musaf is an additional Amidah prayer added to the morning service on Shabbat, Rosh Chodesh, and all Jewish holidays.\n\nWhat Musaf is:\nMusaf (מוּסָף — literally \"additional\") is an extra Amidah — the same standing prayer as the rest of the service — but with a special middle blessing describing the Temple offerings (korbanot) that were brought on that day in Temple times, and a prayer for the restoration of the Temple service.\n\nWhen Musaf is said:\n• Every Shabbat\n• Rosh Chodesh (new month)\n• All Yom Tov holidays\n• Chol HaMoed (intermediate days of Pesach and Sukkot)\n\nWhy we say it:\nIn Temple times, special extra offerings (musaf korbanot) were brought on these holy days. Since the Temple was destroyed, we replace the physical offerings with prayer — reciting what was offered and praying for the Temple to be rebuilt.\n\nTiming:\nSaid after Shacharit (the main morning service), ideally before the end of the 7th halachic hour; bedi'eved valid until sunset (Shulchan Arukh O.C. 286:1).",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Musaf es una oración adicional Amidá agregada al servicio de la mañana en Shabat, Rosh Jodesh, y todas las vacaciones judías.\n\nLo que Musaf es:\nMusaf (NT: literalmente \"adicional\") es una Amidá extra, la misma oración permanente que el resto del servicio, pero con una bendición media especial que de"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Today is Tisha B'Av — mourning the destruction of both Temples and our exile.\n\nThe fast:\n• Began at sunset last night and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"} — not a dawn-to-dusk fast.\n\nWhat is forbidden today (in addition to eating and drinking):\n• Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.\n• Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).\n• Greeting people with \"hello\"; idle conversation; work is discouraged (follow your community).\n• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.\n\nWhat is permitted (unlike Yom Kippur in some communities):\n• Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.\n\nAfter nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it)\" }', '$it', '$it']",
+    "current": "היום טישה B'Av – מתאבלת על השמדת שני המקדשים והגלות שלנו.\n\nמהיר:\n• Began בשקיעה אמש ומסתיימת באפלה הערב?$it(1): \"לא מהר שחר אל-דוסק.\n\nמה אסור היום (בנוסף לאכילה ושתייה):\nנעלי עור; רחצה להנאה; היכרות עם קרם או קונלוגיה; יחסי נישואין.\n• לימוד תורה למעט מעברים מתאבלים (Eichah, Iyov, חלקי ירמיהו, halach"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Today is Tisha B'Av — mourning the destruction of both Temples and our exile.\n\nThe fast:\n• Began at sunset last night and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"} — not a dawn-to-dusk fast.\n\nWhat is forbidden today (in addition to eating and drinking):\n• Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.\n• Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).\n• Greeting people with \"hello\"; idle conversation; work is discouraged (follow your community).\n• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.\n\nWhat is permitted (unlike Yom Kippur in some communities):\n• Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.\n\nAfter nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['$itNo']",
+    "current": "Hoy es Tisha B'Av — lamentando la destrucción de ambos Templos y nuestro exilio.\n\nEl ayuno:\n• Began al atardecer anoche y termina al anochecer esta noche ${tzeit?.let { \" (aprox.$itNo es un ayuno del amanecer al atardecer.\n\nLo que está prohibido hoy (además de comer y beber):\n• Zapatos de cuero; bañ"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Today is Tisha B'Av — mourning the destruction of both Temples and our exile.\n\nThe fast:\n• Began at sunset last night and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"} — not a dawn-to-dusk fast.\n\nWhat is forbidden today (in addition to eating and drinking):\n• Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.\n• Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).\n• Greeting people with \"hello\"; idle conversation; work is discouraged (follow your community).\n• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.\n\nWhat is permitted (unlike Yom Kippur in some communities):\n• Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.\n\nAfter nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it)\" }', '$it', '$it']",
+    "current": "Aujourd'hui, Tisha B'Av pleure la destruction des deux temples et notre exil.\n\nLe jeûne :\n• Commencé au coucher du soleil la nuit dernière et se termine à la tombée de la nuit ce soir $ {tzeit?.let { \" (approx.$it)\"} ?: \"\"} — pas une aube-à-pousser rapide.\n\nCe qui est interdit aujourd'hui (en plus d"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Today is Tisha B'Av — mourning the destruction of both Temples and our exile.\n\nThe fast:\n• Began at sunset last night and ends at nightfall tonight${tzeit?.let { \" (approx. $it)\" } ?: \"\"} — not a dawn-to-dusk fast.\n\nWhat is forbidden today (in addition to eating and drinking):\n• Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.\n• Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).\n• Greeting people with \"hello\"; idle conversation; work is discouraged (follow your community).\n• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.\n\nWhat is permitted (unlike Yom Kippur in some communities):\n• Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.\n\nAfter nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.",
+    "detail": "en=['${tzeit?.let { \" (approx. $it)\" }', '$it'] tr=['${tzeit?.let { \" (approx. $it)\" }', '$it', '$it']",
+    "current": "Сегодня Тиша Б'Ав оплакивает разрушение Храмов и наше изгнание.\n\nБыстрый:\n• Начался на закате прошлой ночью и заканчивается ночью сегодня.$it) } ?: } — не от рассвета до заката.\n\nЧто сегодня запрещено (помимо еды и питья):\nКожаные туфли; купание для удовольствия; помазание кремом или одеколоном; суп"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).\n\nIf you plan to eat before the fast begins:\n• Set a mental condition (tanai) the night before: \"If I wake up hungry before dawn, I will eat.\" Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).\n• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).\n• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" } ?: \" — enable location in Settings for your dawn time\"}.\n\nPractical prep tonight:\n• Hydrate well and eat a balanced dinner.\n• Plan a lighter morning if you will not eat before dawn.\n• Know your synagogue schedule if you plan to attend special prayers.\n\nWho must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote",
+    "detail": "en=['${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" }', '$fastName', '$it', '$fridayNote'] tr=['${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" }', '$fastName', '$it', '$fridayNote', '$it']",
+    "current": "מחר$fastName- קהל מהיר משחר (אלטו צ'אג'ר) עד הלילה (tzeit).\n\nאם אתם מתכננים לאכול לפני שהמהירות מתחילה:\nקבע מצב נפשי (אנטאני) בלילה הקודם: \"אם אתעורר רעב לפני השחר, אוכל.\" ללא מצב זה, התעוררות מוקדם ואכילה עלולה לאסור עליך לאכול שוב עד שהמהירות מתחילה באופן רשמי בשחר (שולכן אראך O.C. 564:1).\nאם אתה "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).\n\nIf you plan to eat before the fast begins:\n• Set a mental condition (tanai) the night before: \"If I wake up hungry before dawn, I will eat.\" Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).\n• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).\n• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" } ?: \" — enable location in Settings for your dawn time\"}.\n\nPractical prep tonight:\n• Hydrate well and eat a balanced dinner.\n• Plan a lighter morning if you will not eat before dawn.\n• Know your synagogue schedule if you plan to attend special prayers.\n\nWho must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote",
+    "detail": "en=['${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" }', '$fastName', '$it', '$fridayNote'] tr=['${alotTomorrow?.let { \" (aprox.$it- habilitar la ubicación para su zman exacto)\" ?: \" — habilitar la ubicación en Ajustes para su hora del amanecer\"}', '$fastName', '$it', '$fridayNote']",
+    "current": "Mañana$fastName— un ayuno público desde el amanecer (alot hashachar) hasta el anochecer (tzeit).\n\nSi planea comer antes de que comience el ayuno:\n• Establecer una condición mental (tanai) la noche anterior: \"Si despierto hambriento antes del amanecer, comeré.\" Sin esta condición, despertar temprano "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).\n\nIf you plan to eat before the fast begins:\n• Set a mental condition (tanai) the night before: \"If I wake up hungry before dawn, I will eat.\" Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).\n• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).\n• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" } ?: \" — enable location in Settings for your dawn time\"}.\n\nPractical prep tonight:\n• Hydrate well and eat a balanced dinner.\n• Plan a lighter morning if you will not eat before dawn.\n• Know your synagogue schedule if you plan to attend special prayers.\n\nWho must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote",
+    "detail": "en=['${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" }', '$fastName', '$it', '$fridayNote'] tr=['${alotTomorrow?.let { \" (approx.$it— activer l\\'emplacement pour votre zman exact)\"}', '$fastName', '$it', '$fridayNote']",
+    "current": "Demain est$fastName— un jeûne public à partir de l'aube (alot hashachar) jusqu'à la tombée de la nuit (tzeit).\n\nSi vous prévoyez de manger avant le jeûne commence:\n• Établissez une condition mentale (tanaï) la veille : « Si je me réveille affamé avant l'aube, je mangerai ». Sans cette condition, se "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).\n\nIf you plan to eat before the fast begins:\n• Set a mental condition (tanai) the night before: \"If I wake up hungry before dawn, I will eat.\" Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).\n• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).\n• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" } ?: \" — enable location in Settings for your dawn time\"}.\n\nPractical prep tonight:\n• Hydrate well and eat a balanced dinner.\n• Plan a lighter morning if you will not eat before dawn.\n• Know your synagogue schedule if you plan to attend special prayers.\n\nWho must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote",
+    "detail": "en=['${alotTomorrow?.let { \" (approx. $it — enable location for your exact zman)\" }', '$fastName', '$it', '$fridayNote'] tr=['$fastName', '$it', '$fridayNote']",
+    "current": "Завтра будет$fastName- общественный пост с рассвета (alot hashachar) до наступления ночи (tzeit).\n\nЕсли вы планируете поесть до начала поста:\nУстановите психическое состояние накануне вечером: «Если я проснусь голодным до рассвета, я буду есть». Без этого состояния раннее пробуждение и прием пищи мо"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Learn about the divine command to have the best time ever! 🎊 The Torah doesn't just suggest you have fun on festival days—it literally commands it with the mitzvah of Simchat Yom Tov! This applies to the \"Big Three\" festivals: Pesach, Shavuot, and Sukkot! 🗓️ Since \"there is no real joy without meat and wine,\" the holiday menu is basically a holy duty. 🍷🥩 But the halacha knows that everyone finds joy differently so it breaks down the party plan for the whole family! For men the focus is on delicious meat and wine. For women the mitzvah is fulfilled through getting new clothes or jewelry specifically for the holiday! For the kids it’s all about the sugar rush—giving them treats and nuts to keep the festive vibes high! 🍬 The man of the house is required to provide these things for his family according to his means! Our sages also warn that if you’re just feasting with your own family and locking the door you’re not doing \"holiday joy\" but just \"stomach joy.\" To do it right you’ve got to pull up an extra chair for the poor and the lonely because true happiness is only real when it’s shared! At the very least you should give tzedaka to a Jewish person in need so they can enjoy the festival too. Learn more and get ready for the next festival, whenever that may be!",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "¡Aprenda sobre el comando divino para tener el mejor tiempo! 🎊 La Torá no sólo sugiere que te diviertas en los días del festival, literalmente lo ordena con la mitzvá de Simchat Yom Tov! Esto se aplica a los festivales \"Big Three\": Pesach, Shavuot, y Sukkot! Como \"no hay verdadera alegría sin carne "
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Learn about the divine command to have the best time ever! 🎊 The Torah doesn't just suggest you have fun on festival days—it literally commands it with the mitzvah of Simchat Yom Tov! This applies to the \"Big Three\" festivals: Pesach, Shavuot, and Sukkot! 🗓️ Since \"there is no real joy without meat and wine,\" the holiday menu is basically a holy duty. 🍷🥩 But the halacha knows that everyone finds joy differently so it breaks down the party plan for the whole family! For men the focus is on delicious meat and wine. For women the mitzvah is fulfilled through getting new clothes or jewelry specifically for the holiday! For the kids it’s all about the sugar rush—giving them treats and nuts to keep the festive vibes high! 🍬 The man of the house is required to provide these things for his family according to his means! Our sages also warn that if you’re just feasting with your own family and locking the door you’re not doing \"holiday joy\" but just \"stomach joy.\" To do it right you’ve got to pull up an extra chair for the poor and the lonely because true happiness is only real when it’s shared! At the very least you should give tzedaka to a Jewish person in need so they can enjoy the festival too. Learn more and get ready for the next festival, whenever that may be!",
+    "detail": "Holiday",
+    "current": "Apprenez à connaître le commandement divin d'avoir le meilleur temps jamais! La Torah ne vous suggère pas seulement de vous amuser pendant les fêtes, elle la commande littéralement avec la mitsvah de Simchat Yom Tov! Ceci s'applique aux festivals \"Big Three\" : Pesach, Shavuot, et Sukkot ! Depuis \"il"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "$opener\n\nHavdalah inside Kiddush (Yaknehaz):\n• When a biblical holiday begins Saturday night (including Rosh Hashana), that night's Kiddush incorporates havdalah for Shabbat. The order is: (1) wine blessing, (2) holiday Kiddush, (3) candle blessing, (4) havdalah blessing — with the Yom Tov text concluding bein kodesh l'kodesh (not bein kodesh l'chol), (5) Shehecheyanu for the festival.\n• This is the YaKNeHaZ order (Yayin, Kiddush, Ner, Havdalah, Zeman) codified in Shulchan Arukh for Motzei Shabbat into Yom Tov.\n• Spices are not used.\n• Use the Machzor or siddur nusach for Rosh Hashana — do not rely on memory for the long havdalah text.\n\nBefore or at Maariv:\n• You may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidah of Maariv — follow your community.\n\n$prepLead:\n• Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag).\n• Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.\n• Tashlich: when the first day of Rosh Hashana is Shabbat, it is postponed to Sunday (structural rule — avoiding carrying machzorim in public without an eruv).\n\nCandles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (pre-existing flame).",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "$opener\n\nHavdalah dentro de Kiddush (Yaknehaz):\n• Cuando una fiesta bíblica comienza el sábado por la noche (incluyendo Rosh Hashana), el Kiddush de esa noche incorpora la havdalah para Shabat. La orden es: (1) bendición vino, (2) vacaciones Kiddush, (3) bendición de vela, (4) bendición de la havdal"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Erev Tisha B'Av prepares us for mourning the destruction of the Temple.\n\nWhen the fast begins:\n• Tisha B'Av starts at sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.\n\nRestrictions from chatzos (halachic midday) today:\n• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).\n• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.\n\nSeudah hamafseket — the final meal before the fast:\n• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).\n• Do not eat two cooked dishes together; do not recline; do not greet others with \"hello.\"\n• Finish before sunset; afterward, only water is permitted until the fast begins.\n• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.\n\nAfter sunset tonight until nightfall tomorrow:\n• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.$shabbatNote\n\nAsk your rav for details if you are ill, pregnant, or nursing.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$shabbatNote'] tr=['${sunset?.let { \" (approx. $it)\" }', '$it', '$shabbatNote', '$it']",
+    "current": "איתרה טאישה B'Av מכין אותנו להתאבל על הרס בית המקדש.\n\nכשהמהירות מתחילה:\n* Tisha B'Av מתחיל בשקיעה הערב בתחילת השנה?$it\"ומשיך עד מחר הלילה - לא שחר לדסק כמו מהירויות קלות קלות.\n\nהגבלות על צ'אטוס (חצי יום) היום:\nצ'אטזוס והלאה: אל תאכלו בשר או לשתות יין (חלקם מרחיבים הגבלות אחרות - בצעו את המניין).\n• ל"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Erev Tisha B'Av prepares us for mourning the destruction of the Temple.\n\nWhen the fast begins:\n• Tisha B'Av starts at sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.\n\nRestrictions from chatzos (halachic midday) today:\n• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).\n• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.\n\nSeudah hamafseket — the final meal before the fast:\n• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).\n• Do not eat two cooked dishes together; do not recline; do not greet others with \"hello.\"\n• Finish before sunset; afterward, only water is permitted until the fast begins.\n• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.\n\nAfter sunset tonight until nightfall tomorrow:\n• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.$shabbatNote\n\nAsk your rav for details if you are ill, pregnant, or nursing.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$shabbatNote'] tr=['$itY', '$shabbatNote']",
+    "current": "Erev Tisha B'Av nos prepara para lucir la destrucción del Templo.\n\nCuando el ayuno comienza:\n• Tisha B'Av comienza al atardecer esta noche ${sunset?.let { \" (aprox.$itY continúa hasta la noche de mañana, no al amanecer al atardecer como ayunos menores.\n\nRestrictions from chatzos (halachic midday) to"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Erev Tisha B'Av prepares us for mourning the destruction of the Temple.\n\nWhen the fast begins:\n• Tisha B'Av starts at sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.\n\nRestrictions from chatzos (halachic midday) today:\n• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).\n• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.\n\nSeudah hamafseket — the final meal before the fast:\n• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).\n• Do not eat two cooked dishes together; do not recline; do not greet others with \"hello.\"\n• Finish before sunset; afterward, only water is permitted until the fast begins.\n• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.\n\nAfter sunset tonight until nightfall tomorrow:\n• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.$shabbatNote\n\nAsk your rav for details if you are ill, pregnant, or nursing.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$shabbatNote'] tr=['${sunset?.let { \" (approx.$it)\"}', '$it', '$shabbatNote']",
+    "current": "Erev Tisha B'Av nous prépare à pleurer la destruction du Temple.\n\nLorsque le jeûne commence:\n• Tisha B'Av commence au coucher du soleil ce soir${sunset?.let { \" (approx.$it)\"} ?: \"\"} et continue jusqu'à la tombée de la nuit demain soir — pas l'aube au crépuscule comme des jeûnes mineurs.\n\nRestrictio"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Erev Tisha B'Av prepares us for mourning the destruction of the Temple.\n\nWhen the fast begins:\n• Tisha B'Av starts at sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.\n\nRestrictions from chatzos (halachic midday) today:\n• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).\n• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.\n\nSeudah hamafseket — the final meal before the fast:\n• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).\n• Do not eat two cooked dishes together; do not recline; do not greet others with \"hello.\"\n• Finish before sunset; afterward, only water is permitted until the fast begins.\n• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.\n\nAfter sunset tonight until nightfall tomorrow:\n• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.\n• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.$shabbatNote\n\nAsk your rav for details if you are ill, pregnant, or nursing.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$shabbatNote'] tr=['$it', '$shabbatNote']",
+    "current": "Эрев Тиша Б'Ав готовит нас к скорби по разрушению Храма.\n\nКогда начинается пост:\n• Тиша Б'Ав начинается на закате сегодня вечером ${sunset?.let {\" (прим.$itИ продолжается до наступления ночи завтра вечером — не рассвет, чтобы заснуть, как незначительные посты.\n\nОграничения от чацо (галахический полд"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "$intro\n\n$sederNights\n$secondSederHachana\n$omerTrigger\n\nSet up before Yom Tov:\n• Matzah — shmurah matzah for motzi/matza mitzvah (three matzot on the plate per custom)\n• Maror — romaine, horseradish, or bitter herbs per your minhag\n• Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)\n• Haggadah for each person (or shared)\n• Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret\n• Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.\n• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).\n• Festive table; candles for Yom Tov\n\nKitchen:\n• Only kosher-for-Passover food and utensils from this point\n• Warm food on a blech or pre-set timer for Yom Tov meals\n\nAt the Seder: follow your Haggadah step by step — Kiddush, the order of the night, brachot, and the four cups are all laid out there. ${if (profile.isInIsrael) \"One\" else \"Two\"} Seder night(s) this Pesach.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "$intro\n\n$sederNights\n$secondSederHachana\n$omerTrigger\n\nPreparado antes de Yom Tov:\n• Matzah — shmurah matzah para motzi/matza mitzvah (tres matzot en la placa por costumbre)\n• Maror — romaina, herbáceas o amargas por tu minhag\n• Cuatro tazas de vino por participante (el jugo de la uva es ampliamente"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Make an appointment for a private audience with the King of Kings! 👑 The Shemoneh Esrei—also known as the Amidah—is the heart of every Jewish prayer service. Our Sages composed it with \"Ruach HaKodesh\" (Divine Inspiration), meaning every word is a precise key designed to unlock heavenly gates and bring down spiritual and material blessings! 🔓 Because it is a direct conversation with Hashem, the Halacha has some \"royal protocol\" rules to keep it focused. First, you have to stand with your feet together, mimicking the angels who have \"one leg,\" to show total devotion (and that you ain't goin' nowhere while talking to the King!). 😇 You also face Jerusalem—no matter where you are in the world—to point your heart toward the site of the Holy Temple! 🏛️ The prayer is split into three sections: three blessings of praise, thirteen requests for things like wisdom, health, and prosperity, and three final blessings of gratitude. On Shabbat and holidays, the format of the middle blessings are changed, so you make sure you're reading the correct Amidah from your siddur! 📜 While concentration (Kavanah) is great to have throughout, the Sages say it is most critical in the very first blessing of \"Avot\"—if you lose focus there, you’ve missed the core of the encounter (Ashkenazim don't go back to repeat, but Sephardim do)! 🕊️ Enter a different dimension and bring down all the blessings Hashem wants to give you! Learn more! 🎊🙏.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "¡Haga una cita para una audiencia privada con el Rey de Reyes! 👑 El Shemoneh Esrei —también conocido como la Amida— es el corazón de cada servicio de oración judío. Nuestros Sabios lo componen con \"Ruach HaKodesh\" (Inspiración Divina), lo que significa que cada palabra es una clave precisa diseñada "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "This year, $chagName meets Shabbat on the calendar — you need eruv tavshilin. This doesn't happen every year.\n\nWhy (Peninei Halakha 12:8):\n• On Yom Tov, cooking is generally allowed only for that calendar day of Yom Tov, not for the next day.\n• When Yom Tov is immediately followed by Shabbat, the Sages required eruv tavshilin so you may cook on Yom Tov for Shabbat, and so Shabbat is not forgotten amid festival preparations.\n\n$whenLine\n\nHow (Peninei Halakha 12:8:2):\n• Set aside a baked food (challah or matzah) and a cooked food (meat, fish, or unpeeled hard-boiled egg are common examples).\n• Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.\n• One eruv per household is sufficient.\n• Food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.\n• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).\n\nLimits:\n• Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.\n• Food should be ready early enough Friday afternoon that it could theoretically be eaten before Shabbat.\n• Does not permit non-food Shabbat prep (e.g. certain laundry) — ask your rav.",
+    "detail": "en=['$chagName', '$whenLine'] tr=['$chagNameconoce', '$whenLine']",
+    "current": "Este año,$chagNameconoce a Shabat en el calendario — necesita eruv tavshilin. Esto no sucede cada año.\n\n¿Por qué (Peninei Halakha 12:8):\n• En Yom Tov, la cocina se permite generalmente sólo para ese día calendario de Yom Tov, no para el día siguiente.\n• Cuando Yom Tov es seguido inmediatamente por S"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "This year, $chagName meets Shabbat on the calendar — you need eruv tavshilin. This doesn't happen every year.\n\nWhy (Peninei Halakha 12:8):\n• On Yom Tov, cooking is generally allowed only for that calendar day of Yom Tov, not for the next day.\n• When Yom Tov is immediately followed by Shabbat, the Sages required eruv tavshilin so you may cook on Yom Tov for Shabbat, and so Shabbat is not forgotten amid festival preparations.\n\n$whenLine\n\nHow (Peninei Halakha 12:8:2):\n• Set aside a baked food (challah or matzah) and a cooked food (meat, fish, or unpeeled hard-boiled egg are common examples).\n• Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.\n• One eruv per household is sufficient.\n• Food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.\n• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).\n\nLimits:\n• Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.\n• Food should be ready early enough Friday afternoon that it could theoretically be eaten before Shabbat.\n• Does not permit non-food Shabbat prep (e.g. certain laundry) — ask your rav.",
+    "detail": "en=['$chagName', '$whenLine'] tr=['$chagNamerencontre', '$whenLine']",
+    "current": "Cette année,$chagNamerencontre Chabbat sur le calendrier — vous avez besoin d'eruv tavshilin. Ça n'arrive pas tous les ans.\n\nPourquoi (Peninei Halakha 12:8):\n• Sur Yom Tov, la cuisson n'est généralement autorisée que pour le jour civil de Yom Tov, pas pour le lendemain.\n• Lorsque Yom Tov est immédia"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.\n\nFestive meal (mitzvah):\n• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).\n• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).\n• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).\n\nDavening today (listed in your Morning, Afternoon, and Evening Prayer sections):\n• Yaaleh V'yavo in Shacharit, Mincha, and Maariv Amidah — and in bentching when you eat bread\n• Half Hallel at Shacharit (Full Hallel if Rosh Chodesh falls during Chanukah; no Hallel on Rosh Chodesh Tishrei / Rosh Hashanah)\n• Musaf after Shacharit — remove tefillin before Musaf\n• Tachanun is omitted all day\n\nOther customs:\n• Fasting and eulogies are generally not done on Rosh Chodesh\n• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details\n\nWhen Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh (ראש חודש) — el Nuevo Mes — es un semi-holiday con oración extra y costumbres.\n\nAlimentación (mitzvah):\n• Es una mitzvá para aumentar su comida en Rosh Chodesh - al menos añadir un plato extra o comida especial en honor del día (Shulchan Arukh O.C. 419:1).\n• Comer durante el día. Poskim"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.\n\nFestive meal (mitzvah):\n• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).\n• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).\n• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).\n\nDavening today (listed in your Morning, Afternoon, and Evening Prayer sections):\n• Yaaleh V'yavo in Shacharit, Mincha, and Maariv Amidah — and in bentching when you eat bread\n• Half Hallel at Shacharit (Full Hallel if Rosh Chodesh falls during Chanukah; no Hallel on Rosh Chodesh Tishrei / Rosh Hashanah)\n• Musaf after Shacharit — remove tefillin before Musaf\n• Tachanun is omitted all day\n\nOther customs:\n• Fasting and eulogies are generally not done on Rosh Chodesh\n• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details\n\nWhen Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.",
+    "detail": "holiday",
+    "current": "Rosh Chodesh est un semi-holiday avec une prière et des coutumes supplémentaires.\n\nRepas festifs (mitzvah):\n• C'est une mitsvah pour augmenter votre repas sur Rosh Chodesh — au minimum ajouter un plat supplémentaire ou une nourriture spéciale en l'honneur du jour (Shulchan Arukh O.C. 419:1).\n• Prene"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Simchas Yom Tov (שִׂמְחַת יוֹם טוֹב) — the mitzvah to rejoice on the festival:\nThe Torah commands \"V'samachta b'chagecha\" — \"And you shall rejoice in your festival\" (Devarim 16:14). Joy on Yom Tov is a mitzvah for everyone. Halacha recognizes that happiness is personal — the head of household helps each family member rejoice in the way that naturally brings them joy (Pesachim 109a; Shulchan Arukh O.C. 529:2).\n\nPrepare before chag begins:\n• Wife — clothing or jewelry l'fi mamono (within your financial ability): the Shulchan Arukh obligates a husband to buy his wife new clothes or jewelry for Yom Tov. You are not expected to go into debt — an inexpensive but pleasant garment, modest jewelry, or nice shoes fulfills the mitzvah. The goal is her actual joy; if she prefers something else that genuinely makes her happy (a book, houseware, experience), many modern poskim agree that fulfills the spirit of the law.\n• Children — treats that bring joy: the Talmud mentions roasted grains and nuts; today candies, chocolates, and age-appropriate toys. The purpose is to associate Yom Tov with excitement and a break from everyday routine — not merely to give sugar.\n• Men — meat and wine: in Temple times this meant holiday sacrifices; today festive Yom Tov meals with wine and meat (beef is classic; poultry is often acceptable) fulfill personal simchas Yom Tov.\n\nRambam's crucial condition (Hilchos Yom Tov 6:18):\nWhen you feed your family, buy your wife clothes, and give your children treats, you must also provide for the poor, the widow, and the orphan. If a household feasts only behind closed doors without helping the needy, the Rambam writes this is not \"the joy of a mitzvah\" but merely \"the joy of one's stomach.\"",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Simchas Yom Tov ( vístete) — la mitzvá para regocijarse en el festival:\nLa Torá manda \"V'samachta b'chagecha\" — \"Y te regocijarás en tu festival\" (Devarim 16:14). Joy on Yom Tov es un mitzvá para todos. Halacha reconoce que la felicidad es personal: la cabeza del hogar ayuda a cada miembro de la fam"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "The week before Shavuot is for practical preparation — Shavuot celebrates Matan Torah (receiving the Torah at Sinai).\n\nFood & home:\n• Dairy is a cherished Shavuot minhag (cheesecake, blintzes, lasagna, ice cream) — plan menus and shop early. A festive meat meal with wine remains standard practice to fulfill the primary mitzvah of Simchat Yom Tov (Shulchan Arukh O.C. 529:2); many families have a dairy kiddush or snack, then a full meat Yom Tov meal.\n• Some decorate with flowers and greenery (minhag of a garden around Sinai).\n• Stock wine, grape juice, and Yom Tov staples for festive meals${if (!profile.isInIsrael) \" — in the Diaspora, prepare for two days of Yom Tov\" else \"\"}.\n\nTorah & tefillah:\n• Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.\n• Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.\n• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).\n\nJoy & family (simchat Yom Tov):\n• Plan festive meat meals with wine — the core Simchat Yom Tov obligation — alongside any dairy minhag.\n• Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.\n\nPractical:\n• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.\n• Turn off devices before Yom Tov — this app is for prep, not use on chag.",
+    "detail": "en=['${if (!profile.isInIsrael) \" — in the Diaspora, prepare for two days of Yom Tov\" else \"\"}'] tr=['${if (!profile.isInIsrael) \" — in EL Diaspora, prepare for two days of Yom Tov\" else \"\"}']",
+    "current": "La semana antes de Shavuot es para la preparación práctica — Shavuot celebra la Torá Matan (recibiendo la Torá en Sinaí).\n\nComida &amp; hogar:\n• Dairy es un minhag de Shavuot (cheesecake, blintzes, lasaña, helado) — menús de plan y tienda temprano. Una comida de carne festiva con vino sigue siendo l"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "The week before Shavuot is for practical preparation — Shavuot celebrates Matan Torah (receiving the Torah at Sinai).\n\nFood & home:\n• Dairy is a cherished Shavuot minhag (cheesecake, blintzes, lasagna, ice cream) — plan menus and shop early. A festive meat meal with wine remains standard practice to fulfill the primary mitzvah of Simchat Yom Tov (Shulchan Arukh O.C. 529:2); many families have a dairy kiddush or snack, then a full meat Yom Tov meal.\n• Some decorate with flowers and greenery (minhag of a garden around Sinai).\n• Stock wine, grape juice, and Yom Tov staples for festive meals${if (!profile.isInIsrael) \" — in the Diaspora, prepare for two days of Yom Tov\" else \"\"}.\n\nTorah & tefillah:\n• Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.\n• Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.\n• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).\n\nJoy & family (simchat Yom Tov):\n• Plan festive meat meals with wine — the core Simchat Yom Tov obligation — alongside any dairy minhag.\n• Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.\n\nPractical:\n• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.\n• Turn off devices before Yom Tov — this app is for prep, not use on chag.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "La semana antes de Shavuot es para la preparación práctica — Shavuot celebra la Torá Matan (recibiendo la Torá en Sinaí).\n\nComida &amp; hogar:\n• Dairy es un minhag de Shavuot (cheesecake, blintzes, lasaña, helado) — menús de plan y tienda temprano. Una comida de carne festiva con vino sigue siendo l"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "es",
+    "key_full": "Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.\n\nFestive meal (mitzvah):\n• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).\n• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).\n• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).\n\nDavening today (listed in your Morning, Afternoon, and Evening Prayer sections):\n• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, return to the beginning of Retzei if already concluded, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)\n• If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too\n• Ashkenazi custom — most authorities obligate Shacharit and Mincha Amidah on these days\n• Sephardic custom — many women fulfill the daily obligation with one prayer; if you daven an extra Amidah and forget Yaaleh V'yavo, ask your rabbi about a voluntary (nedavah) stipulation\n• Half Hallel at Shacharit if you say Hallel (optional — follow your minhag; Full Hallel if Rosh Chodesh falls during Chanukah)\n• Tachanun is omitted all day\n\nOther customs:\n• Fasting and eulogies are generally not done on Rosh Chodesh\n• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details\n\nWhen Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.",
+    "detail": "holiday",
+    "current": "Rosh Jodesh (יאי нелитит) — el Nuevo Mes — es un semi-holiday con oración extra y costumbres.\n\nAlimentación (mitzvá):\n• Es una mitzvá para aumentar su comida en Rosh Jodesh - al menos añadir un plato extra o comida especial en honor del día (Shulchan Arukh O.C. 419:1).\n• Comer durante el día. Poskim"
+  },
+  {
+    "reason": "english_leak",
+    "lang": "fr",
+    "key_full": "Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.\n\nFestive meal (mitzvah):\n• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).\n• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).\n• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).\n\nDavening today (listed in your Morning, Afternoon, and Evening Prayer sections):\n• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, return to the beginning of Retzei if already concluded, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)\n• If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too\n• Ashkenazi custom — most authorities obligate Shacharit and Mincha Amidah on these days\n• Sephardic custom — many women fulfill the daily obligation with one prayer; if you daven an extra Amidah and forget Yaaleh V'yavo, ask your rabbi about a voluntary (nedavah) stipulation\n• Half Hallel at Shacharit if you say Hallel (optional — follow your minhag; Full Hallel if Rosh Chodesh falls during Chanukah)\n• Tachanun is omitted all day\n\nOther customs:\n• Fasting and eulogies are generally not done on Rosh Chodesh\n• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details\n\nWhen Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.",
+    "detail": "holiday",
+    "current": "Rosh 'Hodesh est un semi-holiday avec des prières et des coutumes supplémentaires.\n\nRepas festifs (mitzvah):\n• C'est une mitsvah pour augmenter votre repas sur Rosh 'Hodesh — au minimum ajouter un plat supplémentaire ou une nourriture spéciale en l'honneur du jour (Shulchan Arukh O.C. 419:1).\n• Pren"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Chanukah night $day of 8 — lighting the menorah.\n\nWhen:\n• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).\n• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.\n• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.\n• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say \"Baruch hamavdil bein kodesh l'chol\" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.\n\nHow:\n• Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.\n• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).\n• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.\n• Oil or candles must burn at least 30 minutes after nightfall.\n• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.\n• Do not use the Chanukah lights for work — shamash is for utility light.\n\nPrayers & meals:\n• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.\n\n${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}\n\nAfter lighting: sing HaNeiros halalu and Maoz Tzur (custom).",
+    "detail": "en=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day'] tr=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day8']",
+    "current": "ליל צ'נקאה$day8 - הדלקת המנורה\n\nמתי:\nאור לאחר zeit (nightfall) - לא לפני השקיעה. ביום שישי, נרות צ'אנקה אור לפני נרות שבת (בערך 20-25 דקות לפני החשיכה).\nאזהרת גודל הנר ביום שישי: כי נרות חנוכה חייבים לשרוף לפחות 30 דקות לאחר הנפילה בלילה (טזיט), נרות צ'נקאה קטנים סטנדרטיים לא ניתן להשתמש ביום שישי א"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Chanukah night $day of 8 — lighting the menorah.\n\nWhen:\n• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).\n• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.\n• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.\n• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say \"Baruch hamavdil bein kodesh l'chol\" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.\n\nHow:\n• Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.\n• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).\n• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.\n• Oil or candles must burn at least 30 minutes after nightfall.\n• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.\n• Do not use the Chanukah lights for work — shamash is for utility light.\n\nPrayers & meals:\n• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.\n\n${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}\n\nAfter lighting: sing HaNeiros halalu and Maoz Tzur (custom).",
+    "detail": "en=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day'] tr=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$dayde']",
+    "current": "Chanukah noche$dayde 8 - iluminar la menorá.\n\nCuando:\n• Luz después del tzeit (noche) — no antes del atardecer. El viernes, enciende las velas Janucá antes de las velas Shabat (aproximadamente 20–25 minutos antes del anochecer).\n• Advertencia de tamaño de la vela del viernes: Debido a que las velas "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Chanukah night $day of 8 — lighting the menorah.\n\nWhen:\n• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).\n• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.\n• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.\n• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say \"Baruch hamavdil bein kodesh l'chol\" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.\n\nHow:\n• Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.\n• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).\n• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.\n• Oil or candles must burn at least 30 minutes after nightfall.\n• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.\n• Do not use the Chanukah lights for work — shamash is for utility light.\n\nPrayers & meals:\n• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.\n\n${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}\n\nAfter lighting: sing HaNeiros halalu and Maoz Tzur (custom).",
+    "detail": "en=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day'] tr=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day8']",
+    "current": "Chanouka nuit$day8 — Éclairer la menorah.\n\nLorsque:\n• Lumière après tzeit (chute nocturne) — pas avant le coucher du soleil. Vendredi, allumez les bougies de Chanouka avant les bougies de Chabbat (environ 20 à 25 minutes avant la tombée de la nuit).\n• Avertissement de la taille des bougies du vendre"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Chanukah night $day of 8 — lighting the menorah.\n\nWhen:\n• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).\n• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.\n• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.\n• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say \"Baruch hamavdil bein kodesh l'chol\" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.\n\nHow:\n• Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.\n• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).\n• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.\n• Oil or candles must burn at least 30 minutes after nightfall.\n• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.\n• Do not use the Chanukah lights for work — shamash is for utility light.\n\nPrayers & meals:\n• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.\n\n${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}\n\nAfter lighting: sing HaNeiros halalu and Maoz Tzur (custom).",
+    "detail": "en=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day'] tr=['${if (day == 1) \"First night: say all three brachot including Shehecheyanu.\" else \"Tonight: two brachot (no Shehecheyanu unless first time lighting this year).\"}', '$day8']",
+    "current": "Ночь Хануки$day8 — освещение меноры.\n\nКогда:\n• Свет после захода солнца (ночь) — не до захода солнца. В пятницу зажигайте свечи Хануки перед свечами Шаббата (примерно за 20–25 минут до наступления ночи).\nПредупреждение о размере пятничных свечей: поскольку свечи Хануки должны гореть в течение по кра"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "The Torah commands: \"Honor your father and your mother\" (Shemot 20:12) — among the Ten Commandments, and equal in weight to honoring G-d Himself (Kiddushin 30b). Kibbud av va'em (כִּבּוּד אָב וָאֵם) is a lifelong mitzvah for men and women alike.\n\nTwo dimensions:\n• Kibbud (כִּבּוּד — honor): active care — food, clothing, escort, respectful speech, and financial support when parents need it (Shulchan Arukh Y.D. 240; Rambam, Mamrim 6).\n• Morah (מוֹרָא — reverence): not sitting in a parent's place, not contradicting them sharply, and not calling them by name — guarding their dignity even in disagreement (Y.D. 240:2–3).\n\nDaily practice while parents are alive:\n• Speak with respect — tone and words matter as much as deeds.\n• Help with their needs: meals, errands, medical appointments, household tasks, especially as they age.\n• Stand to honor them when they enter — the details of how often differ by minhag (see your nusach note below).\n• Share good news; shield them from unnecessary worry or embarrassment.\n• If a parent asks you to violate Torah law, decline gently — obedience to Hashem comes first (Y.D. 240:15).\n\nLimits:\nYou are not required to impoverish yourself or your own household (Y.D. 240:5). A parent who behaves abusively or endangers a child may require halachic guidance — the mitzvah does not mean submitting to harm.\n\nWhen parents are no longer alive:\nHonor continues. Many fulfill it through:\n• Reciting Kaddish — especially for a parent (eleven months for a father or mother).\n• Torah study and good deeds l'ilui nishmatam (for the elevation of their soul).\n• Charity given in their memory.\n• Visiting the grave, particularly on yahrzeit and before the High Holidays.\n• Carrying forward the values and good name they left you — speaking of them with respect.\n\nIn-laws:\nHonoring your spouse's parents is a great mitzvah and promotes shalom bayit, but the Torah-level obligation centers on your own father and mother (Y.D. 240:24).\n\nThis item is a daily intention: one concrete act of kibbud or morah — a call, a kind word, help with a need, or learning done in a parent's memory.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "La Torá ordena: \"Honor a tu padre y a tu madre\" (Shemot 20:12) — entre los Diez Mandamientos, e igual en peso para honrar a D-os Mismo (Kiddushin 30b). Kibbud av va'em (llamados pidiendo) es un mitzvá de por vida para hombres y mujeres por igual.\n\nDos dimensiones:\n• Kibbud (llamado: atención activa:"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "Yom Kippur — Day of Atonement. Full 25-hour fast; five afflictions from sunset tonight until nightfall tomorrow.\n\nToday before the fast:\n• The mitzvah of eating: There is a unique halachic obligation to eat and drink throughout the day on Erev Yom Kippur (Berachot 8b). Halacha considers eating today and fasting tomorrow as two halves of the same complete mitzvah — eat regular meals during the day, not only the final pre-fast meal.\n• Eat a festive pre-fast meal (seudah hamafseket) before sunset — finish eating and drinking in time.\n• Light candles before Kol Nidre with the bracha (neir shel Yom Hakippurim per your siddur) — all flames must be lit before sunset. Yom Kippur has the same strict fire restrictions as Shabbat: unlike regular Yom Tov, you cannot transfer a flame once the fast begins.\n• Crucial timing note: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. If you plan to drive to synagogue for Kol Nidre, either arrive early and light at shul, or explicitly make a mental halachic condition (tnai) before lighting at home that you are not accepting the holiday until you arrive at synagogue (ask your rav for guidance).\n• Give tzedakah and ask forgiveness from others.\n• Kaparot (if your custom) is done before Yom Kippur.\n\nOn Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):\n• Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).\n• Clothing & shoes: There is a widespread custom to wear white clothing to look like angels. Separately, it is a strict halachic prohibition for everyone to wear leather shoes or leather footwear of any kind on Yom Kippur (one of the five mandatory inuyim).\n• Ne'ilah at the end; after nightfall pray Maariv, then Havdalah over wine and a ner she-shavat (a flame that burned throughout Yom Kippur, such as a 48-hour candle lit before the fast). Do not use besamim (spices) — Yom Kippur has no neshama yeteira; spices are omitted unless Yom Kippur itself fell on Shabbat. Then break the fast.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "Yom Kipur — Día de la Expiación. Lleno de 25 horas rápido; cinco aflicciones desde el atardecer esta noche hasta la noche de mañana.\n\nHoy antes del ayuno:\n• La mitzvá de comer: Hay una obligación halaquica única de comer y beber durante todo el día en Erev Yom Kipur (Berachot 8b). Halacha considera "
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "Yom Kippur — Day of Atonement. Full 25-hour fast; five afflictions from sunset tonight until nightfall tomorrow.\n\nToday before the fast:\n• The mitzvah of eating: There is a unique halachic obligation to eat and drink throughout the day on Erev Yom Kippur (Berachot 8b). Halacha considers eating today and fasting tomorrow as two halves of the same complete mitzvah — eat regular meals during the day, not only the final pre-fast meal.\n• Eat a festive pre-fast meal (seudah hamafseket) before sunset — finish eating and drinking in time.\n• Light candles before Kol Nidre with the bracha (neir shel Yom Hakippurim per your siddur) — all flames must be lit before sunset. Yom Kippur has the same strict fire restrictions as Shabbat: unlike regular Yom Tov, you cannot transfer a flame once the fast begins.\n• Crucial timing note: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. If you plan to drive to synagogue for Kol Nidre, either arrive early and light at shul, or explicitly make a mental halachic condition (tnai) before lighting at home that you are not accepting the holiday until you arrive at synagogue (ask your rav for guidance).\n• Give tzedakah and ask forgiveness from others.\n• Kaparot (if your custom) is done before Yom Kippur.\n\nOn Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):\n• Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).\n• Clothing & shoes: There is a widespread custom to wear white clothing to look like angels. Separately, it is a strict halachic prohibition for everyone to wear leather shoes or leather footwear of any kind on Yom Kippur (one of the five mandatory inuyim).\n• Ne'ilah at the end; after nightfall pray Maariv, then Havdalah over wine and a ner she-shavat (a flame that burned throughout Yom Kippur, such as a 48-hour candle lit before the fast). Do not use besamim (spices) — Yom Kippur has no neshama yeteira; spices are omitted unless Yom Kippur itself fell on Shabbat. Then break the fast.",
+    "detail": "fast day → rápido",
+    "current": "Yom Kipur — Día de la Expiación. Lleno de 25 horas rápido; cinco aflicciones desde el atardecer esta noche hasta la noche de mañana.\n\nHoy antes del ayuno:\n• La mitzvá de comer: Hay una obligación halaquica única de comer y beber durante todo el día en Erev Yom Kipur (Berachot 8b). Halacha considera "
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvot ready — many begin the sukkah right after Yom Kippur.\n\nSukkah:\n• Build or repair your sukkah — walls, frame, and schach (plant covering, not metal or solid roof).\n• Choose a spot with more shade than sun under the schach; avoid blocking by trees or porch roofs.\n• Set up table, chairs, and decorations; plan to eat (and sleep, when possible) in the sukkah all seven days.\n\nArba Minim (Four Species):\n• Order or buy a kosher set: lulav, etrog, hadassim (myrtle), aravot (willow).\n• Check the etrog (pitom intact if present) and that leaves are fresh — buy early before stores sell out.\n• Get a lulav holder (hoshanah holder / koisan) and an etrog box.\n\nMeals & Yom Tov:\n• Plan menus for seven days of festive meals in and out of the sukkah.\n• Wine, grape juice, challah, and Yom Tov groceries — ${if (profile.isInIsrael) \"one day of Yom Tov at the start\" else \"two days of Yom Tov at the start in the Diaspora\"}.\n• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.\n\nJoy & family:\n• Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.\n\nPractical:\n• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).\n• Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.\n• Turn off devices before Yom Tov — this app is for prep, not use on chag.",
+    "detail": "en=['${if (profile.isInIsrael) \"one day of Yom Tov at the start\" else \"two days of Yom Tov at the start in the Diaspora\"}'] tr=['${if (profile.isInIsrael) \"one day of Yom Tov at EL start\" else \"two days of Yom Tov at EL start in EL Diaspora\"}']",
+    "current": "La semana anterior a Sukkot (Tishrei 8–13) es para construir alegría y preparar el mitzvot, muchos comienzan la sukkah justo después de Yom Kippur.\n\nSukkah:\n• Construya o repare su sukkah — paredes, marco y chancla (cubrimiento de planta, no metal o techo sólido).\n• Elige un lugar con más sombra que"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "he",
+    "key_full": "Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.\n\nMitzvah to eat today:\n• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).\n• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).\n• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).\n\nBefore the fast begins:\n• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} until nightfall tomorrow ($tzeitTomorrow).\n• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we \"add from the weekday onto the holy day\" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.\n• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.\n• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.\n• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).\n\nMotzei Yom Kippur meal:\n• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.\n\nWho fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$tzeitTomorrow'] tr=['${sunset?.let { \" (approx. $it)\" }', '$it', '$tzeitTomorrow', '$it']",
+    "current": "היום הוא יום קלפור - יום ייחודי של אכילה לפני המהיר ביותר של השנה.\n\nמצווה לאכול היום:\n• זוהי מצווה לאכול ולשתות בנדיבות כל היום Eturn Yom Kippur (שולכן Arukh O.C. 604:1; Mishnah Berurah).\n• יש ארוחה חגיגית Yom Tov-style - רבים מתחילים עם תאורה נרות וקידש כמו Yom Tov (שרק את הזעם שלך עבור המניין שלך)"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "es",
+    "key_full": "Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.\n\nMitzvah to eat today:\n• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).\n• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).\n• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).\n\nBefore the fast begins:\n• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} until nightfall tomorrow ($tzeitTomorrow).\n• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we \"add from the weekday onto the holy day\" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.\n• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.\n• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.\n• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).\n\nMotzei Yom Kippur meal:\n• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.\n\nWho fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$tzeitTomorrow'] tr=['$itHasta', '$tzeitTomorrow']",
+    "current": "Hoy es Erev Yom Kippur — un día único de comer antes del ayuno más sagrado del año.\n\nMitzvah para comer hoy:\n• Es un mitzvá para comer y beber generosamente todo el día Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).\n• Tenga una comida festiva de estilo Yom Tov - muchos comienzan con l"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "fr",
+    "key_full": "Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.\n\nMitzvah to eat today:\n• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).\n• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).\n• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).\n\nBefore the fast begins:\n• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} until nightfall tomorrow ($tzeitTomorrow).\n• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we \"add from the weekday onto the holy day\" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.\n• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.\n• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.\n• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).\n\nMotzei Yom Kippur meal:\n• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.\n\nWho fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$tzeitTomorrow'] tr=['${sunset?.let { \" (approx.$it)\"}', '$it', '$tzeitTomorrow']",
+    "current": "Aujourd'hui, c'est Erev Yom Kippur — un jour unique de manger avant le jeûne le plus saint de l'année.\n\nMitzvah à manger aujourd'hui:\n• C'est une mitsvah à manger et à boire généreusement toute la journée Erev Yom Kippour (Shulchan Arukh O.C. 604:1; Mishna Berurah).\n• Prendre un repas festif de styl"
+  },
+  {
+    "reason": "placeholder_mismatch",
+    "lang": "ru",
+    "key_full": "Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.\n\nMitzvah to eat today:\n• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).\n• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).\n• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).\n\nBefore the fast begins:\n• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { \" (approx. $it)\" } ?: \"\"} until nightfall tomorrow ($tzeitTomorrow).\n• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we \"add from the weekday onto the holy day\" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.\n• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.\n• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.\n• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).\n\nMotzei Yom Kippur meal:\n• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.\n• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.\n\nWho fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.",
+    "detail": "en=['${sunset?.let { \" (approx. $it)\" }', '$it', '$tzeitTomorrow'] tr=['$it', '$tzeitTomorrow']",
+    "current": "Сегодня Эрев Йом Кипур — уникальный день еды перед самым святым постом года.\n\nМицва сегодня ест:\nЭто мицва — есть и пить щедро весь день Эрев Йом Кипур (Шулхан Арух, 604:1; Мишна Берура).\n• Праздничная трапеза в стиле Йом Тов — многие начинают со свечного освещения и Киддуша, как для Йом Тов (спроси"
+  },
+  {
+    "reason": "fast_rapid_es",
+    "lang": "es",
+    "key_full": "$bedikatLeadIn\n\nThis year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the entire preparatory timeline shifts early (Peninei Halakha ch. 14):\n\n• Taanit Bechorot: Thursday (12 Nisan) — moved early; not on Shabbat or Friday. Ashkenazim fast or attend a siyum. Many Sephardic authorities rule the moved fast is nullified entirely; many still attend a siyum out of custom (ask your rav).\n• Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) immediately after the search.\n• Biur chametz: Friday morning (13 Nisan) — burn the chametz found. Do not recite the final Kol Chamira at the burning — you will still eat chametz over Shabbat.\n• Mechirat chametz: complete and finalize the sale before Shabbat begins Friday evening.\n• Matzah on Friday (13 Nisan): many authorities extend the prohibition of eating regular matzah to Friday as well when Erev Pesach falls on Shabbat, so matzah is eaten with a prime appetite at the Seder (ask your rav).\n• Seder prep: all physical cooking, roasting the zeroa (shankbone), checking lettuce/maror, and making charoset must be finished on Friday before Shabbat — you cannot prepare on Shabbat for Motzei Shabbat.\n• Shabbat (14 Nisan) — eating deadline: finish eating chametz by the end of the 4th halachic hour on Shabbat morning.\n• Shabbat (14 Nisan) — disposal: flush leftover crumbs down the toilet or nullify them chemically (e.g. pour liquid soap over them) before the 5th hour. Do not burn on Shabbat.\n• Shabbat (14 Nisan) — final nullification: recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.\n• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim do not eat egg matzah on Pesach (Rema O.C. 462:4); use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.\n• First Seder: Saturday night after Shabbat fully ends (tzeit). Kiddush includes the full Yaknehaz sequence (Wine, Yom Tov Kiddush, Ner/candle, Havdalah text, and Shehecheyanu — no spices/besamim).\n\nPlan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.",
+    "detail": "fast day → rápido",
+    "current": "$bedikatLeadIn\n\nEste año, Erev Pesach está en Shabat (14 Nisan). Cuando Erev Pesach cae en Shabat, todo el cronograma preparatorio cambia temprano (Peninei Halakha cap. 14):\n\n• Taanit Bechorot: Jueves (12 Nisan) — se movió temprano; no en Shabat o viernes. Ashkenazim rápido o asistir a un siyum. Muc"
+  },
+  {
+    "reason": "vacation_for_holiday_es",
+    "lang": "es",
+    "key_full": "The Amidah is the central, most important prayer of every service — the moment we stand directly before G-d in silent prayer.\n\nWhat it is:\nThe Amidah (עֲמִידָה — \"standing\") is also called the Shemoneh Esrei (שְׁמוֹנֶה עֶשְׂרֵה — \"eighteen\") after the original 18 blessings; a 19th was added later. On weekdays it contains 19 blessings; on Shabbat and holidays, it is shorter.\n\nThe three sections:\n• Shevach (praise): The first three blessings praise G-d — His greatness, His power over life and death, and His holiness\n• Bakasha (requests): The middle 13 blessings ask for wisdom, repentance, forgiveness, redemption, health, livelihood, ingathering of exiles, restoration of justice, and the coming of the Messiah\n• Hodayah (thanks): The last three blessings give thanks and ask for peace\n\nHow to say it:\n• Stand with your feet together (as angels stand)\n• Face Jerusalem (roughly east in most places)\n• Bow at four specific points in the prayer\n• Say it quietly — lips move but only you can hear\n• Do not stop or interrupt once you begin\n\nTachanun — what is it?:\nTachanun (תַּחֲנוּן — supplication) is a penitential prayer added after the Amidah on most weekdays. It is a confession and plea for mercy. Tachanun is usually said while sitting, leaning the forehead on the arm (nefilat apayim — a posture of submission).\n\nAt Shacharit:\n• Mondays and Thursdays: the longer Tachanun is said — the full section (often opening with \"Vehu Rachum\" / וְהוּא רַחוּם) with nefilat apayim.\n• Other weekdays: a shorter Tachanun is used (exact text varies by nusach and community).\n\nTachanun is omitted on Shabbat, Yom Tov (holidays), Rosh Chodesh (the new month), and other days of joy — the Amidah is still said.\n\nRosh Chodesh means \"head of the month\" — the first day of the Hebrew calendar month, a minor holiday.\n\nIf you are praying in a synagogue, follow the congregation's practice for Tachanun.\n\nTiming:\nThe morning Amidah becomes available at dawn (alot hashachar — shown in the app). Ideally say it at sunrise or later, when the full Shacharit service is ordinarily prayed. If you are in a hurry, you may say the Amidah after dawn even before sunrise.\n\nIdeal deadline: before the end of the fourth halachic hour (sof zman tefillah — visible in the app). Bedi'eved you may still daven Shacharit until halachic midday (chatzos). If you miss it entirely, at Mincha pray two Amidot — Mincha first, then tashlumin for the missed Shacharit.",
+    "detail": "Jewish holiday mistranslated as vacation",
+    "current": "La Amidá es la oración central y más importante de cada servicio, en el momento en que estamos ante el Di-s en oración silenciosa.\n\nQué es:\nEl Amidá también se llama el Shemoneh Esrei (Éste es el 19 después de las 18 bendiciones originales. El día de semana contiene 19 bendiciones; en Shabat y vacac"
+  }
+]

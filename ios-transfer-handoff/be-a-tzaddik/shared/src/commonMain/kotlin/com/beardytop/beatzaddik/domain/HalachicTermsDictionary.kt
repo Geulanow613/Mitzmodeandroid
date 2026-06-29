@@ -101,7 +101,7 @@ object HalachicTermsDictionary {
         line("Psalms — Tehillim"),
         line("kehilla — Jewish community or congregation"),
         line("bitul — nullification (e.g. Kol Chamira nullifying chametz)"),
-        line("egg matzah — matzah made with eggs and/or fruit juice (matzah ashira); not lechem oni (poor man's bread) and cannot be used at the Seder. Ashkenazim do not eat it on Pesach except for sick, elderly, or young children (Rema OC 462:4); Sephardim eat it throughout Pesach"),
+        line("egg matzah — matzah made with eggs and/or fruit juice (matzah ashira); not lechem oni (poor man's bread) and cannot be used at the Seder. Ashkenazim do not eat it on Pesach except for sick, elderly, or young children (Rema OC 462:4); Sephardim legally permit it, though many contemporary Sephardic authorities recommend avoiding it unless necessary (such as for the elderly or sick)"),
         line("Kashering — making utensils kosher"),
         line("seudat mitzvah — festive meal tied to a mitzvah (e.g. brit, siyum, wedding, etc.)"),
         line("three stars — colloquial marker for halachic nightfall (tzeit); actual timing varies slightly by community and location"),
@@ -175,7 +175,7 @@ object HalachicTermsDictionary {
         line("Al Netilat Yadayim — blessing on ritual handwashing"),
         line("shmirat halashon — guarding one's speech from lashon hara and harmful words"),
         line(
-            "Melave Malka — meal escorting the Shabbat Queen — saying goodbye to Shabbat at its departure (Motzei Shabbat through dawn)",
+            "Melave Malka — escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday",
             "melaveh malkah",
         ),
         line("Nerot — candles, often referring especially to Shabbat and Yom Tov lights"),
@@ -356,7 +356,7 @@ object HalachicTermsDictionary {
             "chag",
         ),
         line(
-            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at the moment of the full moon (roughly 14.75 days into the month) — saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
+            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at the moment of the full moon (roughly 14.75 days into the month) — saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
             "Kiddush Levana",
             "Kiddush Levanah",
             "Birkat HaLevanah",
@@ -483,7 +483,7 @@ object HalachicTermsDictionary {
             "Shmoneh Esrei",
         ),
         line(
-            "Yaaleh V'yavo — Paragraph in Amidah and bentching on Rosh Chodesh and festivals. Forgot: insert in Retzei if still there; between Retzei and Modim say it then Modim; after Modim started return to Retzei; after final Yihiyu L'ratzon repeat only that Amidah. Rosh Chodesh Maariv only: no repeat after Retzei (SA O.C. 422:1).",
+            "Yaaleh V'yavo — Paragraph in Amidah and bentching on Rosh Chodesh and festivals. Forgot in Amidah: insert in Retzei if still there; after concluding Retzei return to the beginning of Retzei; after final Yihiyu L'ratzon repeat only that Amidah. Rosh Chodesh Maariv only: no repeat after Retzei (SA O.C. 422:1).",
             "Yaaleh V'yavo",
             "Yaaleh V'Yavo",
         ),
@@ -625,7 +625,7 @@ object HalachicTermsDictionary {
             "Krias Shema",
         ),
         line(
-            "Tefillin — Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.",
+            "Tefillin — Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. Recite the bracha at misheyakir (see glossary). They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.",
             "tefillin",
             "Tefillin",
         ),
@@ -660,7 +660,7 @@ object HalachicTermsDictionary {
             "Shabbat",
         ),
         line(
-            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit so the Omer count remains complete. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
+            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
             "tzeit",
             "Tzeit",
             "three stars",
@@ -968,7 +968,7 @@ object HalachicTermsDictionary {
             "Elokei Neshama",
         ),
         line(
-            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. A variation of exactly one-sixth above or below fair market price triggers the Torah laws of financial fraud (Bava Metzia 49b), requiring the overcharged amount to be fully refunded. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
+            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. A variation of one-sixth or more above or below fair market price triggers the Torah laws of financial fraud (Bava Metzia 49b), requiring the overcharged amount to be fully refunded. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
             "Ona'ah",
             "ona'ah",
         ),
@@ -1056,7 +1056,7 @@ object HalachicTermsDictionary {
             "Simchas Torah",
         ),
         line(
-            "Shavuot — Shavuot marks Matan Torah — receiving the Torah at Sinai, seven weeks after Pesach. Unlike other festivals, candles and Kiddush may not begin until full nightfall (tzeit) so the 49 days of the Omer remain temimot (complete). Dairy meals, all-night learning, and reading Ruth are customs. It is one day in Israel, two in the Diaspora.",
+            "Shavuot — Shavuot marks Matan Torah — receiving the Torah at Sinai, seven weeks after Pesach. Unlike other festivals, candles and Kiddush may not begin until full nightfall (tzeit). Dairy meals, all-night learning, and reading Ruth are customs. It is one day in Israel, two in the Diaspora.",
             "Shavuot",
         ),
         line(
@@ -1466,9 +1466,15 @@ object HalachicTermsDictionary {
             "sha'ah zmanit",
         ),
         line(
-            "alot hashachar — Alot hashachar is halachic dawn — when the sky begins to lighten. Many morning laws start here: earliest time for tallit and tefillin, beginning of the day for some fasts, and earliest voluntary morning prayer. It is before sunrise (netz).",
+            "alot hashachar — Alot hashachar is halachic dawn — when the sky begins to lighten. Many morning laws start here, such as the beginning of public fast days. It is before sunrise (netz). It is not the normal time for the bracha on tallit and tefillin — see misheyakir. In great need, Igros Moshe (O.C. 4:6) allows putting them on after alot hashachar without a bracha and reciting the brachos after misheyakir — ask your rav.",
             "alot hashachar",
             "alot haShachar",
+        ),
+        line(
+            "misheyakir — Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir you do not fulfill the mitzvah, even after dawn. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.",
+            "misheyakir",
+            "Misheyakir",
+            "mi'sheyakir",
         ),
         line(
             "Plag HaMincha — Plag hamincha is one and a quarter halachic hours before nightfall — used for early Mincha, early Shabbat entry in some communities, and certain Pesach and Chanukah times. It is also the earliest time you may light Shabbat candles; lighting before plag invalidates the mitzvah and makes the blessing unnecessary. It is not identical to sunset; check your calendar.",

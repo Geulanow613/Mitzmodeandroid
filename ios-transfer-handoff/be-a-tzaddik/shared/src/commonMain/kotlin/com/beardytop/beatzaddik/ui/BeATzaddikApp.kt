@@ -79,6 +79,7 @@ fun BeATzaddikApp(
 ) {
     val embeddedTitle = "the Daily Mitzvot Checklist"
     val profile by viewModel.profile.collectAsState()
+    val prefsLoaded by viewModel.prefsLoaded.collectAsState()
     val showDisclaimer by viewModel.showDisclaimerDialog.collectAsState()
     val showLocationPermission by viewModel.showLocationPermissionDialog.collectAsState()
     val electronicsRest by viewModel.electronicsRest.collectAsState()
@@ -117,6 +118,12 @@ fun BeATzaddikApp(
             }
             return@HalachicTermOverlay
         }
+        if (!prefsLoaded) {
+            Box(Modifier.fillMaxSize()) {
+                HolyLightBackground(Modifier.fillMaxSize())
+            }
+            return@HalachicTermOverlay
+        }
         when {
             !profile.onboardingComplete -> {
                 Box(Modifier.fillMaxSize()) {
@@ -150,6 +157,7 @@ fun BeATzaddikApp(
                     PlatformBackHandler { /* stay on rest screen */ }
                     ShabbatRestScreen(
                         period = electronicsRest!!,
+                        timezoneId = profile.timezoneId,
                         onOpenSettings = { showRestSettings = true },
                     )
                 }

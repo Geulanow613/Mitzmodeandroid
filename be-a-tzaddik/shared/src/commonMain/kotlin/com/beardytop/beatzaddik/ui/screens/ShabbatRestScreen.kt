@@ -28,17 +28,16 @@ import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.RestKind
 import com.beardytop.beatzaddik.domain.RestPhase
+import com.beardytop.beatzaddik.domain.ZmanimFormatter
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 
 @Composable
 fun ShabbatRestScreen(
     period: ElectronicsRestPeriod,
+    timezoneId: String,
     onOpenSettings: (() -> Unit)? = null,
 ) {
     Box(Modifier.fillMaxSize()) {
@@ -96,7 +95,7 @@ fun ShabbatRestScreen(
                 RestPhase.APPROACHING -> {
                     period.startsAtEpochMillis?.let { starts ->
                         AppText(
-                            "The app will pause automatically at ${formatEndTime(starts)} (local time).",
+                            "The app will pause automatically at ${formatRestTime(starts, timezoneId)}.",
                             color = TzaddikColors.GoldBorder,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                             textAlign = TextAlign.Center,
@@ -117,8 +116,13 @@ fun ShabbatRestScreen(
                     )
                     period.endsAtEpochMillis?.let { ends ->
                         Spacer(Modifier.height(16.dp))
+                        val endLabel = formatRestTime(ends, timezoneId)
+                        val tzeitNote = when (period.kind) {
+                            RestKind.SHABBAT -> "after tzeit (nightfall)"
+                            RestKind.YOM_TOV -> "after Yom Tov ends at tzeit"
+                        }
                         AppText(
-                            "You may open the app again after ${formatEndTime(ends)} (local time).",
+                            "You may open the app again $tzeitNote — $endLabel.",
                             color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
                             style = MaterialTheme.typography.bodySmall,
                             textAlign = TextAlign.Center,
@@ -152,11 +156,5 @@ fun ShabbatRestScreen(
     }
 }
 
-private fun formatEndTime(epochMillis: Long): String {
-    val local = Instant.fromEpochMilliseconds(epochMillis)
-        .toLocalDateTime(TimeZone.currentSystemDefault())
-    val hour12 = ((local.hour + 11) % 12) + 1
-    val amPm = if (local.hour < 12) "AM" else "PM"
-    return "${local.month.name.lowercase().replaceFirstChar { it.uppercase() }} ${local.dayOfMonth} at " +
-        "$hour12:${local.minute.toString().padStart(2, '0')} $amPm"
-}
+private fun formatRestTime(epochMillis: Long, timezoneId: String): String =
+    ZmanimFormatter.formatMonthDayTime(epochMillis, timezoneId) ?: "when the holy day ends"

@@ -118,9 +118,7 @@ object ChecklistZmanEvaluator {
                 bedtimeWindow(nowMillis, z, tz, "Bedtime Shema")
             "hamapil_blessing_according_to_many_opinions" ->
                 bedtimeWindow(nowMillis, z, tz, "Hamapil blessing")
-            "at_least_one_prayer_daily_typically_morning" -> amidahWindow(
-                nowMillis, z, tz, label = "daily prayer"
-            )
+            "at_least_one_prayer_daily_typically_morning" -> womenDailyPrayerWindow()
             "kiddush_levana" -> kiddushLevanaWindow(prayerDay)
             "birkat_hachamah" -> birkatHachamahWindow(nowMillis, z, tz)
             "birkat_hailanot" -> birkatHaIlanotHint(prayerDay)
@@ -202,6 +200,11 @@ object ChecklistZmanEvaluator {
     }
 
     /**
+     * Women's daily prayer — one obligation per halachic day (tzeit to tzeit), any time.
+     */
+    private fun womenDailyPrayerWindow(): ItemZmanStatus = ItemZmanStatus()
+
+    /**
      * Shacharit Amidah — available from dawn (alot hashachar); ideal from sunrise onward.
      * Ideal deadline: sof zman tefillah; bedi'eved until chatzos.
      */
@@ -252,10 +255,10 @@ object ChecklistZmanEvaluator {
         else null
         return windowStatus(
             now, start, absoluteEnd,
-            upcoming = "Tefillin are worn from dawn/misheyakir (${ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"}) — ideally during Shacharit.",
+            upcoming = "Recite brachos on tallit and tefillin at misheyakir (${ZmanimFormatter.formatAfter(start, tz) ?: "when daylight permits"}) — ideally during Shacharit. See explainer if you must leave earlier.",
             expired = "Tefillin are not worn after sunset.",
             makeup = null,
-            availableAtLabel = "dawn",
+            availableAtLabel = "misheyakir",
             activeHint = lateHint
         )
     }
@@ -325,12 +328,12 @@ object ChecklistZmanEvaluator {
 
     private fun yaalehVyavoShacharitWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
         amidahWindow(now, z, tz).copy(
-            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; between Retzei and Modim — say it then Modim; after Modim started — return to Retzei; after Yihiyu L'ratzon — repeat only Shacharit Amidah (SA O.C. 422:1).",
+            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; after concluding Retzei — return to beginning of Retzei; after Yihiyu L'ratzon — repeat only Shacharit Amidah (SA O.C. 422:1).",
         )
 
     private fun yaalehVyavoMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
         minchaWindow(now, z, tz, label = "Yaaleh V'yavo at Mincha").copy(
-            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; between Retzei and Modim — say it then Modim; after Modim started — return to Retzei; after Yihiyu L'ratzon — repeat only Mincha Amidah (SA O.C. 422:1).",
+            makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; after concluding Retzei — return to beginning of Retzei; after Yihiyu L'ratzon — repeat only Mincha Amidah (SA O.C. 422:1).",
         )
 
     private fun yaalehVyavoMaarivWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {

@@ -91,7 +91,7 @@ fun ChecklistDebugMenu(
                 activeOverride?.let { o ->
                     val timeLabel = ZmanimFormatter.formatTime(o.epochMillis, timezoneId)
                     Text(
-                        "Simulating: ${o.label} · ${o.simulatedDate} · ${o.timeSlot.label}" +
+                        "Simulating: ${o.label} · ${ZmanimFormatter.formatCivilDate(o.simulatedDate)} · ${o.timeSlot.label}" +
                             (timeLabel?.let { " ($it)" } ?: ""),
                         style = MaterialTheme.typography.labelSmall,
                         color = TzaddikColors.NavyDeep,

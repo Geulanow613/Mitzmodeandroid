@@ -10,6 +10,31 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SHARED = ROOT / "shared" / "src" / "commonMain" / "kotlin" / "com" / "beardytop" / "beatzaddik"
 OUT = ROOT / "docs" / "APP_REFERENCE_TEXT_FOR_REVIEW.md"
+SEASONAL_OUT = ROOT / "docs" / "SEASONAL_AND_HIDDEN_CHECKLIST_TEXT.md"
+DOMAIN = SHARED / "domain"
+
+EXPLANATION_FIELD = re.compile(
+    r"(explanation(?:Ashkenaz|Sefard|EdotHamizrach|Chabad|Female)?)\s*=\s*"
+    r'(?:BeginnerHalachaGlossary\.withKeyTerms\(\s*[^,]+,\s*)?"""([\s\S]*?)"""',
+)
+SEASONAL_KOTLIN_FILES = [
+    "SeasonalMitzvahText.kt",
+    "ErevChagPrepText.kt",
+    "ErevPesachPrepText.kt",
+    "PublicFastDayText.kt",
+    "YomTovShabbatPrepText.kt",
+    "PurimMeshulashText.kt",
+    "PurimBrachotText.kt",
+    "OmerCountText.kt",
+]
+EXPLANATION_VARIANT_LABELS = {
+    "explanation": "Default",
+    "explanationAshkenaz": "Ashkenaz",
+    "explanationSefard": "Sefard",
+    "explanationEdotHamizrach": "Edot HaMizrach",
+    "explanationChabad": "Chabad",
+    "explanationFemale": "Female",
+}
 
 KOTLIN_STRING = re.compile(r'"""([\s\S]*?)"""', re.MULTILINE)
 CONST_VAL = re.compile(
@@ -274,29 +299,241 @@ def write_shabbat_guide(f) -> None:
         f.write(f"### {title}\n\n{body}\n\n")
 
 
-def write_seasonal_doc(f) -> None:
-    seasonal_path = ROOT / "docs" / "SEASONAL_AND_HIDDEN_CHECKLIST_TEXT.md"
-    if not seasonal_path.exists():
-        return
+def write_item_explanations(
+    f,
+    title: str,
+    fields: dict[str, str],
+    *,
+    meta: str = "",
+) -> None:
+    f.write(f"### {title}\n\n")
+    if meta:
+        f.write(f"{meta}\n\n")
+    wrote = False
+    for field, label in EXPLANATION_VARIANT_LABELS.items():
+        text = (fields.get(field) or "").strip()
+        if not text:
+            continue
+        if label != "Default" or wrote:
+            f.write(f"**{label}:**\n\n")
+        f.write(f"{text}\n\n")
+        wrote = True
+    if not wrote:
+        f.write("*(No static explanation text — may be assembled at runtime.)*\n\n")
+
+
+def format_item_explanations(title: str, fields: dict[str, str], *, meta: str = "") -> str:
+    from io import StringIO
+
+    buf = StringIO()
+    write_item_explanations(buf, title, fields, meta=meta)
+    return buf.getvalue()
+
+
+def extract_checklist_item_defs(kotlin_text: str) -> list[dict[str, str | dict[str, str]]]:
+    items: list[dict[str, str | dict[str, str]]] = []
+    pos = 0
+    while True:
+        start = kotlin_text.find("ChecklistItemDef(", pos)
+        if start < 0:
+            break
+        depth = 0
+        i = start + len("ChecklistItemDef")
+        while i < len(kotlin_text):
+            ch = kotlin_text[i]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        block = kotlin_text[start + len("ChecklistItemDef(") : i]
+        pos = i + 1
+
+        item_id = ""
+        title = ""
+        section = ""
+        id_m = re.search(r'id\s*=\s*"([^"]*)"', block)
+        title_m = re.search(r'title\s*=\s*"([^"]*)"', block)
+        section_m = re.search(r'section\s*=\s*"([^"]*)"', block)
+        if id_m:
+            item_id = id_m.group(1)
+        if title_m:
+            title = title_m.group(1)
+        if section_m:
+            section = section_m.group(1)
+        if not title and not item_id:
+            continue
+
+        fields: dict[str, str] = {}
+        for em in EXPLANATION_FIELD.finditer(block):
+            fields[em.group(1)] = unescape_kotlin(em.group(2).strip())
+
+        items.append(
+            {
+                "id": item_id,
+                "title": title or item_id,
+                "section": section,
+                "fields": fields,
+            }
+        )
+    return items
+
+
+def is_exportable_kotlin_function(name: str) -> bool:
+    if name.endswith("Links") or name.endswith("Link"):
+        return False
+    if name in {
+        "build",
+        "buildTitle",
+        "headerLabel",
+        "statusChipLabel",
+        "weeksAndDays",
+        "omerDaySummary",
+        "omerCountSpeechPhrase",
+        "displayName",
+    }:
+        return False
+    keywords = (
+        "Explanation",
+        "Block",
+        "Prep",
+        "Text",
+        "Message",
+        "Basics",
+        "Schedule",
+        "intro",
+        "Body",
+        "Note",
+    )
+    return any(k in name for k in keywords)
+
+
+def extract_holy_day_notices() -> list[tuple[str, str, str, str]]:
+    holy = read(DOMAIN / "HolyDayPhoneRules.kt")
+    rest = read(DOMAIN / "RestMessages.kt")
+    notices: list[tuple[str, str, str, str]] = []
+
+    sh_block = holy[holy.find("private fun shabbatNotice") : holy.find("private fun yomTovNotice")]
+    sh_title = re.search(r'title = "([^"]*)"', sh_block)
+    sh_footer = re.search(r'footer = "([^"]*)"', sh_block)
+    sh_msg = extract_plus_strings(sh_block, "message = ")
+    if sh_title and sh_footer and sh_msg:
+        notices.append(("Shabbat Shalom", sh_title.group(1), sh_msg, sh_footer.group(1)))
+
+    yt_block = holy[holy.find("private fun yomTovNotice") :]
+    yt_footer = re.search(r'footer = "([^"]*)"', yt_block)
+    yt_msg_base = extract_plus_strings(rest, "fun yomTovMessage(holidayName: String): String").replace(
+        "$holidayName", "[holiday name]"
+    )
+    yt_suffix = " This app is for weekdays and erev chag preparation, not for use on Yom Tov."
+    if yt_footer and yt_msg_base:
+        notices.append(
+            (
+                "[Holiday name] (Yom Tov)",
+                "[Holiday name]",
+                yt_msg_base + yt_suffix,
+                yt_footer.group(1),
+            )
+        )
+    return notices
+
+
+def extract_erev_chag_triples(content: str) -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    pattern = re.compile(
+        r'Triple\s*\(\s*\n?\s*"([^"]*)",\s*\n?\s*BeginnerHalachaGlossary\.withKeyTerms\(\s*[^,]+,\s*"""([\s\S]*?)"""',
+        re.MULTILINE,
+    )
+    for m in pattern.finditer(content):
+        results.append((m.group(1), unescape_kotlin(m.group(2).strip())))
+    return results
+
+
+def collect_seasonal_content() -> list[str]:
+    """Build markdown sections for seasonal/hidden checklist copy."""
+    parts: list[str] = []
+
+    parts.append(
+        "# User-visible copy — seasonal & hidden checklist\n\n"
+        "Titles and explanation text as shown in the app. Dynamic parts "
+        "(Omer day number, sunset/tzeit times, which Yom Tov–Shabbat blocks appear, "
+        "holiday name, parsha name) depend on your calendar, location, and profile.\n\n"
+        "*Auto-generated from Kotlin sources by `tools/export_app_reference_text.py`.*\n"
+    )
+
+    parts.append(section("When the checklist is hidden", 2).rstrip())
+    for card_title, title, message, footer in extract_holy_day_notices():
+        parts.append(f"### {card_title}\n\n**Title:** {title}\n\n{message}\n\n{footer}\n")
+
+    parts.append(section("Seasonal checklist items (SeasonalChecklistItems.kt)", 2).rstrip())
+    seasonal_items = extract_checklist_item_defs(read(DOMAIN / "SeasonalChecklistItems.kt"))
+    seasonal_items.sort(key=lambda i: (str(i.get("section", "")), str(i.get("title", ""))))
+    for item in seasonal_items:
+        meta = ""
+        if item.get("section"):
+            meta += f"*Section: {item['section']}*"
+        if item.get("id"):
+            meta += f" · ID: `{item['id']}`"
+        if meta:
+            meta += "\n"
+        parts.append(format_item_explanations(str(item["title"]), item["fields"], meta=meta))
+
+    parts.append(section("Erev Yom Tov holiday-specific blocks (ErevChagPrepText.kt)", 2).rstrip())
+    erev = read(DOMAIN / "ErevChagPrepText.kt")
+    for title, body in extract_erev_chag_triples(erev):
+        parts.append(f"### {title}\n\n{body}\n\n")
+    for name, body in extract_functions_named(erev, "ErevChagPrepText.kt"):
+        if is_exportable_kotlin_function(name) and body:
+            parts.append(f"### {name}\n\n{body}\n\n")
+
+    parts.append(section("Seasonal text modules (Kotlin)", 2).rstrip())
+    for filename in SEASONAL_KOTLIN_FILES:
+        path = DOMAIN / filename
+        if not path.exists() or filename == "ErevChagPrepText.kt":
+            continue
+        content = read(path)
+        fns = [(n, b) for n, b in extract_functions_named(content, filename) if is_exportable_kotlin_function(n)]
+        if not fns:
+            continue
+        parts.append(section(filename, 3).rstrip())
+        for name, body in sorted(fns, key=lambda x: x[0]):
+            parts.append(f"#### {name}\n\n{body}\n\n")
+
+    return parts
+
+
+def write_seasonal_from_kotlin(f) -> None:
+    sections = collect_seasonal_content()
+    seasonal_md = "\n".join(sections).strip() + "\n"
+    SEASONAL_OUT.parent.mkdir(parents=True, exist_ok=True)
+    SEASONAL_OUT.write_text(seasonal_md, encoding="utf-8")
+
     f.write(section("Part 3 — Seasonal, Hidden & Festival Checklist Explainers", 1))
     f.write(
         "All seasonal and situational checklist copy: hidden Shabbat/Yom Tov screens, "
-        "Erev Shabbat prep, Musaf, Omer, holidays, Pesach prep, mourning periods, etc.\n\n"
+        "Erev Shabbat prep (see Part 4), Musaf, Omer, holidays, Pesach prep, mourning periods, etc. "
+        "Extracted live from Kotlin sources.\n\n"
     )
-    content = seasonal_path.read_text(encoding="utf-8")
-    start = content.find("## When the checklist is hidden")
-    if start < 0:
-        start = content.find("---", 50)
-        start = content.find("\n", start) + 1
-    f.write(content[start:].strip())
-    f.write("\n\n")
+    # Skip the duplicate H1 from seasonal_md
+    body = seasonal_md
+    if body.startswith("# "):
+        body = body.split("\n", 1)[1].lstrip()
+    f.write(body)
+    f.write("\n")
+
+
+def write_seasonal_doc(f) -> None:
+    write_seasonal_from_kotlin(f)
 
 
 def write_daily_checklist(f) -> None:
     f.write(section("Part 4 — Daily Mitzvot Checklist Explainers", 1))
     f.write(
         "Full explanation text for every item in the daily checklist (`checklist-items.json`). "
-        "Includes default text plus Ashkenaz, Sefard, Chabad, and female variants where present.\n\n"
+        "Includes default text plus Ashkenaz, Sefard, Edot HaMizrach, Chabad, and female variants where present. "
+        "Shnayim Mikra prepends \"This week's parsha: Parshat [name]\" at runtime.\n\n"
     )
     checklist = ROOT / "shared" / "src" / "commonMain" / "composeResources" / "files" / "checklist-items.json"
     if not checklist.exists():
@@ -315,6 +552,7 @@ def write_daily_checklist(f) -> None:
             ("Default", "explanation"),
             ("Ashkenaz", "explanationAshkenaz"),
             ("Sefard", "explanationSefard"),
+            ("Edot HaMizrach", "explanationEdotHamizrach"),
             ("Chabad", "explanationChabad"),
             ("Female", "explanationFemale"),
         ]
@@ -333,38 +571,15 @@ def write_daily_checklist(f) -> None:
 
 def write_omer_template(f) -> None:
     f.write(section("Omer Count Text Template (OmerCountText.kt)", 2))
-    beginner = read(SHARED / "domain" / "BeginnerHalachaGlossary.kt")
-    omer_key_terms = ""
-    m = re.search(r"fun omerBasics\(\): String = block\(([\s\S]*?)\)", beginner)
-    if m:
-        lines = re.findall(r"(\w+)", m.group(1))
-        for const in lines:
-            cm = re.search(rf"const val {const}\s*=\s*\n?\s*\"((?:[^\"\\]|\\.)*)\"", beginner)
-            if cm:
-                omer_key_terms += f"• {unescape_kotlin(cm.group(1))}\n"
-    f.write("**Key terms block (prepended in app):**\n\n")
-    f.write(omer_key_terms + "\n")
-    f.write(
-        "**Body template** (runtime fills day number, weekday names, local tzeit time, nusach line):\n\n"
-        "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\n"
-        "Today in the Omer: day [N] of 49 — [weeks and days phrase].\n\n"
-        "Tonight's count:\n"
-        "• [Weekday] night — count day [N] ([weeks phrase]) after nightfall [at local tzeit time].\n"
-        "• [Next weekday] night: you will count day [N+1] ([weeks phrase]). *(Omitted on day 49.)*\n\n"
-        "How to count:\n"
-        "• Stand and recite the blessing before counting if you are still saying it with a blessing "
-        "(if you missed a day, ask your rabbi before continuing with a bracha).\n"
-        "• Say: Days 1–6: \"Today is N day(s) of the Omer.\" only — do not mention weeks. "
-        "From day 7 onward: add \"which is [weeks and days phrase]\".\n"
-        "• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day "
-        "during the daytime without a bracha. If you do this before sunset, you can continue counting on "
-        "subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire "
-        "24-hour cycle (both night and the following day) — ask your rav.\n\n"
-        "One of these lines appears by nusach:\n"
-        "• Many in Chabad count after Maariv (Tehillat Hashem).\n"
-        "• Many Sefardim count after Maariv.\n"
-        "• Many Ashkenazim count after Maariv.\n\n"
-    )
+    omer_src = read(DOMAIN / "OmerCountText.kt")
+    for name, body in extract_functions_named(omer_src, "OmerCountText.kt"):
+        if name == "buildExplanation":
+            f.write(
+                "**buildExplanation** (runtime fills day number, weekday names, local tzeit, nusach):\n\n"
+            )
+            f.write(f"{body}\n\n")
+            return
+    f.write("*(Could not extract OmerCountText.buildExplanation.)*\n\n")
 
 
 def extract_welcome_intros(disclaimer: str) -> tuple[str, str]:
@@ -478,6 +693,8 @@ def main() -> None:
         )
 
     print(f"Wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
+    if SEASONAL_OUT.exists():
+        print(f"Wrote {SEASONAL_OUT} ({SEASONAL_OUT.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

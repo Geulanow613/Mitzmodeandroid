@@ -57,7 +57,9 @@ Mitzvah to eat today:
 • The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).
 
 Before the fast begins:
-• Yom Kippur starts at sunset tonight${sunset?.let { " (approx. $it)" } ?: ""} and ends at nightfall tomorrow ($tzeitTomorrow).
+• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { " (approx. $it)" } ?: ""} until nightfall tomorrow ($tzeitTomorrow).
+• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we "add from the weekday onto the holy day" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.
+• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.
 • Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.
 • Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).
 
@@ -261,10 +263,10 @@ Minor fast rules with Purim context:
 Today is Yom Kippur — the Day of Atonement.
 
 The fast:
-• Began at sunset last night and ends at nightfall tonight${tzeit?.let { " (approx. $it)" } ?: ""}.
+• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { " (approx. $it)" } ?: ""}.
 • Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
 • Many wear white; married men who normally wear a kittel do so; tallit is worn all day.
-• The day is spent in prayer — Kol Nidrei last night, Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.
+• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.
 
 After nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.
         """.trim()

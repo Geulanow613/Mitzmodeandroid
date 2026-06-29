@@ -1,0 +1,17 @@
+Before eating|len=984|bad=0|[]
+Birkat Ha|len=149|bad=0|[]
+Chanukah night|len=1381|bad=0|[]
+Chilul Hashem|len=273|bad=0|[]
+Cheshbon hanefesh|MISSING
+Chitas|len=241|bad=1|['Psalmמחולק']
+Chofetz Chaim|len=246|bad=0|[]
+Chol HaMoed|len=839|bad=0|[]
+Dayeinu|len=168|bad=0|[]
+Eating matzah|len=445|bad=1|['פesach']
+Edot HaMizrach|len=240|bad=1|['עםkinot']
+Birchot HaShachar|len=202|bad=0|[]
+Borei pri hagafen|MISSING
+Chabad (Alter|len=426|bad=1|['שavuot']
+Chabad follows|len=544|bad=1|['Erevרוש']
+Chabad is a|len=269|bad=0|[]
+Chabad —|len=269|bad=0|[]

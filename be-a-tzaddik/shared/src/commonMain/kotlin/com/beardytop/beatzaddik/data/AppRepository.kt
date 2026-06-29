@@ -42,4 +42,12 @@ interface AppRepository {
     val weeklyCheckedWeeks: Flow<Map<String, String>>
 
     suspend fun setWeeklyChecked(id: String, checked: Boolean, saturdayKey: String)
+
+    /**
+     * Maps tzeit-day mitzvah item id → epoch millis (as string) of the tzeit that started the
+     * halachic day when it was last checked. Resets when a new tzeit day begins.
+     */
+    val tzeitCheckedDays: Flow<Map<String, String>>
+
+    suspend fun setTzeitDayChecked(id: String, checked: Boolean, tzeitDayKey: String)
 }

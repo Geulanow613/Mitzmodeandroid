@@ -57,6 +57,26 @@ fun AboutDialog(
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(Modifier.height(16.dp))
+
+            TranslatableText(
+                text = com.beardytop.beatzaddik.domain.AppDisclaimer.FEEDBACK_ABOUT_PROMPT,
+                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
+                color = DialogTextPrimary,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            LinkText(
+                displayText = com.beardytop.beatzaddik.domain.AppDisclaimer.FEEDBACK_EMAIL,
+                url = com.beardytop.beatzaddik.domain.AppDisclaimer.FEEDBACK_EMAIL_MAILTO,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = DialogGoldBorder,
+                    fontWeight = FontWeight.SemiBold
+                ),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

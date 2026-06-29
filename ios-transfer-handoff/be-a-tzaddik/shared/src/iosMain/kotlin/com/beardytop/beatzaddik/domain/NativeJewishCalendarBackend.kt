@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik.domain
 
+import com.beardytop.beatzaddik.domain.zmanim.SharedZmanimBuilder
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
@@ -22,7 +23,8 @@ import platform.Foundation.NSTimeZone
  * iOS Hebrew-calendar backend. Uses [NSCalendar] with [NSCalendarIdentifierHebrew] for accurate
  * Hebrew date resolution, then delegates all halachic calculations to [HebrewCalendarEngine].
  *
- * Zmanim are still heuristic (sun angle/lat-lon estimation) via [HeuristicZmanim].
+ * Zmanim use [SharedZmanimBuilder] (NOAA-style, matches Android KosherJava angles).
+ * Hebrew calendar via [HebrewCalendarEngine] + NSCalendar.
  */
 internal class NativeJewishCalendarBackend : JewishCalendarBackend {
 
@@ -207,7 +209,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             if (isErevTishaBeav) add("erev_tisha_beav")
         }
 
-        val zmanim       = HeuristicZmanim.build(nowEpochMillis, profile)
+        val zmanim       = SharedZmanimBuilder.build(nowEpochMillis, profile)
         val activeTime   = ZmanPeriodLogic.activeTimeOfDay(nowEpochMillis, zmanim)
         val periodLabels = ZmanPeriodLabels.forPeriod(activeTime, zmanim, profile.effectiveNusach())
 
@@ -240,7 +242,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
 
         return DayInfo(
             date                  = date,
-            civilLabel            = formatCivil(date),
+            civilLabel            = ZmanimFormatter.formatCivilDate(date),
             hebrewLabel           = hebrewLabel,
             parsha                = parsha,
             statusChips           = chips,
@@ -362,44 +364,47 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
     // ── Electronics rest ─────────────────────────────────────────────────────
 
     override fun electronicsRestPeriod(nowEpochMillis: Long, profile: UserProfile): ElectronicsRestPeriod? {
-        val tz    = TimeZone.of(profile.timezoneId)
+        val tz = TimeZone.of(profile.timezoneId)
         val local = Instant.fromEpochMilliseconds(nowEpochMillis).toLocalDateTime(tz)
-        val hd = getHDate(nowEpochMillis, profile.timezoneId)
-        val idx = HebrewCalendarEngine.getYomTovIndex(
-            hd.year,
-            hd.month,
-            hd.day,
-            hd.weekday,
-            HebrewCalendarEngine.isJewishLeapYear(hd.year),
-            inIsrael = profile.isInIsrael
-        )
-        if (HebrewCalendarEngine.isYomTovAssurBemelacha(idx)) {
+        val today = dayInfoAt(nowEpochMillis, profile)
+
+        if (today.isYomTovAssurBemelacha) {
+            val yesterday = today.date.plus(-1, DateTimeUnit.DAY)
+            val yZmanim = SharedZmanimBuilder.build(noonMillis(yesterday, tz), profile)
+            val start = yZmanim.sunsetMillis ?: today.zmanim?.sunriseMillis ?: return null
+            val end = today.zmanim?.tzeitMillis ?: today.zmanim?.sunsetMillis ?: return null
+            if (nowEpochMillis < start || nowEpochMillis >= end) return null
             return ElectronicsRestPeriod(
                 kind = RestKind.YOM_TOV,
-                title = holidayName(idx),
-                message = yomTovMessage(holidayName(idx)),
+                title = today.yomTovHolidayName ?: "Yom Tov",
+                message = yomTovMessage(today.yomTovHolidayName ?: "Yom Tov"),
                 locationLabel = profile.locationLabel,
-                endsAtEpochMillis = local.date.let { d ->
-                    kotlinx.datetime.LocalDateTime(d.year, d.monthNumber, d.dayOfMonth, 20, 30)
-                        .toInstant(tz).toEpochMilliseconds()
-                }
+                endsAtEpochMillis = end,
             )
         }
-        return when {
-            local.dayOfWeek == DayOfWeek.SATURDAY && local.hour < 20 ->
-                shabbatRest(profile, isErev = false, endsAt = saturdayHavdalahMillis(local.date, tz))
-            local.dayOfWeek == DayOfWeek.FRIDAY && local.hour >= 18 ->
-                shabbatRest(profile, isErev = true,  endsAt = saturdayHavdalahMillis(local.date, tz))
-            else -> null
+
+        var friday = today.date
+        while (friday.dayOfWeek != DayOfWeek.FRIDAY) {
+            friday = friday.plus(-1, DateTimeUnit.DAY)
         }
+        val saturday = friday.plus(1, DateTimeUnit.DAY)
+        val friZmanim = SharedZmanimBuilder.build(noonMillis(friday, tz), profile)
+        val satZmanim = SharedZmanimBuilder.build(noonMillis(saturday, tz), profile)
+        val start = (friZmanim.sunsetMillis ?: return null) - SHABBAT_SUNSET_LEAD_MS
+        val end = satZmanim.tzeitMillis ?: satZmanim.sunsetMillis ?: return null
+        if (nowEpochMillis < start || nowEpochMillis >= end) return null
+
+        val isErev = local.dayOfWeek == DayOfWeek.FRIDAY
+        return shabbatRest(profile, isErev = isErev, endsAt = end)
     }
 
-    private fun saturdayHavdalahMillis(fridayOrSaturday: LocalDate, tz: TimeZone): Long {
-        val saturday = if (fridayOrSaturday.dayOfWeek == DayOfWeek.FRIDAY)
-            fridayOrSaturday.plus(1, DateTimeUnit.DAY) else fridayOrSaturday
-        return kotlinx.datetime.LocalDateTime(
-            saturday.year, saturday.monthNumber, saturday.dayOfMonth, 20, 30
-        ).toInstant(tz).toEpochMilliseconds()
+    private fun noonMillis(date: LocalDate, tz: TimeZone): Long =
+        LocalDateTime(date.year, date.monthNumber, date.dayOfMonth, 12, 0)
+            .toInstant(tz)
+            .toEpochMilliseconds()
+
+    private companion object {
+        const val SHABBAT_SUNSET_LEAD_MS = 60_000L
     }
 
     private fun shabbatRest(profile: UserProfile, isErev: Boolean, endsAt: Long): ElectronicsRestPeriod =
@@ -484,10 +489,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         else                                    -> "Special day"
     }
 
-    private fun formatCivil(date: LocalDate): String {
-        val month = date.month.name.lowercase().replaceFirstChar { it.uppercase() }
-        return "$month ${date.dayOfMonth}, ${date.year}"
-    }
+    private fun formatCivil(date: LocalDate): String = ZmanimFormatter.formatCivilDate(date)
 }
 
 private fun isJerusalemProfile(profile: UserProfile): Boolean {

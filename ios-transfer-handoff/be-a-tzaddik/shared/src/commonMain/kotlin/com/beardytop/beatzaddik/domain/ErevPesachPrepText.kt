@@ -219,7 +219,7 @@ object ErevPesachPrepText {
         val yomTovBlock = YomTovShabbatPrepText.scheduleBlock(cal, profile, chagName)
         val blocks = when {
             pesachBlock != null && yomTovBlock != null &&
-                isErevPesachFridayBeforeShabbatPesach(cal) -> "$pesachBlock\n\n$yomTovBlock"
+                isErevPesachFridayBeforeShabbatPesach(cal) -> pesachBlock
             pesachBlock != null && YomTovShabbatPrepText.isShabbatErevChag(cal) ->
                 listOfNotNull(pesachBlock, yomTovBlock).joinToString("\n\n")
             else -> listOfNotNull(pesachBlock, yomTovBlock).joinToString("\n\n")
@@ -231,16 +231,19 @@ object ErevPesachPrepText {
     private fun erevPesachOnShabbatFullSchedule(bedikatLeadIn: String): String = """
 $bedikatLeadIn
 
-This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the schedule moves earlier (Peninei Halakha ch. 14):
+This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the entire preparatory timeline shifts early (Peninei Halakha ch. 14):
 
-• Taanit Bechorot: Thursday (12 Nisan) — not on Shabbat or Friday. Ashkenazim (Rama) fast or attend a siyum; some Sephardic authorities omit the moved fast — many still attend a siyum (ask your rav).
-• Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) after the search as in a normal year.
-• Biur chametz: Friday morning (13 Nisan) — burn the chametz found; preferably by the end of the 5th halachic hour as in other years. Do not recite the final Kol Chamira at the burning — keep chametz for the first two Shabbat meals.
-• Mechirat chametz: complete before Shabbat begins Friday evening; seal sold chametz away.
-• Shabbat (14 Nisan): Finish eating chametz by the end of the 4th halachic hour on Shabbat morning. Destroy leftover crumbs without burning on Shabbat (e.g. flush down the toilet). Recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
-• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira) for the first two meals. Ashkenazim are forbidden egg matzah on Pesach (Rema O.C. 462:4); if you use challah before the 4th halachic hour, eat over disposable liners/plates, shake out garments afterward, and flush any chametz crumbs before the deadline — immense caution required. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
-• Seder preparations (charoset, maror, zeroa, etc.): finish on Friday before Shabbat — do not prepare on Shabbat for Motzei Shabbat.
-• First Seder: Saturday night after Shabbat (tzeit) — Kiddush with Havdalah (Yaknehaz) in the Haggadah, then the Seder.
+• Taanit Bechorot: Thursday (12 Nisan) — moved early; not on Shabbat or Friday. Ashkenazim fast or attend a siyum. Many Sephardic authorities rule the moved fast is nullified entirely; many still attend a siyum out of custom (ask your rav).
+• Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) immediately after the search.
+• Biur chametz: Friday morning (13 Nisan) — burn the chametz found. Do not recite the final Kol Chamira at the burning — you will still eat chametz over Shabbat.
+• Mechirat chametz: complete and finalize the sale before Shabbat begins Friday evening.
+• Matzah on Friday (13 Nisan): many authorities extend the prohibition of eating regular matzah to Friday as well when Erev Pesach falls on Shabbat, so matzah is eaten with a prime appetite at the Seder (ask your rav).
+• Seder prep: all physical cooking, roasting the zeroa (shankbone), checking lettuce/maror, and making charoset must be finished on Friday before Shabbat — you cannot prepare on Shabbat for Motzei Shabbat.
+• Shabbat (14 Nisan) — eating deadline: finish eating chametz by the end of the 4th halachic hour on Shabbat morning.
+• Shabbat (14 Nisan) — disposal: flush leftover crumbs down the toilet or nullify them chemically (e.g. pour liquid soap over them) before the 5th hour. Do not burn on Shabbat.
+• Shabbat (14 Nisan) — final nullification: recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
+• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim do not eat egg matzah on Pesach (Rema O.C. 462:4); use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
+• First Seder: Saturday night after Shabbat fully ends (tzeit). Kiddush includes the full Yaknehaz sequence (Wine, Yom Tov Kiddush, Ner/candle, Havdalah text, and Shehecheyanu — no spices/besamim).
 
 Plan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.
     """.trim()
@@ -250,12 +253,13 @@ $bedikatLeadIn
 
 This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Shabbat (15 Nisan):
 
-• Bedikat chametz: Thursday night (after tzeit) — not Friday night.
-• Taanit Bechorot: today (Friday, 14 Nisan) — fast or attend a siyum.
-• Biur chametz: this morning (14 Nisan), by the usual 4th/5th halachic hour deadlines — both destruction and final Kol Chamira must finish before the end of the 5th hour.
-• Mechirat chametz: must be completed before Shabbat candles tonight.
-• First Seder: tonight (Friday night) — Pesach begins at nightfall, not Saturday night.
-• Shabbat (15 Nisan): first day of Yom Tov — no chametz; only Pesach food and dishes. In the Diaspora, the second Seder is Saturday night after Shabbat. Hachana warning: you may NOT cook, chop, or prepare on Friday or on Shabbat day for the second Seder — eruv tavshilin does not permit weekday prep across Shabbat for a later Yom Tov. All food prep, cooking, and table setting for the second night must wait until Shabbat fully ends Saturday night.
+• Bedikat chametz: Thursday night (night of 14 Nisan, after tzeit) — not Friday night. Recite the first bitul (Kol Chamira).
+• Taanit Bechorot: Friday daytime (14 Nisan) — fast or attend a siyum.
+• Biur chametz: Friday morning (14 Nisan) by the 5th halachic hour deadline. Both physical destruction and the final Kol Chamira nullification must be finished before this time.
+• Mechirat chametz: must be entirely completed before Shabbat/Yom Tov candle lighting on Friday evening.
+• First Seder: Friday night (commencing 15 Nisan).
+• Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text, Shehecheyanu — no spices/besamim).
+• Preparation warning: you may NOT do any prep work (chopping, cooking, table setting) on Shabbat day for the second Seder. All preparations must wait until Shabbat ends at nightfall. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only for when Yom Tov immediately precedes Shabbat.
 
 Confirm candle lighting, Yom Tov, and Seder times with your siddur and rav.
     """.trim()
@@ -358,14 +362,16 @@ Plan ahead: locate a community siyum in advance if that is your minhag, or confi
             """
 
 Second Seder prep (Diaspora this year):
-• You may NOT cook, chop, or prepare on Friday for Sunday night's second Seder — or on Shabbat day. Hachana from weekday across Shabbat to a later Yom Tov is forbidden; eruv tavshilin does not help here. All food prep, cooking, and table setting for the second night must wait until Shabbat fully ends Saturday night.
+• Saturday daytime is the first day of Yom Tov (Shabbat). Saturday night begins the second day of Yom Tov — not a regular Motzei Shabbat weekend.
+• Kiddush at the second Seder includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text, Shehecheyanu — no spices).
+• You may NOT cook, chop, or prepare on Shabbat day for the second Seder. Hachana from weekday across Shabbat to a later Yom Tov is forbidden. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only when Yom Tov immediately precedes Shabbat. All food prep, cooking, and table setting for the second night must wait until Shabbat fully ends Saturday night.
             """.trim()
         } else {
             ""
         }
         val sederNights = when {
             isErevPesachFridayBeforeShabbatPesach(cal) ->
-                "This year: first Seder is tonight (Friday night). The second Seder in the Diaspora is tomorrow night (Saturday night), after Shabbat."
+                "This year: first Seder is tonight (Friday night, commencing 15 Nisan). In the Diaspora, the second Seder is Saturday night — transitioning from Shabbat directly into the second day of Yom Tov, with Yaknehaz in Kiddush."
             isErevPesachOnShabbat(cal) ->
                 "This year: first Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havdalah in Kiddush (Yaknehaz), then Seder."
             cal.hebrewDay == 13 && pesachErevDow(cal) == PesachErevDow.SHABBAT ->
@@ -466,10 +472,14 @@ If you are traveling or staying elsewhere, your host or rabbi can guide which ro
                 append(ZmanimFormatter.formatTime(end4th, tz) ?: "see zmanim app")
                 append(" today). ")
             }
-            if (end5th != null) {
+            if (end5th != null && dow != PesachErevDow.SHABBAT) {
                 append("Both biur (destruction) and the final Kol Chamira must be completed before end of the 5th halachic hour (approx. ")
                 append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
                 append(" — earlier than solar chatzos midday). ")
+            } else if (end5th != null && dow == PesachErevDow.SHABBAT) {
+                append("Destroy chametz by the end of the 5th halachic hour (approx. ")
+                append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
+                append(") — but do not recite the final Kol Chamira here; that is on Shabbat morning. ")
             }
             if (isEmpty()) {
                 append("Use a zmanim app for Erev Pesach: end of 4th halachic hour (stop eating chametz) and end of 5th halachic hour (biur and Kol Chamira deadline). ")
@@ -491,9 +501,13 @@ $morningNote
 • Burn or destroy all chametz found last night and any remaining chametz you are not selling.
 • Many burn chametz in a safe outdoor fire; flushing crumbs in the toilet or similar is acceptable for small amounts per many poskim — ask your rav.
 • $zmanNote
-• Timeline guardrail: Both the physical destruction of chametz and the final recitation of Kol Chamira must be fully completed before the end of the 5th halachic hour. Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid.
+• Timeline guardrail: ${if (dow == PesachErevDow.SHABBAT) {
+            "On this year's schedule, do not recite the final Kol Chamira at today's burning — keep chametz for Shabbat meals. The final Kol Chamira is recited on Shabbat morning before the end of the 5th halachic hour."
+        } else {
+            "Both the physical destruction of chametz and the final recitation of Kol Chamira must be fully completed before the end of the 5th halachic hour. Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid."
+        }}
 • Text difference: Use the morning version of Kol Chamira from your siddur — it is structurally different from the night text and completely disowns ALL chametz in your possession, whether you have seen it or not and whether you have destroyed it or not.
-• Recite Kol Chamira immediately after destruction while still before that deadline.
+• Recite the final Kol Chamira immediately after destruction while still before that deadline${if (dow == PesachErevDow.SHABBAT) " (on Shabbat morning, not at today's burning)" else ""}.
 
 Mechirat chametz:
 • Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.
@@ -503,7 +517,7 @@ After biur:
 • Firstborns: Taanit Bechorot earlier per schedule; Seder ${
             when (dow) {
                 PesachErevDow.SHABBAT -> "after Shabbat (Motzei Shabbat)"
-                PesachErevDow.FRIDAY -> "tonight (first Seder); second Seder tomorrow night in the Diaspora"
+                PesachErevDow.FRIDAY -> "tonight (first Seder); second Seder Saturday night in the Diaspora (Yaknehaz — Shabbat into second day of Yom Tov)"
                 else -> "tonight"
             }
         }.

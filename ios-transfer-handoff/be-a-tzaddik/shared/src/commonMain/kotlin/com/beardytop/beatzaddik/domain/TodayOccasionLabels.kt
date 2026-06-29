@@ -11,7 +11,7 @@ object TodayOccasionLabels {
         val subtitle: String? = null,
     )
 
-    fun primary(cal: DayInfo): Occasion? {
+    fun primary(cal: DayInfo, nowMillis: Long, tomorrowCal: DayInfo): Occasion? {
         cal.fastDayName?.let { fastName ->
             return Occasion(
                 label = fastName,
@@ -34,6 +34,9 @@ object TodayOccasionLabels {
             val name = cal.yomTovHolidayName
             roshHashanaLabel(cal)?.let { return Occasion(it, "rosh_hashana") }
             return Occasion(name, guideAnchorFor(name))
+        }
+        if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
+            return Occasion("Motzei Shabbat", "havdalah")
         }
         if (cal.isShabbat) {
             return Occasion("Shabbat", "shabbat_overview")

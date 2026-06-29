@@ -24,6 +24,7 @@ class VideoManager private constructor(context: Context) {
     private var backgroundPlayerReady = AtomicBoolean(false)
     private var rewardPlayerReady = AtomicBoolean(false)
     private var rewardSurface: Surface? = null
+    private var backgroundSurface: Surface? = null
     /** Ensures we only call [Player.prepare] once per background player instance (after surface wiring). */
     private var backgroundPrepareStarted = false
     /** Reward clip: [Player.prepare] only after [TextureView] surface exists (avoids decoder surface churn / black flash). */
@@ -115,7 +116,7 @@ class VideoManager private constructor(context: Context) {
                             onError(error)
                         }
                     })
-                    // Do not prepare() here — PlayerView must attach the surface first (see prepareBackgroundPlayer).
+                    // Do not prepare() here — video surface must attach first (see prepareBackgroundPlayer).
                 }
             
             Log.d(TAG, "Background player created successfully")
@@ -128,8 +129,8 @@ class VideoManager private constructor(context: Context) {
     }
     
     /**
-     * Call from [androidx.media3.ui.PlayerView] after [androidx.media3.ui.PlayerView.setPlayer]
-     * so the video surface exists before decoding starts (avoids black flashes / surface generation churn).
+     * Call after the background [TextureView] surface is wired via [setVideoSurface]
+     * so decoding starts only once a surface exists.
      */
     fun prepareBackgroundPlayer() {
         backgroundPlayer?.let { player ->
@@ -234,6 +235,45 @@ class VideoManager private constructor(context: Context) {
         }
     }
 
+    /** TextureView for looping home background — avoids PlayerView / exo_player_control_view inflation. */
+    fun createBackgroundTextureView(context: Context): TextureView {
+        return TextureView(context).apply {
+            alpha = 1f
+            surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+                override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
+                    attachBackgroundSurface(surface)
+                }
+
+                override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {
+                    Log.d(TAG, "Background surface texture size changed: ${width}x${height}")
+                }
+
+                override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
+                    Log.d(TAG, "Background surface texture destroyed")
+                    try {
+                        backgroundPlayer?.clearVideoSurface()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "Error clearing background video surface", e)
+                    }
+                    backgroundSurface?.release()
+                    backgroundSurface = null
+                    return true
+                }
+
+                override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
+            }
+        }
+    }
+
+    fun attachBackgroundSurface(surfaceTexture: SurfaceTexture) {
+        backgroundSurface?.release()
+        val videoSurface = Surface(surfaceTexture)
+        backgroundSurface = videoSurface
+        val player = backgroundPlayer ?: return
+        player.setVideoSurface(videoSurface)
+        prepareBackgroundPlayer()
+    }
+
     private fun attachRewardSurface(surfaceTexture: SurfaceTexture, width: Int, height: Int) {
         Log.d(TAG, "Surface texture available: ${width}x${height}")
         rewardSurface?.release()
@@ -285,7 +325,7 @@ class VideoManager private constructor(context: Context) {
     /**
      * Pause decoding and drop the video surface before HWUI pauses the view hierarchy
      * (e.g. [LicenseActivity] overlay, [android.app.Activity.onStop]). Keeps the player
-     * instance so [resumeBackgroundPlayer] can reconnect via [androidx.media3.ui.PlayerView].
+     * instance so [resumeBackgroundPlayer] can reconnect via the background [TextureView].
      */
     fun detachBackgroundSurface() {
         backgroundPlayer?.let { player ->
@@ -321,6 +361,8 @@ class VideoManager private constructor(context: Context) {
         backgroundPlayer = null
         backgroundPlayerReady.set(false)
         backgroundPrepareStarted = false
+        backgroundSurface?.release()
+        backgroundSurface = null
     }
     
     fun releaseRewardPlayer() {

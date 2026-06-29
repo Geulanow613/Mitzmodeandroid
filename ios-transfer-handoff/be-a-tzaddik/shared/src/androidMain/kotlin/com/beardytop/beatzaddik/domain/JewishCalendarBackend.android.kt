@@ -178,7 +178,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
 
         return DayInfo(
             date = date,
-            civilLabel = formatCivil(date),
+            civilLabel = ZmanimFormatter.formatCivilDate(date),
             hebrewLabel = hebrew,
             parsha = parsha,
             statusChips = chips,
@@ -504,10 +504,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         else -> "Yom Tov"
     }
 
-    private fun formatCivil(date: LocalDate): String {
-        val month = date.month.name.lowercase().replaceFirstChar { it.uppercase() }
-        return "$month ${date.dayOfMonth}, ${date.year}"
-    }
+    private fun formatCivil(date: LocalDate): String = ZmanimFormatter.formatCivilDate(date)
 }
 
 private fun isJerusalemProfile(profile: UserProfile): Boolean {

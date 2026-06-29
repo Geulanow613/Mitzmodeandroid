@@ -1,0 +1,14 @@
+﻿wrote C:\apps\hehehe\be-a-tzaddik\data\translation-catalog\quality-report.json
+summary: {'CRITICAL': 45, 'IMPORTANT': 0, 'LOW': 0}
+coverage: {'he': 2066, 'es': 2046, 'fr': 2047, 'ru': 2047}
+CRITICAL samples (10/45):
+  [ru] english_leak: Aleinu ù Aleinu is a closing prayer declaring G-d's sovereignty and our hope for
+  [es] fast_rapid_es: The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim
+  [es] fast_rapid_es: Yom Kippur is the Day of Atonement ù fasting, confession, and prayer. Biblically
+  [es] fast_rapid_es: Today is the Fast of Esther (Taanit Esther) ù commemorating the fasting Esther c
+  [es] fast_rapid_es: Yom Kippur ù Yom Kippur is the Day of Atonement ù fasting, confession, and praye
+  [es] vacation_for_holiday_es: Tashlumin is making up a missed Amidah at the very next service: missed Shachari
+  [es] vacation_for_holiday_es: Tashlumin ù Tashlumin is making up a missed Amidah at the very next service: mis
+  [he] placeholder_mismatch: After Yom Kippur ends at nightfall${tzeit?.let { " (approx. $it tonight)" } ?: "
+  [es] placeholder_mismatch: After Yom Kippur ends at nightfall${tzeit?.let { " (approx. $it tonight)" } ?: "
+  [fr] placeholder_mismatch: After Yom Kippur ends at nightfall${tzeit?.let { " (approx. $it tonight)" } ?: "

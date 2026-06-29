@@ -65,4 +65,25 @@ if ($srcHash -ne $dstHash) {
 }
 Write-Host "  checklist-items.json OK ($srcHash)"
 
+Write-Host "Step 4: verify bundled translation JSON in handoff"
+$translationDir = Join-Path $resDir "translations"
+$handoffTranslationDir = Join-Path $dst "shared\src\commonMain\composeResources\files\translations"
+foreach ($lang in @("he", "es", "fr", "ru")) {
+    $srcFile = Join-Path $translationDir "$lang.json"
+    $dstFile = Join-Path $handoffTranslationDir "$lang.json"
+    if (-not (Test-Path $srcFile)) {
+        Write-Warning "Missing source translation bundle: $srcFile (run be-a-tzaddik/tools/compile_full_bundled.py first)"
+        continue
+    }
+    if (-not (Test-Path $dstFile)) {
+        Write-Error "Missing handoff translation bundle: $dstFile"
+    }
+    $srcLangHash = (Get-FileHash $srcFile).Hash
+    $dstLangHash = (Get-FileHash $dstFile).Hash
+    if ($srcLangHash -ne $dstLangHash) {
+        Write-Error "$lang.json translation bundle mismatch after sync"
+    }
+    Write-Host "  translations/$lang.json OK"
+}
+
 Write-Host "Done. Agent entry point: ios-transfer-handoff/AGENTS.md"
