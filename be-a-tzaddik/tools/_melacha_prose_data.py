@@ -412,4 +412,122 @@ MISC_PROSE_POLISH: list[tuple[str, str, str]] = [
         "Le Talmud enseigne que D.ieu ne rejette pas la prière de la communauté. "
         "Rejoignez un minyan quand vous le pouvez.",
     ),
+    (
+        "Learn about Me'ilah —",
+        "Me'ilah — apropiación indebida de bienes del Templo. Cuando algo es hekdesh (consagrado a D-s), "
+        "está prohibido usarlo en beneficio personal. Ejemplos: comer del pan de la proposición, "
+        "usar un animal consagrado para transporte, tomar aceite del depósito del Templo. "
+        "Consecuencias: devolver el valor completo más un quinto adicional y traer korban asham. "
+        "La violación comienza solo con beneficio real — tocar por accidente no cuenta; comer, sí.",
+        "Me'ilah — détournement des biens du Temple. Quand un objet est hekdesh (consacré à D.ieu), "
+        "l'usage personnel est interdit. Exemples : manger du pain de proposition, utiliser un animal consacré "
+        "pour transporter, prendre de l'huile des réserves du Temple. Conséquences : rembourser la valeur "
+        "plus un cinquième et offrir un korban asham. La violation commence seulement avec un bénéfice réel.",
+    ),
+    (
+        "Learn about Tochen —",
+        "Tochen — moler y reducir a partículas en Shabat. En el Mishkán se trituraban hierbas para tintes e incienso. "
+        "Aplica principalmente a gedulei karka (lo que crece de la tierra): cubos muy finos de ensalada pueden ser problema; "
+        "raspar barro seco del calzado también. Carne cocida o queso — sin restricción de moler. Consulta a tu rav.",
+        "Tochen — broyer et réduire en particules le Chabbat. Au Mishkan on écrasait herbes pour teintures et encens. "
+        "S'applique surtout aux gedulei karka (ce qui pousse de la terre) : dés très fins de salade, boue sèche sur les chaussures. "
+        "Viande cuite ou fromage — pas de restriction de broyage. Demandez à votre rav.",
+    ),
+    (
+        "Learn about Meraked —",
+        "Meraked — cernir y colar en Shabat. En el Mishkán se tamizaba harina para el pan de la proposición. "
+        "Implica utensilio dedicado (tamiz, filtro). Meshamer (colar líquidos): prohibición toráica si el líquido "
+        "tiene tanto sedimento que nadie lo bebería sin filtrar; zumo ya bebible con pulpa — generalmente permitido.",
+        "Meraked — tamiser et filtrer le Chabbat. Au Mishkan on tamisait la farine pour le pain de proposition. "
+        "Utensile dédié (tamis, filtre). Meshamer : interdiction toranique si le liquide est trop chargé de sédiments ; "
+        "jus déjà buvable avec pulpe — en général permis.",
+    ),
+    (
+        "Learn about Shemittah —",
+        "Shemitá — el séptimo año de descanso de la tierra de Israel: sin arar, plantar, podar ni cosecha comercial. "
+        "Lo que crece solo tiene kedushat shevi'it. En Israel hoy: heter mejirá (venta de tierras a no judíos) — "
+        "el Rabinato lo permite; muchas autoridades no. Otzar beit din — la corte rabínica distribuye productos "
+        "cobrando solo mano de obra. Aprende más con tu rav.",
+        "Shemita — la septième année de repos de la terre d'Israël : pas de labour, plantation, taille ni récolte commerciale. "
+        "Ce qui pousse seul a kedouchat chevi'it. En Israël aujourd'hui : hété mekhira ou otzar beit din — "
+        "demandez à votre rav selon votre communauté.",
+    ),
+    (
+        "Explore the majesty of Psalm 8!",
+        "¡Explora la majestad del Salmo 8! 🌠 Celebra la maravilla de la creación de D-s y el lugar especial del ser humano. "
+        "Cuando David miró las estrellas, escribió sobre la dignidad humana y nuestro propósito divino. "
+        "Reto del día: sal afuera, mira el cielo nocturno y recita este salmo edificante.",
+        "Explorez la majesté du Psaume 8 ! 🌠 Il célèbre la merveille de la création de D.ieu et le rôle unique de l'humanité. "
+        "Quand David contempla les étoiles, il écrit sur la dignité humaine et notre vocation divine. "
+        "Défi du jour : sortez, regardez le ciel nocturne et récitez ce psaume édifiant.",
+    ),
+    (
+        "Explore the mighty Shin (ש)!",
+        "¡Explora el poderoso Shin (ש)! 🔥 Tres puntas hacia arriba — los tres patriarcas. "
+        "Aparece en cada caja de mezuzá y en las tefilín, recordando el nombre Sha-dai. "
+        "Su forma recuerda una llama: acércate a la Torá con entusiasmo ardiente. "
+        "Reto del día: aprende Torá con pasión y alegría.",
+        "Explorez le puissant Shin (ש) ! 🔥 Trois pointes vers le haut — les trois patriarches. "
+        "Il figure sur chaque boîte de mezouza et sur les téfilines, rappelant le nom Cha-daï. "
+        "Sa forme évoque une flamme : approchez la Torah avec un enthousiasme ardent. "
+        "Défi du jour : étudiez la Torah avec passion et joie.",
+    ),
+    (
+        "Connect to our history!",
+        "¡Conéctate con nuestra historia! Recuerda un momento el Éxodo de Egipto 🌊. "
+        "Imagina los milagros — cómo D-s transformó una nación de esclavos en un pueblo libre. "
+        "Esa memoria de libertad es tan importante que es mitzvá recordarla cada día y cada noche.",
+        "Connectez-vous à notre histoire ! Prenez un moment pour vous souvenir de la Sortie d'Égypte 🌊. "
+        "Imaginez les miracles — comment D.ieu a transformé une nation d'esclaves en peuple libre. "
+        "Ce souvenir de liberté est si important qu'il est mitsva de le rappeler chaque jour et chaque nuit.",
+    ),
+    (
+        "Connect to the Holy Land!",
+        "¡Conéctate a la Tierra Santa! Recuerda (uno de los diez recuerdos diarios) que D-s dio Israel al pueblo judío "
+        "como herencia eterna. El aire de Israel es tan santo que el Talmud dice que hace sabio a quien lo respira. "
+        "Cuando D-s nos dio la tierra, también nos dio fuerza para guardar Sus mitzvot. "
+        "¿Te sientes lejos? Cada judío tiene una porción en la Tierra Santa — es tu hogar espiritual.",
+        "Connectez-vous à la Terre sainte ! Rappelez (un des dix souvenirs quotidiens) que D.ieu a donné Israël au peuple juif "
+        "en héritage éternel. L'air d'Israël est si saint que le Talmud dit qu'il rend sage. "
+        "Loin d'Israël ? Chaque Juif a une part dans la Terre sainte — votre foyer spirituel.",
+    ),
+    (
+        "Appreciate the miracle of healing!",
+        "¡Aprecia el milagro de la sanación! Agradece a D-s por darnos la asombrosa capacidad de reparar y recuperarnos 🌱. "
+        "Desde un pequeño corte que cicatriza hasta combatir una enfermedad — nuestro cuerpo trabaja por nuestra salud. "
+        "Cada recuperación recuerda el cuidado constante de D-s ❤️‍🩹.",
+        "Appréciez le miracle de la guérison ! Remerciez D.ieu de nous donner la capacité étonnante de réparer et de guérir 🌱. "
+        "D'une petite coupure à la lutte contre la maladie — notre corps veille sur notre santé. "
+        "Chaque guérison rappelle les soins constants de D.ieu ❤️‍🩹.",
+    ),
+    (
+        "Embrace the gift of Torah study!",
+        "¡Abraza el regalo del estudio de la Torá! 📚 El Rambam revela: aprender Torá no es solo ganar conocimiento — "
+        "es conectar con la sabiduría de D-s. ¿Sabías que? Cada palabra de Torá que aprendes crea un ángel que te acompaña. "
+        "Reto: reserva hoy cinco minutos para aprender algo nuevo — cada momento de estudio es invaluable.",
+        "Embrassez le don de l'étude de la Torah ! 📚 Le Rambam révèle : apprendre la Torah, ce n'est pas seulement acquérir "
+        "des connaissances — c'est se relier à la sagesse de D.ieu. Chaque mot appris crée un ange qui vous accompagne. "
+        "Défi : réservez cinq minutes aujourd'hui pour apprendre quelque chose de nouveau.",
+    ),
+    (
+        "Dive into Kabbalah's depths!",
+        "¡Sumérgete en las profundidades de la Cábala! 🌊 Estudiarla correctamente puede transformar tu práctica judía — "
+        "con madurez en Torá y temor a D-s. El Arizal dijo que en estas generaciones es mitzvá revelar estas enseñanzas. "
+        "La Cábala ayuda a entender las razones profundas de las mitzvot. "
+        "Reto del día: aprende un insight místico sobre una mitzvá que haces a menudo.",
+        "Plongez dans les profondeurs de la Kabbale ! 🌊 L'étudier correctement peut transformer votre pratique — "
+        "avec maturité en Torah et crainte de D.ieu. L'Arizal dit qu'il est mitsva de révéler ces enseignements aujourd'hui. "
+        "Défi : apprenez un aperçu mystique sur une mitsva que vous accomplissez souvent.",
+    ),
+    (
+        "Ever wonder about some wild Torah laws?",
+        "¿Te preguntas por leyes «salvajes» de la Torá? 🔮 La Torá habla del «Ov»: quemaban incienso, agitaban ramas de mirto "
+        "e intentaban escuchar voces de... cráneos. El Rambam explica voces que parecían salir del suelo o de las axilas. "
+        "Muestra cómo la Torá nos protege de prácticas espirituales dañinas. "
+        "Reto del día: aprecia cómo la Torá guía nuestra conexión con D-s.",
+        "Vous êtes-vous demandé pourquoi la Torah parle de lois si étranges ? 🔮 Le « Ov » : encens, branches de myrte, "
+        "voix prétendument venues de crânes. Le Rambam décrit des voix semblant sortir du sol ou des aisselles. "
+        "La Torah nous protège de pratiques spirituelles nuisibles. "
+        "Défi : appréciez comment la Torah guide notre lien avec D.ieu.",
+    ),
 ]
