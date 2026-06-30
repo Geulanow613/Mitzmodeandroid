@@ -4,6 +4,9 @@ package com.beardytop.beatzaddik.domain
 object AppDisclaimer {
     const val TITLE = "Disclaimer"
 
+    /** Embedded Mitz Mode checklist title (splash, onboarding, About). */
+    const val EMBEDDED_APP_TITLE = "the Daily Mitzvot Checklist"
+
     /** Headline shown above the disclaimer body. */
     const val WELCOME_HEADLINE = "A companion for your day"
 

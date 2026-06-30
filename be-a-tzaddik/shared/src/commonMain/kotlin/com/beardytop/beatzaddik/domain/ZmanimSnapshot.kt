@@ -45,7 +45,7 @@ data class ItemZmanStatus(
     val windowEndMillis: Long? = null,
     /** Short label for UI, e.g. "dawn", "nightfall", "sunrise". */
     val availableAtLabel: String? = null,
-    /** Template for collapsed-row countdown, e.g. "Available in {countdown}{at}". */
+    /** Template for collapsed-row availability, e.g. "Available at {time}{at}". */
     val collapsedSummaryTemplate: String? = null,
     val collapsedSummaryArgs: Map<String, String> = emptyMap(),
 )

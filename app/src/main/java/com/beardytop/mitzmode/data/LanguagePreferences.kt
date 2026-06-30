@@ -2,6 +2,10 @@ package com.beardytop.mitzmode.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
+import android.app.LocaleManager
+import android.os.LocaleList
+import androidx.core.os.LocaleListCompat
 import javax.inject.Inject
 import javax.inject.Singleton
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -22,21 +26,104 @@ data class LanguageInfo(
 class LanguagePreferencesManager @Inject constructor(
     @ApplicationContext private val context: Context
 ) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("language_prefs", Context.MODE_PRIVATE)
-    
-    private val _currentLanguage = MutableStateFlow(getCurrentLanguage())
+    private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+    init {
+        ensureInitialLanguageFromPhoneSettings()
+    }
+
+    private val _currentLanguage = MutableStateFlow(readStoredLanguage())
     val currentLanguage: StateFlow<String> = _currentLanguage.asStateFlow()
-    
-    private val _translationEnabled = MutableStateFlow(isTranslationEnabled())
+
+    private val _translationEnabled = MutableStateFlow(readTranslationEnabled())
     val translationEnabled: StateFlow<Boolean> = _translationEnabled.asStateFlow()
-    
-    fun getCurrentLanguage(): String {
+
+    fun getCurrentLanguage(): String = readStoredLanguage()
+
+    private fun readStoredLanguage(): String {
         return try {
-            prefs.getString("current_language", "en") ?: "en"
+            prefs.getString(KEY_CURRENT_LANGUAGE, "en") ?: "en"
         } catch (e: Exception) {
             android.util.Log.e("LanguagePreferences", "Error getting current language", e)
             "en"
         }
+    }
+
+    private fun readTranslationEnabled(): Boolean {
+        return try {
+            prefs.getBoolean(KEY_TRANSLATION_ENABLED, false)
+        } catch (e: Exception) {
+            android.util.Log.e("LanguagePreferences", "Error checking translation enabled", e)
+            false
+        }
+    }
+
+    /**
+     * On first install, match the phone's **system language** list (Settings → Languages),
+     * not country/region. Only auto-selects bundled offline languages (he/es/fr/ru).
+     */
+    private fun ensureInitialLanguageFromPhoneSettings() {
+        if (prefs.getBoolean(KEY_LANGUAGE_INITIALIZED, false)) return
+        if (prefs.contains(KEY_CURRENT_LANGUAGE)) {
+            prefs.edit().putBoolean(KEY_LANGUAGE_INITIALIZED, true).commit()
+            return
+        }
+
+        val language = resolveLanguageFromPhoneSettings()
+        try {
+            prefs.edit()
+                .putString(KEY_CURRENT_LANGUAGE, language)
+                .putBoolean(KEY_TRANSLATION_ENABLED, language != "en")
+                .putBoolean(KEY_LANGUAGE_INITIALIZED, true)
+                .commit()
+        } catch (e: Exception) {
+            android.util.Log.e("LanguagePreferences", "Error saving initial language from device", e)
+        }
+    }
+
+    private fun resolveLanguageFromPhoneSettings(): String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            resolveLanguageFromLocaleList(
+                context.getSystemService(LocaleManager::class.java).applicationLocales,
+            )?.let { return it }
+        }
+        return resolveLanguageFromLocaleListCompat(LocaleListCompat.getDefault()) ?: "en"
+    }
+
+    private fun resolveLanguageFromLocaleList(localeList: LocaleList): String? {
+        for (i in 0 until localeList.size()) {
+            matchBundledLanguage(localeList[i].language)?.let { return it }
+            if (localeList[i].language.equals("en", ignoreCase = true)) return "en"
+        }
+        return null
+    }
+
+    private fun resolveLanguageFromLocaleListCompat(localeList: LocaleListCompat): String? {
+        for (i in 0 until localeList.size()) {
+            matchBundledLanguage(localeList[i]?.language)?.let { return it }
+            if (localeList[i]?.language.equals("en", ignoreCase = true)) return "en"
+        }
+        return null
+    }
+
+    /** Maps device language tag to an offline bundled app language, ignoring country/region. */
+    private fun matchBundledLanguage(deviceLanguage: String?): String? {
+        if (deviceLanguage.isNullOrBlank()) return null
+        val language = deviceLanguage.lowercase().substringBefore('-').substringBefore('_')
+        return when (language) {
+            "he", "iw" -> "he" // "iw" = legacy Hebrew code on some Android builds
+            "es" -> "es"
+            "fr" -> "fr"
+            "ru" -> "ru"
+            else -> null
+        }
+    }
+
+    private companion object {
+        private const val PREFS_NAME = "language_prefs"
+        private const val KEY_CURRENT_LANGUAGE = "current_language"
+        private const val KEY_TRANSLATION_ENABLED = "translation_enabled"
+        private const val KEY_LANGUAGE_INITIALIZED = "language_initialized_from_device"
     }
     
     fun setCurrentLanguage(languageCode: String) {
@@ -50,9 +137,9 @@ class LanguagePreferencesManager @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val editor = prefs.edit()
-                    .putString("current_language", languageCode)
+                    .putString(KEY_CURRENT_LANGUAGE, languageCode)
                 if (languageCode != "en") {
-                    editor.putBoolean("translation_enabled", true)
+                    editor.putBoolean(KEY_TRANSLATION_ENABLED, true)
                 }
                 val success = editor.commit()
                     
@@ -65,14 +152,7 @@ class LanguagePreferencesManager @Inject constructor(
         }
     }
     
-    fun isTranslationEnabled(): Boolean {
-        return try {
-            prefs.getBoolean("translation_enabled", false)
-        } catch (e: Exception) {
-            android.util.Log.e("LanguagePreferences", "Error checking translation enabled", e)
-            false
-        }
-    }
+    fun isTranslationEnabled(): Boolean = readTranslationEnabled()
     
     fun setTranslationEnabled(enabled: Boolean) {
         // Update StateFlow immediately
@@ -82,7 +162,7 @@ class LanguagePreferencesManager @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val success = prefs.edit()
-                    .putBoolean("translation_enabled", enabled)
+                    .putBoolean(KEY_TRANSLATION_ENABLED, enabled)
                     .commit()
                     
                 if (!success) {

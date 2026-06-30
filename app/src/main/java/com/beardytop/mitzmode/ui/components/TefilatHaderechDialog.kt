@@ -29,8 +29,8 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
     val translationViewModel: TranslationViewModel =
         LocalTranslationViewModel.current ?: hiltViewModel()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val isTranslationActive = translationEnabled && currentLanguage != "en"
+    /** Hebrew liturgy is already Hebrew — hide translation toggle only for Hebrew UI. */
+    val showLiturgyTranslation = currentLanguage != "he"
 
     var showEnglish by remember { mutableStateOf(false) }
     val sections = TefilatHaderechData.sections
@@ -83,27 +83,43 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
                     )
                 }
 
-                // Controls for English toggle and font size
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    TextButton(onClick = { showEnglish = !showEnglish }) {
-                        TranslatableText(
-                            if (showEnglish) {
-                                if (isTranslationActive) "Hide translation" else "Hide English"
-                            } else {
-                                if (isTranslationActive) "Show translation" else "Show English"
-                            }
-                        )
-                    }
-                    
+                if (showLiturgyTranslation) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextButton(onClick = { showEnglish = !showEnglish }) {
+                            TranslatableText(
+                                if (showEnglish) "Hide translation" else "Show translation"
+                            )
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            IconButton(
+                                onClick = { fontScale = (fontScale - 0.2f).coerceIn(0.5f, 3f) }
+                            ) {
+                                Text("A-", style = MaterialTheme.typography.titleMedium)
+                            }
+                            IconButton(
+                                onClick = { fontScale = (fontScale + 0.2f).coerceIn(0.5f, 3f) }
+                            ) {
+                                Text("A+", style = MaterialTheme.typography.titleMedium)
+                            }
+                        }
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         IconButton(
                             onClick = { fontScale = (fontScale - 0.2f).coerceIn(0.5f, 3f) }
@@ -139,8 +155,8 @@ fun TefilatHaderechDialog(onDismiss: () -> Unit) {
                                 modifier = Modifier.fillMaxWidth()
                             )
 
-                            if (showEnglish && section.english != null) {
-                                TranslatableText(
+                            if (showEnglish && showLiturgyTranslation && section.english != null) {
+                                LiturgyTranslationText(
                                     text = section.english,
                                     style = MaterialTheme.typography.bodyMedium.copy(
                                         fontSize = MaterialTheme.typography.bodyMedium.fontSize * fontScale

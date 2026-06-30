@@ -46,6 +46,8 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beardytop.beatzaddik.domain.EffectiveNusach
+import com.beardytop.beatzaddik.domain.OmerCountText
 import com.beardytop.beatzaddik.domain.ParshaData
 import com.beardytop.beatzaddik.domain.ChecklistZmanEvaluator
 import com.beardytop.beatzaddik.domain.ItemZmanAvailability
@@ -64,6 +66,8 @@ import kotlinx.datetime.Clock
 @Composable
 fun HolyLightChecklistRow(
     item: ResolvedChecklistItem,
+    timezoneId: String,
+    effectiveNusach: EffectiveNusach,
     onCheckedChange: (Boolean) -> Unit,
     onInfoClick: () -> Unit,
     onHolyFlash: () -> Unit = {},
@@ -77,6 +81,8 @@ fun HolyLightChecklistRow(
     if (isZmanTracked) {
         CollapsedZmanChecklistRow(
             item = item,
+            timezoneId = timezoneId,
+            effectiveNusach = effectiveNusach,
             onCheckedChange = onCheckedChange,
             onInfoClick = onInfoClick,
             onHolyFlash = onHolyFlash,
@@ -86,6 +92,7 @@ fun HolyLightChecklistRow(
     } else {
         ActiveChecklistRow(
             item = item,
+            effectiveNusach = effectiveNusach,
             onCheckedChange = onCheckedChange,
             onInfoClick = onInfoClick,
             onHolyFlash = onHolyFlash,
@@ -100,6 +107,8 @@ fun HolyLightChecklistRow(
 @Composable
 private fun CollapsedZmanChecklistRow(
     item: ResolvedChecklistItem,
+    timezoneId: String,
+    effectiveNusach: EffectiveNusach,
     onCheckedChange: (Boolean) -> Unit,
     onInfoClick: () -> Unit,
     onHolyFlash: () -> Unit,
@@ -108,6 +117,7 @@ private fun CollapsedZmanChecklistRow(
 ) {
     var expanded by remember(item.def.id, item.zmanAvailability) { mutableStateOf(false) }
     var nowMillis by remember { mutableLongStateOf(Clock.System.now().toEpochMilliseconds()) }
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
 
     LaunchedEffect(item.zmanWindowStartMillis, item.zmanAvailability) {
         while (true) {
@@ -122,6 +132,8 @@ private fun CollapsedZmanChecklistRow(
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
             atLabel = item.zmanAvailableAtLabel,
+            timezoneId = timezoneId,
+            languageCode = languageCode,
         )?.first
     val collapsedArgs = item.zmanCollapsedArgs.ifEmpty {
         ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
@@ -129,6 +141,8 @@ private fun CollapsedZmanChecklistRow(
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
             atLabel = item.zmanAvailableAtLabel,
+            timezoneId = timezoneId,
+            languageCode = languageCode,
         )?.second.orEmpty()
     }
     val collapsedSummary = if (collapsedTemplate != null) {
@@ -138,7 +152,9 @@ private fun CollapsedZmanChecklistRow(
             availability = item.zmanAvailability,
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
-            atLabel = item.zmanAvailableAtLabel
+            atLabel = item.zmanAvailableAtLabel,
+            timezoneId = timezoneId,
+            languageCode = languageCode,
         )?.let { rememberAppTranslatedText(it) }
     }
 
@@ -169,7 +185,14 @@ private fun CollapsedZmanChecklistRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    val translatedBase = rememberAppTranslatedText(item.titleTranslationKey)
+                    val omerDay = OmerCountText.dayFromCountTitle(item.titleTranslationKey)
+                    val translatedBase = if (
+                        omerDay != null && (languageCode == "he" || languageCode == "yi")
+                    ) {
+                        OmerCountText.localizedBuildTitle(omerDay, languageCode, effectiveNusach)
+                    } else {
+                        rememberAppTranslatedText(item.titleTranslationKey)
+                    }
                     val collapsedTitle = if (item.displayTitle.startsWith(item.titleTranslationKey)) {
                         translatedBase + item.displayTitle.substring(item.titleTranslationKey.length)
                     } else translatedBase
@@ -215,6 +238,7 @@ private fun CollapsedZmanChecklistRow(
         ) {
             ActiveChecklistRow(
                 item = item,
+                effectiveNusach = effectiveNusach,
                 onCheckedChange = onCheckedChange,
                 onInfoClick = onInfoClick,
                 onHolyFlash = onHolyFlash,
@@ -230,6 +254,7 @@ private fun CollapsedZmanChecklistRow(
 @Composable
 private fun ActiveChecklistRow(
     item: ResolvedChecklistItem,
+    effectiveNusach: EffectiveNusach,
     onCheckedChange: (Boolean) -> Unit,
     onInfoClick: () -> Unit,
     onHolyFlash: () -> Unit,
@@ -326,6 +351,7 @@ private fun ActiveChecklistRow(
                 ChecklistItemTitle(
                     rawTitle = item.displayTitle,
                     translationKey = item.titleTranslationKey,
+                    effectiveNusach = effectiveNusach,
                     checked = item.checked,
                     zmanMuted = zmanMuted,
                 )
@@ -398,6 +424,7 @@ private fun ActiveChecklistRow(
 private fun ChecklistItemTitle(
     rawTitle: String,
     translationKey: String,
+    effectiveNusach: EffectiveNusach,
     checked: Boolean,
     zmanMuted: Boolean,
 ) {
@@ -408,8 +435,11 @@ private fun ChecklistItemTitle(
         rawTitle.substring(translationKey.length)
     } else ""
 
-    LaunchedEffect(translationKey, dynamicSuffix, appTranslation.enabled, appTranslation.languageCode) {
+    LaunchedEffect(translationKey, dynamicSuffix, effectiveNusach, appTranslation.enabled, appTranslation.languageCode) {
+        val omerDay = OmerCountText.dayFromCountTitle(translationKey)
         val translatedKey = when {
+            omerDay != null && appTranslation.languageCode in setOf("he", "yi") ->
+                OmerCountText.localizedBuildTitle(omerDay, appTranslation.languageCode, effectiveNusach)
             !appTranslation.enabled || appTranslation.languageCode == "en" -> translationKey
             shouldSkipMachineTranslation(translationKey, appTranslation.languageCode) -> translationKey
             else -> appTranslation.translator.translate(translationKey)

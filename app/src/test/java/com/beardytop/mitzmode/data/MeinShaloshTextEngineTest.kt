@@ -61,4 +61,23 @@ class MeinShaloshTextEngineTest {
         assertTrue(text.contains("יַעֲלֶה וְיָבֹא"))
         assertTrue(text.contains("רֹאשׁ חֹדֶשׁ"))
     }
+
+    @Test
+    fun pesach_insertsYaalehVeyavo() {
+        val text = MeinShaloshTextEngine.build(
+            MeinShaloshSelection(hasWine = true, isPesach = true),
+            MeinShaloshLanguage.HEBREW
+        )
+        assertTrue(text.contains("יַעֲלֶה וְיָבֹא"))
+        assertTrue(text.contains("חַג הַמַּצּוֹת"))
+    }
+
+    @Test
+    fun sukkot_insertsYaalehVeyavo() {
+        val text = MeinShaloshTextEngine.build(
+            MeinShaloshSelection(hasWine = true, isSukkot = true),
+            MeinShaloshLanguage.ENGLISH
+        )
+        assertTrue(text.contains("Festival of Sukkot"))
+    }
 }

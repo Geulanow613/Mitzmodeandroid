@@ -2,159 +2,101 @@ package com.beardytop.beatzaddik.domain
 
 object PublicFastDayText {
 
+    // ── Catalog template keys for bundled translation ────────────────────────────
+
+    private const val FAST_DAY_SUBTITLE_TEMPLATE = "{name} · {timing}{endSuffix}"
+    private const val APPROX_TIME_SUFFIX = " (approx. ${'$'}time)"
+    private const val ALOT_LINE_WITH_TIME_TEMPLATE =
+        " (approx. ${'$'}time — enable location for your exact zman)"
+    private const val ALOT_LINE_NO_LOCATION = " — enable location in Settings for your dawn time"
+    private const val TZET_TOMORROW_TIME_TEMPLATE = "approx. ${'$'}time tomorrow night"
+    private const val TZET_TOMORROW_FALLBACK = "nightfall tomorrow night"
+    private const val TZET_LINE_TEMPLATE = " (approx. ${'$'}time tonight)"
+
+    private const val TENTH_OF_TEVES_FRIDAY_NOTE =
+        "\n\n10 Tevet on Friday: This is the only public fast that is never postponed. If it falls on Friday, you still fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
+    private const val FAST_OF_ESTHER_FRIDAY_NOTE =
+        "\n\nFast of Esther on Friday: Many communities still fast until shortly before Shabbat; break in time for Shabbat preparations — ask your rav for local practice."
+    private const val SHABBAT_EREV_TISHA_BEAV_NOTE = """
+
+Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
+• Shabbat is celebrated fully until sunset — no mourning restrictions on Shabbat itself.
+• After Shabbat ends (Havdalah), change into non-leather shoes and begin the fast and mourning practices.
+• The seudah hamafseket is not eaten on Shabbat — it is observed after Shabbat ends, before the fast begins."""
+
+    private fun approxTimeSuffix(time: String): String =
+        ExplainerTemplateFill.fill(APPROX_TIME_SUFFIX, mapOf("time" to time))
+
+    private fun alotLine(alotTime: String?): String =
+        alotTime?.let {
+            ExplainerTemplateFill.fill(ALOT_LINE_WITH_TIME_TEMPLATE, mapOf("time" to it))
+        } ?: ALOT_LINE_NO_LOCATION
+
+    private const val EREV_MINOR_FAST_PREP_TITLE_TEMPLATE =
+        "Prepare for tomorrow's fast — ${'$'}fastName"
+
+    fun erevMinorFastPrepTitleTemplate(): String = EREV_MINOR_FAST_PREP_TITLE_TEMPLATE
+
     fun erevMinorFastPrepTitle(fastName: String): String =
-        "Prepare for tomorrow's fast — $fastName"
+        ExplainerTemplateFill.fill(erevMinorFastPrepTitleTemplate(), mapOf("fastName" to fastName))
 
     fun erevMinorFastPrepExplanation(
         cal: DayInfo,
         tomorrowFastIdx: Int,
         profile: UserProfile,
-    ): String {
-        val fastName = PublicFastDayRules.displayName(tomorrowFastIdx)
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val alotTomorrow = cal.zmanim?.let { z ->
-            // Prep is for tomorrow's dawn — approximate with today's alot label as planning hint.
-            ZmanimFormatter.formatTime(z.alotHaShacharMillis, tz)
-        }
-        val fridayNote = when (tomorrowFastIdx) {
-            HebrewCalendarEngine.TENTH_OF_TEVES ->
-                "\n\n10 Tevet on Friday: This is the only public fast that is never postponed. If it falls on Friday, you still fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
-            HebrewCalendarEngine.FAST_OF_ESTHER ->
-                "\n\nFast of Esther on Friday: Many communities still fast until shortly before Shabbat; break in time for Shabbat preparations — ask your rav for local practice."
-            else -> ""
-        }
-        return """
-Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).
-
-If you plan to eat before the fast begins:
-• Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
-• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).
-• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { " (approx. $it — enable location for your exact zman)" } ?: " — enable location in Settings for your dawn time"}.
-
-Practical prep tonight:
-• Hydrate well and eat a balanced dinner.
-• Plan a lighter morning if you will not eat before dawn.
-• Know your synagogue schedule if you plan to attend special prayers.
-
-Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote
-        """.trim()
-    }
+    ): String = ExplainerTemplateFill.fill(
+        erevMinorFastPrepTemplate(),
+        erevMinorFastPrepArgs(cal, tomorrowFastIdx, profile),
+    )
 
     fun erevYomKippurTitle(): String = "Erev Yom Kippur — eat and prepare"
 
-    fun erevYomKippurExplanation(cal: DayInfo, profile: UserProfile): String {
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
-        val tzeitTomorrow = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)?.let {
-            "approx. $it tomorrow night"
-        } ?: "nightfall tomorrow night"
-        return """
-Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.
-
-Mitzvah to eat today:
-• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).
-• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).
-• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).
-
-Before the fast begins:
-• Halachic fast time: Yom Kippur runs from sunset tonight${sunset?.let { " (approx. $it)" } ?: ""} until nightfall tomorrow ($tzeitTomorrow).
-• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we "add from the weekday onto the holy day" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.
-• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.
-• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.
-• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).
-
-Motzei Yom Kippur meal:
-• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.
-• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.
-
-Who fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.
-        """.trim()
-    }
+    fun erevYomKippurExplanation(cal: DayInfo, profile: UserProfile): String =
+        ExplainerTemplateFill.fill(erevYomKippurTemplate(), erevYomKippurArgs(cal, profile))
 
     fun erevTishaBeavTitle(): String = "Erev Tisha B'Av — restrictions and seudah hamafseket"
 
-    fun erevTishaBeavExplanation(cal: DayInfo, profile: UserProfile): String {
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
-        val shabbatNote = if (cal.isShabbat) {
-            """
-Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
-• Shabbat is celebrated fully until sunset — no mourning restrictions on Shabbat itself.
-• After Shabbat ends (Havdalah), change into non-leather shoes and begin the fast and mourning practices.
-• The seudah hamafseket is not eaten on Shabbat — it is observed after Shabbat ends, before the fast begins.
-            """.trim()
-        } else {
-            ""
-        }
-        return """
-Erev Tisha B'Av prepares us for mourning the destruction of the Temple.
+    fun erevTishaBeavExplanation(cal: DayInfo, profile: UserProfile): String =
+        ExplainerTemplateFill.fill(erevTishaBeavTemplate(), erevTishaBeavArgs(cal, profile))
 
-When the fast begins:
-• Tisha B'Av starts at sunset tonight${sunset?.let { " (approx. $it)" } ?: ""} and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.
+    private const val FAST_DAY_TITLE_TEMPLATE = "Fast — ${'$'}name"
 
-Restrictions from chatzos (halachic midday) today:
-• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).
-• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.
-
-Seudah hamafseket — the final meal before the fast:
-• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).
-• Do not eat two cooked dishes together; do not recline; do not greet others with "hello."
-• Finish before sunset; afterward, only water is permitted until the fast begins.
-• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.
-
-After sunset tonight until nightfall tomorrow:
-• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
-• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.$shabbatNote
-
-Ask your rav for details if you are ill, pregnant, or nursing.
-        """.trim()
-    }
+    fun fastDayTitleTemplate(): String = FAST_DAY_TITLE_TEMPLATE
 
     fun fastDayTitle(fastIdx: Int): String =
-        "Fast — ${PublicFastDayRules.displayName(fastIdx)}"
+        ExplainerTemplateFill.fill(
+            fastDayTitleTemplate(),
+            mapOf("name" to PublicFastDayRules.displayName(fastIdx)),
+        )
 
-    fun fastDaySubtitle(fastIdx: Int, zmanim: ZmanimSnapshot?, timezoneId: String): String {
-        val timing = PublicFastDayRules.fastTimingLabel(fastIdx)
+    fun fastDaySubtitleTemplate(): String = FAST_DAY_SUBTITLE_TEMPLATE
+
+    fun fastDaySubtitleArgs(fastIdx: Int, zmanim: ZmanimSnapshot?, timezoneId: String): Map<String, String> {
         val tz = zmanim?.timezoneId ?: timezoneId
         val end = ZmanimFormatter.formatTime(zmanim?.tzeitMillis, tz)
-        return buildString {
-            append(PublicFastDayRules.displayName(fastIdx))
-            append(" · ")
-            append(timing)
-            end?.let { append(" (ends approx. $it)") }
-        }
+        return mapOf(
+            "name" to PublicFastDayRules.displayName(fastIdx),
+            "timing" to PublicFastDayRules.fastTimingLabel(fastIdx),
+            "endSuffix" to (end?.let { approxTimeSuffix(it) } ?: ""),
+        )
     }
 
-    fun fastDayExplanation(fastIdx: Int, cal: DayInfo, profile: UserProfile): String {
-        val common = commonFastLawsBlock()
-        val specific = when (fastIdx) {
-            HebrewCalendarEngine.FAST_OF_GEDALYAH -> minorFastSpecifics("Fast of Gedaliah", "commemorates the assassination of Gedaliah ben Achikam after the First Temple's destruction.")
-            HebrewCalendarEngine.TENTH_OF_TEVES -> minorFastSpecifics("Fast of 10 Tevet", "marks the beginning of the siege of Jerusalem. Never postponed from Friday.")
-            HebrewCalendarEngine.FAST_OF_ESTHER -> estherFastSpecifics()
-            HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ -> minorFastSpecifics("Fast of 17 Tammuz", "marks the breaching of Jerusalem's walls and the start of the Three Weeks mourning period.")
-            HebrewCalendarEngine.YOM_KIPPUR -> yomKippurFastSpecifics(cal, profile)
-            HebrewCalendarEngine.TISHA_BEAV -> tishaBeavFastSpecifics(cal, profile)
-            else -> ""
-        }
-        return "$specific\n\n$common".trim()
-    }
+    fun fastDaySubtitle(fastIdx: Int, zmanim: ZmanimSnapshot?, timezoneId: String): String =
+        ExplainerTemplateFill.fill(fastDaySubtitleTemplate(), fastDaySubtitleArgs(fastIdx, zmanim, timezoneId))
+
+    fun fastDayExplanation(fastIdx: Int, cal: DayInfo, profile: UserProfile): String =
+        ExplainerTemplateFill.fill(
+            publicFastDayTemplate(fastIdx),
+            publicFastDayArgs(fastIdx, cal, profile),
+        )
 
     fun motzeiYomKippurMealTitle(): String = "Motzei Yom Kippur — break-fast meal"
 
-    fun motzeiYomKippurMealExplanation(cal: DayInfo, profile: UserProfile): String {
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
-        return """
-After Yom Kippur ends at nightfall${tzeit?.let { " (approx. $it tonight)" } ?: ""}, it is a mitzvah to eat a proper meal — not only a quick bite.
-
-What to do:
-• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).
-• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.
-• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.
-
-This item becomes available at nightfall after the fast ends.
-        """.trim()
-    }
+    fun motzeiYomKippurMealExplanation(cal: DayInfo, profile: UserProfile): String =
+        ExplainerTemplateFill.fill(
+            motzeiYomKippurMealTemplate(),
+            motzeiYomKippurMealArgs(cal, profile),
+        )
 
     fun erevMinorFastLinks() = listOf(
         ChecklistLink(
@@ -227,59 +169,231 @@ This item becomes available at nightfall after the fast ends.
         }
     }
 
-    private fun commonFastLawsBlock(): String = """
-Who must fast:
+    /** Catalog keys — must match [tools/_write_seasonal_arg_explainers.py]. */
+    private const val FAST_GEDALIAH_MEANING =
+        "commemorates the assassination of Gedaliah ben Achikam after the First Temple's destruction."
+    private const val FAST_TENTH_TEVES_MEANING =
+        "marks the beginning of the siege of Jerusalem. Never postponed from Friday."
+    private const val FAST_SEVENTEEN_TAMMUZ_MEANING =
+        "marks the breaching of Jerusalem's walls and the start of the Three Weeks mourning period."
+
+    /** Catalog key — must match [tools/_public_fast_template_data.py] COMMON_FAST_LAWS. */
+    private const val COMMON_FAST_LAWS = """Who must fast:
 Jewish adults from bar/bat mitzvah age who are healthy enough to fast. Children are trained gradually — ask your rav. Women who are pregnant, nursing, or recently gave birth, and anyone who is ill, should ask a posek — many eat in measured amounts (shiurim) or are fully exempt.
 
 If you ate by mistake:
 If you forgot and ate or drank unintentionally, you may continue fasting once you remember — the fast remains valid (Shulchan Arukh O.C. 568:1).
 
 If you cannot fast:
-Do not endanger your health. Ask a rav about shiurim (small amounts at intervals), postponing the fast, or exemption. Pikuach nefesh overrides fasting.
-    """.trim()
+Do not endanger your health. Ask a rav about shiurim (small amounts at intervals), postponing the fast, or exemption. Pikuach nefesh overrides fasting."""
 
-    private fun minorFastSpecifics(name: String, meaning: String): String = """
-Today is $name — $meaning
+    private fun commonFastLawsBlock(): String = COMMON_FAST_LAWS
+
+    // ── Template keys for bundled translation ────────────────────────────────────
+
+    private val EREV_MINOR_FAST_TEMPLATE = """
+Tomorrow is ${'$'}fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).
+
+If you plan to eat before the fast begins:
+• Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
+• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).
+• Stop all eating and drinking at alot hashachar${'$'}alotLine.
+
+Practical prep tonight:
+• Hydrate well and eat a balanced dinner.
+• Plan a lighter morning if you will not eat before dawn.
+• Know your synagogue schedule if you plan to attend special prayers.
+
+Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.${'$'}fridayNote
+    """.trimIndent()
+
+    fun erevMinorFastPrepTemplate(): String = EREV_MINOR_FAST_TEMPLATE
+
+    fun erevMinorFastPrepArgs(
+        cal: DayInfo,
+        tomorrowFastIdx: Int,
+        profile: UserProfile,
+    ): Map<String, String> {
+        val fastName = PublicFastDayRules.displayName(tomorrowFastIdx)
+        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        val alotTomorrow = cal.zmanim?.let { z ->
+            ZmanimFormatter.formatTime(z.alotHaShacharMillis, tz)
+        }
+        val alotLine = alotLine(alotTomorrow)
+        val fridayNote = when (tomorrowFastIdx) {
+            HebrewCalendarEngine.TENTH_OF_TEVES -> TENTH_OF_TEVES_FRIDAY_NOTE
+            HebrewCalendarEngine.FAST_OF_ESTHER -> FAST_OF_ESTHER_FRIDAY_NOTE
+            else -> ""
+        }
+        return mapOf(
+            "fastName" to fastName,
+            "alotLine" to alotLine,
+            "fridayNote" to fridayNote,
+        )
+    }
+
+    private val EREV_YOM_KIPPUR_TEMPLATE = """
+Today is Erev Yom Kippur — a unique day of eating before the holiest fast of the year.
+
+Mitzvah to eat today:
+• It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).
+• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).
+• The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).
+
+Before the fast begins:
+• Halachic fast time: Yom Kippur runs from sunset tonight${'$'}sunsetLine until nightfall tomorrow (${'$'}tzeitTomorrow).
+• Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we "add from the weekday onto the holy day" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.
+• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.
+• Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.
+• Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).
+
+Motzei Yom Kippur meal:
+• After the fast ends tomorrow night, it is a mitzvah to eat a proper meal — not only a snack. Many have a festive break-fast.
+• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this post-Yom Kippur meal — eat with joy and intention after davening and Havdalah.
+
+Who fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who are ill, pregnant, nursing, or recently gave birth should ask a rav — often they eat in smaller amounts (shiurim) or are exempt.
+    """.trimIndent()
+
+    fun erevYomKippurTemplate(): String = EREV_YOM_KIPPUR_TEMPLATE
+
+    fun erevYomKippurArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
+        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
+        val tzeitTomorrow = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)?.let {
+            ExplainerTemplateFill.fill(TZET_TOMORROW_TIME_TEMPLATE, mapOf("time" to it))
+        } ?: TZET_TOMORROW_FALLBACK
+        return mapOf(
+            "sunsetLine" to (sunset?.let { approxTimeSuffix(it) } ?: ""),
+            "tzeitTomorrow" to tzeitTomorrow,
+        )
+    }
+
+    private val EREV_TISHA_BEAV_TEMPLATE = """
+Erev Tisha B'Av prepares us for mourning the destruction of the Temple.
+
+When the fast begins:
+• Tisha B'Av starts at sunset tonight${'$'}sunsetLine and continues until nightfall tomorrow night — not dawn to dusk like minor fasts.
+
+Restrictions from chatzos (halachic midday) today:
+• From chatzos onward: do not eat meat or drink wine (some extend other restrictions — follow your minhag).
+• Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.
+
+Seudah hamafseket — the final meal before the fast:
+• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).
+• Do not eat two cooked dishes together; do not recline; do not greet others with "hello."
+• Finish before sunset; afterward, only water is permitted until the fast begins.
+• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.
+
+After sunset tonight until nightfall tomorrow:
+• Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
+• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.${'$'}shabbatNote
+
+Ask your rav for details if you are ill, pregnant, or nursing.
+    """.trimIndent()
+
+    fun erevTishaBeavTemplate(): String = EREV_TISHA_BEAV_TEMPLATE
+
+    fun erevTishaBeavArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
+        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
+        val shabbatNote = if (cal.isShabbat) SHABBAT_EREV_TISHA_BEAV_NOTE else ""
+        return mapOf(
+            "sunsetLine" to (sunset?.let { approxTimeSuffix(it) } ?: ""),
+            "shabbatNote" to shabbatNote,
+        )
+    }
+
+    fun fastDayExplanationTemplate(fastIdx: Int): String = publicFastDayTemplate(fastIdx)
+
+    fun publicFastDayTemplate(fastIdx: Int): String = when (fastIdx) {
+        HebrewCalendarEngine.FAST_OF_GEDALYAH,
+        HebrewCalendarEngine.TENTH_OF_TEVES,
+        HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ -> MINOR_FAST_DAY_TEMPLATE
+        HebrewCalendarEngine.FAST_OF_ESTHER -> ESTHER_FAST_DAY_TEMPLATE
+        HebrewCalendarEngine.YOM_KIPPUR -> YOM_KIPPUR_FAST_DAY_TEMPLATE
+        HebrewCalendarEngine.TISHA_BEAV -> TISHA_FAST_DAY_TEMPLATE
+        else -> ""
+    }
+
+    fun fastDayExplanationArgs(fastIdx: Int, cal: DayInfo, profile: UserProfile): Map<String, String> =
+        publicFastDayArgs(fastIdx, cal, profile)
+
+    fun publicFastDayArgs(fastIdx: Int, cal: DayInfo, profile: UserProfile): Map<String, String> {
+        val common = commonFastLawsBlock()
+        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        val tzeitSuffix = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)?.let {
+            approxTimeSuffix(it)
+        } ?: ""
+        return when (fastIdx) {
+            HebrewCalendarEngine.FAST_OF_GEDALYAH -> mapOf(
+                "name" to PublicFastDayRules.displayName(fastIdx),
+                "meaning" to FAST_GEDALIAH_MEANING,
+                "common" to common,
+            )
+            HebrewCalendarEngine.TENTH_OF_TEVES -> mapOf(
+                "name" to PublicFastDayRules.displayName(fastIdx),
+                "meaning" to FAST_TENTH_TEVES_MEANING,
+                "common" to common,
+            )
+            HebrewCalendarEngine.FAST_OF_ESTHER -> mapOf("common" to common)
+            HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ -> mapOf(
+                "name" to PublicFastDayRules.displayName(fastIdx),
+                "meaning" to FAST_SEVENTEEN_TAMMUZ_MEANING,
+                "common" to common,
+            )
+            HebrewCalendarEngine.YOM_KIPPUR -> mapOf(
+                "tzeitSuffix" to tzeitSuffix,
+                "common" to common,
+            )
+            HebrewCalendarEngine.TISHA_BEAV -> mapOf(
+                "tzeitSuffix" to tzeitSuffix,
+                "common" to common,
+            )
+            else -> emptyMap()
+        }
+    }
+
+    private val MINOR_FAST_DAY_TEMPLATE = """
+Today is ${'$'}name — ${'$'}meaning
 
 Minor fast rules:
 • No eating or drinking from dawn until nightfall.
 • Washing, music, and showering are generally permitted (unlike Tisha B'Av and Yom Kippur).
 • Special selichot and prayers may be recited in synagogue — check your community schedule.
-    """.trim()
 
-    private fun estherFastSpecifics(): String = """
+${'$'}common
+    """.trimIndent()
+
+    private val ESTHER_FAST_DAY_TEMPLATE = """
 Today is the Fast of Esther (Taanit Esther) — commemorating the fasting Esther called before approaching the king (Esther 4:16).
 
 Minor fast rules with Purim context:
 • No eating or drinking from dawn until nightfall.
 • Music, showering for pleasure, and leather shoes are permitted — this is a minor fast, not like Tisha B'Av.
 • Purim mitzvot begin tonight/tomorrow per your calendar (14 Adar, or 15 in walled cities). This fast is the spiritual preparation before the joy of Purim.
-    """.trim()
 
-    private fun yomKippurFastSpecifics(cal: DayInfo, profile: UserProfile): String {
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
-        return """
+${'$'}common
+    """.trimIndent()
+
+    private val YOM_KIPPUR_FAST_DAY_TEMPLATE = """
 Today is Yom Kippur — the Day of Atonement.
 
 The fast:
-• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${tzeit?.let { " (approx. $it)" } ?: ""}.
+• Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${'$'}tzeitSuffix.
 • Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
 • Many wear white; married men who normally wear a kittel do so; tallit is worn all day.
 • The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.
 
 After nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.
-        """.trim()
-    }
 
-    private fun tishaBeavFastSpecifics(cal: DayInfo, profile: UserProfile): String {
-        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
-        return """
+${'$'}common
+    """.trimIndent()
+
+    private val TISHA_FAST_DAY_TEMPLATE = """
 Today is Tisha B'Av — mourning the destruction of both Temples and our exile.
 
 The fast:
-• Began at sunset last night and ends at nightfall tonight${tzeit?.let { " (approx. $it)" } ?: ""} — not a dawn-to-dusk fast.
+• Began at sunset last night and ends at nightfall tonight${'$'}tzeitSuffix — not a dawn-to-dusk fast.
 
 What is forbidden today (in addition to eating and drinking):
 • Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.
@@ -291,6 +405,30 @@ What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
 
 After nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.
-        """.trim()
+
+${'$'}common
+    """.trimIndent()
+
+    private val MOTZEI_YOM_KIPPUR_MEAL_TEMPLATE = """
+After Yom Kippur ends at nightfall${'$'}tzeitLine, it is a mitzvah to eat a proper meal — not only a quick bite.
+
+What to do:
+• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).
+• Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.
+• Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.
+
+This item becomes available at nightfall after the fast ends.
+    """.trimIndent()
+
+    fun motzeiYomKippurMealTemplate(): String = MOTZEI_YOM_KIPPUR_MEAL_TEMPLATE
+
+    fun motzeiYomKippurMealArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
+        val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
+        return mapOf(
+            "tzeitLine" to (tzeit?.let {
+                ExplainerTemplateFill.fill(TZET_LINE_TEMPLATE, mapOf("time" to it))
+            } ?: ""),
+        )
     }
 }

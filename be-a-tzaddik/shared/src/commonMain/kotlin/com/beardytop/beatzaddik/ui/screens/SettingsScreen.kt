@@ -53,6 +53,7 @@ import com.beardytop.beatzaddik.ui.ManualCityListRow
 import com.beardytop.beatzaddik.ui.cityDisplayLabel
 import com.beardytop.beatzaddik.ui.filterManualCities
 import com.beardytop.beatzaddik.ui.profileMatchesManualCity
+import com.beardytop.beatzaddik.ui.rememberCityDisplayLabel
 import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.domain.KashrutWaitTimes
@@ -63,6 +64,7 @@ import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
 import com.beardytop.beatzaddik.ui.components.TextScaleControl
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.LocalLanguageSelector
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
@@ -80,6 +82,7 @@ fun SettingsScreen(
     var kashrutScrollY by remember { mutableIntStateOf(0) }
     var showCityPicker by remember { mutableStateOf(false) }
     var cityQuery by remember { mutableStateOf("") }
+    val languageCode = LocalAppTranslation.current.languageCode
 
     LaunchedEffect(scrollToKashrut) {
         if (scrollToKashrut) {
@@ -193,7 +196,7 @@ fun SettingsScreen(
                     profile.useGps && profile.locationLabel != null ->
                         mapOf("place" to profile.locationLabel!!)
                     selectedCity != null ->
-                        mapOf("place" to cityDisplayLabel(selectedCity))
+                        mapOf("place" to cityDisplayLabel(selectedCity, languageCode))
                     profile.locationLabel != null ->
                         mapOf("place" to profile.locationLabel!!)
                     else -> emptyMap()
@@ -229,7 +232,7 @@ fun SettingsScreen(
                 singleLine = true
             )
             Spacer(Modifier.height(8.dp))
-            val inlineCities = remember(cityQuery) { filterManualCities(cityQuery) }
+            val inlineCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -240,7 +243,7 @@ fun SettingsScreen(
                 inlineCities.forEach { city ->
                     val selected = profileMatchesManualCity(profile.manualCityId, city)
                     ManualCityListRow(
-                        label = cityDisplayLabel(city),
+                        label = rememberCityDisplayLabel(city),
                         selected = selected,
                         onClick = {
                             viewModel.setManualCity(city.id)
@@ -293,7 +296,7 @@ fun SettingsScreen(
         }
 
         if (showCityPicker) {
-            val filteredCities = remember(cityQuery) { filterManualCities(cityQuery) }
+            val filteredCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
             ParchmentDialog(
                 onDismiss = { showCityPicker = false },
                 title = "Choose city for zmanim",
@@ -321,7 +324,7 @@ fun SettingsScreen(
                 ) {
                     filteredCities.forEach { city ->
                         ManualCityListRow(
-                            label = cityDisplayLabel(city),
+                            label = rememberCityDisplayLabel(city),
                             selected = profileMatchesManualCity(profile.manualCityId, city),
                             onClick = {
                                 viewModel.setManualCity(city.id)

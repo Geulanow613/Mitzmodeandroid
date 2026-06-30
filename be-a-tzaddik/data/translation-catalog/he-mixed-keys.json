@@ -1,1 +1,137 @@
-[]
+[
+  {
+    "key": "{weekday}, {month} {day}, {year}",
+    "ratio": 0.95,
+    "he": "{weekday}, {day} ב{month} {year}"
+  },
+  {
+    "key": "{day} {month} {year}",
+    "ratio": 0.923,
+    "he": "{day} ב{month} {year}"
+  },
+  {
+    "key": "Parsha: {parsha}",
+    "ratio": 0.6,
+    "he": "פרשת {parsha}"
+  },
+  {
+    "key": " — Parshat {parsha}",
+    "ratio": 0.6,
+    "he": " — פרשת {parsha}"
+  },
+  {
+    "key": "Available in {countdown}{at}",
+    "ratio": 0.579,
+    "he": "זמין בעוד {countdown}{at}"
+  },
+  {
+    "key": "{subtitle} — begins at dawn ({time}).",
+    "ratio": 0.571,
+    "he": "{subtitle} — מתחיל בשחר ({time})."
+  },
+  {
+    "key": "Available at {time}{at}",
+    "ratio": 0.545,
+    "he": "זמין ב-{time}{at}"
+  },
+  {
+    "key": "{label} is available from dawn ({startTime}). Ideal at sunrise ({sunriseTime}) or later.",
+    "ratio": 0.49,
+    "he": "{label} זמין משחר ({startTime}). מומלץ בזריחה ({sunriseTime}) או אחר כך."
+  },
+  {
+    "key": "Current location: {place} (GPS)",
+    "ratio": 0.444,
+    "he": "מיקום נוכחי: {place} (GPS)"
+  },
+  {
+    "key": "Today's {label} window ended {time}.",
+    "ratio": 0.391,
+    "he": "חלון {label} של היום נסגר {time}."
+  },
+  {
+    "key": "{label} appears {time} — Mincha Gedolah.",
+    "ratio": 0.391,
+    "he": "{label} מופיע {time} — מנחה גדולה."
+  },
+  {
+    "key": "in {count} days",
+    "ratio": 0.385,
+    "he": "בעוד {count} ימים"
+  },
+  {
+    "key": "Musaf window has closed (sunset).{shabbatNote}",
+    "ratio": 0.379,
+    "he": "חלון המוסף נסגר (שקיעה).{shabbatNote}"
+  },
+  {
+    "key": "Many in Chabad count after Maariv (Tehillat Hashem).",
+    "ratio": 0.378,
+    "he": "רבים בחב\"ד סופרים אחרי מעריב (Tehillat Hashem)."
+  },
+  {
+    "key": "Currently using: {nusach}",
+    "ratio": 0.375,
+    "he": "בשימוש כרגע: {nusach}"
+  },
+  {
+    "key": "{label} is available from dawn ({startTime}). Ideal from sunrise or later.",
+    "ratio": 0.368,
+    "he": "{label} זמין משחר ({startTime}). מומלץ מזריחה ואילך."
+  },
+  {
+    "key": "{label} — when you are ready for sleep ({time}).",
+    "ratio": 0.36,
+    "he": "{label} — כשאתם מוכנים לשינה ({time})."
+  },
+  {
+    "key": "Performed by G.E.U.L.A © 2026",
+    "ratio": 0.357,
+    "he": "בוצע על ידי G.E.U.L.A © 2026"
+  },
+  {
+    "key": "{subtitle} — fast begins at sunset.",
+    "ratio": 0.348,
+    "he": "{subtitle} — הצום מתחיל בשקיעה."
+  },
+  {
+    "key": "Current location: {place}",
+    "ratio": 0.333,
+    "he": "מיקום נוכחי: {place}"
+  },
+  {
+    "key": "Online languages use Google Translate. Quality varies.",
+    "ratio": 0.333,
+    "he": "שפות מקוונות משתמשות ב-Google Translate. האיכות משתנה."
+  },
+  {
+    "key": "Musaf ({label}) — after the morning Amidah, from {time}.",
+    "ratio": 0.321,
+    "he": "מוסף ({label}) — אחרי עמידת שחרית, מ-{time}."
+  },
+  {
+    "key": "Maariv — available {time}.",
+    "ratio": 0.308,
+    "he": "מעריב — זמין {time}."
+  },
+  {
+    "key": "Afternoon prayer (Mincha) {when}",
+    "ratio": 0.308,
+    "he": "תפילת מנחה {when}"
+  },
+  {
+    "key": "Current location: {place} (city)",
+    "ratio": 0.278,
+    "he": "מיקום נוכחי: {place} (עיר)"
+  },
+  {
+    "key": "{timing} Window closes at the full moon.",
+    "ratio": 0.261,
+    "he": "{timing} החלון נסגר בירח המלא."
+  },
+  {
+    "key": "{label} is part of the morning Shacharit service, from dawn ({time}).",
+    "ratio": 0.257,
+    "he": "{label} הוא חלק מתפילת שחרית בבוקר, משחר ({time})."
+  }
+]

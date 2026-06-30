@@ -77,7 +77,7 @@ fun BeATzaddikApp(
     onRequestClose: () -> Unit = {},
     returnToMainIcon: (@Composable () -> Unit)? = null
 ) {
-    val embeddedTitle = "the Daily Mitzvot Checklist"
+    val embeddedTitle = AppDisclaimer.EMBEDDED_APP_TITLE
     val profile by viewModel.profile.collectAsState()
     val prefsLoaded by viewModel.prefsLoaded.collectAsState()
     val showDisclaimer by viewModel.showDisclaimerDialog.collectAsState()
@@ -277,7 +277,7 @@ private fun MainShell(
     val settingsTabIndex = if (embeddedMode) 3 else 2
     val aboutTabIndex = if (embeddedMode) 4 else 3
     val returnMainTabIndex = if (embeddedMode) 2 else -1
-    val embeddedTitle = "the Daily Mitzvot Checklist"
+    val embeddedTitle = AppDisclaimer.EMBEDDED_APP_TITLE
     val appTitle = if (embeddedMode) embeddedTitle else "Be a Tzaddik"
 
     LaunchedEffect(Unit) {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="supported_locales">
-        <item>en</item>
-    </string-array>
-</resources> 
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="he" />
+    <locale android:name="es" />
+    <locale android:name="fr" />
+    <locale android:name="ru" />
+</locale-config>

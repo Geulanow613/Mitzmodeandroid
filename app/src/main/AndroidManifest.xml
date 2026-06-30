@@ -26,7 +26,8 @@
         android:theme="@style/Theme.MitzMode"
         android:usesCleartextTraffic="false"
         android:enableOnBackInvokedCallback="true"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:localeConfig="@xml/locales">
         
         <meta-data
             android:name="io.sentry.auto-init"

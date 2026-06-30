@@ -36,8 +36,8 @@ fun BrachotDialog(
     val translationViewModel: TranslationViewModel =
         LocalTranslationViewModel.current ?: hiltViewModel()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val isTranslationActive = translationEnabled && currentLanguage != "en"
+    /** Hebrew liturgy is already Hebrew — hide translation toggle only for Hebrew UI. */
+    val showLiturgyTranslation = currentLanguage != "he"
 
     var fontScale by remember { mutableStateOf(1f) }
     var showEnglish by remember { mutableStateOf(false) }
@@ -123,22 +123,24 @@ fun BrachotDialog(
         confirmButton = { GoldButton(onClick = onDismiss, text = "Close") }
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TranslatableText(
-                    text = if (isTranslationActive) "Show translation" else "English translation",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = DialogTextPrimary
-                )
-                Switch(
-                    checked = showEnglish,
-                    onCheckedChange = { showEnglish = it }
-                )
+            if (showLiturgyTranslation) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    TranslatableText(
+                        text = "Show translation",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = DialogTextPrimary
+                    )
+                    Switch(
+                        checked = showEnglish,
+                        onCheckedChange = { showEnglish = it }
+                    )
+                }
             }
 
             LazyColumn(
@@ -150,8 +152,12 @@ fun BrachotDialog(
                 item(key = "mein_shalosh") {
                     AlHaMichyaBlessingCard(
                         fontScale = fontScale,
-                        showEnglish = showEnglish,
-                        onShowEnglishChange = { showEnglish = it }
+                        showEnglish = if (showLiturgyTranslation) showEnglish else false,
+                        onShowEnglishChange = if (showLiturgyTranslation) {
+                            { showEnglish = it }
+                        } else {
+                            null
+                        }
                     )
                     HorizontalDivider(
                         modifier = Modifier.padding(vertical = 12.dp),
@@ -163,7 +169,7 @@ fun BrachotDialog(
                 items(brachot, key = { it.name }) { bracha ->
                     BrachaListItem(
                         bracha = bracha,
-                        showEnglish = showEnglish,
+                        showEnglish = showEnglish && showLiturgyTranslation,
                         scaledFontSize = scaledFontSize
                     )
                 }
@@ -196,7 +202,7 @@ private fun BrachaListItem(
         )
 
         if (showEnglish) {
-            TranslatableText(
+            LiturgyTranslationText(
                 text = bracha.english.text,
                 style = MaterialTheme.typography.bodyLarge.copy(fontSize = scaledFontSize),
                 color = DialogTextPrimary,

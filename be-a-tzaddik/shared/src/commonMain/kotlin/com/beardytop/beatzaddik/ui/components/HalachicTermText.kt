@@ -48,6 +48,7 @@ import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
+import com.beardytop.beatzaddik.ui.translation.resolveBundledTranslationSync
 import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -292,7 +293,14 @@ private fun SimpleTranslatedText(
     overflow: TextOverflow = TextOverflow.Clip,
 ) {
     val appTranslation = LocalAppTranslation.current
-    var displayText by remember(text) { mutableStateOf(text) }
+    var displayText by remember(text, appTranslation.enabled, appTranslation.languageCode) {
+        mutableStateOf(
+            when {
+                !appTranslation.enabled || appTranslation.languageCode == "en" -> text
+                else -> resolveBundledTranslationSync(text, appTranslation.languageCode)
+            },
+        )
+    }
     LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode) {
         displayText = when {
             !appTranslation.enabled || appTranslation.languageCode == "en" -> text

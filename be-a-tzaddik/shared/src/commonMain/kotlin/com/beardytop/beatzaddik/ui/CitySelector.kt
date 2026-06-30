@@ -14,23 +14,28 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import com.beardytop.beatzaddik.ui.components.AppText
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.beardytop.beatzaddik.data.CityGeographyCatalog
 import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.domain.ManualCity
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 
-/** Display label used in city lists (includes country when helpful for sorting/search). */
-fun cityDisplayLabel(city: ManualCity): String {
+private val canadaProvinces = setOf("ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE")
+
+/** English display label (includes country when helpful for sorting/search). */
+fun cityDisplayLabelEnglish(city: ManualCity): String {
     val label = city.label
     val suffix = label.substringAfterLast(", ", missingDelimiterValue = "").trim()
     val country = when {
         suffix.length == 2 && suffix.all { it.isUpperCase() } -> {
-            if (suffix in setOf("ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE")) "Canada"
-            else "USA"
+            if (suffix in canadaProvinces) "Canada" else "USA"
         }
         suffix.isNotBlank() -> suffix
         city.timezoneId == "Asia/Jerusalem" -> "Israel"
@@ -43,6 +48,20 @@ fun cityDisplayLabel(city: ManualCity): String {
     return if (label.endsWith(", $country")) label else "$label, $country"
 }
 
+/** Localized display label for city lists; falls back to English when no bundle exists. */
+fun cityDisplayLabel(city: ManualCity, languageCode: String): String {
+    if (languageCode == "en" || !BundledTranslationLanguages.isBundled(languageCode)) {
+        return cityDisplayLabelEnglish(city)
+    }
+    return CityGeographyCatalog.label(city.id, languageCode) ?: cityDisplayLabelEnglish(city)
+}
+
+@Composable
+fun rememberCityDisplayLabel(city: ManualCity): String {
+    val languageCode = LocalAppTranslation.current.languageCode
+    return remember(city.id, languageCode) { cityDisplayLabel(city, languageCode) }
+}
+
 /** True when [profileCityId] refers to [city], including legacy short ids (e.g. nyc → new_york). */
 fun profileMatchesManualCity(profileCityId: String?, city: ManualCity): Boolean {
     if (profileCityId == null) return false
@@ -50,17 +69,19 @@ fun profileMatchesManualCity(profileCityId: String?, city: ManualCity): Boolean 
     return ManualCities.byId(profileCityId)?.id == city.id
 }
 
-/** All manual cities matching [query], sorted A→Z by [cityDisplayLabel]. */
-fun filterManualCities(query: String): List<ManualCity> {
+/** All manual cities matching [query], sorted A→Z by localized display label. */
+fun filterManualCities(query: String, languageCode: String): List<ManualCity> {
     val q = query.trim().lowercase()
     if (q.isBlank()) {
-        return ManualCities.all.sortedBy { cityDisplayLabel(it) }
+        return ManualCities.all.sortedBy { cityDisplayLabel(it, languageCode) }
     }
     return ManualCities.all.filter { city ->
-        cityDisplayLabel(city).lowercase().contains(q) ||
+        cityDisplayLabel(city, languageCode).lowercase().contains(q) ||
+            cityDisplayLabelEnglish(city).lowercase().contains(q) ||
             city.label.lowercase().contains(q) ||
-            city.id.lowercase().contains(q)
-    }.sortedBy { cityDisplayLabel(it) }
+            city.id.lowercase().contains(q) ||
+            CityGeographyCatalog.searchAliases(city.id).any { it.lowercase().contains(q) }
+    }.sortedBy { cityDisplayLabel(it, languageCode) }
 }
 
 /** Single-select city row with clear selected state (checkmark + highlight). */

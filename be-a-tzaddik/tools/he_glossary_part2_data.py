@@ -1,6 +1,6 @@
 # Part 2 of Hebrew glossary (batch 003-006 strings)
 G2: dict[str, str] = {
-    "17 Tammuz": "\u05d9\u05f7\u05d1 \u05d1\u05ea\u05de\u05d5\u05d6",
+    "17 Tammuz": "י״ז בתמוז",
     "Ashkenazi": "\u05d0\u05e9\u05db\u05e0\u05d6\u05d9",
     "Bentching": "\u05d1\u05d9\u05e8\u05db\u05ea \u05d4\u05de\u05d6\u05d5\u05df",
     "Blessings": "\u05d1\u05e8\u05db\u05d5\u05ea",
@@ -166,7 +166,7 @@ G2: dict[str, str] = {
     "seudah shlishit": "\u05e1\u05e2\u05d5\u05d3\u05d4 \u05e9\u05dc\u05d9\u05e9\u05d9\u05ea",
     "shaliach tzibur": "\u05e9\u05dc\u05d9\u05d7\u05e6\u05d9\u05d1\u05d5\u05e8",
     "Al netilat lulav": "\u05e2\u05dc \u05e0\u05ea\u05d9\u05dc\u05ea \u05dc\u05d5\u05dc\u05d1",
-    "Fast of 10 Tevet": "\u05ea\u05e2\u05e0\u05d9\u05ea \u05d9\u05f7\u05d1 \u05d1\u05ea\u05d1\u05b5\u05ea",
+    "Fast of 10 Tevet": "תענית י׳ בטבת",
     "Fast of Gedaliah": "\u05ea\u05e2\u05e0\u05d9\u05ea \u05d2\u05d3\u05dc\u05d9\u05d4",
     "Megillah reading": "\u05e7\u05e8\u05d9\u05d0\u05ea \u05de\u05d2\u05d9\u05dc\u05d4",
     "Modesty (Tznius)": "\u05e6\u05e0\u05d9\u05e2\u05d5\u05ea",
@@ -187,7 +187,7 @@ G2: dict[str, str] = {
     "(Nusach Ashkenaz)": "(\u05e0\u05d5\u05e1\u05d7 \u05d0\u05e9\u05db\u05e0\u05d6)",
     "Birchot HaShachar": "\u05d1\u05e8\u05db\u05ea \u05d4\u05e9\u05d7\u05e8",
     "Borei Pri HaGafen": "\u05d1\u05d5\u05e8\u05d0 \u05e4\u05e8\u05d9 \u05d4\u05d2\u05e4\u05df",
-    "Fast of 17 Tammuz": "\u05ea\u05e2\u05e0\u05d9\u05ea \u05d9\u05f7\u05d1 \u05d1\u05ea\u05de\u05d5\u05d6",
+    "Fast of 17 Tammuz": "תענית י״ז בתמוז",
     "Grace After Meals": "\u05d1\u05d9\u05e8\u05db\u05ea \u05d4\u05de\u05d6\u05d5\u05df",
     "Pesach (Passover)": "\u05e4\u05e1\u05d7 (\u05e4\u05e1\u05d7)",
     "Psalms — Tehillim": "\u05ea\u05d4\u05d9\u05dc\u05d9\u05dd \u05d4\u05d9\u05d3\u05d5",

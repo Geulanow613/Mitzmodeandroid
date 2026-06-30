@@ -120,12 +120,12 @@ object SeasonalChecklistItems {
         val day = cal.omerDay!!
         return ChecklistItemDef(
             id = "sefirat_haomer_day_$day",
-            title = OmerCountText.buildTitle(day),
+            title = OmerCountText.buildTitle(day, profile.effectiveNusach()),
             section = "Sefirat HaOmer",
             timeOfDay = TimeOfDay.NIGHT,
             required = true,
             seasons = listOf("sefirah"),
-            explanation = OmerCountText.buildExplanation(cal, profile),
+            explanation = OmerCountText.explanationTemplate(),
             links = omerLinks(profile)
         )
     }
@@ -180,7 +180,7 @@ Ask your Chabad rabbi for details on your community.""",
             timeOfDay = TimeOfDay.NIGHT,
             required = true,
             seasons = listOf("chanukah"),
-            explanation = SeasonalMitzvahText.chanukahLightingExplanation(day, profile),
+            explanation = SeasonalMitzvahText.chanukahLightingExplanationTemplate(),
             links = SeasonalMitzvahText.chanukahDayLinks(profile)
         )
 
@@ -563,7 +563,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             persistChecked = true,
             hideOnShabbat = false,
             sortOrder = 8,
-            explanation = SeasonalMitzvahText.birkatHaIlanotExplanation(profile),
+            explanation = SeasonalMitzvahText.birkatHaIlanotExplanationTemplate(),
             explanationChabad = SeasonalMitzvahText.birkatHaIlanotChabadNote(profile),
             links = SeasonalMitzvahText.birkatHaIlanotLinks(),
         )
@@ -581,7 +581,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             situational = !isRecitationDay,
             persistChecked = true,
             sortOrder = 5,
-            explanation = SeasonalMitzvahText.birkatHachamahExplanation(occurrence),
+            explanation = SeasonalMitzvahText.birkatHachamahExplanationTemplate(),
             links = listOf(
                 ChecklistLink(
                     displayText = "Berakhot 59b (Sefaria)",
@@ -1113,7 +1113,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         situational = false,
         gender = "male",
         monthlyMitzvah = true,
-        explanation = SeasonalMitzvahText.kiddushLevanaExplanation(profile),
+        explanation = SeasonalMitzvahText.kiddushLevanaExplanationTemplate(),
         links = SeasonalMitzvahText.kiddushLevanaLinks(profile)
     )
 

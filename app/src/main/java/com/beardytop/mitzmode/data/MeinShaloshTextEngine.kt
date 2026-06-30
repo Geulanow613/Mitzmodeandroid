@@ -9,7 +9,8 @@ data class MeinShaloshSelection(
     val hasWine: Boolean = false,
     val hasFruit: Boolean = false,
     val isRoshChodesh: Boolean = false,
-    val isYomTov: Boolean = false
+    val isPesach: Boolean = false,
+    val isSukkot: Boolean = false
 ) {
     val hasAnyFood: Boolean get() = hasMezonot || hasWine || hasFruit
 }
@@ -99,14 +100,15 @@ object MeinShaloshTextEngine {
     }
 
     private fun hebrewCalendarInserts(selection: MeinShaloshSelection): String = buildString {
-        if (selection.isRoshChodesh || selection.isYomTov) {
+        if (selection.isRoshChodesh || selection.isPesach || selection.isSukkot) {
             append(hebrewYaalehVeyavo(selection))
         }
     }
 
     private fun hebrewYaalehVeyavo(selection: MeinShaloshSelection): String {
         val dayPhrase = when {
-            selection.isYomTov -> "בְּיוֹם הַחַג הַזֶּה"
+            selection.isPesach -> "בְּיוֹם חַג הַמַּצּוֹת הַזֶּה"
+            selection.isSukkot -> "בְּיוֹם חַג הַסֻּכּוֹת הַזֶּה"
             selection.isRoshChodesh -> "בְּיוֹם רֹאשׁ חֹדֶשׁ הַזֶּה"
             else -> "הַיּוֹם"
         }
@@ -180,14 +182,15 @@ object MeinShaloshTextEngine {
     }
 
     private fun englishCalendarInserts(selection: MeinShaloshSelection): String = buildString {
-        if (selection.isRoshChodesh || selection.isYomTov) {
+        if (selection.isRoshChodesh || selection.isPesach || selection.isSukkot) {
             append(englishYaalehVeyavo(selection))
         }
     }
 
     private fun englishYaalehVeyavo(selection: MeinShaloshSelection): String {
         val dayPhrase = when {
-            selection.isYomTov -> "on this Festival day"
+            selection.isPesach -> "on this Festival of Matzot"
+            selection.isSukkot -> "on this Festival of Sukkot"
             selection.isRoshChodesh -> "on this Rosh Chodesh"
             else -> "this day"
         }

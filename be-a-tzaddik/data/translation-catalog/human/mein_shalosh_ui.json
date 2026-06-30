@@ -1,0 +1,18 @@
+{
+  "he": {
+    "Wheat, barley, rye, oats, spelt": "חיטה, שעורה, שיפון, שיבולת שועל, כוסמין",
+    "Grapes, figs, pomegranates, olives, dates": "ענבים, תאנים, רימונים, זיתים, תמרים"
+  },
+  "es": {
+    "Wheat, barley, rye, oats, spelt": "Trigo, cebada, centeno, avena, espelta",
+    "Grapes, figs, pomegranates, olives, dates": "Uvas, higos, granadas, aceitunas, dátiles"
+  },
+  "fr": {
+    "Wheat, barley, rye, oats, spelt": "Blé, orge, seigle, avoine, épeautre",
+    "Grapes, figs, pomegranates, olives, dates": "Raisins, figues, grenades, olives, dattes"
+  },
+  "ru": {
+    "Wheat, barley, rye, oats, spelt": "Пшеница, ячмень, рожь, овёс, спельта",
+    "Grapes, figs, pomegranates, olives, dates": "Виноград, инжир, гранаты, оливки, финики"
+  }
+}

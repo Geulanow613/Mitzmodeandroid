@@ -1,5 +1,5 @@
 {
-  "total_strings": 2547,
+  "total_strings": 2737,
   "issues": [],
   "summary": {
     "CRITICAL": 0,
@@ -7,9 +7,9 @@
     "LOW": 0
   },
   "coverage": {
-    "he": 2546,
-    "es": 2542,
-    "fr": 2540,
-    "ru": 2543
+    "he": 2736,
+    "es": 2734,
+    "fr": 2735,
+    "ru": 2735
   }
 }

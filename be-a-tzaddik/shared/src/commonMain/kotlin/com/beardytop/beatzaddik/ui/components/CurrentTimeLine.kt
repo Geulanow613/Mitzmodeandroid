@@ -10,6 +10,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.beardytop.beatzaddik.domain.ZmanimFormatter
+import com.beardytop.beatzaddik.ui.translation.embedLtrForRtlMix
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Instant
@@ -30,7 +32,12 @@ fun CurrentTimeLine(
         }
     }
 
-    val profileTime = formatClockTime(nowMillis, timezoneId)
+    val appTranslation = LocalAppTranslation.current
+    val use24Hour = ZmanimFormatter.uses24HourClock(appTranslation.displayLanguageCode)
+    val profileTime = remember(nowMillis, timezoneId, use24Hour) {
+        val raw = formatClockTime(nowMillis, timezoneId, use24Hour)
+        if (use24Hour) embedLtrForRtlMix(raw) else raw
+    }
 
     AppText(
         text = profileTime,
@@ -56,18 +63,25 @@ fun CurrentTimeLine(
 private fun shortTimezoneLabel(timezoneId: String): String =
     timezoneId.substringAfterLast('/').replace('_', ' ')
 
-private fun formatClockTime(epochMillis: Long, timezoneId: String): String =
+private fun formatClockTime(epochMillis: Long, timezoneId: String, use24Hour: Boolean): String =
     runCatching {
         val local = Instant.fromEpochMilliseconds(epochMillis)
             .toLocalDateTime(TimeZone.of(timezoneId))
-        val hour24 = local.hour
-        val hour12 = when {
-            hour24 == 0 -> 12
-            hour24 > 12 -> hour24 - 12
-            else -> hour24
+        if (use24Hour) {
+            val hour = local.hour.toString().padStart(2, '0')
+            val minute = local.minute.toString().padStart(2, '0')
+            val second = local.second.toString().padStart(2, '0')
+            "$hour:$minute:$second"
+        } else {
+            val hour24 = local.hour
+            val hour12 = when {
+                hour24 == 0 -> 12
+                hour24 > 12 -> hour24 - 12
+                else -> hour24
+            }
+            val amPm = if (hour24 < 12) "AM" else "PM"
+            val minute = local.minute.toString().padStart(2, '0')
+            val second = local.second.toString().padStart(2, '0')
+            "$hour12:$minute:$second $amPm"
         }
-        val amPm = if (hour24 < 12) "AM" else "PM"
-        val minute = local.minute.toString().padStart(2, '0')
-        val second = local.second.toString().padStart(2, '0')
-        "$hour12:$minute:$second $amPm"
     }.getOrElse { "—" }

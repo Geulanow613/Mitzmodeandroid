@@ -1,1788 +1,38 @@
 [
   {
-    "file": "content_long_001.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "$bedikatLeadIn\n\nThis year, Erev Pesach is on Friday (14 Nisan) and the first day",
-    "tr": "$bedikatLeadIn השנה, ערב פסח הוא ביום שישי (14 Nisan) ולמחרת הראשון של פסח הוא שבת (15 Nisan): Bedik"
+    "file": "complete_translations.json",
+    "lang": "ru",
+    "pattern": "\\bKayin\\b|\\bHevel\\b",
+    "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
+    "tr": "Если у вас есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Если"
   },
   {
-    "file": "content_long_001.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "$bedikatLeadIn\n\nThis year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesac",
-    "tr": "$bedikatLeadIn השנה, ערב פסח הוא בשבת (14 Nisan). כאשר ערב פסח נופל בשבת, כל ציר הזמן הכנה משתנה מוק"
-  },
-  {
-    "file": "content_long_002.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "A Sefer Torah is a Torah scroll — the entire five books of the Torah handwritten",
-    "tr": "Sefer Torah הוא ספר תורה – כל חמשת ספרי התורה שנכתבו על ידי ספר תורהsoferעל מנת כשר, התגלגל על שני מ"
-  },
-  {
-    "file": "content_long_002.json",
-    "lang": "es",
-    "pattern": "איריירי",
-    "key": "**Super-Special Mitzvah**: Light an oil candle (such as a floating wick in a sma",
-    "tr": "**Super-Especial Mitzvah**: Enciende una vela de aceite (como una mecha flotante en una pequeña taza"
-  },
-  {
-    "file": "content_long_003.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as on",
-    "tr": "Revi'it (רביעי) היא יחידה סטנדרטית של נפח נוזלי ב Halacha, המוגדר כרבע מהלוג - מתורגם בדרך כלל כנפח "
-  },
-  {
-    "file": "content_long_003.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "A sukkah is a temporary booth with schach roof where we eat (and some sleep) on ",
-    "tr": "sukkah הוא תא זמני עם schach גג שבו אנו אוכלים (ויש שינה)Sukkot לזכור עננים של תהילה במדבר. קירות חי"
-  },
-  {
-    "file": "content_long_004.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "After using the bathroom, we wash our hands and say the Asher Yatzar blessing — ",
-    "tr": "לאחר השימוש בשירותים, אנו שוטפים את ידינו ואומרים את ברכת אשר יאעזר – בכל פעם שאתם מסיימים. מתי לומר"
-  },
-  {
-    "file": "content_long_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Al netilat lulav is the blessing before taking the Four Species on Sukkot — \"Who",
-    "tr": "אל netilat lulav ברכה לפני נטילת ארבעת המינים Sukkot מי קידש אותנו עם שלו מצוות וציווה אותנו לקחת את"
-  },
-  {
-    "file": "content_long_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Speci",
-    "tr": "אל netilat lulav אל netilat lulav ברכה לפני נטילת ארבעת המינים Sukkot מי קידש אותנו עם שלו מצוות וצי"
-  },
-  {
-    "file": "content_long_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Amen affirms a bracha someone else recited, \"so may it be.\" The Talmud praises o",
-    "tr": "Amen אישורים bracha מישהו אחר אמר: \"אולי זה יהיה\". התלמוד השבחים למי שענה Amen אפילו יותר מזה שעשה א"
-  },
-  {
-    "file": "content_long_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Amen — Amen affirms a bracha someone else recited, \"so may it be.\" The Talmud pr",
-    "tr": "AmenAmen אישורים bracha מישהו אחר אמר: \"אולי זה יהיה\". התלמוד השבחים למי שענה Amen אפילו יותר מזה שע"
-  },
-  {
-    "file": "content_long_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Arba Minim (ארבעה מינים) — the Four Species — are taken each day of Sukkot (exce",
-    "tr": "ארבה מינים (הופנה מהדף ארבעת המינים - נלקחים כל יום של סוכות (מלבד השבת). ארבעת:\nלולב - סניף כף יד ס"
-  },
-  {
-    "file": "content_long_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Ashkenaz Selichot begin on Motzei Shabbat before Rosh Hashana, with at least fou",
-    "tr": "אשכנaz Selichot מתחיל בשבת Motzei לפני רוששאנה, עם לפחות ארבעה ימים של Selichot לפני החג (פניני הלכה"
-  },
-  {
-    "file": "content_long_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Aveilut is mourning practice after the loss of a close relative. Customs include",
-    "tr": "Aveilut הוא תרגול אבל לאחר אובדן קרוב משפחה. המכס כולל shiva(אפילו ימים)shloshim(ימים קשים) להורים, "
-  },
-  {
-    "file": "content_long_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Bar mitzvah is when a boy turns thirteen and becomes obligated in mitzvot — tefi",
-    "tr": "Bar Bar Bar Bar מצווה כאשר נער הופך לשלוש עשרה והופך להיות מחויב mitzvottefillin צום, ספירת Omer החו"
-  },
-  {
-    "file": "content_long_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Bedieved describes halachic guidance after the ideal was missed — unintentionall",
-    "tr": "Bedieved מתאר הלכתי הנחיה לאחר שהאידיאל החמיץ – ללא כוונה וללא פשרות. זה לא רשות לתכנן בצורה גרועה, "
-  },
-  {
-    "file": "content_long_006.json",
-    "lang": "he",
-    "pattern": "⟦\\d",
-    "key": "Before eating or drinking anything, we say a short blessing (bracha) thanking G-",
-    "tr": "לפני אכילת או שתיית כל דבר, אנו אומרים ברכה קצרה (ברכה) תודה לאל על האוכל. זהו אחד הדברים הנפוצים בי"
-  },
-  {
-    "file": "content_long_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Before eating or drinking anything, we say a short blessing (bracha) thanking G-",
-    "tr": "לפני אכילת או שתיית כל דבר, אנו אומרים ברכה קצרה (ברכה) תודה לאל על האוכל. זהו אחד הדברים הנפוצים בי"
-  },
-  {
-    "file": "content_long_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Beitzah is a roasted or boiled egg on the Seder plate — a reminder of festival o",
-    "tr": "ביתזה היא ביצה צלוי או מבושלת על הביצה Seder צלחת – תזכורת להצעות חג ולאבל על בית המקדש ההרוס. באופן"
-  },
-  {
-    "file": "content_long_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Birchot HaShachar — Birchot HaShachar are morning blessings thanking G-d for eye",
-    "tr": "Birchot HaShacharBirchot HaShachar ברכות בוקר תודה ה' לראייה, בגדים, כוח ויצור - נאמר בבית או בבית. "
-  },
-  {
-    "file": "content_long_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Birkat Ha'Ilanot (בִּרְכַּת הָאִילָנוֹת — Blessing of the Trees) is recited once",
-    "tr": "בירקט Ha'אילןot (Embkat Ha'אילן) הוא מדקלם פעם כל שנה על ידי ראיית עצי פרי בפריחה - תודה ה' על היופי"
-  },
-  {
-    "file": "content_long_008.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Borei pri hagafen is the blessing on wine and grape juice — \"Who creates the fru",
-    "tr": "Borei pri Hagafen הוא ברכה על יין מיץ ענבים - \"מי יוצר את הפירות של הגפן\". נדרש לפני Kiddush ארבעת ה"
-  },
-  {
-    "file": "content_long_008.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Chabad (Alter Rebbe / Arizal): haircut and shaving restrictions continue the ent",
-    "tr": "חב\"ד (אלטר הרבי / אריזל): תספורת והגבלות גילוח ממשיכים את כל 49 הימים דרך ערב שavuot - מבוגרים לא לו"
-  },
-  {
-    "file": "content_long_008.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Chabad follows the standard Ashkenazi Selichot calendar — beginning on Motzei Sh",
-    "tr": "חב\"ד עוקב אחר לוח השנה האשכני הסטנדרטי - החל בשבת Motzei לפני רוששאנה (או השבת Motzei הקודמת כאשר רא"
-  },
-  {
-    "file": "content_long_009.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Chabad is a Chasidic movement founded by the Baal Shem Tov's disciples and led f",
-    "tr": "חב\"ד זוהי תנועה צ'אשית שנוסדה על ידי תלמידי Baal Shem Tov והובילה במשך שבעה דורות על ידי הרבי הלובאי"
-  },
-  {
-    "file": "content_long_009.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Chabad — Chabad is a Chasidic movement founded by the Baal Shem Tov's disciples ",
-    "tr": "ChabadChabad זוהי תנועה צ'אשית שנוסדה על ידי תלמידי Baal Shem Tov והובילה במשך שבעה דורות על ידי הרב"
-  },
-  {
-    "file": "content_long_009.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Charoset is the sweet paste (apples, wine, nuts, etc.) recalling mortar between ",
-    "tr": "Charoset הוא הדבק המתוק (apples, wine, אגוזים וכו ') לזכור מרגמה בין לבנים. הוא טבול עם maror עבור K"
-  },
-  {
-    "file": "content_long_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Chilul Hashem is desecrating G-d's Name — behavior that makes Torah or Jews look",
-    "tr": "Chilul Hashem זה desecrating ה'\"שם – התנהגות שגורמת לתורה או ליהודים להיראות בבוז, במיוחד בציבור. הו"
-  },
-  {
-    "file": "content_long_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Chilul Hashem — Chilul Hashem is desecrating G-d's Name — behavior that makes To",
-    "tr": "Chilul Hashem Chilul Hashem זה desecrating ה'\"שם – התנהגות שגורמת לתורה או ליהודים להיראות בבוז, במי"
-  },
-  {
-    "file": "content_long_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Chinuch is training children to do mitzvot before they are bar or bat mitzvah — ",
-    "tr": "צ'ינצ'ו הוא להכשיר ילדים לעשות מצוות לפני שאתה בר או bat מצווה כשהחובה הופכת אישית. הורים מלמדים בהד"
-  },
-  {
-    "file": "content_long_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Chitas (חיט\"ס) is Chabad's daily study cycle: Chumash (weekly Torah portion with",
-    "tr": "Chitas(שם בדוי)חב\"ד מחזור לימוד יומי:Chumash(בעיקר תורה)Rashi)Tehillim()Psalmמחולק עד יום חודש),Tany"
-  },
-  {
-    "file": "content_long_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Chofetz Chaim — Rabbi Yisrael Meir Kagan (Chofetz Chaim) wrote the definitive gu",
-    "tr": "Chofetz Chaim הרב ישראל מאיר קגן Chofetz Chaim) כתב את המדריך הסופי לשמירה על הדיבור ועל Mishnah Ber"
-  },
-  {
-    "file": "content_long_011.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Chol HaMoed — Chol HaMoed are the intermediate days sandwiched between the first",
-    "tr": "Chol HaMoedChol HaMoed הם ימי הביניים הנצרכים בין הימים הראשונים והאחרונה של פסח או Sukkot הם עדיין "
-  },
-  {
-    "file": "content_long_011.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Eating matzah on Pesach after the Seder night(s) is a mitzvah many observe, thou",
-    "tr": "אכילת הזנה על פסח לאחר ליל הסדר (s) היא מצווה רבים להתבונן, אם כי לא באותה מחויבות קפדנית כמו לילה ה"
-  },
-  {
-    "file": "content_long_011.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Edot HaMizrach communities follow different Omer traditions (Peninei Halakha 05-",
-    "tr": "קהילות Edot HaMizrach עוקבות אחר מסורות עומר שונות (פניני הלכה 05-03-03):\nרבים עוקבים אחרי שולצ'ן אר"
-  },
-  {
-    "file": "content_long_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Gebrochts (\"broken\") is matzah that has come into contact with liquid after baki",
-    "tr": "ה'ברוכט (Break)matzah זה בא במגע עם נוזל לאחר אפייה - kneidlach matzah הכדורים הם הדוגמה הקלאסית. כמ"
-  },
-  {
-    "file": "content_long_012.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "Giving charity (tzedakah — צְדָקָה) is a constant mitzvah. A foundational custom",
-    "tr": "מתן צדקה (tzedakah - צְדָקָה) הוא מצווה מתמדת. מנהג יסוד הוא maaser kesafim (מַעֲשֵׂר כְּסָפִים ⟧ ⟧ "
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Hagbah is lifting the open Torah scroll so the congregation can see the writing ",
-    "tr": "Hagbah הוא מרים את מגילת התורה הפתוחה, כך שהקהילה יכולה לראות את הכתיבה ולדקלם \"V'zot HaTorah\" (ופסו"
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Hagbah — Hagbah is lifting the open Torah scroll so the congregation can see the",
-    "tr": "hagbah - hagbah מרים את מגילת התורה הפתוחה כך שהקהילה יכולה לראות את הכתיבה ולדקלם \"V'zot HaTorah\" ("
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Halacha means \"the way of walking\" — the practical path of Jewish life drawn fro",
-    "tr": "ההלכה היא \"דרך ההליכה\" – הדרך המעשית של החיים היהודיים הנמשכים בתורה, נביאים, כותבים,Mishnah,Talmud "
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Haman is the Persian official who plotted to destroy the Jews in Esther's time. ",
-    "tr": "המן הוא הפקיד הפרסי ששילמה להשמיד את היהודים בתקופת אסתר. מרדכי ואסתר סידרו את התוכנית. מתי Megillah"
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Haman — Haman is the Persian official who plotted to destroy the Jews in Esther'",
-    "tr": "Haman - Haman הוא הפקיד הפרסי ששילמה להרוס את היהודים בתקופת אסתר. מרדכי ואסתר סידרו את התוכנית. מתי"
-  },
-  {
-    "file": "content_long_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Hamapil is the very last thing said before closing your eyes to sleep.\n\nWhat it ",
-    "tr": "האמפרי הוא הדבר האחרון שאמר לפני סגירת העיניים. מה זה:\nHamapil (hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
-  },
-  {
-    "file": "content_long_014.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Hoshana Raba is the 21st of Tishrei — the seventh and final day of Sukkot. While",
-    "tr": "Hoshana Raba הוא 21 של Tishrei - היום השביעי והאחרון של הסוכות. אמנם זה מבחינה טכנית חול המועד (יום "
-  },
-  {
-    "file": "content_long_014.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshano",
-    "tr": "Hoshana Raba - Hoshana Raba הוא היום השביעי של סוסוקקוט - שיאו של Hoshanot עם מעגלים נוספים סביב bim"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "he",
-    "pattern": "⟦\\d",
-    "key": "Jewish law applies in the marketplace and office just as in the synagogue. Hones",
-    "tr": "החוק היהודי חל בשוק ובמשרד בדיוק כמו בבית הכנסת. משקולות כנות, עסקאות הוגן והתנהלות אמינה הן התחייבו"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "content_long_015.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "content_long_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Kiddush Hashem means sanctifying G-d's Name — living and speaking in a way that ",
-    "tr": "Kiddush Hashem המונחים: sanctifying ה' שם: חיים ומדברים באופן שגורם לצופים לכבד את התורה ואת התורה ה"
-  },
-  {
-    "file": "content_long_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Kiddush Hashem — Kiddush Hashem means sanctifying G-d's Name — living and speaki",
-    "tr": "Kiddush HashemKiddush Hashem המונחים: sanctifying ה' שם: חיים ומדברים באופן שגורם לצופים לכבד את התו"
-  },
-  {
-    "file": "content_long_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obli",
-    "tr": "Kiddush Levana (Sanctification of the New Moon) – בירקאט הלבנה. גברים מחוייבים במצווה חיובית זו; נשי"
-  },
-  {
-    "file": "content_long_017.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Kol Chamira — Kol Chamira is an Aramaic declaration nullifying chametz still in ",
-    "tr": "Kol ChamiraKol Chamira הצהרה ארמית בוטלה חמץ עדיין ברשותך. גרסת הלילה (לאחר bedikat חמץ ניכויים רק ח"
-  },
-  {
-    "file": "content_long_017.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Kol Nidrei — Kol Nidrei opens Yom Kippur eve — annulling vows so the day can pro",
-    "tr": "Kol NidreiKol Nidrei נפתח Yom Kippur ערב – נדרות מתפתלות, כך שהיום יכול להימשך עם מזחלת נקייה בהבטחו"
-  },
-  {
-    "file": "content_long_018.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Lag BaOmer is the 33rd day of the Omer count (18 Iyar). It marks the yahrzeit (a",
-    "tr": "Lag BaOmer הוא היום ה-33 של ספירת העומר (18 איייר). הוא מסמן את ה-hhrzeit (anversary of pass) של הרב"
-  },
-  {
-    "file": "content_long_018.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Leishev baSukkah is the blessing \"to dwell in the sukkah\" — said when eating bre",
-    "tr": "Leishev baSukkah הוא הברכה \"לשתיישב בבית sukkah\"אמר מתי לאכול לחם בארוחות.sukkah על Sukkot נפיחות פי"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Maariv is the evening prayer service, instituted by our patriarch Yaakov (Jacob)",
-    "tr": "מעריב הוא שירות תפילת הערב, שהוצב על ידי הפטריארך יעקב (ה'קוב) ונצפה בכל לילה. מה זה:\nמעריב (Limit e"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Maariv is the evening service after nightfall — Shema, Amidah, and on Motzei Sha",
-    "tr": "מעריב שירות הערב אחרי החשיכה - Shema,Amidah וכן הלאה Motzei שבת Havdalah החג מוסיף. יום שבת מעריב עש"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Maariv — Maariv is the evening service after nightfall — Shema, Amidah, and on M",
-    "tr": "MaarivMaariv שירות הערב אחרי החשיכה - Shema,Amidah וכן הלאה Motzei שבת Havdalah החג מוסיף. יום שבת מ"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Machatzit HaShekel recalls the half-shekel each Jew gave for Temple upkeep in Ad",
-    "tr": "Machatzit Ha Shekel מזכיר את חצי השקל שכל יהודי נכנע לבית המקדש ב Adar. היום רבים נותנים צדקה לפני P"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Machatzit HaShekel — Machatzit HaShekel recalls the half-shekel each Jew gave fo",
-    "tr": "Machatzit Ha Shekel - Machatzit Ha Shekel מזכיר את חצי השקל שכל יהודי נתן עבור טמפל Upkeep ב Adar. ה"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Machloket is respectful disagreement between Torah authorities — often recorded ",
-    "tr": "Machloket הוא מחלוקת מכובדת בין רשויות התורה - לעתים קרובות נרשם ב Talmud לא כל machloket הוא מיושב;"
-  },
-  {
-    "file": "content_long_019.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Mah Nishtanah — Mah Nishtanah (\"Why is this night different?\") is the Four Quest",
-    "tr": "Mah NishtanahMah Nishtanah\"למה הלילה הזה שונה?\") הוא ארבע השאלות – לרוב נשאלו על ידי הילד הצעיר ביות"
-  },
-  {
-    "file": "content_long_020.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Mechirat chametz is selling chametz you want to keep to a non-Jew through your r",
-    "tr": "Mechirat חמץ מוכר חמץ אתה רוצה לשמור על לא יהודי דרך הרב שלך לפני פסח כך שזה לא שלך במהלך החג. לאשר "
-  },
-  {
-    "file": "content_long_021.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Melave Malka (מְלַוֶּה מַלְכָּה) means \"escorting the queen\" — a meal Saturday n",
-    "tr": "Melave Malka (PrimevinèverPSKPSKָּ) פירושו \"להרוס את המלכה\" - ארוחה בשבת בערב ללוות את מלכת השבת כשה"
-  },
-  {
-    "file": "content_long_021.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Midrash is rabbinic teaching that explores Torah stories, ethics, and values — o",
-    "tr": "Midrash הוא הוראה רבנית החוקרת סיפורי תורה, אתיקה וערכים - לעתים קרובות לענות על שאלות שהטקסט הפשוט "
-  },
-  {
-    "file": "content_long_022.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to rec",
-    "tr": "Misheyakir (מפרק תהילים קידש) הוא כאשר יש מספיק אור טבעי כדי לזהות מכר מזדמן של בערך ארבע אמות (6 מט"
-  },
-  {
-    "file": "content_long_023.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Ne'ilah (\"closing\") is the final prayer service of Yom Kippur as the gates of re",
-    "tr": "Ne'ilah(קריפול) הוא שירות התפילה הסופי של Yom Kippur כמו שערי החרטה קרוב. הארון נשאר לעתים קרובות פת"
-  },
-  {
-    "file": "content_long_023.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Ne'ilah — Ne'ilah (\"closing\") is the final prayer service of Yom Kippur as the g",
-    "tr": "Ne'ilahNe'ilah(קריפול) הוא שירות התפילה הסופי של Yom Kippur כמו שערי החרטה קרוב. הארון נשאר לעתים קר"
-  },
-  {
-    "file": "content_long_023.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Neshama is the soul — the divine breath that makes you alive. Modeh Ani thanks G",
-    "tr": "נישהמה היא הנשמה – הנשימה האלוהית שגורמת לך לחיות.Modeh Ani תודה תודה ה' לחזור אחרי השינה.Yizkor ו K"
-  },
-  {
-    "file": "content_long_023.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Neshama yeteira (\"extra soul\") is the tradition that Shabbat brings an added mea",
-    "tr": "Neshama Stilleira (extra Soul) היא המסורת.שבת מביא מידה נוספת של יכולת רוחנית – יותר סבלנות, שמחה וי"
-  },
-  {
-    "file": "content_long_024.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Ona'at devarim is verbal wronging — insults, public embarrassment, or pressuring",
-    "tr": "Ona'at devarim הוא טעות מילולית - עלבון, מבוכה ציבורית, או ללחוץ על מישהו למכור. אפילו תה \"ידידותי\" "
-  },
-  {
-    "file": "content_long_025.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Pikuach nefesh — Pikuach nefesh (saving life) overrides Shabbat and almost all m",
-    "tr": "Pikuach nefesh - Pikuach nefesh (הצלת החיים)שבת כמעט הכל מצוות התקשר לשירותי חירום, לנסוע לבית החולי"
-  },
-  {
-    "file": "content_long_025.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Pirkei Avot (Ethics of the Fathers) is a tractate of the Mishnah with wisdom say",
-    "tr": "Pirkei Avot(Ethics of the Fathers) הוא מתיחה של Mishnah עם חוכמה אומר על אופי, קהילה ואהבה של תורה -"
-  },
-  {
-    "file": "content_long_026.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Pirkei Avot — Pirkei Avot (Ethics of the Fathers) is a tractate of the Mishnah w",
-    "tr": "Pirkei AvotPirkei Avot(Ethics of the Fathers) הוא מתיחה של Mishnah עם חוכמה אומר על אופי, קהילה ואהב"
-  },
-  {
-    "file": "content_long_027.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Purim Meshulash — mishloach manot on Sunday (16 Adar)\n\nDeferred from Shabbat bec",
-    "tr": "פורים Meshulash - mishloach manot ביום ראשון (16 Adar) Deferred from השבת כי פורים מצווה אינם מבוצעי"
-  },
-  {
-    "file": "content_long_027.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Purim is observed on 14 Adar (15 Adar in walled cities — Shushan Purim). It comm",
-    "tr": "פורים נצפתה ב-14 Adar (15 Adar בערים מוקפות - Shushan פורים). הוא מנציח את הישועה המופלאה של העם היה"
-  },
-  {
-    "file": "content_long_027.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Rabbi Yisrael Meir Kagan (Chofetz Chaim) wrote the definitive guide to guarding ",
-    "tr": "הרב ישראל מאיר קגן (The Rabbi Israel מאיר Kagan)Chofetz Chaim) כתב את המדריך הסופי לשמירה על הדיבור "
-  },
-  {
-    "file": "content_long_027.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Rav (Hebrew for \"great\" or \"master\") is a title for an experienced Torah scholar",
-    "tr": "הרב (עברית ל\"גדול\" או \"מאסטר\") הוא תואר למלומד תורה מנוסה השולט על halacha במיוחד בקהילות האורתודוקס"
-  },
-  {
-    "file": "content_long_027.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Rav — Rav (Hebrew for \"great\" or \"master\") is a title for an experienced Torah s",
-    "tr": "הרב - הרב (עבר ל\"גדול\" או \"מאסטר\") הוא תואר למלומד תורה מנוסה השולט על halacha במיוחד בקהילות האורתו"
-  },
-  {
-    "file": "content_long_028.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Rechilut is carrying tales that create hatred — even if true. Example: telling R",
-    "tr": "Rechilut נושא סיפורים שיוצרים שנאה – גם אם כן. דוגמה: אומר ראובן מה שמעון אמר עליו לעורר קונפליקט. ל"
-  },
-  {
-    "file": "content_long_029.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Said immediately before sleep, the bedtime Shema is a separate requirement from ",
-    "tr": "סעיד מיד לפני השינה, שma היא דרישה נפרדת מן שma אמר במהלך מעריב. מה זה:\nקריט שאמה אל HaMitah (ראשי ת"
-  },
-  {
-    "file": "content_long_029.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Schach is the plant covering on the sukkah roof — bamboo, branches, or reeds — t",
-    "tr": "שאץ' הוא הצמח המכסה על גג הסוקה - במבוק, ענפים, או חזרות - עבה מספיק שהצל עולה על השמש, אך עדיין סעו"
-  },
-  {
-    "file": "content_long_029.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Second Seder prep (Diaspora this year):\n• Saturday daytime is the first day of Y",
-    "tr": "הסדר השני (Diaspora השנה):\n• יום שבת הוא היום הראשון של יום טוב (שבת). יום שבת מתחיל היום השני של יו"
-  },
-  {
-    "file": "content_long_029.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Seder — The Seder is the ordered Pesach night meal — four cups of wine, matzah, ",
-    "tr": "הסדר הוא הארוחה הנדונה של ערב פסח - ארבע כוסות יין, מגור, וקריאה של הגדאדה כך שילדים שואלים שאלות. ח"
-  },
-  {
-    "file": "content_long_029.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Sefer Torah — A Sefer Torah is a Torah scroll — the entire five books of the Tor",
-    "tr": "Sefer Torah - A Sefer Torah הוא ספר תורה – כל חמשת ספרי התורה שנכתבו על ידי ספר תורהsoferעל מנת כשר,"
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Selichot are penitential prayers recited before Rosh Hashana (Ashkenazim often f",
-    "tr": "Selichot תפילה pen recite are Rosh Hashana()אשכנזים לעיתים קרובות בלילה שלפני שבת,ספרדי m מאת אלול)."
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Selichot — Selichot are penitential prayers recited before Rosh Hashana (Ashkena",
-    "tr": "SelichotSelichot תפילה pen recite are Rosh Hashana()אשכנזים לעיתים קרובות בלילה שלפני שבת,ספרדי m מא"
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Sephardi Jews trace roots to the Iberian diaspora and related Mediterranean comm",
-    "tr": "יהודים ספרדים מאתרים שורשים ל-Iberian diaspora ולקהילות ים התיכון קשורות. תפילה היא בדרך כלל נוסח Se"
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Sephardi custom (Shulchan Arukh O.C. 493:1-2; Peninei Halakha 05-03-03): mournin",
-    "tr": "המנהג הספרדי (שולחן ערוך O.C. 493:1-2; פניני הלכה 05-03-03): But from פesach עד הבוקר של יום 34 של ע"
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Sephardi — Sephardi Jews trace roots to the Iberian diaspora and related Mediter",
-    "tr": "יהודים ספרדים - ספרדים הם שורשים ל-Iberian diaspora ולקהילות ים התיכון קשורות. תפילה היא בדרך כלל נו"
-  },
-  {
-    "file": "content_long_030.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Seudah shlishit is the third Shabbat meal, usually late afternoon before sunset.",
-    "tr": "סעודה חרטה היא השלישית שבת ארוחת ערב מאוחרת בדרך כלל לפני השקיעה. זה קל יותר משני הארוחות הראשונות -"
-  },
-  {
-    "file": "content_long_031.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Shavuot is observed on 6 Sivan (two days in the Diaspora). It celebrates the giv",
-    "tr": "שavuot נצפה על 6 סייוון (יומיים בתפוצות). הוא חוגג את מתן התורה בהר סיני, שהתרחשה שבעה שבועות לאחר י"
-  },
-  {
-    "file": "content_long_031.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Shechita is kosher slaughter: a trained shochet cuts the throat swiftly with a p",
-    "tr": "Shechita הוא שחיטה כשרה: חרטה מאומנת חותך את הגרון במהירות עם סכין חלקה לחלוטין כך החיה מתה עם סבל מ"
-  },
-  {
-    "file": "content_long_032.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Shekhinah — The Shekhinah is G-d's indwelling presence — especially associated w",
-    "tr": "Shekhinah - The Shekhinah הוא ה'\"נוכחות מתפוררת - קשורה במיוחד לבית המקדש, עם ישראל בגלות, ועם קדושה"
-  },
-  {
-    "file": "content_long_032.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Shema al HaMitah — Shema al HaMitah is the bedtime Shema — declaring faith and e",
-    "tr": "Shema אל החיטה –Shema אל החיטה היא שעת השינה Shema הכרזה על אמונה ואמונה בנשמה ה' לפני השינה רבים מו"
-  },
-  {
-    "file": "content_long_032.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Shemini Atzeret (22 Tishrei in the Diaspora) — eighth day of Sukkot.\n\nYom Tov:\n•",
-    "tr": "Shemini Atzeret (22 צ'רי בתפוצות) - יום השמיני של סוקוט. יום טוב:\nמלא יום טוב - no מלאכה; קידוש ו אר"
-  },
-  {
-    "file": "content_long_032.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Shemini Atzeret / Simchat Torah (22 Tishrei in Israel) — one day combining both.",
-    "tr": "Shemini Atzeret / Simchat תורה (22 צ'רי בישראל) - יום אחד משלב את שניהם. יום טוב:\nמלא יום טוב - no m"
-  },
-  {
-    "file": "content_long_032.json",
+    "file": "glossary_polish.json",
     "lang": "he",
     "pattern": "latin_ratio=0.18",
     "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is al",
-    "tr": "שמיני עצרת מתחיל הערב${if (profile.isInIsrael) \" — בישראל זה גם שמחת תורה.\" else \".\"}\n\nהערב ומחר:\n• "
+    "tr": "שמיני עצרת מתחיל הערב${if (profile.isInIsrael) \" — in Israel this is also Simchat Torah.\" else \".\"}\n"
   },
   {
-    "file": "content_long_032.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Shemini Atzeret is an independent Yom Tov immediately following Sukkot (22 Tishr",
-    "tr": "Shemini Atzeret הוא Yom tov עצמאי מיד לאחר הסוכות (22 Tishrei). בתפוצות, התורה של סימפטאט נצפתה על 2"
-  },
-  {
-    "file": "content_long_033.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Shloshim is thirty days of reduced social celebration after burial (for many rel",
-    "tr": "שוסים הוא 30 ימים של חגיגה חברתית מופחתת לאחר הקבורה (עבור מערכות יחסים רבות). שיער ומוסיקה עשויים ל"
-  },
-  {
-    "file": "content_long_033.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Shnayim Mikra v'Echad Targum is completing the weekly Torah portion twice in Heb",
-    "tr": "Shnayim Mikra v'Echad Targum הוא להשלים את פרשת התורה השבועית פעמיים בעברית ופעם בתרגום - Targum Onk"
-  },
-  {
-    "file": "content_long_033.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Shnayim Mikra v'Echad Targum — Shnayim Mikra v'Echad Targum is completing the we",
-    "tr": "Shnayim Mikra v'Echad Targum - Shnayim Mikra v'Echad Targum הוא להשלים את פרשת התורה השבועית פעמיים "
-  },
-  {
-    "file": "content_long_034.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Simchat Yom Tov (שִׂמְחַת יוֹם טוֹב) is the Torah mitzvah \"V'samachta b'chagecha",
-    "tr": "שם הספר בלועזית: Simchat יום טוב (אנ', קידש) Is the תורה מצווה \"V'samachta b'chagecha\" - לשמוח בחג ש"
-  },
-  {
-    "file": "content_long_034.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Simchat Yom Tov — Simchat Yom Tov (שִׂמְחַת יוֹם טוֹב) is the Torah mitzvah \"V's",
-    "tr": "Simchat יום טוב - Simchat יום טוב (שם בדוי) הוא המצווה \"V'samachta b'chagecha\" - לשמוח בחג שלך (Deva"
-  },
-  {
-    "file": "content_long_034.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "Speech is one of the most powerful forces in Jewish life — it can build people u",
-    "tr": "הדיבור הוא אחד הכוחות החזקים ביותר בחיים היהודיים – הוא יכול לבנות אנשים או להרוס אותם ברגע. Shmirat"
-  },
-  {
-    "file": "content_long_034.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Sukkah — A sukkah is a temporary booth with schach roof where we eat (and some s",
-    "tr": "סוזה - A sukkah הוא תא זמני עם schach גג שבו אנו אוכלים (ויש שינה)Sukkot לזכור עננים של תהילה במדבר."
-  },
-  {
-    "file": "content_long_034.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — Fast of the Firstborn — is observed on ",
-    "tr": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) - Fast of the Firstborn - נצפתה ביום ערב פסח על ידי הזכרים הב"
-  },
-  {
-    "file": "content_long_034.json",
+    "file": "glossary_polish.json",
     "lang": "es",
-    "pattern": "⟦\\d",
-    "key": "Speech is one of the most powerful forces in Jewish life — it can build people u",
-    "tr": "El discurso es una de las fuerzas más poderosas de la vida judía: puede construir personas o destrui"
+    "pattern": "\\bKayin\\b|\\bHevel\\b",
+    "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
+    "tr": "Si usted tiene ropa o prendas con lana en ellos, obtenerlos chequeados para shaatnez (una mezcla pro"
   },
   {
-    "file": "content_long_035.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "Taharat hamishpacha (family purity) regulates intimacy through the niddah cycle ",
-    "tr": "Taharat Hurtishpacha (טוהר המשפחה) מסדיר אינטימיות דרך הטוהר niddah מעגל ו mikveh immersion לאחר הוו"
-  },
-  {
-    "file": "content_long_035.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Talmud — The Talmud (Gemara + Mishnah) is the central rabbinic discussion of hal",
-    "tr": "Talmud - התלמוד()Gemara+Mishnah(הדיון הרבני המרכזי)halacha ואגאדה - התפתחה בבליה ובישראל.Daf Yomiהלו"
-  },
-  {
-    "file": "content_long_036.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Tefillin are holy black leather boxes containing parchment with Torah verses, bo",
-    "tr": "Tefillin הם ארגזי עור שחורים קדושים המכילים כפייה עם פסוקי תורה, כבולים על הזרוע ועל הראש במהלך ימי "
-  },
-  {
-    "file": "content_long_036.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Tefillin — Tefillin are holy black leather boxes containing parchment with Torah",
-    "tr": "Tefillin - Tefillin הם ארגזי עור שחורים קדושים המכילים כפייה עם פסוקי תורה, כבולים על הזרוע והראש במ"
-  },
-  {
-    "file": "content_long_036.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Teshuvah means \"return\" — coming back to G-d and to your best self after a mista",
-    "tr": "T פירושו \"חזרה\" - חזרה ה' ולעצמי הטוב ביותר אחרי טעות. הרמב\"ם מלמד את זה כנה teshuvah כולל לעצור את "
-  },
-  {
-    "file": "content_long_037.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks the day the walls of Jerusalem",
-    "tr": "המהירות של 17 תממוז (שיווה אסאר B'Tammuz) מציינת את היום בו פרצו חומות ירושלים על ידי הרומאים במאה ה"
-  },
-  {
-    "file": "content_long_037.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim",
-    "tr": "The Fast of Esther (Ta'anit Esther) נצפה ב-13 אדר, היום לפני פורים. היא מנציחת את שלושת ימיה של אסתר"
-  },
-  {
-    "file": "content_long_037.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "The Haggadah (\"telling\") is the book guiding the Seder — questions, answers, pla",
-    "tr": "The Haggadah(ספר) הוא הספר המנחה את Seder שאלות, תשובות, מגפות,Dayeinu ו Hallel הליבה שלה היא לגרום "
-  },
-  {
-    "file": "content_long_038.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "The Purim seudah is the festive afternoon meal on Purim day — part of the day's ",
-    "tr": "The Purim סעודה היא ארוחת ערב חגיגית על Purim יום - חלק מהשמחה של היום לצד Megillah, mishloach manot"
-  },
-  {
-    "file": "content_long_038.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "The Seder is the ordered Pesach night meal — four cups of wine, matzah, maror, a",
-    "tr": "הסדר הוא הארוחה הנדונה של פסח - ארבע כוסות יין, מגור, וקריאה של האגאדה כך שילדים שואלים שאלות. חזרה "
-  },
-  {
-    "file": "content_long_038.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "The Talmud (Gemara + Mishnah) is the central rabbinic discussion of halacha and ",
-    "tr": "התלמוד()Gemara+Mishnah(הדיון הרבני המרכזי)halacha ואגאדה - התפתחה בבליה ובישראל.Daf Yomiהלומדים מסיי"
-  },
-  {
-    "file": "content_long_038.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "The Tanya is Rabbi Schneur Zalman of Liadi's foundational Chabad work on the Jew",
-    "tr": "The Tanya הרב שטיינ זלמן מהבסיס של ליאדי חב\"ד עבודה על הנפש היהודית, השירות האלוהי והמסתורין המעשי. "
-  },
-  {
-    "file": "content_long_038.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the des",
-    "tr": "The Three Weeks מתוך 17 Tammuz עד Tisha B'Av להנציח את השמדת המקדש והטרגדיות היהודיות. למה אנחנו מתא"
-  },
-  {
-    "file": "content_long_039.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "The chazzan (cantor) leads the congregation in prayer — especially when the serv",
-    "tr": "The chazzan(קנרטור) מוביל את הקהילה בתפילה - במיוחד כאשר השירות מוקרן או כאשר minyan צריך קול מיומן "
-  },
-  {
-    "file": "content_long_039.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "The rabbis instituted a practice of saying 100 blessings (brachot) every day, ke",
-    "tr": "הרבנים קיימו מדי יום פרקטיקה של אמירת 100 ברכות (מחשבה) ושמרו עלינו כל הזמן מודעים למתנותיו של אלוקי"
-  },
-  {
-    "file": "content_long_039.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "The very first act of each day:\n\nWhat it is:\nModeh Ani (מוֹדֶה אֲנִי — literally",
-    "tr": "המעשה הראשון בכל יום: מה זה:\nמודה אאני (מוֹדֶה1⟧ - פשוטו כמשמעו \"אני אסיר תודה\") הוא תפילה דו-ליין ש"
-  },
-  {
-    "file": "content_long_039.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "The very first act of each day:\n\nWhat it is:\nModeh Ani (מוֹדֶה אֲנִי — literally",
-    "tr": "המעשה הראשון בכל יום: מה זה:\nמודה אאני (מוֹדֶה1⟧ - פשוטו כמשמעו \"אני אסיר תודה\") הוא תפילה דו-ליין ש"
-  },
-  {
-    "file": "content_long_040.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvo",
-    "tr": "השבוע לפני הסוכות (Tishrei 8–13) הוא לבנות שמחה ולקבל את המיץ מוכן - רבים מתחילים את הסוקה מיד לאחר "
-  },
-  {
-    "file": "content_long_040.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "This year, Rosh Hashana leads into Shabbat on the calendar — you need eruv tavsh",
-    "tr": "השנה, ראש השנה Hashana מוביל לשבת בלוח השנה - אתה צריך eruv tavshilin. זה לא קורה כל שנה. למה (פניני"
-  },
-  {
-    "file": "content_long_041.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Torah means \"teaching\" or \"instruction.\" In the narrow sense it is the five book",
-    "tr": "התורה פירושה \"חינוך\" או \"חינוך\". במובן הצר הוא חמשת הספרים של התורה – ה'נסי דרך דברים באנגלית,Bereis"
-  },
-  {
-    "file": "content_long_041.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Torah — Torah means \"teaching\" or \"instruction.\" In the narrow sense it is the f",
-    "tr": "תורה – התורה פירושה \"חינוך\" או \"חינוך\". במובן הצר הוא חמשת הספרים של התורה – ה'נסי דרך דברים באנגלית"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Tu B'Shvat (the 15th of Shvat) is the New Year for Trees — one of the four \"new ",
-    "tr": "Tu B'shvat (ה-15 של Shvat) היא השנה החדשה לעץ - אחת מארבעת \"שנות חדשות\" שהוזכרו ב-משנה. זה מסמן את ה"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Tu B'Shvat (the 15th of Shvat) is the New Year for Trees — one of the four \"new ",
-    "tr": "Tu B'shvat (ה-15 של Shvat) היא השנה החדשה לעץ - אחת מארבעת \"שנות חדשות\" שהוזכרו ב-משנה. זה מסמן את ה"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"sukkah כל "
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"sukkah כל "
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "UshpizinUshpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"su"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "UshpizinUshpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"su"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin son misticos \"invitados\" — Abraham, Isaac, Jacob y otros— recibidos en sukkah cada noche de"
-  },
-  {
-    "file": "content_long_042.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "Ushpizin—Ushpizin son misticos \"invitados\" — Abraham, Isaac, Jacob y otros— recibidos en sukkah cada"
-  },
-  {
-    "file": "content_long_043.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
-    "tr": "מדוע חכמינו מעודדים אותנו ללמוד — ולמה כדאי להתחיל כבר היום: לימוד תורה אינו רק חובה. זוהי הדרך היומ"
-  },
-  {
-    "file": "content_long_043.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
-    "tr": "Pourquoi les sages nous exhortent à apprendre — et pourquoi cela vaut la peine de commencer aujourd'"
-  },
-  {
-    "file": "content_long_044.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Yaaleh V'Yavo is a special prayer paragraph inserted into the Amidah (the standi",
-    "tr": "Yaaleh V'YAvo הוא סעיף תפילה מיוחד שהוכנס אל תוך האימידה (התפילה השקטה המתמדת) ול-Birkat HaMazon (Gr"
-  },
-  {
-    "file": "content_long_044.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Yahrzeit is the annual Hebrew-calendar date of a relative's death. Many light a ",
-    "tr": "Yahrzeit הוא התאריך השנתי של מותו של קרוב משפחה. הרבה אור נר 24 שעות ביממה, בקר ב g rav לתת צדקה ושי"
-  },
-  {
-    "file": "content_long_044.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Yizkor is the memorial prayer on Yom Tov (and Yom Kippur) for parents and someti",
-    "tr": "Yizkor התפילה על יום טוב(and)Yom Kippur להורים, לפעמים קרובי משפחה אחרים. הרבה אור yahrzeit נר לפני "
-  },
-  {
-    "file": "content_long_044.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Yizkor — Yizkor is the memorial prayer on Yom Tov (and Yom Kippur) for parents a",
-    "tr": "YizkorYizkor התפילה על יום טוב(and)Yom Kippur להורים, לפעמים קרובי משפחה אחרים. הרבה אור yahrzeit נר"
-  },
-  {
-    "file": "content_long_044.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the",
-    "tr": "Yom Ha'atzmaut(יום העצמאות הישראלי) נצפה ב-5 איייר, וחוגג את הקמתה של מדינת ישראל בשנת 1948. בישראל "
-  },
-  {
-    "file": "content_long_045.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of t",
-    "tr": "יום HaZikaron (4 איייר) הוא יום הזיכרון הלאומי של ישראל לחיילים של כוחות הביטחון וקורבנות הטרור שנתנ"
-  },
-  {
-    "file": "content_long_045.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-D",
-    "tr": "יום ירושאלים (28 איייר) מסמן את איחוד ירושלים במהלך מלחמת ששת הימים ב-1967 (5727). זה לא יום טוב - מ"
-  },
-  {
-    "file": "content_long_046.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "aveilut — Aveilut is mourning practice after the loss of a close relative. Custo",
-    "tr": "aveilut - Aveilut הוא תרגול אבל לאחר אובדן קרוב משפחה. המכס כולל shiva(אפילו ימים)shloshim(ימים קשים"
-  },
-  {
-    "file": "content_long_046.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "bal yera'eh — Bal yera'eh (\"it shall not be seen\") is the Torah prohibition agai",
-    "tr": "שם הספר בלועזית : Bal yera'eh (\"לא ניתן לראות\") הוא איסור התורה חמץ נשאר גלוי בתחום שלך פסח יחד עם b"
-  },
-  {
-    "file": "content_long_046.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "bar mitzvah — Bar mitzvah is when a boy turns thirteen and becomes obligated in ",
-    "tr": "bar מצווה בר מצווה כאשר נער הופך לשלוש עשרה והופך להיות מחויב mitzvottefillin צום, ספירת Omer החוק ה"
-  },
-  {
-    "file": "content_long_046.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "bedieved — Bedieved describes halachic guidance after the ideal was missed — uni",
-    "tr": "bedieved - Bedieved מתאר הלכתי הנחיה לאחר שהאידיאל החמיץ – ללא כוונה וללא פשרות. זה לא רשות לתכנן בצ"
-  },
-  {
-    "file": "content_long_047.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "bedikat chametz — Bedikat chametz is the formal search for chametz on the night ",
-    "tr": "bedikat חמץ Bedikat חמץ החיפוש הרשמי חמץ בלילה שלפני פסח לאחר רדת הלילה, באמצעות אור נרות (או פנסים "
-  },
-  {
-    "file": "content_long_047.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "beitzah — Beitzah is a roasted or boiled egg on the Seder plate — a reminder of ",
-    "tr": "beitzah ביתזה היא ביצה קלויה או מבושלת על הביצה Seder צלחת – תזכורת להצעות חג ולאבל על בית המקדש ההר"
-  },
-  {
-    "file": "content_long_048.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "charoset — Charoset is the sweet paste (apples, wine, nuts, etc.) recalling mort",
-    "tr": "charoset - Charoset הוא פס מתוק (תפוחים, יין, אגוזים וכו ') נזכר מרגמה בין לבנים. הוא טבול עם maror "
-  },
-  {
-    "file": "content_long_048.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "chinuch — Chinuch is training children to do mitzvot before they are bar or bat ",
-    "tr": "chinuch צ'ינצ'ו הוא להכשיר ילדים לעשות מצוות לפני שאתה בר או bat מצווה כשהחובה הופכת אישית. הורים מל"
-  },
-  {
-    "file": "content_long_048.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "gebrochts — Gebrochts (\"broken\") is matzah that has come into contact with liqui",
-    "tr": "gebrochts ה'ברוכט (Break)matzah זה בא במגע עם נוזל לאחר אפייה - kneidlach matzah הכדורים הם הדוגמה ה"
-  },
-  {
-    "file": "content_long_048.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "halacha — Halacha means \"the way of walking\" — the practical path of Jewish life",
-    "tr": "halacha ההלכה היא \"דרך ההליכה\" – הדרך המעשית של החיים היהודיים הנמשכים בתורה, נביאים, כותבים,Mishnah"
-  },
-  {
-    "file": "content_long_048.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "k'dei achilat pras — K'dei achilat pras is the halachic time limit to consume a ",
-    "tr": "k'dei achilat pras - K'dei achilat pras הוא הגבלת זמן הלכתי כדי לצרוך נפח מסוים של מזון, כך שהוא נחש"
-  },
-  {
-    "file": "content_long_049.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "k'fi daato — K'fi daato means training a child according to what they can unders",
-    "tr": "k'fi daato - K'fi daato פירושו להכשיר ילד על פי מה שהם יכולים להבין ולעשות באמינות - לא לדרוש שלמות "
-  },
-  {
-    "file": "content_long_049.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "machloket — Machloket is respectful disagreement between Torah authorities — oft",
-    "tr": "machloket - Machloket הוא חילוקי דעות מכובדים בין רשויות התורה - לעתים קרובות נרשם ב Talmud לא כל ma"
-  },
-  {
-    "file": "content_long_049.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "matana al menat lehachzir — Matana al menat lehachzir (מַתָּנָה עַל מְנָת לְהַחְ",
-    "tr": "Matana al Menat lehachzir - Matana al Menat lehachzir (מַ נָה נָה עַל מ נָ נָ נָ — — — — — ִי ִי ִי "
-  },
-  {
-    "file": "content_long_050.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "mechirat chametz — Mechirat chametz is selling chametz you want to keep to a non",
-    "tr": "mechirat חמץ - Mechirat חמץ מוכר חמץ אתה רוצה לשמור על לא יהודי דרך הרב שלך לפני פסח, כך שזה לא שלך "
-  },
-  {
-    "file": "content_long_050.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "midrash — Midrash is rabbinic teaching that explores Torah stories, ethics, and ",
-    "tr": "Midrash - Midrash הוא הוראה רבנית החוקרת סיפורי תורה, אתיקה וערכים - לעתים קרובות לענות על שאלות שהט"
-  },
-  {
-    "file": "content_long_050.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "misheyakir — Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient",
-    "tr": "מטעה היאקיר - Mishakir (משלי תהילים קידש) הוא כאשר יש מספיק אור טבעי כדי לזהות היכרות מקרית של בערך "
-  },
-  {
-    "file": "content_long_050.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "neshama yeteira — Neshama yeteira (\"extra soul\") is the tradition that Shabbat b",
-    "tr": "neshama yeteira Neshama Stilleira (extra Soul) היא המסורת.שבת מביא מידה נוספת של יכולת רוחנית – יותר"
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "neshama — Neshama is the soul — the divine breath that makes you alive. Modeh An",
-    "tr": "neshama נישהמה היא הנשמה – הנשימה האלוהית שגורמת לך לחיות.Modeh Ani תודה תודה ה' לחזור אחרי השינה.Yi"
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morni",
-    "tr": "netilat yadayim - Netilat yadayim הוא שטיפת יד טקסית עם כוס (keli). ניקוי בוקרruach ra'ahלאחר שינה: "
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "niddah — Niddah is the state of ritual separation during and after menstruation ",
-    "tr": "niddah Nidah הוא מצב של הפרדה טקסית במהלך ואחרי הווסת עד mikveh immersion הבעל והאישה נמנעים מאינטימ"
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "ochel nefesh — Ochel nefesh (\"food for the soul\") is the Torah-based allowance t",
-    "tr": "ochel Nefesh - Ochel Nefesh (\"מזון לנשמה\") הוא הקצבה המבוססת על התורה לביצוע משימות הכנת מזון מסוימו"
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "ona'at devarim — Ona'at devarim is verbal wronging — insults, public embarrassme",
-    "tr": "ona'at devarim - Ona'at devarim הוא טעות מילולית - עלבון, מבוכה ציבורית או ללחוץ על מישהו למכור. אפי"
-  },
-  {
-    "file": "content_long_051.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "rechilut — Rechilut is carrying tales that create hatred — even if true. Example",
-    "tr": "rechilut Rechilut נושא סיפורים שיוצרים שנאה – גם אם כן. דוגמה: אומר ראובן מה שמעון אמר עליו לעורר קו"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "revi'it — A revi'it (רביעית) is a standard unit of liquid volume in halacha, def",
-    "tr": "Revi'it - revi'it (Moderion) הוא יחידת סטנדרטית של נפח נוזלי בהילה, המוגדר כרבע מהלוג - מתורגם בדרך "
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "schach — Schach is the plant covering on the sukkah roof — bamboo, branches, or ",
-    "tr": "סכיאק - שאץ' הוא הצמח המכסה על גג הסוקה - במבוק, ענפים, או חזרות - עבה מספיק שהצל עולה על השמש, אך ע"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "seudah shlishit — Seudah shlishit is the third Shabbat meal, usually late aftern",
-    "tr": "seudah shlishit סעודה חרישי הוא השלישי שבת ארוחת ערב מאוחרת בדרך כלל לפני השקיעה. זה קל יותר משני הא"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "shaliach tzibur — A shaliach tzibur is the prayer leader who represents the cong",
-    "tr": "shaliach tzibur - A shaliach tzibur מנהיג התפילה המייצג את הקהילה לפני ה' - חזרה על החזרה Amidah ומד"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "shechita — Shechita is kosher slaughter: a trained shochet cuts the throat swift",
-    "tr": "shechita - Shechita הוא שחיטה כשרה: חרטה מאומנת חותכת את הגרון במהירות עם סכין חלקה לחלוטין, כך החיה"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "shiva — Shiva is seven days of mourning at home after burial — community visits,",
-    "tr": "shiva שיווה הוא שבעה ימים של אבל בבית לאחר הקבורה - ביקורים קהילתיים, צואה נמוכה, ללא נעלי עור לרבים"
-  },
-  {
-    "file": "content_long_052.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "shloshim — Shloshim is thirty days of reduced social celebration after burial (f",
-    "tr": "shloshim שוסים הוא 30 ימים של חגיגה חברתית מופחתת לאחר הקבורה (עבור מערכות יחסים רבות). שיער ומוסיקה"
-  },
-  {
-    "file": "content_long_053.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "tashlich — Tashlich is a Rosh Hashana custom of casting breadcrumbs or symbolic ",
-    "tr": "tashlich - Tashlich הוא מנהג ראש Hashana של ליהוק לחם או חטאים סמליים לתוך מים זורמים, reצטט Micah 7"
-  },
-  {
-    "file": "content_long_053.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "teshuvah — Teshuvah means \"return\" — coming back to G-d and to your best self af",
-    "tr": "teshuvah T פירושו \"חזרה\" - חזרה ה' ולעצמי הטוב ביותר אחרי טעות. הרמב\"ם מלמד את זה כנה teshuvah כולל "
-  },
-  {
-    "file": "content_long_053.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "tevilat keilim — Tevilat keilim immerses new food utensils manufactured by a non",
-    "tr": "tevilat keilim טוויל קאזל מכניס מנות מזון חדשות המיוצרות על ידי לא יהודי במכה - נזכר בכלי ישראל שקוע"
-  },
-  {
-    "file": "content_long_053.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "yahrzeit — Yahrzeit is the annual Hebrew-calendar date of a relative's death. Ma",
-    "tr": "yahrzeit - Yahrzeit הוא התאריך השנתי העברי של מותו של קרוב משפחה. הרבה אור נר 24 שעות ביממה, בקר ב g"
-  },
-  {
-    "file": "content_long_053.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "yetzer hara — Yetzer hara is the inclination toward selfishness, laziness, or si",
-    "tr": "yetzer hara אךצר hara הוא הנטייה כלפי אנוכיות, עצלות או חטא – לא השטן, אלא משיכה פנימית. לכל אחד יש "
-  },
-  {
-    "file": "content_medium_002.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Bal yimatzei forbids chametz being found in your possession on Pesach. Spiritual",
-    "tr": "Bal yimatzei אוסר חמץ נמצא ברשותך פסח ביטול רוחני (רוחני Kol Chamira(1) משלים אך אינו מחליף ניקוי. ש"
-  },
-  {
-    "file": "content_medium_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Cheshbon hanefesh is an honest spiritual accounting — reviewing your week: speec",
-    "tr": "Cheshbon hanefesh הוא חשבונאות רוחנית כנה - סקירת השבוע שלך: דיבור, יושר, תפילה, משפחה. רבים עושים ז"
-  },
-  {
-    "file": "content_medium_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "Dayeinu (\"it would have been enough\") is the Seder song listing gifts from the E",
-    "tr": "Dayeinu(\"זה היה מספיק\")Seder מתנות מ-יציאת מצרים – כל צעד לבד היה מוצדק. לשיר זה להכשיר ילדים ומבוגר"
-  },
-  {
-    "file": "content_medium_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Gan Eden (Garden of Eden) in Jewish thought often means the soul's reward after ",
-    "tr": "Gan Eden(גארדן מעדן) במחשבה היהודית פירושו לעתים קרובות פרס הנשמה לאחר המוות - קרבה עד מוות.ה' לא חו"
-  },
-  {
-    "file": "content_medium_004.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Geneivat da'at (\"stealing the mind\") is deception — advertising falsely, hiding ",
-    "tr": "Geneivat da'at (\"ללמד את המוח\") הוא הונאה - פרסום שקרי, פגמים מסתירים או מטעה לגבי אישורים. זה חל על"
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Hafrashat challah is separating a small portion of dough when baking a large amo",
-    "tr": "Hafrashat challah הוא הפרדה חלק קטן של דונג כאשר אפייה כמות גדולה של לחם או מזונות המבוססים על קמח ד"
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Hoshanot are prayers of salvation recited while holding the Four Species and cir",
-    "tr": "Hoshanot תפילה של ישועה מדקדקנת תוך שמירה על ארבעת המינים ושחיקה את פלטפורמת מקדש בית הכנסת (Bimah) "
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "K'fi daato means training a child according to what they can understand and do r",
-    "tr": "K'fi daato פירושו להכשיר ילד על פי מה שהם יכולים להבין ולעשות באופן אמין - לא לדרוש שלמות למבוגרים. "
-  },
-  {
-    "file": "content_medium_005.json",
+    "file": "glossary_polish.json",
     "lang": "es",
     "pattern": "Kabb[aаА]l",
     "key": "Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation,",
-    "tr": "Kabbalah es la tradición mística judía que explora cómo D-s se relaciona con la creación, el alma y "
+    "tr": "Kabbalah es la tradición mística judía que explora cómo Dios se relaciona con la creación, el alma y"
   },
   {
-    "file": "content_medium_005.json",
+    "file": "glossary_polish.json",
     "lang": "es",
     "pattern": "Kabb[aаА]l",
     "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Kabbalah es la tradición mística judía que explora cómo D-s se relaciona con la creación,"
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation,",
-    "tr": "Kabbalah est la tradition mystique juive explorant comment D. se rapporte à la création, l'âme et le"
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Kabbalah est la tradition mystique juive explorant comment D. se rapporte à la création, "
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation,",
-    "tr": "Kabbalah — evreyskaya mistическая traditsiya o tom, kak V-s otnositsya k tvoreniyu, dushe i mitzvot."
-  },
-  {
-    "file": "content_medium_005.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Kabbalah — evreyskaya mistическая traditsiya o tom, kak V-s otnositsya k tvoreniyu, dushe"
-  },
-  {
-    "file": "content_medium_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Kaparot is a pre-Yom Kippur custom swinging a chicken (or money substituted) ove",
-    "tr": "Kaparot הוא pre-- Yom Kippur כוונון מותאם אישית של תרנגולת (או כסף הוחלף) על ראשו של אחד תוך צטט פסו"
-  },
-  {
-    "file": "content_medium_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Karpas is a vegetable (often parsley or potato) dipped in salt water at the Sede",
-    "tr": "Karpas הוא ירק (לעתים קרובות parsley או תפוחי אדמה) מטבול במים מלוחים במים מלוחים ב Seder להתחיל – ל"
-  },
-  {
-    "file": "content_medium_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Kashrut is the Torah system of permitted food, shechita, separating meat and dai",
-    "tr": "Kashrut היא מערכת התורה של מזון מותר,shechita הפרדה בין בשר וחלב, ושמירה על ייצור. זה מנקה את האכילה"
-  },
-  {
-    "file": "content_medium_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Kashrut — Kashrut is the Torah system of permitted food, shechita, separating me",
-    "tr": "Kashrut הוא מערכת התורה של מזון מותר,shechita הפרדה בין בשר וחלב, ושמירה על ייצור. זה מנקה את האכילה"
-  },
-  {
-    "file": "content_medium_006.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Korbanot — Korbanot are the Temple offerings — animal sacrifices, incense, and l",
-    "tr": "Korbanot - Korbanot הם היצע המקדש - קורבנות בעלי חיים, קטורות ושחרורים - שהובאו על ידי העם היהודי ב "
-  },
-  {
-    "file": "content_medium_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Levi is the tribe serving in the Temple; today leviim are often called to the To",
-    "tr": "לוי הוא השבט המשרת בבית המקדש; היום levi im לעתים קרובות נקראים התורה לאחר kohanim רבים נושאים את שם"
-  },
-  {
-    "file": "content_medium_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Mah Nishtanah (\"Why is this night different?\") is the Four Questions — usually a",
-    "tr": "Mah Nishtanah\"למה הלילה הזה שונה?\") הוא ארבע השאלות – לרוב נשאלו על ידי הילד הצעיר ביותר.Seder The H"
-  },
-  {
-    "file": "content_medium_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Mishnah Berurah is Rabbi Yisrael Meir Kagan's detailed commentary on Orach Chaim",
-    "tr": "Mishnah Berurah הוא הפרשנות המפורטת של הרב ישראל מאיר קגן על אורך חיים - יום יומי halacha תפילה,שבת "
-  },
-  {
-    "file": "content_medium_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Mussar is the Jewish discipline of ethical and character development — refining ",
-    "tr": "Mussar הוא המשמעת היהודית של התפתחות אתית ואופיית – משחזר כעס, יהירות, עצלות ודיבור באמצעות לימוד ופ"
-  },
-  {
-    "file": "content_medium_007.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes",
-    "tr": "Netilat yadayim הוא שטיפת יד עם כוס (keli). ניקוי בוקרruach ra'ahלאחר שינה: לשפוך מים שלוש פעמים על "
-  },
-  {
-    "file": "content_medium_008.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "Patur means exempt from a particular mitzvah in a given situation — for example,",
-    "tr": "Patur משמעו פטור מסוג מסוים מצווה במצב מסוים – למשל, מישהו חולה Yom Kippur מצום, או ילד לפני bar מצו"
-  },
-  {
-    "file": "content_medium_008.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Pshat is the plain, straightforward meaning of a Torah verse — what the text say",
-    "tr": "Pshat est le sens simple et direct d'un verset de Torah — ce que le texte dit en surface avant les c"
-  },
-  {
-    "file": "content_medium_008.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "Pshat is the plain, straightforward meaning of a Torah verse — what the text say",
-    "tr": "Pshat — prostoy, pryamoy smysl stikha Tory — chto tekst govorit na poverkhnosti do glubokikh sloev. "
-  },
-  {
-    "file": "content_medium_010.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Shema al HaMitah is the bedtime Shema — declaring faith and entrusting the soul ",
-    "tr": "Shema אל החיטה היא שעת השינה Shema הכרזה על אמונה ואמונה בנשמה ה' לפני השינה רבים מוסיפיםPsalm91 ופס"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Tehillim — Tehillim (the Hebrew word for \"praises\") is the traditional Jewish na",
-    "tr": "TehillimTehillim(המילה העברית ל\"מעשים\") היא השם היהודי המסורתי של ספר הספרPsalms, שהוא אוסף תנ\"כי של"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "The Shekhinah is G-d's indwelling presence — especially associated with the Temp",
-    "tr": "The Shekhinah הוא ה'\"נוכחות מתפוררת - קשורה במיוחד לבית המקדש, עם ישראל בגלות, ועם קדושה בנישואין וב"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "The Shulchan Aruch (\"Set Table\") is the classic 16th-century code of halacha (Je",
-    "tr": "The Shulchan Aruch(Set Table) הוא הקוד הקלאסי מהמאה ה-16 של halacha(חוק יהודי) מאת הרב יוסף קארו.אשכ"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.20",
-    "key": "The chuppah is the wedding canopy representing the couple's new home — open on a",
-    "tr": "The chuppah חתונה היא ביתם החדש של בני הזוג - פתוח בכל הצדדים כמו אוהלו של אברהם. הטקס כוללkiddushin"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "The oleh (one who goes up) recites blessings before and after the Torah reading ",
-    "tr": "The oleh(מי שהולך למעלה) מדקלם ברכה לפני ואחרי התורה קורא בתורה.aliyah הגירה לישראל נקראת גם aliyah "
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon bar Yochai",
-    "tr": "Le Zohar est l'œuvre classique de la Kabbale, attribuée au Rabbi Shimon bar Yo'haï, écrite en aramée"
-  },
-  {
-    "file": "content_medium_012.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon bar Yochai",
-    "tr": "Zohar — klassicheskoe proizvedenie Kabbaly, prpisыvaemoe Rabbenu Shimonu bar Yochai, napisano na ara"
-  },
-  {
-    "file": "content_medium_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.15",
-    "key": "Today is $name — $meaning\n\nMinor fast rules:\n• No eating or drinking from dawn u",
-    "tr": "היום הוא$name- - -$meaningכללים מהירים קטנים:\n• לא לאכול או לשתות מהשחר עד לנפילה.\nכביסה, מוזיקה ומק"
-  },
-  {
-    "file": "content_medium_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "Trop (ta'amei hamikra) are the cantillation marks above and below Hebrew in a Ch",
-    "tr": "Trop (ta'amei hamikra(1) הם סימני החטיפה מעל ומתחת לעברית בתוך עבר.Chumash זה אומר baal koreh איך לק"
-  },
-  {
-    "file": "content_medium_013.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Yad soledet bo (\"when the hand recoils\") is the heat threshold for bishul on Sha",
-    "tr": "עמוד הבית > When the Hand recoils bishul על שבת 110–11 °F (5–45°C). מזון מבושל במלואו עשוי לפעמים לה"
-  },
-  {
-    "file": "content_medium_014.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "baal koreh — The baal koreh (master of reading) chants the Torah from the scroll",
-    "tr": "baal koreh - The baal koreh(מנהל הקריאה) קורא התורה מן הגלול עם נכון trop הגייה אימון לוקח חודשים. ע"
-  },
-  {
-    "file": "content_medium_014.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "bal yimatzei — Bal yimatzei forbids chametz being found in your possession on Pe",
-    "tr": "bal yimatzei - Bal yimatzei אוסר חמץ נמצא ברשותך פסח ביטול רוחני (רוחני Kol Chamira(1) משלים אך אינו"
-  },
-  {
-    "file": "content_medium_014.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "bitachon — Bitachon is trust in G-d — believing that He provides what you need a",
-    "tr": "bitachon Bitachon הוא אמון ה' להאמין שהוא מספק את מה שאתה צריך ואת הקושי הזה יכול להיות מטרה גם כאשר"
-  },
-  {
-    "file": "content_medium_014.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Zohar — The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon ba",
-    "tr": "Zohar — Le Zohar est l'œuvre classique de la Kabbale, attribuée au Rabbi Shimon bar Yo'haï, écrite e"
-  },
-  {
-    "file": "content_medium_014.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "Zohar — The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon ba",
-    "tr": "Zohar — Zohar — klassicheskoe proizvedenie Kabbaly, prpisыvaemoe Rabbenu Shimonu bar Yochai, napisan"
-  },
-  {
-    "file": "content_medium_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "chesed — Chesed is loving-kindness — going beyond the strict requirement to help",
-    "tr": "צ'אסד הוא אהבה-חביבות - מעבר לדרישה הקפדנית לעזור לאדם אחר.Gemilut chasadim(טוב לב הטוב ביותר) כולל "
-  },
-  {
-    "file": "content_medium_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "chuppah — The chuppah is the wedding canopy representing the couple's new home —",
-    "tr": "chuppah - The chuppah חתונה היא ביתם החדש של בני הזוג - פתוח בכל הצדדים כמו אוהלו של אברהם. הטקס כול"
-  },
-  {
-    "file": "content_medium_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "geneivat da'at — Geneivat da'at (\"stealing the mind\") is deception — advertising",
-    "tr": "geneivat da'at - Geneivat da'at (\"ללמד את המוח\") הוא הונאה - פרסום שקרי, פגמים מסתירים או מטעה לגבי "
-  },
-  {
-    "file": "content_medium_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.21",
-    "key": "hafrashat challah — Hafrashat challah is separating a small portion of dough whe",
-    "tr": "hafrashat challah - Hafrashat challah מפרידה חלק קטן של דונג כאשר אפייה כמות גדולה של לחם או מזונות "
-  },
-  {
-    "file": "content_medium_015.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "kaparot — Kaparot is a pre-Yom Kippur custom swinging a chicken (or money substi",
-    "tr": "kaparot - Kaparot הוא pre-- Yom Kippur כוונון מותאם אישית של תרנגולת (או כסף הוחלף) על ראשו של אחד ת"
-  },
-  {
-    "file": "content_medium_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "karpas — Karpas is a vegetable (often parsley or potato) dipped in salt water at",
-    "tr": "karpas - Karpas הוא ירק (לעתים קרובות parsley או תפוחי אדמה) מטבול במים מלוחים על Seder להתחיל – לעו"
-  },
-  {
-    "file": "content_medium_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "lechem mishneh — Lechem mishneh is two whole loaves at Shabbat and Yom Tov meals",
-    "tr": "lechem mishneh Lechem Wronghneh הוא שני כיכרות שלמות שבת ו יום טוב ארוחות - לזכור חלק כפול מאנה לפני"
-  },
-  {
-    "file": "content_medium_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "levi — Levi is the tribe serving in the Temple; today leviim are often called to",
-    "tr": "levi לוי הוא השבט המשרת בבית המקדש; היום levi im לעתים קרובות נקראים התורה לאחר kohanim רבים נושאים "
-  },
-  {
-    "file": "content_medium_016.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.18",
-    "key": "maaser kesafim — Maaser kesafim is setting aside about ten percent of net income",
-    "tr": "maaser kesafim - מייזר kesafim הוא לשים בצד 10% מההכנסה נטו עבור tzedakah לאחר הוצאות. היא מאמנת שהכ"
-  },
-  {
-    "file": "content_medium_017.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.16",
-    "key": "patur — Patur means exempt from a particular mitzvah in a given situation — for ",
-    "tr": "patur Patur משמעו פטור מסוג מסוים מצווה במצב מסוים – למשל, מישהו חולה Yom Kippur מצום, או ילד לפני b"
-  },
-  {
-    "file": "content_medium_017.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "pirsumei nisa — Pirsumei nisa means publicizing the miracle — placing Chanukah m",
-    "tr": "pirsumei nisa - Pirsumei Nisa פירושו פרסום הנס - הצבת חנוכה שם המחברים רואים את האורות. נס הנפט הוכר"
-  },
-  {
-    "file": "content_medium_017.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "trop — Trop (ta'amei hamikra) are the cantillation marks above and below Hebrew ",
-    "tr": "trop Trop (ta'amei hamikra(1) הם סימני החטיפה מעל ומתחת לעברית בתוך עבר.Chumash זה אומר baal koreh א"
-  },
-  {
-    "file": "content_medium_017.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "pshat — Pshat is the plain, straightforward meaning of a Torah verse — what the ",
-    "tr": "pshat — Pshat est le sens simple et direct d'un verset de Torah — ce que le texte dit en surface ava"
-  },
-  {
-    "file": "content_medium_017.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "pshat — Pshat is the plain, straightforward meaning of a Torah verse — what the ",
-    "tr": "pshat — Pshat — prostoy, pryamoy smysl stikha Tory — chto tekst govorit na poverkhnosti do glubokikh"
-  },
-  {
-    "file": "content_medium_018.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "yetzer hatov — Yetzer hatov is the inclination toward good — conscience, love of",
-    "tr": "yetzer hatov עם זאת, Hatov הוא הנטייה לטוב - מצפון, אהבה מצוות בושה מהטעות. הוא גדל כאשר לומדים תורה"
+    "tr": "Kabbalah — Kabbalah es la tradición mística judía que explora cómo Dios se relaciona con la creación"
   },
   {
     "file": "he_fix_009.json",
@@ -1913,16 +163,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.18",
+    "pattern": "latin_ratio=0.20",
     "key": "The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvo",
     "tr": "השבוע לפני הסוכות (Tishrei 8–13) הוא לבנות שמחה ולקבל את המיץ מוכן - רבים מתחילים את הסוקה מיד לאחר "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "bitachon — Bitachon is trust in G-d — believing that He provides what you need a",
-    "tr": "bitachon Bitachon הוא אמון ה' להאמין שהוא מספק את מה שאתה צריך ואת הקושי הזה יכול להיות מטרה גם כאשר"
   },
   {
     "file": "quality_overrides.json",
@@ -2007,13 +250,6 @@
     "pattern": "latin_ratio=0.15",
     "key": "Neshama is the soul — the divine breath that makes you alive. Modeh Ani thanks G",
     "tr": "נישהמה היא הנשמה – הנשימה האלוהית שגורמת לך לחיות.Modeh Ani תודה תודה ה' לחזור אחרי השינה.Yizkor ו K"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Maariv — Maariv is the evening service after nightfall — Shema, Amidah, and on M",
-    "tr": "MaarivMaariv שירות הערב אחרי החשיכה - Shema,Amidah וכן הלאה Motzei שבת Havdalah החג מוסיף. יום שבת מ"
   },
   {
     "file": "quality_overrides.json",
@@ -2116,27 +352,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "⟦\\d",
-    "key": "Before eating or drinking anything, we say a short blessing (bracha) thanking G-",
-    "tr": "לפני אכילת או שתיית כל דבר, אנו אומרים ברכה קצרה (ברכה) תודה לאל על האוכל. זהו אחד הדברים הנפוצים בי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Before eating or drinking anything, we say a short blessing (bracha) thanking G-",
-    "tr": "לפני אכילת או שתיית כל דבר, אנו אומרים ברכה קצרה (ברכה) תודה לאל על האוכל. זהו אחד הדברים הנפוצים בי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "After using the bathroom, we wash our hands and say the Asher Yatzar blessing — ",
-    "tr": "לאחר השימוש בשירותים, אנו שוטפים את ידינו ואומרים את ברכת אשר יאעזר – בכל פעם שאתם מסיימים. מתי לומר"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.22",
     "key": "Hamapil is the very last thing said before closing your eyes to sleep.\n\nWhat it ",
     "tr": "האמפרי הוא הדבר האחרון שאמר לפני סגירת העיניים. מה זה:\nHamapil (hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
@@ -2151,23 +366,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "A sukkah is a temporary booth with schach roof where we eat (and some sleep) on ",
-    "tr": "sukkah הוא תא זמני עם schach גג שבו אנו אוכלים (ויש שינה)Sukkot לזכור עננים של תהילה במדבר. קירות חי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.18",
     "key": "Ona'at devarim is verbal wronging — insults, public embarrassment, or pressuring",
     "tr": "Ona'at devarim הוא טעות מילולית - עלבון, מבוכה ציבורית, או ללחוץ על מישהו למכור. אפילו תה \"ידידותי\" "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "The Purim seudah is the festive afternoon meal on Purim day — part of the day's ",
-    "tr": "The Purim סעודה היא ארוחת ערב חגיגית על Purim יום - חלק מהשמחה של היום לצד Megillah, mishloach manot"
   },
   {
     "file": "quality_overrides.json",
@@ -2179,30 +380,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Talmud — The Talmud (Gemara + Mishnah) is the central rabbinic discussion of hal",
-    "tr": "Talmud - התלמוד()Gemara+Mishnah(הדיון הרבני המרכזי)halacha ואגאדה - התפתחה בבליה ובישראל.Daf Yomiהלו"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "ona'at devarim — Ona'at devarim is verbal wronging — insults, public embarrassme",
-    "tr": "ona'at devarim - Ona'at devarim הוא טעות מילולית - עלבון, מבוכה ציבורית או ללחוץ על מישהו למכור. אפי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.17",
     "key": "Rav (Hebrew for \"great\" or \"master\") is a title for an experienced Torah scholar",
     "tr": "הרב (עברית ל\"גדול\" או \"מאסטר\") הוא תואר למלומד תורה מנוסה השולט על halacha במיוחד בקהילות האורתודוקס"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Leishev baSukkah is the blessing \"to dwell in the sukkah\" — said when eating bre",
-    "tr": "Leishev baSukkah הוא הברכה \"לשתיישב בבית sukkah\"אמר מתי לאכול לחם בארוחות.sukkah על Sukkot נפיחות פי"
   },
   {
     "file": "quality_overrides.json",
@@ -2249,20 +429,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Tu B'Shvat (the 15th of Shvat) is the New Year for Trees — one of the four \"new ",
-    "tr": "Tu B'shvat (ה-15 של Shvat) היא השנה החדשה לעץ - אחת מארבעת \"שנות חדשות\" שהוזכרו ב-משנה. זה מסמן את ה"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.14",
-    "key": "Tu B'Shvat (the 15th of Shvat) is the New Year for Trees — one of the four \"new ",
-    "tr": "Tu B'shvat (ה-15 של Shvat) היא השנה החדשה לעץ - אחת מארבעת \"שנות חדשות\" שהוזכרו ב-משנה. זה מסמן את ה"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.13",
     "key": "Mechirat chametz is selling chametz you want to keep to a non-Jew through your r",
     "tr": "Mechirat חמץ מוכר חמץ אתה רוצה לשמור על לא יהודי דרך הרב שלך לפני פסח כך שזה לא שלך במהלך החג. לאשר "
@@ -2277,13 +443,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "$bedikatLeadIn\n\nThis year, Erev Pesach is on Friday (14 Nisan) and the first day",
-    "tr": "$bedikatLeadIn השנה, ערב פסח הוא ביום שישי (14 Nisan) ולמחרת הראשון של פסח הוא שבת (15 Nisan): Bedik"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.12",
     "key": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — Fast of the Firstborn — is observed on ",
     "tr": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) - Fast of the Firstborn - נצפתה ביום ערב פסח על ידי הזכרים הב"
@@ -2294,13 +453,6 @@
     "pattern": "latin_ratio=0.19",
     "key": "$bedikatLeadIn\n\nThis year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesac",
     "tr": "$bedikatLeadIn השנה, ערב פסח הוא בשבת (14 Nisan). כאשר ערב פסח נופל בשבת, כל ציר הזמן הכנה משתנה מוק"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Mishnah Berurah is Rabbi Yisrael Meir Kagan's detailed commentary on Orach Chaim",
-    "tr": "Mishnah Berurah הוא הפרשנות המפורטת של הרב ישראל מאיר קגן על אורך חיים - יום יומי halacha תפילה,שבת "
   },
   {
     "file": "quality_overrides.json",
@@ -2347,27 +499,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Chabad — Chabad is a Chasidic movement founded by the Baal Shem Tov's disciples ",
-    "tr": "ChabadChabad זוהי תנועה צ'אשית שנוסדה על ידי תלמידי Baal Shem Tov והובילה במשך שבעה דורות על ידי הרב"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Pirkei Avot — Pirkei Avot (Ethics of the Fathers) is a tractate of the Mishnah w",
-    "tr": "Pirkei AvotPirkei Avot(Ethics of the Fathers) הוא מתיחה של Mishnah עם חוכמה אומר על אופי, קהילה ואהב"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Selichot — Selichot are penitential prayers recited before Rosh Hashana (Ashkena",
-    "tr": "SelichotSelichot תפילה pen recite are Rosh Hashana()אשכנזים לעיתים קרובות בלילה שלפני שבת,ספרדי m מא"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.18",
     "key": "Yizkor — Yizkor is the memorial prayer on Yom Tov (and Yom Kippur) for parents a",
     "tr": "YizkorYizkor התפילה על יום טוב(and)Yom Kippur להורים, לפעמים קרובי משפחה אחרים. הרבה אור yahrzeit נר"
@@ -2378,13 +509,6 @@
     "pattern": "latin_ratio=0.20",
     "key": "Halacha means \"the way of walking\" — the practical path of Jewish life drawn fro",
     "tr": "ההלכה היא \"דרך ההליכה\" – הדרך המעשית של החיים היהודיים הנמשכים בתורה, נביאים, כותבים,Mishnah,Talmud "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "halacha — Halacha means \"the way of walking\" — the practical path of Jewish life",
-    "tr": "halacha ההלכה היא \"דרך ההליכה\" – הדרך המעשית של החיים היהודיים הנמשכים בתורה, נביאים, כותבים,Mishnah"
   },
   {
     "file": "quality_overrides.json",
@@ -2413,27 +537,6 @@
     "pattern": "latin_ratio=0.18",
     "key": "Ne'ilah — Ne'ilah (\"closing\") is the final prayer service of Yom Kippur as the g",
     "tr": "Ne'ilahNe'ilah(קריפול) הוא שירות התפילה הסופי של Yom Kippur כמו שערי החרטה קרוב. הארון נשאר לעתים קר"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Speci",
-    "tr": "אל netilat lulav אל netilat lulav ברכה לפני נטילת ארבעת המינים Sukkot מי קידש אותנו עם שלו מצוות וצי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "UshpizinUshpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"su"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.19",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "UshpizinUshpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"su"
   },
   {
     "file": "quality_overrides.json",
@@ -2536,13 +639,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.22",
     "key": "The Shulchan Aruch (\"Set Table\") is the classic 16th-century code of halacha (Je",
     "tr": "The Shulchan Aruch(Set Table) הוא הקוד הקלאסי מהמאה ה-16 של halacha(חוק יהודי) מאת הרב יוסף קארו.אשכ"
@@ -2550,30 +646,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "The oleh (one who goes up) recites blessings before and after the Torah reading ",
-    "tr": "The oleh(מי שהולך למעלה) מדקלם ברכה לפני ואחרי התורה קורא בתורה.aliyah הגירה לישראל נקראת גם aliyah "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.20",
     "key": "The chuppah is the wedding canopy representing the couple's new home — open on a",
     "tr": "The chuppah חתונה היא ביתם החדש של בני הזוג - פתוח בכל הצדדים כמו אוהלו של אברהם. הטקס כוללkiddushin"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "The Haggadah (\"telling\") is the book guiding the Seder — questions, answers, pla",
-    "tr": "The Haggadah(ספר) הוא הספר המנחה את Seder שאלות, תשובות, מגפות,Dayeinu ו Hallel הליבה שלה היא לגרום "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "The chazzan (cantor) leads the congregation in prayer — especially when the serv",
-    "tr": "The chazzan(קנרטור) מוביל את הקהילה בתפילה - במיוחד כאשר השירות מוקרן או כאשר minyan צריך קול מיומן "
   },
   {
     "file": "quality_overrides.json",
@@ -2588,13 +663,6 @@
     "pattern": "latin_ratio=0.19",
     "key": "Haman — Haman is the Persian official who plotted to destroy the Jews in Esther'",
     "tr": "Haman - Haman הוא הפקיד הפרסי ששילמה להרוס את היהודים בתקופת אסתר. מרדכי ואסתר סידרו את התוכנית. מתי"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "The Tanya is Rabbi Schneur Zalman of Liadi's foundational Chabad work on the Jew",
-    "tr": "The Tanya הרב שטיינ זלמן מהבסיס של ליאדי חב\"ד עבודה על הנפש היהודית, השירות האלוהי והמסתורין המעשי. "
   },
   {
     "file": "quality_overrides.json",
@@ -2630,6 +698,13 @@
     "pattern": "latin_ratio=0.17",
     "key": "rechilut — Rechilut is carrying tales that create hatred — even if true. Example",
     "tr": "rechilut Rechilut נושא סיפורים שיוצרים שנאה – גם אם כן. דוגמה: אומר ראובן מה שמעון אמר עליו לעורר קו"
+  },
+  {
+    "file": "quality_overrides.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.15",
+    "key": "Do the powerful mitzvah of praying for others! Think of someone who's looking fo",
+    "tr": "עשu את מצווה העוצמתי של התפלל עבור אחרים! חשbu על מישהו שמחפש shidduch והתפללu עבורו בכנות 💑. התפילה"
   },
   {
     "file": "quality_overrides.json",
@@ -2697,13 +772,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "bal yimatzei — Bal yimatzei forbids chametz being found in your possession on Pe",
-    "tr": "bal yimatzei - Bal yimatzei אוסר חמץ נמצא ברשותך פסח ביטול רוחני (רוחני Kol Chamira(1) משלים אך אינו"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.15",
     "key": "Mah Nishtanah (\"Why is this night different?\") is the Four Questions — usually a",
     "tr": "Mah Nishtanah\"למה הלילה הזה שונה?\") הוא ארבע השאלות – לרוב נשאלו על ידי הילד הצעיר ביותר.Seder The H"
@@ -2714,20 +782,6 @@
     "pattern": "latin_ratio=0.16",
     "key": "patur — Patur means exempt from a particular mitzvah in a given situation — for ",
     "tr": "patur Patur משמעו פטור מסוג מסוים מצווה במצב מסוים – למשל, מישהו חולה Yom Kippur מצום, או ילד לפני b"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "chuppah — The chuppah is the wedding canopy representing the couple's new home —",
-    "tr": "chuppah - The chuppah חתונה היא ביתם החדש של בני הזוג - פתוח בכל הצדדים כמו אוהלו של אברהם. הטקס כול"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Chitas (חיט\"ס) is Chabad's daily study cycle: Chumash (weekly Torah portion with",
-    "tr": "Chitas(שם בדוי)חב\"ד מחזור לימוד יומי:Chumash(בעיקר תורה)Rashi)Tehillim()Psalmמחולק עד יום חודש),Tany"
   },
   {
     "file": "quality_overrides.json",
@@ -2795,20 +849,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the",
-    "tr": "Yom Ha'atzmaut(יום העצמאות הישראלי) נצפה ב-5 איייר, וחוגג את הקמתה של מדינת ישראל בשנת 1948. בישראל "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Rabbi Yisrael Meir Kagan (Chofetz Chaim) wrote the definitive guide to guarding ",
-    "tr": "הרב ישראל מאיר קגן (The Rabbi Israel מאיר Kagan)Chofetz Chaim) כתב את המדריך הסופי לשמירה על הדיבור "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.15",
     "key": "bal yera'eh — Bal yera'eh (\"it shall not be seen\") is the Torah prohibition agai",
     "tr": "שם הספר בלועזית : Bal yera'eh (\"לא ניתן לראות\") הוא איסור התורה חמץ נשאר גלוי בתחום שלך פסח יחד עם b"
@@ -2858,13 +898,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.24",
-    "key": "Machatzit HaShekel — Machatzit HaShekel recalls the half-shekel each Jew gave fo",
-    "tr": "Machatzit Ha Shekel - Machatzit Ha Shekel מזכיר את חצי השקל שכל יהודי נתן עבור טמפל Upkeep ב Adar. ה"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.16",
     "key": "Experience the mitzvah of tzitzit! For men: Get some tzitzit to wear, or a fresh",
     "tr": "חוו את מצוות tzitzit! לגברים: השיגו tzitzit ללבישה, או סט חדש לחגים! לנשים: שקלו לקנות tzitzit חדשים"
@@ -2875,13 +908,6 @@
     "pattern": "latin_ratio=0.22",
     "key": "Gebrochts (\"broken\") is matzah that has come into contact with liquid after baki",
     "tr": "ה'ברוכט (Break)matzah זה בא במגע עם נוזל לאחר אפייה - kneidlach matzah הכדורים הם הדוגמה הקלאסית. כמ"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "Chofetz Chaim — Rabbi Yisrael Meir Kagan (Chofetz Chaim) wrote the definitive gu",
-    "tr": "Chofetz Chaim הרב ישראל מאיר קגן Chofetz Chaim) כתב את המדריך הסופי לשמירה על הדיבור ועל Mishnah Ber"
   },
   {
     "file": "quality_overrides.json",
@@ -2900,20 +926,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "neshama yeteira — Neshama yeteira (\"extra soul\") is the tradition that Shabbat b",
-    "tr": "neshama yeteira Neshama Stilleira (extra Soul) היא המסורת.שבת מביא מידה נוספת של יכולת רוחנית – יותר"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "gebrochts — Gebrochts (\"broken\") is matzah that has come into contact with liqui",
-    "tr": "gebrochts ה'ברוכט (Break)matzah זה בא במגע עם נוזל לאחר אפייה - kneidlach matzah הכדורים הם הדוגמה ה"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.20",
     "key": "Taharat hamishpacha (family purity) regulates intimacy through the niddah cycle ",
     "tr": "Taharat Hurtishpacha (טוהר המשפחה) מסדיר אינטימיות דרך הטוהר niddah מעגל ו mikveh immersion לאחר הוו"
@@ -2924,20 +936,6 @@
     "pattern": "latin_ratio=0.16",
     "key": "Ne'ilah (\"closing\") is the final prayer service of Yom Kippur as the gates of re",
     "tr": "Ne'ilah(קריפול) הוא שירות התפילה הסופי של Yom Kippur כמו שערי החרטה קרוב. הארון נשאר לעתים קרובות פת"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"sukkah כל "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin הם \"מתיקים\" מיסטיים – אברהם, יצחק, יעקב ואחרים – ברוכים הבאים אל תוך ה\"מתקדמונים\"sukkah כל "
   },
   {
     "file": "quality_overrides.json",
@@ -2998,13 +996,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.23",
-    "key": "The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim",
-    "tr": "The Fast of Esther (Ta'anit Esther) נצפה ב-13 אדר, היום לפני פורים. היא מנציחת את שלושת ימיה של אסתר"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.15",
     "key": "Purim Meshulash — mishloach manot on Sunday (16 Adar)\n\nDeferred from Shabbat bec",
     "tr": "פורים Meshulash - mishloach manot ביום ראשון (16 Adar) Deferred from השבת כי פורים מצווה אינם מבוצעי"
@@ -3022,13 +1013,6 @@
     "pattern": "latin_ratio=0.16",
     "key": "Sephardi — Sephardi Jews trace roots to the Iberian diaspora and related Mediter",
     "tr": "יהודים ספרדים - ספרדים הם שורשים ל-Iberian diaspora ולקהילות ים התיכון קשורות. תפילה היא בדרך כלל נו"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.22",
-    "key": "Sephardi custom (Shulchan Arukh O.C. 493:1-2; Peninei Halakha 05-03-03): mournin",
-    "tr": "המנהג הספרדי (שולחן ערוך O.C. 493:1-2; פניני הלכה 05-03-03): But from פesach עד הבוקר של יום 34 של ע"
   },
   {
     "file": "quality_overrides.json",
@@ -3082,23 +1066,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Shemini Atzeret is an independent Yom Tov immediately following Sukkot (22 Tishr",
-    "tr": "Shemini Atzeret הוא Yom tov עצמאי מיד לאחר הסוכות (22 Tishrei). בתפוצות, התורה של סימפטאט נצפתה על 2"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.18",
     "key": "Yaaleh V'Yavo is a special prayer paragraph inserted into the Amidah (the standi",
     "tr": "Yaaleh V'YAvo הוא סעיף תפילה מיוחד שהוכנס אל תוך האימידה (התפילה השקטה המתמדת) ול-Birkat HaMazon (Gr"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.25",
-    "key": "Said immediately before sleep, the bedtime Shema is a separate requirement from ",
-    "tr": "סעיד מיד לפני השינה, שma היא דרישה נפרדת מן שma אמר במהלך מעריב. מה זה:\nקריט שאמה אל HaMitah (ראשי ת"
   },
   {
     "file": "quality_overrides.json",
@@ -3110,44 +1080,9 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "Giving charity (tzedakah — צְדָקָה) is a constant mitzvah. A foundational custom",
-    "tr": "מתן צדקה (tzedakah - צְדָקָה) הוא מצווה מתמדת. מנהג יסוד הוא maaser kesafim (מַעֲשֵׂר כְּסָפִים ⟧ ⟧ "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.16",
     "key": "Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of t",
     "tr": "יום HaZikaron (4 איייר) הוא יום הזיכרון הלאומי של ישראל לחיילים של כוחות הביטחון וקורבנות הטרור שנתנ"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "The very first act of each day:\n\nWhat it is:\nModeh Ani (מוֹדֶה אֲנִי — literally",
-    "tr": "המעשה הראשון בכל יום: מה זה:\nמודה אאני (מוֹדֶה1⟧ - פשוטו כמשמעו \"אני אסיר תודה\") הוא תפילה דו-ליין ש"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.13",
-    "key": "The very first act of each day:\n\nWhat it is:\nModeh Ani (מוֹדֶה אֲנִי — literally",
-    "tr": "המעשה הראשון בכל יום: מה זה:\nמודה אאני (מוֹדֶה1⟧ - פשוטו כמשמעו \"אני אסיר תודה\") הוא תפילה דו-ליין ש"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "⟦\\d",
-    "key": "Jewish law applies in the marketplace and office just as in the synagogue. Hones",
-    "tr": "החוק היהודי חל בשוק ובמשרד בדיוק כמו בבית הכנסת. משקולות כנות, עסקאות הוגן והתנהלות אמינה הן התחייבו"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "\\u27e6|\\u27e7",
-    "key": "Speech is one of the most powerful forces in Jewish life — it can build people u",
-    "tr": "הדיבור הוא אחד הכוחות החזקים ביותר בחיים היהודיים – הוא יכול לבנות אנשים או להרוס אותם ברגע. Shmirat"
   },
   {
     "file": "quality_overrides.json",
@@ -3180,48 +1115,6 @@
   {
     "file": "quality_overrides.json",
     "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.12",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.17",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "מיד לאחר שאמר מודה אאני, לשטוף את הידיים בדרך טקסית מסוימת לפני שאתה עושה משהו אחר. מה זה:\nNetilat Y"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
     "pattern": "latin_ratio=0.15",
     "key": "A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as on",
     "tr": "Revi'it (רביעי) היא יחידה סטנדרטית של נפח נוזלי ב Halacha, המוגדר כרבע מהלוג - מתורגם בדרך כלל כנפח "
@@ -3239,20 +1132,6 @@
     "pattern": "latin_ratio=0.22",
     "key": "Shnayim Mikra v'Echad Targum — Shnayim Mikra v'Echad Targum is completing the we",
     "tr": "Shnayim Mikra v'Echad Targum - Shnayim Mikra v'Echad Targum הוא להשלים את פרשת התורה השבועית פעמיים "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.80",
-    "key": "Add your own mitzvah! ✡ The Talmud teaches that each person has their own unique",
-    "tr": "הוסיפu מצווה משלכם! ✡ התalmud melamed she'le'chol adam derech yechida le'avod et ha'Hashem. חשbu al "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "he",
-    "pattern": "latin_ratio=0.93",
-    "key": "Discover the power of Peh (פ)! 👄 The Peh means 'mouth' and teaches us about the ",
-    "tr": "גלו את כוח הPeh (פ)! 👄 Peh mashma 'peh' u'melamed al koach ha'dibur. Tzurato koleh Bet (ב) bifnim (h"
   },
   {
     "file": "quality_overrides.json",
@@ -3277,73 +1156,10 @@
   },
   {
     "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Inmediatamente después de decir Mode Ani, lave las manos de una manera ritual específica antes de ha"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — welcomed in",
-    "tr": "Ushpizin son misticos \"invitados\" — Abraham, Isaac, Jacob y otros— recibidos en sukkah cada noche de"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Ushpizin — Ushpizin are mystical \"guests\" — Abraham, Isaac, Jacob, and others — ",
-    "tr": "Ushpizin—Ushpizin son misticos \"invitados\" — Abraham, Isaac, Jacob y otros— recibidos en sukkah cada"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation,",
-    "tr": "Kabbalah es la tradición mística judía que explora cómo D-s se relaciona con la creación, el alma y "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Kabbalah es la tradición mística judía que explora cómo D-s se relaciona con la creación,"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Learn the step-by-step process of bringing a korban (offering) — and why reversi",
-    "tr": "¡Aprende el proceso paso a paso de traer un korban (ofrenda) — y por qué invertir incluso un solo pa"
+    "lang": "he",
+    "pattern": "latin_ratio=0.15",
+    "key": "The time to fulfill Musaf has passed ({time} — end of the 7th halachic hour). Yo",
+    "tr": "זמן קיום מוסף עבר ({time} — סוף השעה השביעית). עדיין אפשר לקיים עד השקיעה — אם הגיע זמן מנחה, התפללו"
   },
   {
     "file": "quality_overrides.json",
@@ -3351,111 +1167,6 @@
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
     "tr": "Si tienes ropa con lana, haz que la revisen por shaatnez (mezcla prohibida de lana y lino) 🧵. Si no "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "es",
-    "pattern": "Kabb[aаА]l",
-    "key": "Dive into Kabbalah's depths! 🌊 The great rabbis emphasized that learning Kabbala",
-    "tr": "¡Sumérgete en las profundidades de la Kabbalá! 🌊 Los grandes rabinos enfatizaron que aprender Kabbal"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Dive into Kabbalah's depths! 🌊 The great rabbis emphasized that learning Kabbala",
-    "tr": "Plongez dans les profondeurs de la Kabbale ! 🌊 Les grands rabbins ont souligné qu'apprendre la Kabba"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
-    "tr": "Pourquoi les sages nous exhortent à apprendre — et pourquoi cela vaut la peine de commencer aujourd'"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Immediately after saying Modeh Ani, wash your hands in a specific ritual way bef",
-    "tr": "Immédiatement après avoir dit Mode Ani, lavez-vous les mains d'une manière rituelle spécifique avant"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation,",
-    "tr": "Kabbalah est la tradition mystique juive explorant comment D. se rapporte à la création, l'âme et le"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Kabbalah est la tradition mystique juive explorant comment D. se rapporte à la création, "
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Pshat is the plain, straightforward meaning of a Torah verse — what the text say",
-    "tr": "Pshat est le sens simple et direct d'un verset de Torah — ce que le texte dit en surface avant les c"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon bar Yochai",
-    "tr": "Le Zohar est l'œuvre classique de la Kabbale, attribuée au Rabbi Shimon bar Yo'haï, écrite en aramée"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Zohar — The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon ba",
-    "tr": "Zohar — Le Zohar est l'œuvre classique de la Kabbale, attribuée au Rabbi Shimon bar Yo'haï, écrite e"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "pshat — Pshat is the plain, straightforward meaning of a Torah verse — what the ",
-    "tr": "pshat — Pshat est le sens simple et direct d'un verset de Torah — ce que le texte dit en surface ava"
-  },
-  {
-    "file": "quality_overrides.json",
-    "lang": "fr",
-    "pattern": "Kabb[aаА]l",
-    "key": "Learn the step-by-step process of bringing a korban (offering) — and why reversi",
-    "tr": "Apprenez le processus étape par étape pour apporter un korban (offrande) — et pourquoi inverser une "
   },
   {
     "file": "quality_overrides.json",
@@ -3472,11 +1183,46 @@
     "tr": "Если у вас есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Если"
   },
   {
-    "file": "quality_overrides.json",
-    "lang": "ru",
-    "pattern": "Kabb[aаА]l",
-    "key": "Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates t",
-    "tr": "Kabbalah — Каббала — еврейская мистическая традиция, исследующая отношение В-а к творению, душе и мi"
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.18",
+    "key": "Yaaleh V'Yavo is a special prayer paragraph inserted into the Amidah (the standi",
+    "tr": "Yaaleh V'YAvo הוא סעיף תפילה מיוחד שהוכנס אל תוך האימידה (התפילה השקטה המתמדת) ול-Birkat HaMazon (Gr"
+  },
+  {
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "Purim is observed on 14 Adar (15 Adar in walled cities — Shushan Purim). It comm",
+    "tr": "פורים נצפתה ב-14 Adar (15 Adar בערים מוקפות - Shushan פורים). הוא מנציח את הישועה המופלאה של העם היה"
+  },
+  {
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "Shavuot is observed on 6 Sivan (two days in the Diaspora). It celebrates the giv",
+    "tr": "שavuot נצפה על 6 סייוון (יומיים בתפוצות). הוא חוגג את מתן התורה בהר סיני, שהתרחשה שבעה שבועות לאחר י"
+  },
+  {
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.19",
+    "key": "Hoshana Raba is the 21st of Tishrei — the seventh and final day of Sukkot. While",
+    "tr": "Hoshana Raba הוא 21 של Tishrei - היום השביעי והאחרון של הסוכות. אמנם זה מבחינה טכנית חול המועד (יום "
+  },
+  {
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "Lag BaOmer is the 33rd day of the Omer count (18 Iyar). It marks the yahrzeit (a",
+    "tr": "Lag BaOmer הוא היום ה-33 של ספירת העומר (18 איייר). הוא מסמן את ה-hhrzeit (anversary of pass) של הרב"
+  },
+  {
+    "file": "shabbat_guide.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks the day the walls of Jerusalem",
+    "tr": "המהירות של 17 תממוז (שיווה אסאר B'Tammuz) מציינת את היום בו פרצו חומות ירושלים על ידי הרומאים במאה ה"
   },
   {
     "file": "ui_short_003.json",

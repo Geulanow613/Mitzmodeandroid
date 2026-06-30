@@ -1,19 +1,51 @@
 package com.beardytop.beatzaddik.ui.translation
 
+import com.beardytop.beatzaddik.domain.BirkatHachamahRules
+import com.beardytop.beatzaddik.domain.EffectiveNusach
+import com.beardytop.beatzaddik.domain.OmerCountText
+import com.beardytop.beatzaddik.domain.ZmanimFormatter
+import kotlinx.datetime.LocalDate
+
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.unit.LayoutDirection
 
 /** Keeps Latin clock times readable when embedded in RTL paragraphs. */
 fun embedLtrForRtlMix(text: String): String =
     if (text.isBlank()) text else "\u2066$text\u2069"
 
-private fun isRtlLanguage(languageCode: String): Boolean =
+/** Plain Hebrew + clock cluster for layout in an explicit RTL Row (no bidi isolates). */
+fun formatRtlUpcomingTimingCluster(parts: List<String>): String =
+    parts.filter { it.isNotBlank() }.joinToString(" ")
+
+fun isAppRtlLanguage(languageCode: String): Boolean =
     languageCode == "he" || languageCode == "yi"
+
+private fun isRtlLanguage(languageCode: String): Boolean = isAppRtlLanguage(languageCode)
+
+/** Forces LTR for en/es/fr/ru and RTL only for Hebrew (and Yiddish). */
+@Composable
+fun AppDirectionalLayout(
+    languageCode: String,
+    content: @Composable () -> Unit,
+) {
+    CompositionLocalProvider(
+        LocalLayoutDirection provides if (isAppRtlLanguage(languageCode)) {
+            LayoutDirection.Rtl
+        } else {
+            LayoutDirection.Ltr
+        },
+    ) {
+        content()
+    }
+}
 
 private fun looksLikeCountdown(value: String): Boolean =
     value == "soon" || Regex("""\d+[dhms](?:\s+\d+[dhms])*""").containsMatchIn(value)
@@ -37,37 +69,71 @@ private fun shouldSkipTemplateArgTranslation(value: String): Boolean {
 }
 
 private fun localizeCountdownForRtl(value: String, languageCode: String): String {
-    if (!isRtlLanguage(languageCode)) return embedLtrForRtlMix(value)
+    if (!isRtlLanguage(languageCode)) return value
     if (value == "soon") return "בקרוב"
-    Regex("""(\d+)h (\d+)m""").matchEntire(value)?.let { m ->
-        return embedLtrForRtlMix("${m.groupValues[1]} שע׳ ${m.groupValues[2]} דק׳")
-    }
-    Regex("""(\d+)h""").matchEntire(value)?.let { m ->
-        return embedLtrForRtlMix("${m.groupValues[1]} שע׳")
-    }
-    Regex("""(\d+)m""").matchEntire(value)?.let { m ->
-        return embedLtrForRtlMix("${m.groupValues[1]} דק׳")
-    }
-    Regex("""(\d+)d (\d+)h""").matchEntire(value)?.let { m ->
-        return embedLtrForRtlMix("${m.groupValues[1]} ימ׳ ${m.groupValues[2]} שע׳")
-    }
-    Regex("""(\d+)d""").matchEntire(value)?.let { m ->
-        return embedLtrForRtlMix("${m.groupValues[1]} ימ׳")
-    }
     return embedLtrForRtlMix(value)
 }
 
+private fun localizeClockArg(value: String, languageCode: String): String {
+    val converted = ZmanimFormatter.reformatClockStringForLanguage(value, languageCode)
+    return if (isRtlLanguage(languageCode)) embedLtrForRtlMix(converted) else converted
+}
+
 private fun localizeZmanTimePhraseForRtl(value: String, languageCode: String): String {
-    if (!isRtlLanguage(languageCode)) return embedLtrForRtlMix(value)
+    if (!isRtlLanguage(languageCode)) return value
     return when {
         value.startsWith("after ") ->
-            "אחרי ${embedLtrForRtlMix(value.removePrefix("after "))}"
+            "אחרי ${localizeClockArg(value.removePrefix("after "), languageCode)}"
         value.startsWith("until ") ->
-            "עד ${embedLtrForRtlMix(value.removePrefix("until "))}"
+            "עד ${localizeClockArg(value.removePrefix("until "), languageCode)}"
         value.startsWith("before ") ->
-            "לפני ${embedLtrForRtlMix(value.removePrefix("before "))}"
-        else -> embedLtrForRtlMix(value)
+            "לפני ${localizeClockArg(value.removePrefix("before "), languageCode)}"
+        else -> localizeClockArg(value, languageCode)
     }
+}
+
+private val ENGLISH_GREGORIAN_DATE_LABEL = Regex(
+    """^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday), """ +
+        """(?:January|February|March|April|May|June|July|August|September|October|November|December) """ +
+        """\d{1,2}, \d{4}$""",
+)
+
+private val ENGLISH_MONTH_TO_NUMBER = mapOf(
+    "January" to 1, "February" to 2, "March" to 3, "April" to 4,
+    "May" to 5, "June" to 6, "July" to 7, "August" to 8,
+    "September" to 9, "October" to 10, "November" to 11, "December" to 12,
+)
+
+private fun localizeGregorianDateLabel(value: String, languageCode: String): String {
+    if (!isRtlLanguage(languageCode)) return value
+    val trimmed = value.trim()
+    if (!ENGLISH_GREGORIAN_DATE_LABEL.matches(trimmed)) return value
+    val parts = trimmed.split(", ")
+    if (parts.size != 2) return value
+    val monthDayYear = parts[1].split(' ')
+    if (monthDayYear.size < 3) return value
+    val month = ENGLISH_MONTH_TO_NUMBER[monthDayYear[0]] ?: return value
+    val day = monthDayYear[1].trimEnd(',')
+    val year = monthDayYear[2]
+    val date = runCatching {
+        LocalDate(year.toInt(), month, day.toInt())
+    }.getOrNull() ?: return value
+    return BirkatHachamahRules.formatOccurrenceDateHebrew(date)
+}
+
+private val ENGLISH_WEEKDAY_TO_HE = mapOf(
+    "Sunday" to "יום ראשון",
+    "Monday" to "יום שני",
+    "Tuesday" to "יום שלישי",
+    "Wednesday" to "יום רביעי",
+    "Thursday" to "יום חמישי",
+    "Friday" to "יום שישי",
+    "Saturday" to "שבת",
+)
+
+private fun localizeEnglishWeekday(value: String, languageCode: String): String {
+    if (!isRtlLanguage(languageCode)) return value
+    return ENGLISH_WEEKDAY_TO_HE[value] ?: value
 }
 
 /** Localizes countdowns and clock phrases for Hebrew/Yiddish template args. */
@@ -79,12 +145,30 @@ fun localizeTemplateArgsForRtl(
     return args.mapValues { (key, value) ->
         if (value.contains('\u2066')) return@mapValues value
         when {
+            key == "todaySummary" && args.containsKey("day") && args.containsKey("nusach") -> {
+                val day = args["day"]?.toIntOrNull() ?: return@mapValues value
+                val nusach = runCatching {
+                    EffectiveNusach.valueOf(args["nusach"] ?: return@mapValues value)
+                }.getOrNull() ?: return@mapValues value
+                OmerCountText.omerDaySummaryHe(day, nusach)
+            }
+            key == "speechPhrase" && args.containsKey("day") && args.containsKey("nusach") -> {
+                val day = args["day"]?.toIntOrNull() ?: return@mapValues value
+                val nusach = runCatching {
+                    EffectiveNusach.valueOf(args["nusach"] ?: return@mapValues value)
+                }.getOrNull() ?: return@mapValues value
+                "היום ${OmerCountText.omerDaySummaryHe(day, nusach)}."
+            }
+            key == "tonight" || key == "tomorrowNight" ->
+                localizeEnglishWeekday(value, languageCode)
+            key == "time" || looksLikeClockOrLatinTime(value) ->
+                localizeClockArg(value, languageCode)
+            key == "dateLabel" || key == "date" ->
+                localizeGregorianDateLabel(value, languageCode)
             key == "countdown" || looksLikeCountdown(value) ->
                 localizeCountdownForRtl(value, languageCode)
             looksLikeZmanTimePhrase(value) ->
                 localizeZmanTimePhraseForRtl(value, languageCode)
-            looksLikeClockOrLatinTime(value) ->
-                embedLtrForRtlMix(value)
             else -> value
         }
     }
@@ -96,11 +180,11 @@ fun fillLocalizedTranslationTemplate(
     languageCode: String,
 ): String = fillTranslationTemplate(template, localizeTemplateArgsForRtl(args, languageCode))
 
-/** Fills `{name}` placeholders in a translated template string. */
+/** Fills `{name}` and legacy `$name` placeholders in a translated template string. */
 fun fillTranslationTemplate(template: String, args: Map<String, String>): String {
     var out = template
     for ((key, value) in args) {
-        out = out.replace("{$key}", value)
+        out = out.replace("{$key}", value).replace("$" + key, value)
     }
     return out
 }
@@ -124,7 +208,28 @@ data class AppTranslationState(
     val enabled: Boolean = false,
     val languageCode: String = "en",
     val translator: AppTextTranslator = AppTextTranslator { it },
-)
+) {
+    /** Layout direction, clocks, and bundled strings follow what is on screen (not the stored language when English UI). */
+    val displayLanguageCode: String
+        get() = if (!enabled || languageCode == "en") "en" else languageCode
+}
+
+private fun initialBundledText(source: String, appTranslation: AppTranslationState): String =
+    when {
+        !appTranslation.enabled || appTranslation.languageCode == "en" -> source
+        else -> resolveBundledTranslationSync(source, appTranslation.languageCode)
+    }
+
+private fun initialBundledTemplate(
+    templateKey: String,
+    args: Map<String, String>,
+    appTranslation: AppTranslationState,
+): String =
+    when {
+        !appTranslation.enabled || appTranslation.languageCode == "en" ->
+            fillTranslationTemplate(templateKey, args)
+        else -> resolveBundledTemplateSync(templateKey, args, appTranslation.languageCode)
+    }
 
 val LocalAppTranslation = compositionLocalOf { AppTranslationState() }
 
@@ -159,7 +264,9 @@ val LocalLanguageSelector = compositionLocalOf { LanguageSelectorState() }
 @Composable
 fun rememberAppTranslatedText(source: String): String {
     val appTranslation = LocalAppTranslation.current
-    var display by remember(source) { mutableStateOf(source) }
+    var display by remember(source, appTranslation.enabled, appTranslation.languageCode) {
+        mutableStateOf(initialBundledText(source, appTranslation))
+    }
     LaunchedEffect(source, appTranslation.enabled, appTranslation.languageCode) {
         display = when {
             !appTranslation.enabled || appTranslation.languageCode == "en" -> source
@@ -175,8 +282,8 @@ fun rememberAppTranslatedText(source: String): String {
 fun rememberAppTranslatedTemplate(templateKey: String, args: Map<String, String>): String {
     val appTranslation = LocalAppTranslation.current
     val argsKey = args.entries.sortedBy { it.key }.joinToString("|") { "${it.key}=${it.value}" }
-    var display by remember(templateKey, argsKey) {
-        mutableStateOf(fillLocalizedTranslationTemplate(templateKey, args, appTranslation.languageCode))
+    var display by remember(templateKey, argsKey, appTranslation.enabled, appTranslation.languageCode) {
+        mutableStateOf(initialBundledTemplate(templateKey, args, appTranslation))
     }
     LaunchedEffect(templateKey, argsKey, appTranslation.enabled, appTranslation.languageCode) {
         display = when {

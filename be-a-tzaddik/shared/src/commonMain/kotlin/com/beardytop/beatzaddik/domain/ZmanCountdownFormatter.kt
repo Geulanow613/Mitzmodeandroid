@@ -19,27 +19,42 @@ object ZmanCountdownFormatter {
         }
     }
 
-    /** Catalog template key + args for "Available in X · at midday" style lines. */
+    /** Hebrew: absolute 24h clock; other languages: duration countdown. */
     fun upcomingSummaryTemplate(
         windowStartMillis: Long?,
         nowMillis: Long,
         atLabel: String?,
+        timezoneId: String,
+        languageCode: String,
     ): Pair<String, Map<String, String>>? {
         val start = windowStartMillis ?: return onlyAvailableWhenTemplate(atLabel, upcoming = true)
-        val countdown = formatDuration(start, nowMillis)
         val atSuffix = atSuffixForLabel(atLabel)
-        return "Available in {countdown}{at}" to mapOf(
-            "countdown" to countdown,
-            "at" to atSuffix,
-        )
+        return if (ZmanimFormatter.uses24HourClock(languageCode)) {
+            val time = ZmanimFormatter.formatTime(start, timezoneId, languageCode)
+                ?: return onlyAvailableWhenTemplate(atLabel, upcoming = true)
+            "Available at {time}{at}" to mapOf(
+                "time" to time,
+                "at" to atSuffix,
+            )
+        } else {
+            val countdown = formatDuration(start, nowMillis)
+            "Available in {countdown}{at}" to mapOf(
+                "countdown" to countdown,
+                "at" to atSuffix,
+            )
+        }
     }
 
     fun upcomingSummary(
         windowStartMillis: Long?,
         nowMillis: Long,
-        atLabel: String?
+        atLabel: String?,
+        timezoneId: String,
+        languageCode: String,
     ): String? {
-        val (key, args) = upcomingSummaryTemplate(windowStartMillis, nowMillis, atLabel) ?: return null
+        val (key, args) = upcomingSummaryTemplate(
+            windowStartMillis, nowMillis, atLabel, timezoneId, languageCode,
+        ) ?: return null
         return fillTemplate(key, args)
     }
 
@@ -48,10 +63,12 @@ object ZmanCountdownFormatter {
         availability: ItemZmanAvailability,
         windowStartMillis: Long?,
         nowMillis: Long,
-        atLabel: String?
+        atLabel: String?,
+        timezoneId: String,
+        languageCode: String,
     ): String? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
-            upcomingSummary(windowStartMillis, nowMillis, atLabel)
+            upcomingSummary(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhen(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null
@@ -62,9 +79,11 @@ object ZmanCountdownFormatter {
         windowStartMillis: Long?,
         nowMillis: Long,
         atLabel: String?,
+        timezoneId: String,
+        languageCode: String,
     ): Pair<String, Map<String, String>>? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
-            upcomingSummaryTemplate(windowStartMillis, nowMillis, atLabel)
+            upcomingSummaryTemplate(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhenTemplate(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -47,14 +48,16 @@ fun AlHaMichyaBlessingCard(
     var hasWine by remember { mutableStateOf(false) }
     var hasFruit by remember { mutableStateOf(false) }
     var isRoshChodesh by remember { mutableStateOf(false) }
-    var isYomTov by remember { mutableStateOf(false) }
+    var isPesach by remember { mutableStateOf(false) }
+    var isSukkot by remember { mutableStateOf(false) }
 
     val selection = MeinShaloshSelection(
         hasMezonot = hasMezonot,
         hasWine = hasWine,
         hasFruit = hasFruit,
         isRoshChodesh = isRoshChodesh,
-        isYomTov = isYomTov
+        isPesach = isPesach,
+        isSukkot = isSukkot
     )
 
     val language = if (englishOn) MeinShaloshLanguage.ENGLISH else MeinShaloshLanguage.HEBREW
@@ -111,9 +114,23 @@ fun AlHaMichyaBlessingCard(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            SelectionChip("Mezonot (grain)", hasMezonot) { hasMezonot = it }
-            SelectionChip("Wine / grape juice", hasWine) { hasWine = it }
-            SelectionChip("Seven species fruit", hasFruit) { hasFruit = it }
+            SelectionChipWithHint(
+                label = "Mezonot (grain)",
+                hint = "Wheat, barley, rye, oats, spelt",
+                selected = hasMezonot,
+                onSelected = { hasMezonot = it }
+            )
+            SelectionChipWithHint(
+                label = "Wine / grape juice",
+                selected = hasWine,
+                onSelected = { hasWine = it }
+            )
+            SelectionChipWithHint(
+                label = "Seven species fruit",
+                hint = "Grapes, figs, pomegranates, olives, dates",
+                selected = hasFruit,
+                onSelected = { hasFruit = it }
+            )
         }
 
         TranslatableText(
@@ -128,7 +145,14 @@ fun AlHaMichyaBlessingCard(
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             SelectionChip("Rosh Chodesh", isRoshChodesh) { isRoshChodesh = it }
-            SelectionChip("Yom Tov", isYomTov) { isYomTov = it }
+            SelectionChip("Pesach", isPesach) {
+                isPesach = it
+                if (it) isSukkot = false
+            }
+            SelectionChip("Sukkot", isSukkot) {
+                isSukkot = it
+                if (it) isPesach = false
+            }
         }
 
         HorizontalDivider(
@@ -165,8 +189,44 @@ private fun SelectionChip(
         label = {
             TranslatableText(
                 text = label,
-                style = MaterialTheme.typography.labelMedium
+                style = MaterialTheme.typography.labelMedium,
+                enableHalachicTerms = false
             )
         }
     )
+}
+
+@Composable
+private fun SelectionChipWithHint(
+    label: String,
+    hint: String? = null,
+    selected: Boolean,
+    onSelected: (Boolean) -> Unit
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.widthIn(max = 148.dp)
+    ) {
+        FilterChip(
+            selected = selected,
+            onClick = { onSelected(!selected) },
+            label = {
+                TranslatableText(
+                    text = label,
+                    style = MaterialTheme.typography.labelMedium,
+                    enableHalachicTerms = false
+                )
+            }
+        )
+        hint?.let {
+            TranslatableText(
+                text = it,
+                style = MaterialTheme.typography.labelSmall,
+                color = DialogTextMuted.copy(alpha = 0.9f),
+                textAlign = TextAlign.Center,
+                enableHalachicTerms = false,
+                modifier = Modifier.padding(top = 2.dp, start = 4.dp, end = 4.dp)
+            )
+        }
+    }
 }

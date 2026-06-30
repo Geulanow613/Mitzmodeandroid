@@ -234,7 +234,7 @@ fun MitzModeApp(
                             )
                     ) {
                         DropdownMenuItem(
-                            text = { TranslatableText("About") },
+                            text = { TranslatableText("About", enableHalachicTerms = false) },
                             onClick = {
                                 if (!showTour) {
                                     showMenu = false
@@ -244,7 +244,7 @@ fun MitzModeApp(
                             enabled = !showTour
                         )
                         DropdownMenuItem(
-                            text = { TranslatableText("Blessing After Meals") },
+                            text = { TranslatableText("Birkat HaMazon", enableHalachicTerms = false) },
                             onClick = {
                                 if (!showTour) {
                                     showMenu = false
@@ -254,7 +254,7 @@ fun MitzModeApp(
                             enabled = !showTour
                         )
                         DropdownMenuItem(
-                            text = { TranslatableText("Traveler's Prayer") },
+                            text = { TranslatableText("Traveler's Prayer", enableHalachicTerms = false) },
                             onClick = {
                                 if (!showTour) {
                                     showMenu = false
@@ -264,7 +264,7 @@ fun MitzModeApp(
                             enabled = !showTour
                         )
                         DropdownMenuItem(
-                            text = { TranslatableText("Blessings") },
+                            text = { TranslatableText("Blessings", enableHalachicTerms = false) },
                             onClick = {
                                 if (!showTour) {
                                     showMenu = false
@@ -275,7 +275,7 @@ fun MitzModeApp(
                         )
 
                         DropdownMenuItem(
-                            text = { TranslatableText("🎵 Official App Song") },
+                            text = { TranslatableText("🎵 Official App Song", enableHalachicTerms = false) },
                             onClick = {
                                 if (!showTour) {
                                     showMenu = false
@@ -286,7 +286,7 @@ fun MitzModeApp(
                         )
 
                         DropdownMenuItem(
-                            text = { TranslatableText("Language Settings") },
+                            text = { TranslatableText("Language Settings", enableHalachicTerms = false) },
                             leadingIcon = {
                                 Icon(
                                     imageVector = Icons.Default.Language,

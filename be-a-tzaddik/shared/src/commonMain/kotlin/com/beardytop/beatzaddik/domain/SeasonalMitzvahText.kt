@@ -71,57 +71,18 @@ When you feed your family, buy your wife clothes, and give your children treats,
 
     fun shavuotWeekPrepExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.shavuotBasics(),
-        """
-The week before Shavuot is for practical preparation — Shavuot celebrates Matan Torah (receiving the Torah at Sinai).
-
-Food & home:
-• Dairy is a cherished Shavuot minhag (cheesecake, blintzes, lasagna, ice cream) — plan menus and shop early. A festive meat meal with wine remains standard practice to fulfill the primary mitzvah of Simchat Yom Tov (Shulchan Arukh O.C. 529:2); many families have a dairy kiddush or snack, then a full meat Yom Tov meal.
-• Some decorate with flowers and greenery (minhag of a garden around Sinai).
-• Stock wine, grape juice, and Yom Tov staples for festive meals${if (!profile.isInIsrael) " — in the Diaspora, prepare for two days of Yom Tov" else ""}.
-
-Torah & tefillah:
-• Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.
-• Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.
-• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).
-
-Joy & family (simchat Yom Tov):
-• Plan festive meat meals with wine — the core Simchat Yom Tov obligation — alongside any dairy minhag.
-• Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
-
-Practical:
-• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.
-• Turn off devices before Yom Tov — this app is for prep, not use on chag.
-        """.trim(),
+        ExplainerTemplateFill.fill(
+            ExplainerTemplateSupport.shavuotWeekPrepTemplate(),
+            ExplainerTemplateSupport.shavuotWeekPrepArgs(profile),
+        ),
     )
 
     fun sukkotWeekPrepExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.sukkotBasics(),
-        """
-The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvot ready — many begin the sukkah right after Yom Kippur.
-
-Sukkah:
-• Build or repair your sukkah — walls, frame, and schach (plant covering, not metal or solid roof).
-• Choose a spot with more shade than sun under the schach; avoid blocking by trees or porch roofs.
-• Set up table, chairs, and decorations; plan to eat (and sleep, when possible) in the sukkah all seven days.
-
-Arba Minim (Four Species):
-• Order or buy a kosher set: lulav, etrog, hadassim (myrtle), aravot (willow).
-• Check the etrog (pitom intact if present) and that leaves are fresh — buy early before stores sell out.
-• Get a lulav holder (hoshanah holder / koisan) and an etrog box.
-
-Meals & Yom Tov:
-• Plan menus for seven days of festive meals in and out of the sukkah.
-• Wine, grape juice, challah, and Yom Tov groceries — ${if (profile.isInIsrael) "one day of Yom Tov at the start" else "two days of Yom Tov at the start in the Diaspora"}.
-• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.
-
-Joy & family:
-• Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
-
-Practical:
-• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).
-• Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.
-• Turn off devices before Yom Tov — this app is for prep, not use on chag.
-        """.trim(),
+        ExplainerTemplateFill.fill(
+            ExplainerTemplateSupport.sukkotWeekPrepTemplate(),
+            ExplainerTemplateSupport.sukkotWeekPrepArgs(profile),
+        ),
     )
 
     fun shavuotWeekLinks(profile: UserProfile) = buildList {
@@ -163,98 +124,22 @@ First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah (sit 
     """.trim(),
     )
 
-    fun arbaMinimSharedBody(profile: UserProfile): String {
-        val daysNote = if (profile.isInIsrael) {
-            "In Israel: lulav all 7 days; first day is the primary Torah obligation for men."
-        } else {
-            "In the Diaspora: men's primary Torah obligation is the first day of Sukkot (15 Tishrei); the mitzvah continues rabbinically on the second day of Yom Tov and Chol HaMoed."
-        }
-        return """
-Arba Minim (ארבעה מינים) — the Four Species — are taken each day of Sukkot (except Shabbat).
-
-The four:
-• Lulav — closed palm branch (at least 3 tefachim)
-• Etrog — citron, beautiful and mostly intact (pitom if present should be intact)
-• Hadasim — three myrtle branches
-• Aravot — two willow branches
-
-How to observe (everyone):
-• Assemble the lulav: Bind the lulav, hadassim, and aravot together (per your hoshanah holder / koisan). Ensure the central spine of the lulav extends upward at least one handbreadth (tefach — around 4 inches) higher than the tops of the myrtle and willow branches (Shulchan Arukh O.C. 650:1).
-• Check kashrut before Yom Tov — especially etrog and that leaves are fresh enough.
-• When: Daytime; many do it before Shacharit at home or in shul. Not on Shabbat.
-• $daysNote
-
-If a species is missing or invalid, ask your rabbi — there are limited substitutions in pressing cases.
-        """.trim()
-    }
-
-    private fun arbaMinimMenWave(profile: UserProfile): String = when (profile.effectiveNusach()) {
-        EffectiveNusach.CHABAD ->
-            "Hold lulav in right hand, etrog in left (stem/pitom down). Say Al netilat lulav, then wave three times in each direction: right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east."
-        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-            "Hold lulav and etrog together; say bracha, then wave right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east. Hoshanot on Hoshana Raba in many kehillot."
-        EffectiveNusach.ASHKENAZ ->
-            "Hold lulav in right, etrog in left (pitom down). Say bracha, then wave east, south, west, north, up, down (often two waves per direction)."
-    }
-
     fun arbaMinimExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.sukkotBasics(),
-        """
-${arbaMinimSharedBody(profile)}
-
-Men — Torah obligation:
-• The first day of Sukkot worldwide (15 Tishrei) is the Torah-level day for men. In the Diaspora, the mitzvah continues rabbinically on the second day of Yom Tov and Chol HaMoed.
-• Bracha: Men say Al netilat lulav every day when taking the lulav (except Shabbat). Shehecheyanu is on the first day only.
-• ${arbaMinimMenWave(profile)}
-
-The ownership rule (lakhem — u'lekachtem lakhem):
-• In Israel: the strict requirement to fully own your lulav and etrog set applies on the first day of Sukkot (15 Tishrei; Shulchan Arukh O.C. 658:3). If you do not own a set, ask the owner for matana al menat lehachzir (gift on condition of return) before you wave.
-• In the Diaspora: because the second day of Yom Tov is kept as a safek de'oraita, the same lakhem ownership requirement applies on both Day 1 and Day 2 — you cannot simply borrow a synagogue set; it must be given to you as matana al menat lehachzir.
-• In the Diaspora from the third day onward (the first day of Chol HaMoed): you may borrow a shared or synagogue set without a formal gift — the rabbinic continuation no longer carries the Torah ownership requirement (Peninei Halakha, Laws of Sukkot 13:13).
-• In Israel on Chol HaMoed: borrowing without a gift is permitted — ownership was required only on the first day.
-    """.trim(),
+        ExplainerTemplateFill.fill(
+            ExplainerTemplateSupport.arbaMinimTemplate(female = false),
+            ExplainerTemplateSupport.arbaMinimArgs(profile, female = false),
+        ),
     )
 
-    fun arbaMinimExplanationFemale(profile: UserProfile): String {
-        val brachaLine = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: Following standard Sephardic authorities, most wave without saying the bracha (still a meaningful mitzvah)."
-            EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
-                "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave."
-        }
-        val waveLine = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: Not strictly required to wave in all six directions — a simple shake of the lulav is sufficient to fulfill the recommended practice."
-            EffectiveNusach.CHABAD ->
-                "Chabad women: Wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
-            EffectiveNusach.ASHKENAZ ->
-                "Ashkenazi women: Wave east, south, west, north, up, down — the same as men."
-        }
-        return BeginnerHalachaGlossary.withKeyTerms(
+    fun arbaMinimExplanationFemale(profile: UserProfile): String =
+        BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.sukkotBasics(),
-            """
-${arbaMinimSharedBody(profile)}
-
-Women — recommended mitzvah (not obligatory):
-• Women are exempt from this time-bound commandment, but participating is highly popular in both Ashkenazi and Sephardi communities. This checklist marks it as recommended — not a strict daily obligation like men's first-day mitzvah.
-
-Do women need their own set?
-• No. Most women use a shared family set (usually owned by a husband or father) or a synagogue set.
-
-The ownership rule (for men):
-• In Israel: on the first day of Sukkot only, a man must own the set he waves (matana al menat lehachzir if needed). In the Diaspora, lakhem applies on Day 1 and Day 2; borrowing without a gift is permitted from the first day of Chol HaMoed (Day 3) onward.
-
-Bracha:
-• $brachaLine
-
-How to wave:
-• $waveLine
-• Hold etrog in left, lulav (with hadassim and aravot) in right — or together per your siddur.
-
-Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah again.
-        """.trim(),
+            ExplainerTemplateFill.fill(
+                ExplainerTemplateSupport.arbaMinimTemplate(female = true),
+                ExplainerTemplateSupport.arbaMinimArgs(profile, female = true),
+            ),
         )
-    }
 
     fun sheminiAtzeretExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.block(
@@ -341,64 +226,14 @@ Candle lighting last night of Yom Tov; havdalah when Yom Tov ends (often with Su
 
     // ── Chol HaMoed ────────────────────────────────────────────────────────────
 
-    fun cholHamoedHonorExplanation(cal: DayInfo, profile: UserProfile): String {
-        val isPesach = "chol_hamoed_pesach" in cal.activeSeasons
-        val isSukkot = "chol_hamoed_sukkot" in cal.activeSeasons
-        val hallelBlock = buildString {
-            appendLine("Davening — Yaaleh V'yavo and Hallel:")
-            if (isSukkot) {
-                appendLine("• Sukkot (every day of the festival, including Chol HaMoed): Full Hallel.")
-            }
-            if (isPesach) {
-                if (profile.isInIsrael) {
-                    appendLine(
-                        "• Pesach Chol HaMoed: Half Hallel only (Full Hallel on the first day of Pesach; Half Hallel from the second day onward, including Chol HaMoed and the last days). Hallel blessings: Ashkenazic custom permits a blessing over Partial Hallel; Sephardic custom strictly prohibits it (Shulchan Arukh O.C. 422:2)."
-                    )
-                } else {
-                    appendLine(
-                        "• Pesach Chol HaMoed: Half Hallel only (Full Hallel on the first two days of Yom Tov; Half Hallel from Chol HaMoed onward, including the final Yom Tov days). Hallel blessings: Ashkenazic custom permits a blessing over Partial Hallel; Sephardic custom strictly prohibits it (Shulchan Arukh O.C. 422:2)."
-                    )
-                }
-            }
-        }.trim()
-        val festivalLines = buildString {
-            if (isPesach) appendLine("• On Pesach Chol HaMoed: no chametz; matzah and KP food only.")
-            if (isSukkot) appendLine("• On Sukkot Chol HaMoed: lulav (not on Shabbat), meals in sukkah when applicable.")
-        }.trim()
-        val hoshanaRabaBlock = if (
-            isSukkot &&
-            cal.hebrewMonth == HebrewCalendarEngine.TISHREI &&
-            cal.hebrewDay == 20
-        ) {
-            """
-
-Hoshana Raba prep (tomorrow — 21 Tishrei):
-• Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for tomorrow morning — separate from your daily lulav set.
-• At the conclusion of synagogue services tomorrow, the community performs Chagizat Aravah — striking these branches against the ground five times (Minhag Nevi'im). Hoshana Raba is the final sealing of judgment from Yom Kippur."""
-        } else {
-            ""
-        }
-        return BeginnerHalachaGlossary.withKeyTerms(
+    fun cholHamoedHonorExplanation(cal: DayInfo, profile: UserProfile): String =
+        BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.cholHamoedBasics(),
-            """
-Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.
-$hoshanaRabaBlock
-
-Spirit of the day:
-• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
-• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.
-• Ochel nefesh — food preparation is permitted.
-
-What to do:
-$hallelBlock
-• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
-$festivalLines
-
-Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
-• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
-            """.trim(),
+            ExplainerTemplateFill.fill(
+                ExplainerTemplateSupport.cholHamoedHonorTemplate(),
+                ExplainerTemplateSupport.cholHamoedHonorArgs(cal, profile),
+            ),
         )
-    }
 
     fun cholHamoedClothesExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.cholHamoedBasics(),
@@ -414,38 +249,14 @@ This applies each day of Chol HaMoed — it is a simple daily way to mark the mo
     """.trim(),
     )
 
-    fun cholHamoedWineReviitExplanation(cal: DayInfo): String {
-        val isPesach = "chol_hamoed_pesach" in cal.activeSeasons
-        val isSukkot = "chol_hamoed_sukkot" in cal.activeSeasons
-        val kashrutLine = when {
-            isPesach -> "• Use kosher-for-Passover wine only."
-            isSukkot -> "• Use wine that meets your year-round kashrut needs."
-            else -> "• Use wine that meets your festival kashrut needs."
-        }
-        return BeginnerHalachaGlossary.withKeyTerms(
+    fun cholHamoedWineReviitExplanation(cal: DayInfo): String =
+        BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.cholHamoedBasics(),
-            """
-Drinking wine on Chol HaMoed is part of simchat ha'moed — rejoicing on the festival (Peninei Halakha 12-10-03). The Talmud teaches that there is no joy without wine; men especially mark simchat Yom Tov with wine, and everyone should enjoy nicer meals than on weekdays.
-
-This is not like the four cups at the Seder or Shabbat-day Kiddush — Torah-level obligations where many communities require a stricter revi'it (~5.1 fl oz / 150 ml per Chazon Ish). For this optional Chol HaMoed custom, many poskim encourage at least a lenient revi'it of wine (~2.9 fl oz / 86 ml per Rav Chaim Na'eh; Peninei Halakha) at a festive Chol HaMoed meal. Confirm with your rav.
-
-Wine vs grape juice (a real debate — ask your rav):
-• Strict view: Many authorities (e.g. Rabbeinu Ephraim, Shulchan Aruch HaRav, Rav Elyashiv; Peninei Halakha 12-01-09) hold that simcha requires wine's intoxicating, joy-bringing quality — so grape juice does not fulfill this mitzvah the same way.
-• Lenient view: Others (e.g. Rav Shlomo Zalman Auerbach, Rav Yaakov Kamenetsky) treat grape juice like wine for this purpose — drinking a revi'it of grape juice can fulfill the mitzvah per their psak.
-
-If you do not drink wine:
-• Chamar medina: If you cannot drink wine or grape juice, many poskim permit using a significant local beverage (such as an appropriate kosher-for-Passover liquor or coffee) depending on your community's standards.
-• Some hold that meat and other festival delicacies at Yom Tov meals also help fulfill the broader mitzvah of rejoicing — wine is still the classic way when you can.
-
-How:
-• Ideally with bread and enjoyable food at a Chol HaMoed meal — Peninei Halakha encourages two proper meals each day when possible, but bread and extra food are not strict obligations on Chol HaMoed.
-$kashrutLine
-• Each day of the moed counts separately.
-
-If you avoid alcohol for health or preference, ask your rav which option fits you: grape juice per the lenient view, chamar medina, or emphasizing meat and festive food.
-            """.trim(),
+            ExplainerTemplateFill.fill(
+                ExplainerTemplateSupport.cholHamoedWineTemplate(),
+                ExplainerTemplateSupport.cholHamoedWineArgs(cal),
+            ),
         )
-    }
 
     fun cholHamoedMatzahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.block(
@@ -475,73 +286,102 @@ How:
     private const val YAALEH_VYAVO_HALACHA_SOURCE =
         "Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10"
 
-    /** Shacharit, Mincha, or Maariv on Chol HaMoed / Yom Tov — full correction rules. */
-    private fun yaalehVyavoForgotAmidahCorrection(service: String): String = """
-If you forgot:
-• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).
-• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).
-• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE).
-    """.trim()
+    /** Catalog keys for forgot blocks — must match [tools/_sync_explainer_catalog_keys.py]. */
+    const val YAALEH_FORGOT_AMIDAH_SHACHARIT = """If you forgot:
+• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the Shacharit Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10)."""
 
-    /** Shacharit or Mincha on Rosh Chodesh — same in-Amidah rules; repeat Amidah if finished. */
-    private fun yaalehVyavoForgotShacharitOrMincha(service: String): String =
-        yaalehVyavoForgotAmidahCorrection(service)
+    const val YAALEH_FORGOT_AMIDAH_MINCHA = """If you forgot:
+• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the Mincha Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10)."""
 
-    /** Maariv on Rosh Chodesh only — no repeat; limited in-Amidah correction. */
-    private fun yaalehVyavoForgotMaarivRoshChodesh(): String = """
-If you forgot at Maariv on Rosh Chodesh:
-• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue ($YAALEH_VYAVO_HALACHA_SOURCE).
-• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; $YAALEH_VYAVO_HALACHA_SOURCE). Continue davening.
-    """.trim()
+    const val YAALEH_FORGOT_MAARIV = """If you forgot at Maariv on Rosh Chodesh:
+• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).
+• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue davening."""
 
-    fun yaalehVyavoShacharitExplanation(): String = """
+    private val YAALEH_SHACHARIT_TEMPLATE = """
 Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
+${'$'}forgotBlock
 
 Also add Yaaleh V'yavo in bentching if you eat bread today.
-    """.trim()
+    """.trimIndent()
 
-    private fun yaalehVyavoFemaleAmidahLead(service: String): String =
-        "If you recite the $service Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah)."
+    private val YAALEH_SHACHARIT_FEMALE_TEMPLATE = """
+If you recite the Shacharit Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah).
 
-    fun yaalehVyavoShacharitExplanationFemale(): String = """
-${yaalehVyavoFemaleAmidahLead("Shacharit")}
-
-${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
+${'$'}forgotBlock
 
 If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
-    """.trim()
+    """.trimIndent()
 
-    fun yaalehVyavoMinchaExplanation(): String = """
+    private val YAALEH_MINCHA_TEMPLATE = """
 Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-${yaalehVyavoForgotShacharitOrMincha("Mincha")}
-    """.trim()
+${'$'}forgotBlock
+    """.trimIndent()
 
-    fun yaalehVyavoMinchaExplanationFemale(): String = """
-${yaalehVyavoFemaleAmidahLead("Mincha")}
+    private val YAALEH_MINCHA_FEMALE_TEMPLATE = """
+If you recite the Mincha Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah).
 
-${yaalehVyavoForgotShacharitOrMincha("Mincha")}
+${'$'}forgotBlock
 
 If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
-    """.trim()
+    """.trimIndent()
 
-    fun yaalehVyavoMaarivExplanation(): String = """
+    private val YAALEH_MAARIV_TEMPLATE = """
 Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-${yaalehVyavoForgotMaarivRoshChodesh()}
+${'$'}forgotBlock
 
 Also add Yaaleh V'yavo in bentching if you eat bread tonight.
-    """.trim()
+    """.trimIndent()
 
-    fun yaalehVyavoMaarivExplanationFemale(): String = """
-${yaalehVyavoFemaleAmidahLead("Maariv")}
+    private val YAALEH_MAARIV_FEMALE_TEMPLATE = """
+If you recite the Maariv Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah).
 
-${yaalehVyavoForgotMaarivRoshChodesh()}
+${'$'}forgotBlock
 
 If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
-    """.trim()
+    """.trimIndent()
+
+    fun yaalehVyavoShacharitTemplate(female: Boolean = false): String =
+        if (female) YAALEH_SHACHARIT_FEMALE_TEMPLATE else YAALEH_SHACHARIT_TEMPLATE
+
+    fun yaalehVyavoShacharitArgs(): Map<String, String> =
+        mapOf("forgotBlock" to YAALEH_FORGOT_AMIDAH_SHACHARIT)
+
+    fun yaalehVyavoMinchaTemplate(female: Boolean = false): String =
+        if (female) YAALEH_MINCHA_FEMALE_TEMPLATE else YAALEH_MINCHA_TEMPLATE
+
+    fun yaalehVyavoMinchaArgs(): Map<String, String> =
+        mapOf("forgotBlock" to YAALEH_FORGOT_AMIDAH_MINCHA)
+
+    fun yaalehVyavoMaarivTemplate(female: Boolean = false): String =
+        if (female) YAALEH_MAARIV_FEMALE_TEMPLATE else YAALEH_MAARIV_TEMPLATE
+
+    fun yaalehVyavoMaarivArgs(): Map<String, String> =
+        mapOf("forgotBlock" to YAALEH_FORGOT_MAARIV)
+
+    fun yaalehVyavoShacharitExplanation(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoShacharitTemplate(), yaalehVyavoShacharitArgs())
+
+    fun yaalehVyavoShacharitExplanationFemale(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoShacharitTemplate(female = true), yaalehVyavoShacharitArgs())
+
+    fun yaalehVyavoMinchaExplanation(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoMinchaTemplate(), yaalehVyavoMinchaArgs())
+
+    fun yaalehVyavoMinchaExplanationFemale(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoMinchaTemplate(female = true), yaalehVyavoMinchaArgs())
+
+    fun yaalehVyavoMaarivExplanation(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoMaarivTemplate(), yaalehVyavoMaarivArgs())
+
+    fun yaalehVyavoMaarivExplanationFemale(): String =
+        ExplainerTemplateFill.fill(yaalehVyavoMaarivTemplate(female = true), yaalehVyavoMaarivArgs())
 
     fun roshChodeshHalfHallelExplanation(): String = """
 Recite Half Hallel after the Shacharit Amidah on Rosh Chodesh (a cherished custom; not a Torah obligation — Peninei Halakha 05-01-12).
@@ -676,11 +516,31 @@ When Rosh Chodesh spans two days (30th of the previous month and 1st), observanc
     /** @deprecated Split into [yaalehVyavoMaarivExplanation] and [roshChodeshHalfHallelExplanation]. */
     fun roshChodeshExplanation(): String = roshChodeshHalfHallelExplanation()
 
+    fun chanukahLightingExplanationTemplate(): String = CHANUKAH_LIGHTING_EXPLANATION_TEMPLATE
+
+    fun chanukahLightingExplanationArgs(day: Int): Map<String, String> = mapOf(
+        "day" to day.toString(),
+        "brachotNote" to if (day == 1) {
+            "First night: say all three brachot including Shehecheyanu."
+        } else {
+            "Tonight: two brachot (no Shehecheyanu unless first time lighting this year)."
+        },
+    )
+
     fun chanukahLightingExplanation(day: Int, profile: UserProfile): String {
+        val args = chanukahLightingExplanationArgs(day)
+        var out = CHANUKAH_LIGHTING_EXPLANATION_TEMPLATE
+        for ((key, value) in args) {
+            out = out.replace("{$key}", value).replace("$" + key, value)
+        }
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.chanukahBasics() + "\n• Shamash — helper candle used to light the others (not counted in the eight nights)",
-            """
-Chanukah night $day of 8 — lighting the menorah.
+            out,
+        )
+    }
+
+    private val CHANUKAH_LIGHTING_EXPLANATION_TEMPLATE = """
+Chanukah night ${'$'}day of 8 — lighting the menorah.
 
 When:
 • Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
@@ -699,83 +559,63 @@ How:
 Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.
 
-${if (day == 1) "First night: say all three brachot including Shehecheyanu." else "Tonight: two brachot (no Shehecheyanu unless first time lighting this year)."}
+${'$'}brachotNote
 
 After lighting: sing HaNeiros halalu and Maoz Tzur (custom).
-        """.trim(),
-        )
-    }
+    """.trimIndent()
 
     fun pesachWeekPrepExplanation(cal: DayInfo, profile: UserProfile): String {
         val base = BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.pesachPrep(),
-            """
-Pesach begins in about a week — use this time for practical preparation (not spring cleaning every closet, but removing chametz where it matters).
-
-Focus areas:
-• Kitchen and dining — where chametz is eaten: counters, stove, microwave, toaster, fridge, pantry.
-• Cars, offices, bags, coat pockets — crumbs and snack wrappers.
-• Sell or use up chametz food you will not keep; plan Pesach menus and shopping.
-• Haggadahs, matzah, wine, seder plate — order before prices rise and stores sell out.
-
-Kashering vessels for Pesach:
-• Year-round pots, pans, dishes, and utensils absorb chametz from hot foods and long use. For Pesach you need either kashered vessels or a separate Pesach set.
-• Common methods (each item has rules — ask your rabbi): hagalah (immersion in boiling water), irui (pouring boiling water on surfaces), libun (heat for metal that cannot be kashered by hagalah).
-• Start early — kashering the whole kitchen takes time. Many families use only their Pesach dishes and keep year-round dishes sealed away for the week.
-
-Pesach dishes vs selling chametz dishes:
-• Unpack or buy a dedicated Pesach set; label milchig/fleishig if needed.
-• Many people include the chametz residue and absorbed flavor within their year-round dishes and pots in the sale, locking them away securely. The physical dishes themselves are not sold, avoiding the halachic requirement to re-immerse them in a Mikveh (tevilat kelim) after Pesach (Shulchan Arukh Y.D. 120). Rabbis structure the contract accordingly — list items clearly and do not use sealed dishes until buy-back.
-
-Mechirat chametz (plan this week):
-• Authorize the sale with your rabbi or community several days before Erev Pesach — most rabbis stop accepting sale forms by the night before Erev Pesach, even though the sale takes effect on Erev Pesach morning. Many accept online forms through your local rabbi or kashrut council. The sale must be valid halachically; follow your rabbi's instructions on what to include and when it takes effect.
-• Selling transfers ownership so chametz you are not destroying can sit sealed in your home without belonging to you during Pesach.
-
-After Pesach — chametz owned by a Jew during Pesach:
-• Chametz that belonged to a Jew over Pesach becomes forbidden (chametz she'avar alav haPesach) — you may not own it, eat it, or otherwise benefit from it even after Pesach ends.
-• That is why the sale must be real, and why you must not use sold chametz during Pesach. Ask your rav about repurchase timing and about store-bought chametz after Pesach if you are unsure.
-
-Halachic mindset:
-• You need not make the home sterile — remove edible chametz and clean places where chametz was brought.
-• Bedikat chametz and biur happen on Erev Pesach — this week sets you up to succeed.
-
-Children & family: assign zones, check school bags, plan chametz finish-up meals before Pesach.
-        """.trim(),
+            ExplainerTemplateFill.fill(
+                ExplainerTemplateSupport.pesachWeekPrepTemplate(),
+                ExplainerTemplateSupport.pesachWeekPrepArgs(cal, profile),
+            ),
         )
-        val shabbatSchedule = buildString {
-            ErevPesachPrepText.erevPesachShabbatScheduleBlock(cal)?.let { append(it) }
-            YomTovShabbatPrepText.scheduleBlock(cal, profile, "Pesach")?.let {
-                if (isNotEmpty()) append("\n\n")
-                append(it)
-            }
-        }
-        return if (shabbatSchedule.isNotEmpty()) "$base\n\n$shabbatSchedule" else base
+        return base
+    }
+
+    fun birkatHaIlanotExplanationTemplate(): String = BIRKAT_HAILANOT_EXPLANATION_TEMPLATE
+
+    fun birkatHaIlanotExplanationArgs(profile: UserProfile): Map<String, String> =
+        mapOf("whenBlock" to birkatHaIlanotWhenBlock(profile))
+
+    fun birkatHaIlanotWhenBlock(profile: UserProfile): String = when {
+        BirkatHaIlanotRules.isSouthernHemisphere(profile.latitude) -> BIRKAT_HAILANOT_WHEN_SOUTHERN
+        profile.latitude != null -> BIRKAT_HAILANOT_WHEN_NORTHERN
+        else -> BIRKAT_HAILANOT_WHEN_UNKNOWN
     }
 
     fun birkatHaIlanotExplanation(profile: UserProfile): String {
-        val southern = BirkatHaIlanotRules.isSouthernHemisphere(profile.latitude)
-        val whenBlock = if (southern) {
-            """
+        val args = birkatHaIlanotExplanationArgs(profile)
+        var out = BIRKAT_HAILANOT_EXPLANATION_TEMPLATE
+        for ((key, value) in args) {
+            out = out.replace("{$key}", value).replace("$" + key, value)
+        }
+        return out
+    }
+
+    private val BIRKAT_HAILANOT_WHEN_SOUTHERN = """
 When (Southern Hemisphere — your location):
 The Shulchan Arukh places this blessing in Nissan, when spring arrives in Israel. Mainstream poskim rule that the blessing follows the natural blossoming of fruit trees in your locale — not the calendar month alone (Yalkut Yosef; Peninei Halakha). In Australia, South America, southern Africa, and similar regions, local spring falls in Elul and Tishrei (typically September–October). Say it once during that window, as soon as you see the first blossoms.
-            """.trimIndent()
-        } else if (profile.latitude != null) {
-            """
+    """.trimIndent()
+
+    private val BIRKAT_HAILANOT_WHEN_NORTHERN = """
 When (Northern Hemisphere — your location):
 Say it during Nissan, when fruit trees in your area begin to blossom — ideally as early in the month as you first see flowers (Shulchan Arukh O.C. 226:1).
-            """.trimIndent()
-        } else {
-            """
+    """.trimIndent()
+
+    private val BIRKAT_HAILANOT_WHEN_UNKNOWN = """
 When:
 In the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulchan Arukh O.C. 226:1). In the Southern Hemisphere, say it when local fruit trees blossom in Elul–Tishrei. Set your city or GPS in Settings so the app shows this item in the correct season for you.
-            """.trimIndent()
-        }
-        return """
+    """.trimIndent()
+
+    private val BIRKAT_HAILANOT_EXPLANATION_TEMPLATE = """
 Birkat Ha'Ilanot (בִּרְכַּת הָאִילָנוֹת — Blessing of the Trees) is recited once each Jewish year upon seeing fruit trees in bloom — thanking Hashem for the beauty and renewal of creation.
 
 This checklist appears during the likely season for your hemisphere — a reminder to go look for blossoms, not an obligation to recite before you see them.
 
-$whenBlock
+${'$'}whenBlock
 
 The blessing (said once per year):
 Baruch Atah Ado-nai Eloheinu Melech ha'olam shelo chiser be'olamo kelum u'vara vo beriyot tovot v'ilanot tovim lehanot bahem benei adam.
@@ -801,8 +641,7 @@ Bedieved (after the fact): some contemporary poskim allow reciting on swollen, t
 
 Spiritual note:
 Nissan is the month of redemption; blossoming trees recall that creation itself waits to praise Hashem. Even a brief walk among flowering orchards can be a mitzvah.
-        """.trim()
-    }
+    """.trimIndent()
 
     fun birkatHaIlanotChabadNote(profile: UserProfile): String {
         if (!BirkatHaIlanotRules.isSouthernHemisphere(profile.latitude)) return ""
@@ -828,15 +667,25 @@ Some Chabad communities look for rare late-blooming fruit trees during Nissan (l
         ),
     )
 
+    fun birkatHachamahExplanationTemplate(): String = BIRKAT_HACHAMAH_EXPLANATION_TEMPLATE
+
+    fun birkatHachamahExplanationArgs(occurrence: kotlinx.datetime.LocalDate): Map<String, String> =
+        mapOf("dateLabel" to BirkatHachamahRules.formatOccurrenceDate(occurrence))
+
     fun birkatHachamahExplanation(occurrence: kotlinx.datetime.LocalDate): String {
         val dateLabel = BirkatHachamahRules.formatOccurrenceDate(occurrence)
-        return """
+        return BIRKAT_HACHAMAH_EXPLANATION_TEMPLATE
+            .replace("\$dateLabel", dateLabel)
+            .replace("{dateLabel}", dateLabel)
+    }
+
+    private val BIRKAT_HACHAMAH_EXPLANATION_TEMPLATE = """
 Birkat Hachamah (בִּרְכַּת הַחַמָּה — Blessing of the Sun) is recited once every 28 years, when the sun completes the machzor gadol (מחזור גדול) — the great 28-year solar cycle described in the Talmud (Berakhot 59b).
 
 The cycle:
 Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at sundown, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, it is recited the following morning — Wednesday at sunrise.
 
-This occurrence: $dateLabel.
+This occurrence: ${'$'}dateLabel.
 
 The blessing:
 Baruch Atah Ado-nai Eloheinu Melech ha'olam oseh ma'aseh bereishit.
@@ -852,8 +701,7 @@ How to fulfill it:
 Notes:
 • This mitzvah comes only once every 28 years.
 • Check your local synagogue or Chabad center — large communal gatherings are common.
-        """.trim()
-    }
+    """.trimIndent()
 
     fun ldovidExplanation(nusach: EffectiveNusach): String = """
 Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
@@ -922,160 +770,39 @@ How:
         )
     }
 
-    private fun threeWeeksIntro(): String = """
-The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the destruction of the Temple and Jewish tragedies.
+    fun kiddushLevanaExplanationTemplate(): String = KIDDUSH_LEVANA_EXPLANATION_TEMPLATE
 
-Why we mourn:
-• On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
+    fun kiddushLevanaExplanationArgs(profile: UserProfile): Map<String, String> =
+        mapOf("waitLine" to kiddushLevanaWaitLine(profile))
 
-Shabbat during the Three Weeks: mourning practices do not apply on Shabbat itself — observe Shabbat fully.
-    """.trim()
-
-    fun threeWeeksAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-${threeWeeksIntro()}
-
-Ashkenazi custom observes a longer, stricter mourning throughout the Three Weeks, intensifying during the Nine Days.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts & shaving: prohibited for the entire Three Weeks.
-• Music: instrumental music is not listened to throughout the period.
-• Weddings: not held.
-• Shehecheyanu: traditionally not recited on new clothes or new fruits; permitted on Shabbat.
-
-From 1 Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
-        """.trim(),
-    )
-
-    fun threeWeeksSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-${threeWeeksIntro()}
-
-Sephardic and Edot HaMizrach communities, following Shulchan Arukh, generally take a more lenient approach than Ashkenazim during the early Three Weeks.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts & shaving: permitted during most of the Three Weeks; shaving is usually prohibited only during the week in which Tisha B'Av falls (shavuah she'chal bo).
-• Music: live or recorded music is avoided.
-• Weddings: some communities avoid weddings from 17 Tammuz; others are lenient and avoid them only from Rosh Chodesh Av — follow your kehilla.
-• Shehecheyanu: avoided on new items for the duration of the period.
-
-From Rosh Chodesh Av or the week of Tisha B'Av: additional restrictions apply — see the Nine Days checklist item. Some communities (e.g. Syrian, Mashadi) are stricter on meat and wine from Rosh Chodesh Av.
-        """.trim(),
-    )
-
-    fun threeWeeksEdotHamizrachExplanation(): String = threeWeeksSephardicExplanation()
-
-    fun threeWeeksChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-${threeWeeksIntro()}
-
-Chabad follows strict Ashkenazi mourning customs, with specific emphasis from the Lubavitcher Rebbe on spiritual growth during this period.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts, music & weddings: prohibited throughout the entire Three Weeks.
-• Shehecheyanu: avoided entirely, except on Shabbat or when required for a mitzvah (e.g. brit milah).
-• Torah & charity: increase Torah study — especially subjects about the Holy Temple's layout and construction — and give extra tzedakah during this time.
-
-From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
-        """.trim(),
-    )
-
-    fun threeWeeksExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
-        EffectiveNusach.ASHKENAZ -> threeWeeksAshkenazExplanation()
-        EffectiveNusach.SEFARD -> threeWeeksSephardicExplanation()
-        EffectiveNusach.EDOT_HAMIZRACH -> threeWeeksEdotHamizrachExplanation()
-        EffectiveNusach.CHABAD -> threeWeeksChabadExplanation()
-    }
-
-    private fun nineDaysSharedHalacha(): String = """
-Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself.
-
-Tisha B'Av (9 Av): full 25-hour fast; kinot at Shacharit without tallit and tefillin; don them at Mincha after halachic chatzos (use your zmanim app). Sit on low stools until chatzos on 9 Av.
-
-Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
-    """.trim()
-
-    fun nineDaysAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
-
-From 1 Av:
-• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
-• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
-• Bathing: bathing or showering for pleasure is prohibited.
-• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
-
-${nineDaysSharedHalacha()}
-
-After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
-
-Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
-        """.trim(),
-    )
-
-    fun nineDaysSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
-
-From Rosh Chodesh Av (1 Av):
-• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
-
-From the week in which Tisha B'Av falls (shavuah she'chal bo):
-• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
-• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
-
-${nineDaysSharedHalacha()}
-
-After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
-        """.trim(),
-    )
-
-    fun nineDaysEdotHamizrachExplanation(): String = nineDaysSephardicExplanation()
-
-    fun nineDaysChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.mourningBasics(),
-        """
-The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) follow strict Ashkenazi mourning in Chabad practice.
-
-From Rosh Chodesh Av:
-• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum).
-• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, and buying new garments are observed.
-
-${nineDaysSharedHalacha()}
-
-After the fast (10 Av): follow accepted Chabad psak on meat, wine, music, laundry, and bathing until chatzos on 10 Av — ask your rav if unsure.
-
-Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
-        """.trim(),
-    )
-
-    fun nineDaysExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
-        EffectiveNusach.ASHKENAZ -> nineDaysAshkenazExplanation()
-        EffectiveNusach.SEFARD -> nineDaysSephardicExplanation()
-        EffectiveNusach.EDOT_HAMIZRACH -> nineDaysEdotHamizrachExplanation()
-        EffectiveNusach.CHABAD -> nineDaysChabadExplanation()
+    private fun kiddushLevanaWaitLine(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.SEFARD -> KIDDUSH_LEVANA_WAIT_SEFARD
+        EffectiveNusach.EDOT_HAMIZRACH -> KIDDUSH_LEVANA_WAIT_EDOT
+        else -> KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD
     }
 
     fun kiddushLevanaExplanation(profile: UserProfile): String {
-        val waitLine = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD ->
-                "Recited once a month when the moon is visible, usually beginning on the 7th night of the Hebrew month (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
-            EffectiveNusach.EDOT_HAMIZRACH ->
-                "Recited once a month when the moon is visible. The majority of Sefardim wait until the 7th of the month (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days (Peninei Halakha 05-01-18) — follow your community."
-            else ->
-                "Recited once a month when the moon is visible, usually beginning on the 3rd night of the Hebrew month (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
+        val args = kiddushLevanaExplanationArgs(profile)
+        var out = KIDDUSH_LEVANA_EXPLANATION_TEMPLATE
+        for ((key, value) in args) {
+            out = out.replace("{$key}", value).replace("$" + key, value)
         }
-        return BeginnerHalachaGlossary.withKeyTerms(
-            BeginnerHalachaGlossary.daveningBasics(),
-            """
+        return BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.daveningBasics(), out)
+    }
+
+    private val KIDDUSH_LEVANA_WAIT_SEFARD =
+        "Recited once a month when the moon is visible, usually beginning on the 7th night of the Hebrew month (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
+
+    private val KIDDUSH_LEVANA_WAIT_EDOT =
+        "Recited once a month when the moon is visible. The majority of Sefardim wait until the 7th of the month (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days (Peninei Halakha 05-01-18) — follow your community."
+
+    private val KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD =
+        "Recited once a month when the moon is visible, usually beginning on the 3rd night of the Hebrew month (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
+
+    private val KIDDUSH_LEVANA_EXPLANATION_TEMPLATE = """
 Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obligated in this time-bound positive mitzvah; women are exempt and the widespread custom is that women do not recite it at all (see Deracheha link below).
 
-$waitLine
+${'$'}waitLine
 
 Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
 
@@ -1090,8 +817,168 @@ How:
 • Use your siddur; it praises G-d for creation — not worship of the moon.
 
 Window closes at the full moon (~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
-            """.trim(),
-        )
+    """.trimIndent()
+
+    private val THREE_WEEKS_INTRO = """
+The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the destruction of the Temple and Jewish tragedies.
+
+Why we mourn:
+• On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
+
+Shabbat during the Three Weeks: mourning practices do not apply on Shabbat itself — observe Shabbat fully.
+    """.trimIndent()
+
+    private val THREE_WEEKS_ASHKENAZ_EXPLANATION = (THREE_WEEKS_INTRO + """
+
+Ashkenazi custom observes a longer, stricter mourning throughout the Three Weeks, intensifying during the Nine Days.
+
+From 17 Tammuz (general Three Weeks):
+• Haircuts & shaving: prohibited for the entire Three Weeks.
+• Music: instrumental music is not listened to throughout the period.
+• Weddings: not held.
+• Shehecheyanu: traditionally not recited on new clothes or new fruits; permitted on Shabbat.
+
+From 1 Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
+""").trim()
+
+    private val THREE_WEEKS_SEPHARDIC_EXPLANATION = (THREE_WEEKS_INTRO + """
+
+Sephardic and Edot HaMizrach communities, following Shulchan Arukh, generally take a more lenient approach than Ashkenazim during the early Three Weeks.
+
+From 17 Tammuz (general Three Weeks):
+• Haircuts & shaving: permitted during most of the Three Weeks; shaving is usually prohibited only during the week in which Tisha B'Av falls (shavuah she'chal bo).
+• Music: live or recorded music is avoided.
+• Weddings: some communities avoid weddings from 17 Tammuz; others are lenient and avoid them only from Rosh Chodesh Av — follow your kehilla.
+• Shehecheyanu: avoided on new items for the duration of the period.
+
+From Rosh Chodesh Av or the week of Tisha B'Av: additional restrictions apply — see the Nine Days checklist item. Some communities (e.g. Syrian, Mashadi) are stricter on meat and wine from Rosh Chodesh Av.
+""").trim()
+
+    private val THREE_WEEKS_CHABAD_EXPLANATION = (THREE_WEEKS_INTRO + """
+
+Chabad follows strict Ashkenazi mourning customs, with specific emphasis from the Lubavitcher Rebbe on spiritual growth during this period.
+
+From 17 Tammuz (general Three Weeks):
+• Haircuts, music & weddings: prohibited throughout the entire Three Weeks.
+• Shehecheyanu: avoided entirely, except on Shabbat or when required for a mitzvah (e.g. brit milah).
+• Torah & charity: increase Torah study — especially subjects about the Holy Temple's layout and construction — and give extra tzedakah during this time.
+
+From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
+""").trim()
+
+    fun threeWeeksExplanationTemplate(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> THREE_WEEKS_ASHKENAZ_EXPLANATION
+        EffectiveNusach.SEFARD -> THREE_WEEKS_SEPHARDIC_EXPLANATION
+        EffectiveNusach.EDOT_HAMIZRACH -> THREE_WEEKS_SEPHARDIC_EXPLANATION
+        EffectiveNusach.CHABAD -> THREE_WEEKS_CHABAD_EXPLANATION
+    }
+
+    fun threeWeeksAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        THREE_WEEKS_ASHKENAZ_EXPLANATION,
+    )
+
+    fun threeWeeksSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        THREE_WEEKS_SEPHARDIC_EXPLANATION,
+    )
+
+    fun threeWeeksEdotHamizrachExplanation(): String = threeWeeksSephardicExplanation()
+
+    fun threeWeeksChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        THREE_WEEKS_CHABAD_EXPLANATION,
+    )
+
+    fun threeWeeksExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> threeWeeksAshkenazExplanation()
+        EffectiveNusach.SEFARD -> threeWeeksSephardicExplanation()
+        EffectiveNusach.EDOT_HAMIZRACH -> threeWeeksEdotHamizrachExplanation()
+        EffectiveNusach.CHABAD -> threeWeeksChabadExplanation()
+    }
+
+    private val NINE_DAYS_SHARED_HALACHA = """
+Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself.
+
+Tisha B'Av (9 Av): full 25-hour fast; kinot at Shacharit without tallit and tefillin; don them at Mincha after halachic chatzos (use your zmanim app). Sit on low stools until chatzos on 9 Av.
+
+Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
+    """.trimIndent()
+
+    private val NINE_DAYS_ASHKENAZ_EXPLANATION = ("""
+The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
+
+From 1 Av:
+• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
+• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
+• Bathing: bathing or showering for pleasure is prohibited.
+• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
+
+""" + NINE_DAYS_SHARED_HALACHA + """
+
+After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
+
+Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
+""").trim()
+
+    private val NINE_DAYS_SEPHARDIC_EXPLANATION = ("""
+The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
+
+From Rosh Chodesh Av (1 Av):
+• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
+
+From the week in which Tisha B'Av falls (shavuah she'chal bo):
+• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
+• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
+
+""" + NINE_DAYS_SHARED_HALACHA + """
+
+After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
+""").trim()
+
+    private val NINE_DAYS_CHABAD_EXPLANATION = ("""
+The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) follow strict Ashkenazi mourning in Chabad practice.
+
+From Rosh Chodesh Av:
+• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum).
+• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, and buying new garments are observed.
+
+""" + NINE_DAYS_SHARED_HALACHA + """
+
+After the fast (10 Av): follow accepted Chabad psak on meat, wine, music, laundry, and bathing until chatzos on 10 Av — ask your rav if unsure.
+
+Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
+""").trim()
+
+    fun nineDaysExplanationTemplate(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> NINE_DAYS_ASHKENAZ_EXPLANATION
+        EffectiveNusach.SEFARD -> NINE_DAYS_SEPHARDIC_EXPLANATION
+        EffectiveNusach.EDOT_HAMIZRACH -> NINE_DAYS_SEPHARDIC_EXPLANATION
+        EffectiveNusach.CHABAD -> NINE_DAYS_CHABAD_EXPLANATION
+    }
+
+    fun nineDaysAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        NINE_DAYS_ASHKENAZ_EXPLANATION,
+    )
+
+    fun nineDaysSephardicExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        NINE_DAYS_SEPHARDIC_EXPLANATION,
+    )
+
+    fun nineDaysEdotHamizrachExplanation(): String = nineDaysSephardicExplanation()
+
+    fun nineDaysChabadExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        NINE_DAYS_CHABAD_EXPLANATION,
+    )
+
+    fun nineDaysExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.ASHKENAZ -> nineDaysAshkenazExplanation()
+        EffectiveNusach.SEFARD -> nineDaysSephardicExplanation()
+        EffectiveNusach.EDOT_HAMIZRACH -> nineDaysEdotHamizrachExplanation()
+        EffectiveNusach.CHABAD -> nineDaysChabadExplanation()
     }
 
     fun tuBshvatExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(

@@ -39,8 +39,8 @@ fun BirkatHamazonDialog(
     val translationViewModel: TranslationViewModel =
         LocalTranslationViewModel.current ?: hiltViewModel()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val isTranslationActive = translationEnabled && currentLanguage != "en"
+    /** Hebrew liturgy is already Hebrew — hide translation toggle only for Hebrew UI. */
+    val showLiturgyTranslation = currentLanguage != "he"
 
     var showEnglish by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
@@ -72,7 +72,7 @@ fun BirkatHamazonDialog(
             Column(
                 modifier = Modifier.fillMaxSize()
             ) {
-                Text(
+                TranslatableText(
                     text = "(Nusach Ashkenaz)",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -105,26 +105,42 @@ fun BirkatHamazonDialog(
                     )
                 }
 
-                // Toggle buttons for English and zoom
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    TextButton(onClick = { showEnglish = !showEnglish }) {
-                        TranslatableText(
-                            if (showEnglish) {
-                                if (isTranslationActive) "Hide translation" else "Hide English"
-                            } else {
-                                if (isTranslationActive) "Show translation" else "Show English"
-                            }
-                        )
-                    }
-                    
+                // Toggle translation (not needed when UI language is Hebrew — text is already Hebrew)
+                if (showLiturgyTranslation) {
                     Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        TextButton(onClick = { showEnglish = !showEnglish }) {
+                            TranslatableText(
+                                if (showEnglish) "Hide translation" else "Show translation"
+                            )
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            IconButton(
+                                onClick = { fontScale = (fontScale - 0.2f).coerceIn(0.5f, 3f) }
+                            ) {
+                                Text("A-", style = MaterialTheme.typography.titleMedium)
+                            }
+                            IconButton(
+                                onClick = { fontScale = (fontScale + 0.2f).coerceIn(0.5f, 3f) }
+                            ) {
+                                Text("A+", style = MaterialTheme.typography.titleMedium)
+                            }
+                        }
+                    }
+                } else {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp),
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         IconButton(
                             onClick = { fontScale = (fontScale - 0.2f).coerceIn(0.5f, 3f) }
@@ -185,8 +201,8 @@ fun BirkatHamazonDialog(
                                             modifier = Modifier.fillMaxWidth()
                                         )
                                         val summaryEn = section.collapsibleSummaryEnglish
-                                        if (showEnglish && summaryEn != null) {
-                                            TranslatableText(
+                                        if (showEnglish && showLiturgyTranslation && summaryEn != null) {
+                                            LiturgyTranslationText(
                                                 text = summaryEn,
                                                 style = MaterialTheme.typography.bodyMedium.copy(
                                                     fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
@@ -226,8 +242,8 @@ fun BirkatHamazonDialog(
                                             textAlign = TextAlign.End,
                                             modifier = Modifier.fillMaxWidth()
                                         )
-                                        if (showEnglish && section.english != null) {
-                                            TranslatableText(
+                                        if (showEnglish && showLiturgyTranslation && section.english != null) {
+                                            LiturgyTranslationText(
                                                 text = section.english,
                                                 style = MaterialTheme.typography.bodyMedium.copy(
                                                     fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
@@ -248,8 +264,8 @@ fun BirkatHamazonDialog(
                                     modifier = Modifier.fillMaxWidth()
                                 )
 
-                                if (showEnglish && section.english != null) {
-                                    TranslatableText(
+                                if (showEnglish && showLiturgyTranslation && section.english != null) {
+                                    LiturgyTranslationText(
                                         text = section.english,
                                         style = MaterialTheme.typography.bodyMedium.copy(
                                             fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp

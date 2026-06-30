@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 
 /**
@@ -50,13 +51,31 @@ import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 fun MitzvahExplanationContent(
     explanation: String,
     zmanHint: String? = null,
+    zmanHintTemplate: String? = null,
+    zmanHintArgs: Map<String, String> = emptyMap(),
     zmanMakeupNote: String? = null,
+    zmanMakeupTemplate: String? = null,
+    zmanMakeupArgs: Map<String, String> = emptyMap(),
+    explanationTemplate: String? = null,
+    explanationArgs: Map<String, String> = emptyMap(),
     situational: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    val translatedExplanation = rememberAppTranslatedText(explanation)
-    val translatedHint = zmanHint?.let { rememberAppTranslatedText(it) }
-    val translatedMakeup = zmanMakeupNote?.let { rememberAppTranslatedText(it) }
+    val translatedExplanation = if (explanationTemplate != null) {
+        rememberAppTranslatedTemplate(explanationTemplate, explanationArgs)
+    } else {
+        rememberAppTranslatedText(explanation)
+    }
+    val translatedHint = when {
+        zmanHintTemplate != null -> rememberAppTranslatedTemplate(zmanHintTemplate, zmanHintArgs)
+        zmanHint != null -> rememberAppTranslatedText(zmanHint)
+        else -> null
+    }
+    val translatedMakeup = when {
+        zmanMakeupTemplate != null -> rememberAppTranslatedTemplate(zmanMakeupTemplate, zmanMakeupArgs)
+        zmanMakeupNote != null -> rememberAppTranslatedText(zmanMakeupNote)
+        else -> null
+    }
     val situationalBadge = rememberAppTranslatedText(
         "Situational — required when this situation applies, not necessarily every day."
     )

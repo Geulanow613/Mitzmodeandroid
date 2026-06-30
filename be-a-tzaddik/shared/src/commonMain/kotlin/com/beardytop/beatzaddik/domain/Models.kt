@@ -249,7 +249,10 @@ data class ResolvedChecklistItem(
     val zmanCollapsedArgs: Map<String, String> = emptyMap(),
     val zmanWindowStartMillis: Long? = null,
     val zmanWindowEndMillis: Long? = null,
-    val zmanAvailableAtLabel: String? = null
+    val zmanAvailableAtLabel: String? = null,
+    /** When set, [displayExplanation] is the English template key; UI fills [explanationArgs]. */
+    val explanationTemplate: String? = null,
+    val explanationArgs: Map<String, String> = emptyMap(),
 )
 
 data class DayChecklists(
@@ -283,7 +286,11 @@ data class CalendarHeader(
     val todayOccasionGuideAnchor: String? = null,
     /** e.g. "Today is 14 days, which is 2 weeks of the Omer." */
     val omerTodayLabel: String? = null,
+    /** Raw Omer day (1–49) for UI localization — [omerTodayLabel] is English fallback. */
+    val omerDay: Int? = null,
     val omerExplainerText: String? = null,
+    val omerExplainerTemplate: String? = null,
+    val omerExplainerArgs: Map<String, String> = emptyMap(),
 )
 
 data class KashrutWait(

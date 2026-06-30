@@ -149,7 +149,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             if (isShabbat) add("Shabbat")
             if (isYomTov) add(holidayName(jc))
             if (isRoshChodesh) add("Rosh Chodesh")
-            if (isSefirah && omerDay != null) add(OmerCountText.statusChipLabel(omerDay))
+            if (isSefirah && omerDay != null) {
+                add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
+            }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
             if (isPurim) add("Purim")
             if (isYomHaShoah) add("Yom HaShoah")

@@ -83,7 +83,30 @@ def load_human() -> dict[str, dict[str, str]]:
         "shabbat_guide_polish.json",
         "glossary_polish.json",
         "hebrew_terms.json",
+        "zman_ui.json",
         "prayers_liturgy.json",
+        "seasonal_explainer_fragments.json",
+        "seasonal_arg_explainers.json",
+        "argos_disaster_fixes.json",
+        "he_paragraph_fixes.json",
+        "he_hybrid_purge.json",
+        "checklist_explainers.json",
+        "explainer_template_args.json",
+        "mein_shalosh_ui.json",
+        "he_glue_fixes.json",
+        "mitzvah_alert_tone.json",
+        "he_alert_tone.json",
+        "mitzvah_me_ui.json",
+        "ui_chrome.json",
+        "ru_cyrillic_fixes.json",
+        "ru_cyrillic_top50.json",
+        "ru_polish_all.json",
+        "ru_deep_fixes.json",
+        "public_fast_explainers.json",
+        "purim_meshulash_explainers.json",
+        "ru_explainer_polish.json",
+        "ru_brand_ui.json",
+        "es_fr_prose_polish.json",
     ]
     priority_last = set(priority_last_ordered)
     priority_he_fix = sorted(
@@ -119,6 +142,8 @@ def is_passthrough_key(text: str) -> bool:
         "https://www.beardy.top", "G.E.U.L.A",
         # Proper names / technical passthrough only (Jewish terms → hebrew_terms.json)
         "Mitz Mode!", "G.E.U.L.A",
+        "Normal",
+        "Yom Tov — Shemini Atzeret",
     }:
         return True
     if text.startswith("(?i)") or text.startswith("$translated"):
@@ -143,6 +168,30 @@ def count_missing(lang: str, required: list[str], entries: dict[str, str]) -> li
 
 
 def main() -> None:
+    import subprocess
+    import sys
+
+    sync_keys = ROOT / "tools" / "_sync_explainer_catalog_keys.py"
+    subprocess.run([sys.executable, str(sync_keys)], cwd=ROOT, check=True)
+    write_he = ROOT / "tools" / "_write_explainer_hebrew.py"
+    subprocess.run([sys.executable, str(write_he)], cwd=ROOT, check=True)
+    write_romance = ROOT / "tools" / "_write_explainer_romance.py"
+    subprocess.run([sys.executable, str(write_romance)], cwd=ROOT, check=True)
+    write_glossary = ROOT / "tools" / "_write_glossary_es_fixes.py"
+    subprocess.run([sys.executable, str(write_glossary)], cwd=ROOT, check=True)
+    write_template_args = ROOT / "tools" / "_write_explainer_template_args.py"
+    subprocess.run([sys.executable, str(write_template_args)], cwd=ROOT, check=True)
+    write_paragraphs = ROOT / "tools" / "_write_paragraph_fixes.py"
+    subprocess.run([sys.executable, str(write_paragraphs)], cwd=ROOT, check=True)
+    apply_he = ROOT / "tools" / "_apply_hebrew_fixes_total.py"
+    subprocess.run([sys.executable, str(apply_he)], cwd=ROOT, check=True)
+    write_hybrid = ROOT / "tools" / "_write_he_hybrid_purge.py"
+    subprocess.run([sys.executable, str(write_hybrid)], cwd=ROOT, check=True)
+    write_alert_tone = ROOT / "tools" / "_write_mitzvah_alert_tone.py"
+    subprocess.run([sys.executable, str(write_alert_tone)], cwd=ROOT, check=True)
+    write_glue = ROOT / "tools" / "_write_he_glue_fixes.py"
+    subprocess.run([sys.executable, str(write_glue)], cwd=ROOT, check=True)
+
     required = json.loads(CATALOG.read_text(encoding="utf-8"))["strings"]
     shards = load_shards()
     legacy = load_legacy()
@@ -155,6 +204,9 @@ def main() -> None:
         entries.update(shards.get(lang, {}))
         entries.update(human.get(lang, {}))
         if lang in ("es", "fr", "ru"):
+            for _ in range(3):
+                entries = {k: repair_translation(lang, v) for k, v in entries.items()}
+        elif lang == "he":
             entries = {k: repair_translation(lang, v) for k, v in entries.items()}
         missing = count_missing(lang, required, entries)
         translated = len(required) - len(missing)
@@ -170,6 +222,47 @@ def main() -> None:
         )
         print(f"{lang}: {translated}/{len(required)} translated, {len(missing)} fallback English")
 
+    write_seasonal = ROOT / "tools" / "_write_seasonal_fragments.py"
+    subprocess.run([sys.executable, str(write_seasonal)], cwd=ROOT, check=True)
+    seasonal = ROOT / "data" / "translation-catalog" / "human" / "seasonal_explainer_fragments.json"
+    if seasonal.exists():
+        seasonal_data = json.loads(seasonal.read_text(encoding="utf-8"))
+        for lang in LANGS:
+            dest = COMPOSE / f"{lang}.json"
+            payload = json.loads(dest.read_text(encoding="utf-8"))
+            for key, val in seasonal_data.get(lang, {}).items():
+                if key in required:
+                    payload["entries"][key] = repair_translation(lang, val) if lang != "he" else val
+            dest.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            (LEGACY / f"{lang}.json").write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
+        print("Merged seasonal explainer fragments into bundles")
+
+    write_city_geo = ROOT / "tools" / "_write_city_geography_bundled.py"
+    subprocess.run([sys.executable, str(write_city_geo)], cwd=ROOT, check=True)
+
+    # Fail the build if shipped bundles contain corrupt glyphs.
+    import subprocess
+    scan = ROOT / "tools" / "_scan_bad_glyphs.py"
+    result = subprocess.run([sys.executable, str(scan)], cwd=ROOT)
+    if result.returncode != 0:
+        raise SystemExit("Bundle compile failed: bad glyph scan found issues (see above)")
+
+    hint_audit = ROOT / "tools" / "_audit_zman_hints.py"
+    audit_result = subprocess.run([sys.executable, str(hint_audit), "--strict"], cwd=ROOT)
+    if audit_result.returncode != 0:
+        raise SystemExit("Bundle compile failed: domain zman hints missing from catalog (see above)")
+
+    explainer_audit = ROOT / "tools" / "_audit_explainer_strings.py"
+    subprocess.run([sys.executable, str(explainer_audit)], cwd=ROOT)
+
+    full_audit = ROOT / "tools" / "_full_translation_audit.py"
+    audit_result = subprocess.run([sys.executable, str(full_audit), "--strict"], cwd=ROOT)
+    if audit_result.returncode != 0:
+        raise SystemExit("Bundle compile failed: translation quality audit (see above)")
+
 
 if __name__ == "__main__":
+    import sys
     main()

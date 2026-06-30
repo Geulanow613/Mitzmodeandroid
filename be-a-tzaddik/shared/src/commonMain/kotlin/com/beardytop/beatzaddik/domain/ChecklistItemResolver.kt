@@ -9,7 +9,8 @@ object ChecklistItemResolver {
         nowMillis: Long,
         zmanim: ZmanimSnapshot?,
         prayerDay: PrayerDayContext,
-        upcomingShabbatParsha: String? = null
+        upcomingShabbatParsha: String? = null,
+        cal: DayInfo? = null,
     ): ResolvedChecklistItem {
         val nusach = profile.effectiveNusach()
         val nusachTag = item.nusachTag ?: nusach.displayName()
@@ -47,6 +48,10 @@ object ChecklistItemResolver {
             item.title
         }
 
+        val (explanationTemplate, explanationArgs) = ExplainerTemplateResolver
+            .resolve(item, profile, cal)
+            .let { it.template to it.args }
+
         return ResolvedChecklistItem(
             def = item,
             checked = checked,
@@ -65,7 +70,9 @@ object ChecklistItemResolver {
             zmanCollapsedArgs = zman.collapsedSummaryArgs,
             zmanWindowStartMillis = zman.windowStartMillis,
             zmanWindowEndMillis = zman.windowEndMillis,
-            zmanAvailableAtLabel = zman.availableAtLabel
+            zmanAvailableAtLabel = zman.availableAtLabel,
+            explanationTemplate = explanationTemplate,
+            explanationArgs = explanationArgs,
         )
     }
 

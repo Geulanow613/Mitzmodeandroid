@@ -54,10 +54,10 @@ object TodayOccasionLabels {
         return null
     }
 
-    fun omerTodayLabel(cal: DayInfo): String? {
+    fun omerTodayLabel(cal: DayInfo, nusach: EffectiveNusach): String? {
         val day = cal.omerDay ?: return null
         if (!cal.isSefiratHaomer || cal.isLagBaomer) return null
-        return OmerCountText.headerLabel(day)
+        return OmerCountText.headerLabel(day, nusach)
     }
 
     private fun pesachLabel(cal: DayInfo): Pair<String, String>? {
