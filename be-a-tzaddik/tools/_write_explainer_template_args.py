@@ -20,6 +20,9 @@ from _omer_explainer_arg_data import (
     omer_day_summary_he,
 )
 from _taanit_template_data import TAANIT_BECHOR_BASE, TAANIT_BECHOR_TEMPLATE
+from _taanit_bechor_ty_data import TAANIT_BECHOR_FR, TAANIT_BECHOR_RU
+from _yaaleh_es_fr_data import YAALEH_TEMPLATE_ES, YAALEH_TEMPLATE_FR
+from _yaaleh_ru_data import YAALEH_TEMPLATE_RU
 from _yaaleh_template_data import (
     YAALEH_FORGOT_MINCHA,
     YAALEH_FORGOT_SHACHARIT,
@@ -94,8 +97,8 @@ NUSACH_WHEN_FIXES: dict[str, dict[str, str]] = {
 OMER_NEXT_NIGHT_FIXES = {
     "he": "\n• בליל $tomorrowNight תספרו $nextDaySummary.",
     "es": "\n• El $tomorrowNight por la noche contará $nextDaySummary.",
-    "fr": "\n• $tomorrowNight soir, vous comptererez $nextDaySummary.",
-    "ru": "\n• В $tomorrowNight вечером вы будете считать $nextDaySummary.",
+    "fr": "\n• $tomorrowNight soir, tu compteras $nextDaySummary.",
+    "ru": "\n• $tomorrowNight вечером ты будешь считать $nextDaySummary.",
 }
 
 OMER_TIME_PART_FIXES = {
@@ -106,28 +109,6 @@ OMER_TIME_PART_FIXES = {
 }
 
 TAANIT_BECHOR_KEY = TAANIT_BECHOR_BASE
-
-TAANIT_BECHOR_FR = (
-    "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — jeûne des premiers-nés — est observé le jour d'Erev Pessa'h "
-    "par les hommes premiers-nés (et certaines communautés incluent aussi les femmes premiers-nés — "
-    "demandez à votre rav).\n\n"
-    "Pourquoi :\n• Commémore la plaie des premiers-nés en Égypte, lorsque les premiers-nés juifs "
-    "furent épargnés.\n\n"
-    "Le jeûne :\n• Quand Erev Pessa'h tombe un Chabbat (14 Nisan), Taanit Bechorot est reporté au "
-    "jeudi (12 Nisan) selon le Rama et Peninei Halakha — pas le vendredi ni le Chabbat. Assistez "
-    "à un siyum ce jour-là si c'est votre minhag.\n• Beaucoup de premiers-nés évitent entièrement "
-    "de jeûner en assistant à un siyum (achèvement d'un traité du Talmud ou d'un ouvrage similaire) "
-    "suivi d'une seudat mitsvah (repas festif). L'exemption : pour être dispensé du jeûne, il ne "
-    "suffit pas d'entendre la conclusion du siyum — il faut aussi participer à la seudat mitsvah en "
-    "mangeant au moins un kezayit (environ 28 g) de pain ou de gâteau. Partir après le siyum sans "
-    "manger ne dispense pas — vous devez encore jeûner.\n• Si vous jeûnez : le jeûne va de l'aube "
-    "(alot hashachar) jusqu'à la pleine nuit (tzeit) — sans manger ni boire entre les deux.\n\n"
-    "Père d'un fils premier-né avant bar mitzvah :\n• Si vous êtes un homme avec un fils premier-né "
-    "de moins de l'âge du bar mitzvah, la coutume répandue est que vous jeûnez ou assistez vous-même "
-    "à un siyum en son nom — l'enfant n'observe pas le jeûne.\n\n"
-    "Planifiez à l'avance : repérez un siyum communautaire si c'est votre minhag, ou confirmez les "
-    "règles de jeûne avec votre rav."
-)
 
 TAANIT_BECHOR_ES = (
     "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — ayuno de los primogénitos — se observa el día de Erev Pesaj "
@@ -143,25 +124,6 @@ TAANIT_BECHOR_ES = (
     "Padre de un hijo primogénito antes del bar mitzvá:\n• Si eres varón con un hijo primogénito menor de bar mitzvá, "
     "el minhag extendido es que tú ayunas o asistes al siyum en su nombre — el niño no observa el ayuno.\n\n"
     "Planifica con anticipación: localiza un siyum comunitario si es tu minhag, o confirma las reglas de ayuno con tu rav."
-)
-
-TAANIT_BECHOR_RU = (
-    "Таанит Бечорот (תַּעֲנִית בְּכוֹרוֹת) — пост первенца — наблюдается в день Эрева Песаха "
-    "первенцами мужского пола (а в некоторых общинах и первенцами женского пола — спросите рава).\n\n"
-    "Зачем:\n• В память о казни первенцев в Египте, когда еврейские первенцы были пощажены.\n\n"
-    "Пост:\n• Когда Эрев Песах — Шабbat (14 Нисана), Таанит Бечорот переносится на четверг "
-    "(12 Нисана) по Раме и Пенинеi Halakha — не на пятницу и не на Шабbat. Посетите siyum в "
-    "этот день, если таков ваш minhag.\n• Многие первенцы полностью избегают поста, участвуя "
-    "в siyum (завершение трактата Talmud или аналогичного труда) с последующей seudat mitzvah "
-    "(праздничной трапезой). Освобождение: чтобы быть освобождённым от поста, недостаточно "
-    "только услышать завершение siyum — нужно также поесть на seudat mitzvah хотя бы kezayit "
-    "(около 28 г) хлеба или пирога. Уход после siyum без еды не освобождает — пост всё равно "
-    "обязателен.\n• Если поститесь: пост с рассвета (alot hashachar) до полного наступления "
-    "ночи (tzeit) — без еды и питья.\n\n"
-    "Отец первенца-сынa до bar mitzvah:\n• Если у вас сын-первенец младше bar mitzvah, "
-    "распространённый обычай — поститься или посещать siyum от его имени; сам ребёнок не постится.\n\n"
-    "Планируйте заранее: найдите общинный siyum, если таков ваш minhag, или уточните правила "
-    "поста у рава."
 )
 
 
@@ -314,62 +276,6 @@ YAALEH_TEMPLATE_PAIRS = [
     (YAALEH_MAARIV_FEMALE_TEMPLATE, YAALEH_FORGOT_MAARIV, YAALEH_FULL_EXPLAINERS["maariv_female"]),
 ]
 
-_HALACHA_RU = "Шулхан Арух О.Х. 422:1; Пениней Халаха 05-01-10"
-_FORGOT_SH_RU = (
-    "Если забыли:\n"
-    "• Ещё в «Рацей» (до завершения благословения) — вставьте «Яале вьяво» на его место и продолжайте ("
-    + _HALACHA_RU + ").\n"
-    "• После завершения «Рацей» — вернитесь к началу «Рацей», вставьте «Яале вьяво» и завершите оставшиеся благословения ("
-    + _HALACHA_RU + ").\n"
-    "• Закончили всю Амиду (после финального «Йихию льрацон») — повторите только Амиду Шахарит (Шемоне Эсрей), "
-    "никогда весь порядок молитвы, даже если уже молились Мусаф, Маарив или что-то ещё ("
-    + _HALACHA_RU + ")."
-)
-_FORGOT_MIN_RU = _FORGOT_SH_RU.replace("Шахарит", "Минха")
-_FORGOT_MAARIV_RU = (
-    "Если забыли на Маарив в Рош Ходеш:\n"
-    "• Ещё в «Рацей» перед Именем Всевышнего в конце — вставьте «Яале вьяво» там и продолжайте ("
-    + _HALACHA_RU + ").\n"
-    "• После завершения «Рацей» или всей Амиды — не возвращайтесь и не повторяйте. Бейт-дин освятил новый месяц днём, "
-    "не ночью (Брахот 30б; " + _HALACHA_RU + "). Продолжайте молитву."
-)
-
-YAALEH_TEMPLATE_RU: dict[str, str] = {
-    YAALEH_SHACHARIT_TEMPLATE: (
-        "Добавьте «Яале вьяво» в Амиду Шахарит в Рош Ходеш — в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock\n\n"
-        "Добавьте также «Яале вьяво» в Биркат а-Мазон, если едите хлеб сегодня."
-    ),
-    YAALEH_SHACHARIT_FEMALE_TEMPLATE: (
-        "Если произносите Амиду Шахарит в Рош Ходеш, добавьте «Яале вьяво» в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock\n\n"
-        "Если говорите Биркат а-Мазон, когда едите хлеб сегодня, добавьте «Яале вьяво» и там."
-    ),
-    YAALEH_MINCHA_TEMPLATE: (
-        "Добавьте «Яале вьяво» в Амиду Минха в Рош Ходеш — в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock"
-    ),
-    YAALEH_MINCHA_FEMALE_TEMPLATE: (
-        "Если произносите Амиду Минха в Рош Ходеш, добавьте «Яале вьяво» в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock\n\n"
-        "Если говорите Биркат а-Мазон, когда едите хлеб сегодня, добавьте «Яале вьяво» и там."
-    ),
-    YAALEH_MAARIV_TEMPLATE: (
-        "Добавьте «Яале вьяво» в Амиду Маарив в Рош Ходеш — в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock\n\n"
-        "Добавьте также «Яале вьяво» в Биркат а-Мазон, если едите хлеб этой ночью."
-    ),
-    YAALEH_MAARIV_FEMALE_TEMPLATE: (
-        "Если произносите Амиду Маарив в Рош Ходеш, добавьте «Яале вьяво» в благословение «Рацей» (Авода).\n\n"
-        "$forgotBlock\n\n"
-        "Если говорите Биркат а-Мазон, когда едите хлеб этой ночью, добавьте «Яале вьяво» и там."
-    ),
-    YAALEH_FORGOT_SHACHARIT: _FORGOT_SH_RU,
-    YAALEH_FORGOT_MINCHA: _FORGOT_MIN_RU,
-    YAALEH_FORGOT_MAARIV: _FORGOT_MAARIV_RU,
-}
-
-
 def main() -> None:
     existing_all: dict[str, dict[str, str]] = {}
     if OUT.exists():
@@ -425,12 +331,24 @@ def main() -> None:
         for template_en, forgot_en, full_en in YAALEH_TEMPLATE_PAIRS:
             if lang == "ru" and template_en in YAALEH_TEMPLATE_RU:
                 by_lang[lang][template_en] = YAALEH_TEMPLATE_RU[template_en]
+            elif lang == "es" and template_en in YAALEH_TEMPLATE_ES:
+                by_lang[lang][template_en] = YAALEH_TEMPLATE_ES[template_en]
+            elif lang == "fr" and template_en in YAALEH_TEMPLATE_FR:
+                by_lang[lang][template_en] = YAALEH_TEMPLATE_FR[template_en]
             else:
                 by_lang[lang][template_en] = yaaleh_template_translation(
                     entries, template_en, forgot_en, full_en, existing_all.get(lang),
                 )
         if lang == "ru":
             for key, val in YAALEH_TEMPLATE_RU.items():
+                if key not in {t[0] for t in YAALEH_TEMPLATE_PAIRS}:
+                    by_lang[lang][key] = val
+        elif lang == "es":
+            for key, val in YAALEH_TEMPLATE_ES.items():
+                if key not in {t[0] for t in YAALEH_TEMPLATE_PAIRS}:
+                    by_lang[lang][key] = val
+        elif lang == "fr":
+            for key, val in YAALEH_TEMPLATE_FR.items():
                 if key not in {t[0] for t in YAALEH_TEMPLATE_PAIRS}:
                     by_lang[lang][key] = val
 

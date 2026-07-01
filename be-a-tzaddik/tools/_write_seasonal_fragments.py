@@ -42,12 +42,13 @@ def load_bundled(lang: str) -> dict[str, str]:
     return json.loads((BUNDLED / f"{lang}.json").read_text(encoding="utf-8"))["entries"]
 
 
-def tw_suffix(entries: dict[str, str], full_key: str) -> str:
+def tw_suffix(entries: dict[str, str], full_key: str, fragment_en: str) -> str:
     intro_tr = entries.get(THREE_WEEKS_INTRO, THREE_WEEKS_INTRO)
-    full_tr = entries[full_key]
+    frag_tr = entries.get(fragment_en)
+    full_tr = entries.get(full_key, "")
     if full_tr.startswith(intro_tr):
         return full_tr[len(intro_tr) :].lstrip("\n")
-    return full_tr
+    return frag_tr if frag_tr else full_tr
 
 
 def split_nine(entries: dict[str, str], full_key: str) -> tuple[str, str]:
@@ -69,18 +70,18 @@ def _init_manual_after_fast(frags_en: list[str]) -> None:
         k_ash: (
             "Après le jeûne (10 Av) : le minhag ashkénaze prolonge l'interdit de viande, vin, musique, "
             "lessive et bain de plaisir jusqu'à 'hatzot (milieu halakhique du jour) du 10 Av.\n\n"
-            "Havdalah des Neuf Jours : le motsei Chabbat pendant les Neuf Jours, utilisez du vin ou du "
+            "Havdalah des Neuf Jours : au motsei Chabbat pendant les Neuf Jours, utilise du vin ou du "
             "jus de raisin pour la Havdalah. Minhag ashkénaze (Rema O.C. 551:10) : idéalement un enfant "
-            "(6–9 ans) boit la coupe ; sinon celui qui récite la Havdalah — la mitzva de Havdalah l'emporte "
+            "(6–9 ans) boit la coupe ; sinon celui qui récite la Havdalah — la mitsva de Havdalah l'emporte "
             "sur la retenue."
         ),
         k_sep: (
             "Après le jeûne : beaucoup de Séfarades observent des restrictions similaires jusqu'à 'hatzot "
-            "du 10 Av — confirmez avec votre rav avant de reprendre viande et vin."
+            "du 10 Av — confirme avec ton rav avant de reprendre viande et vin."
         ),
         k_ch: (
-            "Après le jeûne (10 Av) : suivez le psak 'Habad accepté sur viande, vin, musique, lessive et "
-            "bain jusqu'à 'hatzot du 10 Av — demandez à votre rav en cas de doute.\n\n"
+            "Après le jeûne (10 Av) : suis le psak 'Habad accepté sur viande, vin, musique, lessive et "
+            "bain jusqu'à 'hatzot du 10 Av — demande à ton rav en cas de doute.\n\n"
             "Havdalah des Neuf Jours : vin ou jus de raisin ; minhag ashkénaze donne souvent la coupe à "
             "un enfant (6–9 ans) lorsque c'est possible."
         ),
@@ -89,18 +90,18 @@ def _init_manual_after_fast(frags_en: list[str]) -> None:
         k_ash: (
             "Después del ayuno (10 Av): la costumbre asquenazí mantiene prohibidos carne, vino, música, "
             "lavado y baño por placer hasta chatzot (mediodía halájico) del 10 Av.\n\n"
-            "Havdalah de los Nueve Días: en motzei Shabat durante los Nueve Días, use vino o jugo de uva "
+            "Havdalah de los Nueve Días: en motzei Shabat durante los Nueve Días, usa vino o jugo de uva "
             "para la Havdalah. Costumbre asquenazí (Rema O.C. 551:10): idealmente un niño (6–9 años) "
             "bebe la copa; si no hay, quien recita la Havdalah — la mitzvá de Havdalah prevalece sobre "
             "la restricción."
         ),
         k_sep: (
             "Después del ayuno: muchos sefardíes siguen restricciones similares hasta chatzot del 10 Av "
-            "— confirme con su rav antes de reanudar carne y vino."
+            "— confirma con tu rav antes de reanudar carne y vino."
         ),
         k_ch: (
-            "Después del ayuno (10 Av): siga el psak de Jabad aceptado sobre carne, vino, música, lavado "
-            "y baño hasta chatzot del 10 Av — pregunte a su rav si tiene dudas.\n\n"
+            "Después del ayuno (10 Av): sigue el psak de Jabad aceptado sobre carne, vino, música, lavado "
+            "y baño hasta chatzot del 10 Av — pregunta a tu rav si tienes dudas.\n\n"
             "Havdalah de los Nueve Días: vino o jugo de uva; la costumbre asquenazí suele dar la copa a "
             "un niño (6–9 años) cuando es posible."
         ),
@@ -213,9 +214,9 @@ def main() -> None:
         sep_before, sep_after = split_nine(entries, nine_sep)
         ch_before, ch_after = split_nine(entries, nine_chabad)
         out[lang] = {
-            frags_en[0]: tw_suffix(entries, tw_ash),
-            frags_en[1]: tw_suffix(entries, tw_sep),
-            frags_en[2]: tw_suffix(entries, tw_chabad),
+            frags_en[0]: tw_suffix(entries, tw_ash, frags_en[0]),
+            frags_en[1]: tw_suffix(entries, tw_sep, frags_en[1]),
+            frags_en[2]: tw_suffix(entries, tw_chabad, frags_en[2]),
             frags_en[3]: ash_before,
             frags_en[4]: ash_after,
             frags_en[5]: sep_before,

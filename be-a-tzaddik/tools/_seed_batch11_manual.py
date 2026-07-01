@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""One-shot: write _ru_batch11_manual.json with explicit key→RU mappings for batch 11."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+CAND = Path(__file__).parent / "_batch11_candidates.json"
+OUT = Path(__file__).parent / "_ru_batch11_manual.json"
+
+SKIP_KEYS = {
+    "Beardy Top Productions",
+    "www.beardy.top",
+    "https://www.beardy.top",
+    "XL",
+    "Rav",
+    "e.g., Sarah B.",
+    "Listen to more Jewish music from G.E.U.L.A",
+    "Performed by G.E.U.L.A © 2026",
+}
+
+# Explicit key → native Cyrillic (keys must match strings.json / candidates exactly).
+MANUAL: dict[str, str] = {
+    "Tzeit": "цейт",
+    "Zorea": "зореа",
+    "Zorea — planting melacha": "зореа — мелаха посева",
+    "beged — garment; tzitzit apply to four-cornered beged": (
+        "бегед — одежда; цицит на четырёхугольной одежде с углами"
+    ),
+    "borei me'orei ha'eish": "борей меорей hа-эйш",
+    "borei me'orei ha'eish — blessing over fire in Yaknehaz and regular Havdalah": (
+        "борей меорей hа-эйш — благословение на огонь в Якнеаз и обычной Хавдале"
+    ),
+    "daven": "да́венить (молиться)",
+    "escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday": (
+        "мелаве малка — проводы Шаббата: трапеза в моце шабат до рассвета воскресенья"
+    ),
+    "feminine form of Modeh (grateful) in Modeh Ani": (
+        "женская форма «моде» (благодарная) в Моде ани"
+    ),
+    "kohen": "коэн",
+    "large prayer shawl with tzitzit worn during Shacharit/Musaf and all day on Yom Kippur": (
+        "большой талит с цицит — на Шахарит/Мусаф и весь день в Йом Кипур"
+    ),
+    "ochel nefesh — Ochel nefesh (\"food for the soul\") is the Torah-based allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day — cooking and baking that would otherwise be forbidden melacha. It does not apply on Chol HaMoed, where food preparation is permitted. It does not permit unnecessary cooking. To prepare for Shabbat that falls immediately after Yom Tov, you need an eruv tavshilin.": (
+        "охель нефеш — разрешение готовить на Йом Тов для еды в тот же день; не на Холь hа-Моэд. "
+        "Для Шаббата сразу после праздника нужен эрув тавшилин."
+    ),
+    "ruach": "руах",
+    "ruach — wind or spirit; middle soul level in some teachings": (
+        "руах — ветер или дух; средний уровень души в некоторых учениях"
+    ),
+    "shiva": "шива",
+    "siddur — A siddur (from seder, \"order\") is the Jewish prayer book with the fixed texts for daily and Shabbat services — blessings, Shema, Amidah, Birkat Hamazon, and more. Editions follow nusach (Ashkenaz, Sefard, Chabad, etc.), so words and order differ slightly. Your siddur is your map for davening.": (
+        "сидур (от «седер», порядок) — молитвенник с текстами будничных и шаббатных служб. "
+        "Издания различаются по нусаху; ваш сидур — путеводитель по тфиле."
+    ),
+    "tallit gadol — large prayer shawl with tzitzit worn during Shacharit/Musaf and all day on Yom Kippur": (
+        "талит гадоль — большой талит с цицит на Шахарит/Мусаф и весь день в Йом Кипур"
+    ),
+    "yetzer hatov": "йецер hатов",
+    "yirat Shamayim": "йират Шамаим",
+    "zeroa — Zeroa (shankbone) is a roasted bone on the Seder plate reminding us of the Pesach sacrifice in the Temple. Today we do not offer the sacrifice; the zeroa is symbolic only — not eaten at the Seder. Roast it on Erev Pesach before sunset — roasting after Yom Tov begins violates ochel nefesh because it is not eaten that night. Many use a chicken neck or a special roasted bone.": (
+        "цэра — жареная кость на тарелке Седера, память о песахной жертве. Символ, не едят. "
+        "Жарить на эрев Песах до заката; после начала Йом Тов — нарушение охель нефеш."
+    ),
+    "zimun": "зимун",
+    "A sofer (scribe) is trained to write STaM — Torah scrolls, tefillin, mezuzot, and megillot — by hand with special ink on parchment. Letters must be formed exactly; mistakes can invalidate the scroll. Soferim also check existing klafim. Never buy tefillin or mezuzot without reliable certification.": (
+        "софер обучен писать ШТаМ — свитки Торы, тфилин, мезузот и мегилот — "
+        "вручную на пергаменте. Ошибка может аннулировать свиток. Покупайте только с надёжным хешером."
+    ),
+    "Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\nIf you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue davening.\n\nAlso add Yaaleh V'yavo in bentching if you eat bread tonight.": (
+        "В Амиде Маарива в Рош Ходеш добавьте «Яале вьяво» в благословение «Рецей».\n\n"
+        "Если забыли:\n"
+        "• Ещё в «Рецей» до Имени — вставьте и продолжайте (О.Х. 422:1).\n"
+        "• После «Рецей» или всей Амиды — не возвращайтесь и не повторяйте; месяц освящён днём (Берахот 30b).\n\n"
+        "При еде с хлебом добавьте «Яале вьяво» и в Биркат а-Мазон."
+    ),
+    "Chabad": "Хабад",
+    "Chag": "хаг",
+    "Chag — festival (everyday term for Yom Tov)": "хаг — праздник (обычное название Йом Тов)",
+    "Chazal": "Хазал",
+    "Connect through prayer! 🙏 Did you know? Prayer is our spiritual Wi-Fi connection to G-d! Here's something beautiful: The blessings are prescribed by the sages, who knew how to open heavenly gates using specific words and phrases. By just saying the words in a siddur, our prayers descend to unfathomable heights! Today's mission: Choose one prayer to say with extra concentration and feeling.": (
+        "Соединись через молитву! 🙏 Тефила — наш духовный Wi‑Fi к В-гу. Мудрецы задали благословения словами, "
+        "открывающими небесные врата. Произнеси слова из сидура — и молитва взлетает на невообразимую высоту! "
+        "Задание: выбери одну молитву с особой сосредоточенностью."
+    ),
+    "Discover the letter Tav (ת)! 🎯 The last letter of the Alef-Bet represents truth (Emet) and perfection! Did you know? The word Emet (truth) is made up of the first letter (א), middle letter (מ), and last letter (ת) of the Alef-Bet, teaching that truth must be consistent from beginning to end! Today's mission: Make sure your words and actions align with truth.": (
+        "Открой букву Тав (ת)! 🎯 Последняя в алеф-бете — истина (эмет) и совершенство. "
+        "«Эмет» из первой (א), средней (מ) и последней (ת) букв — истина цельна от начала до конца. "
+        "Задание: пусть слова и дела совпадают с истиной."
+    ),
+    "Geneivat da'at (\"stealing the mind\") is deception — advertising falsely, hiding defects, or misleading about credentials. It applies to customers, employees, and friends. The Torah demands \"honest scales\" in spirit and letter. Trust lost through geneivat da'at is hard to rebuild.": (
+        "генейват даат («воровство ума») — обман: ложная реклама, сокрытие недостатков, введение в заблуждение. "
+        "Тора требует «честных весов» в духе и букве. Потерянное доверие трудно вернуть."
+    ),
+    "Guard against false prophecy! 🚫 The Rambam teaches in Chapter 9 of Yesodei HaTorah: Even if someone performs miracles, if they try to change or negate any part of the Torah, they're a false prophet! True prophecy always strengthens Torah, never weakens it. Today's mission: Stay strong in your commitment to Torah's eternal truth.": (
+        "Остерегайтесь ложного пророчества! 🚫 Рамбам (Иесодей hа-Тора, гл. 9): даже при чудесах, "
+        "кто меняет или отменяет часть Торы — лжепророк. Истинное пророчество укрепляет Тору. "
+        "Задание: крепко держитесь вечной истины Торы."
+    ),
+    "If you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue davening.": (
+        "Если забыли на Маариве в Рош Ходеш:\n"
+        "• Ещё в «Рецей» до Имени — вставьте «Яале вьяво» и продолжайте (О.Х. 422:1).\n"
+        "• После «Рецей» или всей Амиды — не возвращайтесь и не повторяйте; месяц освящён днём (Берахот 30b)."
+    ),
+    "If you recite the Maariv Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah).\n\nIf you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue (Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10). Continue davening.\n\nIf you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.": (
+        "В Амиде Маарива в Рош Ходеш добавьте «Яале вьяво» в «Рецей».\n\n"
+        "Если забыли — см. правила выше (О.Х. 422:1; Берахот 30b).\n\n"
+        "При еде с хлебом добавьте «Яале вьяво» и в Биркат а-Мазон."
+    ),
+    "Kashrut is the Torah system of permitted food, shechita, separating meat and dairy, and supervising production. It sanctifies eating — turning meals into service of G-d. Learning labels (OU, OK, etc.), hechsherim, and kitchen setup takes time; ask your rav when starting.": (
+        "кашрут — система Торы о разрешённой пище: шехита, разделение мяса и молочного, надзор. "
+        "Освящает еду. Изучение этикеток и кухни требует времени — спросите рава."
+    ),
+    "Keli": "кели",
+    "Kibud Av V'Eim - mitzvah to honor/respect and care for parents": (
+        "кибуд ав ва-эйм — мицва чтить и заботиться о родителях"
+    ),
+    "Korbanot are the Temple offerings — animal sacrifices, incense, and libations — brought by the Jewish people in the Beit HaMikdash. Since the Temple's destruction, we cannot offer them; prayer recalls and substitutes for those offerings until the Temple is rebuilt.": (
+        "корбанот — храмовые приношения в Бейт hа-Микдаш. После разрушения Храма молитва вспоминает "
+        "и заменяет многие корбанот до его восстановления."
+    ),
+    "Learn about Dosh — threshing and extracting resources on Shabbat! 🌾 In the ancient world, threshing meant beating stalks of wheat to separate the grain from its outer chaff—a vital step in the Mishkan to gather flour for the Showbread. Today, this melacha shows up in surprising ways, specifically when extracting liquid from solid food. Squeezing grapes or olives for their juice is a direct, Torah-level violation, and the Sages extended this to other fruits, which is why freshly squeezing oranges or grapefruits is forbidden on Shabbat. The rules are precise, but the theme is clear: on Shabbat, we don't 'process' raw nature to extract its hidden contents. We enjoy it exactly as it is. Learn more!": (
+        "Дош — молотьба и извлечение сока в Шаббат! 🌾 В Мишкане — отделение зерна от соломы. "
+        "Сегодня: выжимание винограда/олив — запрет Торы; мудрецы распространили на другие фрукты. "
+        "В Шаббат не «перерабатываем» природу — наслаждаемся ею как есть."
+    ),
+    "Learn about the Melacha of Mocheik—the deliberate act of erasing or wiping away meaningful marks— on Shabbat! This fundamental category of creative labor traces its origins straight to the construction of the Mishkan, where skilled scribes would immediately erase or scrape off any mistaken lettering on the wooden wall beams or parchment skins to perfectly prepare the surface to be written upon correctly. The core definition of Mocheik is the intentional wiping, scraping, dissolving, or obliterating of any meaningful symbol, letter, or graphic. Under Torah law, this applies when erasing is done for a constructive purpose—specifically to clean a surface so it can be written on again, like wiping a whiteboard or slate clean. However, the Sages extended this boundary to rabbinically forbid destructive erasing where no rewriting occurs. This boundary directly guides how we handle written or printed materials on the day of rest, meaning that scratching out text, erasing pencil marks, or deliberately destroying a permanent record is prohibited. For Ashkenazi communities following the Rema, this restriction leads to a preference to avoid tearing through printed letters or logos when opening food packages from the outset, though if done accidentally or after the fact (b'dieved), it's permitted. For Sephardic communities following Maran Rav Ovadia Yosef, tearing through packaging text to access food or medication is permitted from the outset, as the destructive act is done with zero intent to erase or rewrite text. Learn more!": (
+        "Мочейк — стирание значимых знаков в Шаббат! В Мишкане соферы исправляли ошибки на пергаменте. "
+        "Запрещено стирать буквы, царапать текст, уничтожать записи. Ашкенази избегают рвать печатные буквы на упаковках; "
+        "сефарды по Рав Овадье Йосефу — разрешают для еды и лекарств без намерения стереть текст."
+    ),
+    "Learn about the Melacha of Oreg—the iconic art of weaving threads together—and the fascinating boundaries that separate the appreciation of fabric from its creation on Shabbat! Weaving is the definitive climax of the textile production process, tracing directly back to the construction of the Mishkan, where master craftsmen interlaced the vertical warp threads with horizontal weft threads to build the heavy, majestic tapestries that enclosed the sacred sanctuary. The core definition of Oreg is the act of crisscrossing or interlacing two or more distinct sets of threads or yarns at right angles to form a coherent, self-supporting sheet of fabric. On Shabbat, this means that any form of traditional loom-weaving, darning a hole in a sock by interlacing new threads over a gap, or even pulling a single loose thread back into an existing woven garment to restore its pattern can be a direct violation of this labor. What makes Oreg so sensitive is that it does not require a massive machine or a complex project to be triggered; the Talmud states that weaving even two parallel horizontal threads into a vertical grid is enough to violate the prohibition. This carries huge implications for modern fiber arts and everyday mishaps, as certain types of dense embroidery, cross-stitching, or even tighter forms of basketry and wire-weaving share the exact same structural mechanics as loom-work and must be paused on Shabbat. The deep spiritual essence of Oreg teaches us that while the creation of cloth is one of humanity's most fundamental achievements in mastering nature for clothing and shelter, Shabbat is a day where we completely step away from fabrication. We wear our beautiful clothes and admire the woven textures around us, but we entirely relinquish the power to interlace even a single thread, honoring a day where the fabric of the universe is already considered complete. Learn more!": (
+        "Орег — ткачество в Шаббат! Переплетение нитей в Мишкане. Запрещены станок, штопка с новыми нитями, "
+        "втягивание нити в узор. Даже две нити в сетку — нарушение (Талмуд). В Шаббат не создаём ткань — "
+        "наслаждаемся готовым."
+    ),
+    "Losh": "лош",
+    "Losh — kneading melacha": "лош — мелаха замешивания",
+    "Oneg Shabbat": "онег Шаббат",
+    "Oneg Shabbat — Oneg Shabbat is delighting in Shabbat — good food, rest, Torah study, singing, and time with family or guests. It is a positive mitzvah, not only avoiding melacha. The Talmud criticizes those who fast or deprive themselves on Shabbat without need. Planning meals and atmosphere before Shabbat helps oneg happen without last-minute stress.": (
+        "онег Шаббат — радость Шаббата: еда, отдых, Тора, пение, семья и гости. Позитивная мицва, не только "
+        "воздержание от мелахи. Планируйте трапезы до Шаббата."
+    ),
+    "Plag hamincha is one and a quarter halachic hours before nightfall — used for early Mincha, early Shabbat entry in some communities, and certain Pesach and Chanukah times. It is also the earliest time you may light Shabbat candles; lighting before plag invalidates the mitzvah and makes the blessing unnecessary. It is not identical to sunset; check your calendar.": (
+        "плаг hа-минха — за 1¼ галахического часа до наступления темноты; ранняя Минха, ранний вход в Шаббат. "
+        "Самое раннее время зажигания свечей; до плаг — благословение не произносится. Сверьтесь с календарём."
+    ),
+    "Protect G-d's holy Name! 📜 The Rambam teaches us in Chapter 6 that we must be extra careful with any items containing G-d's Name. Did you know? If you find a holy book or paper with G-d's Name, you should store it respectfully or bring it to a Genizah (special storage for holy items). Even if it's just one letter of G-d's Name, it must be treated with reverence. Take a moment today to properly store any holy books or papers you have!": (
+        "Берегите святое Имя! 📜 Рамбам (гл. 6): осторожно с предметами с Именем Б-га. "
+        "Храните с почтением или отнесите в гениза. Даже одна буква Имени требует благоговения."
+    ),
+    "Recited once a month when the moon is visible, usually beginning on the 3rd night of the Hebrew month (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18).": (
+        "Произносится раз в месяц при видимой луне, обычно с 3-й ночи месяца (ашкеназ / Хабад; Пениней hалаха 05-01-18)."
+    ),
+    "Shalom bayit": "шалом байт",
+    "Speech is one of the most powerful forces in Jewish life — it can build people up or destroy them in an instant. Shmirat halashon (שְׁמִירַת הַלָּשׁוֹן — guarding the tongue) is the ongoing mitzvah to watch what we say.\n\nWhat to avoid:\n• Lashon hara (לָשׁוֹן הָרָע — \"evil tongue\"): saying true or untrue derogatory words about another person — their character, their business, their children, and the like — even without intent to harm. If the information would lower the listener's opinion of that person, it is generally forbidden. Speaking lashon hara about the Land of Israel (Eretz Yisrael) is also forbidden.\n• Rechilut (רְכִילוּת): tale-bearing — passing words from one person to another in a way that creates conflict.\n• Ona'at devarim: hurtful or humiliating speech, insults, mockery, and needless argument.\n• Falsehood and misleading others in speech.\n\nWhy it matters:\nThe Talmud compares lashon hara to murder — reputations and relationships can be killed without raising a hand. The Chafetz Chaim (Rabbi Yisrael Meir Kagan, 19th century) devoted his life to teaching these laws because they protect the dignity of every Jew.\n\nHow to practice:\n• Before sharing news about someone, ask: Is it necessary? Is it kind? Would I want this said about me?\n• When you hear gossip, do not repeat it; you may change the subject or gently defend the person spoken about.\n• Use speech for encouragement, truth, prayer, and Torah.\n\nThis checklist item is a daily reminder to be mindful — not a scorecard of perfection. Ask your rabbi when a specific situation is permitted (e.g., warning someone of harm).": (
+        "Речь может строить или разрушать. Шмират hалашон (שְׁמִירַת הַלָּשׁוֹן) — мицва беречь язык.\n\n"
+        "Избегайте: лашон hара (לָשׁוֹן הָרָע) — порочащие слова о другом; рехилут (רְכִילוּת) — перенос слов, "
+        "создающий конфликт; онаат деварим — обидная речь; ложь.\n\n"
+        "Талмуд сравнивает лашон hара с убийством. Хафец Хаим посвятил жизнь этим законам.\n\n"
+        "Перед новостями о ком-то спросите: нужно ли? добро ли? Не повторяйте сплетни. "
+        "Спросите рава в конкретных случаях."
+    ),
+    "Standing (kima — קִימָה): Ashkenaz custom (Rama Y.D. 240:4): rise once in each 24-hour period for each parent when you see them — that fulfills the daily obligation of standing. If you are in their presence throughout the day, stand when they enter the room. When unsure, standing more often is praiseworthy.": (
+        "Кима (קִימָה) — вставать перед родителями. Ашкеназ (Рама И.Д. 240:4): раз в сутки для каждого родителя "
+        "при встрече; при сомнении — чаще."
+    ),
+}
+
+
+def main() -> None:
+    candidates = json.loads(CAND.read_text(encoding="utf-8"))
+    keys = [c["key"] for c in candidates if c["key"] not in SKIP_KEYS][:50]
+    missing = [k for k in keys if k not in MANUAL]
+    extra = [k for k in MANUAL if k not in keys]
+    if missing:
+        raise SystemExit(f"missing MANUAL ({len(missing)}): {missing[0][:80]}...")
+    if extra:
+        raise SystemExit(f"extra MANUAL keys not in batch: {extra[0][:80]}...")
+    batch = {k: MANUAL[k] for k in keys}
+    OUT.write_text(json.dumps(batch, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {len(batch)} entries to {OUT.name}")
+
+
+if __name__ == "__main__":
+    main()

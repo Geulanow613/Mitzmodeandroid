@@ -12,7 +12,30 @@ TOOLS = Path(__file__).resolve().parent
 sys.path.insert(0, str(TOOLS))
 
 from _ru_deep_fixes_batch2_data import PREFIX_RU_DEEP, TAANIT_BECHOROT_PREFIX  # noqa: E402
+from _explainer_keys import resolve_keys  # noqa: E402
+from _three_weeks_ty_data import THREE_WEEKS_INTRO_RU, TW_ASH_RU, TW_CH_RU, TW_SEP_RU  # noqa: E402
+from _taanit_bechor_ty_data import TAANIT_BECHOR_RU  # noqa: E402
 from _ru_deep_fixes_data import MANUAL_RU_DEEP  # noqa: E402
+from _ru_modeh_data import modeh_ru_for_key  # noqa: E402
+from _ru_nine_days_data import nine_days_ru_for_key  # noqa: E402
+from _ru_rosh_chodesh_data import rosh_chodesh_ru_for_key  # noqa: E402
+from _ru_melacha_prose_data import melacha_ru_for_key  # noqa: E402
+from _glossary_batch21 import BATCH21_RU  # noqa: E402
+from _glossary_batch22 import BATCH22_RU  # noqa: E402
+from _glossary_batch23 import BATCH23_RU  # noqa: E402
+from _glossary_batch24 import BATCH24_RU  # noqa: E402
+from _glossary_batch25 import BATCH25_RU  # noqa: E402
+from _glossary_batch26 import BATCH26_RU  # noqa: E402
+from _glossary_batch27 import BATCH27_RU  # noqa: E402
+from _glossary_batch28 import BATCH28_RU  # noqa: E402
+from _glossary_batch29 import BATCH29_RU  # noqa: E402
+from _glossary_batch30 import BATCH30_RU  # noqa: E402
+from _glossary_batch31 import BATCH31_RU  # noqa: E402
+from _glossary_batch32 import BATCH32_RU  # noqa: E402
+from _ru_glossary_ty_data import glossary_ru_for_key  # noqa: E402
+from _yaaleh_ru_data import yaaleh_overview_ru_for_key, yaaleh_ru_for_key  # noqa: E402
+from _ru_netilat_data import netilat_ru_for_key  # noqa: E402
+from _ru_short_expansions_data import PREFIX_RU_SHORT_EXPAND  # noqa: E402
 
 CATALOG_PATH = ROOT / "data" / "translation-catalog" / "strings.json"
 OUT = ROOT / "data" / "translation-catalog" / "human" / "ru_deep_fixes.json"
@@ -36,16 +59,7 @@ def apply_prefix_fixes(catalog: list[str], fixes: dict[str, str]) -> int:
 
 
 def apply_taanit_fixes(catalog: list[str], fixes: dict[str, str]) -> int:
-    base = PREFIX_RU_DEEP.get(
-        TAANIT_BECHOROT_PREFIX,
-        "",
-    )
-    if not base:
-        # Fallback: find any taanit prefix value from PREFIX_RU_DEEP
-        for prefix, val in PREFIX_RU_DEEP.items():
-            if prefix.startswith("Taanit Bechorot"):
-                base = val
-                break
+    base = TAANIT_BECHOR_RU
     if not base:
         return 0
     added = 0
@@ -57,6 +71,19 @@ def apply_taanit_fixes(catalog: list[str], fixes: dict[str, str]) -> int:
             suffix = "$scheduleLeadIn$scheduleBody$scheduleYomTov"
         fixes[key] = base + suffix
         added += 1
+    return added
+
+
+def apply_three_weeks_ru_fixes(fixes: dict[str, str]) -> int:
+    """Authoritative ty RU for Three Weeks intro + nusach fragment and composite keys."""
+    keys = resolve_keys()
+    intro = THREE_WEEKS_INTRO_RU
+    added = 0
+    for frag in ("tw_ash", "tw_sep", "tw_ch"):
+        body = {"tw_ash": TW_ASH_RU, "tw_sep": TW_SEP_RU, "tw_ch": TW_CH_RU}[frag]
+        fixes[keys[frag]] = body
+        fixes[keys[f"{frag}_full"]] = intro + "\n\n" + body
+        added += 2
     return added
 
 
@@ -185,6 +212,162 @@ def main() -> int:
         fixes.update(batch21_manual)
         batch21_added = len(batch21_manual)
 
+    # Expanded PREFIX_RU_DEEP prose wins over shorter manual/batch stubs.
+    expanded = 0
+    for key in catalog:
+        best_val: str | None = None
+        best_len = len(fixes.get(key, ""))
+        for prefix, val in PREFIX_RU_DEEP.items():
+            if key.startswith(prefix) and len(val) > best_len:
+                best_val = val
+                best_len = len(val)
+        if best_val is not None:
+            fixes[key] = best_val
+            expanded += 1
+
+    # Final pass: Learn-about missions still under 400 chars after compile repairs.
+    short_expanded = 0
+    for key in catalog:
+        best_val: str | None = None
+        best_len = len(fixes.get(key, ""))
+        for prefix, val in PREFIX_RU_SHORT_EXPAND.items():
+            if key.startswith(prefix) and len(val) > best_len:
+                best_val = val
+                best_len = len(val)
+        if best_val is not None:
+            fixes[key] = best_val
+            short_expanded += 1
+
+    netilat_added = 0
+    for key in catalog:
+        body = netilat_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            netilat_added += 1
+
+    modeh_added = 0
+    for key in catalog:
+        body = modeh_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            modeh_added += 1
+
+    nine_days_added = 0
+    for key in catalog:
+        body = nine_days_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            nine_days_added += 1
+
+    yaaleh_added = 0
+    for key in catalog:
+        body = yaaleh_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            yaaleh_added += 1
+
+    yaaleh_overview_added = 0
+    for key in catalog:
+        body = yaaleh_overview_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            yaaleh_overview_added += 1
+
+    rosh_chodesh_added = 0
+    for key in catalog:
+        body = rosh_chodesh_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            rosh_chodesh_added += 1
+
+    glossary_added = 0
+    for key in catalog:
+        body = glossary_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            glossary_added += 1
+
+    melacha_added = 0
+    for key in catalog:
+        body = melacha_ru_for_key(key)
+        if body:
+            fixes[key] = body
+            melacha_added += 1
+
+    batch21_ru_added = 0
+    for key, body in BATCH21_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch21_ru_added += 1
+
+    batch22_ru_added = 0
+    for key, body in BATCH22_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch22_ru_added += 1
+
+    batch23_ru_added = 0
+    for key, body in BATCH23_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch23_ru_added += 1
+
+    batch24_ru_added = 0
+    for key, body in BATCH24_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch24_ru_added += 1
+
+    batch25_ru_added = 0
+    for key, body in BATCH25_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch25_ru_added += 1
+
+    batch26_ru_added = 0
+    for key, body in BATCH26_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch26_ru_added += 1
+
+    batch27_ru_added = 0
+    for key, body in BATCH27_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch27_ru_added += 1
+
+    batch28_ru_added = 0
+    for key, body in BATCH28_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch28_ru_added += 1
+
+    batch29_ru_added = 0
+    for key, body in BATCH29_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch29_ru_added += 1
+
+    batch30_ru_added = 0
+    for key, body in BATCH30_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch30_ru_added += 1
+
+    batch31_ru_added = 0
+    for key, body in BATCH31_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch31_ru_added += 1
+
+    batch32_ru_added = 0
+    for key, body in BATCH32_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch32_ru_added += 1
+
+    three_weeks_added = apply_three_weeks_ru_fixes(fixes)
+
     # Drop keys not in catalog (stale).
     fixes = {k: v for k, v in fixes.items() if k in catalog}
 
@@ -197,7 +380,7 @@ def main() -> int:
         f"wrote {len(fixes)} keys to {OUT.name} "
         f"(prefix-added: {prefix_added}, taanit: {taanit_added}, polish-reg: {polish_reg_added}, cyrillic-reg: {cyrillic_reg_added}, "
         f"batch11: {batch11_added}, batch12: {batch12_added}, batch13: {batch13_added}, batch14: {batch14_added}, "
-        f"batch15: {batch15_added}, batch16: {batch16_added}, batch17: {batch17_added}, batch18: {batch18_added}, batch19: {batch19_added}, batch20: {batch20_added}, batch21: {batch21_added})"
+        f"batch15: {batch15_added}, batch16: {batch16_added}, batch17: {batch17_added}, batch18: {batch18_added}, batch19: {batch19_added}, batch20: {batch20_added}, batch21: {batch21_added}, batch22: {batch22_ru_added}, batch23: {batch23_ru_added}, batch24: {batch24_ru_added}, batch25: {batch25_ru_added}, batch26: {batch26_ru_added}, batch27: {batch27_ru_added}, batch28: {batch28_ru_added}, batch29: {batch29_ru_added}, batch30: {batch30_ru_added}, batch31: {batch31_ru_added}, batch32: {batch32_ru_added}, expanded: {expanded}, short-expanded: {short_expanded}, netilat: {netilat_added}, modeh: {modeh_added}, nine_days: {nine_days_added}, yaaleh: {yaaleh_added}, yaaleh_overview: {yaaleh_overview_added}, rosh_chodesh: {rosh_chodesh_added}, glossary: {glossary_added}, melacha: {melacha_added}, batch21_ru: {batch21_ru_added})"
     )
     return 0
 

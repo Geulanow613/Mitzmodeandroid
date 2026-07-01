@@ -101,12 +101,14 @@ def load_human() -> dict[str, dict[str, str]]:
         "ru_cyrillic_fixes.json",
         "ru_cyrillic_top50.json",
         "ru_polish_all.json",
-        "ru_deep_fixes.json",
         "public_fast_explainers.json",
         "purim_meshulash_explainers.json",
         "ru_explainer_polish.json",
         "ru_brand_ui.json",
         "es_fr_prose_polish.json",
+        "he_short_learn_expansions.json",
+        "alert_short_expansions.json",
+        "ru_deep_fixes.json",
     ]
     priority_last = set(priority_last_ordered)
     priority_he_fix = sorted(

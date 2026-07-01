@@ -4,6 +4,21 @@ from __future__ import annotations
 
 from typing import Callable
 
+from _three_weeks_ty_data import (
+    THREE_WEEKS_INTRO_ES,
+    THREE_WEEKS_INTRO_FR,
+    THREE_WEEKS_INTRO_RU,
+    TW_ASH_ES,
+    TW_ASH_FR,
+    TW_ASH_RU,
+    TW_CH_ES,
+    TW_CH_FR,
+    TW_CH_RU,
+    TW_SEP_ES,
+    TW_SEP_FR,
+    TW_SEP_RU,
+)
+
 LANGS: tuple[str, ...] = ("es", "fr", "ru")
 _SCHEDULE = "$scheduleLeadIn$scheduleBody$scheduleYomTov"
 
@@ -304,14 +319,7 @@ def _compose_es(b: dict[str, str]) -> dict[str, str]:
         "Cuándo: después de la caída de la noche (tzeit), al aire libre; idealmente en motzei Shabat; no en Shabat ni Yom Tov.\n\n"
         "Cómo: la luna debe ser claramente visible; usa tu sidur."
     )
-    t["tw_intro"] = (
-        "Las Tres Semanas (Bein HaMetzarim / בין המצרים), del 17 de Tamuz al 9 de Av, conmemoran la destrucción del "
-        "Templo y las tragedias del pueblo judío.\n\n"
-        "Por qué guardamos luto:\n"
-        "• El 17 de Tamuz se abrieron las murallas de Jerusalén; el 9 de Av se destruyeron ambos Templos, entre otras "
-        "calamidades nacionales.\n\n"
-        "En Shabat durante las Tres Semanas: las prácticas de luto no aplican en Shabat mismo — observa Shabat plenamente."
-    )
+    t["tw_intro"] = THREE_WEEKS_INTRO_ES
     t["nd_shared"] = (
         "Erev Tisha B'Av (8 de Av por la tarde): deja de estudiar Torá salvo temas de duelo; come la comida final "
         "(seudah hamafseket) antes del ayuno. Se usan talit y tefilín en Shajarit de Erev Tisha B'Av — la restricción "
@@ -321,20 +329,9 @@ def _compose_es(b: dict[str, str]) -> dict[str, str]:
         "chatzot del 9 de Av.\n\n"
         "Shabat Jazón (el Shabat antes del 9 de Av): Shabat se observa con normalidad — carne y vino están permitidos."
     )
-    t["tw_ash"] = (
-        "Las Tres Semanas (Bein HaMetzarim), del 17 de Tamuz al 9 de Av.\n\n"
-        "Minhag asquenazí: luto prolongado durante las Tres Semanas, más intenso en los Nueve Días.\n"
-        "17 Tamuz: cortes de pelo, música y bodas prohibidos; Shehecheyanu se evita (permitido en Shabat).\n"
-        "Desde 1 Av: ver el ítem de los Nueve Días."
-    )
-    t["tw_sep"] = (
-        "Las Tres Semanas — sefardíes y Edot HaMizrach: más flexibles hasta la semana del 9 de Av.\n"
-        "Cortes de pelo permitidos en la mayor parte del período; música se evita; bodas según la kehilla."
-    )
-    t["tw_ch"] = (
-        "Las Tres Semanas en Jabad — minhag asquenazí estricto.\n"
-        "Cortes de pelo, música y bodas prohibidos; más Torá y tzedaká; se intensifica en los Nueve Días desde Rosh Chodesh Av."
-    )
+    t["tw_ash"] = TW_ASH_ES
+    t["tw_sep"] = TW_SEP_ES
+    t["tw_ch"] = TW_CH_ES
     t["nd_ash"] = (
         "Los Nueve Días (desde 1 Av) — luto asquenazí estricto: carne, vino, lavado, baño por placer, compras.\n"
         "9 Av: ayuno; kinot.\n"
@@ -586,15 +583,7 @@ def _compose_fr(b: dict[str, str]) -> dict[str, str]:
         "Quand : après la tombée de la nuit (tzeit), dehors ; idéalement à motzei Chabbat ; pas le Chabbat ni Yom Tov.\n\n"
         "Comment : la lune doit être clairement visible ; utilisez votre siddour."
     )
-    t["tw_intro"] = (
-        "Les Trois Semaines (Bein HaMetzarim / בין המצרים), du 17 Tamouz au 9 Av, commémorent la destruction du Temple "
-        "et les tragédies du peuple juif.\n\n"
-        "Pourquoi nous pleurons :\n"
-        "• Le 17 Tamouz, les murailles de Jérusalem ont été percées ; le 9 Av, les deux Temples ont été détruits, "
-        "ainsi que d'autres calamités nationales.\n\n"
-        "Chabbat pendant les Trois Semaines : les pratiques de deuil ne s'appliquent pas à Chabbat lui-même — "
-        "observez Chabbat pleinement."
-    )
+    t["tw_intro"] = THREE_WEEKS_INTRO_FR
     t["nd_shared"] = (
         "Erev Tisha B'Av (8 Av l'après-midi) : cessez d'étudier la Torah sauf sujets de deuil ; prenez le repas final "
         "(seudah hamafseket) avant le jeûne. Tallit et tefilin sont portés à Shaharit d'Erev Tisha B'Av — la restriction "
@@ -604,20 +593,9 @@ def _compose_fr(b: dict[str, str]) -> dict[str, str]:
         "bas jusqu'à 'hatzot du 9 Av.\n\n"
         "Chabbat 'Hazon (le Chabbat avant le 9 Av) : Chabbat s'observe normalement — viande et vin sont permis."
     )
-    t["tw_ash"] = (
-        "Les Trois Semaines (Bein HaMetzarim), du 17 Tamouz au 9 Av.\n\n"
-        "Minhag ashkénaze : deuil prolongé pendant les Trois Semaines, plus intense pendant les Neuf Jours.\n"
-        "17 Tamouz : coupes de cheveux, musique et mariages interdits ; Shehe'heyanu évité (permis le Shabbat).\n"
-        "À partir du 1 Av : voir l'élément des Neuf Jours."
-    )
-    t["tw_sep"] = (
-        "Les Trois Semaines — Séfarades et Edot HaMizra'h : plus souples jusqu'à la semaine du 9 Av.\n"
-        "Coupes de cheveux permises la plupart du temps ; musique évitée ; mariages selon la kehilla."
-    )
-    t["tw_ch"] = (
-        "Les Trois Semaines dans 'Habad — minhag ashkénaze strict.\n"
-        "Coupes de cheveux, musique et mariages interdits ; plus de Torah et de tsedaka ; s'intensifie aux Neuf Jours depuis Rosh 'Hodesh Av."
-    )
+    t["tw_ash"] = TW_ASH_FR
+    t["tw_sep"] = TW_SEP_FR
+    t["tw_ch"] = TW_CH_FR
     t["nd_ash"] = (
         "Les Neuf Jours (du 1 Av) — deuil ashkénaze strict : viande, vin, lessive, bain de plaisir, achats.\n"
         "9 Av : jeûne ; kinot.\n"
@@ -625,7 +603,7 @@ def _compose_fr(b: dict[str, str]) -> dict[str, str]:
     )
     t["nd_sep"] = (
         "Les Neuf Jours et la semaine du 9 Av — Séfarades : plus stricts dans le shavouah she'hal bo.\n"
-        "Viande, vin, lessive et bain selon le minhag ; consultez votre rav."
+        "Viande, vin, lessive et bain selon le minhag ; demande à ton rav."
     )
     t["nd_ch"] = (
         "Les Neuf Jours dans 'Habad — viande et vin interdits depuis Rosh 'Hodesh Av ; lessive et bain de plaisir.\n"
@@ -868,13 +846,7 @@ def _compose_ru(b: dict[str, str]) -> dict[str, str]:
         "Когда: после цейт, на улице под открытым небом; желательно в моцаеи Шаббата; не в Шаббат и не в Йом-Тов.\n\n"
         "Как: луна должна быть хорошо видна; используйте сидур."
     )
-    t["tw_intro"] = (
-        "Три недели (Бейн а-Мецарим / בין המצרים) — с 17 Тамуза до 9 Ава — в память о разрушении Храма "
-        "и еврейских трагедиях.\n\n"
-        "Почему мы скорбим:\n"
-        "• 17 Тамуза прорваны стены Иерусалима; 9 Ава разрушены оба Храма, среди прочих национальных бедствий.\n\n"
-        "Шаббат в Три недели: обычаи траура не применяются в сам Шаббат — полностью соблюдайте Шаббат."
-    )
+    t["tw_intro"] = THREE_WEEKS_INTRO_RU
     t["nd_shared"] = (
         "Эрев Тиша б'Ав (8 Ава днём): прекратите изучение Торы, кроме скорбных тем; съешьте последнюю трапезу "
         "(сеуда амафсекет) перед постом. Талит и тефилин на Шахарите в эрев Тиша б'Ав — ограничение действует "
@@ -884,20 +856,9 @@ def _compose_ru(b: dict[str, str]) -> dict[str, str]:
         "до хацот 9 Ава.\n\n"
         "Шаббат Хазон (Шаббат перед 9 Ава): Шаббат соблюдается как обычно — мясо и вино разрешены."
     )
-    t["tw_ash"] = (
-        "Три недели (Бейн а-Мецарим), с 17 Тамуза до 9 Ава.\n\n"
-        "Ашкеназский минхаг: продлённый траур на протяжении Трёх недель, усиливается в Девять дней.\n"
-        "17 Тамуза: стрижка, музыка и свадьбы запрещены; Шехехияну избегают (разрешено в Шаббат).\n"
-        "С 1 Ава: см. пункт о Девяти днях."
-    )
-    t["tw_sep"] = (
-        "Три недели — сефарды и Эдот а-Мизрах: более мягко до недели 9 Ава.\n"
-        "Стрижка разрешена большую часть периода; музыку избегают; свадьбы — по общине."
-    )
-    t["tw_ch"] = (
-        "Три недели в Хабаде — строгий ашкеназский минхаг.\n"
-        "Стрижка, музыка и свадьбы запрещены; больше Торы и цдаки; усиливается в Девять дней с Рош Ходеш Ав."
-    )
+    t["tw_ash"] = TW_ASH_RU
+    t["tw_sep"] = TW_SEP_RU
+    t["tw_ch"] = TW_CH_RU
     t["nd_ash"] = (
         "Девять дней (с 1 Ава) — строгий ашкеназский траур: мясо, вино, стирка, купание для удовольствия, покупки.\n"
         "9 Ава: пост; кинот.\n"
@@ -905,7 +866,7 @@ def _compose_ru(b: dict[str, str]) -> dict[str, str]:
     )
     t["nd_sep"] = (
         "Девять дней и неделя 9 Ава — сефарды: строже в шавуа ше-халь бо.\n"
-        "Мясо, вино, стирка и купание по минхагу; спросите рава."
+        "Мясо, вино, стирка и купание по минхагу; спроси рава."
     )
     t["nd_ch"] = (
         "Девять дней в Хабаде — мясо и вино запрещены с Рош Ходеш Ав; стирка и купание для удовольствия.\n"
