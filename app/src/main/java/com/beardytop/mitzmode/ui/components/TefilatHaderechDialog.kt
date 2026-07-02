@@ -18,19 +18,11 @@ import androidx.compose.foundation.gestures.transformable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.data.TefilatHaderechData
-import com.beardytop.mitzmode.data.TefilatSection
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 @Composable
 fun TefilatHaderechDialog(onDismiss: () -> Unit) {
-    val translationViewModel: TranslationViewModel =
-        LocalTranslationViewModel.current ?: hiltViewModel()
-    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    /** Hebrew liturgy is already Hebrew — hide translation toggle only for Hebrew UI. */
-    val showLiturgyTranslation = currentLanguage != "he"
+    val showLiturgyTranslation = true
 
     var showEnglish by remember { mutableStateOf(false) }
     val sections = TefilatHaderechData.sections

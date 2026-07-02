@@ -30,7 +30,6 @@ android {
             useSupportLibrary true
         }
         
-        buildConfigField "String", "GOOGLE_TRANSLATE_API_KEY", "\"${localProperties.getProperty('GOOGLE_TRANSLATE_API_KEY', 'YOUR_GOOGLE_TRANSLATE_API_KEY_HERE')}\""
         buildConfigField "String", "EMAIL_SENDER", "\"${localProperties.getProperty('EMAIL_SENDER', 'YOUR_EMAIL_HERE@gmail.com')}\""
         buildConfigField "String", "EMAIL_APP_PASSWORD", "\"${localProperties.getProperty('EMAIL_APP_PASSWORD', 'YOUR_APP_PASSWORD_HERE')}\""
         buildConfigField "String", "EMAIL_RECIPIENT", "\"${localProperties.getProperty('EMAIL_RECIPIENT', 'YOUR_EMAIL_HERE@gmail.com')}\""
@@ -133,7 +132,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
 
     // HTTP client for Google Translate REST API
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
     // JavaMail
     implementation 'com.sun.mail:android-mail:1.6.7'

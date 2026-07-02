@@ -13,14 +13,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 data class Bracha(
     val name: String,
@@ -29,22 +25,11 @@ data class Bracha(
     val description: String
 )
 
-private fun brachaNameTransliterationKey(name: String) = "translit::name::$name"
-
-private fun brachaTextTransliterationKey(english: String) = "translit::text::$english"
-
-private fun showBrachaTransliteration(language: String): Boolean =
-    language in setOf("es", "fr", "ru")
-
 @Composable
 fun BrachotDialog(
     onDismiss: () -> Unit
 ) {
-    val translationViewModel: TranslationViewModel =
-        LocalTranslationViewModel.current ?: hiltViewModel()
-    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    /** Hebrew liturgy is already Hebrew — hide translation toggle only for Hebrew UI. */
-    val showLiturgyTranslation = currentLanguage != "he"
+    val showLiturgyTranslation = true
 
     var fontScale by remember { mutableStateOf(1f) }
     var showEnglish by remember { mutableStateOf(false) }
@@ -171,7 +156,6 @@ fun BrachotDialog(
                 items(brachot, key = { it.name }) { bracha ->
                     BrachaListItem(
                         bracha = bracha,
-                        currentLanguage = currentLanguage,
                         showEnglish = showEnglish && showLiturgyTranslation,
                         scaledFontSize = scaledFontSize
                     )
@@ -184,12 +168,9 @@ fun BrachotDialog(
 @Composable
 private fun BrachaListItem(
     bracha: Bracha,
-    currentLanguage: String,
     showEnglish: Boolean,
     scaledFontSize: androidx.compose.ui.unit.TextUnit
 ) {
-    val showTransliteration = showBrachaTransliteration(currentLanguage)
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -200,18 +181,6 @@ private fun BrachaListItem(
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
             color = DialogGoldBorder
         )
-        if (showTransliteration) {
-            TranslatableText(
-                text = brachaNameTransliterationKey(bracha.name),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontWeight = FontWeight.Normal,
-                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
-                ),
-                color = DialogGoldBorder.copy(alpha = 0.75f),
-                modifier = Modifier.padding(top = 2.dp),
-                enableHalachicTerms = false,
-            )
-        }
         TranslatableText(
             text = bracha.description,
             style = MaterialTheme.typography.bodySmall,
@@ -240,22 +209,6 @@ private fun BrachaListItem(
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
             )
-            if (showTransliteration) {
-                TranslatableText(
-                    text = brachaTextTransliterationKey(bracha.english.text),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = (scaledFontSize.value * 0.82f).sp,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                        lineHeight = (scaledFontSize.value * 1.15f).sp
-                    ),
-                    color = DialogTextMuted,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 8.dp),
-                    enableHalachicTerms = false,
-                )
-            }
         }
 
         HorizontalDivider(

@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -37,8 +36,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import com.beardytop.mitzmode.ui.components.*
 import com.beardytop.mitzmode.util.MitzvahLevels
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
@@ -66,9 +63,7 @@ fun MitzModeApp(
     var showDailyMitzvot by remember { mutableStateOf(false) }
     var showMitzvahLevel by remember { mutableStateOf(false) }
 
-    var showLanguageSelection by remember { mutableStateOf(false) }
     var showMusicPlayer by remember { mutableStateOf(false) }
-    var translationNoticeTarget by remember { mutableStateOf<Pair<String, String>?>(null) }
 
     var currentTourStep by remember { mutableStateOf(0) }
     var tourStepBounds by remember { mutableStateOf<Map<Int, Rect>>(emptyMap()) }
@@ -84,7 +79,7 @@ fun MitzModeApp(
                     "See the daily mitzvot available to you, tap any item for clear explanations on how to follow the Torah, and ride with Heavenly vibes!"
             ),
             TourStep(
-                "Tap the menu (⋮) for blessings before and after food, Birkat Hamazon, the Traveler's Prayer, language settings, and more."
+                "Tap the menu (⋮) for blessings before and after food, Birkat Hamazon, the Traveler's Prayer, and more."
             ),
             TourStep("Have a mitzvah idea we should add? Submit it here—help grow the list for everyone."),
             TourStep("Track your streak here—see how many mitzvot you've completed and your current level.")
@@ -280,23 +275,6 @@ fun MitzModeApp(
                                 if (!showTour) {
                                     showMenu = false
                                     showMusicPlayer = true
-                                }
-                            },
-                            enabled = !showTour
-                        )
-
-                        DropdownMenuItem(
-                            text = { TranslatableText("Language Settings", enableHalachicTerms = false) },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Language,
-                                    contentDescription = "Language"
-                                )
-                            },
-                            onClick = {
-                                if (!showTour) {
-                                    showMenu = false
-                                    showLanguageSelection = true
                                 }
                             },
                             enabled = !showTour
@@ -639,26 +617,6 @@ fun MitzModeApp(
         if (showAddMitzvah) {
             AddMitzvahDialog(
                 onDismiss = { showAddMitzvah = false }
-            )
-        }
-
-
-
-        if (showLanguageSelection) {
-            LanguageSelectionDialog(
-                onDismiss = { showLanguageSelection = false },
-                onNonEnglishLanguageSelected = { code, name ->
-                    translationNoticeTarget = code to name
-                }
-            )
-        }
-
-        translationNoticeTarget?.let { (code, name) ->
-            TranslationNoticeDialog(
-                languageName = name,
-                targetLanguageCode = code,
-                onDismiss = { translationNoticeTarget = null },
-                onUnderstood = { translationNoticeTarget = null }
             )
         }
         

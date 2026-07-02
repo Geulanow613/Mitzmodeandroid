@@ -37,12 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.R
 import com.beardytop.mitzmode.data.Mitzvah
 import com.beardytop.mitzmode.util.DeviceCapabilityChecker
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -125,21 +122,9 @@ fun TranslatableSparkleText(
     onAnimationComplete: () -> Unit,
     modifier: Modifier = Modifier,
     textSize: TextUnit = 16.sp,
-    translationViewModel: TranslationViewModel =
-        LocalTranslationViewModel.current ?: hiltViewModel()
 ) {
     val context = LocalContext.current
     val isCapableDevice = DeviceCapabilityChecker.canHandleVideoBackground(context)
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-
-    var translatedText by remember(text, currentLanguage) { mutableStateOf(text) }
-
-    LaunchedEffect(text, currentLanguage, translationEnabled) {
-        translatedText = if (translationEnabled && currentLanguage != "en") {
-            translationViewModel.translateText(text)
-        } else text
-    }
 
     LaunchedEffect(isAnimating) {
         if (isAnimating) {
@@ -150,7 +135,7 @@ fun TranslatableSparkleText(
 
     Box(contentAlignment = Alignment.Center) {
         Text(
-            text = translatedText,
+            text = text,
             modifier = modifier
                 .alpha(if (isAnimating) 0f else 1f)
                 .graphicsLayer(

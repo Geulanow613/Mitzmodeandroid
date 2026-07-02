@@ -7,17 +7,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.tzaddik.TzaddikBridge
 import com.beardytop.mitzmode.tzaddik.TzaddikPermissionHost
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.ui.MitzModeApp
 import com.beardytop.mitzmode.ui.translation.ProvideAppTranslation
 import com.beardytop.mitzmode.ui.theme.MitzModeTheme
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import android.content.Context
 import android.net.ConnectivityManager
@@ -33,7 +29,6 @@ class MainActivity : ComponentActivity() {
         TzaddikPermissionHost.register(this)
         TzaddikBridge.bindActivity(this)
         
-        // Initialize crash reporting only if we have network
         if (isNetworkAvailable()) {
             try {
                 Sentry.setTag("screen", "MainActivity")
@@ -44,16 +39,13 @@ class MainActivity : ComponentActivity() {
         
         setContent {
             MitzModeTheme {
-                val translationViewModel: TranslationViewModel = hiltViewModel()
-                CompositionLocalProvider(LocalTranslationViewModel provides translationViewModel) {
-                    ProvideAppTranslation(translationViewModel) {
-                        HalachicTermOverlay {
-                            Surface(
-                                modifier = Modifier.fillMaxSize(),
-                                color = MaterialTheme.colorScheme.background
-                            ) {
-                                MitzModeApp()
-                            }
+                ProvideAppTranslation {
+                    HalachicTermOverlay {
+                        Surface(
+                            modifier = Modifier.fillMaxSize(),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
+                            MitzModeApp()
                         }
                     }
                 }

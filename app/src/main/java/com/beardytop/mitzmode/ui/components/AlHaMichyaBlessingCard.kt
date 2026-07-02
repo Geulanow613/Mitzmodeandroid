@@ -28,16 +28,12 @@ import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.data.MeinShaloshLanguage
 import com.beardytop.mitzmode.data.MeinShaloshSelection
 import com.beardytop.mitzmode.data.MeinShaloshTextEngine
-import com.beardytop.mitzmode.ui.LocalTranslationViewModel
-import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 /**
- * Interactive Bracha Me'ein Shalosh (Al HaMichya) builder: Hebrew liturgy on top, with a
- * constructed translation in the user's language below when translation is shown.
+ * Interactive Bracha Me'ein Shalosh (Al HaMichya) builder: Hebrew liturgy on top, with English below.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -46,17 +42,8 @@ fun AlHaMichyaBlessingCard(
     fontScale: Float = 1f,
     showTranslation: Boolean = false,
 ) {
-    val translationViewModel: TranslationViewModel =
-        LocalTranslationViewModel.current ?: hiltViewModel()
-    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
-    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
-    val translationLanguage = remember(currentLanguage, translationEnabled) {
-        MeinShaloshTextEngine.translationLanguageForApp(currentLanguage, translationEnabled)
-    }
-    val layoutDirection = when (currentLanguage) {
-        "he", "yi" -> LayoutDirection.Rtl
-        else -> LayoutDirection.Ltr
-    }
+    val translationLanguage = MeinShaloshLanguage.ENGLISH
+    val layoutDirection = LayoutDirection.Ltr
 
     var hasMezonot by remember { mutableStateOf(false) }
     var hasWine by remember { mutableStateOf(false) }

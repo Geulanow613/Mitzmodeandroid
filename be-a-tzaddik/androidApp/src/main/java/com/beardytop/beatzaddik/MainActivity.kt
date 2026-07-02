@@ -10,14 +10,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.beardytop.beatzaddik.platform.PlatformActivityHolder
 import com.beardytop.beatzaddik.platform.PlatformLocationService
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.platform.flushPendingLauncherAliasDisable
 import com.beardytop.beatzaddik.platform.initKashrutNotifications
 import com.beardytop.beatzaddik.platform.recordLauncherEntryIntent
+import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
+import com.beardytop.beatzaddik.android.translation.ProvideAppTranslation
+import com.beardytop.beatzaddik.viewmodel.TranslationViewModel
+import com.beardytop.beatzaddik.viewmodel.TranslationViewModelFactory
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
@@ -45,11 +50,18 @@ class MainActivity : ComponentActivity() {
         val deps = runBlocking {
             AppDependencies.create(
                 platformContext = applicationContext,
-                locationService = locationService
+                locationService = locationService,
             )
         }
         setContent {
-            App(deps)
+            val translationViewModel: TranslationViewModel = viewModel(
+                factory = TranslationViewModelFactory(applicationContext),
+            )
+            ProvideAppTranslation(translationViewModel) {
+                HalachicTermOverlay {
+                    App(deps)
+                }
+            }
         }
 
         lifecycleScope.launch {
