@@ -824,7 +824,7 @@ MISC_PROSE_POLISH: list[tuple[str, str, str]] = [
         "El Rambam (Hilchot Nedarim 4:13) describe enredos hilarantes cuando alguien jura no beneficiarse "
         "de toda una ciudad y luego necesita agua de un pozo comunitario. Las palabras importan — pide a tu rav antes de jurar. "
         "Un voto mal formulado puede complicar la vida — la Torá prevé anulación por un sabio.",
-        "Nedarim — vœux : les paroles peuvent rendre un objet interdit pour vous. "
+        "Nedarim — vœux : les paroles peuvent rendre un objet interdit pour toi. "
         "La Torah prévoit hatarat nedarim — annulation par un sage. "
         "Le Rambam (Hilkhot Nedarim 4:13) décrit des cas où quelqu'un jure de ne pas profiter d'une ville entière "
         "puis a besoin d'eau d'un puits communal. Les mots comptent — demande à ton rav avant de jurer. "

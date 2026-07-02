@@ -110,7 +110,8 @@ fun TimerScreen(
             )
             Spacer(Modifier.height(4.dp))
             val meatHours = profile.meatToDairyHours()
-            val dairyWait = KashrutWaitTimes.formatDairyToMeatWait(profile.dairyToMeatWaitMinutes())
+            val dairyBadge = KashrutWaitTimes.waitBadgeForDairyToMeatMinutes(profile.dairyToMeatWaitMinutes())
+            val dairyWait = rememberAppTranslatedTemplate(dairyBadge.templateKey, dairyBadge.args)
             WaitTimeRow(
                 emoji = "🥩",
                 text = rememberAppTranslatedTemplate(

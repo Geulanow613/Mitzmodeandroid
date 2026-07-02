@@ -20,13 +20,16 @@ This folder is a **file bundle for handoff**, not an installation guide. **Prefe
 | Path | Purpose |
 |------|---------|
 | **`be-a-tzaddik/shared/`** | KMP shared module — all UI, domain, checklist JSON, iosMain calendar |
+| **`be-a-tzaddik/data/`** | Translation catalog, human shards, bundled JSON sources |
+| **`swift-native/`** | Flat JSON for native Swift Mitz Mode (translations, mitzvot, checklist) |
+| **`android-mitzmode/`** | Android `app/` + Gradle wrapper (no reward videos) |
 | **`be-a-tzaddik/iosApp/`** | Standalone iOS app shell (Swift + Podfile) |
-| **`be-a-tzaddik/data/`** | Optional duplicate of checklist JSON (source of truth is `shared/.../composeResources/files/`) |
-| **`docs/`** | Parity checklist, source map, Swift/Kotlin snippets, Mitz home background, Android embed pointer |
+| **`docs/`** | Parity checklist, source map, gradient spec, Swift/Kotlin snippets |
+| **`extract-to-dropbox.command`** | Mac: extract entire handoff → `~/Dropbox/claudesucks` |
 | **`CHANGELOG.md`** | What changed in the last sync |
 | **`EMBED.md`** | Path-based integration (preferred), zmanim parity, test workflow |
-| **`sync-to-ios-handoff.ps1`** | Refreshes this mirror from repo `be-a-tzaddik/` (Windows) |
-| **`verify-handoff.ps1`** | Fails if mirror ≠ source (run after sync) |
+| **`sync-to-ios-handoff.ps1`** | Refreshes mirror from repo (Windows) |
+| **`verify-handoff.ps1`** | Fails if mirror ≠ source |
 
 **Not included on purpose:** `androidApp/`, `tools/`, build caches — Android-only or maintainer scripts.
 
@@ -86,10 +89,21 @@ Edit `be-a-tzaddik/data/checklist-items.json` (and other `data/*.json`), then ru
 ## Refresh this bundle (maintainer, Windows)
 
 ```powershell
+cd c:\apps\hehehe\be-a-tzaddik\tools
+python compile_full_bundled.py   # rebuilds bundles AND syncs ios-transfer-handoff automatically
+```
+
+Or handoff only:
+
+```powershell
 cd c:\apps\hehehe\ios-transfer-handoff
 .\sync-to-ios-handoff.ps1
 .\verify-handoff.ps1
 ```
+
+Set `SKIP_IOS_HANDOFF=1` to skip auto-sync during `compile_full_bundled.py`.
+
+**Swift native JSON** lives in `swift-native/` — see `docs/SWIFT_NATIVE_TRANSLATIONS.md` and `MAC_QUICKSTART.md`.
 
 Before handoff, run zmanim parity tests from repo root:
 

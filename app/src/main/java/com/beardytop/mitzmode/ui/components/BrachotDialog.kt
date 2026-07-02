@@ -29,6 +29,13 @@ data class Bracha(
     val description: String
 )
 
+private fun brachaNameTransliterationKey(name: String) = "translit::name::$name"
+
+private fun brachaTextTransliterationKey(english: String) = "translit::text::$english"
+
+private fun showBrachaTransliteration(language: String): Boolean =
+    language in setOf("es", "fr", "ru")
+
 @Composable
 fun BrachotDialog(
     onDismiss: () -> Unit
@@ -152,12 +159,7 @@ fun BrachotDialog(
                 item(key = "mein_shalosh") {
                     AlHaMichyaBlessingCard(
                         fontScale = fontScale,
-                        showEnglish = if (showLiturgyTranslation) showEnglish else false,
-                        onShowEnglishChange = if (showLiturgyTranslation) {
-                            { showEnglish = it }
-                        } else {
-                            null
-                        }
+                        showTranslation = showEnglish && showLiturgyTranslation,
                     )
                     HorizontalDivider(
                         modifier = Modifier.padding(vertical = 12.dp),
@@ -169,6 +171,7 @@ fun BrachotDialog(
                 items(brachot, key = { it.name }) { bracha ->
                     BrachaListItem(
                         bracha = bracha,
+                        currentLanguage = currentLanguage,
                         showEnglish = showEnglish && showLiturgyTranslation,
                         scaledFontSize = scaledFontSize
                     )
@@ -181,9 +184,12 @@ fun BrachotDialog(
 @Composable
 private fun BrachaListItem(
     bracha: Bracha,
+    currentLanguage: String,
     showEnglish: Boolean,
     scaledFontSize: androidx.compose.ui.unit.TextUnit
 ) {
+    val showTransliteration = showBrachaTransliteration(currentLanguage)
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -194,11 +200,23 @@ private fun BrachaListItem(
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
             color = DialogGoldBorder
         )
+        if (showTransliteration) {
+            TranslatableText(
+                text = brachaNameTransliterationKey(bracha.name),
+                style = MaterialTheme.typography.labelMedium.copy(
+                    fontWeight = FontWeight.Normal,
+                    fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
+                ),
+                color = DialogGoldBorder.copy(alpha = 0.75f),
+                modifier = Modifier.padding(top = 2.dp),
+                enableHalachicTerms = false,
+            )
+        }
         TranslatableText(
             text = bracha.description,
             style = MaterialTheme.typography.bodySmall,
             color = DialogTextMuted,
-            modifier = Modifier.padding(bottom = 4.dp)
+            modifier = Modifier.padding(top = 4.dp, bottom = 4.dp)
         )
 
         if (showEnglish) {
@@ -222,6 +240,22 @@ private fun BrachaListItem(
                     .fillMaxWidth()
                     .padding(vertical = 8.dp)
             )
+            if (showTransliteration) {
+                TranslatableText(
+                    text = brachaTextTransliterationKey(bracha.english.text),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = (scaledFontSize.value * 0.82f).sp,
+                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                        lineHeight = (scaledFontSize.value * 1.15f).sp
+                    ),
+                    color = DialogTextMuted,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp),
+                    enableHalachicTerms = false,
+                )
+            }
         }
 
         HorizontalDivider(

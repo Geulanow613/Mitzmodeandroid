@@ -9,7 +9,8 @@ object ChecklistItemResolver {
         nowMillis: Long,
         zmanim: ZmanimSnapshot?,
         prayerDay: PrayerDayContext,
-        upcomingShabbatParsha: String? = null
+        upcomingShabbatParsha: String? = null,
+        cal: DayInfo? = null,
     ): ResolvedChecklistItem {
         val nusach = profile.effectiveNusach()
         val nusachTag = item.nusachTag ?: nusach.displayName()
@@ -35,6 +36,8 @@ object ChecklistItemResolver {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
                 ChecklistZmanEvaluator.evaluate(item.id, nowMillis, zmanim, prayerDay)
             isFestivalPrepItem(item) -> ItemZmanStatus()
+            isMourningPeriodItem(item) -> ItemZmanStatus()
+            isCholHamoedItem(item) -> ItemZmanStatus()
             !item.persistChecked && item.timeOfDay != TimeOfDay.ANY ->
                 timeOfDayAvailability(item.timeOfDay, nowMillis, zmanim)
             else -> ItemZmanStatus()
@@ -47,18 +50,31 @@ object ChecklistItemResolver {
             item.title
         }
 
+        val (explanationTemplate, explanationArgs) = ExplainerTemplateResolver
+            .resolve(item, profile, cal)
+            .let { it.template to it.args }
+
         return ResolvedChecklistItem(
             def = item,
             checked = checked,
             displayTitle = baseTitle + optionalSuffix + titleSuffix + parshaTitle,
+            titleTranslationKey = baseTitle + optionalSuffix,
             displayExplanation = displayExplanation,
             sectionLabel = sectionWithNusach(item.section, item, profile),
             zmanAvailability = zman.availability,
             zmanHint = zman.hint,
+            zmanHintTemplate = zman.hintTemplate,
+            zmanHintArgs = zman.hintArgs,
             zmanMakeupNote = zman.makeupNote,
+            zmanMakeupTemplate = zman.makeupTemplate,
+            zmanMakeupArgs = zman.makeupArgs,
+            zmanCollapsedTemplate = zman.collapsedSummaryTemplate,
+            zmanCollapsedArgs = zman.collapsedSummaryArgs,
             zmanWindowStartMillis = zman.windowStartMillis,
             zmanWindowEndMillis = zman.windowEndMillis,
-            zmanAvailableAtLabel = zman.availableAtLabel
+            zmanAvailableAtLabel = zman.availableAtLabel,
+            explanationTemplate = explanationTemplate,
+            explanationArgs = explanationArgs,
         )
     }
 
@@ -91,6 +107,14 @@ object ChecklistItemResolver {
         if (base.isBlank()) return nusachSpecific
         return "$base\n\n$nusachSpecific"
     }
+
+    /** Mourning customs apply day and night for the whole period — not tied to prayer zmanim. */
+    private fun isMourningPeriodItem(item: ChecklistItemDef): Boolean =
+        item.id in MourningPeriodRules.mourningChecklistItemIds
+
+    /** Chol HaMoed observances apply all day and night — not tied to prayer zmanim. */
+    private fun isCholHamoedItem(item: ChecklistItemDef): Boolean =
+        item.section == "Chol HaMoed" || item.id.startsWith("chol_hamoed_")
 
     /** Festival prep items stay active for the whole civil day they appear (including afternoon/evening). */
     private fun isFestivalPrepItem(item: ChecklistItemDef): Boolean {

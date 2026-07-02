@@ -9,10 +9,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -40,15 +44,14 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
-import com.beardytop.beatzaddik.ui.components.HalachicGuideTerms
-import com.beardytop.beatzaddik.ui.components.LocalHalachicTermExtras
-import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsUsedOnPage
+import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsEnabled
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import androidx.compose.runtime.CompositionLocalProvider
 
@@ -99,11 +102,7 @@ fun ShabbatGuideScreen(
 
     PlatformBackHandler(onBack = ::goBack)
 
-    val usedTermsOnPage = remember(current) { mutableSetOf<String>() }
-    CompositionLocalProvider(
-        LocalHalachicTermExtras provides HalachicGuideTerms.terms,
-        LocalHalachicTermsUsedOnPage provides usedTermsOnPage,
-    ) {
+    CompositionLocalProvider(LocalHalachicTermsEnabled provides false) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -178,6 +177,21 @@ private fun FloatingNavButton(isClose: Boolean, modifier: Modifier, onClick: () 
 // ── Hub page ─────────────────────────────────────────────────────────────────
 
 @Composable
+private fun shabbatGuideContentPadding(top: Dp): PaddingValues {
+    val safeBottom = WindowInsets.safeDrawing.asPaddingValues().calculateBottomPadding()
+    val navBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    val insetBottom = maxOf(safeBottom, navBottom)
+    // Full-screen dialogs sometimes report zero insets — reserve gesture-nav space.
+    val bottom = 28.dp + if (insetBottom > 0.dp) insetBottom else 56.dp
+    return PaddingValues(
+        top = top,
+        start = 16.dp,
+        end = 16.dp,
+        bottom = bottom,
+    )
+}
+
+@Composable
 private fun HubPage(
     onOpenShabbatYomTov: () -> Unit,
     onOpenTerm: (String) -> Unit,
@@ -186,7 +200,7 @@ private fun HubPage(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 48.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 48.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item {
@@ -321,7 +335,7 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
@@ -452,7 +466,7 @@ private fun TermDetailPage(topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
@@ -483,7 +497,7 @@ private fun TermDetailPage(topic: GuideTopic) {
 private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
@@ -544,6 +558,7 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
                     modifier = Modifier.size(18.dp))
             }
         }
+        item { Spacer(Modifier.height(16.dp)) }
     }
 }
 
@@ -554,7 +569,7 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
@@ -606,7 +621,7 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
 private fun HolidaysListPage(onOpenHoliday: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         item {
@@ -632,6 +647,7 @@ private fun HolidaysListPage(onOpenHoliday: (String) -> Unit) {
                 HubCard(title = holiday.title, subtitle = holiday.hebrewTitle, onClick = { onOpenHoliday(holiday.id) })
             }
         }
+        item { Spacer(Modifier.height(16.dp)) }
     }
 }
 
@@ -642,7 +658,7 @@ private fun HolidayDetailPage(topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item { PageTitle(title = topic.title, hebrew = topic.hebrewTitle) }

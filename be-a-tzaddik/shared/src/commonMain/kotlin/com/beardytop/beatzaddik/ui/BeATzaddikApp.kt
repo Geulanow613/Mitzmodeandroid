@@ -272,7 +272,6 @@ private fun MainShell(
     val holyFlash = rememberHolyFlashController()
     val candlelightReward = rememberCandlelightRewardController()
     var showExitConfirm by remember { mutableStateOf(false) }
-    var showReturnToMainConfirm by remember { mutableStateOf(false) }
 
     val settingsTabIndex = if (embeddedMode) 3 else 2
     val aboutTabIndex = if (embeddedMode) 4 else 3
@@ -322,32 +321,6 @@ private fun MainShell(
             )
         }
     }
-    if (showReturnToMainConfirm) {
-        PlatformBackHandler { showReturnToMainConfirm = false }
-        ParchmentDialog(
-            onDismiss = { showReturnToMainConfirm = false },
-            title = "Return to Mitz Mode?",
-            showCloseIcon = false,
-            dismissButton = {
-                ParchmentTextButton(onClick = { showReturnToMainConfirm = false }, text = "No")
-            },
-            confirmButton = {
-                GoldButton(
-                    onClick = {
-                        showReturnToMainConfirm = false
-                        onRequestClose()
-                    },
-                    text = "Yes"
-                )
-            }
-        ) {
-            AppText(
-                "Are you sure you want to return to the mitzvah generator?",
-                style = MaterialTheme.typography.bodyMedium,
-                color = TzaddikColors.TextBrown
-            )
-        }
-    }
 
     StarryScaffold(
         holyFlash = holyFlash,
@@ -357,7 +330,7 @@ private fun MainShell(
                     selectedTab = tab,
                     onTabSelected = { selected ->
                         if (embeddedMode && selected == returnMainTabIndex) {
-                            showReturnToMainConfirm = true
+                            onRequestClose()
                         } else {
                             tab = selected
                         }

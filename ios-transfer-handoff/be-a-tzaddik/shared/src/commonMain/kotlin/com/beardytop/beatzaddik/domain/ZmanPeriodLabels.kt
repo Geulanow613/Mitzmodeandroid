@@ -86,4 +86,28 @@ object ZmanPeriodLabels {
             ?: ZmanimFormatter.formatTime(z.minchaGedolaMillis, tz)?.let { "from $it" }
         return from?.let { "Afternoon prayer (Mincha) $it" }
     }
+
+    /** Period titles without location-based zmanim (checklist grouping only). */
+    fun forPeriodWithoutZmanim(active: TimeOfDay): Labels = when (active) {
+        TimeOfDay.DAY -> Labels(
+            activeTitle = "Current Period: Daytime — morning",
+            activeSummary = null,
+            laterSummary = null,
+        )
+        TimeOfDay.AFTERNOON -> Labels(
+            activeTitle = "Current Period: Afternoon",
+            activeSummary = null,
+            laterSummary = null,
+        )
+        TimeOfDay.NIGHT -> Labels(
+            activeTitle = "Current Period: Night — evening & bedtime",
+            activeSummary = null,
+            laterSummary = null,
+        )
+        TimeOfDay.ANY -> Labels(
+            activeTitle = "Current Period: Daytime — morning",
+            activeSummary = null,
+            laterSummary = null,
+        )
+    }
 }

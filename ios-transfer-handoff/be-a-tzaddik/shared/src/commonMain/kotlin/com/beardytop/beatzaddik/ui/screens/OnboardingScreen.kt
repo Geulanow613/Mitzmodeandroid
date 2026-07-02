@@ -52,9 +52,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.domain.Gender
-import com.beardytop.beatzaddik.ui.cityDisplayLabel
 import com.beardytop.beatzaddik.ui.filterManualCities
 import com.beardytop.beatzaddik.ui.profileMatchesManualCity
+import com.beardytop.beatzaddik.ui.rememberCityDisplayLabel
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
@@ -301,7 +302,8 @@ private fun PrayerTraditionStep(
     modifier: Modifier = Modifier
 ) {
     var cityQuery by rememberSaveable { mutableStateOf("") }
-    val filteredCities = remember(cityQuery) { filterManualCities(cityQuery) }
+    val languageCode = LocalAppTranslation.current.languageCode
+    val filteredCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
     ParchmentContentCard(
         modifier = modifier
             .fillMaxSize()
@@ -389,7 +391,7 @@ private fun PrayerTraditionStep(
         ) {
             filteredCities.forEach { city ->
                 StyledChip(
-                    label = cityDisplayLabel(city),
+                    label = rememberCityDisplayLabel(city),
                     selected = profileMatchesManualCity(selectedCityId, city),
                     onClick = { onSelectCity(city.id) },
                     modifier = Modifier.fillMaxWidth()

@@ -171,6 +171,9 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     private val _checklistDebugOverride = MutableStateFlow<ChecklistDebugOverride?>(null)
     val checklistDebugOverride: StateFlow<ChecklistDebugOverride?> = _checklistDebugOverride
 
+    private val _pendingDebugTimeSlot = MutableStateFlow(ChecklistDebugTimeSlot.MORNING)
+    val pendingDebugTimeSlot: StateFlow<ChecklistDebugTimeSlot> = _pendingDebugTimeSlot
+
     private val _checklistDebugResolving = MutableStateFlow(false)
     val checklistDebugResolving: StateFlow<Boolean> = _checklistDebugResolving
 
@@ -181,15 +184,16 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
+        _pendingDebugTimeSlot.value = timeSlot
         checklistDebugResolveJob?.cancel()
         checklistDebugResolveJob = viewModelScope.launch {
             _checklistDebugResolving.value = true
             ChecklistDebugDateFinder.clearCache()
-            val profile = profile.value
+            val prof = profile.value
             val override = withContext(Dispatchers.Default) {
                 ChecklistDebugDateFinder.resolve(
                     calendar = deps.calendar,
-                    profile = profile,
+                    profile = prof,
                     scenario = scenario,
                     timeSlot = timeSlot,
                 )
@@ -205,9 +209,17 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {
+        _pendingDebugTimeSlot.value = timeSlot
         val current = _checklistDebugOverride.value ?: return
-        val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
-        applyChecklistDebugScenario(scenario, timeSlot)
+        val prof = profile.value
+        _checklistDebugOverride.value = current.copy(
+            timeSlot = timeSlot,
+            epochMillis = ChecklistDebugDateFinder.epochMillisAt(
+                current.simulatedDate,
+                timeSlot,
+                prof.timezoneId,
+            ),
+        )
     }
 
     fun clearChecklistDebug() {
@@ -223,6 +235,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             input.profile, input.checked, input.custom, input.customChecked,
             input.monthlyMonths, input.weeklyWeeks, input.tzeitDays,
             nowMillis = nowMillis,
+            forcedActivePeriod = debug?.timeSlot?.toTimeOfDay(),
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 

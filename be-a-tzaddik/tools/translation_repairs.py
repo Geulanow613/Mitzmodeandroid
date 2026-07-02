@@ -1638,6 +1638,61 @@ def _repair_he_placeholders(text: str) -> str:
     return text
 
 
+def apply_divine_names(lang: str, text: str) -> str:
+    """Use real divine vocabulary in UI translations (not D-s / Señor / D.ieu)."""
+    if lang == "es":
+        for old, new in [
+            ("el Señor nuestro Dios", "Hashem nuestro Dios"),
+            ("Señor nuestro Dios", "Hashem nuestro Dios"),
+            ("el Señor nuestro D-s", "Hashem nuestro Dios"),
+            ("Señor nuestro D-s", "Hashem nuestro Dios"),
+            ("el Señor es Uno", "Hashem es Uno"),
+            ("el Señor es", "Hashem es"),
+            ("el Señor ", "Hashem "),
+            ("Señor, ", "Hashem, "),
+            ("Señor ", "Hashem "),
+            (" Señor", " Hashem"),
+            ("Cuando el Señor", "Cuando Hashem"),
+            ("«Señor", "«Hashem"),
+            ("'Señor", "'Hashem"),
+        ]:
+            text = text.replace(old, new)
+        text = re.sub(r"\bD-s\b", "Dios", text)
+        text = re.sub(r"\bL-rd\b", "Hashem", text)
+        text = re.sub(r"\bG-d\b", "Dios", text)
+        text = re.sub(r"\bLord\b", "Hashem", text)
+        text = re.sub(r"\bGod\b", "Dios", text)
+    elif lang == "fr":
+        text = text.replace("D.ieu", "Dieu")
+        for old, new in [
+            ("Éternel notre Dieu", "Hashem, notre Dieu"),
+            ("L'Éternel", "Hashem"),
+            ("l'Éternel", "Hashem"),
+            ("Éternel, ", "Hashem, "),
+            ("Éternel ", "Hashem "),
+            (" Éternel", " Hashem"),
+        ]:
+            text = text.replace(old, new)
+        text = re.sub(r"\bG-d\b", "Dieu", text)
+        text = re.sub(r"\bGod\b", "Dieu", text)
+        text = re.sub(r"\bL-rd\b", "Hashem", text)
+        text = re.sub(r"\bLord\b", "Hashem", text)
+    elif lang == "ru":
+        for old, new in [
+            ("Б-г", "Бог"),
+            ("Г-сподь", "Господь"),
+            ("В-го", "Бога"),
+            ("В-г", "Бог"),
+            ("А-донай", "Адонай"),
+        ]:
+            text = text.replace(old, new)
+        text = re.sub(r"\bG-d\b", "Бог", text)
+        text = re.sub(r"\bGod\b", "Бог", text)
+        text = re.sub(r"\bL-rd\b", "Господь", text)
+        text = re.sub(r"\bLord\b", "Господь", text)
+    return text
+
+
 def repair_translation(lang: str, text: str) -> str:
     """Apply language-specific mechanical cleanup."""
     if lang == "he":
@@ -1648,9 +1703,6 @@ def repair_translation(lang: str, text: str) -> str:
             text = text.replace(old, new)
         text = re.sub(r"\bhalachic\b", "halájico", text, flags=re.IGNORECASE)
         text = re.sub(r"\bhalacha\b", "halajá", text, flags=re.IGNORECASE)
-        text = re.sub(r"\bGod\b", "D-s", text)
-        text = re.sub(r"\bG-d\b", "D-s", text)
-        text = re.sub(r"\bDios\b", "D-s", text)
         text = re.sub(r"Al HaNissim\(", "Al HaNissim (", text)
         text = re.sub(r"Meshulash\(", "Meshulash (", text)
         text = re.sub(r"kezayit\(", "kezayit (", text)
@@ -1662,6 +1714,7 @@ def repair_translation(lang: str, text: str) -> str:
         text = re.sub(r"([a-záéíóúñ])\"([A-ZÁÉ])", r"\1. \"\2", text)
         text = _fix_es_halajico_order(text)
         text = apply_es_tu(text)
+        text = apply_divine_names(lang, text)
         text = _normalize_spacing(text)
     elif lang == "fr":
         for old, new in FR_TRAV:
@@ -1676,10 +1729,8 @@ def repair_translation(lang: str, text: str) -> str:
         text = re.sub(r"\bweek and\b", "semaine et", text, flags=re.IGNORECASE)
         text = re.sub(r"— Fast of the Firstborn —", "— jeûne des premiers-nés —", text)
         text = re.sub(r"\bShabbat\b", "Chabbat", text)
-        text = re.sub(r"\bDieu\b", "D.ieu", text)
-        text = re.sub(r"\bGod\b", "D.ieu", text)
-        text = re.sub(r"\bG-d\b", "D.ieu", text)
         text = apply_fr_tu(text)
+        text = apply_divine_names(lang, text)
         text = _normalize_spacing(text)
     elif lang == "ru":
         text = _fix_ru_a_dot(text)
@@ -1862,5 +1913,6 @@ def repair_translation(lang: str, text: str) -> str:
         text = text.replace(" Узнайте больше!", "")
         text = apply_ru_ty(text)
         text = apply_ru_religious_translit(text)
+        text = apply_divine_names(lang, text)
         text = _normalize_spacing(text)
     return text

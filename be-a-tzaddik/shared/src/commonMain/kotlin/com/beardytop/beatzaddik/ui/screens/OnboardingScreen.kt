@@ -302,7 +302,7 @@ private fun PrayerTraditionStep(
     modifier: Modifier = Modifier
 ) {
     var cityQuery by rememberSaveable { mutableStateOf("") }
-    val languageCode = LocalAppTranslation.current.languageCode
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
     val filteredCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
     ParchmentContentCard(
         modifier = modifier

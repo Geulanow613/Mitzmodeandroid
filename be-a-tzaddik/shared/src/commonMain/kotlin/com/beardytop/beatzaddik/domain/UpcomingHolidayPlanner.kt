@@ -83,7 +83,7 @@ internal object UpcomingHolidayPlanner {
                     nextYomTov = UpcomingHoliday(
                         name = name,
                         daysAway = i,
-                        hint = yomTovPrepHint(name),
+                        hint = UpcomingHolidayNames.yomTovPrepHint(name),
                         beginsTonightWhenImminent = true,
                         timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
                             civilToday,
@@ -392,17 +392,6 @@ internal object UpcomingHolidayPlanner {
         HebrewCalendarEngine.YOM_YERUSHALAYIM ->
             "Yom Yerushalayim" to "Jerusalem Day — customs vary by community"
         else -> null
-    }
-
-    private fun yomTovPrepHint(name: String): String = when (name) {
-        "Rosh Hashana" -> "Yom Tov — Shofar, teshuvah, sweet foods"
-        "Yom Kippur" -> "Yom Tov — Fast, prayer, atonement"
-        "Sukkot" -> "Yom Tov — Lulav & etrog, sukkah"
-        "Shemini Atzeret" -> "Yom Tov — Shemini Atzeret"
-        "Simchat Torah" -> "Yom Tov — Simchat Torah, hakafot"
-        "Pesach" -> "Yom Tov — Seder night(s), matzah, no chametz"
-        "Shavuot" -> "Yom Tov — Matan Torah, learning, dairy foods"
-        else -> "Yom Tov — candles, festive meals"
     }
 
     private fun LocalDate.toJavaDayOfWeek(): Int = when (dayOfWeek) {

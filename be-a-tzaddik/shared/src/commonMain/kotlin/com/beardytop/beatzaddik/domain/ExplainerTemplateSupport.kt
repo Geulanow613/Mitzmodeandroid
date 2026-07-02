@@ -40,7 +40,7 @@ If a species is missing or invalid, ask your rabbi — there are limited substit
 
 Men — Torah obligation:
 • The first day of Sukkot worldwide (15 Tishrei) is the Torah-level day for men. In the Diaspora, the mitzvah continues rabbinically on the second day of Yom Tov and Chol HaMoed.
-• Bracha: Men say Al netilat lulav every day when taking the lulav (except Shabbat). Shehecheyanu is on the first day only.
+• Bracha: Men say Al netilat lulav every day when taking the lulav (except Shabbat). Say Shehecheyanu on the first day you take the lulav; if you missed the first day, say it on the first day you take (Mishnah Berurah 651:12).
 • ${'$'}menWave
 
 The ownership rule (lakhem — u'lekachtem lakhem):
@@ -100,13 +100,13 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
         val nusach = profile.effectiveNusach()
         val brachaLine = when (nusach) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: Following standard Sephardic authorities, most wave without saying the bracha (still a meaningful mitzvah)."
+                "Sephardi / Edot HaMizrach women: Generally wave the lulav without reciting the bracha (still a meaningful mitzvah)."
             EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
-                "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave."
+                "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave in the same directions as men."
         }
         val waveLine = when (nusach) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: Not strictly required to wave in all six directions — a simple shake of the lulav is sufficient to fulfill the recommended practice."
+                "Sephardi / Edot HaMizrach women: A simple shake of the lulav is sufficient — not required to wave in all six directions."
             EffectiveNusach.CHABAD ->
                 "Chabad women: Wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
             EffectiveNusach.ASHKENAZ ->
@@ -121,11 +121,11 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
 
     private fun arbaMinimMenWaveLine(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD ->
-            "Hold lulav in right hand, etrog in left (stem/pitom down). Say Al netilat lulav, then wave three times in each direction: right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east."
+            "Hold lulav in right hand, etrog in left with pitom down (oketz up) for the bracha. After Al netilat lulav, invert the etrog so pitom faces up, then wave three times in each direction: right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east."
         EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-            "Hold lulav and etrog together; say bracha, then wave right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east. Hoshanot on Hoshana Raba in many kehillot."
+            "Hold lulav and etrog together with pitom down for the bracha. After the bracha, invert the etrog (pitom up), then wave right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east. Hoshanot on Hoshana Raba in many kehillot."
         EffectiveNusach.ASHKENAZ ->
-            "Hold lulav in right, etrog in left (pitom down). Say bracha, then wave east, south, west, north, up, down (often two waves per direction)."
+            "Hold lulav in right, etrog in left with pitom down for the bracha. After the bracha, turn the etrog pitom-up, then wave east, south, west, north, up, down (often two waves per direction)."
     }
 
     // ── Chol HaMoed ────────────────────────────────────────────────────────────
@@ -136,7 +136,7 @@ ${'$'}hoshanaRabaBlock
 
 Spirit of the day:
 • Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
-• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.
+• Melacha — many labors are restricted (not as strict as Yom Tov). What is permitted depends on your situation — ask your rav.
 • Ochel nefesh — food preparation is permitted.
 
 What to do:
@@ -144,8 +144,11 @@ ${'$'}hallelBlock
 • Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
 ${'$'}festivalLines
 
-Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
-• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
+Work and restrictions:
+• Avoid unnecessary work and home projects — many melachot are restricted on Chol HaMoed. Ask your rav what is permitted.
+• Laundry: you are generally permitted only spot cleaning; ask your rav if you run out of clean clothes.
+• Earning for the festival: if you lack money for the holiday, work to earn what you need may be permitted — ask your rav.
+• Grooming: Shaving and haircuts are prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — except under very specific circumstances, such as one leaving prison (ask your rav).
     """.trimIndent()
 
     fun cholHamoedHonorTemplate(): String = CHOL_HAMOED_HONOR_TEMPLATE
@@ -228,6 +231,51 @@ If you avoid alcohol for health or preference, ask your rav which option fits yo
         return mapOf("kashrutLine" to kashrutLine)
     }
 
+    private val CHOL_HAMOED_SUKKAH_TEMPLATE = """
+Dwelling in the sukkah (סוכה) — eating bread and mezonot meals there — is a central mitzvah of Sukkot. Tradition teaches that the Shechinah (Divine Presence) rests in a kosher sukkah; we leave our permanent homes to dwell in a temporary booth, trusting in Hashem.
+
+How to observe:
+• Eat bread and mezonot meals in the sukkah whenever possible — eat more than a kezayit of each in the sukkah. Men say leishev baSukkah before eating bread.
+• Spend meaningful time beyond meals: learning, singing, resting — the more you "live" in the sukkah, the more you fulfill the spirit of the mitzvah.
+• Decorate the sukkah — fruits, lights, children's art — to increase simcha (joy).
+• Welcome guests and invoke the Ushpizin — mystical "guests" (Abraham, Isaac, Jacob, and others) invited into the sukkah each night in Kabbalistic custom.
+
+Rain or heavy discomfort may exempt you from eating in the sukkah — ask your rav. On Shabbat during Chol HaMoed, lulav is not taken but sukkah meals still apply when not raining.
+    """.trimIndent()
+
+    private val CHOL_HAMOED_SUKKAH_TEMPLATE_FEMALE = """
+Dwelling in the sukkah (סוכה) is a cherished Sukkot mitzvah. Tradition teaches that the Shechinah (Divine Presence) rests in a kosher sukkah — a temporary booth that recalls the clouds of glory in the desert.
+
+For women: eating meals in the sukkah is a recommended mitzvah but not obligatory like it is for men.
+${'$'}leishevLine
+
+How to observe:
+• Eat bread and mezonot meals in the sukkah when you can — eat more than a kezayit of each there when applicable.
+• Spend time learning, singing, and resting there, not only a quick bite.
+• Help decorate the sukkah and welcome guests; many families invite the Ushpizin — mystical "guests" (Abraham, Isaac, Jacob, and others) — each night.
+• Rain or heavy discomfort may exempt you — follow halacha for your situation.
+    """.trimIndent()
+
+    fun cholHamoedSukkahTemplate(female: Boolean): String =
+        if (female) CHOL_HAMOED_SUKKAH_TEMPLATE_FEMALE else CHOL_HAMOED_SUKKAH_TEMPLATE
+
+    fun cholHamoedSukkahArgs(profile: UserProfile, female: Boolean): Map<String, String> =
+        if (!female) emptyMap() else mapOf("leishevLine" to womenLeishevBasukkahLine(profile))
+
+    private fun womenLeishevBasukkahLine(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+            "Sephardic women generally eat bread and mezonot meals in the sukkah without reciting leishev baSukkah."
+        EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
+            "Ashkenazi women who eat bread in the sukkah say leishev baSukkah."
+    }
+
+    private fun womenFirstNightLeishevNote(profile: UserProfile): String = when (profile.effectiveNusach()) {
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+            "Sephardic women generally do not recite leishev baSukkah."
+        EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
+            "Ashkenazi women who eat bread in the sukkah say leishev baSukkah."
+    }
+
     // ── Festival week prep ───────────────────────────────────────────────────────
 
     private val SHAVUOT_WEEK_PREP_TEMPLATE = """
@@ -268,7 +316,7 @@ Arba Minim (Four Species):
 Meals & Yom Tov:
 • Plan menus for seven days of festive meals in and out of the sukkah.
 • Wine, grape juice, challah, and Yom Tov groceries — ${'$'}yomTovDaysNote.
-• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.
+• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread. ${'$'}womenLeishevNote If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.
 
 Joy & family:
 • Plan festive meals, guests, and children in the sukkah.
@@ -333,6 +381,7 @@ ${'$'}shabbatSchedule
         } else {
             "two days of Yom Tov at the start in the Diaspora"
         },
+        "womenLeishevNote" to womenFirstNightLeishevNote(profile),
     )
 
     fun pesachWeekPrepTemplate(): String = PESACH_WEEK_PREP_TEMPLATE

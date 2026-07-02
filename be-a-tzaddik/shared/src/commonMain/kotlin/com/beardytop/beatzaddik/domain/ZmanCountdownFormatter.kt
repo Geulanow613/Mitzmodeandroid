@@ -2,10 +2,13 @@ package com.beardytop.beatzaddik.domain
 
 object ZmanCountdownFormatter {
 
+    /** Minimum countdown label when the window opens in under one minute. */
+    const val UNDER_ONE_MINUTE = "1 min"
+
     fun formatDuration(untilMillis: Long, nowMillis: Long): String {
         val diffMs = (untilMillis - nowMillis).coerceAtLeast(0)
         val totalMinutes = diffMs / 60_000
-        if (totalMinutes < 1) return "soon"
+        if (totalMinutes < 1) return UNDER_ONE_MINUTE
         val hours = totalMinutes / 60
         val minutes = totalMinutes % 60
         return when {
@@ -19,7 +22,6 @@ object ZmanCountdownFormatter {
         }
     }
 
-    /** Hebrew: absolute 24h clock; other languages: duration countdown. */
     fun upcomingSummaryTemplate(
         windowStartMillis: Long?,
         nowMillis: Long,
@@ -29,20 +31,18 @@ object ZmanCountdownFormatter {
     ): Pair<String, Map<String, String>>? {
         val start = windowStartMillis ?: return onlyAvailableWhenTemplate(atLabel, upcoming = true)
         val atSuffix = atSuffixForLabel(atLabel)
-        return if (ZmanimFormatter.uses24HourClock(languageCode)) {
-            val time = ZmanimFormatter.formatTime(start, timezoneId, languageCode)
-                ?: return onlyAvailableWhenTemplate(atLabel, upcoming = true)
-            "Available at {time}{at}" to mapOf(
-                "time" to time,
-                "at" to atSuffix,
-            )
-        } else {
-            val countdown = formatDuration(start, nowMillis)
-            "Available in {countdown}{at}" to mapOf(
-                "countdown" to countdown,
-                "at" to atSuffix,
-            )
+        val diffMs = start - nowMillis
+        if (diffMs <= 0) {
+            return null
         }
+        if (diffMs < 15_000) {
+            return "Available now{at}" to mapOf("at" to atSuffix)
+        }
+        val countdown = formatDuration(start, nowMillis)
+        return "Available in {countdown}{at}" to mapOf(
+            "countdown" to countdown,
+            "at" to atSuffix,
+        )
     }
 
     fun upcomingSummary(
@@ -69,6 +69,7 @@ object ZmanCountdownFormatter {
     ): String? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
             upcomingSummary(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
+                ?: onlyAvailableWhen(atLabel, upcoming = true)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhen(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null
@@ -84,6 +85,7 @@ object ZmanCountdownFormatter {
     ): Pair<String, Map<String, String>>? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
             upcomingSummaryTemplate(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
+                ?: onlyAvailableWhenTemplate(atLabel, upcoming = true)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhenTemplate(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null

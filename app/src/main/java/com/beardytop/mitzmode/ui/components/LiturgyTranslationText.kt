@@ -20,7 +20,8 @@ import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 /**
  * Prayer liturgy translation line: English source from opensiddur-style data, with bundled
- * es/fr/ru overrides from [prayers_liturgy.json]. Independent of the global translation toggle.
+ * es/fr/ru overrides from [prayers_liturgy.json]. Uses English when UI language is English
+ * or when the global translation toggle is off.
  */
 @Composable
 fun LiturgyTranslationText(
@@ -33,13 +34,17 @@ fun LiturgyTranslationText(
     val translationViewModel: TranslationViewModel =
         LocalTranslationViewModel.current ?: hiltViewModel()
     val language by translationViewModel.currentLanguage.collectAsState()
-    var display by remember(text, language) {
-        mutableStateOf(resolveLiturgyTranslationSync(text, language))
+    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
+    val liturgyLanguage = remember(language, translationEnabled) {
+        effectiveLiturgyTranslationLanguage(language, translationEnabled)
     }
-    LaunchedEffect(text, language) {
-        display = when (language) {
+    var display by remember(text, liturgyLanguage) {
+        mutableStateOf(resolveLiturgyTranslationSync(text, liturgyLanguage))
+    }
+    LaunchedEffect(text, liturgyLanguage) {
+        display = when (liturgyLanguage) {
             "en", "he" -> text
-            else -> translationViewModel.translateTextToLanguage(text, language)
+            else -> translationViewModel.translateTextToLanguage(text, liturgyLanguage)
         }
     }
     Text(
@@ -49,6 +54,15 @@ fun LiturgyTranslationText(
         textAlign = textAlign,
         color = color,
     )
+}
+
+internal fun effectiveLiturgyTranslationLanguage(
+    currentLanguage: String,
+    translationEnabled: Boolean,
+): String = when {
+    currentLanguage == "he" -> "he"
+    currentLanguage == "en" || !translationEnabled -> "en"
+    else -> currentLanguage
 }
 
 private fun resolveLiturgyTranslationSync(text: String, language: String): String {

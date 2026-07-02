@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.app.LocaleManager
-import android.os.LocaleList
 import androidx.core.os.LocaleListCompat
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -28,14 +27,19 @@ class LanguagePreferencesManager @Inject constructor(
 ) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    init {
+    /**
+     * Must run before [readStoredLanguage] on first launch so phone language (he/es/fr/ru)
+     * is persisted before StateFlows are created.
+     */
+    private val bootstrappedSettings: Pair<String, Boolean> by lazy {
         ensureInitialLanguageFromPhoneSettings()
+        readStoredLanguage() to readTranslationEnabled()
     }
 
-    private val _currentLanguage = MutableStateFlow(readStoredLanguage())
+    private val _currentLanguage = MutableStateFlow(bootstrappedSettings.first)
     val currentLanguage: StateFlow<String> = _currentLanguage.asStateFlow()
 
-    private val _translationEnabled = MutableStateFlow(readTranslationEnabled())
+    private val _translationEnabled = MutableStateFlow(bootstrappedSettings.second)
     val translationEnabled: StateFlow<Boolean> = _translationEnabled.asStateFlow()
 
     fun getCurrentLanguage(): String = readStoredLanguage()
@@ -59,8 +63,8 @@ class LanguagePreferencesManager @Inject constructor(
     }
 
     /**
-     * On first install, match the phone's **system language** list (Settings → Languages),
-     * not country/region. Only auto-selects bundled offline languages (he/es/fr/ru).
+     * On first install, match the phone's **system language** list (Settings → Languages).
+     * Starts natively in he/es/fr/ru when supported; otherwise English.
      */
     private fun ensureInitialLanguageFromPhoneSettings() {
         if (prefs.getBoolean(KEY_LANGUAGE_INITIALIZED, false)) return
@@ -69,11 +73,11 @@ class LanguagePreferencesManager @Inject constructor(
             return
         }
 
-        val language = resolveLanguageFromPhoneSettings()
+        val choice = resolveLanguageFromPhoneSettings()
         try {
             prefs.edit()
-                .putString(KEY_CURRENT_LANGUAGE, language)
-                .putBoolean(KEY_TRANSLATION_ENABLED, language != "en")
+                .putString(KEY_CURRENT_LANGUAGE, choice.languageCode)
+                .putBoolean(KEY_TRANSLATION_ENABLED, choice.translationEnabled)
                 .putBoolean(KEY_LANGUAGE_INITIALIZED, true)
                 .commit()
         } catch (e: Exception) {
@@ -81,42 +85,15 @@ class LanguagePreferencesManager @Inject constructor(
         }
     }
 
-    private fun resolveLanguageFromPhoneSettings(): String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            resolveLanguageFromLocaleList(
-                context.getSystemService(LocaleManager::class.java).applicationLocales,
-            )?.let { return it }
+    private fun resolveLanguageFromPhoneSettings(): DeviceAppLanguage.BootstrapChoice {
+        val tags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val localeList = context.getSystemService(LocaleManager::class.java).applicationLocales
+            (0 until localeList.size()).map { localeList[it].language }
+        } else {
+            val localeList = LocaleListCompat.getDefault()
+            (0 until localeList.size()).mapNotNull { localeList[it]?.language }
         }
-        return resolveLanguageFromLocaleListCompat(LocaleListCompat.getDefault()) ?: "en"
-    }
-
-    private fun resolveLanguageFromLocaleList(localeList: LocaleList): String? {
-        for (i in 0 until localeList.size()) {
-            matchBundledLanguage(localeList[i].language)?.let { return it }
-            if (localeList[i].language.equals("en", ignoreCase = true)) return "en"
-        }
-        return null
-    }
-
-    private fun resolveLanguageFromLocaleListCompat(localeList: LocaleListCompat): String? {
-        for (i in 0 until localeList.size()) {
-            matchBundledLanguage(localeList[i]?.language)?.let { return it }
-            if (localeList[i]?.language.equals("en", ignoreCase = true)) return "en"
-        }
-        return null
-    }
-
-    /** Maps device language tag to an offline bundled app language, ignoring country/region. */
-    private fun matchBundledLanguage(deviceLanguage: String?): String? {
-        if (deviceLanguage.isNullOrBlank()) return null
-        val language = deviceLanguage.lowercase().substringBefore('-').substringBefore('_')
-        return when (language) {
-            "he", "iw" -> "he" // "iw" = legacy Hebrew code on some Android builds
-            "es" -> "es"
-            "fr" -> "fr"
-            "ru" -> "ru"
-            else -> null
-        }
+        return DeviceAppLanguage.resolveFromDeviceLanguageTags(tags)
     }
 
     private companion object {

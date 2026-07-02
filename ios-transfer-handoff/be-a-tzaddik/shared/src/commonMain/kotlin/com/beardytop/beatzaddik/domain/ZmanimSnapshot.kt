@@ -34,10 +34,18 @@ enum class ItemZmanAvailability {
 data class ItemZmanStatus(
     val availability: ItemZmanAvailability = ItemZmanAvailability.ACTIVE,
     val hint: String? = null,
+    /** When set, [hint] is ignored and the UI translates [hintTemplate] then fills [hintArgs]. */
+    val hintTemplate: String? = null,
+    val hintArgs: Map<String, String> = emptyMap(),
     val makeupNote: String? = null,
+    val makeupTemplate: String? = null,
+    val makeupArgs: Map<String, String> = emptyMap(),
     /** When [availability] is UPCOMING, millis when the window opens. */
     val windowStartMillis: Long? = null,
     val windowEndMillis: Long? = null,
     /** Short label for UI, e.g. "dawn", "nightfall", "sunrise". */
-    val availableAtLabel: String? = null
+    val availableAtLabel: String? = null,
+    /** Template for collapsed-row availability, e.g. "Available at {time}{at}". */
+    val collapsedSummaryTemplate: String? = null,
+    val collapsedSummaryArgs: Map<String, String> = emptyMap(),
 )

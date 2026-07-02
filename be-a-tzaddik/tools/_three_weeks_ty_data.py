@@ -2,31 +2,10 @@
 
 from __future__ import annotations
 
-THREE_WEEKS_INTRO_ES = (
-    "Las Tres Semanas (Bein HaMetzarim / בין המצרים), del 17 de Tamuz al 9 de Av, conmemoran la destrucción del "
-    "Templo y las tragedias del pueblo judío.\n\n"
-    "Por qué lamentamos:\n"
-    "• El 17 de Tamuz se brecharon las murallas de Jerusalén; el 9 de Av se destruyeron ambos Templos, entre otras "
-    "calamidades nacionales.\n\n"
-    "Shabat durante las Tres Semanas: las prácticas de duelo no aplican en el propio Shabat — observa Shabat plenamente."
-)
-
-THREE_WEEKS_INTRO_FR = (
-    "Les Trois Semaines (Bein HaMetzarim / בין המצרים), du 17 Tamouz au 9 Av, commémorent la destruction du Temple "
-    "et les tragédies du peuple juif.\n\n"
-    "Pourquoi nous pleurons :\n"
-    "• Le 17 Tamouz, les murailles de Jérusalem ont été percées ; le 9 Av, les deux Temples ont été détruits, ainsi "
-    "que d'autres calamités nationales.\n\n"
-    "Chabbat pendant les Trois Semaines : les pratiques de deuil ne s'appliquent pas à Chabbat lui-même — observe "
-    "Chabbat pleinement."
-)
-
-THREE_WEEKS_INTRO_RU = (
-    "Три недели (Бейн а-Мецарим / בין המצרים) — с 17 Тамуза до 9 Ава — в память о разрушении Храма "
-    "и еврейских трагедиях.\n\n"
-    "Почему мы скорбим:\n"
-    "• 17 Тамуза прорваны стены Иерусалима; 9 Ава разрушены оба Храма, среди прочих национальных бедствий.\n\n"
-    "Шаббат в Три недели: обычаи траура не применяются в сам Шаббат — полностью соблюдай Шаббат."
+from _mourning_period_translations import (
+    THREE_WEEKS_INTRO_ES,
+    THREE_WEEKS_INTRO_FR,
+    THREE_WEEKS_INTRO_RU,
 )
 
 TW_ASH_ES = (

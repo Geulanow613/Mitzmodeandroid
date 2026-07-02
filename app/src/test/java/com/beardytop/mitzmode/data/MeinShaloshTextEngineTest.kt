@@ -1,5 +1,6 @@
 package com.beardytop.mitzmode.data
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -79,5 +80,28 @@ class MeinShaloshTextEngineTest {
             MeinShaloshLanguage.ENGLISH
         )
         assertTrue(text.contains("Festival of Sukkot"))
+    }
+
+    @Test
+    fun mezonotOnly_spanish_usesDiosNotSenor() {
+        val text = MeinShaloshTextEngine.build(
+            MeinShaloshSelection(hasMezonot = true),
+            MeinShaloshLanguage.SPANISH
+        )
+        assertTrue(text.contains("Dios nuestro"))
+        assertTrue(text.contains("la subsistencia"))
+        assertFalse(text.contains("Señor"))
+    }
+
+    @Test
+    fun translationLanguageForApp_englishWhenToggleOff() {
+        assertEquals(
+            MeinShaloshLanguage.ENGLISH,
+            MeinShaloshTextEngine.translationLanguageForApp("es", translationEnabled = false)
+        )
+        assertEquals(
+            null,
+            MeinShaloshTextEngine.translationLanguageForApp("he", translationEnabled = true)
+        )
     }
 }

@@ -1,6 +1,5 @@
 package com.beardytop.beatzaddik.domain.zmanim
 
-import com.beardytop.beatzaddik.domain.HeuristicZmanim
 import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.ZmanimSnapshot
 import kotlinx.datetime.Instant
@@ -9,16 +8,13 @@ import kotlinx.datetime.toLocalDateTime
 
 /**
  * Location-based zmanim for iOS (and tests). Android production continues to use KosherJava.
- * Falls back to [HeuristicZmanim] when coordinates are missing.
+ * Returns null when coordinates are missing — no heuristic fallback.
  */
 object SharedZmanimBuilder {
 
-    fun build(nowMillis: Long, profile: UserProfile): ZmanimSnapshot {
-        val lat = profile.latitude
-        val lon = profile.longitude
-        if (lat == null || lon == null) {
-            return HeuristicZmanim.build(nowMillis, profile)
-        }
+    fun build(nowMillis: Long, profile: UserProfile): ZmanimSnapshot? {
+        val lat = profile.latitude ?: return null
+        val lon = profile.longitude ?: return null
         return buildForLocation(nowMillis, profile.timezoneId, lat, lon)
     }
 

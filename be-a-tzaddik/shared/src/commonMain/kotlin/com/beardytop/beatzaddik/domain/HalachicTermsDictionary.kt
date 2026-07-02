@@ -521,7 +521,7 @@ object HalachicTermsDictionary {
             "Al Netilat Yadayim",
         ),
         line(
-            "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Species on Sukkot — \"Who sanctified us with His mitzvot and commanded us to take the lulav.\" Men say it every day of the festival when taking the lulav (except Shabbat); women follow community custom. Shehecheyanu is said on the first day only. Then wave the lulav in the directions your siddur prescribes.",
+            "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Species on Sukkot — \"Who sanctified us with His mitzvot and commanded us to take the lulav.\" Men say it every day of the festival when taking the lulav (except Shabbat); women follow community custom — Ashkenazi women say the bracha and wave; Sephardic women generally wave without the bracha. Say Shehecheyanu on the first day you take the lulav; if you missed the first day, say it on the first day you take (Mishnah Berurah 651:12). Then wave the lulav in the directions your siddur prescribes.",
             "Al netilat lulav",
             "Al Netilat Lulav",
         ),

@@ -11,6 +11,19 @@ from _yaaleh_es_fr_data import YAALEH_TEMPLATE_ES, YAALEH_TEMPLATE_FR
 from _melacha_prose_data import MELACHA_POLISH, MISC_PROSE_POLISH
 from _glossary_batch21 import BATCH21_ES, BATCH21_FR
 from _glossary_batch22 import BATCH22_ES, BATCH22_FR
+from _glossary_batch33 import BATCH33_ES, BATCH33_FR, BATCH33_FR_PREFIX
+from _glossary_batch34 import BATCH34_ES, BATCH34_FR, BATCH34_RU
+from _glossary_batch35 import BATCH35_ES, BATCH35_FR
+from _glossary_batch36 import BATCH36_ES, BATCH36_FR
+from _glossary_batch37 import BATCH37_ES, BATCH37_FR
+from _glossary_batch38 import BATCH38_ES, BATCH38_FR
+from _glossary_batch39 import BATCH39_ES, BATCH39_FR
+from _glossary_batch40 import BATCH40_ES, BATCH40_FR
+from _glossary_batch41 import BATCH41_ES, BATCH41_FR
+from _glossary_batch42 import BATCH42_ES, BATCH42_FR
+from _glossary_batch43 import BATCH43_ES, BATCH43_FR
+from _glossary_batch44 import BATCH44_ES, BATCH44_FR
+from _glossary_batch45 import BATCH45_ES, BATCH45_FR
 from _fr_tu_explainers_data import PREFIX_FR_TU_EXPLAINERS
 from _glossary_short_batch_data import GLOSSARY_SHORT_ES_FR, GLOSSARY_SHORT_PREFIX_ES_FR
 
@@ -420,9 +433,9 @@ ES[k] = (
 k = key_by_prefix["Why Shnayim Mikra is worth the effort"]
 FR[k] = (
     "Pourquoi Shnayim Mikra vaut l'effort — enseignements de nos sages :\n\n"
-    "La paracha hebdomadaire n'est pas qu'un repère du calendrier. C'est votre part personnelle dans la Torah qui soutient le peuple juif. "
+    "La paracha hebdomadaire n'est pas qu'un repère du calendrier. C'est ta part personnelle dans la Torah qui soutient le peuple juif. "
     "Les sages lient la lecture publique de la Torah à la survie du monde (Chabbat 119b). "
-    "Quand vous étudiez la même paracha que la communauté entendra le Chabbat, vous rejoignez une chaîne qui remonte au Sinaï — "
+    "Quand tu étudies la même paracha que la communauté entendra le Chabbat, tu rejoins une chaîne qui remonte au Sinaï — "
     "et la Chekhina demeure là où passent les paroles de Torah (Avot 3:2).\n\n"
     "L'étude de la Torah protège l'étudiant ; elle fait partie des trois gardiens de la vie (Sotah 21a). "
     "Shnayim Mikra est un rythme hebdomadaire gérable : un peu chaque jour construit un lien avec Hachem qu'aucun podcast ne remplace.\n\n"
@@ -436,7 +449,7 @@ FR[k] = (
     "• Idéal (le'hathila) : avant le repas du Chabbat, idéalement avant la lecture publique.\n"
     "• Sinon : après le repas, avant Min'ha.\n"
     "• En retard : certains permettent jusqu'au mercredi suivant, d'autres jusqu'à Sim'hat Torah.\n\n"
-    "Répartissez la paracha sur la semaine. Manquer la fenêtre idéale ne fait pas perdre la mitsva tant que les délais de repli restent valides."
+    "Répartis la paracha sur la semaine. Manquer la fenêtre idéale ne fait pas perdre la mitsva tant que les délais de repli restent valides."
 )
 
 # --- Chinuch parents — full native rewrites (fixes mentón/salchicha/English leaks) ---
@@ -499,7 +512,7 @@ FR[k] = (
     "• Jeûne des enfants à Yom Kippour — âges rabbiniques (Peninei Halakha, ch. 9).\n\n"
     "Ton : les mitsvot doivent être une joie, pas un fardeau ; corrigez avec amour. Les deux parents partagent le 'hinoukh. "
     "Demande à ton rav selon l'âge, le nusach et le minhag.\n\n"
-    "Cochez cet élément quand vous avez investi aujourd'hui dans le 'hinoukh de vos enfants — enseigner, montrer l'exemple ou guider une mitsva au niveau attendu par la halakha."
+    "Coche cet élément quand tu as investi aujourd'hui dans le 'hinoukh de tes enfants — enseigner, montrer l'exemple ou guider une mitsva au niveau attendu par la halakha."
 )
 
 # --- Glossary ES/FR ---
@@ -2756,8 +2769,17 @@ _ARBA_MINIM_ES = (
     "Mujeres: mitzvá recomendada según costumbre."
 )
 _ARBA_MINIM_FR = (
-    "Arba Minim : loulav, etrog, hadassim, aravot chaque jour de Souccot sauf Chabbat. "
-    "Vérifier le casher ; hommes obligés le premier jour ; femmes selon coutume."
+    "Arba Minim (ארבעה מינים) — les quatre espèces — chaque jour de Souccot sauf Chabbat.\n\n"
+    "Les quatre : loulav, etrog, hadassim (3), aravot (2).\n\n"
+    "Comment faire :\n"
+    "• Lie loulav, hadassim et aravot (selon ton porte-loulav / koisan). "
+    "Le loulav doit dépasser d'un tefah myrte et saule (Choulhan Aroukh O.H. 650:1)\n"
+    "• Vérifie le casher avant Yom Tov — surtout l'etrog\n"
+    "• De jour ; beaucoup avant Shaharit. Pas Chabbat\n"
+    "• $daysNote\n"
+    "• Si une espèce manque, demande à ton rav\n\n"
+    "Hommes : obligation torahique le premier jour (15 Tishri en Israël ; 15–16 en diaspora selon minhag). "
+    "Femmes : mitsva recommandée selon la coutume."
 )
 for _k in strings:
     if _k.startswith("Arba Minim (ארבעה מינים) — the Four Species"):
@@ -3021,11 +3043,17 @@ _SHEMA_LONG_ES = (
     "No cumple la obligación bíblica, pero completa Shaharit correctamente."
 )
 _SHEMA_LONG_FR = (
-    "Le Shema est la déclaration centrale de la foi juive, matin et soir — mitsva de niveau Torah.\n\n"
+    "Le Shema est la déclaration centrale de la foi juive, récitée deux fois par jour — matin et soir — mitsva de niveau Torah.\n\n"
     "Trois passages : Deutéronome 6, 11 ; Nombres 15 (tsitsit et sortie d'Égypte).\n\n"
-    "« Shema Israel, Ado-nai Eloheinu, Ado-nai E'had. » — l'affirmation la plus fondamentale.\n\n"
-    "Berakhot autour : Yotzer Or, Ahavat Olam, Emet VeYatziv dans Shaharit — pas quand on dit seulement les trois paragraphes avant sof zman Shema.\n\n"
-    "Horaires : avant sof zman Shema pour l'obligation biblique ; trois paragraphes seuls si besoin ; bédieved avec berakhot jusqu'à 'hatzot."
+    "« Shema Israel, Ado-nai Eloheinu, Ado-nai E'had. » — l'affirmation la plus fondamentale de l'unité divine.\n\n"
+    "Berakhot autour : Yotzer Or, Ahavat Olam, Emet VeYatziv dans Shaharit — pas quand tu dis seulement les trois paragraphes avant sof zman Shema.\n\n"
+    "Horaires :\n"
+    "• Le Shema matinal biblique doit être récité dans les trois premières shaot zmaniot — jusqu'à sof zman Shema.\n"
+    "• L'app atténue l'élément après sof zman Shema car l'obligation biblique est passée.\n"
+    "• Si tu ne pries pas Shaharit avant sof zman Shema, dis les trois paragraphes seuls avant ce délai — sans berakhot.\n"
+    "• Si tu pries Shaharit à temps, dis le Shema avec ses berakhot dans le service complet.\n"
+    "• Bédieved : si tu as manqué sof zman Shema mais pries encore Shaharit avant 'hatzot, dis le Shema matinal avec berakhot — "
+    "cela ne remplit pas l'obligation biblique mais complète Shaharit correctement."
 )
 k = key_by_prefix["The Shema is the central declaration of Jewish"]
 ES[k] = _SHEMA_LONG_ES
@@ -4439,6 +4467,38 @@ ES.update(BATCH21_ES)
 FR.update(BATCH21_FR)
 ES.update(BATCH22_ES)
 FR.update(BATCH22_FR)
+ES.update(BATCH33_ES)
+FR.update(BATCH33_FR)
+ES.update(BATCH34_ES)
+FR.update(BATCH34_FR)
+ES.update(BATCH35_ES)
+FR.update(BATCH35_FR)
+ES.update(BATCH36_ES)
+FR.update(BATCH36_FR)
+ES.update(BATCH37_ES)
+FR.update(BATCH37_FR)
+ES.update(BATCH38_ES)
+FR.update(BATCH38_FR)
+ES.update(BATCH39_ES)
+FR.update(BATCH39_FR)
+ES.update(BATCH40_ES)
+FR.update(BATCH40_FR)
+ES.update(BATCH41_ES)
+FR.update(BATCH41_FR)
+ES.update(BATCH42_ES)
+FR.update(BATCH42_FR)
+ES.update(BATCH43_ES)
+FR.update(BATCH43_FR)
+ES.update(BATCH44_ES)
+FR.update(BATCH44_FR)
+ES.update(BATCH45_ES)
+FR.update(BATCH45_FR)
+
+for _k in strings:
+    for _prefix, _fr_tu in BATCH33_FR_PREFIX.items():
+        if _k.startswith(_prefix):
+            FR[_k] = _fr_tu
+            break
 
 shard = {"es": ES, "fr": FR}
 OUT.write_text(json.dumps(shard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

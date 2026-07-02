@@ -18,6 +18,14 @@ from _three_weeks_ty_data import (
     TW_SEP_FR,
     TW_SEP_RU,
 )
+from _mourning_period_translations import (
+    NINE_DAYS_SHARED_ES,
+    NINE_DAYS_SHARED_FR,
+    NINE_DAYS_SHARED_RU,
+    ND_ASH_ES,
+    ND_ASH_FR,
+    ND_ASH_RU,
+)
 
 LANGS: tuple[str, ...] = ("es", "fr", "ru")
 _SCHEDULE = "$scheduleLeadIn$scheduleBody$scheduleYomTov"
@@ -320,23 +328,11 @@ def _compose_es(b: dict[str, str]) -> dict[str, str]:
         "Cómo: la luna debe ser claramente visible; usa tu sidur."
     )
     t["tw_intro"] = THREE_WEEKS_INTRO_ES
-    t["nd_shared"] = (
-        "Erev Tisha B'Av (8 de Av por la tarde): deja de estudiar Torá salvo temas de duelo; come la comida final "
-        "(seudah hamafseket) antes del ayuno. Se usan talit y tefilín en Shajarit de Erev Tisha B'Av — la restricción "
-        "aplica el día de Tisha B'Av mismo.\n\n"
-        "Tisha B'Av (9 de Av): ayuno completo de 25 horas; kinot en Shajarit sin talit ni tefilín; póntelos en Minjá "
-        "después de chatzot halájico (usa tu app de zmanim). Muchos se sientan en el suelo o en un taburete bajo hasta "
-        "chatzot del 9 de Av.\n\n"
-        "Shabat Jazón (el Shabat antes del 9 de Av): Shabat se observa con normalidad — carne y vino están permitidos."
-    )
+    t["nd_shared"] = NINE_DAYS_SHARED_ES
     t["tw_ash"] = TW_ASH_ES
     t["tw_sep"] = TW_SEP_ES
     t["tw_ch"] = TW_CH_ES
-    t["nd_ash"] = (
-        "Los Nueve Días (desde 1 Av) — luto asquenazí estricto: carne, vino, lavado, baño por placer, compras.\n"
-        "9 Av: ayuno; kinot.\n"
-        "Después del ayuno: restricciones hasta chatzos del 10 Av."
-    )
+    t["nd_ash"] = ND_ASH_ES
     t["nd_sep"] = (
         "Los Nueve Días y la semana del 9 de Av — sefardíes: más estrictos en shavuah she'chal bo.\n"
         "Carne, vino, lavado y baño según el minhag; consulta a tu rav."
@@ -584,23 +580,11 @@ def _compose_fr(b: dict[str, str]) -> dict[str, str]:
         "Comment : la lune doit être clairement visible ; utilisez votre siddour."
     )
     t["tw_intro"] = THREE_WEEKS_INTRO_FR
-    t["nd_shared"] = (
-        "Erev Tisha B'Av (8 Av l'après-midi) : cessez d'étudier la Torah sauf sujets de deuil ; prenez le repas final "
-        "(seudah hamafseket) avant le jeûne. Tallit et tefilin sont portés à Shaharit d'Erev Tisha B'Av — la restriction "
-        "s'applique le jour de Tisha B'Av lui-même.\n\n"
-        "Tisha B'Av (9 Av) : jeûne complet de 25 heures ; kinot à Shaharit sans tallit ni tefilin ; enfilez-les à Min'ha "
-        "après 'hatzot halakhique (utilisez votre application de zmanim). Beaucoup s'assoient sur le sol ou un tabouret "
-        "bas jusqu'à 'hatzot du 9 Av.\n\n"
-        "Chabbat 'Hazon (le Chabbat avant le 9 Av) : Chabbat s'observe normalement — viande et vin sont permis."
-    )
+    t["nd_shared"] = NINE_DAYS_SHARED_FR
     t["tw_ash"] = TW_ASH_FR
     t["tw_sep"] = TW_SEP_FR
     t["tw_ch"] = TW_CH_FR
-    t["nd_ash"] = (
-        "Les Neuf Jours (du 1 Av) — deuil ashkénaze strict : viande, vin, lessive, bain de plaisir, achats.\n"
-        "9 Av : jeûne ; kinot.\n"
-        "Après le jeûne : restrictions jusqu'à 'hatzot du 10 Av."
-    )
+    t["nd_ash"] = ND_ASH_FR
     t["nd_sep"] = (
         "Les Neuf Jours et la semaine du 9 Av — Séfarades : plus stricts dans le shavouah she'hal bo.\n"
         "Viande, vin, lessive et bain selon le minhag ; demande à ton rav."
@@ -847,23 +831,11 @@ def _compose_ru(b: dict[str, str]) -> dict[str, str]:
         "Как: луна должна быть хорошо видна; используйте сидур."
     )
     t["tw_intro"] = THREE_WEEKS_INTRO_RU
-    t["nd_shared"] = (
-        "Эрев Тиша б'Ав (8 Ава днём): прекратите изучение Торы, кроме скорбных тем; съешьте последнюю трапезу "
-        "(сеуда амафсекет) перед постом. Талит и тефилин на Шахарите в эрев Тиша б'Ав — ограничение действует "
-        "в сам день Тиша б'Ав.\n\n"
-        "Тиша б'Ав (9 Ава): полный 25-часовой пост; кинот на Шахарите без талита и тефилин; наденьте их на Минхе "
-        "после галахического хацот (используйте приложение зманим). Многие сидят на полу или низком табурете "
-        "до хацот 9 Ава.\n\n"
-        "Шаббат Хазон (Шаббат перед 9 Ава): Шаббат соблюдается как обычно — мясо и вино разрешены."
-    )
+    t["nd_shared"] = NINE_DAYS_SHARED_RU
     t["tw_ash"] = TW_ASH_RU
     t["tw_sep"] = TW_SEP_RU
     t["tw_ch"] = TW_CH_RU
-    t["nd_ash"] = (
-        "Девять дней (с 1 Ава) — строгий ашкеназский траур: мясо, вино, стирка, купание для удовольствия, покупки.\n"
-        "9 Ава: пост; кинот.\n"
-        "После поста: ограничения до хацот 10 Ава."
-    )
+    t["nd_ash"] = ND_ASH_RU
     t["nd_sep"] = (
         "Девять дней и неделя 9 Ава — сефарды: строже в шавуа ше-халь бо.\n"
         "Мясо, вино, стирка и купание по минхагу; спроси рава."

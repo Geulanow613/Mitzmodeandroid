@@ -56,9 +56,62 @@ fun cityDisplayLabel(city: ManualCity, languageCode: String): String {
     return CityGeographyCatalog.label(city.id, languageCode) ?: cityDisplayLabelEnglish(city)
 }
 
+/** Localized city name for compact UI (clock line, GPS pill) — omits country/region suffix. */
+private fun shortCityDisplayLabel(city: ManualCity, languageCode: String): String =
+    cityDisplayLabel(city, languageCode).substringBefore(',').trim()
+        .ifBlank { city.label.substringBefore(',').trim() }
+
+/**
+ * Resolves the location line under the clock — manual-city labels use [cityDisplayLabel];
+ * GPS geocoder strings are matched via [CityGeographyCatalog] aliases when possible.
+ */
+fun localizedLocationLabel(
+    locationLabel: String?,
+    manualCityId: String?,
+    languageCode: String,
+): String? {
+    if (locationLabel.isNullOrBlank()) return locationLabel
+    if (languageCode == "en" || !BundledTranslationLanguages.isBundled(languageCode)) {
+        return locationLabel
+    }
+    manualCityId?.let { id ->
+        ManualCities.byId(id)?.let { return shortCityDisplayLabel(it, languageCode) }
+    }
+    val cityPrefix = locationLabel.substringBefore(',').trim()
+    CityGeographyCatalog.cityIdForLocationLabel(locationLabel)?.let { cityId ->
+        ManualCities.byId(cityId)?.let { return shortCityDisplayLabel(it, languageCode) }
+    }
+    ManualCities.all.firstOrNull { city ->
+        city.label.equals(cityPrefix, ignoreCase = true) ||
+            cityDisplayLabelEnglish(city).substringBefore(',').trim()
+                .equals(cityPrefix, ignoreCase = true)
+    }?.let { return shortCityDisplayLabel(it, languageCode) }
+    val bundledFull = com.beardytop.beatzaddik.ui.translation.resolveBundledTranslationSync(
+        locationLabel,
+        languageCode,
+    )
+    if (bundledFull != locationLabel) return bundledFull
+    if (cityPrefix.isNotBlank() && cityPrefix != locationLabel) {
+        val bundledPrefix = com.beardytop.beatzaddik.ui.translation.resolveBundledTranslationSync(
+            cityPrefix,
+            languageCode,
+        )
+        if (bundledPrefix != cityPrefix) return bundledPrefix
+    }
+    return locationLabel
+}
+
+@Composable
+fun rememberLocalizedLocationLabel(locationLabel: String?, manualCityId: String?): String? {
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
+    return remember(locationLabel, manualCityId, languageCode) {
+        localizedLocationLabel(locationLabel, manualCityId, languageCode)
+    }
+}
+
 @Composable
 fun rememberCityDisplayLabel(city: ManualCity): String {
-    val languageCode = LocalAppTranslation.current.languageCode
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
     return remember(city.id, languageCode) { cityDisplayLabel(city, languageCode) }
 }
 

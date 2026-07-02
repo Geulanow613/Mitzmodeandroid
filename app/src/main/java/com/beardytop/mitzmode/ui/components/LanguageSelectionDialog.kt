@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.data.LanguageInfo
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
+import com.beardytop.beatzaddik.domain.AppDisclaimer
 import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
 
 @Composable
@@ -72,6 +73,16 @@ fun LanguageSelectionDialog(
                     TranslatableText(
                         text = "(translations may not be perfect)",
                         style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp)
+                    )
+
+                    TranslatableText(
+                        text = AppDisclaimer.TRANSLATION_LINKS_NOTE,
+                        style = MaterialTheme.typography.bodySmall,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier

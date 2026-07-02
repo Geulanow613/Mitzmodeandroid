@@ -150,8 +150,6 @@ _ES_TU_PAIRS: tuple[tuple[str, str], ...] = (
     ("beba ", "bebe "),
     ("Coma ", "Come "),
     ("coma ", "come "),
-    ("Lave ", "Lava "),
-    ("lave ", "lava "),
     ("Vaya ", "Ve "),
     ("vaya ", "ve "),
     ("Tome ", "Toma "),
@@ -197,6 +195,16 @@ _ES_TU_POST: tuple[tuple[str, str], ...] = (
 )
 
 
+def _es_tu_lave_to_lava(text: str) -> str:
+    """Imperative lave → lava; word-boundary only so «clave» is not corrupted."""
+
+    def repl(m: re.Match[str]) -> str:
+        w = m.group(0)
+        return "Lava" if w[0].isupper() else "lava"
+
+    return re.sub(r"\blave\b", repl, text, flags=re.IGNORECASE)
+
+
 def apply_es_tu(text: str) -> str:
     """Convert formal usted/su to tú/tu in direct-address UI copy; preserve « » quotes."""
     protected: list[str] = []
@@ -208,6 +216,7 @@ def apply_es_tu(text: str) -> str:
     text = re.sub(r"«[^»]*»", prot, text)
     for old, new in _ES_TU_PAIRS:
         text = text.replace(old, new)
+    text = _es_tu_lave_to_lava(text)
     for old, new in _ES_TU_POST:
         text = text.replace(old, new)
     for i, chunk in enumerate(protected):

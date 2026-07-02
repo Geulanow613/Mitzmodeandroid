@@ -56,6 +56,23 @@ OMER_SPEECH_PHRASES = [f"Today is {s}." for s in OMER_TODAY_SUMMARIES]
 OMER_NEXT_NIGHT_LINE = "\n• $tomorrowNight night: you will count $nextDaySummary."
 OMER_TIME_PART = " at $time"
 
+OMER_EXPLANATION_TEMPLATE = (
+    "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\n"
+    "Today in the Omer: $todaySummary (day $day of 49).\n\n"
+    "Tonight's count:\n"
+    "• $tonight night — count $tonightSummary after nightfall$timePart.\n"
+    "$nextNightLine\n\n"
+    "How to count:\n"
+    "• Stand and recite the blessing before counting if you are still saying it with a blessing "
+    "(if you missed a day, ask your rabbi before continuing with a bracha).\n"
+    '• Say: "$speechPhrase"\n'
+    "• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the "
+    "daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a "
+    "bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the "
+    "following day) — ask your rav.\n\n"
+    "$nusachWhen"
+)
+
 NUSACH_WHEN = {
     "Many in Chabad count after Maariv (Tehillat Hashem).": "chabad",
     "Many Sephardim count after Maariv.": "sefard",
@@ -64,6 +81,7 @@ NUSACH_WHEN = {
 }
 
 OMER_ARG_CATALOG_KEYS = [
+    OMER_EXPLANATION_TEMPLATE,
     *OMER_TODAY_SUMMARIES,
     *OMER_SPEECH_PHRASES,
     OMER_NEXT_NIGHT_LINE,

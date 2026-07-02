@@ -33,6 +33,7 @@ import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 
 @Composable
 fun ShabbatRestScreen(
@@ -40,6 +41,8 @@ fun ShabbatRestScreen(
     timezoneId: String,
     onOpenSettings: (() -> Unit)? = null,
 ) {
+    val resolvedTitle = rememberAppTranslatedTemplate(period.title, period.args)
+    val resolvedMessage = rememberAppTranslatedTemplate(period.message, period.args)
     Box(Modifier.fillMaxSize()) {
         HolyLightBackground(Modifier.fillMaxSize())
         Column(
@@ -58,7 +61,7 @@ fun ShabbatRestScreen(
             )
             Spacer(Modifier.height(20.dp))
             AppText(
-                period.title,
+                resolvedTitle,
                 style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.GoldBright,
                 textAlign = TextAlign.Center,
@@ -68,8 +71,10 @@ fun ShabbatRestScreen(
                 Text(it, color = TzaddikColors.ParchTop, style = MaterialTheme.typography.titleMedium)
             }
             period.locationLabel?.let {
+                val resolvedTimesFor = rememberAppTranslatedTemplate("Times for {place}", mapOf("place" to it))
                 AppText(
-                    "Times for $it",
+                    resolvedTimesFor,
+                    enableTerms = false,
                     color = TzaddikColors.ParchTop.copy(alpha = 0.85f),
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.Center,
@@ -83,7 +88,7 @@ fun ShabbatRestScreen(
                     .padding(20.dp),
             ) {
                 HalachicClickableText(
-                    text = period.message,
+                    text = resolvedMessage,
                     color = TzaddikColors.ParchTop,
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,
@@ -94,8 +99,13 @@ fun ShabbatRestScreen(
             when (period.phase) {
                 RestPhase.APPROACHING -> {
                     period.startsAtEpochMillis?.let { starts ->
+                        val resolvedPauseNotice = rememberAppTranslatedTemplate(
+                            "The app will pause automatically at {time}.",
+                            mapOf("time" to formatRestTime(starts, timezoneId)),
+                        )
                         AppText(
-                            "The app will pause automatically at ${formatRestTime(starts, timezoneId)}.",
+                            resolvedPauseNotice,
+                            enableTerms = false,
                             color = TzaddikColors.GoldBorder,
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Medium),
                             textAlign = TextAlign.Center,
@@ -121,8 +131,13 @@ fun ShabbatRestScreen(
                             RestKind.SHABBAT -> "after tzeit (nightfall)"
                             RestKind.YOM_TOV -> "after Yom Tov ends at tzeit"
                         }
+                        val resolvedReopenNotice = rememberAppTranslatedTemplate(
+                            "You may open the app again {tzeitNote} — {endLabel}.",
+                            mapOf("tzeitNote" to tzeitNote, "endLabel" to endLabel),
+                        )
                         AppText(
-                            "You may open the app again $tzeitNote — $endLabel.",
+                            resolvedReopenNotice,
+                            enableTerms = false,
                             color = TzaddikColors.ParchTop.copy(alpha = 0.75f),
                             style = MaterialTheme.typography.bodySmall,
                             textAlign = TextAlign.Center,
@@ -141,12 +156,12 @@ fun ShabbatRestScreen(
             }
             if (onOpenSettings != null) {
                 Spacer(Modifier.height(32.dp))
-                Text(
+                AppText(
                     "I live somewhere different",
+                    enableTerms = false,
                     color = TzaddikColors.ParchTop.copy(alpha = 0.55f),
-                    style = MaterialTheme.typography.labelSmall,
+                    style = MaterialTheme.typography.labelSmall.copy(textDecoration = TextDecoration.Underline),
                     textAlign = TextAlign.Center,
-                    textDecoration = TextDecoration.Underline,
                     modifier = Modifier
                         .clickable(onClick = onOpenSettings)
                         .padding(8.dp),

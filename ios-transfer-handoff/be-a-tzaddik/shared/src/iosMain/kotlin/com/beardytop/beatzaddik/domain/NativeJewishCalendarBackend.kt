@@ -151,7 +151,11 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isSefirah     = omerDay != null && omerDay in 1..49 && !isLagBaomer
         val isRoshChodesh = (hd.day == 1 && hd.month != HebrewCalendarEngine.TISHREI) || hd.day == 30
         val isTaanis      = isTaanisIndex(idx)
-        val fastDayIndex = idx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val fastDayIndex = PublicFastDayRules.resolveFastDayIndex(
+            todayIdx = idx,
+            tomorrowIdx = tomorrowIdx,
+            isTaanis = isTaanis,
+        )
         val fastDayName = fastDayIndex?.let { PublicFastDayRules.displayName(it) }
         val upcomingFastDayIndex = tomorrowIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
         val upcomingFastDayName = upcomingFastDayIndex?.let { PublicFastDayRules.displayName(it) }
@@ -168,7 +172,18 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isErevChag = !isYomTov &&
             HebrewCalendarEngine.isYomTov(tomorrowIdx) &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(tomorrowIdx)
-        val upcomingChagName = if (isErevChag) holidayName(tomorrowIdx) else null
+        val upcomingChagName = if (isErevChag) {
+            UpcomingHolidayNames.erevUpcomingDisplayName(
+                todayYomTovIndex = idx,
+                tomorrowYomTovIndex = tomorrowIdx,
+                tomorrowHebrewMonth = tomorrowHd.month,
+                tomorrowHebrewDay = tomorrowHd.day,
+                inIsrael = profile.isInIsrael,
+                defaultHolidayName = holidayName(tomorrowIdx),
+            )
+        } else {
+            null
+        }
         val upcomingChagYomTovIndex = if (isErevChag) tomorrowIdx else null
         val isErevPurim = !isPurim && tomorrowIdx == HebrewCalendarEngine.PURIM
         val isErevChanukah = !isChanukah &&
@@ -210,8 +225,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         }
 
         val zmanim       = SharedZmanimBuilder.build(nowEpochMillis, profile)
-        val activeTime   = ZmanPeriodLogic.activeTimeOfDay(nowEpochMillis, zmanim)
-        val periodLabels = ZmanPeriodLabels.forPeriod(activeTime, zmanim, profile.effectiveNusach())
+        val period       = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, zmanim)
 
         val hebrewLabel = "${hd.day} ${monthName(hd.month, isLeap)} ${hd.year}"
 
@@ -221,7 +235,9 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             if (isShabbat) add("Shabbat")
             if (isYomTov) add(holidayName(idx))
             if (isRoshChodesh) add("Rosh Chodesh")
-            if (isSefirah && omerDay != null) add(OmerCountText.statusChipLabel(omerDay))
+            if (isSefirah && omerDay != null) {
+                add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
+            }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
             if (isPurim) add("Purim")
             if (isYomHaShoah) add("Yom HaShoah")
@@ -253,10 +269,10 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             yesterdayWasYomTovAssurBemelacha = yesterdayWasYomTovAssurBemelacha,
             yomTovHolidayName     = yomTovHolidayName,
             isShabbatOrYomTov     = isShabbat || isYomTov,
-            activeTimeOfDay       = activeTime,
-            activePeriodLabel     = periodLabels.activeTitle,
-            activePeriodHint      = periodLabels.activeSummary,
-            inactivePeriodHint    = periodLabels.laterSummary,
+            activeTimeOfDay       = period.timeOfDay,
+            activePeriodLabel     = period.activeTitle,
+            activePeriodHint      = period.activeSummary,
+            inactivePeriodHint    = period.laterSummary,
             omerDay               = omerDay,
             isSefiratHaomer       = isSefirah,
             isLagBaomer           = isLagBaomer,
@@ -370,14 +386,16 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
 
         if (today.isYomTovAssurBemelacha) {
             val yesterday = today.date.plus(-1, DateTimeUnit.DAY)
-            val yZmanim = SharedZmanimBuilder.build(noonMillis(yesterday, tz), profile)
+            val yZmanim = SharedZmanimBuilder.build(noonMillis(yesterday, tz), profile) ?: return null
             val start = yZmanim.sunsetMillis ?: today.zmanim?.sunriseMillis ?: return null
             val end = today.zmanim?.tzeitMillis ?: today.zmanim?.sunsetMillis ?: return null
             if (nowEpochMillis < start || nowEpochMillis >= end) return null
+            val holidayName = today.yomTovHolidayName ?: "Yom Tov"
             return ElectronicsRestPeriod(
                 kind = RestKind.YOM_TOV,
-                title = today.yomTovHolidayName ?: "Yom Tov",
-                message = yomTovMessage(today.yomTovHolidayName ?: "Yom Tov"),
+                title = holidayName,
+                message = yomTovMessageTemplate(),
+                args = mapOf("holidayName" to holidayName),
                 locationLabel = profile.locationLabel,
                 endsAtEpochMillis = end,
             )
@@ -388,8 +406,8 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             friday = friday.plus(-1, DateTimeUnit.DAY)
         }
         val saturday = friday.plus(1, DateTimeUnit.DAY)
-        val friZmanim = SharedZmanimBuilder.build(noonMillis(friday, tz), profile)
-        val satZmanim = SharedZmanimBuilder.build(noonMillis(saturday, tz), profile)
+        val friZmanim = SharedZmanimBuilder.build(noonMillis(friday, tz), profile) ?: return null
+        val satZmanim = SharedZmanimBuilder.build(noonMillis(saturday, tz), profile) ?: return null
         val start = (friZmanim.sunsetMillis ?: return null) - SHABBAT_SUNSET_LEAD_MS
         val end = satZmanim.tzeitMillis ?: satZmanim.sunsetMillis ?: return null
         if (nowEpochMillis < start || nowEpochMillis >= end) return null

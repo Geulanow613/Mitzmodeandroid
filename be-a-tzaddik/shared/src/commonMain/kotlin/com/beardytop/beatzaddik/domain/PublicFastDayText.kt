@@ -5,11 +5,15 @@ object PublicFastDayText {
     // ── Catalog template keys for bundled translation ────────────────────────────
 
     private const val FAST_DAY_SUBTITLE_TEMPLATE = "{name} · {timing}{endSuffix}"
+    // Sub-template placeholders are deliberately left UNRESOLVED when passed as args to a bigger
+    // template — see [alotLine] doc for why (a pre-filled clock time can never match a catalog key).
+    // Each constant below uses its own placeholder name so several can coexist in one args map
+    // without colliding once `fillTranslationTemplate`'s second pass resolves them.
     private const val APPROX_TIME_SUFFIX = " (approx. ${'$'}time)"
     private const val ALOT_LINE_WITH_TIME_TEMPLATE =
         " (approx. ${'$'}time — enable location for your exact zman)"
     private const val ALOT_LINE_NO_LOCATION = " — enable location in Settings for your dawn time"
-    private const val TZET_TOMORROW_TIME_TEMPLATE = "approx. ${'$'}time tomorrow night"
+    private const val TZET_TOMORROW_TIME_TEMPLATE = "approx. ${'$'}tzeitTime tomorrow night"
     private const val TZET_TOMORROW_FALLBACK = "nightfall tomorrow night"
     private const val TZET_LINE_TEMPLATE = " (approx. ${'$'}time tonight)"
 
@@ -24,13 +28,19 @@ Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
 • After Shabbat ends (Havdalah), change into non-leather shoes and begin the fast and mourning practices.
 • The seudah hamafseket is not eaten on Shabbat — it is observed after Shabbat ends, before the fast begins."""
 
-    private fun approxTimeSuffix(time: String): String =
-        ExplainerTemplateFill.fill(APPROX_TIME_SUFFIX, mapOf("time" to time))
+    /** Raw, unfilled `" (approx. $time)"` template — caller must add `"time" to actualTime` to its args map. */
+    private fun approxTimeSuffixTemplate(): String = APPROX_TIME_SUFFIX
 
+    /**
+     * Returns the RAW sub-template (its own `$time` placeholder left unresolved) rather than a
+     * pre-filled string. The pre-filled form can never match a catalog key once the clock time
+     * varies, which left this fragment permanently stuck in English inside otherwise-translated
+     * dialogs. Callers must also add `"time" to alotTime` to the outer args map so the two-pass
+     * template filler (see [com.beardytop.beatzaddik.ui.translation.fillTranslationTemplate])
+     * resolves it after the sub-template itself gets translated as a standalone catalog key.
+     */
     private fun alotLine(alotTime: String?): String =
-        alotTime?.let {
-            ExplainerTemplateFill.fill(ALOT_LINE_WITH_TIME_TEMPLATE, mapOf("time" to it))
-        } ?: ALOT_LINE_NO_LOCATION
+        if (alotTime != null) ALOT_LINE_WITH_TIME_TEMPLATE else ALOT_LINE_NO_LOCATION
 
     private const val EREV_MINOR_FAST_PREP_TITLE_TEMPLATE =
         "Prepare for tomorrow's fast — ${'$'}fastName"
@@ -77,7 +87,8 @@ Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
         return mapOf(
             "name" to PublicFastDayRules.displayName(fastIdx),
             "timing" to PublicFastDayRules.fastTimingLabel(fastIdx),
-            "endSuffix" to (end?.let { approxTimeSuffix(it) } ?: ""),
+            "endSuffix" to (end?.let { approxTimeSuffixTemplate() } ?: ""),
+            "time" to (end ?: ""),
         )
     }
 
@@ -228,6 +239,7 @@ Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Chi
         return mapOf(
             "fastName" to fastName,
             "alotLine" to alotLine,
+            "time" to (alotTomorrow ?: ""),
             "fridayNote" to fridayNote,
         )
     }
@@ -259,12 +271,13 @@ Who fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who ar
     fun erevYomKippurArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
         val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
-        val tzeitTomorrow = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)?.let {
-            ExplainerTemplateFill.fill(TZET_TOMORROW_TIME_TEMPLATE, mapOf("time" to it))
-        } ?: TZET_TOMORROW_FALLBACK
+        val tzeitTime = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
+        val tzeitTomorrow = if (tzeitTime != null) TZET_TOMORROW_TIME_TEMPLATE else TZET_TOMORROW_FALLBACK
         return mapOf(
-            "sunsetLine" to (sunset?.let { approxTimeSuffix(it) } ?: ""),
+            "sunsetLine" to (sunset?.let { approxTimeSuffixTemplate() } ?: ""),
+            "time" to (sunset ?: ""),
             "tzeitTomorrow" to tzeitTomorrow,
+            "tzeitTime" to (tzeitTime ?: ""),
         )
     }
 
@@ -298,7 +311,8 @@ Ask your rav for details if you are ill, pregnant, or nursing.
         val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
         val shabbatNote = if (cal.isShabbat) SHABBAT_EREV_TISHA_BEAV_NOTE else ""
         return mapOf(
-            "sunsetLine" to (sunset?.let { approxTimeSuffix(it) } ?: ""),
+            "sunsetLine" to (sunset?.let { approxTimeSuffixTemplate() } ?: ""),
+            "time" to (sunset ?: ""),
             "shabbatNote" to shabbatNote,
         )
     }
@@ -321,9 +335,8 @@ Ask your rav for details if you are ill, pregnant, or nursing.
     fun publicFastDayArgs(fastIdx: Int, cal: DayInfo, profile: UserProfile): Map<String, String> {
         val common = commonFastLawsBlock()
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeitSuffix = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)?.let {
-            approxTimeSuffix(it)
-        } ?: ""
+        val tzeitTime = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
+        val tzeitSuffix = if (tzeitTime != null) approxTimeSuffixTemplate() else ""
         return when (fastIdx) {
             HebrewCalendarEngine.FAST_OF_GEDALYAH -> mapOf(
                 "name" to PublicFastDayRules.displayName(fastIdx),
@@ -343,10 +356,12 @@ Ask your rav for details if you are ill, pregnant, or nursing.
             )
             HebrewCalendarEngine.YOM_KIPPUR -> mapOf(
                 "tzeitSuffix" to tzeitSuffix,
+                "time" to (tzeitTime ?: ""),
                 "common" to common,
             )
             HebrewCalendarEngine.TISHA_BEAV -> mapOf(
                 "tzeitSuffix" to tzeitSuffix,
+                "time" to (tzeitTime ?: ""),
                 "common" to common,
             )
             else -> emptyMap()
@@ -398,13 +413,18 @@ The fast:
 What is forbidden today (in addition to eating and drinking):
 • Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.
 • Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
-• Greeting people with "hello"; idle conversation; work is discouraged (follow your community).
-• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.
+• Greeting people with "hello" during the fast day — even after chatzos, do not greet or reply to greetings until nightfall when the fast ends.
+• Idle conversation; work is discouraged (follow your community).
+• Tefillin are not worn in the morning (like the day of burial); tallit and tefillin are worn at Mincha after halachic chatzos.
+• Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
+• Hand washing: only to remove ritual impurity — wash only to the knuckle where fingers join the hand; or to remove actual dirt on the hand.
+• Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
+• Do not fly on Tisha B'Av, even to Israel to make aliyah.
 
 What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
 
-After nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.
+After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast; meat and wine often wait until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
 
 ${'$'}common
     """.trimIndent()
@@ -426,9 +446,8 @@ This item becomes available at nightfall after the fast ends.
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
         val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
         return mapOf(
-            "tzeitLine" to (tzeit?.let {
-                ExplainerTemplateFill.fill(TZET_LINE_TEMPLATE, mapOf("time" to it))
-            } ?: ""),
+            "tzeitLine" to (tzeit?.let { TZET_LINE_TEMPLATE } ?: ""),
+            "time" to (tzeit ?: ""),
         )
     }
 }

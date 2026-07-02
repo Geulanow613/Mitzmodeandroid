@@ -9,6 +9,17 @@ from pathlib import Path
 
 from _he_glue_manual_data import MANUAL_ES, MANUAL_FR, MANUAL_RU, PREFIX_HE
 from _he_paragraph_batch29_data import PREFIX_HE_BATCH29
+from _he_paragraph_batch35_data import PREFIX_HE_BATCH35
+from _he_paragraph_batch36_data import PREFIX_HE_BATCH36
+from _he_paragraph_batch37_data import PREFIX_HE_BATCH37
+from _he_paragraph_batch38_data import PREFIX_HE_BATCH38
+from _he_paragraph_batch39_data import PREFIX_HE_BATCH39
+from _he_paragraph_batch40_data import PREFIX_HE_BATCH40
+from _he_paragraph_batch41_data import PREFIX_HE_BATCH41
+from _he_paragraph_batch42_data import PREFIX_HE_BATCH42
+from _he_paragraph_batch43_data import PREFIX_HE_BATCH43
+from _he_paragraph_batch44_data import PREFIX_HE_BATCH44
+from _he_paragraph_batch45_data import PREFIX_HE_BATCH45
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data/translation-catalog/strings.json"
@@ -133,7 +144,21 @@ def load_seasonal_keys() -> dict[str, str]:
 
 def apply_prefix_he(he: dict[str, str], keys: list[str]) -> None:
     """Apply PREFIX_HE — longest prefix wins per catalog key."""
-    merged_prefix = {**PREFIX_HE, **PREFIX_HE_BATCH29}
+    merged_prefix = {
+        **PREFIX_HE,
+        **PREFIX_HE_BATCH29,
+        **PREFIX_HE_BATCH35,
+        **PREFIX_HE_BATCH36,
+        **PREFIX_HE_BATCH37,
+        **PREFIX_HE_BATCH38,
+        **PREFIX_HE_BATCH39,
+        **PREFIX_HE_BATCH40,
+        **PREFIX_HE_BATCH41,
+        **PREFIX_HE_BATCH42,
+        **PREFIX_HE_BATCH43,
+        **PREFIX_HE_BATCH44,
+        **PREFIX_HE_BATCH45,
+    }
     prefixes = sorted(merged_prefix.items(), key=lambda kv: len(kv[0]), reverse=True)
     for k in keys:
         for prefix, translation in prefixes:
@@ -210,6 +235,9 @@ def main() -> None:
                 continue
             if path == hybrid or not is_bad_he(v):
                 he[k] = v
+
+    # Prefix batches must win over he_fix_021 / hybrid purge (singular alert tone).
+    apply_prefix_he(he, strings)
 
     for k in list(he.keys()):
         if is_bad_he(he[k]):

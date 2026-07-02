@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import com.beardytop.beatzaddik.domain.ZmanimFormatter
+import com.beardytop.beatzaddik.ui.rememberLocalizedLocationLabel
 import com.beardytop.beatzaddik.ui.translation.embedLtrForRtlMix
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
@@ -22,6 +23,7 @@ import kotlinx.datetime.toLocalDateTime
 fun CurrentTimeLine(
     timezoneId: String,
     locationLabel: String? = null,
+    manualCityId: String? = null,
     modifier: Modifier = Modifier
 ) {
     var nowMillis by remember { mutableLongStateOf(kotlinx.datetime.Clock.System.now().toEpochMilliseconds()) }
@@ -48,11 +50,13 @@ fun CurrentTimeLine(
     )
     // Show location only — suppress timezone city if it matches the location label to avoid duplication
     val tzCity = shortTimezoneLabel(timezoneId)
-    val locationText = locationLabel?.takeIf { it.isNotBlank() && !it.equals(tzCity, ignoreCase = true) }
+    val resolvedLocation = rememberLocalizedLocationLabel(locationLabel, manualCityId)
+    val locationText = resolvedLocation?.takeIf { it.isNotBlank() && !it.equals(tzCity, ignoreCase = true) }
         ?: tzCity.takeIf { it.isNotBlank() }
     if (!locationText.isNullOrBlank()) {
+        val displayLocation = if (use24Hour) embedLtrForRtlMix(locationText) else locationText
         AppText(
-            text = locationText,
+            text = displayLocation,
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.ParchTop.copy(alpha = 0.55f),
             enableTerms = false

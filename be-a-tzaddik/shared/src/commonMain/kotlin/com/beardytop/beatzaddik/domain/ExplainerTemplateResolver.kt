@@ -75,6 +75,17 @@ object ExplainerTemplateResolver {
                     ExplainerTemplateSupport.cholHamoedWineArgs(cal),
                 )
 
+            item.id == "chol_hamoed_sukkah" ->
+                Bundle(
+                    ExplainerTemplateSupport.cholHamoedSukkahTemplate(
+                        prefersFemaleExplanation(item, profile),
+                    ),
+                    ExplainerTemplateSupport.cholHamoedSukkahArgs(
+                        profile,
+                        prefersFemaleExplanation(item, profile),
+                    ),
+                )
+
             item.id == "chol_hamoed_nicer_clothes" ->
                 staticBundle(SeasonalMitzvahText.cholHamoedClothesExplanation())
 

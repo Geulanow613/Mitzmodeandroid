@@ -22,7 +22,9 @@ object PurimMeshulashText {
     fun isErevBeforeMeshulashFriday(cal: DayInfo, tomorrow: DayInfo): Boolean =
         "erev_purim" in cal.activeSeasons && isMeshulashFridayDay(tomorrow)
 
-    fun fullScheduleBlock(): String = """
+    fun fullScheduleBlock(): String = FULL_SCHEDULE_BLOCK
+
+    private val FULL_SCHEDULE_BLOCK = """
 Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Purim (15 Adar) falls on Shabbat
 
 Why the calendar splits:
@@ -54,25 +56,54 @@ Sunday (16 Adar):
 • Send mishloach manot and celebrate the Purim seudah. The app will show today's items after Shabbat ends.
 
 Ask your rav about edge cases (travel, illness, minhag).
-    """.trim()
+    """.trimIndent()
 
-    fun advancePrepExplanation(): String = """
+    private val ADVANCE_PREP_TEMPLATE = """
 Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).
 
-${fullScheduleBlock()}
-    """.trim()
+${'$'}scheduleBlock
+    """.trimIndent()
 
-    fun erevPrepExplanation(): String = """
+    private val EREV_PREP_TEMPLATE = """
 Purim Meshulash starts tonight in Jerusalem. Because Shabbat falls in the middle of the festival, read and save this plan now — you will not be able to rely on the app on Shabbat for Sunday's mitzvot.
 
-${fullScheduleBlock()}
+${'$'}scheduleBlock
 
 Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday): second Megillah reading and matanot la'evyonim. Mishloach and seudah wait until Sunday.
-    """.trim()
+    """.trimIndent()
+
+    fun advancePrepTemplate(): String = ADVANCE_PREP_TEMPLATE
+
+    fun advancePrepArgs(): Map<String, String> = mapOf("scheduleBlock" to fullScheduleBlock())
+
+    fun erevPrepTemplate(): String = EREV_PREP_TEMPLATE
+
+    fun erevPrepArgs(): Map<String, String> = mapOf("scheduleBlock" to fullScheduleBlock())
+
+    fun advancePrepExplanation(): String = ExplainerTemplateFill.fill(
+        ADVANCE_PREP_TEMPLATE,
+        advancePrepArgs(),
+    )
+
+    fun erevPrepExplanation(): String = ExplainerTemplateFill.fill(
+        EREV_PREP_TEMPLATE,
+        erevPrepArgs(),
+    )
+
+    fun fridayMegillahTemplate(): String = FRIDAY_MEGILLAH_BODY
+
+    fun fridayMatanotTemplate(): String = FRIDAY_MATANOT_BODY
+
+    fun sundayMishloachTemplate(): String = SUNDAY_MISHLOACH_BODY
+
+    fun sundaySeudahTemplate(): String = SUNDAY_SEUDAH_BODY
 
     fun fridayMegillahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.purimBasics(),
-        """
+        FRIDAY_MEGILLAH_BODY,
+    )
+
+    private val FRIDAY_MEGILLAH_BODY = """
 Purim Meshulash — Megillah on Friday (14 Adar)
 
 When this year:
@@ -86,12 +117,14 @@ How (same laws as regular Purim):
 ${PurimBrachotText.MEGILLAH_BLESSINGS_COMMON}
 
 Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach manot and the seudah are Sunday — prepare packages before Shabbat if you have not already.
-        """.trim(),
-    )
+    """.trimIndent()
 
     fun fridayMatanotExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.purimBasics(),
-        """
+        FRIDAY_MATANOT_BODY,
+    )
+
+    private val FRIDAY_MATANOT_BODY = """
 Purim Meshulash — matanot la'evyonim on Friday only (14 Adar)
 
 Today (Friday daytime) — not on Shabbat:
@@ -102,12 +135,14 @@ Today (Friday daytime) — not on Shabbat:
 You may use a trustworthy messenger or organization that distributes today. If you cannot find recipients, ask your rabbi or shul Friday morning.
 
 Sunday is for mishloach manot and the seudah — those should already be prepared before Shabbat.
-        """.trim(),
-    )
+    """.trimIndent()
 
     fun sundayMishloachExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.purimBasics(),
-        """
+        SUNDAY_MISHLOACH_BODY,
+    )
+
+    private val SUNDAY_MISHLOACH_BODY = """
 Purim Meshulash — mishloach manot on Sunday (16 Adar)
 
 Deferred from Shabbat because Purim mitzvot are not performed on Shabbat this year.
@@ -118,12 +153,14 @@ The mitzvah:
 • Food should be ready to eat without cooking; label sender and recipient.
 
 You should have prepared packages before Shabbat. If not, ask your rav what you may still do today.
-        """.trim(),
-    )
+    """.trimIndent()
 
     fun sundaySeudahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.purimBasics(),
-        """
+        SUNDAY_SEUDAH_BODY,
+    )
+
+    private val SUNDAY_SEUDAH_BODY = """
 Purim Meshulash — Purim seudah on Sunday (16 Adar)
 
 The festive Purim meal is today (not Friday or Shabbat this year).
@@ -136,6 +173,5 @@ How:
 • Drinking wine is a widespread custom; celebrate responsibly.
 
 This completes the four Purim mitzvot for Purim Meshulash in Jerusalem.
-        """.trim(),
-    )
+    """.trimIndent()
 }

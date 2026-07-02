@@ -16,9 +16,15 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.beatzaddik.ui.translation.resolveBundledTranslationSync
 import com.beardytop.mitzmode.data.MitzvahLink
 import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
+
+private fun initialBundledUiText(text: String, language: String, enabled: Boolean): String {
+    if (!enabled || language == "en") return text
+    return resolveBundledTranslationSync(text, language)
+}
 
 @Composable
 fun TranslatableText(
@@ -38,7 +44,9 @@ fun TranslatableText(
     val translationEnabled by translationViewModel.translationEnabled.collectAsState()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
 
-    var translatedText by remember(text, currentLanguage) { mutableStateOf(text) }
+    var translatedText by remember(text, currentLanguage, translationEnabled) {
+        mutableStateOf(initialBundledUiText(text, currentLanguage, translationEnabled))
+    }
 
     LaunchedEffect(text, currentLanguage, translationEnabled) {
         translatedText = if (translationEnabled && currentLanguage != "en") {
@@ -89,7 +97,9 @@ fun TranslatableTextWithLoading(
     val translationEnabled by translationViewModel.translationEnabled.collectAsState()
     val currentLanguage by translationViewModel.currentLanguage.collectAsState()
 
-    var translatedText by remember(text, currentLanguage) { mutableStateOf(text) }
+    var translatedText by remember(text, currentLanguage, translationEnabled) {
+        mutableStateOf(initialBundledUiText(text, currentLanguage, translationEnabled))
+    }
     var isLoading by remember { mutableStateOf(false) }
 
     LaunchedEffect(text, currentLanguage, translationEnabled) {

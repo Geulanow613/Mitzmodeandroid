@@ -10,6 +10,8 @@ data class HolyDayPhoneNotice(
     val kind: HolyDayNoticeKind,
     val title: String,
     val message: String,
+    /** Args for `{holidayName}` etc. placeholders in [message] — fill via rememberAppTranslatedTemplate. */
+    val messageArgs: Map<String, String> = emptyMap(),
     val footer: String
 )
 
@@ -50,9 +52,9 @@ object HolyDayPhoneRules {
             isYomTovMelachaWindow(cal, nowMillis)
 
     fun phoneNotice(profile: UserProfile, cal: DayInfo, nowMillis: Long): HolyDayPhoneNotice? = when {
+        isShabbatMelachaWindow(cal, nowMillis) -> shabbatNotice()
         isYomTovMelachaWindow(cal, nowMillis) ->
             cal.yomTovHolidayName?.let(::yomTovNotice)
-        isShabbatMelachaWindow(cal, nowMillis) -> shabbatNotice()
         else -> null
     }
 
@@ -74,8 +76,9 @@ object HolyDayPhoneRules {
     private fun yomTovNotice(holidayName: String) = HolyDayPhoneNotice(
         kind = HolyDayNoticeKind.YOM_TOV,
         title = holidayName,
-        message = yomTovMessage(holidayName) +
+        message = yomTovMessageTemplate() +
             " This app is for weekdays and erev chag preparation, not for use on Yom Tov.",
+        messageArgs = mapOf("holidayName" to holidayName),
         footer = "Put away your phone and keep the festival day holy."
     )
 }

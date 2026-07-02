@@ -124,11 +124,11 @@ object ChecklistDebugScenarios {
         val chol = "Chol HaMoed"
         dayOf(chol, "Pesach", "ch_pesach") { cal, _ ->
             "chol_hamoed_pesach" in cal.activeSeasons &&
-                cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 17
+                cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 18
         }
         dayOf(chol, "Sukkot", "ch_sukkot") { cal, _ ->
             "chol_hamoed_sukkot" in cal.activeSeasons &&
-                cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 17
+                cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 18
         }
 
         val fasts = "Fasts"
@@ -230,7 +230,9 @@ object ChecklistDebugScenarios {
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 5
+    private const val CACHE_VERSION = 6
+
+    private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
     private val SEARCH_START = LocalDate(2018, 1, 1)
     private val SEARCH_END = LocalDate(2042, 12, 31)
@@ -306,6 +308,11 @@ object ChecklistDebugDateFinder {
                 epochMillis = millis,
             )
             if (canonical != null) {
+                if (scenario.id in CHOL_HAMOED_WEEKDAY_SCENARIOS &&
+                    HolyDayPhoneRules.isShabbatMelachaDay(cal)
+                ) {
+                    continue
+                }
                 return override
             }
             if (distance < bestDistance) {
@@ -363,7 +370,7 @@ object ChecklistDebugDateFinder {
         when (scenario.id) {
             "pesach_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 14)
             "pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
-            "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 17)
+            "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 18)
             "shavuot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 5)
             "shavuot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 6)
             "rosh_hashana_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ELUL, 29)
@@ -378,7 +385,7 @@ object ChecklistDebugDateFinder {
             } else {
                 CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 23)
             }
-            "ch_sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 17)
+            "ch_sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 18)
             "fast_gedaliah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 2)
             "fast_gedaliah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 3)
             "fast_10tev_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TEVET, 9)

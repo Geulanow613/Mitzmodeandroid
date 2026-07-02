@@ -2,6 +2,8 @@ package com.beardytop.beatzaddik.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -49,7 +52,9 @@ import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.ui.ManualCityListRow
 import com.beardytop.beatzaddik.ui.cityDisplayLabel
 import com.beardytop.beatzaddik.ui.filterManualCities
+import com.beardytop.beatzaddik.ui.localizedLocationLabel
 import com.beardytop.beatzaddik.ui.profileMatchesManualCity
+import com.beardytop.beatzaddik.ui.rememberCityDisplayLabel
 import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.domain.KashrutWaitTimes
@@ -60,6 +65,11 @@ import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
 import com.beardytop.beatzaddik.ui.components.TextScaleControl
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.domain.AppDisclaimer
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
+import com.beardytop.beatzaddik.ui.translation.LocalLanguageSelector
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import com.beardytop.beatzaddik.viewmodel.AppViewModel
 
 @Composable
@@ -74,6 +84,7 @@ fun SettingsScreen(
     var kashrutScrollY by remember { mutableIntStateOf(0) }
     var showCityPicker by remember { mutableStateOf(false) }
     var cityQuery by remember { mutableStateOf("") }
+    val languageCode = LocalAppTranslation.current.languageCode
 
     LaunchedEffect(scrollToKashrut) {
         if (scrollToKashrut) {
@@ -97,6 +108,8 @@ fun SettingsScreen(
             color = TzaddikColors.GoldBright,
             modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)
         )
+
+        LanguageCard()
 
         // --- Profile card ---
         SettingsCard(title = "Your Profile") {
@@ -161,36 +174,56 @@ fun SettingsScreen(
             }
             val effectiveName = profile.effectiveNusach().displayLabel()
             Spacer(Modifier.height(6.dp))
-            AppText(
-                "Currently using: $effectiveName",
-                style = MaterialTheme.typography.labelMedium,
-                color = TzaddikColors.NavyMid
-            )
+            CurrentlyUsingLine(nusachLabel = effectiveName)
         }
 
         // --- Location card ---
         SettingsCard(title = "Location & Prayer Times") {
             AppText(
-                "Prayer times (zmanim) — Shema deadline, Mincha window, candle lighting — " +
-                    "are calculated from your location. Your location is stored on this device only.",
+                "Prayer times (zmanim) — Shema deadline, Mincha window, candle lighting — are calculated from your location. Your location is stored on this device only.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextMuted
             )
             Spacer(Modifier.height(10.dp))
             val selectedCity = profile.manualCityId?.let { ManualCities.byId(it) }
-            val locationPillText = when {
-                profile.useGps && profile.locationLabel != null ->
-                    "Current location: ${profile.locationLabel} (GPS)"
-                profile.useGps ->
-                    "Current location: waiting for GPS…"
-                selectedCity != null ->
-                    "Current location: ${cityDisplayLabel(selectedCity)} (city)"
-                profile.locationLabel != null ->
-                    "Current location: ${profile.locationLabel}"
-                else ->
-                    "No location set — turn on GPS or choose a city below"
-            }
-            LocationPill(locationPillText)
+            LocationPill(
+                template = when {
+                    profile.useGps && profile.locationLabel != null -> "Current location: {place} (GPS)"
+                    profile.useGps -> null
+                    selectedCity != null -> "Current location: {place} (city)"
+                    profile.locationLabel != null -> "Current location: {place}"
+                    else -> null
+                },
+                templateArgs = when {
+                    profile.useGps && profile.locationLabel != null ->
+                        mapOf(
+                            "place" to (
+                                localizedLocationLabel(
+                                    profile.locationLabel,
+                                    profile.manualCityId,
+                                    languageCode,
+                                ) ?: profile.locationLabel!!
+                            ),
+                        )
+                    selectedCity != null ->
+                        mapOf("place" to cityDisplayLabel(selectedCity, languageCode))
+                    profile.locationLabel != null ->
+                        mapOf(
+                            "place" to (
+                                localizedLocationLabel(
+                                    profile.locationLabel,
+                                    profile.manualCityId,
+                                    languageCode,
+                                ) ?: profile.locationLabel!!
+                            ),
+                        )
+                    else -> emptyMap()
+                },
+                fallbackText = when {
+                    profile.useGps -> "Current location: waiting for GPS…"
+                    else -> "No location set — turn on GPS or choose a city below"
+                },
+            )
             locMsg?.let {
                 Spacer(Modifier.height(4.dp))
                 AppText(it, style = MaterialTheme.typography.bodySmall, color = TzaddikColors.TextMuted)
@@ -217,7 +250,7 @@ fun SettingsScreen(
                 singleLine = true
             )
             Spacer(Modifier.height(8.dp))
-            val inlineCities = remember(cityQuery) { filterManualCities(cityQuery) }
+            val inlineCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -228,7 +261,7 @@ fun SettingsScreen(
                 inlineCities.forEach { city ->
                     val selected = profileMatchesManualCity(profile.manualCityId, city)
                     ManualCityListRow(
-                        label = cityDisplayLabel(city),
+                        label = rememberCityDisplayLabel(city),
                         selected = selected,
                         onClick = {
                             viewModel.setManualCity(city.id)
@@ -261,17 +294,19 @@ fun SettingsScreen(
             val israelAutoDetected = israelSource != IsraelDetectionSource.MANUAL_FLAG && profile.isInIsrael
             if (israelAutoDetected) {
                 AppText(
-                    "🇮🇱 Israel customs active — detected from your ${
-                        if (israelSource == IsraelDetectionSource.GPS) "GPS location" else "city selection"
-                    } (1-day Yom Tov, Israel parsha cycle).",
+                    if (israelSource == IsraelDetectionSource.GPS) {
+                        "🇮🇱 Israel customs active — detected from your GPS location (1-day Yom Tov, Israel parsha cycle)."
+                    } else {
+                        "🇮🇱 Israel customs active — detected from your city selection (1-day Yom Tov, Israel parsha cycle)."
+                    },
                     style = MaterialTheme.typography.bodySmall,
-                    color = TzaddikColors.NavyMid
+                    color = TzaddikColors.NavyMid,
+                    enableTerms = false,
                 )
             } else {
                 ProfileToggle(
                     label = "I live in Israel",
-                    description = "Uses 1-day Yom Tov customs and the Israel parsha cycle. " +
-                        "Select a city above or enable GPS for automatic detection.",
+                    description = "Uses 1-day Yom Tov customs and the Israel parsha cycle. Select a city above or enable GPS for automatic detection.",
                     checked = profile.liveInIsrael,
                     onChange = { viewModel.setLiveInIsrael(it) }
                 )
@@ -279,7 +314,7 @@ fun SettingsScreen(
         }
 
         if (showCityPicker) {
-            val filteredCities = remember(cityQuery) { filterManualCities(cityQuery) }
+            val filteredCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
             ParchmentDialog(
                 onDismiss = { showCityPicker = false },
                 title = "Choose city for zmanim",
@@ -307,7 +342,7 @@ fun SettingsScreen(
                 ) {
                     filteredCities.forEach { city ->
                         ManualCityListRow(
-                            label = cityDisplayLabel(city),
+                            label = rememberCityDisplayLabel(city),
                             selected = profileMatchesManualCity(profile.manualCityId, city),
                             onClick = {
                                 viewModel.setManualCity(city.id)
@@ -336,8 +371,7 @@ fun SettingsScreen(
             }
         ) {
             AppText(
-                "After eating meat, you wait before eating dairy, and vice versa. " +
-                    "The wait time is a matter of your family tradition — ask your rabbi if unsure.",
+                "After eating meat, you wait before eating dairy, and vice versa. The wait time is a matter of your family tradition — ask your rabbi if unsure.",
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.TextMuted
             )
@@ -382,6 +416,47 @@ fun SettingsScreen(
         }
 
         Spacer(Modifier.height(16.dp))
+    }
+}
+
+@Composable
+private fun CurrentlyUsingLine(nusachLabel: String) {
+    val translatedNusach = rememberAppTranslatedText(nusachLabel)
+    val line = rememberAppTranslatedTemplate(
+        "Currently using: {nusach}",
+        mapOf("nusach" to translatedNusach),
+    )
+    AppText(
+        line,
+        style = MaterialTheme.typography.labelMedium,
+        color = TzaddikColors.NavyMid,
+        enableTerms = false,
+    )
+}
+
+@Composable
+private fun LocationPill(
+    template: String?,
+    templateArgs: Map<String, String>,
+    fallbackText: String,
+) {
+    val display = if (template != null) {
+        rememberAppTranslatedTemplate(template, templateArgs)
+    } else {
+        rememberAppTranslatedText(fallbackText)
+    }
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(TzaddikColors.NavyDeep.copy(alpha = 0.07f))
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        AppText(
+            display,
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
+            color = TzaddikColors.NavyMid,
+            enableTerms = false,
+        )
     }
 }
 
@@ -441,18 +516,161 @@ private fun SettingsDivider() {
 }
 
 @Composable
-private fun LocationPill(text: String) {
-    Box(
-        modifier = Modifier
-            .clip(RoundedCornerShape(10.dp))
-            .background(TzaddikColors.NavyDeep.copy(alpha = 0.07f))
-            .padding(horizontal = 12.dp, vertical = 8.dp)
+private fun LanguageCard() {
+    val selector = LocalLanguageSelector.current
+    if (selector.availableLanguages.isEmpty()) return
+
+    var showAllLanguagesDialog by remember { mutableStateOf(false) }
+    val offlineLanguages = selector.availableLanguages.filter { it.isOffline }
+    val currentCode = selector.currentLanguageCode
+    val englishOption = selector.availableLanguages.firstOrNull { it.code == "en" }
+    val offlineOptions = listOfNotNull(englishOption) + offlineLanguages.filter { it.code != "en" }
+    val currentIsOtherLanguage = offlineOptions.none { it.code == currentCode }
+    val currentOtherLanguage = if (currentIsOtherLanguage) {
+        selector.availableLanguages.find { it.code == currentCode }
+    } else null
+
+    SettingsCard(title = "Language") {
+        ProfileToggle(
+            label = "Enable Translation",
+            checked = selector.enabled,
+            onChange = { selector.onEnabledChange(it) },
+            description = if (!selector.enabled) "Show the app in a language other than English" else null,
+        )
+
+        if (selector.enabled) {
+            Spacer(Modifier.height(12.dp))
+            AppText(
+                AppDisclaimer.TRANSLATION_LINKS_NOTE,
+                enableTerms = false,
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.TextMuted,
+            )
+            Spacer(Modifier.height(8.dp))
+            SettingLabel(
+                label = "Offline languages",
+                description = "No internet required"
+            )
+            Spacer(Modifier.height(8.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
+                offlineOptions.forEach { lang ->
+                    SettingsChip(
+                        label = if (lang.code == "en") "English" else lang.nativeName,
+                        selected = currentCode == lang.code,
+                        onClick = { selector.onLanguageChange(lang.code) },
+                    )
+                }
+            }
+
+            if (currentOtherLanguage != null) {
+                Spacer(Modifier.height(8.dp))
+                val resolvedCurrentOther = rememberAppTranslatedTemplate(
+                    "Current: {native} ({english})",
+                    mapOf("native" to currentOtherLanguage.nativeName, "english" to currentOtherLanguage.englishName),
+                )
+                AppText(
+                    resolvedCurrentOther,
+                    enableTerms = false,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TzaddikColors.GoldBorder,
+                )
+            }
+
+            Spacer(Modifier.height(8.dp))
+            ParchmentTextButton(
+                onClick = { showAllLanguagesDialog = true },
+                text = "All languages (online) →",
+                contentColor = TzaddikColors.NavyMid,
+            )
+        }
+    }
+
+    if (showAllLanguagesDialog) {
+        AllLanguagesDialog(
+            languages = selector.availableLanguages.filter { off ->
+                offlineOptions.none { it.code == off.code }
+            },
+            currentCode = currentCode,
+            onSelect = { code ->
+                selector.onLanguageChange(code)
+                showAllLanguagesDialog = false
+            },
+            onDismiss = { showAllLanguagesDialog = false },
+        )
+    }
+}
+
+@Composable
+private fun AllLanguagesDialog(
+    languages: List<com.beardytop.beatzaddik.ui.translation.LanguageOption>,
+    currentCode: String,
+    onSelect: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    ParchmentDialog(
+        onDismiss = onDismiss,
+        title = "Select Language",
+        confirmButton = { GoldButton(onClick = onDismiss, text = "Done") },
     ) {
         AppText(
-            text,
-            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
-            color = TzaddikColors.NavyMid
+            "Online languages use Google Translate. Quality varies.",
+            style = MaterialTheme.typography.bodySmall,
+            color = TzaddikColors.TextMuted,
         )
+        Spacer(Modifier.height(4.dp))
+        AppText(
+            AppDisclaimer.TRANSLATION_LINKS_NOTE,
+            enableTerms = false,
+            style = MaterialTheme.typography.bodySmall,
+            color = TzaddikColors.TextMuted,
+        )
+        Spacer(Modifier.height(10.dp))
+        Column(
+            modifier = Modifier.fillMaxWidth().heightIn(max = 360.dp).verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+        ) {
+            languages.forEach { lang ->
+                val isSelected = lang.code == currentCode
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(
+                            if (isSelected) TzaddikColors.GoldBright.copy(alpha = 0.22f)
+                            else TzaddikColors.ParchMid.copy(alpha = 0.3f)
+                        )
+                        .border(
+                            if (isSelected) 1.dp else 0.dp,
+                            TzaddikColors.GoldBorder.copy(alpha = 0.45f),
+                            RoundedCornerShape(8.dp)
+                        )
+                        .clickable { onSelect(lang.code) }
+                        .padding(horizontal = 12.dp, vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AppText(
+                        lang.nativeName,
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Normal
+                        ),
+                        color = if (isSelected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown,
+                        modifier = Modifier.weight(1f),
+                        enableTerms = false,
+                    )
+                    AppText(
+                        lang.englishName,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        enableTerms = false,
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -484,11 +702,14 @@ private fun DairyToMeatWaitSlider(
                 .background(TzaddikColors.GoldBorder.copy(alpha = 0.18f))
                 .padding(horizontal = 14.dp, vertical = 5.dp)
         ) {
+            val badge = KashrutWaitTimes.waitBadgeForDairyToMeatMinutes(displayMinutes)
+            val waitText = rememberAppTranslatedTemplate(badge.templateKey, badge.args)
             AppText(
-                KashrutWaitTimes.formatDairyToMeatWait(displayMinutes),
+                waitText,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                enableTerms = false,
             )
         }
     }
@@ -525,11 +746,14 @@ private fun WaitTimeSlider(label: String, value: Int, onValueChange: (Int) -> Un
                 .background(TzaddikColors.GoldBorder.copy(alpha = 0.18f))
                 .padding(horizontal = 14.dp, vertical = 5.dp)
         ) {
-            Text(
-                "${value}h",
+            val hourBadge = KashrutWaitTimes.waitBadgeForMeatToDairyHours(value)
+            val hourText = rememberAppTranslatedTemplate(hourBadge.templateKey, hourBadge.args)
+            AppText(
+                hourText,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                enableTerms = false,
             )
         }
     }

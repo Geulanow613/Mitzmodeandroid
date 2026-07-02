@@ -810,6 +810,8 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
         "Purim" to "purim",
         "Purim Katan" to "purim_katan",
         "Pesach" to "pesach",
+        "Shevi'i shel Pesach" to "pesach",
+        "Acharon shel Pesach" to "pesach",
         "Erev Pesach" to "erev_pesach",
         "Chol HaMoed Pesach" to "chol_hamoed_pesach",
         "Shavuot" to "shavuot",

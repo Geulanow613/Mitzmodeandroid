@@ -84,7 +84,9 @@ class ChecklistEngine(
         }
         val currentTzeitDayKey = TzeitDay.currentKey(nowMillis, cal, yesterdayCal)
 
-        val seasonal = SeasonalChecklistItems.forDay(cal, profile, tomorrowCal, dayAfterTomorrowCal)
+        val seasonal = SeasonalChecklistItems.forDay(
+            cal, profile, tomorrowCal, dayAfterTomorrowCal, nowMillis,
+        )
         val customDefs = customItems.map { custom ->
             ChecklistItemDef(
                 id = custom.id,
@@ -137,19 +139,22 @@ class ChecklistEngine(
             }
             ChecklistItemResolver.resolve(
                 def, profile, checked, nowMillis, cal.zmanim, prayerDay,
-                upcomingShabbatParsha = cal.upcomingShabbatParsha
+                upcomingShabbatParsha = cal.upcomingShabbatParsha,
+                cal = cal,
             )
         }
 
         val occasion = TodayOccasionLabels.primary(cal, nowMillis, tomorrowCal)
-        val omerLabel = TodayOccasionLabels.omerTodayLabel(cal)
+        val omerLabel = TodayOccasionLabels.omerTodayLabel(cal, profile.effectiveNusach())
+        val omerDay = cal.omerDay?.takeIf { cal.isSefiratHaomer && !cal.isLagBaomer }
         val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
 
+        val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile)
         return DayChecklists(
             activePeriod = cal.activeTimeOfDay,
             activePeriodLabel = cal.activePeriodLabel,
-            activePeriodHint = cal.activePeriodHint,
-            inactivePeriodHint = cal.inactivePeriodHint,
+            activePeriodHint = if (profile.hasZmanimLocation()) cal.activePeriodHint else null,
+            inactivePeriodHint = if (profile.hasZmanimLocation()) cal.inactivePeriodHint else null,
             items = resolveList(allDefs).filter { item ->
                 item.def.id != "rosh_chodesh_observances" ||
                     item.zmanAvailability != ItemZmanAvailability.EXPIRED
@@ -170,16 +175,19 @@ class ChecklistEngine(
                         if ("Motzei Shabbat" in filtered) filtered else filtered + "Motzei Shabbat"
                     }
                 },
-                timeLabel = cal.activePeriodLabel,
+                timeLabel = if (profile.hasZmanimLocation()) cal.activePeriodLabel else null,
                 todayOccasionLabel = occasion?.label,
+                todayOccasionTemplate = occasion?.labelTemplate,
+                todayOccasionTemplateArgs = occasion?.labelArgs ?: emptyMap(),
                 todayOccasionSubtitle = occasion?.subtitle,
                 todayOccasionGuideAnchor = occasion?.guideAnchor,
                 omerTodayLabel = omerLabel,
-                omerExplainerText = if (omerLabel != null) {
+                omerDay = omerDay,
+                omerExplainerText = omerBundle?.let {
                     OmerCountText.buildExplanation(cal, profile)
-                } else {
-                    null
                 },
+                omerExplainerTemplate = omerBundle?.template,
+                omerExplainerArgs = omerBundle?.args ?: emptyMap(),
             ),
             nusachLabel = profile.effectiveNusach().displayLabel(),
             holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis),

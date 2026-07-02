@@ -1,8 +1,11 @@
 package com.beardytop.beatzaddik.ui.translation
 
+import com.beardytop.beatzaddik.data.BundledTranslationsCatalog
 import com.beardytop.beatzaddik.domain.BirkatHachamahRules
 import com.beardytop.beatzaddik.domain.EffectiveNusach
+import com.beardytop.beatzaddik.domain.ExplainerTemplateFill
 import com.beardytop.beatzaddik.domain.OmerCountText
+import com.beardytop.beatzaddik.domain.ZmanCountdownFormatter
 import com.beardytop.beatzaddik.domain.ZmanimFormatter
 import kotlinx.datetime.LocalDate
 
@@ -48,7 +51,11 @@ fun AppDirectionalLayout(
 }
 
 private fun looksLikeCountdown(value: String): Boolean =
-    value == "soon" || Regex("""\d+[dhms](?:\s+\d+[dhms])*""").containsMatchIn(value)
+    value == "soon" ||
+        value == ZmanCountdownFormatter.UNDER_ONE_MINUTE ||
+        value == "now" ||
+        Regex("""\d+[dhms](?:\s+\d+[dhms])*""").containsMatchIn(value) ||
+        Regex("""\d+ min""").matches(value)
 
 private fun looksLikeZmanTimePhrase(value: String): Boolean =
     value.startsWith("after ") || value.startsWith("until ") || value.startsWith("before ")
@@ -70,8 +77,12 @@ private fun shouldSkipTemplateArgTranslation(value: String): Boolean {
 
 private fun localizeCountdownForRtl(value: String, languageCode: String): String {
     if (!isRtlLanguage(languageCode)) return value
-    if (value == "soon") return "בקרוב"
-    return embedLtrForRtlMix(value)
+    return when (value) {
+        "soon" -> "בקרוב"
+        "now" -> "עכשיו"
+        ZmanCountdownFormatter.UNDER_ONE_MINUTE -> "דקה"
+        else -> embedLtrForRtlMix(value)
+    }
 }
 
 private fun localizeClockArg(value: String, languageCode: String): String {
@@ -152,8 +163,17 @@ fun localizeTemplateArgsForRtl(
                 }.getOrNull() ?: return@mapValues value
                 OmerCountText.omerDaySummaryHe(day, nusach)
             }
+            key == "tonightSummary" && args.containsKey("day") && args.containsKey("nusach") -> {
+                val day = args["day"]?.toIntOrNull()?.plus(1) ?: return@mapValues value
+                if (day > 49) return@mapValues value
+                val nusach = runCatching {
+                    EffectiveNusach.valueOf(args["nusach"] ?: return@mapValues value)
+                }.getOrNull() ?: return@mapValues value
+                OmerCountText.omerDaySummaryHe(day, nusach)
+            }
             key == "speechPhrase" && args.containsKey("day") && args.containsKey("nusach") -> {
-                val day = args["day"]?.toIntOrNull() ?: return@mapValues value
+                val day = args["day"]?.toIntOrNull()?.plus(1) ?: return@mapValues value
+                if (day > 49) return@mapValues value
                 val nusach = runCatching {
                     EffectiveNusach.valueOf(args["nusach"] ?: return@mapValues value)
                 }.getOrNull() ?: return@mapValues value
@@ -161,6 +181,8 @@ fun localizeTemplateArgsForRtl(
             }
             key == "tonight" || key == "tomorrowNight" ->
                 localizeEnglishWeekday(value, languageCode)
+            key == "month" ->
+                BundledTranslationsCatalog.lookup(value, languageCode) ?: value
             key == "time" || looksLikeClockOrLatinTime(value) ->
                 localizeClockArg(value, languageCode)
             key == "dateLabel" || key == "date" ->
@@ -180,13 +202,67 @@ fun fillLocalizedTranslationTemplate(
     languageCode: String,
 ): String = fillTranslationTemplate(template, localizeTemplateArgsForRtl(args, languageCode))
 
-/** Fills `{name}` and legacy `$name` placeholders in a translated template string. */
-fun fillTranslationTemplate(template: String, args: Map<String, String>): String {
-    var out = template
-    for ((key, value) in args) {
-        out = out.replace("{$key}", value).replace("$" + key, value)
+/**
+ * Fills `{name}` and legacy `$name` placeholders in a translated template string.
+ * Runs two passes so an arg value that itself carries another `{otherArg}` placeholder
+ * (e.g. a translated sub-phrase like " (approx. {time} — enable location…)" substituted
+ * in as the value of a different arg) still gets fully resolved in a single call.
+ * Longer keys are substituted first so `$nusach` does not corrupt `$nusachWhen`.
+ */
+fun fillTranslationTemplate(template: String, args: Map<String, String>): String =
+    ExplainerTemplateFill.fill(template, args, passes = 2)
+
+private val TEMPLATE_PLACEHOLDER_REGEX = Regex("""(\{[^}]+\}|\$[A-Za-z_][A-Za-z0-9_]*)""")
+
+/** Translates literal segments only so `{key}` / `$key` placeholders stay machine-readable. */
+internal fun translatePreservingPlaceholdersSync(
+    template: String,
+    translate: (String) -> String,
+): String {
+    if (!TEMPLATE_PLACEHOLDER_REGEX.containsMatchIn(template)) {
+        return translate(template)
     }
-    return out
+    val out = StringBuilder()
+    var lastIndex = 0
+    TEMPLATE_PLACEHOLDER_REGEX.findAll(template).forEach { match ->
+        if (match.range.first > lastIndex) {
+            val literal = template.substring(lastIndex, match.range.first)
+            if (literal.isNotEmpty()) {
+                out.append(translate(literal))
+            }
+        }
+        out.append(match.value)
+        lastIndex = match.range.last + 1
+    }
+    if (lastIndex < template.length) {
+        out.append(translate(template.substring(lastIndex)))
+    }
+    return out.toString()
+}
+
+internal suspend fun translatePreservingPlaceholders(
+    template: String,
+    translate: suspend (String) -> String,
+): String {
+    if (!TEMPLATE_PLACEHOLDER_REGEX.containsMatchIn(template)) {
+        return translate(template)
+    }
+    val out = StringBuilder()
+    var lastIndex = 0
+    TEMPLATE_PLACEHOLDER_REGEX.findAll(template).forEach { match ->
+        if (match.range.first > lastIndex) {
+            val literal = template.substring(lastIndex, match.range.first)
+            if (literal.isNotEmpty()) {
+                out.append(translate(literal))
+            }
+        }
+        out.append(match.value)
+        lastIndex = match.range.last + 1
+    }
+    if (lastIndex < template.length) {
+        out.append(translate(template.substring(lastIndex)))
+    }
+    return out.toString()
 }
 
 suspend fun resolveAppTranslationTemplate(
@@ -195,8 +271,27 @@ suspend fun resolveAppTranslationTemplate(
     languageCode: String,
     apiTranslate: suspend (String) -> String,
 ): String {
-    val translated = resolveAppTranslation(templateKey, languageCode, apiTranslate)
-    return fillLocalizedTranslationTemplate(translated, args, languageCode)
+    if (languageCode == "en" || templateKey.isBlank()) {
+        return fillLocalizedTranslationTemplate(templateKey, args, languageCode)
+    }
+    if (shouldSkipMachineTranslation(templateKey, languageCode)) {
+        return fillLocalizedTranslationTemplate(templateKey, args, languageCode)
+    }
+    val bundledTemplate = BundledTranslationsCatalog.lookup(templateKey, languageCode)
+    val translatedTemplate = when {
+        bundledTemplate != null -> bundledTemplate
+        BundledTranslationLanguages.isBundled(languageCode) -> templateKey
+        else -> translatePreservingPlaceholders(templateKey, apiTranslate)
+    }
+    val translatedArgs = if (BundledTranslationLanguages.isBundled(languageCode)) {
+        args
+    } else {
+        args.mapValues { (_, value) ->
+            if (shouldSkipTemplateArgTranslation(value)) value
+            else apiTranslate(value)
+        }
+    }
+    return fillLocalizedTranslationTemplate(translatedTemplate, translatedArgs, languageCode)
 }
 
 /** Google Translate (or other) bridge supplied by the host app on Android. */
@@ -292,7 +387,9 @@ fun rememberAppTranslatedTemplate(templateKey: String, args: Map<String, String>
             shouldSkipMachineTranslation(templateKey, appTranslation.languageCode) ->
                 fillLocalizedTranslationTemplate(templateKey, args, appTranslation.languageCode)
             else -> {
-                val translatedTemplate = appTranslation.translator.translate(templateKey)
+                val translatedTemplate = translatePreservingPlaceholders(templateKey) { segment ->
+                    appTranslation.translator.translate(segment)
+                }
                 val translatedArgs = args.mapValues { (_, value) ->
                     if (shouldSkipTemplateArgTranslation(value)) value
                     else appTranslation.translator.translate(value)

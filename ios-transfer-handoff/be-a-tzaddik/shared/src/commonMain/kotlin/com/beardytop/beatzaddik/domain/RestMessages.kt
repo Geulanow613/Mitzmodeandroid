@@ -13,12 +13,18 @@ internal fun shabbatApproachingMessage(): String =
         "Our Sages teach that Shabbat is a taste of the World to Come, and one who guards Shabbat " +
         "according to its laws receives forgiveness and a reward beyond measure (Shabbat 25b; Shabbat 118a)."
 
-internal fun yomTovMessage(holidayName: String): String =
-    "Today is $holidayName (Yom Tov — a festival day). Please put away your device and keep the day holy. " +
+/**
+ * Template with a literal `{holidayName}` placeholder — deliberately NOT interpolated here.
+ * Callers must render this through `rememberAppTranslatedTemplate(text, mapOf("holidayName" to name))`
+ * so both the sentence shell and the holiday name get translated; a pre-interpolated string can
+ * never match a catalog key since the holiday name varies per day.
+ */
+internal fun yomTovMessageTemplate(): String =
+    "Today is {holidayName} (Yom Tov — a festival day). Please put away your device and keep the day holy. " +
         "Melacha (forbidden labor) applies on Yom Tov similar to Shabbat."
 
-internal fun yomTovApproachingMessage(holidayName: String): String =
-    "$holidayName is about to begin. Please finish what you are doing, turn off your phone, " +
+internal fun yomTovApproachingMessageTemplate(): String =
+    "{holidayName} is about to begin. Please finish what you are doing, turn off your phone, " +
         "and prepare to welcome this Yom Tov with joy.\n\n" +
         "Our Sages teach that rejoicing on Yom Tov is itself a mitzvah — may your observance " +
         "bring blessing and divine reward to you and your household."

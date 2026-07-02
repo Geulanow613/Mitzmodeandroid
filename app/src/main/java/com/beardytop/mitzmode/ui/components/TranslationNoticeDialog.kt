@@ -37,6 +37,7 @@ fun TranslationNoticeDialog(
     var translatedEnglishLabel by remember { mutableStateOf("English:") }
     var translatedGotIt by remember { mutableStateOf("Got it") }
     var translatedClose by remember { mutableStateOf("Close") }
+    var translatedLinksNote by remember { mutableStateOf(AppDisclaimer.TRANSLATION_LINKS_NOTE) }
 
     LaunchedEffect(targetLanguageCode) {
         if (targetLanguageCode != "en") {
@@ -60,6 +61,10 @@ fun TranslationNoticeDialog(
                     )
                     translatedGotIt = translationViewModel.translateTextToLanguage("Got it", targetLanguageCode)
                     translatedClose = translationViewModel.translateTextToLanguage("Close", targetLanguageCode)
+                    translatedLinksNote = translationViewModel.translateTextToLanguage(
+                        AppDisclaimer.TRANSLATION_LINKS_NOTE,
+                        targetLanguageCode
+                    )
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -136,6 +141,14 @@ fun TranslationNoticeDialog(
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
+                Text(
+                    text = translatedLinksNote,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+
                 LinkText(
                     displayText = AppDisclaimer.FEEDBACK_EMAIL,
                     url = AppDisclaimer.FEEDBACK_EMAIL_MAILTO,
@@ -166,6 +179,14 @@ fun TranslationNoticeDialog(
                     Text(
                         text = AppDisclaimer.TRANSLATION_NOTICE_DISCLAIMER,
                         style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
+
+                    Text(
+                        text = AppDisclaimer.TRANSLATION_LINKS_NOTE,
+                        style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 8.dp)

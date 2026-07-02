@@ -1,102 +1,148 @@
 
-he fallbacks (19):
-  [hebrew-liturgy] ברכת המזון
-  [hebrew-liturgy] תפילת הדרך
-  [ENGLISH] halachic_term
+he fallbacks (27):
+  [ENGLISH] $weeks שבועות
+  [ENGLISH] $weeks שבועות ו-$rem ימים
+  [ENGLISH] $weeks שבועות ויום אחד
+  [hebrew-liturgy] אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננ
+  [hebrew-liturgy] בחנוכה ובפורים אומרים כאן על הניסים
+על הנסים ועל הפרקן ועל הגבורות ועל
   [hebrew-liturgy] ביום ראש החדש הזה
             ביום חג המצות הזה
             ביום חג הס
-  [hebrew-liturgy] בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
-בסוכות: הרחמ
-  [hebrew-liturgy] הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה ח
-  [hebrew-liturgy] ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים
-  [hebrew-liturgy] יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא י
+  [hebrew-liturgy] בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאב
   [hebrew-liturgy] בימים שאין בהם תחנון אומרים:
 
 שיר המעלות בשוב יהוה את שיבת ציון היינו 
-  [hebrew-liturgy] בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאב
-  [hebrew-liturgy] ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו
-  [hebrew-liturgy] אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננ
-  [hebrew-liturgy] רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, 
-  [hebrew-liturgy] נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו
   [hebrew-liturgy] בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
 
 על נהרות בבל שם ישבנו גם
+  [hebrew-liturgy] בעומר
+  [hebrew-liturgy] בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
+בסוכות: הרחמ
+  [hebrew-liturgy] ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים
+  [hebrew-liturgy] ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו
+  [hebrew-liturgy] ברכת המזון
+  [hebrew-liturgy] הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה ח
+  [hebrew-liturgy] הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הו
   [hebrew-liturgy] זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכ
-  [hebrew-liturgy] בחנוכה ובפורים אומרים כאן על הניסים
-על הנסים ועל הפרקן ועל הגבורות ועל
   [hebrew-liturgy] יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִ
-  [hebrew-liturgy] הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הו
-
-es fallbacks (16):
-  [ENGLISH] halachic_term
-  [ENGLISH] Beardy Top Productions
-  [hebrew-liturgy] בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
-בסוכות: הרחמ
-  [hebrew-liturgy] הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה ח
-  [hebrew-liturgy] ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים
   [hebrew-liturgy] יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא י
-  [hebrew-liturgy] בימים שאין בהם תחנון אומרים:
-
-שיר המעלות בשוב יהוה את שיבת ציון היינו 
-  [hebrew-liturgy] בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאב
-  [hebrew-liturgy] ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו
-  [hebrew-liturgy] אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננ
-  [hebrew-liturgy] רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, 
+  [hebrew-liturgy] לעומר
   [hebrew-liturgy] נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו
-  [hebrew-liturgy] בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
+  [hebrew-liturgy] רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, 
+  [hebrew-liturgy] שבוע אחד
+  [ENGLISH] שבוע ו-$rem ימים
+  [hebrew-liturgy] שבוע ויום אחד
+  [hebrew-liturgy] שבועיים
+  [hebrew-liturgy] תפילת הדרך
 
-על נהרות בבל שם ישבנו גם
-  [hebrew-liturgy] זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכ
-  [hebrew-liturgy] בחנוכה ובפורים אומרים כאן על הניסים
-על הנסים ועל הפרקן ועל הגבורות ועל
-  [hebrew-liturgy] הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הו
+es fallbacks (39):
+  [ENGLISH] $pesachBegins
 
-fr fallbacks (16):
-  [ENGLISH] halachic_term
+$chametzNote
+
+Seder (first night):
+• $sederWhen
+• Matza
+  [ENGLISH] $translatedSwitchedTo $languageName.
+  [ENGLISH] $weeks שבועות
+  [ENGLISH] $weeks שבועות ו-$rem ימים
+  [ENGLISH] $weeks שבועות ויום אחד
+  [ENGLISH] Another Yom Tov day of Pesach begins after sunset today — no melacha f
   [ENGLISH] Beardy Top Productions
-  [hebrew-liturgy] בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
-בסוכות: הרחמ
-  [hebrew-liturgy] הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה ח
-  [hebrew-liturgy] ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים
-  [hebrew-liturgy] יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא י
-  [hebrew-liturgy] בימים שאין בהם תחנון אומרים:
+  [ENGLISH] Birkat Kohanim
+  [ENGLISH] First Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havd
+  [ENGLISH] First Seder is tonight (Friday night, commencing 15 Nisan). In the Dia
+  [ENGLISH] In Israel: one seder tonight.
+  [ENGLISH] In the Diaspora: first seder tonight; second seder tomorrow night.
+  [ENGLISH] Pesach begins tomorrow night after Shabbat ends (Saturday night). Toda
+  [ENGLISH] Pesach begins tonight at nightfall. Torah-level Yom Tov — no melacha f
+  [ENGLISH] Pesach begins tonight. Torah-level Yom Tov — no melacha.
+  [ENGLISH] Shemini Atzeret begins tonight$sheminiAtzeretOpener
 
-שיר המעלות בשוב יהוה את שיבת ציון היינו 
-  [hebrew-liturgy] בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאב
-  [hebrew-liturgy] ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו
-  [hebrew-liturgy] אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננ
-  [hebrew-liturgy] רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, 
-  [hebrew-liturgy] נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו
-  [hebrew-liturgy] בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
+Tonight & tomorro
+  [ENGLISH] Sukkot (first day) begins tonight — Zman Simchateinu.
 
-על נהרות בבל שם ישבנו גם
-  [hebrew-liturgy] זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכ
-  [hebrew-liturgy] בחנוכה ובפורים אומרים כאן על הניסים
-על הנסים ועל הפרקן ועל הגבורות ועל
-  [hebrew-liturgy] הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הו
+Before sunset:
 
-ru fallbacks (17):
-  [ENGLISH] Talmud
-  [ENGLISH] halachic_term
+  [ENGLISH] When: Before Yom Tov begins — follow your Machzor for the exact time.
+  [ENGLISH] When: Today (Friday) before Yom Tov candle lighting — $chagName begins
+  [ENGLISH] When: Today, before the first day of $chagName tomorrow — in the Diasp
+  [ENGLISH] lulav
+  [ENGLISH] maror
+  [ENGLISH] misheyakir
+  [ENGLISH] netilat yadayim
+  [ENGLISH] posek
+  [ENGLISH] psak
+  [ENGLISH] treif
+  [ENGLISH] tzitzit
+  [ENGLISH] zimun
+  [ENGLISH] zmanim
+  [ENGLISH] {name} · {timing}{endSuffix}
+  [hebrew-liturgy] בעומר
+  [hebrew-liturgy] לעומר
+  [hebrew-liturgy] שבוע אחד
+  [ENGLISH] שבוע ו-$rem ימים
+  [hebrew-liturgy] שבוע ויום אחד
+  [hebrew-liturgy] שבועיים
+  [ENGLISH] — enable location in Settings for your dawn time
+  [ENGLISH] • After Shabbat tonight: light $chagName candles from a pre-existing f
+
+fr fallbacks (31):
+  [ENGLISH] $pesachBegins
+
+$chametzNote
+
+Seder (first night):
+• $sederWhen
+• Matza
+  [ENGLISH] $translatedSwitchedTo $languageName.
+  [ENGLISH] $weeks שבועות
+  [ENGLISH] $weeks שבועות ו-$rem ימים
+  [ENGLISH] $weeks שבועות ויום אחד
+  [ENGLISH] Amidah / Shemoneh Esrei (Maariv)
+  [ENGLISH] Another Yom Tov day of Pesach begins after sunset today — no melacha f
   [ENGLISH] Beardy Top Productions
-  [hebrew-liturgy] בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
-בסוכות: הרחמ
-  [hebrew-liturgy] הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה ח
-  [hebrew-liturgy] ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים
-  [hebrew-liturgy] יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא י
-  [hebrew-liturgy] בימים שאין בהם תחנון אומרים:
+  [ENGLISH] Birkat Kohanim
+  [ENGLISH] In Israel: one seder tonight.
+  [ENGLISH] In the Diaspora: first seder tonight; second seder tomorrow night.
+  [ENGLISH] Pesach begins tonight. Torah-level Yom Tov — no melacha.
+  [ENGLISH] Shemini Atzeret begins tonight$sheminiAtzeretOpener
 
-שיר המעלות בשוב יהוה את שיבת ציון היינו 
-  [hebrew-liturgy] בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאב
-  [hebrew-liturgy] ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו
-  [hebrew-liturgy] אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננ
-  [hebrew-liturgy] רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, 
-  [hebrew-liturgy] נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו
-  [hebrew-liturgy] בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
+Tonight & tomorro
+  [ENGLISH] Sukkot (first day) begins tonight — Zman Simchateinu.
 
-על נהרות בבל שם ישבנו גם
-  [hebrew-liturgy] זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכ
-  [hebrew-liturgy] בחנוכה ובפורים אומרים כאן על הניסים
-על הנסים ועל הפרקן ועל הגבורות ועל
-  [hebrew-liturgy] הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הו
+Before sunset:
+
+  [ENGLISH] Tomorrow is $chagName. Observe Yom Tov laws: no melacha, festive meals
+  [ENGLISH] When: Before Yom Tov begins — follow your Machzor for the exact time.
+  [ENGLISH] maror
+  [ENGLISH] netilat yadayim
+  [ENGLISH] posek
+  [ENGLISH] psak
+  [ENGLISH] treif
+  [ENGLISH] zmanim
+  [ENGLISH] {name} · {timing}{endSuffix}
+  [hebrew-liturgy] בעומר
+  [hebrew-liturgy] לעומר
+  [hebrew-liturgy] שבוע אחד
+  [ENGLISH] שבוע ו-$rem ימים
+  [hebrew-liturgy] שבוע ויום אחד
+  [hebrew-liturgy] שבועיים
+  [ENGLISH] — enable location in Settings for your dawn time
+  [ENGLISH] • When the 8th (final) day begins after tomorrow's Yom Tov ends, do NO
+
+ru fallbacks (13):
+  [ENGLISH] $translatedSwitchedTo $languageName.
+  [ENGLISH] $weeks שבועות
+  [ENGLISH] $weeks שבועות ו-$rem ימים
+  [ENGLISH] $weeks שבועות ויום אחד
+  [ENGLISH] Beardy Top Productions
+  [ENGLISH] In Israel: one seder tonight.
+  [ENGLISH] {name} · {timing}{endSuffix}
+  [hebrew-liturgy] בעומר
+  [hebrew-liturgy] לעומר
+  [hebrew-liturgy] שבוע אחד
+  [ENGLISH] שבוע ו-$rem ימים
+  [hebrew-liturgy] שבוע ויום אחד
+  [hebrew-liturgy] שבועיים

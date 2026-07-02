@@ -1,10 +1,80 @@
 [
   {
+    "file": "amidah_nusach_templates.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.20",
+    "key": "Maariv is the evening prayer service, instituted by our patriarch Yaakov (Jacob)",
+    "tr": "מעריב הוא שירות תפילת הערב, שהוצב על ידי הפטריארך יעקב (ה'קוב) ונצפה בכל לילה. מה זה:\nמעריב (Limit e"
+  },
+  {
+    "file": "argos_disaster_fixes.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "¿Por qué los sabios nos exhortan a aprender y por qué vale la pena comenzar hoy?\n\nEl estudio de la T"
+  },
+  {
     "file": "complete_translations.json",
     "lang": "ru",
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
-    "tr": "Если у вас есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Если"
+    "tr": "Если у тебя есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Есл"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Learn the Rambam's precise definition of teshuvah — and why verbal confession (v",
+    "tr": "Teshuvá según el Rambam (Hilchot Teshuvá 1:1) — mitzvá positiva de la Torá cuando uno ha pecado, sea"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Learn the step-by-step process of bringing a korban (offering) — and why reversi",
+    "tr": "Ofrecer un korban — cuatro actos en orden estricto:\n\n(1) Shejitá — sacrificio ritual; puede realizar"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "¿Por qué los sabios nos exhortan a aprender y por qué vale la pena comenzar hoy?\n\nEl estudio de la T"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Dive into Kabbalah's depths! 🌊 The great rabbis emphasized that learning Kabbala",
+    "tr": "Plongez dans les profondeurs de la Kabbale ! 🌊 L'étudier correctement peut transformer votre pratiqu"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Learn the Rambam's precise definition of teshuvah — and why verbal confession (v",
+    "tr": "Teshouva selon le Rambam (Hilchot Teshouva 1:1) — mitsva positive de la Torah en cas de faute, légèr"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Learn the step-by-step process of bringing a korban (offering) — and why reversi",
+    "tr": "Offrir un korban — quatre actes dans l'ordre strict :\n\n(1) Shehita — abattage rituel ; tout Israélit"
+  },
+  {
+    "file": "es_fr_prose_polish.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "Pourquoi les Sages nous exhortent à apprendre — et pourquoi commencer aujourd'hui :\n\nL'étude de la T"
+  },
+  {
+    "file": "explainer_template_args.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.99",
+    "key": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — Fast of the Firstborn — is observed on ",
+    "tr": "Taanit Bechorot (תַּעֲנִית בְּכוֹרוֹת) — Fast of the Firstborn — is observed on Erev Pesach day by f"
   },
   {
     "file": "glossary_polish.json",
@@ -35,6 +105,13 @@
     "tr": "Kabbalah — Kabbalah es la tradición mística judía que explora cómo Dios se relaciona con la creación"
   },
   {
+    "file": "glossary_polish.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "¿Por qué los sabios nos exhortan a aprender y por qué vale la pena comenzar hoy?\n\nEl estudio de la T"
+  },
+  {
     "file": "he_fix_009.json",
     "lang": "he",
     "pattern": "latin_ratio=0.18",
@@ -50,6 +127,34 @@
   },
   {
     "file": "he_fix_019.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.18",
+    "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is al",
+    "tr": "שמיני עצרת מתחיל הערב${if (profile.isInIsrael) \" — בישראל זה גם שמחת תורה.\" else \".\"}\n\nהערב ומחר:\n• "
+  },
+  {
+    "file": "he_fix_021.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.18",
+    "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is al",
+    "tr": "שמיני עצרת מתחיל הערב${if (profile.isInIsrael) \" — בישראל זה גם שמחת תורה.\" else \".\"}\n\nהערב ומחר:\n• "
+  },
+  {
+    "file": "he_glue_fixes.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "Learn about Bishul — the famous 'cooking' melacha on Shabbat! 🔥 While the origin",
+    "tr": "למד על בישול — מלאכת הבישול בשבת! 🔥 במשכן בישלו צבעים ולחם הפנים. אסור לבשל מאכל גולמי בחום של יד סו"
+  },
+  {
+    "file": "he_glue_fixes.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.20",
+    "key": "The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvo",
+    "tr": "השבוע לפני הסוכות (Tishrei 8–13) הוא לבנות שמחה ולקבל את המיץ מוכן - רבים מתחילים את הסוקה מיד לאחר "
+  },
+  {
+    "file": "he_glue_fixes.json",
     "lang": "he",
     "pattern": "latin_ratio=0.18",
     "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is al",
@@ -102,14 +207,14 @@
     "lang": "fr",
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
-    "tr": "Si vous avez des vêtements en laine, faites-les vérifier pour shaatnez (mélange interdit de laine et"
+    "tr": "Si tu as des vêtements en laine, faites-les vérifier pour shaatnez (mélange interdit de laine et de "
   },
   {
     "file": "local_002.json",
     "lang": "ru",
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
-    "tr": "Если у вас есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Если"
+    "tr": "Если у тебя есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Есл"
   },
   {
     "file": "local_004.json",
@@ -147,6 +252,34 @@
     "tr": "Plongez dans les profondeurs de la Kabbale ! 🌊 Les grands rabbins ont souligné qu'apprendre la Kabba"
   },
   {
+    "file": "mitzvah_alert_tone.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.14",
+    "key": "Learn about Bishul — the famous 'cooking' melacha on Shabbat! 🔥 While the origin",
+    "tr": "למד על בישול — מלאכת הבישול בשבת! 🔥 במשכן בישלו צבעים ולחם הפנים. אסור לבשל מאכל גולמי בחום של יד סו"
+  },
+  {
+    "file": "mitzvah_alert_tone.json",
+    "lang": "es",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "¿Por qué los sabios nos exhortan a aprender y por qué vale la pena comenzar hoy?\n\nEl estudio de la T"
+  },
+  {
+    "file": "mitzvah_alert_tone.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Dive into Kabbalah's depths! 🌊 The great rabbis emphasized that learning Kabbala",
+    "tr": "Plonge dans les profondeurs de la Kabbale ! 🌊 L'étudier correctement peut transformer ton pratique —"
+  },
+  {
+    "file": "mitzvah_alert_tone.json",
+    "lang": "fr",
+    "pattern": "Kabb[aаА]l",
+    "key": "Why the sages urge us to learn — and why it is worth starting today:\n\nTorah stud",
+    "tr": "Pourquoi les Sages nous exhortent à apprendre — et pourquoi commencer aujourd'hui :\n\nL'étude de la T"
+  },
+  {
     "file": "mitzvot_004.json",
     "lang": "es",
     "pattern": "Kabb[aаА]l",
@@ -158,7 +291,7 @@
     "lang": "fr",
     "pattern": "Kabb[aаА]l",
     "key": "Learn the step-by-step process of bringing a korban (offering) — and why reversi",
-    "tr": "Apprenez le processus étape par étape pour apporter un korban (offrande) — et pourquoi inverser une "
+    "tr": "Apprends le processus étape par étape pour apporter un korban (offrande) — et pourquoi inverser une "
   },
   {
     "file": "quality_overrides.json",
@@ -1173,14 +1306,14 @@
     "lang": "fr",
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
-    "tr": "Si vous avez des vêtements en laine, faites-les vérifier pour shaatnez (mélange interdit de laine et"
+    "tr": "Si tu as des vêtements en laine, faites-les vérifier pour shaatnez (mélange interdit de laine et de "
   },
   {
     "file": "quality_overrides.json",
     "lang": "ru",
     "pattern": "\\bKayin\\b|\\bHevel\\b",
     "key": "If you have clothes or garments with wool in them, get them checked for shaatnez",
-    "tr": "Если у вас есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Если"
+    "tr": "Если у тебя есть одежда с шерстью, проверьте её на shaatnez (запрещённая смесь шерсти и льна) 🧵. Есл"
   },
   {
     "file": "shabbat_guide.json",
@@ -1237,5 +1370,12 @@
     "pattern": "Kabb[aаА]l",
     "key": "Kabbalah",
     "tr": "«Kabbalah»"
+  },
+  {
+    "file": "zman_and_upcoming_strings.json",
+    "lang": "he",
+    "pattern": "latin_ratio=0.13",
+    "key": "The time to fulfill Musaf has passed ({time} — end of the 7th halachic hour). Yo",
+    "tr": "הזמן לקיום מוסף עבר ({time} — סוף השעה השביעית ההלכתית). ניתן עדיין לקיימו עד השקיעה — אם הגיע זמן מ"
   }
 ]

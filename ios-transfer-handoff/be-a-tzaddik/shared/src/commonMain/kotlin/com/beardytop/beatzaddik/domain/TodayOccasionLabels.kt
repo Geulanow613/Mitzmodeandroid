@@ -7,6 +7,8 @@ object TodayOccasionLabels {
 
     data class Occasion(
         val label: String,
+        val labelTemplate: String? = null,
+        val labelArgs: Map<String, String> = emptyMap(),
         val guideAnchor: String? = null,
         val subtitle: String? = null,
     )
@@ -19,81 +21,117 @@ object TodayOccasionLabels {
                 subtitle = PublicFastDayRules.deferredFastSubtitle(cal),
             )
         }
-        pesachLabel(cal)?.let { (label, anchor) -> return Occasion(label, anchor) }
-        sukkotLabel(cal)?.let { (label, anchor) -> return Occasion(label, anchor) }
+        pesachLabel(cal)?.let { return it }
+        sukkotLabel(cal)?.let { return it }
         if (cal.isChanukah && cal.chanukahDay != null) {
-            return Occasion("Chanukah — day ${cal.chanukahDay}", "chanukah")
+            return Occasion(
+                label = "Chanukah — day ${cal.chanukahDay}",
+                guideAnchor = "chanukah",
+            )
         }
         if (cal.isPurim) {
-            return Occasion("Purim", "purim")
+            return Occasion(label = "Purim", guideAnchor = "purim")
         }
         if (cal.isLagBaomer) {
-            return Occasion("Lag BaOmer", "lag_baomer")
+            return Occasion(label = "Lag BaOmer", guideAnchor = "lag_baomer")
         }
         if (cal.isYomTovAssurBemelacha && cal.yomTovHolidayName != null) {
+            roshHashanaLabel(cal)?.let { return it }
             val name = cal.yomTovHolidayName
-            roshHashanaLabel(cal)?.let { return Occasion(it, "rosh_hashana") }
-            return Occasion(name, guideAnchorFor(name))
+            return Occasion(label = name, guideAnchor = guideAnchorFor(name))
         }
         if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
-            return Occasion("Motzei Shabbat", "havdalah")
+            return Occasion(label = "Motzei Shabbat", guideAnchor = "havdalah")
         }
         if (cal.isShabbat) {
-            return Occasion("Shabbat", "shabbat_overview")
+            return Occasion(label = "Shabbat", guideAnchor = "shabbat_overview")
         }
+        erevChagLabel(cal)?.let { return it }
         if (cal.isRoshChodesh) {
-            return Occasion("Rosh Chodesh", "rosh_chodesh")
+            return Occasion(label = "Rosh Chodesh", guideAnchor = "rosh_chodesh")
         }
-        if (cal.isYomHaShoah) return Occasion("Yom HaShoah", "yom_hashoah")
-        if (cal.isYomHaZikaron) return Occasion("Yom HaZikaron", "yom_hazikaron")
-        if (cal.isYomHaAtzmaut) return Occasion("Yom Ha'atzmaut", "yom_haatzmaut")
-        if (cal.isYomYerushalayim) return Occasion("Yom Yerushalayim", "yom_yerushalayim")
+        if (cal.isYomHaShoah) return Occasion(label = "Yom HaShoah", guideAnchor = "yom_hashoah")
+        if (cal.isYomHaZikaron) return Occasion(label = "Yom HaZikaron", guideAnchor = "yom_hazikaron")
+        if (cal.isYomHaAtzmaut) return Occasion(label = "Yom Ha'atzmaut", guideAnchor = "yom_haatzmaut")
+        if (cal.isYomYerushalayim) return Occasion(label = "Yom Yerushalayim", guideAnchor = "yom_yerushalayim")
         if (cal.isErevShabbat) {
-            return Occasion("Erev Shabbat", "candle_lighting")
+            return Occasion(label = "Erev Shabbat", guideAnchor = "candle_lighting")
         }
         return null
     }
 
-    fun omerTodayLabel(cal: DayInfo): String? {
+    private fun erevChagLabel(cal: DayInfo): Occasion? {
+        if ("erev_chag" !in cal.activeSeasons) return null
+        val chagName = cal.upcomingChagName ?: return null
+        val erevChag = "Erev $chagName"
+        val label = if (cal.isErevShabbat) "$erevChag · Erev Shabbat" else erevChag
+        return Occasion(
+            label = label,
+            guideAnchor = guideAnchorFor(chagName) ?: "yom_tov",
+        )
+    }
+
+    fun omerTodayLabel(cal: DayInfo, nusach: EffectiveNusach): String? {
         val day = cal.omerDay ?: return null
         if (!cal.isSefiratHaomer || cal.isLagBaomer) return null
-        return OmerCountText.headerLabel(day)
+        return OmerCountText.headerLabel(day, nusach)
     }
 
-    private fun pesachLabel(cal: DayInfo): Pair<String, String>? {
+    private fun pesachLabel(cal: DayInfo): Occasion? {
         val n = festivalDayNumber(cal, HebrewCalendarEngine.NISSAN, 15..22) ?: return null
         if ("pesach" !in cal.activeSeasons && "chol_hamoed_pesach" !in cal.activeSeasons) return null
-        val base = "${ordinal(n)} day of Pesach"
         val isCholHamoed = "chol_hamoed_pesach" in cal.activeSeasons && !cal.isYomTovAssurBemelacha
-        val label = if (isCholHamoed) "$base (Chol HaMoed)" else base
+        val template = if (isCholHamoed) {
+            "{ordinal} day of Pesach (Chol HaMoed)"
+        } else {
+            "{ordinal} day of Pesach"
+        }
+        val args = mapOf("ordinal" to ordinal(n))
         val anchor = if (isCholHamoed) "chol_hamoed_pesach" else "pesach"
-        return label to anchor
+        return Occasion(
+            label = fillOccasionTemplate(template, args),
+            labelTemplate = template,
+            labelArgs = args,
+            guideAnchor = anchor,
+        )
     }
 
-    private fun sukkotLabel(cal: DayInfo): Pair<String, String>? {
+    private fun sukkotLabel(cal: DayInfo): Occasion? {
         val n = festivalDayNumber(cal, HebrewCalendarEngine.TISHREI, 15..21) ?: return null
         if ("sukkot" !in cal.activeSeasons && "chol_hamoed_sukkot" !in cal.activeSeasons) return null
-        val base = "${ordinal(n)} day of Sukkot"
         val isCholHamoed = "chol_hamoed_sukkot" in cal.activeSeasons && !cal.isYomTovAssurBemelacha
-        val label = if (isCholHamoed) "$base (Chol HaMoed)" else base
+        val template = if (isCholHamoed) {
+            "{ordinal} day of Sukkot (Chol HaMoed)"
+        } else {
+            "{ordinal} day of Sukkot"
+        }
+        val args = mapOf("ordinal" to ordinal(n))
         val anchor = when {
             n == 7 && isCholHamoed -> "hoshana_raba"
             isCholHamoed -> "chol_hamoed_sukkot"
             else -> "sukkot"
         }
-        return label to anchor
+        return Occasion(
+            label = fillOccasionTemplate(template, args),
+            labelTemplate = template,
+            labelArgs = args,
+            guideAnchor = anchor,
+        )
     }
 
-    private fun roshHashanaLabel(cal: DayInfo): String? {
+    private fun roshHashanaLabel(cal: DayInfo): Occasion? {
         if (cal.hebrewMonth != HebrewCalendarEngine.TISHREI) return null
         val day = cal.hebrewDay ?: return null
         if (day !in 1..2) return null
         if ("rosh_hashana" !in cal.activeSeasons) return null
-        return when (day) {
-            1 -> "1st day of Rosh Hashana"
-            2 -> "2nd day of Rosh Hashana"
-            else -> "Rosh Hashana"
-        }
+        val template = "{ordinal} day of Rosh Hashana"
+        val args = mapOf("ordinal" to ordinal(day))
+        return Occasion(
+            label = fillOccasionTemplate(template, args),
+            labelTemplate = template,
+            labelArgs = args,
+            guideAnchor = "rosh_hashana",
+        )
     }
 
     private fun festivalDayNumber(cal: DayInfo, month: Int, range: IntRange): Int? {
@@ -112,4 +150,9 @@ object TodayOccasionLabels {
     }
 
     private fun guideAnchorFor(name: String): String? = HolidayGuideAnchors.anchorForLabel(name)
+
+    private fun fillOccasionTemplate(template: String, args: Map<String, String>): String =
+        args.entries.fold(template) { acc, (key, value) ->
+            acc.replace("{$key}", value)
+        }
 }

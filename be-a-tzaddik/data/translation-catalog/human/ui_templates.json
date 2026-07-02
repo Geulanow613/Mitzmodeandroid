@@ -7,7 +7,8 @@
     "תפילת הדרך": "תפילת הדרך",
     "Hamapil blessing": "ברכת המפיל",
     "Bedtime Shema": "שמע על המיטה",
-    "later tonight": "מאוחר יותר הלילה"
+    "later tonight": "מאוחר יותר הלילה",
+    "{name} · {timing}{endSuffix}": "{name} · {timing}{endSuffix}"
   },
   "es": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traducción cambiada a $languageName.\n$translatedPleaseNote",
@@ -17,7 +18,8 @@
     "תפילת הדרך": "Tefilat HaDerech (oración del camino)",
     "Hamapil blessing": "Bendición Hamapil",
     "Bedtime Shema": "Shema al acostarse",
-    "later tonight": "más tarde esta noche"
+    "later tonight": "más tarde esta noche",
+    "{name} · {timing}{endSuffix}": "{name} · {timing}{endSuffix}"
   },
   "fr": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Traduction changée en $languageName.\n$translatedPleaseNote",
@@ -27,7 +29,8 @@
     "תפילת הדרך": "Tefilat HaDerech (prière du voyage)",
     "Hamapil blessing": "Bénédiction Hamapil",
     "Bedtime Shema": "Shema au coucher",
-    "later tonight": "plus tard ce soir"
+    "later tonight": "plus tard ce soir",
+    "{name} · {timing}{endSuffix}": "{name} · {timing}{endSuffix}"
   },
   "ru": {
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "Перевод переключён на $languageName.\n$translatedPleaseNote",
@@ -37,6 +40,7 @@
     "תפילת הדרך": "Тефилат а-Дерех (молитва в пути)",
     "Hamapil blessing": "Благословение Гамапил",
     "Bedtime Shema": "Шма перед сном",
-    "later tonight": "позже сегодня вечером"
+    "later tonight": "позже сегодня вечером",
+    "{name} · {timing}{endSuffix}": "{name} · {timing}{endSuffix}"
   }
 }

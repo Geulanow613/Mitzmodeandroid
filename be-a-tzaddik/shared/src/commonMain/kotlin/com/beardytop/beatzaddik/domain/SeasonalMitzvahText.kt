@@ -114,7 +114,7 @@ Practical steps:
 2. Build the frame and walls first; lay schach last so it stays dry and valid.
 3. Arrange schach loosely with gaps — not a solid rainproof roof (use a removable slatted cover on top only if rain is expected, per halachic guidance).
 4. Set up table, chairs, and decorations (fruit, lights — electric on Yom Tov/Chol HaMoed per your rav).
-5. Before the first night of Sukkot, eat at least a kezayit of bread in the sukkah with the bracha leishev basukkah (first night is Torah-level for men; women per minhag).
+5. Before the first night of Sukkot, eat at least a kezayit of bread in the sukkah with the bracha leishev basukkah (first night is Torah-level for men; Ashkenazi women who eat there say leishev baSukkah; Sephardic women generally do not).
 
 First night rain protocol (if it rains on the first night):
 • Ashkenaz (Rema O.C. 639:5): Wait up to one hour. If rain does not stop, enter the sukkah, make Kiddush, eat a kezayit of bread without leishev basukkah, then finish the rest of the meal indoors.
@@ -242,7 +242,6 @@ Wearing nicer clothing on Chol HaMoed honors the festival (kavod ha'moed).
 
 Practice:
 • Wear clothes you would not wear for dirty chores — clean, pressed, or festive attire.
-• Some avoid new clothing that would require a Shehecheyanu on Chol HaMoed (ask your rav).
 • Men: many wear a hat and jacket for shul even if weekday dress is casual.
 
 This applies each day of Chol HaMoed — it is a simple daily way to mark the moed apart from ordinary weekdays.
@@ -279,6 +278,32 @@ How:
 • No chametz or kitniyot (per your custom) the entire Pesach.
     """.trim(),
     )
+
+    fun cholHamoedSukkahExplanation(profile: UserProfile): String =
+        BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.block(
+                BeginnerHalachaGlossary.CHOL_HAMOED,
+                BeginnerHalachaGlossary.SCHACH,
+                BeginnerHalachaGlossary.LULAV_SET,
+                BeginnerHalachaGlossary.RAV,
+                BeginnerHalachaGlossary.MINHAG,
+            ),
+            ExplainerTemplateSupport.cholHamoedSukkahTemplate(female = false),
+        )
+
+    fun cholHamoedSukkahExplanationFemale(profile: UserProfile): String =
+        BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.block(
+                BeginnerHalachaGlossary.CHOL_HAMOED,
+                BeginnerHalachaGlossary.SCHACH,
+                BeginnerHalachaGlossary.RAV,
+                BeginnerHalachaGlossary.MINHAG,
+            ),
+            ExplainerTemplateFill.fill(
+                ExplainerTemplateSupport.cholHamoedSukkahTemplate(female = true),
+                ExplainerTemplateSupport.cholHamoedSukkahArgs(profile, female = true),
+            ),
+        )
 
     private const val CHABAD_ROSH_CHODESH_URL =
         "https://www.chabad.org/library/article_cdo/aid/4909907/jewish/12-Rosh-Chodesh-Facts.htm"
@@ -529,10 +554,7 @@ When Rosh Chodesh spans two days (30th of the previous month and 1st), observanc
 
     fun chanukahLightingExplanation(day: Int, profile: UserProfile): String {
         val args = chanukahLightingExplanationArgs(day)
-        var out = CHANUKAH_LIGHTING_EXPLANATION_TEMPLATE
-        for ((key, value) in args) {
-            out = out.replace("{$key}", value).replace("$" + key, value)
-        }
+        val out = ExplainerTemplateFill.fill(CHANUKAH_LIGHTING_EXPLANATION_TEMPLATE, args)
         return BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.chanukahBasics() + "\n• Shamash — helper candle used to light the others (not counted in the eight nights)",
             out,
@@ -588,11 +610,7 @@ After lighting: sing HaNeiros halalu and Maoz Tzur (custom).
 
     fun birkatHaIlanotExplanation(profile: UserProfile): String {
         val args = birkatHaIlanotExplanationArgs(profile)
-        var out = BIRKAT_HAILANOT_EXPLANATION_TEMPLATE
-        for ((key, value) in args) {
-            out = out.replace("{$key}", value).replace("$" + key, value)
-        }
-        return out
+        return ExplainerTemplateFill.fill(BIRKAT_HAILANOT_EXPLANATION_TEMPLATE, args)
     }
 
     private val BIRKAT_HAILANOT_WHEN_SOUTHERN = """
@@ -707,7 +725,7 @@ Notes:
 Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
 
 When:
-• Said after the morning service (often after Shacharit Amidah, before concluding prayers — follow your siddur).
+• Said at the end of Shacharit — after Musaf on days when Musaf is recited; otherwise after the main morning service (follow your siddur).
 • Start and end dates vary by minhag — this item follows your nusach setting.
 
 Why:
@@ -783,10 +801,7 @@ How:
 
     fun kiddushLevanaExplanation(profile: UserProfile): String {
         val args = kiddushLevanaExplanationArgs(profile)
-        var out = KIDDUSH_LEVANA_EXPLANATION_TEMPLATE
-        for ((key, value) in args) {
-            out = out.replace("{$key}", value).replace("$" + key, value)
-        }
+        val out = ExplainerTemplateFill.fill(KIDDUSH_LEVANA_EXPLANATION_TEMPLATE, args)
         return BeginnerHalachaGlossary.withKeyTerms(BeginnerHalachaGlossary.daveningBasics(), out)
     }
 
@@ -824,6 +839,21 @@ The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorat
 
 Why we mourn:
 • On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
+
+Three stages of mourning (similar to mourning for a parent):
+• The Three Weeks (17 Tammuz–Tisha B'Av): the least severe stage
+• The Nine Days (from Rosh Chodesh Av in Ashkenazi custom, or stricter from the week of Tisha B'Av for many Sephardim): stricter mourning
+• The week of Tisha B'Av (shavuah she'chal bo, from the Shabbat before 9 Av): the strictest stage
+
+Clothing:
+• During the Three Weeks, you may buy and wear garments on which you would not recite Shehecheyanu — e.g. socks, underwear, or plain replacements without special joy (Kaf HaChaim O.C. 551:88). If you would not make a bracha on wearing the item, many authorities permit wearing it as well.
+• From Rosh Chodesh Av, do not buy new clothes even without Shehecheyanu, even if you will wear them only after Tisha B'Av (Rama O.C. 551:7). See the Nine Days checklist for laundry and wearing freshly laundered clothing.
+
+Other Three Weeks practices:
+• Moving into a new home is permitted during the Three Weeks; ideally avoid moving during the Nine Days, but it is allowed if necessary.
+• Swimming for pleasure is permitted during the Three Weeks but not during the Nine Days. Exercise swimming may be permitted even then — ask your rav.
+• Dangerous or unnecessarily risky activities are discouraged (non-urgent surgery should ideally wait). Travel is not forbidden.
+• Social outings before Rosh Chodesh Av are not forbidden by mourning law itself (other halachot may still apply).
 
 Shabbat during the Three Weeks: mourning practices do not apply on Shabbat itself — observe Shabbat fully.
     """.trimIndent()
@@ -898,25 +928,52 @@ From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days c
     }
 
     private val NINE_DAYS_SHARED_HALACHA = """
-Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself.
+Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself. At the seudah hamafseket, do not bentch with a mezuman or at a minyan meal — only the simple final meal before the fast.
 
-Tisha B'Av (9 Av): full 25-hour fast; kinot at Shacharit without tallit and tefillin; don them at Mincha after halachic chatzos (use your zmanim app). Sit on low stools until chatzos on 9 Av.
+Tisha B'Av (9 Av) — the fast and the day:
+• Full 25-hour fast from sunset to nightfall; kinot at Shacharit without tallit and tefillin.
+• Like the day of burial, tefillin are not worn in the morning; tallit and tefillin are worn at Mincha after halachic chatzos (use your zmanim app).
+• Until chatzos on 9 Av: maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm).
+• After chatzos on 9 Av: the five afflictions still apply until nightfall when the fast ends — but do not greet others during the fast day (until nightfall when the fast ends).
+• Hand washing: only to remove ritual impurity (tum'a) — wash only to the knuckle where the fingers join the hand; or to remove actual dirt where it is on the hand.
+• Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
+• Do not fly on Tisha B'Av, even to Israel to make aliyah.
+
+When 9 Av begins on Motzei Shabbat (Saturday night fast):
+• Recite Baruch ha'mavdil when Shabbat ends; say the candle blessing after Maariv.
+• Do not say the rest of Havdalah that night. After the fast day is over, after nightfall Sunday night, recite Havdalah over wine with the hamavdil paragraph only — no spices that week.
 
 Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted.
+
+When 9 Av falls on Shabbat and the fast is observed Sunday (10 Av):
+• Because you are already fasting on 10 Av, the usual daytime mourning restrictions for the 10th are heavily altered.
+• Ashkenazim: laundry, bathing, and haircuts are permitted immediately Motzei fast Sunday night — you do not wait until Monday chatzos. Meat and wine remain prohibited Sunday night; resume Monday morning. Havdalah is delayed from Saturday night until Sunday night after the fast over wine. Music: Ashkenazi custom often continues until Monday morning, though some lenient views permit it Sunday night.
+• Sephardim: many resume bathing and laundry immediately Thursday night after the fast when 10 Av is Friday; when the fast is Sunday, follow your rav — meat restrictions often continue until chatzos Monday or follow local psak.
+
+When the fast falls on Thursday and 10 Av is Friday (Shabbat prep — kvod Shabbat):
+• Haircuts, shaving, laundry, and bathing are permitted Friday morning right away so you can prepare for Shabbat — you do not wait until Friday chatzos for these.
+• Ashkenazim still refrain from meat and wine until chatzos (midday) Friday, unless tasting food being cooked specifically for Shabbat.
+• Sephardim generally permit bathing and laundry immediately Thursday night after the fast, but keep the meat restriction until Friday sunset.
+• After the fast ends Thursday night, some melacha related to personal pleasure may resume in specific cases — ask your rav before resuming music, laundry, or bathing for pleasure.
     """.trimIndent()
 
     private val NINE_DAYS_ASHKENAZ_EXPLANATION = ("""
 The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
 
 From 1 Av:
-• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
-• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
-• Bathing: bathing or showering for pleasure is prohibited.
-• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
+• Meat & wine: forbidden, except on Shabbat (not on Rosh Chodesh Av or erev Shabbat), at a brit milah, siyum, or pidyon ha'ben, or wine for Havdalah (ideally a child ages 6–10 drinks the cup).
+• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited. Clean socks and underwear are permitted (ideally toss them on the floor first).
+• Bathing: bathing or showering for pleasure is prohibited; washing a dirty, sweaty, or smelly body is permitted (except on Tisha B'Av).
+• Clothing & shopping: do not buy new clothes even without Shehecheyanu, even if you will wear them only after the fast (Rama O.C. 551:7). Major home improvements, painting, and renovations are avoided.
+• Music & celebrations: live or recorded music remains prohibited; weddings are not held.
+• Shehecheyanu: do not recite on new clothes or fruits during the Nine Days, except on Shabbat — but if you do eat a new fruit or buy something new, you must still say Shehecheyanu.
+• Court cases: try not to be involved in a court case opposing a non-Jew during the Nine Days (not forbidden if unavoidable).
+• Kiddush Levana: if you will not likely see the moon on any day from 10–14 Av, you may say kiddush levana during the Nine Days.
+• Investments & projects: do not start new projects or investments if they can be delayed without loss.
 
 """ + NINE_DAYS_SHARED_HALACHA + """
 
-After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
+After the fast day is over, after nightfall when the fast ends: some Nine Days restrictions begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, or when 10 Av is Friday, see the special-calendar notes above. Ask your rav before resuming.
 
 Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
 """).trim()
@@ -926,26 +983,34 @@ The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest
 
 From Rosh Chodesh Av (1 Av):
 • Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
+• Weddings & music: many communities stop weddings and avoid music from Rosh Chodesh Av; some are lenient until the week of Tisha B'Av.
+• Meat & wine: some kehillot already avoid them from Rosh Chodesh Av, while others wait for shavuah she'chal bo.
+• Clothing: from Rosh Chodesh Av, do not buy new clothes even without Shehecheyanu, even if you will wear them only after Tisha B'Av (Rama O.C. 551:7).
 
 From the week in which Tisha B'Av falls (shavuah she'chal bo):
-• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
-• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
+• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av. Wine on Shabbat and at seudot mitzvah (brit, siyum, pidyon ha'ben) is permitted.
+• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av; washing a dirty body is permitted (except on Tisha B'Av).
+• Fresh clothing & home projects: many avoid freshly laundered garments, renovations, painting, and major purchases during that stricter week.
+• Shehecheyanu: avoided on new items except on Shabbat — but if you do eat a new fruit, you must still say Shehecheyanu.
 
 """ + NINE_DAYS_SHARED_HALACHA + """
 
-After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
+After the fast day is over, after nightfall when the fast ends: many Sephardim resume most restrictions at that point, while others continue meat, wine, laundry, and bathing for pleasure until chatzos on 10 Av — confirm your community's psak before resuming.
 """).trim()
 
     private val NINE_DAYS_CHABAD_EXPLANATION = ("""
 The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) follow strict Ashkenazi mourning in Chabad practice.
 
 From Rosh Chodesh Av:
-• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum).
-• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, and buying new garments are observed.
+• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum, pidyon ha'ben).
+• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, painting, and buying new garments are observed.
+• Clothing: do not buy new clothes even without Shehecheyanu, even if you will wear them only after the fast.
+• Music, weddings & haircuts: Three Weeks restrictions continue in full through the Nine Days.
+• Temple focus: increase study about the Beit HaMikdash and add tzedakah, following the Rebbe's emphasis for these days.
 
 """ + NINE_DAYS_SHARED_HALACHA + """
 
-After the fast (10 Av): follow accepted Chabad psak on meat, wine, music, laundry, and bathing until chatzos on 10 Av — ask your rav if unsure.
+After the fast day is over, after nightfall when the fast ends: follow accepted Chabad psak — Ashkenazi custom often continues meat, wine, music, laundry, and bathing for pleasure until chatzos on 10 Av (not at nightfall of 9 Av itself). Ask your rav if unsure.
 
 Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
 """).trim()

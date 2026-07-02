@@ -49,13 +49,18 @@ The fast:
 What is forbidden today (in addition to eating and drinking):
 • Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.
 • Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
-• Greeting people with "hello"; idle conversation; work is discouraged (follow your community).
-• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.
+• Greeting people with "hello" during the fast day — even after chatzos, do not greet or reply to greetings until nightfall when the fast ends.
+• Idle conversation; work is discouraged (follow your community).
+• Tefillin are not worn in the morning (like the day of burial); tallit and tefillin are worn at Mincha after halachic chatzos.
+• Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
+• Hand washing: only to remove ritual impurity — wash only to the knuckle where fingers join the hand; or to remove actual dirt on the hand.
+• Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
+• Do not fly on Tisha B'Av, even to Israel to make aliyah.
 
 What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
 
-After nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.
+After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast; meat and wine often wait until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
 
 $common"""
 

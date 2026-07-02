@@ -15,10 +15,11 @@ object ChecklistSectionOrder {
 
     private val prepSectionSortPriority = mapOf(
         "Motzei Shabbat" to -60,
+        "Chol HaMoed" to -55,
         "Seasonal" to -50,
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
-        "Fasts" to -35,
+        "Fasts" to -45,
         "Chanukah" to -25,
     )
 
@@ -39,13 +40,17 @@ object ChecklistSectionOrder {
         }
         if ("erev_purim" in cal.activeSeasons) add("Purim")
         if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
-        if ("erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||
+        if ("fast_day" in cal.activeSeasons ||
+            "erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||
             "erev_tisha_beav" in cal.activeSeasons
         ) {
             add("Fasts")
         }
         if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
             add("Motzei Shabbat")
+        }
+        if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
+            add("Chol HaMoed")
         }
     }
 

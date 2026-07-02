@@ -26,6 +26,8 @@ After `sync-to-ios-handoff.ps1`:
 - `shared/src/commonMain/composeResources/files/manual-cities.json` (~550 cities)
 - `shared/src/commonMain/composeResources/files/nusach-extras.json`
 - `shared/src/commonMain/composeResources/files/holidays-overlay.json`
+- `shared/src/commonMain/composeResources/files/translations/{he,es,fr,ru}.json` — **full offline UI + explainer catalog**
+- `shared/src/commonMain/composeResources/files/city-geography.json` — localized city labels
 - `shared/src/commonMain/composeResources/drawable/` (if branding assets changed)
 - `data/manual-cities.json` — optional duplicate (same as composeResources)
 
@@ -65,6 +67,20 @@ After `sync-to-ios-handoff.ps1`:
 
 - `iosApp/iosApp/` — Swift sources, assets, `Info.plist`
 - `iosApp/Podfile` — only if host project already uses CocoaPods for `shared`
+
+## Swift native JSON (`swift-native/`)
+
+For **native Swift** Mitz Mode (not embedded KMP), add this folder to the Xcode bundle:
+
+| Path | Role |
+|------|------|
+| `BundledTranslations/*.json` | All translatable UI strings (menus, rewards, brachot labels, mitzvah-me) |
+| `Mitzvot/mitzvotcloud.json` | Cloud mitzvot list |
+| `Mitzvot/mitzvotlistfull.json` | Local mitzvot list |
+| `Checklist/checklist-items.json` | Rebuilt daily checklist |
+| `Rewards/*` | Counter tier thresholds + display names |
+
+See **`docs/SWIFT_NATIVE_TRANSLATIONS.md`**.
 
 ## Mitz Mode native home (Android repo — not in KMP mirror)
 

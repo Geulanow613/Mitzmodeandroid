@@ -99,8 +99,14 @@ fun MitzvahInfoDialog(
                     ) {
                         MitzvahExplanationContent(
                             explanation = item.displayExplanation,
+                            explanationTemplate = item.explanationTemplate,
+                            explanationArgs = item.explanationArgs,
                             zmanHint = item.zmanHint,
+                            zmanHintTemplate = item.zmanHintTemplate,
+                            zmanHintArgs = item.zmanHintArgs,
                             zmanMakeupNote = item.zmanMakeupNote,
+                            zmanMakeupTemplate = item.zmanMakeupTemplate,
+                            zmanMakeupArgs = item.zmanMakeupArgs,
                             situational = item.def.situational,
                         )
                         Spacer(Modifier.height(8.dp))

@@ -31,7 +31,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             inIsrael = profile.isInIsrael
             isUseModernHolidays = true
         }
-        val zc = zmanimCalendar(geo, now)
+        val zc = geo?.let { zmanimCalendar(it, now) }
 
         val isShabbat = date.dayOfWeek == DayOfWeek.SATURDAY
         val isErevShabbat = date.dayOfWeek == DayOfWeek.FRIDAY
@@ -53,9 +53,11 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             inIsrael = profile.isInIsrael
             isUseModernHolidays = true
         }
-        val isYomTovAssurBemelacha = jc.isYomTov && jc.isAssurBemelacha
+        val isYomTovAssurBemelacha =
+            jc.isYomTov && HebrewCalendarEngine.isYomTovAssurBemelacha(jc.yomTovIndex)
         val yesterdayWasYomTovAssurBemelacha =
-            jcYesterday.isYomTov && jcYesterday.isAssurBemelacha
+            jcYesterday.isYomTov &&
+                HebrewCalendarEngine.isYomTovAssurBemelacha(jcYesterday.yomTovIndex)
         val yomTovHolidayName = if (isYomTovAssurBemelacha) holidayName(jc) else null
         val isPurimMeshulashFriday = isJerusalemPurim &&
             jc.yomTovIndex == JewishCalendar.PURIM &&
@@ -75,14 +77,31 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val isYomHaAtzmaut = jc.yomTovIndex == JewishCalendar.YOM_HAATZMAUT
         val isYomYerushalayim = jc.yomTovIndex == JewishCalendar.YOM_YERUSHALAYIM
         val isSefirah = omerDay != null && omerDay in 1..49 && !isLagBaomer
-        val isErevChag = !isYomTov && jcTomorrow.isYomTov && jcTomorrow.isAssurBemelacha
-        val upcomingChagName = if (isErevChag) holidayName(jcTomorrow) else null
+        val isErevChag = !isYomTovAssurBemelacha && !jc.isYomTov &&
+            jcTomorrow.isYomTov &&
+            HebrewCalendarEngine.isYomTovAssurBemelacha(jcTomorrow.yomTovIndex)
+        val todayIdx = jc.yomTovIndex
+        val tomorrowIdx = jcTomorrow.yomTovIndex
+        val upcomingChagName = if (isErevChag) {
+            UpcomingHolidayNames.erevUpcomingDisplayName(
+                todayYomTovIndex = todayIdx,
+                tomorrowYomTovIndex = tomorrowIdx,
+                tomorrowHebrewMonth = jcTomorrow.jewishMonth,
+                tomorrowHebrewDay = jcTomorrow.jewishDayOfMonth,
+                inIsrael = profile.isInIsrael,
+                defaultHolidayName = holidayName(jcTomorrow),
+            )
+        } else {
+            null
+        }
         val upcomingChagYomTovIndex = if (isErevChag) jcTomorrow.yomTovIndex else null
         val isErevPurim = !isPurim && jcTomorrow.isPurim
         val isErevChanukah = !isChanukah && jcTomorrow.isChanukah
-        val todayIdx = jc.yomTovIndex
-        val tomorrowIdx = jcTomorrow.yomTovIndex
-        val fastDayIndex = todayIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val fastDayIndex = PublicFastDayRules.resolveFastDayIndex(
+            todayIdx = todayIdx,
+            tomorrowIdx = tomorrowIdx,
+            isTaanis = jc.isTaanis,
+        )
         val fastDayName = fastDayIndex?.let { PublicFastDayRules.displayName(it) }
         val upcomingFastDayIndex = tomorrowIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
         val upcomingFastDayName = upcomingFastDayIndex?.let { PublicFastDayRules.displayName(it) }
@@ -135,9 +154,12 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             if (isErevTishaBeav) add("erev_tisha_beav")
         }
 
-        val zmanim = buildZmanimSnapshot(zc, geo, now, profile.timezoneId)
-        val activeTime = ZmanPeriodLogic.activeTimeOfDay(now.timeInMillis, zmanim)
-        val periodLabels = ZmanPeriodLabels.forPeriod(activeTime, zmanim, profile.effectiveNusach())
+        val zmanim = if (geo != null && zc != null) {
+            buildZmanimSnapshot(zc, geo, now, profile.timezoneId)
+        } else {
+            null
+        }
+        val period = ZmanPeriodLogic.activePeriodContext(now.timeInMillis, profile, zmanim)
 
         val hebrew = "${jc.jewishDayOfMonth} ${monthName(jc.jewishMonth)} ${jc.jewishYear}"
         val chips = buildList {
@@ -146,7 +168,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             if (isShabbat) add("Shabbat")
             if (isYomTov) add(holidayName(jc))
             if (isRoshChodesh) add("Rosh Chodesh")
-            if (isSefirah && omerDay != null) add(OmerCountText.statusChipLabel(omerDay))
+            if (isSefirah && omerDay != null) {
+                add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
+            }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
             if (isPurim) add("Purim")
             if (isYomHaShoah) add("Yom HaShoah")
@@ -189,10 +213,10 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             yesterdayWasYomTovAssurBemelacha = yesterdayWasYomTovAssurBemelacha,
             yomTovHolidayName = yomTovHolidayName,
             isShabbatOrYomTov = isShabbat || isYomTov,
-            activeTimeOfDay = activeTime,
-            activePeriodLabel = periodLabels.activeTitle,
-            activePeriodHint = periodLabels.activeSummary,
-            inactivePeriodHint = periodLabels.laterSummary,
+            activeTimeOfDay = period.timeOfDay,
+            activePeriodLabel = period.activeTitle,
+            activePeriodHint = period.activeSummary,
+            inactivePeriodHint = period.laterSummary,
             omerDay = omerDay,
             isSefiratHaomer = isSefirah,
             isLagBaomer = isLagBaomer,
@@ -259,7 +283,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
     }
 
     override fun electronicsRestPeriod(nowEpochMillis: Long, profile: UserProfile): ElectronicsRestPeriod? {
-        val geo = geoFor(profile)
+        val geo = geoFor(profile) ?: return null
         val tz = JavaTimeZone.getTimeZone(profile.timezoneId)
         val now = Calendar.getInstance(tz).apply { timeInMillis = nowEpochMillis }
 
@@ -327,7 +351,8 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         return ElectronicsRestPeriod(
             kind = RestKind.YOM_TOV,
             title = name,
-            message = yomTovMessage(name),
+            message = yomTovMessageTemplate(),
+            args = mapOf("holidayName" to name),
             hebrewDateLabel = hebrew,
             locationLabel = profile.locationLabel ?: geo.locationName,
             endsAtEpochMillis = end
@@ -436,9 +461,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
     private fun ComplexZmanimCalendar.nightfallMillis(): Long? =
         getTzaisGeonim8Point5Degrees()?.time ?: getTzais72()?.time
 
-    private fun geoFor(profile: UserProfile): GeoLocation {
-        val lat = profile.latitude ?: 40.7128
-        val lon = profile.longitude ?: -74.0060
+    private fun geoFor(profile: UserProfile): GeoLocation? {
+        val lat = profile.latitude ?: return null
+        val lon = profile.longitude ?: return null
         val tz = JavaTimeZone.getTimeZone(profile.timezoneId)
         val elevation = LocationElevation.metersFor(profile)
         return GeoLocation(profile.locationLabel ?: "User", lat, lon, elevation, tz)

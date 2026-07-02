@@ -62,6 +62,16 @@ object PublicFastDayRules {
     }
 
     /**
+     * When a sunset fast has already begun on the Hebrew eve (e.g. 8 Av night before 9 Av),
+     * [JewishCalendar.isTaanis] is true but [yomTovIndex] may still be the eve day — infer the fast.
+     */
+    fun resolveFastDayIndex(todayIdx: Int, tomorrowIdx: Int, isTaanis: Boolean): Int? {
+        if (isPublicFast(todayIdx)) return todayIdx
+        if (isTaanis && isPublicFast(tomorrowIdx) && fastStartsAtSunset(tomorrowIdx)) return tomorrowIdx
+        return null
+    }
+
+    /**
      * True when a Shabbat-postponed fast is observed on the day after its Hebrew calendar date
      * (e.g. 17 Tammuz on Shabbat → fast on Sunday 18 Tammuz; Hebrew label shows 18 Tammuz).
      */

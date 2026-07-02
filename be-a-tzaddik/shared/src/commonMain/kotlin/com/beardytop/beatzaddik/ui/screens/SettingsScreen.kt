@@ -52,6 +52,7 @@ import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.ui.ManualCityListRow
 import com.beardytop.beatzaddik.ui.cityDisplayLabel
 import com.beardytop.beatzaddik.ui.filterManualCities
+import com.beardytop.beatzaddik.ui.localizedLocationLabel
 import com.beardytop.beatzaddik.ui.profileMatchesManualCity
 import com.beardytop.beatzaddik.ui.rememberCityDisplayLabel
 import com.beardytop.beatzaddik.domain.NusachSelection
@@ -64,6 +65,7 @@ import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
 import com.beardytop.beatzaddik.ui.components.TextScaleControl
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.domain.AppDisclaimer
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.LocalLanguageSelector
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
@@ -82,7 +84,7 @@ fun SettingsScreen(
     var kashrutScrollY by remember { mutableIntStateOf(0) }
     var showCityPicker by remember { mutableStateOf(false) }
     var cityQuery by remember { mutableStateOf("") }
-    val languageCode = LocalAppTranslation.current.languageCode
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
 
     LaunchedEffect(scrollToKashrut) {
         if (scrollToKashrut) {
@@ -194,11 +196,27 @@ fun SettingsScreen(
                 },
                 templateArgs = when {
                     profile.useGps && profile.locationLabel != null ->
-                        mapOf("place" to profile.locationLabel!!)
+                        mapOf(
+                            "place" to (
+                                localizedLocationLabel(
+                                    profile.locationLabel,
+                                    profile.manualCityId,
+                                    languageCode,
+                                ) ?: profile.locationLabel!!
+                            ),
+                        )
                     selectedCity != null ->
                         mapOf("place" to cityDisplayLabel(selectedCity, languageCode))
                     profile.locationLabel != null ->
-                        mapOf("place" to profile.locationLabel!!)
+                        mapOf(
+                            "place" to (
+                                localizedLocationLabel(
+                                    profile.locationLabel,
+                                    profile.manualCityId,
+                                    languageCode,
+                                ) ?: profile.locationLabel!!
+                            ),
+                        )
                     else -> emptyMap()
                 },
                 fallbackText = when {
@@ -522,6 +540,13 @@ private fun LanguageCard() {
 
         if (selector.enabled) {
             Spacer(Modifier.height(12.dp))
+            AppText(
+                AppDisclaimer.TRANSLATION_LINKS_NOTE,
+                enableTerms = false,
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.TextMuted,
+            )
+            Spacer(Modifier.height(8.dp))
             SettingLabel(
                 label = "Offline languages",
                 description = "No internet required"
@@ -544,8 +569,13 @@ private fun LanguageCard() {
 
             if (currentOtherLanguage != null) {
                 Spacer(Modifier.height(8.dp))
+                val resolvedCurrentOther = rememberAppTranslatedTemplate(
+                    "Current: {native} ({english})",
+                    mapOf("native" to currentOtherLanguage.nativeName, "english" to currentOtherLanguage.englishName),
+                )
                 AppText(
-                    "Current: ${currentOtherLanguage.nativeName} (${currentOtherLanguage.englishName})",
+                    resolvedCurrentOther,
+                    enableTerms = false,
                     style = MaterialTheme.typography.bodySmall,
                     color = TzaddikColors.GoldBorder,
                 )
@@ -589,6 +619,13 @@ private fun AllLanguagesDialog(
     ) {
         AppText(
             "Online languages use Google Translate. Quality varies.",
+            style = MaterialTheme.typography.bodySmall,
+            color = TzaddikColors.TextMuted,
+        )
+        Spacer(Modifier.height(4.dp))
+        AppText(
+            AppDisclaimer.TRANSLATION_LINKS_NOTE,
+            enableTerms = false,
             style = MaterialTheme.typography.bodySmall,
             color = TzaddikColors.TextMuted,
         )
@@ -665,9 +702,10 @@ private fun DairyToMeatWaitSlider(
                 .background(TzaddikColors.GoldBorder.copy(alpha = 0.18f))
                 .padding(horizontal = 14.dp, vertical = 5.dp)
         ) {
-            val waitKey = KashrutWaitTimes.formatDairyToMeatWait(displayMinutes)
+            val badge = KashrutWaitTimes.waitBadgeForDairyToMeatMinutes(displayMinutes)
+            val waitText = rememberAppTranslatedTemplate(badge.templateKey, badge.args)
             AppText(
-                waitKey,
+                waitText,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
                 textAlign = TextAlign.Center,
@@ -708,9 +746,10 @@ private fun WaitTimeSlider(label: String, value: Int, onValueChange: (Int) -> Un
                 .background(TzaddikColors.GoldBorder.copy(alpha = 0.18f))
                 .padding(horizontal = 14.dp, vertical = 5.dp)
         ) {
-            val hourKey = if (value == 1) "1h" else "${value}h"
+            val hourBadge = KashrutWaitTimes.waitBadgeForMeatToDairyHours(value)
+            val hourText = rememberAppTranslatedTemplate(hourBadge.templateKey, hourBadge.args)
             AppText(
-                hourKey,
+                hourText,
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep,
                 textAlign = TextAlign.Center,

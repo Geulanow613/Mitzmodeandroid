@@ -32,6 +32,19 @@ from _glossary_batch29 import BATCH29_RU  # noqa: E402
 from _glossary_batch30 import BATCH30_RU  # noqa: E402
 from _glossary_batch31 import BATCH31_RU  # noqa: E402
 from _glossary_batch32 import BATCH32_RU  # noqa: E402
+from _glossary_batch33 import BATCH33_RU  # noqa: E402
+from _glossary_batch34 import BATCH34_RU  # noqa: E402
+from _glossary_batch35 import BATCH35_RU  # noqa: E402
+from _glossary_batch36 import BATCH36_RU  # noqa: E402
+from _glossary_batch37 import BATCH37_RU  # noqa: E402
+from _glossary_batch38 import BATCH38_RU  # noqa: E402
+from _glossary_batch39 import BATCH39_RU  # noqa: E402
+from _glossary_batch40 import BATCH40_RU  # noqa: E402
+from _glossary_batch41 import BATCH41_RU  # noqa: E402
+from _glossary_batch42 import BATCH42_RU  # noqa: E402
+from _glossary_batch43 import BATCH43_RU  # noqa: E402
+from _glossary_batch44 import BATCH44_RU  # noqa: E402
+from _glossary_batch45 import BATCH45_RU  # noqa: E402
 from _ru_glossary_ty_data import glossary_ru_for_key  # noqa: E402
 from _yaaleh_ru_data import yaaleh_overview_ru_for_key, yaaleh_ru_for_key  # noqa: E402
 from _ru_netilat_data import netilat_ru_for_key  # noqa: E402
@@ -366,6 +379,84 @@ def main() -> int:
             fixes[key] = body
             batch32_ru_added += 1
 
+    batch33_ru_added = 0
+    for key, body in BATCH33_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch33_ru_added += 1
+
+    batch34_ru_added = 0
+    for key, body in BATCH34_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch34_ru_added += 1
+
+    batch35_ru_added = 0
+    for key, body in BATCH35_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch35_ru_added += 1
+
+    batch36_ru_added = 0
+    for key, body in BATCH36_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch36_ru_added += 1
+
+    batch37_ru_added = 0
+    for key, body in BATCH37_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch37_ru_added += 1
+
+    batch38_ru_added = 0
+    for key, body in BATCH38_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch38_ru_added += 1
+
+    batch39_ru_added = 0
+    for key, body in BATCH39_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch39_ru_added += 1
+
+    batch40_ru_added = 0
+    for key, body in BATCH40_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch40_ru_added += 1
+
+    batch41_ru_added = 0
+    for key, body in BATCH41_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch41_ru_added += 1
+
+    batch42_ru_added = 0
+    for key, body in BATCH42_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch42_ru_added += 1
+
+    batch43_ru_added = 0
+    for key, body in BATCH43_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch43_ru_added += 1
+
+    batch44_ru_added = 0
+    for key, body in BATCH44_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch44_ru_added += 1
+
+    batch45_ru_added = 0
+    for key, body in BATCH45_RU.items():
+        if key in catalog:
+            fixes[key] = body
+            batch45_ru_added += 1
+
     three_weeks_added = apply_three_weeks_ru_fixes(fixes)
 
     # Drop keys not in catalog (stale).
@@ -380,7 +471,7 @@ def main() -> int:
         f"wrote {len(fixes)} keys to {OUT.name} "
         f"(prefix-added: {prefix_added}, taanit: {taanit_added}, polish-reg: {polish_reg_added}, cyrillic-reg: {cyrillic_reg_added}, "
         f"batch11: {batch11_added}, batch12: {batch12_added}, batch13: {batch13_added}, batch14: {batch14_added}, "
-        f"batch15: {batch15_added}, batch16: {batch16_added}, batch17: {batch17_added}, batch18: {batch18_added}, batch19: {batch19_added}, batch20: {batch20_added}, batch21: {batch21_added}, batch22: {batch22_ru_added}, batch23: {batch23_ru_added}, batch24: {batch24_ru_added}, batch25: {batch25_ru_added}, batch26: {batch26_ru_added}, batch27: {batch27_ru_added}, batch28: {batch28_ru_added}, batch29: {batch29_ru_added}, batch30: {batch30_ru_added}, batch31: {batch31_ru_added}, batch32: {batch32_ru_added}, expanded: {expanded}, short-expanded: {short_expanded}, netilat: {netilat_added}, modeh: {modeh_added}, nine_days: {nine_days_added}, yaaleh: {yaaleh_added}, yaaleh_overview: {yaaleh_overview_added}, rosh_chodesh: {rosh_chodesh_added}, glossary: {glossary_added}, melacha: {melacha_added}, batch21_ru: {batch21_ru_added})"
+        f"batch15: {batch15_added}, batch16: {batch16_added}, batch17: {batch17_added}, batch18: {batch18_added}, batch19: {batch19_added}, batch20: {batch20_added}, batch21: {batch21_added}, batch22: {batch22_ru_added}, batch23: {batch23_ru_added}, batch24: {batch24_ru_added}, batch25: {batch25_ru_added}, batch26: {batch26_ru_added}, batch27: {batch27_ru_added}, batch28: {batch28_ru_added}, batch29: {batch29_ru_added}, batch30: {batch30_ru_added}, batch31: {batch31_ru_added}, batch32: {batch32_ru_added}, batch33: {batch33_ru_added}, batch34: {batch34_ru_added}, batch35: {batch35_ru_added}, batch36: {batch36_ru_added}, batch37: {batch37_ru_added}, batch38: {batch38_ru_added}, batch39: {batch39_ru_added}, batch40: {batch40_ru_added}, batch41: {batch41_ru_added}, batch42: {batch42_ru_added}, batch43: {batch43_ru_added}, batch44: {batch44_ru_added}, batch45: {batch45_ru_added}, expanded: {expanded}, short-expanded: {short_expanded}, netilat: {netilat_added}, modeh: {modeh_added}, nine_days: {nine_days_added}, yaaleh: {yaaleh_added}, yaaleh_overview: {yaaleh_overview_added}, rosh_chodesh: {rosh_chodesh_added}, glossary: {glossary_added}, melacha: {melacha_added}, batch21_ru: {batch21_ru_added})"
     )
     return 0
 

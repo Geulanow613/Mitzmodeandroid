@@ -2,6 +2,43 @@
 
 What the mirrored `be-a-tzaddik/` files and `docs/` contain.
 
+## 2026-07-02 — Full app mirror + Mac Dropbox extract
+
+### New
+- **`android-mitzmode/`** — Android Studio project (`app/` + Gradle); reward `.mp4` files excluded (`EXCLUDED_MEDIA.md`)
+- **`extract-to-dropbox.command`** + **`extract-to-dropbox.sh`** — Mac extract to `~/Dropbox/claudesucks` (or CloudStorage Dropbox path)
+- **`SYNC_MANIFEST.json`** — written on each sync (timestamp, file counts)
+
+### swift-native explainers (expanded)
+- **`Explainers/checklist_explainers.json`**, **`public_fast_explainers.json`**, **`erev_chag_explainers.json`**, **`zman_and_upcoming_strings.json`**
+
+### Mourning / fast updates (KMP)
+- Three Weeks / Nine Days active day+night through chatzos 10 Av
+- Tisha B'Av fast zman window + greeting wording fixes
+- All bundled translations (he/es/fr/ru) synced
+
+### Docs
+- **`MAC_QUICKSTART.md`** — Dropbox extract workflow
+- **`docs/MITZ_MODE_HOME_BACKGROUND.md`** — static gradient spec (`#050B1F` → `#0A0420`)
+
+## 2026-06-30 — Full translation + swift-native export
+
+### swift-native/ (new)
+- **`BundledTranslations/{he,es,fr,ru}.json`** — complete shipped bundles (~2752 keys)
+- **`Mitzvot/mitzvotcloud.json`** + **`mitzvotlistfull.json`** — Mitzvah Me lists (323 texts, all translated)
+- **`Checklist/*`** — rebuilt checklist-items, nusach-extras, holidays-overlay, manual-cities
+- **`Cities/city-geography.json`** — localized city/country names
+- **`Explainers/*`** — template args + seasonal fragments for dynamic copy
+- **`Rewards/*`** — tier thresholds + reward level display names
+- **`MANIFEST.json`** — file hashes + coverage stats
+
+### Automation
+- **`be-a-tzaddik/tools/_export_ios_handoff.py`** — builds swift-native; syncs data/ → composeResources
+- **`compile_full_bundled.py`** — auto-runs `sync-to-ios-handoff.ps1` (set `SKIP_IOS_HANDOFF=1` to disable)
+- **`sync-to-ios-handoff.ps1`** — calls export script before robocopy
+- **`verify-handoff.ps1`** — also checks swift-native translation parity
+- **`MAC_QUICKSTART.md`**, **`docs/SWIFT_NATIVE_TRANSLATIONS.md`**
+
 ## 2026-06-16 (b) — Shared zmanim, embed docs, verify script
 
 ### iOS zmanim parity (Android unchanged)

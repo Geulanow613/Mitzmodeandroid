@@ -5,6 +5,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from _mourning_period_translations import (
+    TISHA_FAST_EN,
+    TISHA_FAST_ES,
+    TISHA_FAST_FR,
+    TISHA_FAST_HE,
+    TISHA_FAST_RU,
+)
+
 from _public_fast_template_data import (
     ALOT_LINE_FALLBACK,
     ALOT_LINE_WITH_TIME,
@@ -185,74 +193,10 @@ $common""",
 $common""",
     },
     TISHA_FAST_DAY: {
-        "es": """Hoy es Tisha B'Av — luto por la destrucción de ambos Templos y nuestro exilio.
-
-El ayuno:
-• Comenzó al atardecer anoche y termina al anochecer esta noche$tzeitSuffix — no es un ayuno de amanecer a atardecer.
-
-Lo prohibido hoy (además de comer y beber):
-• Zapatos de cuero; baño por placer; ungir con crema o colonia; relaciones conyugales.
-• Estudio de Torá excepto pasajes de duelo (Eijá, Iyov, partes de Irmiyahu, halajot de duelo).
-• Saludar con "hola"; conversación ociosa; el trabajo se desaconseja (siga su comunidad).
-• Muchos se sientan en el suelo o en un taburete bajo hasta chatzot (mediodía halájico); se recitan kinot (elegías).
-
-Lo permitido (a diferencia de Yom Kippur en algunas comunidades):
-• Las prohibiciones de música están relacionadas con el duelo — se evita música alegre en vivo como parte del espíritu de las Tres Semanas/Nueve Días, pero el núcleo del ayuno son las cinco aflicciones anteriores.
-
-Después del anochecer: algunas restricciones de duelo de los Nueve Días se levantan — consulte a su rav sobre lavandería, carne y música.
-
-$common""",
-        "fr": """Aujourd'hui, c'est Tisha B'Av — deuil de la destruction des deux Temples et de notre exil.
-
-Le jeûne :
-• A commencé au coucher du soleil hier soir et se termine à la tombée de la nuit ce soir$tzeitSuffix — pas un jeûne de l'aube au crépuscule.
-
-Ce qui est interdit aujourd'hui (en plus de manger et boire) :
-• Chaussures en cuir ; bain pour le plaisir ; onction avec crème ou eau de Cologne ; relations conjugales.
-• Étude de la Torah sauf passages de deuil (Eikha, Iyov, parties de Yirmiyahu, halakhot du deuil).
-• Saluer avec « bonjour » ; conversation oiseuse ; le travail est déconseillé (suivez votre communauté).
-• Beaucoup s'assoient sur le sol ou un tabouret bas jusqu'à hatzot (midi halakhique) ; kinot (élégies) sont récitées.
-
-Ce qui est permis (contrairement à Yom Kippour dans certaines communautés) :
-• Les interdictions de musique sont liées au deuil — on évite la musique joyeuse en direct dans l'esprit des Trois Semaines/Neuf Jours, mais le cœur du jeûne reste les cinq afflictions ci-dessus.
-
-Après la tombée de la nuit : certaines restrictions de deuil des Neuf Jours se lèvent — consultez votre rav pour la lessive, la viande et la musique.
-
-$common""",
-        "ru": """Сегодня Тиша б'Ав — скорбь о разрушении обоих Храмов и нашем изгнании.
-
-Пост:
-• Начался на закате вчера вечером и заканчивается после выхода звёзд (цейт) сегодня$tzeitSuffix — не пост от рассвета до заката.
-
-Что запрещено сегодня (кроме еды и питья):
-• Кожаная обувь; купание для удовольствия; помазание кремом или одеколоном; супружеские отношения.
-• Изучение Торы, кроме скорбных отрывков (Эйха, Иов, части Ирмияу, галахот траура).
-• Приветствие «привет»; пустые разговоры; работа не рекомендуется (следуйте своей общине).
-• Многие сидят на полу или низком табурете до хацот (галахический полдень); читают кинот (элегии).
-
-Что разрешено (в отличие от Йом Кипура в некоторых общинах):
-• Запреты на музыку связаны с трауром — избегают живой радостной музыки в духе Трёх Недель/Девяти Дней, но суть поста — пять ограничений выше.
-
-После выхода звёзд: часть траурных ограничений Девяти Дней снимается — спросите раввина о стирке, мясе и музыке.
-
-$common""",
-        "he": """היום ט' באב — אבל על חורבן שני המקדשים וגלותנו.
-
-הצום:
-• התחיל בשקיעה אמש ומסתיים בצאת הכוכבים הלילה$tzeitSuffix — לא צום משחר עד לילה.
-
-מה אסור היום (בנוסף לאכילה ושתייה):
-• נעלי עור; רחצה להנאה; סיכה בקרם או קולוניה; יחסי אישות.
-• לימוד תורה למעט קטעי אבל (איכה, איוב, חלקי ירמיהו, הלכות אבל).
-• לברך ב\"שלום\"; שיחה בטלה; עבודה אינה מומלצת (לפי הקהילה).
-• רבים יושבים על הרצפה או כיסא נמוך עד חצות; קינות נאמרות.
-
-מה מותר (בניגוד ליום הכיפורים בחלק מהקהילות):
-• איסורי מוזיקה קשורים לאבל — נמנעים ממוזיקה שמחה חיה ברוח של שלושת השבועות/תשעה באב, אך ליבת הצום היא חמש העינויים לעיל.
-
-אחרי צאת הכוכבים: חלק מאיסורי האבל של תשעה באב מתבטלים — שאלו את הרב לגבי כביסה, בשר ומוזיקה.
-
-$common""",
+        "he": TISHA_FAST_HE,
+        "es": TISHA_FAST_ES,
+        "fr": TISHA_FAST_FR,
+        "ru": TISHA_FAST_RU,
     },
     EREV_MINOR_FAST: {
         "he": """מחר $fastName — צום ציבורי משחר (עלות השחר) עד צאת הכוכבים (צאת).

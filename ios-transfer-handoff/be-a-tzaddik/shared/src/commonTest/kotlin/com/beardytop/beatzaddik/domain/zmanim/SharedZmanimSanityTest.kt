@@ -43,13 +43,13 @@ class SharedZmanimSanityTest {
     }
 
     @Test
-    fun missingCoordinatesFallsBackToHeuristic() {
+    fun missingCoordinatesReturnsNull() {
         val profile = com.beardytop.beatzaddik.domain.UserProfile(
             timezoneId = "America/New_York",
             latitude = null,
             longitude = null,
         )
         val z = SharedZmanimBuilder.build(1_700_000_000_000L, profile)
-        assertTrue(z.hasLocationTimes)
+        assertTrue(z == null)
     }
 }

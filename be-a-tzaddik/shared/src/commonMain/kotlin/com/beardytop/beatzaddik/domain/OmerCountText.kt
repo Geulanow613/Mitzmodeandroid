@@ -107,7 +107,7 @@ object OmerCountText {
         val day = cal.omerDay ?: return emptyMap()
         val nusach = profile.effectiveNusach()
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeit = cal.zmanim?.tzeitMillis ?: cal.zmanim?.sunsetMillis
+        val tzeit = cal.zmanim?.let(::omerNightfallMillis)
         val timePart = ZmanimFormatter.formatTime(tzeit, tz)?.let {
             ExplainerTemplateFill.fill(OMER_TIME_PART, mapOf("time" to it))
         } ?: ""
@@ -115,8 +115,15 @@ object OmerCountText {
         val tomorrow = cal.date.plus(1, DateTimeUnit.DAY)
         val tomorrowNight = tomorrow.dayOfWeek.displayName()
         val todaySummary = omerDaySummary(day, nusach)
-        val nextDaySummary = if (day < 49) omerDaySummary(day + 1, nusach) else ""
-        val nextNightLine = if (day < 49) OMER_NEXT_NIGHT_LINE else ""
+        val tonightCountDay = day + 1
+        val tonightSummary = if (tonightCountDay <= 49) omerDaySummary(tonightCountDay, nusach) else ""
+        val nextDaySummary = if (tonightCountDay < 49) omerDaySummary(tonightCountDay + 1, nusach) else ""
+        val nextNightLine = if (tonightCountDay < 49) OMER_NEXT_NIGHT_LINE else ""
+        val speechPhrase = if (tonightCountDay <= 49) {
+            "Today is ${omerDaySummary(tonightCountDay, nusach)}."
+        } else {
+            ""
+        }
         val nusachWhen = when (nusach) {
             EffectiveNusach.CHABAD -> "Many in Chabad count after Maariv (Tehillat Hashem)."
             EffectiveNusach.SEFARD -> "Many Sephardim count after Maariv."
@@ -127,15 +134,34 @@ object OmerCountText {
             "day" to day.toString(),
             "nusach" to nusach.name,
             "todaySummary" to todaySummary,
+            "tonightSummary" to tonightSummary,
             "tonight" to tonight,
             "tomorrowNight" to tomorrowNight,
             "timePart" to timePart,
             "nextDaySummary" to nextDaySummary,
             "nextNightLine" to nextNightLine,
-            "speechPhrase" to omerCountSpeechPhrase(day, nusach),
+            "speechPhrase" to speechPhrase,
             "nusachWhen" to nusachWhen,
         )
     }
+
+    /**
+     * Evening tzeit for tonight's count — rejects dawn/mis-ordered values that can appear when
+     * zmanim data is partial or mis-ordered (e.g. tomorrow's alot hashachar).
+     */
+    internal fun omerNightfallMillis(zmanim: ZmanimSnapshot): Long? {
+        val sunset = zmanim.sunsetMillis ?: return zmanim.tzeitMillis
+        val candidate = zmanim.tzeitMillis ?: (sunset + OMER_TZEIT_AFTER_SUNSET_MS)
+        val latestTzeit = sunset + OMER_MAX_TZEIT_AFTER_SUNSET_MS
+        return when {
+            candidate in sunset..latestTzeit -> candidate
+            candidate > sunset -> sunset + OMER_TZEIT_AFTER_SUNSET_MS
+            else -> sunset + OMER_TZEIT_AFTER_SUNSET_MS
+        }
+    }
+
+    private const val OMER_TZEIT_AFTER_SUNSET_MS = 33 * 60 * 1000L
+    private const val OMER_MAX_TZEIT_AFTER_SUNSET_MS = 120 * 60 * 1000L
 
     /** Nested template arg — catalog key; filled after main template lookup. */
     const val OMER_NEXT_NIGHT_LINE = "\n• ${'$'}tomorrowNight night: you will count ${'$'}nextDaySummary."
@@ -149,7 +175,7 @@ Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus tow
 Today in the Omer: ${'$'}todaySummary (day ${'$'}day of 49).
 
 Tonight's count:
-• ${'$'}tonight night — count ${'$'}todaySummary after nightfall${'$'}timePart.
+• ${'$'}tonight night — count ${'$'}tonightSummary after nightfall${'$'}timePart.
 ${'$'}nextNightLine
 
 How to count:

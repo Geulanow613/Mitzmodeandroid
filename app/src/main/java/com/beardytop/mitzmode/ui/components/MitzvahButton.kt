@@ -39,27 +39,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.ui.LocalTranslationViewModel
 import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
-// Function to get the proper "Mitzvah Me" translation for different languages
-@Composable
-fun getMitzvahMeTranslation(
-    currentLanguage: String,
-    translationViewModel: TranslationViewModel
-): String {
-    return when (currentLanguage) {
-        "he" -> "מצווה אותי" // "Mitzvah me" in Hebrew (imperative)
-        "es" -> "Dame Mitzvá" // "Give me Mitzvah" in Spanish (imperative)
-        "fr" -> "Mitzvah-moi" // "Mitzvah me" in French (imperative)
-        "de" -> "Mitzvah mich" // "Mitzvah me" in German (imperative)
-        "it" -> "Mitzvah me" // "Mitzvah me" in Italian (imperative)
-        "pt" -> "Me dê Mitzvá" // "Give me Mitzvah" in Portuguese (imperative)
-        "ru" -> "Дай мне Мицву" // "Give me Mitzvah" in Russian (imperative)
-        "ar" -> "أعطني ميتزفا" // "Give me Mitzvah" in Arabic (imperative)
-        "zh" -> "给我善行" // "Give me Mitzvah" in Chinese (imperative)
-        "ja" -> "ミツバーをください" // "Give me Mitzvah" in Japanese (imperative)
-        else -> "Mitzvah Me" // Default English
-    }
-}
-
 @Composable
 fun MitzvahButton(
     onClick: () -> Unit,

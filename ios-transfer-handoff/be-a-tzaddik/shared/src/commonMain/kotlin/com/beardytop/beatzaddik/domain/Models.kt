@@ -141,15 +141,20 @@ data class UserProfile(
             else -> IsraelDetectionSource.MANUAL_FLAG
         }
 
-    /** Minutes to wait after dairy before eating meat (custom or nusach default). */
+    /**
+     * Minutes to wait after dairy before eating meat (custom or nusach default).
+     *
+     * Shulchan Aruch (Y.D. 89:2): after dairy, only rinsing mouth and hands is required before meat —
+     * no timed wait. Most Ashkenaz poskim similarly require no wait. A 30-minute default is used
+     * as a conservative universal baseline. Users can adjust in Settings.
+     */
     fun dairyToMeatWaitMinutes(): Int =
-        KashrutWaitTimes.resolveDairyToMeatMinutes(meatAfterDairyHours)
-            ?: when (effectiveNusach()) {
-                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 6 * 60
-                else -> 60
-            }
+        KashrutWaitTimes.resolveDairyToMeatMinutes(meatAfterDairyHours) ?: 30
 
     fun meatToDairyHours(): Int = dairyAfterMeatHours ?: 6
+
+    /** True when GPS or a manual city has provided coordinates for prayer-time calculations. */
+    fun hasZmanimLocation(): Boolean = latitude != null && longitude != null
 }
 
 @Serializable
@@ -221,6 +226,12 @@ data class ResolvedChecklistItem(
     val def: ChecklistItemDef,
     val checked: Boolean,
     val displayTitle: String = def.title,
+    /**
+     * The translation bundle key for this item's title — identical to [displayTitle] except that
+     * dynamically-appended suffixes like " · Ashkenaz" (nusach tag) and " — Parshat X" (weekly
+     * parsha) are stripped. The bundle entry is keyed on the static base title only.
+     */
+    val titleTranslationKey: String = def.title,
     val displayExplanation: String = def.explanation,
     val learnMoreUrl: String? = null,
     val learnMoreLabel: String? = null,
@@ -229,10 +240,19 @@ data class ResolvedChecklistItem(
     val sectionLabel: String = def.section,
     val zmanAvailability: ItemZmanAvailability = ItemZmanAvailability.ACTIVE,
     val zmanHint: String? = null,
+    val zmanHintTemplate: String? = null,
+    val zmanHintArgs: Map<String, String> = emptyMap(),
     val zmanMakeupNote: String? = null,
+    val zmanMakeupTemplate: String? = null,
+    val zmanMakeupArgs: Map<String, String> = emptyMap(),
+    val zmanCollapsedTemplate: String? = null,
+    val zmanCollapsedArgs: Map<String, String> = emptyMap(),
     val zmanWindowStartMillis: Long? = null,
     val zmanWindowEndMillis: Long? = null,
-    val zmanAvailableAtLabel: String? = null
+    val zmanAvailableAtLabel: String? = null,
+    /** When set, [displayExplanation] is the English template key; UI fills [explanationArgs]. */
+    val explanationTemplate: String? = null,
+    val explanationArgs: Map<String, String> = emptyMap(),
 )
 
 data class DayChecklists(
@@ -262,11 +282,17 @@ data class CalendarHeader(
     val timeLabel: String? = null,
     /** e.g. "3rd day of Pesach", "Fast of 17 Tammuz" — shown below the clock. */
     val todayOccasionLabel: String? = null,
+    val todayOccasionTemplate: String? = null,
+    val todayOccasionTemplateArgs: Map<String, String> = emptyMap(),
     val todayOccasionSubtitle: String? = null,
     val todayOccasionGuideAnchor: String? = null,
     /** e.g. "Today is 14 days, which is 2 weeks of the Omer." */
     val omerTodayLabel: String? = null,
+    /** Raw Omer day (1–49) for UI localization — [omerTodayLabel] is English fallback. */
+    val omerDay: Int? = null,
     val omerExplainerText: String? = null,
+    val omerExplainerTemplate: String? = null,
+    val omerExplainerArgs: Map<String, String> = emptyMap(),
 )
 
 data class KashrutWait(

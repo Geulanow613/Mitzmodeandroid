@@ -41,7 +41,6 @@ import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.embedLtrForRtlMix
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
-import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import com.beardytop.beatzaddik.ui.translation.rememberLocalizedZmanInlineHint
 import com.beardytop.beatzaddik.ui.translation.rememberLocalizedZmanPeriodHint
@@ -179,7 +178,10 @@ fun TodayScreen(
         "${day?.header?.civilDateLabel.orEmpty()}|${day?.items?.size ?: 0}"
     }
     val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
+    val appTranslation = LocalAppTranslation.current
+    val displayLang = appTranslation.displayLanguageCode
 
+    AppDirectionalLayout(displayLang) {
     CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
     Column(
         modifier = Modifier
@@ -198,6 +200,7 @@ fun TodayScreen(
                 day = day,
                 timezoneId = profile.timezoneId,
                 locationLabel = profile.locationLabel,
+                manualCityId = profile.manualCityId,
                 effectiveNusach = profile.effectiveNusach(),
                 upcoming = upcoming,
                 onNusachClick = onOpenSettings,
@@ -411,10 +414,17 @@ fun TodayScreen(
         }
     }
     }
+    }
 }
 
 @Composable
 private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
+    val resolvedMessage = if (notice.messageArgs.isNotEmpty()) {
+        rememberAppTranslatedTemplate(notice.message, notice.messageArgs)
+    } else {
+        rememberAppTranslatedText(notice.message)
+    }
+    val resolvedFooter = rememberAppTranslatedText(notice.footer)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -437,7 +447,7 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
         )
         Spacer(Modifier.height(12.dp))
         HalachicClickableText(
-            text = notice.message,
+            text = resolvedMessage,
             style = MaterialTheme.typography.bodyMedium,
             color = TzaddikColors.ParchTop,
             textAlign = TextAlign.Center,
@@ -445,7 +455,7 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
         )
         Spacer(Modifier.height(8.dp))
         AppText(
-            notice.footer,
+            resolvedFooter,
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = TzaddikColors.GoldBorder,
             textAlign = TextAlign.Center
@@ -687,7 +697,7 @@ private fun UpcomingHolidayRtlRow(
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Top,
     ) {
         Text(
             text = nameAnnotated,
@@ -815,17 +825,15 @@ private fun UpcomingHolidayLine(
         return
     }
 
-    AppDirectionalLayout(displayLang) {
-        UpcomingHolidayRtlRow(
-            translatedName = translatedName,
-            holidayName = holiday.name,
-            whenPart = " — $translatedWhenLabel",
-            timingCluster = translatedTimingHint,
-            bodyStyle = bodyStyle,
-            timingStyle = timingStyle,
-            onNameClick = { onOpenGuideTopic(openTopic) },
-        )
-    }
+    UpcomingHolidayRtlRow(
+        translatedName = translatedName,
+        holidayName = holiday.name,
+        whenPart = " — $translatedWhenLabel",
+        timingCluster = translatedTimingHint,
+        bodyStyle = bodyStyle,
+        timingStyle = timingStyle,
+        onNameClick = { onOpenGuideTopic(openTopic) },
+    )
 }
 
 @Composable
@@ -925,7 +933,13 @@ private fun HintWithTermLinks(
     val hasLinkedTerms = originalSegments.any { seg -> ShabbatGuideData.anchorForLabel(seg) != null }
 
     if (!hasLinkedTerms) {
-        val translatedHint = rememberAppTranslatedText(hint)
+        val translatedHint = rememberAppTranslatedText(hint).let { full ->
+            if (full == hint && displayLang != "en") {
+                RuntimeZmanLocalization.localizeDotJoinedHint(hint, displayLang)
+            } else {
+                full
+            }
+        }
         DirectionalHint {
             AppText(
                 translatedHint,
@@ -1026,6 +1040,7 @@ private fun CalendarHeader(
     day: DayChecklists?,
     timezoneId: String,
     locationLabel: String?,
+    manualCityId: String? = null,
     effectiveNusach: EffectiveNusach,
     upcoming: List<UpcomingHoliday> = emptyList(),
     onNusachClick: () -> Unit = {},
@@ -1048,6 +1063,7 @@ private fun CalendarHeader(
         CurrentTimeLine(
             timezoneId = timezoneId,
             locationLabel = locationLabel,
+            manualCityId = manualCityId,
             modifier = Modifier.padding(bottom = 6.dp)
         )
         day?.let { d ->
@@ -1055,11 +1071,19 @@ private fun CalendarHeader(
                 val topic = d.header.todayOccasionGuideAnchor
                     ?.let(ShabbatGuideData::topicForAnchor)
                     ?: ShabbatGuideData.topicForUpcomingHoliday(occasion)
+                val occasionTemplate = d.header.todayOccasionTemplate
+                val occasionArgs = d.header.todayOccasionTemplateArgs
+                val localizedOccasion = if (occasionTemplate != null) {
+                    rememberAppTranslatedTemplate(occasionTemplate, occasionArgs)
+                } else {
+                    rememberAppTranslatedText(occasion)
+                }
                 Column {
                     if (topic != null) {
-                        Text(
-                            text = occasion,
+                        AppText(
+                            localizedOccasion,
                             color = TzaddikColors.GoldBright,
+                            enableTerms = false,
                             style = MaterialTheme.typography.titleSmall.copy(
                                 fontWeight = FontWeight.SemiBold,
                                 textDecoration = TextDecoration.Underline,
@@ -1068,7 +1092,7 @@ private fun CalendarHeader(
                         )
                     } else {
                         AppText(
-                            occasion,
+                            localizedOccasion,
                             color = TzaddikColors.GoldBright,
                             enableTerms = false,
                             style = MaterialTheme.typography.titleSmall.copy(
@@ -1287,7 +1311,8 @@ private fun TranslatedCivilDate(
         line,
         color = color,
         style = style,
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
+        textAlign = TextAlign.Start,
         enableTerms = false,
     )
 }
@@ -1303,10 +1328,11 @@ private fun TranslatedHebrewDate(
     val display = if (parts.size >= 3) {
         val year = parts.last()
         val day = parts.first()
-        val month = parts.subList(1, parts.size - 1).joinToString(" ")
+        val monthKey = parts.subList(1, parts.size - 1).joinToString(" ")
+        val translatedMonth = rememberAppTranslatedText(monthKey)
         rememberAppTranslatedTemplate(
             "{day} {month} {year}",
-            mapOf("day" to day, "month" to month, "year" to year),
+            mapOf("day" to day, "month" to translatedMonth, "year" to year),
         )
     } else {
         rememberAppTranslatedText(label)
@@ -1315,7 +1341,8 @@ private fun TranslatedHebrewDate(
         display,
         color = color,
         style = style,
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
+        textAlign = TextAlign.Start,
         enableTerms = false,
     )
 }

@@ -1,0 +1,38 @@
+{
+  "he": {
+    "Submit a Mitzvah": "שליחת מצווה",
+    "Submit": "שלח",
+    "Submitting...": "שולח...",
+    "Thank You!": "תודה!",
+    "• Make it accessible to everyone": "• הפכו אותה נגישה לכולם",
+    "• Include specific details when helpful": "• כללו פרטים ספציפיים כשזה מועיל",
+    "• Remember: small acts can have big impact!": "• זכרו: מעשים קטנים יכולים להשפיע בגדול!"
+  },
+  "es": {
+    "Submit a Mitzvah": "Enviar una mitzvá",
+    "Submit": "Enviar",
+    "Submitting...": "Enviando...",
+    "Thank You!": "¡Gracias!",
+    "• Make it accessible to everyone": "• Hazla accesible para todos",
+    "• Include specific details when helpful": "• Incluye detalles específicos cuando ayude",
+    "• Remember: small acts can have big impact!": "• Recuerda: ¡los pequeños actos pueden tener gran impacto!"
+  },
+  "fr": {
+    "Submit a Mitzvah": "Proposer une mitzvah",
+    "Submit": "Envoyer",
+    "Submitting...": "Envoi…",
+    "Thank You!": "Merci !",
+    "• Make it accessible to everyone": "• Rends-la accessible à tous",
+    "• Include specific details when helpful": "• Ajoute des détails précis quand c'est utile",
+    "• Remember: small acts can have big impact!": "• Rappelle-toi : les petits gestes peuvent avoir un grand impact !"
+  },
+  "ru": {
+    "Submit a Mitzvah": "Отправить мицву",
+    "Submit": "Отправить",
+    "Submitting...": "Отправка…",
+    "Thank You!": "Спасибо!",
+    "• Make it accessible to everyone": "• Сделай её доступной для всех",
+    "• Include specific details when helpful": "• Добавь конкретные детали, когда это полезно",
+    "• Remember: small acts can have big impact!": "• Помни: маленькие дела могут иметь большое значение!"
+  }
+}

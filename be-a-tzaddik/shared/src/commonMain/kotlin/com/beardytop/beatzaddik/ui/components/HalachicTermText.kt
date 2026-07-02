@@ -6,6 +6,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -47,13 +48,15 @@ import com.beardytop.beatzaddik.ui.screens.ShabbatGuideData
 import com.beardytop.beatzaddik.ui.screens.ShabbatGuideScreen
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
-import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
 import com.beardytop.beatzaddik.ui.translation.resolveBundledTranslationSync
 import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 val LocalHalachicTermExtras = compositionLocalOf { emptyList<HalachicTerm>() }
+
+/** When false, suppresses glossary underlines and popup definitions (e.g. guide rows open full pages). */
+val LocalHalachicTermsEnabled = compositionLocalOf { true }
 
 /** When set (e.g. on Today), glossary taps for guide-linked terms open the Shabbat guide. */
 val LocalOpenShabbatGuide = compositionLocalOf<((String?) -> Unit)?> { null }
@@ -75,7 +78,7 @@ internal fun halachicTermUnderlineColor(bodyColor: Color): Color = when (bodyCol
     else -> TzaddikColors.GoldBorder.copy(alpha = 0.68f)
 }
 
-/** Glossary labels are English; keep source copy when terms are present and UI is translated. */
+/** Glossary labels are English; underlines are skipped when the UI is translated (see below). */
 private fun hasGlossaryTerms(
     text: String,
     enableTerms: Boolean,
@@ -160,7 +163,11 @@ fun HalachicTermOverlay(
                 onDismissRequest = { showShabbatGuide = false },
                 properties = DialogProperties(usePlatformDefaultWidth = false),
             ) {
-                Box(Modifier.fillMaxSize()) {
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .navigationBarsPadding()
+                ) {
                     ShabbatGuideScreen(
                         initialAnchor = shabbatGuideAnchor,
                         onDismiss = { showShabbatGuide = false },
@@ -335,9 +342,10 @@ fun HalachicClickableText(
     val usedOnPage = LocalHalachicTermsUsedOnPage.current
     val appTranslation = LocalAppTranslation.current
     val uriHandler = LocalUriHandler.current
+    val termsEnabled = enableTerms && LocalHalachicTermsEnabled.current
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
 
-    if (!enableTerms && knownLinks.isEmpty() && !text.contains("](")) {
+    if (appTranslation.enabled && appTranslation.languageCode != "en") {
         SimpleTranslatedText(
             text = text,
             style = resolvedStyle,
@@ -349,7 +357,19 @@ fun HalachicClickableText(
         return
     }
 
-    if (!enableTerms) {
+    if (!termsEnabled && knownLinks.isEmpty() && !text.contains("](")) {
+        SimpleTranslatedText(
+            text = text,
+            style = resolvedStyle,
+            color = color,
+            modifier = modifier,
+            maxLines = maxLines,
+            overflow = overflow,
+        )
+        return
+    }
+
+    if (!termsEnabled) {
         val annotated = remember(text, knownLinks, color) {
             buildBodyAnnotatedString(
                 text = text,
@@ -388,12 +408,12 @@ fun HalachicClickableText(
     }
 
     var displayText by remember(text) { mutableStateOf(text) }
-    var annotated by remember(text, knownLinks, enableTerms, extras, color) {
+    var annotated by remember(text, knownLinks, termsEnabled, extras, color) {
         mutableStateOf<AnnotatedString?>(null)
     }
 
-    LaunchedEffect(text, knownLinks, enableTerms, extras, color, usedOnPage) {
-        HalachicAnnotationCache.get(text, knownLinks, enableTerms, extras, color)?.let {
+    LaunchedEffect(text, knownLinks, termsEnabled, extras, color, usedOnPage) {
+        HalachicAnnotationCache.get(text, knownLinks, termsEnabled, extras, color)?.let {
             annotated = it
             return@LaunchedEffect
         }
@@ -402,28 +422,23 @@ fun HalachicClickableText(
             buildBodyAnnotatedString(
                 text = text,
                 knownLinks = knownLinks,
-                enableTerms = enableTerms,
+                enableTerms = termsEnabled,
                 additionalTerms = extras,
                 bodyColor = color,
                 usedOnPage = localUsed,
             )
         }
-        HalachicAnnotationCache.put(text, knownLinks, enableTerms, extras, color, built)
+        HalachicAnnotationCache.put(text, knownLinks, termsEnabled, extras, color, built)
         if (usedOnPage != null && localUsed != null) {
             usedOnPage.addAll(localUsed)
         }
         annotated = built
     }
 
-    val glossaryTermsPresent = annotated?.let { ann ->
-        ann.getStringAnnotations(HalachicTermsDictionary.annotationTag(), 0, ann.length).isNotEmpty()
-    } ?: false
-
-    LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode, glossaryTermsPresent) {
+    LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode) {
         displayText = when {
             !appTranslation.enabled || appTranslation.languageCode == "en" -> text
             shouldSkipMachineTranslation(text, appTranslation.languageCode) -> text
-            glossaryTermsPresent && !BundledTranslationLanguages.isBundled(appTranslation.languageCode) -> text
             else -> appTranslation.translator.translate(text)
         }
     }

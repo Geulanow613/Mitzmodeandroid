@@ -4,6 +4,9 @@ package com.beardytop.beatzaddik.domain
 object AppDisclaimer {
     const val TITLE = "Disclaimer"
 
+    /** Embedded Mitz Mode checklist title (splash, onboarding, About). */
+    const val EMBEDDED_APP_TITLE = "the Daily Mitzvot Checklist"
+
     /** Headline shown above the disclaimer body. */
     const val WELCOME_HEADLINE = "A companion for your day"
 
@@ -32,4 +35,18 @@ object AppDisclaimer {
     const val PRODUCER_NAME = "Beardy Top Productions"
     const val WEBSITE_URL = "https://www.beardy.top"
     const val WEBSITE_DISPLAY = "www.beardy.top"
+
+    const val FEEDBACK_EMAIL = "beardytopproductions@gmail.com"
+    const val FEEDBACK_EMAIL_MAILTO = "mailto:beardytopproductions@gmail.com"
+
+    const val FEEDBACK_ABOUT_PROMPT = "Found an error or have suggestions? Email"
+
+    const val TRANSLATION_NOTICE_TITLE = "Translation Notice"
+
+    const val TRANSLATION_NOTICE_DISCLAIMER =
+        "Translations in this app are translated from English using machine-assisted methods and may not be perfect. " +
+            "Please send any errors you find to:"
+
+    const val TRANSLATION_LINKS_NOTE =
+        "(Most URL links still lead to English-based websites.)"
 }

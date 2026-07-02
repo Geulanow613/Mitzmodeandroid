@@ -19,9 +19,8 @@ class HeuristicJewishCalendarBackend : JewishCalendarBackend {
         val isFriday = date.dayOfWeek == DayOfWeek.FRIDAY
         val isSaturday = date.dayOfWeek == DayOfWeek.SATURDAY
 
-        val zmanim = HeuristicZmanim.build(nowEpochMillis, profile)
-        val activeTime = ZmanPeriodLogic.activeTimeOfDay(nowEpochMillis, zmanim)
-        val periodLabels = ZmanPeriodLabels.forPeriod(activeTime, zmanim, profile.effectiveNusach())
+        val zmanim = null
+        val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, zmanim)
 
         return DayInfo(
             date = date,
@@ -37,10 +36,10 @@ class HeuristicJewishCalendarBackend : JewishCalendarBackend {
             isErevShabbat = isFriday,
             isYomTov = false,
             isShabbatOrYomTov = isSaturday,
-            activeTimeOfDay = activeTime,
-            activePeriodLabel = periodLabels.activeTitle,
-            activePeriodHint = periodLabels.activeSummary,
-            inactivePeriodHint = periodLabels.laterSummary,
+            activeTimeOfDay = period.timeOfDay,
+            activePeriodLabel = period.activeTitle,
+            activePeriodHint = period.activeSummary,
+            inactivePeriodHint = period.laterSummary,
             zmanim = zmanim
         )
     }
@@ -61,13 +60,15 @@ class HeuristicJewishCalendarBackend : JewishCalendarBackend {
         val local = Instant.fromEpochMilliseconds(nowEpochMillis).toLocalDateTime(tz)
         return when {
             local.dayOfWeek == DayOfWeek.SATURDAY && local.hour < 20 ->
-                shabbatRest(profile, isErev = false, endsAtEpochMillis = saturdayHavdalahMillis(local.date, tz))
+                // Pass Friday's date so saturdayHavdalahMillis correctly adds 1 day → Saturday 20:30
+                shabbatRest(profile, isErev = false, endsAtEpochMillis = saturdayHavdalahMillis(local.date.plus(-1, DateTimeUnit.DAY), tz))
             local.dayOfWeek == DayOfWeek.FRIDAY && local.hour >= 18 ->
                 shabbatRest(profile, isErev = true, endsAtEpochMillis = saturdayHavdalahMillis(local.date, tz))
             else -> null
         }
     }
 
+    /** Returns heuristic Havdalah time: 20:30 on the day after [fridayDate]. */
     private fun saturdayHavdalahMillis(fridayDate: LocalDate, tz: TimeZone): Long {
         val saturday = fridayDate.plus(1, DateTimeUnit.DAY)
         return LocalDateTime(saturday.year, saturday.monthNumber, saturday.dayOfMonth, 20, 30)

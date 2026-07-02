@@ -63,7 +63,7 @@
       "id": "sefard_birkat_kohanim",
       "title": "Birkat Kohanim in Shacharit (Sephardi / Edot HaMizrach)",
       "section": "Morning Prayer (Shacharit)",
-      "sortOrder": 45,
+      "sortOrder": 55,
       "timeOfDay": "day",
       "required": true,
       "situational": false,

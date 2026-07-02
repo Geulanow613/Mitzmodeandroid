@@ -282,6 +282,8 @@ data class CalendarHeader(
     val timeLabel: String? = null,
     /** e.g. "3rd day of Pesach", "Fast of 17 Tammuz" — shown below the clock. */
     val todayOccasionLabel: String? = null,
+    val todayOccasionTemplate: String? = null,
+    val todayOccasionTemplateArgs: Map<String, String> = emptyMap(),
     val todayOccasionSubtitle: String? = null,
     val todayOccasionGuideAnchor: String? = null,
     /** e.g. "Today is 14 days, which is 2 weeks of the Omer." */

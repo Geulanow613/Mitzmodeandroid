@@ -101,8 +101,9 @@ internal object ElectronicsRestEvaluator {
 
         return ElectronicsRestPeriod(
             kind = RestKind.YOM_TOV,
-            title = "It's $holidayName Now",
-            message = yomTovMessage(holidayName),
+            title = "It's {holidayName} Now",
+            message = yomTovMessageTemplate(),
+            args = mapOf("holidayName" to holidayName),
             hebrewDateLabel = anchorInfo.hebrewLabel,
             locationLabel = profile.locationLabel,
             phase = RestPhase.ACTIVE,
@@ -141,8 +142,9 @@ internal object ElectronicsRestEvaluator {
 
         return ElectronicsRestPeriod(
             kind = RestKind.YOM_TOV,
-            title = "$holidayName is about to begin",
-            message = yomTovApproachingMessage(holidayName),
+            title = "{holidayName} is about to begin",
+            message = yomTovApproachingMessageTemplate(),
+            args = mapOf("holidayName" to holidayName),
             hebrewDateLabel = hebrewLabel,
             locationLabel = profile.locationLabel,
             phase = RestPhase.APPROACHING,

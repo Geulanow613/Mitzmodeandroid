@@ -42,7 +42,7 @@ ENTRIES = {
         "Nasa'u la'asot shalom bein shnayim she'atem makirim she'nimatzim be'machloket. Hasachar le'kach gadol me'od!",
         "Intenta hacer paz entre dos personas que conoces que estan discutiendo. La recompensa por hacerlo es muy grande!",
         "Essayez de faire la paix entre deux personnes que vous connaissez qui se disputent. La recompense est tres grande !",
-        "Poprobuyte primirit dvukh znakomykh, kotoryye ssoryatsya. Nagrada za eto ochen velika!",
+        "Постарайся примирить двух знакомых, которые сейчас ссорятся. Награда за это велика!",
     ),
     "Ashkenaz — Full Hallel (Chanukah):\nRecite the blessings before Full Hallel as on Chanukah (Mishnah Berurah 422:8).": T(
         "Ashkenaz — Full Hallel (Chanukah):\nLe'omar brachot lifnei Full Hallel kmo beChanukah (Mishnah Berurah 422:8).",

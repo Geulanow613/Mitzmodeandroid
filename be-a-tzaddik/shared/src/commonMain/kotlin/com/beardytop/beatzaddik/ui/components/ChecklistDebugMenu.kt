@@ -62,6 +62,7 @@ fun ChecklistDebugMenu(
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     val resolving by viewModel.checklistDebugResolving.collectAsState()
+    val pendingTimeSlot by viewModel.pendingDebugTimeSlot.collectAsState()
 
     CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
     Column(
@@ -141,13 +142,9 @@ fun ChecklistDebugMenu(
                     modifier = Modifier.padding(bottom = 10.dp),
                 ) {
                     ChecklistDebugTimeSlot.entries.forEach { slot ->
-                        val selected = activeOverride?.timeSlot == slot
+                        val selected = (activeOverride?.timeSlot ?: pendingTimeSlot) == slot
                         AssistChip(
-                            onClick = {
-                                if (activeOverride != null) {
-                                    viewModel.setChecklistDebugTimeSlot(slot)
-                                }
-                            },
+                            onClick = { viewModel.setChecklistDebugTimeSlot(slot) },
                             label = { Text(slot.label, color = TzaddikColors.NavyDeep) },
                             colors = AssistChipDefaults.assistChipColors(
                                 containerColor = if (selected) {
@@ -193,7 +190,7 @@ fun ChecklistDebugMenu(
                                     onClick = {
                                         viewModel.applyChecklistDebugScenario(
                                             scenario,
-                                            activeOverride?.timeSlot ?: ChecklistDebugTimeSlot.MORNING,
+                                            activeOverride?.timeSlot ?: pendingTimeSlot,
                                         )
                                     },
                                 )
@@ -206,7 +203,7 @@ fun ChecklistDebugMenu(
                                     onClick = {
                                         viewModel.applyChecklistDebugScenario(
                                             scenario,
-                                            activeOverride?.timeSlot ?: ChecklistDebugTimeSlot.MORNING,
+                                            activeOverride?.timeSlot ?: pendingTimeSlot,
                                         )
                                     },
                                 )

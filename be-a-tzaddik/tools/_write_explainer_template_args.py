@@ -224,7 +224,8 @@ def translate_omer_summary(summary_en: str, lang: str) -> str:
         elif wd == "1 week and 1 day":
             wd_ru = "1 неделя и 1 день"
         elif wd.startswith("1 week and "):
-            d = int(wd.rsplit(" ", 1)[-1])
+            dm = re.search(r"(\d+) days?$", wd)
+            d = int(dm.group(1)) if dm else 0
             wd_ru = f"1 неделя и {ru_days(d)}"
         return f"{ru_days(total)} омера, то есть {wd_ru} омера"
     return summary_en

@@ -5,6 +5,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from _mourning_period_translations import (
+    ND_ASH_HE,
+    NINE_DAYS_SHARED_EN,
+    NINE_DAYS_SHARED_HE,
+    THREE_WEEKS_INTRO_EN,
+    THREE_WEEKS_INTRO_HE,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 EXPLAINERS = ROOT / "data" / "translation-catalog" / "human" / "checklist_explainers.json"
 CATALOG = ROOT / "data" / "translation-catalog" / "strings.json"
@@ -20,9 +28,24 @@ def load_keys() -> None:
     chanukah = next(s for s in strings if s.startswith("Chanukah night $day"))
     ilanot = next(s for s in strings if s.startswith("Birkat Ha'Ilanot (ב"))
     kiddush = next(s for s in strings if s.startswith("Kiddush Levana (Sanctification"))
+    tw_intro = next(s for s in strings if s == THREE_WEEKS_INTRO_EN or (
+        s.startswith("The Three Weeks (בין המצרים)") and "Three stages of mourning" in s
+    ))
     tw_ash = next(s for s in strings if "Ashkenazi custom observes a longer" in s)
     tw_sep = next(s for s in strings if "Sephardic and Edot HaMizrach" in s)
     tw_ch = next(s for s in strings if "Chabad follows strict Ashkenazi mourning" in s)
+    tw_ash_full = next(
+        s for s in strings
+        if s.startswith("The Three Weeks") and "Ashkenazi custom observes a longer" in s
+    )
+    tw_sep_full = next(
+        s for s in strings
+        if s.startswith("The Three Weeks") and "Sephardic and Edot HaMizrach" in s
+    )
+    tw_ch_full = next(
+        s for s in strings
+        if s.startswith("The Three Weeks") and "Chabad follows strict Ashkenazi mourning" in s
+    )
     nd_ash = next(s for s in strings if s.startswith("The Nine Days (from 1 Av"))
     nd_sep = next(s for s in strings if "shavuah she'chal bo" in s and "Sephardic communities" in s)
     nd_ch = next(s for s in strings if "Chabad practice" in s and "Nine Days" in s)
@@ -107,25 +130,34 @@ In the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulc
         wait_edot: "נאמרת פעם בחודש; רוב הספרדים מהיום השביעי; מרוקאים לעיתים אחרי 3 ימים.",
         brachot_first: "לילה ראשון: שלוש ברכות כולל שהחיינו.",
         brachot_other: "הלילה: שתי ברכות (בלי שהחיינו אלא אם זו הפעם הראשונה השנה).",
+        tw_intro: THREE_WEEKS_INTRO_HE,
         tw_ash: (
-            "שלושת השבועות (בין המצרים) מי״ז בתמוז עד תשעה באב.\n\n"
-            "מנהג אשכנז: אבל ממושך לאורך שלושת השבועות, מתחזק בתשעת הימים.\n"
-            "מי״ז בתמוז: תספורת, מוזיקה וחתונות אסורים; שהחיינו נמנע (מותר בשבת).\n"
-            "מא׳ באב: ראו פריט תשעת הימים."
+            "מנהג אשכנז: אבל ממושך ומחמיר לאורך שלושת השבועות, מתחזק בתשעת הימים.\n\n"
+            "מי״ז בתמוז (שלושת השבועות בכלל):\n"
+            "• תספורת וגילוח: אסורים לכל תקופת שלושת השבועות.\n"
+            "• מוזיקה: אין להאזין למוזיקה כלי לכל התקופה.\n"
+            "• חתונות: לא מתקיימות.\n"
+            "• שהחיינו: בדרך כלל לא על בגדים או פירות חדשים; מותר בשבת.\n\n"
+            "מא׳ באב (תשעת הימים): ההגבלות מתחזקות — ראו פריט תשעת הימים לבשר, יין, כביסה, רחצה ומנהגי בית."
         ),
         tw_sep: (
-            "שלושת השבועות — ספרדים ועה״מ: מקילים יותר עד שבוע תשעה באב.\n"
-            "תספורת מותרת ברוב השבועות; מוזיקה נמנעת; חתונות לפי הקהילה."
+            "קהילות ספרדיות ועדות המזרח, לפי שולחן ערוך, מקילות יותר מאשכנזים בתחילת שלושת השבועות.\n\n"
+            "מי״ז בתמוז (שלושת השבועות בכלל):\n"
+            "• תספורת וגילוח: מותרים ברוב שלושת השבועות; גילוח אסור בדרך כלל רק בשבוע שחל בו ט׳ באב.\n"
+            "• מוזיקה: נמנעים ממוזיקה חיה או מוקלטת.\n"
+            "• חתונות: חלק מהקהילות נמנעות מי״ז בתמוז; אחרות רק מר״ח אב — לפי הקהילה.\n"
+            "• שהחיינו: נמנע על פריטים חדשים לכל התקופה.\n\n"
+            "מר״ח אב או שבוע ט׳ באב: הגבלות נוספות — ראו פריט תשעת הימים."
         ),
         tw_ch: (
-            "שלושת השבועות בחב״ד — מנהג אשכנזי מחמיר.\n"
-            "תספורת, מוזיקה וחתונות אסורים; מרבים תורה וצדקה; מתחזק בתשעת הימים מר״ח אב."
+            "חב״ד עוקב אחר מנהגי אבל אשכנזיים מחמירים, עם דגש הרבי על צמיחה רוחנית בתקופה זו.\n\n"
+            "מי״ז בתמוז (שלושת השבועות בכלל):\n"
+            "• תספורת, מוזיקה וחתונות: אסורים לכל שלושת השבועות.\n"
+            "• שהחיינו: נמנע לחלוטין, חוץ בשבת או למצווה (למשל ברית מילה).\n"
+            "• תורה וצדקה: מרבים לימוד תורה — במיוחד על המקדש — וצדקה.\n\n"
+            "מר״ח אב (תשעת הימים): ההגבלות מתחזקות — ראו פריט תשעת הימים."
         ),
-        nd_ash: (
-            "תשעת הימים (מא׳ באב) — אבל אשכנזי מחמיר: בשר, יין, כביסה, רחצה לתענוג, קניות.\n"
-            "תשעה באב: צום; קינות.\n"
-            "אחרי הצום: הגבלות עד חצות י׳ באב."
-        ),
+        nd_ash: ND_ASH_HE,
         nd_sep: (
             "תשעת הימים ושבוע תשעה באב — ספרדים: מחמירים בשבוע שחל בו תשעה באב.\n"
             "בשר, יין, כביסה ורחצה לפי המנהג; שאלו את הרב."
@@ -136,6 +168,12 @@ In the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulc
         ),
         **nusach_omer,
     })
+    HE[tw_ash_full] = THREE_WEEKS_INTRO_HE + "\n\n" + HE[tw_ash]
+    HE[tw_sep_full] = THREE_WEEKS_INTRO_HE + "\n\n" + HE[tw_sep]
+    HE[tw_ch_full] = THREE_WEEKS_INTRO_HE + "\n\n" + HE[tw_ch]
+    HE[NINE_DAYS_SHARED_EN if NINE_DAYS_SHARED_EN in strings else next(
+        s for s in strings if "At the seudah hamafseket, do not bentch" in s
+    )] = NINE_DAYS_SHARED_HE
     load_template_keys(strings)
 
 

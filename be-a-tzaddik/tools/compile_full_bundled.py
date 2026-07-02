@@ -4,11 +4,14 @@
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 
 from translation_repairs import repair_translation
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+from _translation_quality_batch import polish_text  # noqa: E402
 CATALOG = ROOT / "data" / "translation-catalog" / "strings.json"
 SHARDS = ROOT / "data" / "translation-catalog" / "shards"
 LEGACY = ROOT / "data" / "bundled-translations"
@@ -83,6 +86,7 @@ def load_human() -> dict[str, dict[str, str]]:
         "shabbat_guide_polish.json",
         "glossary_polish.json",
         "hebrew_terms.json",
+        "ui_gap_and_guide.json",
         "zman_ui.json",
         "prayers_liturgy.json",
         "seasonal_explainer_fragments.json",
@@ -93,10 +97,9 @@ def load_human() -> dict[str, dict[str, str]]:
         "checklist_explainers.json",
         "explainer_template_args.json",
         "mein_shalosh_ui.json",
-        "he_glue_fixes.json",
+        "reward_levels.json",
         "mitzvah_alert_tone.json",
         "he_alert_tone.json",
-        "mitzvah_me_ui.json",
         "ui_chrome.json",
         "ru_cyrillic_fixes.json",
         "ru_cyrillic_top50.json",
@@ -108,7 +111,21 @@ def load_human() -> dict[str, dict[str, str]]:
         "es_fr_prose_polish.json",
         "he_short_learn_expansions.json",
         "alert_short_expansions.json",
+        "he_glue_fixes.json",
         "ru_deep_fixes.json",
+        "chol_hamoed_ui.json",
+        "mitzvah_me_ui.json",
+        "brachot_ui.json",
+        "music_ui.json",
+        "mitzvah_dialog_ui.json",
+        "submit_mitzvah_ui.json",
+        "feedback_ui.json",
+        "kashrut_ui.json",
+        "holy_day_phone_ui.json",
+        "chol_hamoed_extras.json",
+        "erev_chag_explainers.json",
+        "quality_95_hotfixes.json",
+        "quality_98_machine_fixes.json",
     ]
     priority_last = set(priority_last_ordered)
     priority_he_fix = sorted(
@@ -210,6 +227,7 @@ def main() -> None:
                 entries = {k: repair_translation(lang, v) for k, v in entries.items()}
         elif lang == "he":
             entries = {k: repair_translation(lang, v) for k, v in entries.items()}
+        entries = {k: polish_text(v, lang) for k, v in entries.items()}
         missing = count_missing(lang, required, entries)
         translated = len(required) - len(missing)
         payload = {
@@ -234,7 +252,8 @@ def main() -> None:
             payload = json.loads(dest.read_text(encoding="utf-8"))
             for key, val in seasonal_data.get(lang, {}).items():
                 if key in required:
-                    payload["entries"][key] = repair_translation(lang, val) if lang != "he" else val
+                    tr = repair_translation(lang, val) if lang != "he" else val
+                    payload["entries"][key] = polish_text(tr, lang)
             dest.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
             (LEGACY / f"{lang}.json").write_text(
                 json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -263,6 +282,28 @@ def main() -> None:
     audit_result = subprocess.run([sys.executable, str(full_audit), "--strict"], cwd=ROOT)
     if audit_result.returncode != 0:
         raise SystemExit("Bundle compile failed: translation quality audit (see above)")
+
+    import os
+
+    if os.environ.get("SKIP_IOS_HANDOFF") != "1":
+        sync_handoff = ROOT.parent / "ios-transfer-handoff" / "sync-to-ios-handoff.ps1"
+        if sync_handoff.is_file():
+            print("Syncing ios-transfer-handoff (swift-native + KMP mirror)...")
+            handoff_result = subprocess.run(
+                [
+                    "powershell",
+                    "-NoProfile",
+                    "-ExecutionPolicy",
+                    "Bypass",
+                    "-File",
+                    str(sync_handoff),
+                ],
+                cwd=sync_handoff.parent,
+            )
+            if handoff_result.returncode != 0:
+                print("Warning: ios-transfer-handoff sync failed (non-fatal)")
+        else:
+            print("Skip ios handoff: sync-to-ios-handoff.ps1 not found")
 
 
 if __name__ == "__main__":

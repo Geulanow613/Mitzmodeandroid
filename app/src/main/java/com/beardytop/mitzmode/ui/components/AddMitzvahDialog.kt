@@ -147,14 +147,20 @@ fun AddMitzvahDialog(
                         color = DialogGoldBorder
                     )
                     Spacer(modifier = Modifier.height(6.dp))
-                    TranslatableText(
-                        text = "• Keep it positive and actionable\n" +
-                              "• Make it accessible to everyone\n" +
-                              "• Include specific details when helpful\n" +
-                              "• Remember: small acts can have big impact!",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = DialogTextPrimary
+                    val guidelineBullets = listOf(
+                        "• Keep it positive and actionable",
+                        "• Make it accessible to everyone",
+                        "• Include specific details when helpful",
+                        "• Remember: small acts can have big impact!",
                     )
+                    guidelineBullets.forEach { bullet ->
+                        TranslatableText(
+                            text = bullet,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = DialogTextPrimary,
+                            modifier = Modifier.padding(bottom = 2.dp)
+                        )
+                    }
                 }
             }
         }

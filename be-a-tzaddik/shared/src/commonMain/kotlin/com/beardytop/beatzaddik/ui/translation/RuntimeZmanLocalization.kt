@@ -60,7 +60,7 @@ object RuntimeZmanLocalization {
         inlineZmanHint.find(trimmed)?.let { match ->
             return formatInlineZmanClockWeekday(match, languageCode, embedForParagraph = true)
         }
-        return BundledTranslationsCatalog.lookup(trimmed, languageCode) ?: trimmed
+        return localizeDotJoinedHint(trimmed, languageCode)
     }
 
     /** Clock + weekday only — for explicit RTL Row layout (no bidi isolates). */
@@ -70,7 +70,20 @@ object RuntimeZmanLocalization {
         inlineZmanHint.find(trimmed)?.let { match ->
             return formatInlineZmanClockWeekday(match, languageCode, embedForParagraph = false)
         }
-        return BundledTranslationsCatalog.lookup(trimmed, languageCode) ?: trimmed
+        return localizeDotJoinedHint(trimmed, languageCode)
+    }
+
+    /** Full-string lookup, then segment-wise translation for overlay hints joined with " · ". */
+    fun localizeDotJoinedHint(raw: String, languageCode: String): String {
+        if (languageCode == "en" || raw.isBlank()) return raw
+        BundledTranslationsCatalog.lookup(raw, languageCode)?.let { return it }
+        if (" · " !in raw) {
+            return BundledTranslationsCatalog.lookup(raw, languageCode) ?: raw
+        }
+        return raw.split(" · ").joinToString(" · ") { segment ->
+            val trimmed = segment.trim()
+            BundledTranslationsCatalog.lookup(trimmed, languageCode) ?: trimmed
+        }
     }
 
     private fun formatInlineZmanClockWeekday(

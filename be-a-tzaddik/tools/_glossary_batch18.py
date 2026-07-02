@@ -190,10 +190,13 @@ ONA_AH_PREFIX_KEY = next(k for k in CATALOG if k.startswith("ona'ah — Overchar
 ONA_AH_BODY_KEY = next(k for k in CATALOG if k.startswith("Overcharging or underpaying when the other"))
 MISHEYAKIR_KEY = next(k for k in CATALOG if k.startswith("misheyakir — Misheyakir"))
 ARBA_MINIM_KEY = next(
-    k for k in CATALOG
-    if k.startswith("Arba Minim (ארבעה מינים) — the Four Species")
-    and "Men —" not in k
-    and "Women —" not in k
+    (
+        k for k in CATALOG
+        if k.startswith("Arba Minim (ארבעה מינים) — the Four Species")
+        and "Men —" not in k
+        and "Women —" not in k
+    ),
+    None,
 )
 JEWISH_LAW_KEY = next(k for k in CATALOG if k.startswith("Jewish law applies in the marketplace"))
 PRAYING_KEY = next(k for k in CATALOG if k.startswith("Learn about the incredible power of praying"))
@@ -201,21 +204,29 @@ TEKIAH_KEY = next(k for k in CATALOG if k.startswith("Tekiah is a long straight 
 SHOFAR_KEY = next(k for k in CATALOG if k.startswith("Get ready for a wake-up call!"))
 
 BATCH18_ES: dict[str, str] = {
-    ONA_AH_PREFIX_KEY: f"ona'ah — {ONA_AH_BODY_ES}",
-    ONA_AH_BODY_KEY: ONA_AH_BODY_ES,
-    MISHEYAKIR_KEY: MISHEYAKIR_ES,
-    ARBA_MINIM_KEY: ARBA_MINIM_ES,
-    JEWISH_LAW_KEY: JEWISH_LAW_ES,
-    PRAYING_KEY: PRAYING_ES,
-    TEKIAH_KEY: TEKIAH_ES,
-    SHOFAR_KEY: SHOFAR_ES,
+    k: v
+    for k, v in {
+        ONA_AH_PREFIX_KEY: f"ona'ah — {ONA_AH_BODY_ES}",
+        ONA_AH_BODY_KEY: ONA_AH_BODY_ES,
+        MISHEYAKIR_KEY: MISHEYAKIR_ES,
+        ARBA_MINIM_KEY: ARBA_MINIM_ES,
+        JEWISH_LAW_KEY: JEWISH_LAW_ES,
+        PRAYING_KEY: PRAYING_ES,
+        TEKIAH_KEY: TEKIAH_ES,
+        SHOFAR_KEY: SHOFAR_ES,
+    }.items()
+    if k is not None
 }
 
 BATCH18_FR: dict[str, str] = {
-    ONA_AH_PREFIX_KEY: f"Ona'ah — {ONA_AH_BODY_FR}",
-    ONA_AH_BODY_KEY: ONA_AH_BODY_FR,
-    MISHEYAKIR_KEY: MISHEYAKIR_FR,
-    ARBA_MINIM_KEY: ARBA_MINIM_FR,
-    JEWISH_LAW_KEY: JEWISH_LAW_FR,
-    PRAYING_KEY: PRAYING_FR,
+    k: v
+    for k, v in {
+        ONA_AH_PREFIX_KEY: f"Ona'ah — {ONA_AH_BODY_FR}",
+        ONA_AH_BODY_KEY: ONA_AH_BODY_FR,
+        MISHEYAKIR_KEY: MISHEYAKIR_FR,
+        ARBA_MINIM_KEY: ARBA_MINIM_FR,
+        JEWISH_LAW_KEY: JEWISH_LAW_FR,
+        PRAYING_KEY: PRAYING_FR,
+    }.items()
+    if k is not None
 }

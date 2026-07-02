@@ -9,10 +9,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,7 +31,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import com.beardytop.beatzaddik.ui.components.AppText
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
@@ -40,14 +44,14 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
+import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
-import com.beardytop.beatzaddik.ui.components.HalachicGuideTerms
-import com.beardytop.beatzaddik.ui.components.LocalHalachicTermExtras
-import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsUsedOnPage
+import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsEnabled
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import androidx.compose.runtime.CompositionLocalProvider
 
@@ -98,11 +102,7 @@ fun ShabbatGuideScreen(
 
     PlatformBackHandler(onBack = ::goBack)
 
-    val usedTermsOnPage = remember(current) { mutableSetOf<String>() }
-    CompositionLocalProvider(
-        LocalHalachicTermExtras provides HalachicGuideTerms.terms,
-        LocalHalachicTermsUsedOnPage provides usedTermsOnPage,
-    ) {
+    CompositionLocalProvider(LocalHalachicTermsEnabled provides false) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -177,6 +177,21 @@ private fun FloatingNavButton(isClose: Boolean, modifier: Modifier, onClick: () 
 // ── Hub page ─────────────────────────────────────────────────────────────────
 
 @Composable
+private fun shabbatGuideContentPadding(top: Dp): PaddingValues {
+    val safeBottom = WindowInsets.safeDrawing.asPaddingValues().calculateBottomPadding()
+    val navBottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()
+    val insetBottom = maxOf(safeBottom, navBottom)
+    // Full-screen dialogs sometimes report zero insets — reserve gesture-nav space.
+    val bottom = 28.dp + if (insetBottom > 0.dp) insetBottom else 56.dp
+    return PaddingValues(
+        top = top,
+        start = 16.dp,
+        end = 16.dp,
+        bottom = bottom,
+    )
+}
+
+@Composable
 private fun HubPage(
     onOpenShabbatYomTov: () -> Unit,
     onOpenTerm: (String) -> Unit,
@@ -185,7 +200,7 @@ private fun HubPage(
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 48.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 48.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         item {
@@ -320,7 +335,7 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
@@ -416,10 +431,7 @@ private fun ShabbatYomTovDetailPage(onOpenMelachotList: () -> Unit) {
         item { SubHeading("The 39 Melachot") }
         item {
             BodyCard(
-                "The 39 categories of creative labor (melachot) forbidden on Shabbat are derived from the types of work " +
-                    "performed in constructing the Mishkan (Tabernacle) in the desert. The Talmud lists them in Tractate " +
-                    "Shabbat 73a.\n\nEach melacha has practical applications in modern life, from cooking and writing to " +
-                    "carrying and electricity. Tap below to browse all 39."
+                "The 39 categories of creative labor (melachot) forbidden on Shabbat are derived from the types of work performed in constructing the Mishkan (Tabernacle) in the desert. The Talmud lists them in Tractate Shabbat 73a.\n\nEach melacha has practical applications in modern life, from cooking and writing to carrying and electricity. Tap below to browse all 39."
             )
         }
         item {
@@ -454,7 +466,7 @@ private fun TermDetailPage(topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
@@ -485,7 +497,7 @@ private fun TermDetailPage(topic: GuideTopic) {
 private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         item {
@@ -493,8 +505,7 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
         }
         item {
             BodyCard(
-                "The 39 categories of creative labor forbidden on Shabbat. " +
-                    "Tap any to read a full explanation."
+                "The 39 categories of creative labor forbidden on Shabbat. Tap any to read a full explanation."
             )
             Spacer(Modifier.height(4.dp))
         }
@@ -547,6 +558,7 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
                     modifier = Modifier.size(18.dp))
             }
         }
+        item { Spacer(Modifier.height(16.dp)) }
     }
 }
 
@@ -557,7 +569,7 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item {
@@ -609,7 +621,7 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
 private fun HolidaysListPage(onOpenHoliday: (String) -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         item {
@@ -635,6 +647,7 @@ private fun HolidaysListPage(onOpenHoliday: (String) -> Unit) {
                 HubCard(title = holiday.title, subtitle = holiday.hebrewTitle, onClick = { onOpenHoliday(holiday.id) })
             }
         }
+        item { Spacer(Modifier.height(16.dp)) }
     }
 }
 
@@ -645,7 +658,7 @@ private fun HolidayDetailPage(topic: GuideTopic) {
     val uriHandler = LocalUriHandler.current
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(top = 56.dp, start = 16.dp, end = 16.dp, bottom = 32.dp),
+        contentPadding = shabbatGuideContentPadding(top = 56.dp),
         verticalArrangement = Arrangement.spacedBy(14.dp)
     ) {
         item { PageTitle(title = topic.title, hebrew = topic.hebrewTitle) }
@@ -719,6 +732,7 @@ private fun SubHeading(text: String) {
 
 @Composable
 private fun BodyCard(text: String) {
+    val translated = rememberAppTranslatedText(text)
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -727,7 +741,7 @@ private fun BodyCard(text: String) {
             .border(1.dp, TzaddikColors.GoldBorder.copy(alpha = 0.35f), RoundedCornerShape(14.dp))
             .padding(16.dp)
     ) {
-        text.split("\n\n").forEach { paragraph ->
+        translated.split("\n\n").forEach { paragraph ->
             val lines = paragraph.lines()
             val isBulletBlock = lines.any { it.trim().startsWith("•") }
             if (isBulletBlock) {
@@ -745,6 +759,7 @@ private fun BodyCard(text: String) {
                                 text = t.removePrefix("•").trim(),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = TzaddikColors.TextBrown,
+                                enableTerms = false,
                             )
                         }
                     } else if (t.isNotBlank()) {
@@ -752,6 +767,7 @@ private fun BodyCard(text: String) {
                             text = t,
                             style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.TextBrown,
+                            enableTerms = false,
                             modifier = Modifier.padding(bottom = 4.dp),
                         )
                     }
@@ -761,6 +777,7 @@ private fun BodyCard(text: String) {
                     text = paragraph.trim(),
                     style = MaterialTheme.typography.bodySmall.copy(lineHeight = 18.sp),
                     color = TzaddikColors.TextBrown,
+                    enableTerms = false,
                     modifier = Modifier.padding(bottom = 6.dp),
                 )
             }

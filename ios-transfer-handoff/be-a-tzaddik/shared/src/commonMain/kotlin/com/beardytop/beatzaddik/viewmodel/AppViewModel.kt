@@ -46,6 +46,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
@@ -418,7 +419,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             val nowMillis = Clock.System.now().toEpochMilliseconds()
             val prof = deps.repository.profile.first()
             val cal = deps.calendar.dayInfoAt(nowMillis, prof)
-            val daysUntilSaturday = (6 - cal.date.dayOfWeek.ordinal + 7) % 7
+            val daysUntilSaturday = (DayOfWeek.SATURDAY.ordinal - cal.date.dayOfWeek.ordinal + 7) % 7
             val saturdayKey = cal.date.plus(daysUntilSaturday, DateTimeUnit.DAY).toString()
             deps.repository.setWeeklyChecked(id, checked, saturdayKey)
         }

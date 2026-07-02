@@ -53,7 +53,7 @@ NEW = {
         "ראיתם לאחרונה חפץ אבוד? 🔍 אל תתעלמו! חזרו ונסו להחזירו לבעליו (אם אפשר). זו המצווה של השבת אבידה.",
         "¿Viste un objeto perdido recientemente? 🔍 ¡No lo ignores! Regresa e intenta devolverlo a su dueño (si es posible). Esa es la mitzvá de Hashavat Aveidah (devolver objetos perdidos).",
         "Vous avez vu un objet perdu récemment ? 🔍 Ne l'ignorez pas ! Retournez essayer de le rendre à son propriétaire (si possible). C'est la mitzvah de Hashavat Aveidah (restitution des objets perdus).",
-        "Nedavno videli poteryannuyu veshch? 🔍 Ne ignoriruyte! Vernites i poprobuyte vernut ee vladeltsu (esli vozmozhno). Eto mitzvah Hashavat Aveidah (vozvrashchenie poteryannogo).",
+        "Недавно видел потерянную вещь? 🔍 Не проходи мимо! Вернись и постарайся отдать владельцу (если возможно). Это мицва ашават авейда — возврат потерянного.",
     ),
     "Before chag — every erev Yom Tov:\n$sunsetLine\n$cookingLine\n• Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.\n$shulServicesLine$simchasBlock": T(
         "Lifnei chag — kol erev Yom Tov:\n$sunsetLine\n$cookingLine\n• Kabe'u telefonim u'machshevim lifnei Yom Tov — ha'app hazeh le'hachana, lo le'shimmush bechag.\n$shulServicesLine$simchasBlock",

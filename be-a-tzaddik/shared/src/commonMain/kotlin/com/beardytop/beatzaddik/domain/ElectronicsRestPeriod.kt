@@ -20,6 +20,8 @@ data class ElectronicsRestPeriod(
     val kind: RestKind,
     val title: String,
     val message: String,
+    /** Args for `{holidayName}` etc. placeholders in [title]/[message] — fill via rememberAppTranslatedTemplate. */
+    val args: Map<String, String> = emptyMap(),
     val hebrewDateLabel: String? = null,
     val locationLabel: String? = null,
     val phase: RestPhase = RestPhase.ACTIVE,

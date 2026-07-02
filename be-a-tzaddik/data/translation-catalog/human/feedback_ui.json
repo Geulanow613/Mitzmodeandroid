@@ -6,7 +6,8 @@
     "Got it": "הבנתי",
     "English:": "אנגלית:",
     "Listen to more Jewish music from": "האזינו לעוד מוזיקה יהודית מ-",
-    "Performed by": "בוצע על ידי"
+    "Performed by": "בוצע על ידי",
+    "(Most URL links still lead to English-based websites.)": "(רוב קישורי האתרים עדיין מובילים לאתרים באנגלית.)"
   },
   "es": {
     "Translation Notice": "Aviso de traducción",
@@ -15,7 +16,8 @@
     "Got it": "Entendido",
     "English:": "Inglés:",
     "Listen to more Jewish music from": "Escuche más música judía de",
-    "Performed by": "Interpretado por"
+    "Performed by": "Interpretado por",
+    "(Most URL links still lead to English-based websites.)": "(La mayoría de los enlaces siguen dirigiendo a sitios en inglés.)"
   },
   "fr": {
     "Translation Notice": "Avis de traduction",
@@ -24,7 +26,8 @@
     "Got it": "Compris",
     "English:": "Anglais :",
     "Listen to more Jewish music from": "Écoutez plus de musique juive de",
-    "Performed by": "Interprété par"
+    "Performed by": "Interprété par",
+    "(Most URL links still lead to English-based websites.)": "(La plupart des liens mènent encore vers des sites en anglais.)"
   },
   "ru": {
     "Translation Notice": "Уведомление о переводе",
@@ -33,6 +36,7 @@
     "Got it": "Понятно",
     "English:": "Английский:",
     "Listen to more Jewish music from": "Слушайте больше еврейской музыки от",
-    "Performed by": "Исполнено"
+    "Performed by": "Исполнено",
+    "(Most URL links still lead to English-based websites.)": "(Большинство ссылок всё ещё ведут на англоязычные сайты.)"
   }
 }

@@ -103,7 +103,7 @@ object ChecklistZmanEvaluator {
             "ashkenaz_musaf_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Tachanun at Mincha")
             "mincha_shemoneh_esrei_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Mincha")
             "evening_shema_with_its_blessings" -> eveningShemaWindow(nowMillis, z, tz)
-            "maariv_shemoneh_esrei" -> maarivWindow(nowMillis, z, tz)
+            "maariv_shemoneh_esrei" -> maarivWindow(nowMillis, z, tz, prayerDay)
             "rosh_chodesh_half_hallel",
             "rosh_chodesh_full_hallel_chanukah" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "Hallel at Shacharit",
@@ -374,7 +374,7 @@ object ChecklistZmanEvaluator {
                 "time" to (ZmanimFormatter.formatUntil(end, tz) ?: "at nightfall"),
             ),
             makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha. You may make up only the service immediately before Maariv (Mincha) — not an earlier missed service such as Shacharit, which can only be made up at Mincha.",
-            availableAtLabel = "midday"
+            availableAtLabel = "Mincha Gedola"
         )
     }
 
@@ -440,7 +440,8 @@ object ChecklistZmanEvaluator {
         )
     }
 
-    private fun maarivWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+    private fun maarivWindow(now: Long, z: ZmanimSnapshot, tz: String, prayerDay: PrayerDayContext): ItemZmanStatus {
+        MaarivInAppRules.blockedMaarivStatusIfApplicable(prayerDay, now, z, tz)?.let { return it }
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
         val tzeitNote = z.tzeitMillis?.let { tzeit ->
@@ -541,7 +542,20 @@ object ChecklistZmanEvaluator {
         val end = z.tzeitMillis
             ?: return ItemZmanStatus(hint = subtitle)
         if (PublicFastDayRules.fastStartsAtSunset(idx)) {
-            val start = z.alotHaShacharMillis ?: z.sunriseMillis ?: 0L
+            val sunsetToday = z.sunsetMillis
+            val sunsetYesterday = sunsetToday?.minus(24 * 60 * 60 * 1000L)
+            val dawnToday = z.alotHaShacharMillis ?: z.sunriseMillis
+            val start = when {
+                dawnToday != null && now >= dawnToday ->
+                    sunsetYesterday ?: dawnToday
+                sunsetToday != null && now >= sunsetToday ->
+                    sunsetToday
+                sunsetToday != null ->
+                    sunsetToday
+                else ->
+                    dawnToday ?: 0L
+            }
+            val upcomingLabel = if (sunsetToday != null && now < sunsetToday) "sunset" else "dawn"
             return windowStatus(
                 now = now,
                 start = start,
@@ -551,7 +565,7 @@ object ChecklistZmanEvaluator {
                 upcomingArgs = mapOf("subtitle" to subtitle),
                 expired = "The fast ended at nightfall.",
                 makeup = null,
-                availableAtLabel = "nightfall",
+                availableAtLabel = upcomingLabel,
                 activeHint = subtitle,
             )
         }

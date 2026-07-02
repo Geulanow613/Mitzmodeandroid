@@ -10,10 +10,19 @@ import kotlinx.datetime.toInstant
 enum class ChecklistDebugPhase { EREV, DAY_OF }
 
 enum class ChecklistDebugTimeSlot(val hour: Int, val label: String) {
+    PRE_DAWN(3, "Pre-dawn"),
     MORNING(9, "Morning"),
     AFTERNOON(14, "Afternoon"),
-    EVENING(18, "Evening"),
-    NIGHT(21, "Night"),
+    EVENING(19, "Evening"),
+    NIGHT(22, "Night"),
+    ;
+
+    /** Checklist section order / period chip while debug sim is active. */
+    fun toTimeOfDay(): TimeOfDay = when (this) {
+        PRE_DAWN, EVENING, NIGHT -> TimeOfDay.NIGHT
+        MORNING -> TimeOfDay.DAY
+        AFTERNOON -> TimeOfDay.AFTERNOON
+    }
 }
 
 data class ChecklistDebugScenario(
@@ -124,11 +133,11 @@ object ChecklistDebugScenarios {
         val chol = "Chol HaMoed"
         dayOf(chol, "Pesach", "ch_pesach") { cal, _ ->
             "chol_hamoed_pesach" in cal.activeSeasons &&
-                cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 17
+                cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 18
         }
         dayOf(chol, "Sukkot", "ch_sukkot") { cal, _ ->
             "chol_hamoed_sukkot" in cal.activeSeasons &&
-                cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 17
+                cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 18
         }
 
         val fasts = "Fasts"
@@ -230,7 +239,9 @@ object ChecklistDebugScenarios {
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 5
+    private const val CACHE_VERSION = 6
+
+    private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
     private val SEARCH_START = LocalDate(2018, 1, 1)
     private val SEARCH_END = LocalDate(2042, 12, 31)
@@ -306,6 +317,11 @@ object ChecklistDebugDateFinder {
                 epochMillis = millis,
             )
             if (canonical != null) {
+                if (scenario.id in CHOL_HAMOED_WEEKDAY_SCENARIOS &&
+                    HolyDayPhoneRules.isShabbatMelachaDay(cal)
+                ) {
+                    continue
+                }
                 return override
             }
             if (distance < bestDistance) {
@@ -363,7 +379,7 @@ object ChecklistDebugDateFinder {
         when (scenario.id) {
             "pesach_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 14)
             "pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
-            "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 17)
+            "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 18)
             "shavuot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 5)
             "shavuot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 6)
             "rosh_hashana_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ELUL, 29)
@@ -378,7 +394,7 @@ object ChecklistDebugDateFinder {
             } else {
                 CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 23)
             }
-            "ch_sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 17)
+            "ch_sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 18)
             "fast_gedaliah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 2)
             "fast_gedaliah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 3)
             "fast_10tev_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TEVET, 9)
@@ -411,6 +427,9 @@ object ChecklistDebugDateFinder {
     /** Erev scenarios skip Shabbat (checklist is off). Debug preview ignores electronics-rest windows. */
     private fun isErevDebuggable(cal: DayInfo): Boolean =
         !HolyDayPhoneRules.isShabbatMelachaDay(cal)
+
+    fun epochMillisAt(date: LocalDate, timeSlot: ChecklistDebugTimeSlot, timezoneId: String): Long =
+        date.atLocalTime(timeSlot.hour, timezoneId)
 
     private fun LocalDate.atLocalTime(hour: Int, timezoneId: String): Long {
         val tz = TimeZone.of(timezoneId)

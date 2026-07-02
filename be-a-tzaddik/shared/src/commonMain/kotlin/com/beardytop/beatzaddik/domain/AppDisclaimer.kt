@@ -46,4 +46,7 @@ object AppDisclaimer {
     const val TRANSLATION_NOTICE_DISCLAIMER =
         "Translations in this app are translated from English using machine-assisted methods and may not be perfect. " +
             "Please send any errors you find to:"
+
+    const val TRANSLATION_LINKS_NOTE =
+        "(Most URL links still lead to English-based websites.)"
 }

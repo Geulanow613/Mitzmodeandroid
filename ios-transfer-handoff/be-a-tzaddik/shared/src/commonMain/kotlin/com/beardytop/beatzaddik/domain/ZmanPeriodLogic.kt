@@ -1,8 +1,11 @@
 package com.beardytop.beatzaddik.domain
 
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 
 /**
  * Day vs afternoon vs night for checklist sections and zman windows.
@@ -100,5 +103,43 @@ object ZmanPeriodLogic {
         val chatzos = zmanim.chatzosMillis ?: return true
         val chatzosLayla = ZmanimHelpers.chatzosLaylaMillis(zmanim, nowMillis) ?: return nowMillis < chatzos
         return nowMillis >= chatzosLayla && nowMillis < chatzos
+    }
+
+    /** Civil clock fallback when location zmanim are unavailable (rough day / afternoon / night). */
+    fun activeTimeFromCivilClock(nowMillis: Long, timezoneId: String): TimeOfDay {
+        val hour = runCatching {
+            Instant.fromEpochMilliseconds(nowMillis)
+                .toLocalDateTime(TimeZone.of(timezoneId))
+                .hour
+        }.getOrElse { 12 }
+        return when {
+            hour < 5 || hour >= 20 -> TimeOfDay.NIGHT
+            hour >= 14 -> TimeOfDay.AFTERNOON
+            else -> TimeOfDay.DAY
+        }
+    }
+
+    data class ActivePeriodContext(
+        val timeOfDay: TimeOfDay,
+        val activeTitle: String,
+        val activeSummary: String?,
+        val laterSummary: String?,
+    )
+
+    fun activePeriodContext(
+        nowMillis: Long,
+        profile: UserProfile,
+        zmanim: ZmanimSnapshot?,
+    ): ActivePeriodContext {
+        val active = zmanim?.let { activeTimeOfDay(nowMillis, it) }
+            ?: activeTimeFromCivilClock(nowMillis, profile.timezoneId)
+        val labels = zmanim?.let { ZmanPeriodLabels.forPeriod(active, it, profile.effectiveNusach()) }
+            ?: ZmanPeriodLabels.forPeriodWithoutZmanim(active)
+        return ActivePeriodContext(
+            timeOfDay = active,
+            activeTitle = labels.activeTitle,
+            activeSummary = labels.activeSummary,
+            laterSummary = labels.laterSummary,
+        )
     }
 }

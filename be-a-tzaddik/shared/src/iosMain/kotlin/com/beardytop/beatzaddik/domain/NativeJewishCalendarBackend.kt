@@ -151,7 +151,11 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isSefirah     = omerDay != null && omerDay in 1..49 && !isLagBaomer
         val isRoshChodesh = (hd.day == 1 && hd.month != HebrewCalendarEngine.TISHREI) || hd.day == 30
         val isTaanis      = isTaanisIndex(idx)
-        val fastDayIndex = idx.takeIf { PublicFastDayRules.isPublicFast(it) }
+        val fastDayIndex = PublicFastDayRules.resolveFastDayIndex(
+            todayIdx = idx,
+            tomorrowIdx = tomorrowIdx,
+            isTaanis = isTaanis,
+        )
         val fastDayName = fastDayIndex?.let { PublicFastDayRules.displayName(it) }
         val upcomingFastDayIndex = tomorrowIdx.takeIf { PublicFastDayRules.isPublicFast(it) }
         val upcomingFastDayName = upcomingFastDayIndex?.let { PublicFastDayRules.displayName(it) }
@@ -168,7 +172,18 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isErevChag = !isYomTov &&
             HebrewCalendarEngine.isYomTov(tomorrowIdx) &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(tomorrowIdx)
-        val upcomingChagName = if (isErevChag) holidayName(tomorrowIdx) else null
+        val upcomingChagName = if (isErevChag) {
+            UpcomingHolidayNames.erevUpcomingDisplayName(
+                todayYomTovIndex = idx,
+                tomorrowYomTovIndex = tomorrowIdx,
+                tomorrowHebrewMonth = tomorrowHd.month,
+                tomorrowHebrewDay = tomorrowHd.day,
+                inIsrael = profile.isInIsrael,
+                defaultHolidayName = holidayName(tomorrowIdx),
+            )
+        } else {
+            null
+        }
         val upcomingChagYomTovIndex = if (isErevChag) tomorrowIdx else null
         val isErevPurim = !isPurim && tomorrowIdx == HebrewCalendarEngine.PURIM
         val isErevChanukah = !isChanukah &&
@@ -375,10 +390,12 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             val start = yZmanim.sunsetMillis ?: today.zmanim?.sunriseMillis ?: return null
             val end = today.zmanim?.tzeitMillis ?: today.zmanim?.sunsetMillis ?: return null
             if (nowEpochMillis < start || nowEpochMillis >= end) return null
+            val holidayName = today.yomTovHolidayName ?: "Yom Tov"
             return ElectronicsRestPeriod(
                 kind = RestKind.YOM_TOV,
-                title = today.yomTovHolidayName ?: "Yom Tov",
-                message = yomTovMessage(today.yomTovHolidayName ?: "Yom Tov"),
+                title = holidayName,
+                message = yomTovMessageTemplate(),
+                args = mapOf("holidayName" to holidayName),
                 locationLabel = profile.locationLabel,
                 endsAtEpochMillis = end,
             )

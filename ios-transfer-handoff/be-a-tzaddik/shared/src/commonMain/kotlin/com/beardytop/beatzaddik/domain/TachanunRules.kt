@@ -17,8 +17,20 @@ object TachanunRules {
         if (cal.isChanukah || cal.isPurim) return false
         if (cal.isLagBaomer) return false
         if (cal.hebrewMonth == HebrewCalendarEngine.NISSAN) return false
+
+        val month = cal.hebrewMonth ?: return true
         val day = cal.hebrewDay ?: return true
-        return when (cal.hebrewMonth) {
+
+        // Elul 29 = Erev Rosh Hashana — Tachanun omitted (MB 581:14)
+        if (month == HebrewCalendarEngine.ELUL && day == 29) return false
+
+        // Tishrei: Erev Yom Kippur (9), Erev Sukkot (14) — Tachanun omitted
+        if (month == HebrewCalendarEngine.TISHREI && (day == 9 || day == 14)) return false
+
+        // Sivan: Erev Shavuot (5) and extended post-Shavuot period through 12 Sivan (Ashkenaz, MB 494:11)
+        if (month == HebrewCalendarEngine.SIVAN && day in 5..12) return false
+
+        return when (month) {
             HebrewCalendarEngine.SHEVAT -> day != 15 // Tu B'Shvat
             HebrewCalendarEngine.IYAR -> day != 14 // Pesach Sheni
             HebrewCalendarEngine.AV -> day != 15 // Tu B'Av

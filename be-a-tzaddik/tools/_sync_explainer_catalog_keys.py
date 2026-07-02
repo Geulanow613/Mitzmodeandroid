@@ -9,18 +9,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = ROOT / "data" / "translation-catalog" / "strings.json"
 
-THREE_WEEKS_INTRO = """The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the destruction of the Temple and Jewish tragedies.
-
-Why we mourn:
-• On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
-
-Shabbat during the Three Weeks: mourning practices do not apply on Shabbat itself — observe Shabbat fully."""
-
-NINE_DAYS_SHARED = """Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself.
-
-Tisha B'Av (9 Av): full 25-hour fast; kinot at Shacharit without tallit and tefillin; don them at Mincha after halachic chatzos (use your zmanim app). Sit on low stools until chatzos on 9 Av.
-
-Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat and wine are permitted."""
+from _mourning_period_translations import (
+    NINE_DAYS_SHARED_EN as NINE_DAYS_SHARED,
+    THREE_WEEKS_INTRO_EN as THREE_WEEKS_INTRO,
+)
 
 YAALEH_HALACHA = "Shulchan Arukh O.C. 422:1; Peninei Halakha 05-01-10"
 
@@ -286,6 +278,7 @@ from _purim_meshulash_template_data import PURIM_MESHULASH_CATALOG_KEYS  # noqa:
 from _write_seasonal_arg_explainers import SEASONAL_ARG_CATALOG_KEYS  # noqa: E402
 from _kiddush_levana_wait_data import KIDDUSH_WAIT_CATALOG_KEYS  # noqa: E402
 from _omer_explainer_arg_data import OMER_ARG_CATALOG_KEYS  # noqa: E402
+from _update_chol_hamoed_copy import HONOR_KEY  # noqa: E402
 from _yaaleh_template_data import YAALEH_TEMPLATE_CATALOG_KEYS  # noqa: E402
 from _taanit_template_data import TAANIT_CATALOG_KEYS  # noqa: E402
 
@@ -294,6 +287,7 @@ REQUIRED_TEMPLATE_KEYS.extend(PURIM_MESHULASH_CATALOG_KEYS)
 REQUIRED_TEMPLATE_KEYS.extend(SEASONAL_ARG_CATALOG_KEYS)
 REQUIRED_TEMPLATE_KEYS.extend(KIDDUSH_WAIT_CATALOG_KEYS)
 REQUIRED_TEMPLATE_KEYS.extend(OMER_ARG_CATALOG_KEYS)
+REQUIRED_TEMPLATE_KEYS.append(HONOR_KEY)
 REQUIRED_TEMPLATE_KEYS.extend(YAALEH_TEMPLATE_CATALOG_KEYS)
 REQUIRED_TEMPLATE_KEYS.extend(TAANIT_CATALOG_KEYS)
 

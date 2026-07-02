@@ -121,6 +121,8 @@ $shulServicesLine$simchasBlock"""
                     "• Do NOT recite Shehecheyanu at candle lighting or Kiddush$reason"
                 }
             }
+            HebrewCalendarEngine.ROSH_HASHANA ->
+                "• Recite Shehecheyanu at Kiddush on both nights."
             else -> "• Recite Shehecheyanu on the first night."
         }
 

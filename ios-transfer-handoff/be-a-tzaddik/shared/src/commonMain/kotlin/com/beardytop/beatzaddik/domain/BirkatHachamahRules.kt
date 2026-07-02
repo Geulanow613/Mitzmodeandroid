@@ -58,6 +58,25 @@ object BirkatHachamahRules {
         return "$weekday, $month ${date.dayOfMonth}, ${date.year}"
     }
 
+    fun formatOccurrenceDateHebrew(date: LocalDate): String {
+        val weekday = when (date.dayOfWeek) {
+            kotlinx.datetime.DayOfWeek.SUNDAY -> "יום ראשון"
+            kotlinx.datetime.DayOfWeek.MONDAY -> "יום שני"
+            kotlinx.datetime.DayOfWeek.TUESDAY -> "יום שלישי"
+            kotlinx.datetime.DayOfWeek.WEDNESDAY -> "יום רביעי"
+            kotlinx.datetime.DayOfWeek.THURSDAY -> "יום חמישי"
+            kotlinx.datetime.DayOfWeek.FRIDAY -> "יום שישי"
+            kotlinx.datetime.DayOfWeek.SATURDAY -> "שבת"
+        }
+        val month = when (date.monthNumber) {
+            1 -> "ינואר"; 2 -> "פברואר"; 3 -> "מרץ"; 4 -> "אפריל"
+            5 -> "מאי"; 6 -> "יוני"; 7 -> "יולי"; 8 -> "אוגוסט"
+            9 -> "ספטמבר"; 10 -> "אוקטובר"; 11 -> "נובמבר"; 12 -> "דצמבר"
+            else -> date.month.name.lowercase()
+        }
+        return "$weekday, ${date.dayOfMonth} ב$month ${date.year}"
+    }
+
     /** Closest occurrence to [anchor] — for debug simulator (fixed Gregorian cycle). */
     fun nearestOccurrenceTo(anchor: LocalDate): LocalDate? =
         OCCURRENCE_DATES.minByOrNull { kotlin.math.abs(it.toEpochDays() - anchor.toEpochDays()) }

@@ -52,13 +52,12 @@ import com.beardytop.beatzaddik.domain.ParshaData
 import com.beardytop.beatzaddik.domain.ChecklistZmanEvaluator
 import com.beardytop.beatzaddik.domain.ItemZmanAvailability
 import com.beardytop.beatzaddik.domain.ResolvedChecklistItem
+import com.beardytop.beatzaddik.domain.ZmanAvailabilityLive
 import com.beardytop.beatzaddik.domain.ZmanCountdownFormatter
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
-import com.beardytop.beatzaddik.ui.translation.fillTranslationTemplate
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
-import com.beardytop.beatzaddik.ui.translation.shouldSkipMachineTranslation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
@@ -74,13 +73,42 @@ fun HolyLightChecklistRow(
     onRemove: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
-    val zmanMuted = item.zmanAvailability != ItemZmanAvailability.ACTIVE
-    val isZmanTracked = ChecklistZmanEvaluator.appliesTo(item.def.id) && zmanMuted
+    val tracksZman = ChecklistZmanEvaluator.appliesTo(item.def.id)
+    var nowMillis by remember { mutableLongStateOf(Clock.System.now().toEpochMilliseconds()) }
+    LaunchedEffect(tracksZman, item.zmanWindowStartMillis, item.zmanWindowEndMillis, item.zmanAvailability) {
+        if (!tracksZman) return@LaunchedEffect
+        while (true) {
+            nowMillis = Clock.System.now().toEpochMilliseconds()
+            val until = item.zmanWindowStartMillis?.let { it - nowMillis }
+            val delayMs = when {
+                until != null && until > 0 && until < 5 * 60_000 -> 5_000L
+                until != null && until > 0 && until < 60 * 60_000 -> 15_000L
+                else -> 30_000L
+            }
+            delay(delayMs)
+        }
+    }
+    val liveAvailability = if (tracksZman) {
+        remember(item.zmanAvailability, item.zmanWindowStartMillis, item.zmanWindowEndMillis, nowMillis) {
+            ZmanAvailabilityLive.derive(
+                availability = item.zmanAvailability,
+                windowStartMillis = item.zmanWindowStartMillis,
+                windowEndMillis = item.zmanWindowEndMillis,
+                nowMillis = nowMillis,
+            )
+        }
+    } else {
+        item.zmanAvailability
+    }
+    val zmanMuted = liveAvailability != ItemZmanAvailability.ACTIVE
+    val isZmanTracked = tracksZman && zmanMuted
     val canCheck = !zmanMuted
 
     if (isZmanTracked) {
         CollapsedZmanChecklistRow(
             item = item,
+            liveAvailability = liveAvailability,
+            nowMillis = nowMillis,
             timezoneId = timezoneId,
             effectiveNusach = effectiveNusach,
             onCheckedChange = onCheckedChange,
@@ -107,6 +135,8 @@ fun HolyLightChecklistRow(
 @Composable
 private fun CollapsedZmanChecklistRow(
     item: ResolvedChecklistItem,
+    liveAvailability: ItemZmanAvailability,
+    nowMillis: Long,
     timezoneId: String,
     effectiveNusach: EffectiveNusach,
     onCheckedChange: (Boolean) -> Unit,
@@ -116,19 +146,11 @@ private fun CollapsedZmanChecklistRow(
     modifier: Modifier = Modifier
 ) {
     var expanded by remember(item.def.id, item.zmanAvailability) { mutableStateOf(false) }
-    var nowMillis by remember { mutableLongStateOf(Clock.System.now().toEpochMilliseconds()) }
     val languageCode = LocalAppTranslation.current.displayLanguageCode
-
-    LaunchedEffect(item.zmanWindowStartMillis, item.zmanAvailability) {
-        while (true) {
-            nowMillis = Clock.System.now().toEpochMilliseconds()
-            delay(30_000)
-        }
-    }
 
     val collapsedTemplate = item.zmanCollapsedTemplate
         ?: ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
-            availability = item.zmanAvailability,
+            availability = liveAvailability,
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
             atLabel = item.zmanAvailableAtLabel,
@@ -137,7 +159,7 @@ private fun CollapsedZmanChecklistRow(
         )?.first
     val collapsedArgs = item.zmanCollapsedArgs.ifEmpty {
         ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
-            availability = item.zmanAvailability,
+            availability = liveAvailability,
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
             atLabel = item.zmanAvailableAtLabel,
@@ -149,7 +171,7 @@ private fun CollapsedZmanChecklistRow(
         rememberAppTranslatedTemplate(collapsedTemplate, collapsedArgs)
     } else {
         ZmanCountdownFormatter.unavailableCollapsedSummary(
-            availability = item.zmanAvailability,
+            availability = liveAvailability,
             windowStartMillis = item.zmanWindowStartMillis,
             nowMillis = nowMillis,
             atLabel = item.zmanAvailableAtLabel,
@@ -185,19 +207,13 @@ private fun CollapsedZmanChecklistRow(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(modifier = Modifier.weight(1f)) {
-                    val omerDay = OmerCountText.dayFromCountTitle(item.titleTranslationKey)
-                    val translatedBase = if (
-                        omerDay != null && (languageCode == "he" || languageCode == "yi")
-                    ) {
-                        OmerCountText.localizedBuildTitle(omerDay, languageCode, effectiveNusach)
-                    } else {
-                        rememberAppTranslatedText(item.titleTranslationKey)
-                    }
-                    val collapsedTitle = if (item.displayTitle.startsWith(item.titleTranslationKey)) {
-                        translatedBase + item.displayTitle.substring(item.titleTranslationKey.length)
-                    } else translatedBase
+                    val displayTitle = rememberTranslatedChecklistTitle(
+                        rawTitle = item.displayTitle,
+                        translationKey = item.titleTranslationKey,
+                        effectiveNusach = effectiveNusach,
+                    )
                     AppText(
-                        text = collapsedTitle,
+                        text = displayTitle,
                         enableTerms = false,
                         style = MaterialTheme.typography.bodyMedium.copy(fontSize = 14.sp),
                         color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
@@ -207,7 +223,7 @@ private fun CollapsedZmanChecklistRow(
                         AppText(
                             text = summary,
                             style = MaterialTheme.typography.labelSmall,
-                            color = when (item.zmanAvailability) {
+                            color = when (liveAvailability) {
                                 ItemZmanAvailability.UPCOMING -> TzaddikColors.NavyMid.copy(alpha = 0.9f)
                                 else -> TzaddikColors.TextMuted.copy(alpha = 0.9f)
                             }
@@ -236,17 +252,63 @@ private fun CollapsedZmanChecklistRow(
             enter = expandVertically(),
             exit = shrinkVertically()
         ) {
-            ActiveChecklistRow(
+            ExpandedZmanHintPanel(
                 item = item,
-                effectiveNusach = effectiveNusach,
-                onCheckedChange = onCheckedChange,
-                onInfoClick = onInfoClick,
-                onHolyFlash = onHolyFlash,
-                onRemove = onRemove,
-                zmanMuted = true,
-                canCheck = false,
-                modifier = Modifier.padding(top = 4.dp)
+                modifier = Modifier.padding(top = 4.dp, start = 4.dp, end = 4.dp),
             )
+        }
+    }
+}
+
+@Composable
+private fun ExpandedZmanHintPanel(
+    item: ResolvedChecklistItem,
+    modifier: Modifier = Modifier,
+) {
+    val hintTemplate = item.zmanHintTemplate
+    val hintPlain = item.zmanHint
+    if (hintTemplate == null && hintPlain == null) return
+
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(TzaddikColors.ParchTop.copy(alpha = 0.45f))
+            .border(
+                width = 0.6.dp,
+                color = TzaddikColors.GoldBorder.copy(alpha = 0.18f),
+                shape = RoundedCornerShape(8.dp),
+            )
+            .padding(horizontal = 12.dp, vertical = 10.dp)
+    ) {
+        Column {
+            val displayHint = if (hintTemplate != null) {
+                rememberAppTranslatedTemplate(hintTemplate, item.zmanHintArgs)
+            } else {
+                rememberAppTranslatedText(hintPlain!!)
+            }
+            AppText(
+                text = displayHint,
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.TextMuted,
+            )
+            val makeupTemplate = item.zmanMakeupTemplate
+            val makeupPlain = item.zmanMakeupNote
+            if (item.zmanAvailability == ItemZmanAvailability.EXPIRED &&
+                (makeupTemplate != null || makeupPlain != null)
+            ) {
+                val displayNote = if (makeupTemplate != null) {
+                    rememberAppTranslatedTemplate(makeupTemplate, item.zmanMakeupArgs)
+                } else {
+                    rememberAppTranslatedText(makeupPlain!!)
+                }
+                AppText(
+                    text = displayNote,
+                    modifier = Modifier.padding(top = 6.dp),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TzaddikColors.TextMuted.copy(alpha = 0.85f),
+                )
+            }
         }
     }
 }
@@ -417,8 +479,58 @@ private fun ActiveChecklistRow(
 /**
  * Translates [translationKey] (the static bundle key, e.g. "Modeh Ani (Thank G-d upon waking)")
  * and then re-appends any dynamic suffix that is part of [rawTitle] but not the key — such as
- * " · Ashkenaz" (nusach tag) or " — Parshat Pinchas" (weekly parsha name).  The translated result
- * is then split at the first " (" for the standard two-line display.
+ * " · Ashkenaz" (nusach tag) or " — Parshat Pinchas" (weekly parsha name).
+ */
+@Composable
+private fun rememberTranslatedChecklistTitle(
+    rawTitle: String,
+    translationKey: String,
+    effectiveNusach: EffectiveNusach,
+): String {
+    val appTranslation = LocalAppTranslation.current
+    val bundledKey = rememberAppTranslatedText(translationKey)
+    val omerDay = OmerCountText.dayFromCountTitle(translationKey)
+    val translatedKey = if (omerDay != null && appTranslation.languageCode in setOf("he", "yi")) {
+        OmerCountText.localizedBuildTitle(omerDay, appTranslation.languageCode, effectiveNusach)
+    } else {
+        bundledKey
+    }
+    val dynamicSuffix = if (rawTitle.startsWith(translationKey)) {
+        rawTitle.substring(translationKey.length)
+    } else {
+        ""
+    }
+    return translatedKey + rememberTranslatedChecklistTitleSuffix(dynamicSuffix)
+}
+
+@Composable
+private fun rememberTranslatedChecklistTitleSuffix(dynamicSuffix: String): String {
+    if (dynamicSuffix.isEmpty()) return ""
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
+    val parshaMarker = " — Parshat "
+    val parshaIdx = dynamicSuffix.indexOf(parshaMarker)
+    if (parshaIdx >= 0) {
+        val before = dynamicSuffix.substring(0, parshaIdx)
+        val parshaName = dynamicSuffix.substring(parshaIdx + parshaMarker.length)
+        val localizedParsha = ParshaData.localizedDisplayName(parshaName, languageCode)
+        val parshaPart = rememberAppTranslatedTemplate(
+            " — Parshat {parsha}",
+            mapOf("parsha" to localizedParsha),
+        )
+        return rememberTranslatedChecklistTitleSuffix(before) + parshaPart
+    }
+    return when {
+        dynamicSuffix.startsWith(" · ") -> {
+            val tag = dynamicSuffix.removePrefix(" · ")
+            val translatedTag = rememberAppTranslatedText(tag)
+            " · $translatedTag"
+        }
+        else -> dynamicSuffix
+    }
+}
+
+/**
+ * Renders a translated checklist title, split at the first " (" for the standard two-line display.
  */
 @Composable
 private fun ChecklistItemTitle(
@@ -428,48 +540,7 @@ private fun ChecklistItemTitle(
     checked: Boolean,
     zmanMuted: Boolean,
 ) {
-    val appTranslation = LocalAppTranslation.current
-    var displayTitle by remember(rawTitle) { mutableStateOf(rawTitle) }
-
-    val dynamicSuffix = if (rawTitle.startsWith(translationKey)) {
-        rawTitle.substring(translationKey.length)
-    } else ""
-
-    LaunchedEffect(translationKey, dynamicSuffix, effectiveNusach, appTranslation.enabled, appTranslation.languageCode) {
-        val omerDay = OmerCountText.dayFromCountTitle(translationKey)
-        val translatedKey = when {
-            omerDay != null && appTranslation.languageCode in setOf("he", "yi") ->
-                OmerCountText.localizedBuildTitle(omerDay, appTranslation.languageCode, effectiveNusach)
-            !appTranslation.enabled || appTranslation.languageCode == "en" -> translationKey
-            shouldSkipMachineTranslation(translationKey, appTranslation.languageCode) -> translationKey
-            else -> appTranslation.translator.translate(translationKey)
-        }
-        val translatedSuffix = when {
-            dynamicSuffix.startsWith(" — Parshat ") -> {
-                val parshaName = dynamicSuffix.removePrefix(" — Parshat ")
-                val localizedParsha = ParshaData.localizedDisplayName(
-                    parshaName,
-                    appTranslation.languageCode,
-                )
-                val template = when {
-                    !appTranslation.enabled || appTranslation.languageCode == "en" ->
-                        " — Parshat {parsha}"
-                    else -> appTranslation.translator.translate(" — Parshat {parsha}")
-                }
-                fillTranslationTemplate(template, mapOf("parsha" to localizedParsha))
-            }
-            dynamicSuffix.startsWith(" · ") -> {
-                val tag = dynamicSuffix.removePrefix(" · ")
-                val translatedTag = when {
-                    !appTranslation.enabled || appTranslation.languageCode == "en" -> tag
-                    else -> appTranslation.translator.translate(tag)
-                }
-                " · $translatedTag"
-            }
-            else -> dynamicSuffix
-        }
-        displayTitle = translatedKey + translatedSuffix
-    }
+    val displayTitle = rememberTranslatedChecklistTitle(rawTitle, translationKey, effectiveNusach)
 
     val mainColor = when {
         zmanMuted -> TzaddikColors.TextMuted.copy(alpha = 0.78f)

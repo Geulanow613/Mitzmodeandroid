@@ -4,46 +4,60 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDirection
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.beardytop.mitzmode.data.MeinShaloshLanguage
 import com.beardytop.mitzmode.data.MeinShaloshSelection
 import com.beardytop.mitzmode.data.MeinShaloshTextEngine
+import com.beardytop.mitzmode.ui.LocalTranslationViewModel
+import com.beardytop.mitzmode.viewmodel.TranslationViewModel
 
 /**
- * Interactive Bracha Me'ein Shalosh (Al HaMichya) builder with Hebrew / English toggle.
+ * Interactive Bracha Me'ein Shalosh (Al HaMichya) builder: Hebrew liturgy on top, with a
+ * constructed translation in the user's language below when translation is shown.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AlHaMichyaBlessingCard(
     modifier: Modifier = Modifier,
     fontScale: Float = 1f,
-    showEnglish: Boolean? = null,
-    onShowEnglishChange: ((Boolean) -> Unit)? = null
+    showTranslation: Boolean = false,
 ) {
-    var internalEnglish by remember { mutableStateOf(false) }
-    val englishOn = showEnglish ?: internalEnglish
-    val setEnglish: (Boolean) -> Unit = onShowEnglishChange ?: { internalEnglish = it }
+    val translationViewModel: TranslationViewModel =
+        LocalTranslationViewModel.current ?: hiltViewModel()
+    val currentLanguage by translationViewModel.currentLanguage.collectAsState()
+    val translationEnabled by translationViewModel.translationEnabled.collectAsState()
+    val translationLanguage = remember(currentLanguage, translationEnabled) {
+        MeinShaloshTextEngine.translationLanguageForApp(currentLanguage, translationEnabled)
+    }
+    val layoutDirection = when (currentLanguage) {
+        "he", "yi" -> LayoutDirection.Rtl
+        else -> LayoutDirection.Ltr
+    }
+
     var hasMezonot by remember { mutableStateOf(false) }
     var hasWine by remember { mutableStateOf(false) }
     var hasFruit by remember { mutableStateOf(false) }
@@ -60,15 +74,31 @@ fun AlHaMichyaBlessingCard(
         isSukkot = isSukkot
     )
 
-    val language = if (englishOn) MeinShaloshLanguage.ENGLISH else MeinShaloshLanguage.HEBREW
-    val blessingText = remember(selection, language) {
-        MeinShaloshTextEngine.build(selection, language)
+    val hebrewBlessingText = remember(selection) {
+        if (!selection.hasAnyFood) {
+            ""
+        } else {
+            MeinShaloshTextEngine.build(selection, MeinShaloshLanguage.HEBREW)
+        }
+    }
+    val translatedBlessingText = remember(selection, translationLanguage) {
+        if (!selection.hasAnyFood || translationLanguage == null) {
+            ""
+        } else {
+            MeinShaloshTextEngine.build(selection, translationLanguage)
+        }
+    }
+    val emptyHebrewPrompt = remember {
+        MeinShaloshTextEngine.build(MeinShaloshSelection(), MeinShaloshLanguage.HEBREW)
     }
 
     val baseFontSize = 23.sp
     val scaledSize = (baseFontSize.value * fontScale).sp
+    val translationFontSize = (baseFontSize.value * 0.9f * fontScale).sp
     val lineHeight = (34f * fontScale).sp
+    val translationLineHeight = (30f * fontScale).sp
 
+    CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -86,20 +116,32 @@ fun AlHaMichyaBlessingCard(
             modifier = Modifier.padding(bottom = 4.dp)
         )
 
-        if (showEnglish == null) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TranslatableText(
-                    text = "English translation",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = DialogTextPrimary
-                )
-                Switch(
-                    checked = englishOn,
-                    onCheckedChange = setEnglish
+        if (!selection.hasAnyFood) {
+            Text(
+                text = emptyHebrewPrompt,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    textDirection = TextDirection.Rtl,
+                    color = DialogTextMuted
+                ),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 4.dp)
+            )
+            if (showTranslation && translationLanguage != null) {
+                Text(
+                    text = MeinShaloshTextEngine.build(
+                        MeinShaloshSelection(),
+                        translationLanguage,
+                    ),
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        textDirection = TextDirection.Ltr,
+                        color = DialogTextMuted
+                    ),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 4.dp)
                 )
             }
         }
@@ -111,6 +153,7 @@ fun AlHaMichyaBlessingCard(
         )
 
         FlowRow(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
@@ -141,6 +184,7 @@ fun AlHaMichyaBlessingCard(
         )
 
         FlowRow(
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
@@ -155,25 +199,44 @@ fun AlHaMichyaBlessingCard(
             }
         }
 
-        HorizontalDivider(
-            modifier = Modifier.padding(vertical = 8.dp),
-            color = DialogGoldBorder.copy(alpha = 0.25f),
-            thickness = 0.8.dp
-        )
+        if (selection.hasAnyFood) {
+            HorizontalDivider(
+                modifier = Modifier.padding(vertical = 8.dp),
+                color = DialogGoldBorder.copy(alpha = 0.25f),
+                thickness = 0.8.dp
+            )
 
-        Text(
-            text = blessingText,
-            style = TextStyle(
-                fontSize = scaledSize,
-                lineHeight = lineHeight,
-                textDirection = if (englishOn) TextDirection.Ltr else TextDirection.Rtl,
-                color = DialogTextPrimary
-            ),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, vertical = 8.dp)
-        )
+            Text(
+                text = hebrewBlessingText,
+                style = TextStyle(
+                    fontSize = scaledSize,
+                    lineHeight = lineHeight,
+                    textDirection = TextDirection.Rtl,
+                    color = DialogTextPrimary
+                ),
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp, vertical = 8.dp)
+            )
+
+            if (showTranslation && translationLanguage != null) {
+                Text(
+                    text = translatedBlessingText,
+                    style = TextStyle(
+                        fontSize = translationFontSize,
+                        lineHeight = translationLineHeight,
+                        textDirection = TextDirection.Ltr,
+                        color = DialogTextMuted
+                    ),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 4.dp, vertical = 4.dp)
+                )
+            }
+        }
+    }
     }
 }
 
@@ -204,8 +267,8 @@ private fun SelectionChipWithHint(
     onSelected: (Boolean) -> Unit
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.widthIn(max = 148.dp)
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier.widthIn(max = 200.dp)
     ) {
         FilterChip(
             selected = selected,
@@ -223,9 +286,9 @@ private fun SelectionChipWithHint(
                 text = it,
                 style = MaterialTheme.typography.labelSmall,
                 color = DialogTextMuted.copy(alpha = 0.9f),
-                textAlign = TextAlign.Center,
+                textAlign = TextAlign.Start,
                 enableHalachicTerms = false,
-                modifier = Modifier.padding(top = 2.dp, start = 4.dp, end = 4.dp)
+                modifier = Modifier.padding(top = 2.dp)
             )
         }
     }

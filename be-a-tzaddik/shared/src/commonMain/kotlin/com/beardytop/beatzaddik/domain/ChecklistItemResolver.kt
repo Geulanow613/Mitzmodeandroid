@@ -36,8 +36,13 @@ object ChecklistItemResolver {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
                 ChecklistZmanEvaluator.evaluate(item.id, nowMillis, zmanim, prayerDay)
             isFestivalPrepItem(item) -> ItemZmanStatus()
+            isMourningPeriodItem(item) -> ItemZmanStatus()
+            isCholHamoedItem(item) -> ItemZmanStatus()
             !item.persistChecked && item.timeOfDay != TimeOfDay.ANY ->
-                timeOfDayAvailability(item.timeOfDay, nowMillis, zmanim)
+                when (item.id) {
+                    in daylightTorahStudyIds -> daylightUntilSunsetAvailability(nowMillis, zmanim)
+                    else -> timeOfDayAvailability(item.timeOfDay, nowMillis, zmanim)
+                }
             else -> ItemZmanStatus()
         }
 
@@ -106,6 +111,14 @@ object ChecklistItemResolver {
         return "$base\n\n$nusachSpecific"
     }
 
+    /** Mourning customs apply day and night for the whole period — not tied to prayer zmanim. */
+    private fun isMourningPeriodItem(item: ChecklistItemDef): Boolean =
+        item.id in MourningPeriodRules.mourningChecklistItemIds
+
+    /** Chol HaMoed observances apply all day and night — not tied to prayer zmanim. */
+    private fun isCholHamoedItem(item: ChecklistItemDef): Boolean =
+        item.section == "Chol HaMoed" || item.id.startsWith("chol_hamoed_")
+
     /** Festival prep items stay active for the whole civil day they appear (including afternoon/evening). */
     private fun isFestivalPrepItem(item: ChecklistItemDef): Boolean {
         if (item.section in setOf("Prepare for the festival", "Pesach prep")) return true
@@ -123,6 +136,30 @@ object ChecklistItemResolver {
         "erev_yom_kippur_eat",
         "erev_tisha_beav_prep",
     )
+
+    /** Daytime Torah study stays active until sunset, not only until Mincha Gedola. */
+    private val daylightTorahStudyIds = setOf("torah_study_day")
+
+    private fun daylightUntilSunsetAvailability(
+        nowMillis: Long,
+        zmanim: ZmanimSnapshot?
+    ): ItemZmanStatus {
+        val z = zmanim ?: return ItemZmanStatus()
+        if (!z.hasLocationTimes) return ItemZmanStatus()
+        val start = z.alotHaShacharMillis ?: z.sunriseMillis ?: return ItemZmanStatus()
+        val end = z.sunsetMillis ?: return ItemZmanStatus()
+        return when {
+            nowMillis < start -> ItemZmanStatus(
+                availability = ItemZmanAvailability.UPCOMING,
+                windowStartMillis = start,
+                availableAtLabel = "dawn"
+            )
+            nowMillis >= end -> ItemZmanStatus(
+                availability = ItemZmanAvailability.EXPIRED
+            )
+            else -> ItemZmanStatus()
+        }
+    }
 
     /**
      * For non-prayer items, derive availability from [timeOfDay] and zmanim so that

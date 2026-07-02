@@ -12,6 +12,7 @@ object SeasonalChecklistItems {
         profile: UserProfile,
         tomorrowCal: DayInfo,
         dayAfterTomorrowCal: DayInfo,
+        nowMillis: Long,
     ): List<ChecklistItemDef> = buildList {
         if (cal.isSefiratHaomer && cal.omerDay != null && cal.omerDay in 1..49 && !cal.isLagBaomer) {
             add(omerItem(cal, profile))
@@ -77,7 +78,7 @@ object SeasonalChecklistItems {
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             addAll(cholHamoedItems(cal, profile))
         }
-        if ("sukkot" in cal.activeSeasons) {
+        if ("sukkot" in cal.activeSeasons && "chol_hamoed_sukkot" !in cal.activeSeasons) {
             add(arbaMinimItem(profile))
         }
         if ("shemini_atzeret" in cal.activeSeasons) {
@@ -89,11 +90,11 @@ object SeasonalChecklistItems {
         if (isNightAfterYomKippur(cal)) {
             add(buildSukkahAfterYomKippurItem(profile))
         }
-        if (isInThreeWeeks(cal)) {
-            add(threeWeeksMourningItem(profile))
-        }
-        if (isInNineDays(cal)) {
+        if (MourningPeriodRules.isInNineDaysPeriod(cal, nowMillis)) {
             add(nineDaysMourningItem(profile))
+        }
+        if (MourningPeriodRules.isInThreeWeeksPeriod(cal, nowMillis)) {
+            add(threeWeeksMourningItem(profile))
         }
         selichotItemForDay(cal, profile)?.let { add(it) }
         ldovidItemForDay(cal, profile)?.let { add(it) }
@@ -410,12 +411,33 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
     }
 
     private fun cholHamoedItems(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
-        val list = mutableListOf(
+        val list = mutableListOf<ChecklistItemDef>()
+        if ("chol_hamoed_sukkot" in cal.activeSeasons) {
+            list += arbaMinimItem(profile).copy(
+                section = "Chol HaMoed",
+                sortOrder = -30,
+                seasons = listOf("chol_hamoed_sukkot", "sukkot"),
+            )
+            list += cholHamoedSukkahItem(profile)
+        }
+        list += listOf(
+            ChecklistItemDef(
+                id = "chol_hamoed_wine_reviit",
+                title = "Revi'it of wine — daily mitzvah on Chol HaMoed (recommended)",
+                section = "Chol HaMoed",
+                timeOfDay = TimeOfDay.ANY,
+                required = false,
+                situational = false,
+                sortOrder = -20,
+                seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
+                explanation = SeasonalMitzvahText.cholHamoedWineReviitExplanation(cal),
+                links = cholHamoedWineLinks(cal, profile)
+            ),
             ChecklistItemDef(
                 id = "chol_hamoed_honor",
-                title = "Honor Chol HaMoed with a festive day",
+                title = "Honor Chol HaMoed",
                 section = "Chol HaMoed",
-                timeOfDay = TimeOfDay.DAY,
+                timeOfDay = TimeOfDay.ANY,
                 required = false,
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
@@ -423,42 +445,53 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
                 links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
             ),
             ChecklistItemDef(
-                id = "chol_hamoed_wine_reviit",
-                title = "Revi'it of wine — daily mitzvah on Chol HaMoed (recommended)",
-                section = "Chol HaMoed",
-                timeOfDay = TimeOfDay.DAY,
-                required = false,
-                situational = false,
-                seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
-                explanation = SeasonalMitzvahText.cholHamoedWineReviitExplanation(cal),
-                links = cholHamoedWineLinks(cal, profile)
-            ),
-            ChecklistItemDef(
                 id = "chol_hamoed_nicer_clothes",
-                title = "Wear nicer clothes in honor of the moed",
+                title = "Wear Nicer Clothes in Honor of the Moed",
                 section = "Chol HaMoed",
-                timeOfDay = TimeOfDay.DAY,
+                timeOfDay = TimeOfDay.ANY,
                 required = false,
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
                 explanation = SeasonalMitzvahText.cholHamoedClothesExplanation(),
                 links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
-            )
+            ),
         )
         if ("chol_hamoed_pesach" in cal.activeSeasons) {
             list += ChecklistItemDef(
                 id = "chol_hamoed_pesach_matzah",
                 title = "Eat matzah on Pesach (optional on Chol HaMoed)",
                 section = "Chol HaMoed",
-                timeOfDay = TimeOfDay.DAY,
+                timeOfDay = TimeOfDay.ANY,
                 required = false,
                 situational = false,
+                sortOrder = -25,
                 seasons = listOf("chol_hamoed_pesach"),
                 explanation = SeasonalMitzvahText.cholHamoedMatzahExplanation(),
                 links = SeasonalMitzvahText.pesachWeekLinks(profile)
             )
         }
         return list
+    }
+
+    private fun cholHamoedSukkahItem(profile: UserProfile): ChecklistItemDef {
+        val isFemale = profile.gender == Gender.FEMALE
+        return ChecklistItemDef(
+            id = "chol_hamoed_sukkah",
+            title = if (isFemale) {
+                "Eat Meals in the Sukkah (Optional for Women)"
+            } else {
+                "Eat Bread Meals in the Sukkah"
+            },
+            section = "Chol HaMoed",
+            timeOfDay = TimeOfDay.ANY,
+            required = false,
+            situational = false,
+            sortOrder = -25,
+            seasons = listOf("chol_hamoed_sukkot", "sukkot"),
+            explanation = SeasonalMitzvahText.cholHamoedSukkahExplanation(profile),
+            explanationFemale = SeasonalMitzvahText.cholHamoedSukkahExplanationFemale(profile),
+            links = SeasonalMitzvahText.sukkahLinks(profile),
+        )
     }
 
     private fun arbaMinimItem(profile: UserProfile): ChecklistItemDef {
@@ -525,7 +558,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         id = "three_weeks_mourning_customs",
         title = "Observe Three Weeks mourning customs",
         section = "Mourning customs",
-        timeOfDay = TimeOfDay.DAY,
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         explanation = "",
@@ -540,7 +573,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         id = "nine_days_mourning_customs",
         title = "Nine Days: observe stricter mourning customs",
         section = "Mourning customs",
-        timeOfDay = TimeOfDay.DAY,
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         explanation = "",
@@ -610,6 +643,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
+            sortOrder = 65,
             explanation = SeasonalMitzvahText.ldovidExplanation(nusach),
             explanationAshkenaz = SeasonalMitzvahText.ldovidAshkenazNote(),
             explanationSefard = SeasonalMitzvahText.ldovidSephardNote(),
@@ -692,19 +726,6 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         val month = cal.hebrewMonth ?: return false
         val day = cal.hebrewDay ?: return false
         return month == HebrewCalendarEngine.TISHREI && day == 11
-    }
-
-    private fun isInThreeWeeks(cal: DayInfo): Boolean {
-        val month = cal.hebrewMonth ?: return false
-        val day = cal.hebrewDay ?: return false
-        return (month == HebrewCalendarEngine.TAMMUZ && day >= 17) ||
-            (month == HebrewCalendarEngine.AV && day <= 9)
-    }
-
-    private fun isInNineDays(cal: DayInfo): Boolean {
-        val month = cal.hebrewMonth ?: return false
-        val day = cal.hebrewDay ?: return false
-        return month == HebrewCalendarEngine.AV && day in 1..9
     }
 
     private fun isTuBshvat(cal: DayInfo): Boolean {
@@ -1162,7 +1183,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             id = "public_fast_day",
             title = PublicFastDayText.fastDayTitle(idx),
             section = "Fasts",
-            sortOrder = 10,
+            sortOrder = -20,
             timeOfDay = TimeOfDay.ANY,
             required = true,
             seasons = listOf("fast_day"),
