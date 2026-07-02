@@ -19,44 +19,111 @@
         ul {
             padding-left: 20px;
         }
+        a {
+            color: #0b57d0;
+        }
     </style>
 </head>
 <body>
-    <h1>Mitz Mode© Privacy Policy</h1>
-    
-    <p>Last updated: January 9, 2025</p>
-    
+    <h1>Mitz Mode&copy; Privacy Policy</h1>
+
+    <p>Last updated: July 2, 2026</p>
+
     <h2>Introduction</h2>
-    <p>Mitz Mode ("we", "our", or "app") is committed to protecting your privacy. This policy explains how our app handles permissions and data.</p>
-    
+    <p>Mitz Mode ("we", "our", or "the app") is committed to protecting your privacy. This policy explains how the app handles permissions, what is stored on your device, and when limited data is sent to third-party services.</p>
+    <p>Mitz Mode includes the classic mitzvah list experience and the embedded <strong>Daily Mitzvot Checklist</strong> (a halachic learning companion for daily mitzvot, zmanim, and seasonal items). This policy covers both parts of the app on Android and iOS unless a section says otherwise.</p>
+
     <h2>Permissions Used</h2>
+
     <h3>Internet Access</h3>
     <ul>
-        <li>Used for sending mitzvah submissions via email</li>
-        <li>Used for crash reporting via Firebase Crashlytics</li>
+        <li>Sending mitzvah submissions (Android: email; iOS: Formspree)</li>
+        <li>Error tracking via <a href="https://sentry.io" rel="noopener noreferrer">Sentry</a></li>
+        <li>Checking for updated mitzvah content from our public GitHub repository</li>
+        <li>Machine translation via the Google Cloud Translation API when you choose a language that is not fully covered by bundled translations (Android)</li>
+        <li>Opening external links you choose to visit (for example Sefaria or producer websites)</li>
+    </ul>
+
+    <h3>Location (GPS)</h3>
+    <ul>
+        <li>Used only when you enable GPS or choose a city so the app can calculate Jewish calendar times and zmanim (prayer windows, candle lighting, Shabbat-related times, and similar)</li>
+        <li>Location is stored on your device as part of your app settings (coordinates, timezone, optional elevation, and a display label)</li>
+        <li>We do not operate our own servers that receive or store your location</li>
+        <li>You can use manual city selection instead of GPS</li>
+    </ul>
+
+    <h3>Notifications</h3>
+    <ul>
+        <li>Used for optional in-app music playback controls when background audio is playing (Android)</li>
+        <li>You can deny notification permission; core checklist features still work</li>
+    </ul>
+
+    <h3>Other Device Permissions</h3>
+    <ul>
+        <li><strong>Vibration</strong> &mdash; optional haptic feedback</li>
+        <li><strong>Foreground service (media playback)</strong> &mdash; keeps optional background music playing with a visible notification (Android)</li>
+        <li><strong>Network state</strong> &mdash; lets the app avoid unnecessary network work when offline</li>
     </ul>
 
     <h2>Data Collection and Storage</h2>
-    <h3>Local Storage</h3>
+
+    <h3>Stored Locally on Your Device</h3>
+    <p>Most app data stays on your phone or tablet and is not synced to Beardy Top Productions servers. This includes:</p>
     <ul>
-        <li>Completed mitzvot are stored locally</li>
-        <li>No data is synchronized with external servers</li>
-        <li>All data is removed when the app is uninstalled</li>
-        <li>The app automatically resets checklist items daily at midnight</li>
-        <li>Previous day's data is permanently deleted from local storage during reset</li>
+        <li>Completed mitzvot in the classic Mitz Mode list</li>
+        <li>Daily checklist completion state for the embedded Daily Mitzvot Checklist</li>
+        <li>Your profile and preferences (for example gender, nusach, marriage/family settings used to tailor checklist items, text size, kashrut wait timers, and Israel calendar options)</li>
+        <li>Location settings (GPS coordinates or manual city, timezone, and related labels) used for zmanim</li>
+        <li>Custom checklist items you add</li>
+        <li>Language and translation preferences</li>
+        <li>Cached copies of publicly available mitzvah list updates</li>
+        <li>Disclaimer acknowledgment and similar on-device flags</li>
+    </ul>
+    <p>Daily checklist items generally reset at the start of a new Jewish day or calendar day as designed in the app. Uninstalling the app removes locally stored data.</p>
+
+    <h3>What We Do Not Collect for Our Own Use</h3>
+    <ul>
+        <li>We do not sell your data</li>
+        <li>We do not use advertising or marketing analytics</li>
+        <li>We do not access your contacts, photos, microphone, or call logs</li>
+        <li>We do not require an account or login</li>
     </ul>
 
-    <h3>Personal Information</h3>
+    <h2>Location Data</h2>
+    <p>With your permission, the app uses GPS or a city you select to determine local sunrise, sunset, and halachic times. Coordinates may also be used to infer whether you are in Israel for calendar rules (one-day vs. two-day Yom Tov). This information is kept on your device for zmanim and calendar calculations. It is not transmitted to Beardy Top Productions.</p>
+
+    <h2>Translation and Language Features</h2>
+
+    <h3>Bundled Translations</h3>
     <ul>
-        <li>We do not collect any personal information beyond voluntary mitzvah submissions</li>
-        <li>We do not track location</li>
-        <li>We do not access contacts</li>
-        <li>We do not collect device information</li>
-        <li>We do not use analytics services</li>
+        <li>Hebrew, Spanish, French, and Russian UI text is included in the app package for offline use</li>
+        <li>These bundled strings are not sent to a translation service when a bundled translation exists</li>
     </ul>
 
-    <h2>Email Submission Feature</h2>
-    <h3>Mitzvah Submission</h3>
+    <h3>Machine Translation (Android)</h3>
+    <ul>
+        <li>When you enable translation and choose a language that is not fully covered by bundled files, the app may send English UI text to the <a href="https://cloud.google.com/translate" rel="noopener noreferrer">Google Cloud Translation API</a> to generate a translation</li>
+        <li>Only the text being translated is sent (for example labels, explainers, and dialog copy). Your location, name, and checklist completion data are not sent for translation</li>
+        <li>Translated results may be cached in memory on your device during the session to reduce repeat API calls</li>
+        <li>Translations are machine-assisted and may contain errors; the in-app translation notice applies</li>
+    </ul>
+
+    <h3>iOS Translation</h3>
+    <ul>
+        <li>iOS uses bundled translations where available</li>
+        <li>Languages outside the bundled set may fall back to English rather than calling Google Translate</li>
+    </ul>
+
+    <h2>Mitzvah Content Updates</h2>
+    <ul>
+        <li>The app may download updated mitzvah list content from a public file hosted on GitHub (<code>mitzvotcloud.json</code>)</li>
+        <li>This is a read-only content update; no personal information is sent in these requests</li>
+        <li>A cached copy may be saved on your device so the list works offline</li>
+    </ul>
+
+    <h2>Mitzvah Submission Feature</h2>
+
+    <h3>Android Version</h3>
     <ul>
         <li>Users can submit mitzvah suggestions via an in-app form</li>
         <li>The following information is collected:
@@ -66,76 +133,87 @@
             </ul>
         </li>
         <li>This information is transmitted via email to app moderators</li>
-        <li>No information is stored locally after submission</li>
+        <li>No submission content is stored locally after a successful send</li>
     </ul>
 
-    <h3>Email Transmission</h3>
+    <h3>iOS Version</h3>
     <ul>
-        <li>Submissions are sent via secure email (SMTP)</li>
-        <li>Data is transmitted only to app moderators</li>
-        <li>Submissions are used only for app content moderation</li>
-        <li>No data is shared with third parties</li>
-    </ul>
-
-    <h3>Data Retention and Display</h3>
-    <ul>
-        <li>Email submissions are retained for moderation purposes</li>
-        <li>Submissions may be edited or rejected</li>
-        <li>Accepted submissions become part of the app's mitzvot database</li>
-        <li>Submitter's name may be included alongside their accepted mitzvah in the app</li>
-        <li>By submitting a mitzvah, users consent to having their provided name displayed within the app</li>
-    </ul>
-
-    <h2>Features</h2>
-    <h3>Video Playback</h3>
-    <ul>
-        <li>All videos are included in the app package</li>
-        <li>No streaming or external content</li>
-        <li>No usage tracking</li>
-    </ul>
-
-    <h3>External Links</h3>
-    <ul>
-        <li>Our app may contain links to external websites</li>
-        <li>When you click these links, you will be directed to third-party websites which have their own privacy policies and terms of service</li>
-        <li>We are not responsible for the privacy practices or content of any external websites</li>
-        <li>We recommend reviewing the privacy policies of any external sites you visit through our app</li>
-    </ul>
-
-    <h2>Crash Reporting</h2>
-    <ul>
-        <li>We use Firebase Crashlytics to collect crash reports when the app experiences technical issues</li>
-        <li>Crash reports include:
+        <li>Users can submit mitzvah suggestions via <a href="https://formspree.io" rel="noopener noreferrer">Formspree</a></li>
+        <li>The following information is collected:
             <ul>
-                <li>Device model and OS version</li>
-                <li>Time and date of crash</li>
-                <li>Technical details about the crash</li>
-                <li>Which screen or feature was being used</li>
+                <li>User's name (as provided)</li>
+                <li>Mitzvah description text</li>
             </ul>
         </li>
-        <li>This data helps us identify and fix problems to improve app stability</li>
-        <li>No personal information is included in crash reports</li>
-        <li>Crash data is automatically deleted after 90 days</li>
+        <li>Submissions are processed through Formspree's service</li>
+        <li>No submission content is stored locally after submission</li>
+    </ul>
+
+    <h3>Retention and Display of Accepted Submissions</h3>
+    <ul>
+        <li>Submissions are retained for moderation purposes</li>
+        <li>Accepted submissions may become part of the app's public mitzvah content</li>
+        <li>Your provided name may appear alongside an accepted mitzvah in the app</li>
+        <li>By submitting, you consent to moderation and possible public display of your name with your suggestion</li>
+    </ul>
+
+    <h2>Daily Mitzvot Checklist</h2>
+    <p>The embedded checklist helps track daily and seasonal mitzvot. It stores profile and completion data locally (see <em>Stored Locally on Your Device</em> above). It is a learning companion and does not provide personal halachic rulings. External Torah resources open only when you tap a link.</p>
+
+    <h2>Error Tracking</h2>
+    <ul>
+        <li>We use <a href="https://sentry.io" rel="noopener noreferrer">Sentry</a> to collect error and stability reports when the app experiences technical issues</li>
+        <li>Reports may include:
+            <ul>
+                <li>Device model and operating system version</li>
+                <li>App version</li>
+                <li>Time and date of the event</li>
+                <li>Technical details about the error (stack traces, breadcrumbs, and similar diagnostic data)</li>
+            </ul>
+        </li>
+        <li>This data helps us identify and fix problems</li>
+        <li>We do not intentionally include your name, email, mitzvah submissions, or precise GPS coordinates in error reports</li>
+        <li>Error data is automatically deleted after 90 days</li>
     </ul>
 
     <h2>Third-Party Services</h2>
-    <p>We use Firebase Crashlytics, a crash reporting service provided by Google, to help improve app stability. No other third-party services or analytics platforms are used.</p>
+    <ul>
+        <li><a href="https://sentry.io/privacy/" rel="noopener noreferrer">Sentry</a> &mdash; error tracking</li>
+        <li><a href="https://policies.google.com/privacy" rel="noopener noreferrer">Google Cloud Translation API</a> &mdash; machine translation on Android when bundled text is unavailable</li>
+        <li><a href="https://formspree.io/legal/privacy-policy" rel="noopener noreferrer">Formspree</a> &mdash; iOS mitzvah submission forms</li>
+        <li><a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">GitHub</a> &mdash; public hosting of mitzvah list updates</li>
+        <li>Email delivery providers used to route Android submission emails to moderators</li>
+        <li>External websites linked from the app (for example Torah resources) &mdash; each has its own privacy policy</li>
+    </ul>
+
+    <h2>Video and Media</h2>
+    <ul>
+        <li>Reward and guide videos included with the app are stored in the app package or local assets</li>
+        <li>Optional background music streams from bundled app media, not from ad networks</li>
+        <li>We do not track which videos you watch for advertising purposes</li>
+    </ul>
+
+    <h2>External Links</h2>
+    <ul>
+        <li>The app may contain links to external websites</li>
+        <li>When you open a link, you leave the app and are subject to that site's privacy policy and terms</li>
+        <li>We are not responsible for the privacy practices of third-party websites</li>
+    </ul>
 
     <h2>Children's Privacy</h2>
-    <p>Our app is suitable for users of all ages. While we do not collect personal information beyond voluntary mitzvah submissions, parents or guardians should supervise children's use of the submission feature.</p>
+    <p>Our app is suitable for users of all ages. We do not knowingly collect personal information from children under 13 beyond what a child voluntarily enters in a mitzvah submission form. Parents or guardians should supervise children's use of submission features.</p>
 
     <h2>Data Deletion</h2>
     <ul>
-        <li>All app data is stored locally on your device</li>
-        <li>Uninstalling the app removes all associated data</li>
-        <li>Submitted mitzvot and names remain in the app's content if accepted</li>
-        <li>Contact us to request removal of your submitted content</li>
+        <li>Most app data is stored locally on your device; uninstalling the app removes it</li>
+        <li>Contact us to request removal of your submitted mitzvah content or name from moderated/public app content</li>
+        <li>Third-party services (Sentry, Formspree, Google Translate, email providers) retain data according to their own policies and our configuration (for example Sentry's 90-day error retention)</li>
     </ul>
 
     <h2>Changes to This Policy</h2>
-    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.</p>
+    <p>We may update this Privacy Policy from time to time. We will notify you of changes by posting the new Privacy Policy on this page and updating the "Last updated" date.</p>
 
     <h2>Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at: beardytopproductions@gmail.com</p>
+    <p>If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:beardytopproductions@gmail.com">beardytopproductions@gmail.com</a></p>
 </body>
 </html>
