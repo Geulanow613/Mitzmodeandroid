@@ -111,7 +111,7 @@ fun rememberLocalizedLocationLabel(locationLabel: String?, manualCityId: String?
 
 @Composable
 fun rememberCityDisplayLabel(city: ManualCity): String {
-    val languageCode = LocalAppTranslation.current.languageCode
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
     return remember(city.id, languageCode) { cityDisplayLabel(city, languageCode) }
 }
 
@@ -122,19 +122,23 @@ fun profileMatchesManualCity(profileCityId: String?, city: ManualCity): Boolean 
     return ManualCities.byId(profileCityId)?.id == city.id
 }
 
-/** All manual cities matching [query], sorted A→Z by localized display label. */
+/** All manual cities matching [query] (capped for performance on large catalogs). */
 fun filterManualCities(query: String, languageCode: String): List<ManualCity> {
     val q = query.trim().lowercase()
-    if (q.isBlank()) {
-        return ManualCities.all.sortedBy { cityDisplayLabel(it, languageCode) }
+    if (q.length < 2) {
+        return ManualCities.featuredForPicker()
     }
-    return ManualCities.all.filter { city ->
-        cityDisplayLabel(city, languageCode).lowercase().contains(q) ||
-            cityDisplayLabelEnglish(city).lowercase().contains(q) ||
-            city.label.lowercase().contains(q) ||
-            city.id.lowercase().contains(q) ||
-            CityGeographyCatalog.searchAliases(city.id).any { it.lowercase().contains(q) }
-    }.sortedBy { cityDisplayLabel(it, languageCode) }
+    return ManualCities.all.asSequence()
+        .filter { city ->
+            cityDisplayLabel(city, languageCode).lowercase().contains(q) ||
+                cityDisplayLabelEnglish(city).lowercase().contains(q) ||
+                city.label.lowercase().contains(q) ||
+                city.id.lowercase().contains(q) ||
+                CityGeographyCatalog.searchAliases(city.id).any { it.lowercase().contains(q) }
+        }
+        .take(100)
+        .sortedBy { cityDisplayLabel(it, languageCode) }
+        .toList()
 }
 
 /** Single-select city row with clear selected state (checkmark + highlight). */

@@ -16,6 +16,7 @@ import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.TimeOfDay
 import com.beardytop.beatzaddik.domain.UserProfile
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -236,6 +237,10 @@ class DataStoreAppRepository(private val context: Context) : AppRepository {
     }
 
     private fun preferenceBooleanTrue(value: Any?): Boolean = value === true
+
+    override suspend fun warmStartupReads() {
+        context.dataStore.data.first()
+    }
 }
 
 actual fun createAppRepository(platformContext: Any?): AppRepository {

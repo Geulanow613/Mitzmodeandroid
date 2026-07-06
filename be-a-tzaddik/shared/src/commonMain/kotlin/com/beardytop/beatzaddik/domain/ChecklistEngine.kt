@@ -175,8 +175,15 @@ class ChecklistEngine(
             activePeriodHint = if (profile.hasZmanimLocation()) periodLabels.activeSummary else null,
             inactivePeriodHint = if (profile.hasZmanimLocation()) periodLabels.laterSummary else null,
             items = resolveList(allDefs).filter { item ->
-                item.def.id != "rosh_chodesh_observances" ||
-                    item.zmanAvailability != ItemZmanAvailability.EXPIRED
+                (item.def.id != "rosh_chodesh_observances" ||
+                    item.zmanAvailability != ItemZmanAvailability.EXPIRED) &&
+                    (item.def.id != "public_fast_day" ||
+                        !PublicFastDayRules.shouldHideEndedFastItem(
+                            nowMillis = nowMillis,
+                            cal = cal,
+                            tomorrowCal = tomorrowCal,
+                            availability = item.zmanAvailability,
+                        ))
             },
             inactiveItemCount = 0,
             inactiveItems = emptyList(),

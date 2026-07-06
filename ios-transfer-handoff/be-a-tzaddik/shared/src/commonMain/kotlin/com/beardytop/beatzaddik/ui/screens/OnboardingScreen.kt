@@ -23,6 +23,8 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -302,7 +304,7 @@ private fun PrayerTraditionStep(
     modifier: Modifier = Modifier
 ) {
     var cityQuery by rememberSaveable { mutableStateOf("") }
-    val languageCode = LocalAppTranslation.current.languageCode
+    val languageCode = LocalAppTranslation.current.displayLanguageCode
     val filteredCities = remember(cityQuery, languageCode) { filterManualCities(cityQuery, languageCode) }
     ParchmentContentCard(
         modifier = modifier
@@ -382,14 +384,21 @@ private fun PrayerTraditionStep(
             singleLine = true
         )
         Spacer(Modifier.height(8.dp))
-        Column(
+        if (cityQuery.trim().length < 2) {
+            AppText(
+                "Popular cities below — type 2+ letters to search all cities.",
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.TextMuted,
+            )
+            Spacer(Modifier.height(6.dp))
+        }
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(170.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+                .height(170.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            filteredCities.forEach { city ->
+            items(filteredCities, key = { it.id }) { city ->
                 StyledChip(
                     label = rememberCityDisplayLabel(city),
                     selected = profileMatchesManualCity(selectedCityId, city),
@@ -398,11 +407,13 @@ private fun PrayerTraditionStep(
                 )
             }
             if (filteredCities.isEmpty()) {
-                AppText(
-                    "No cities found. Try another spelling.",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = TzaddikColors.TextMuted
-                )
+                item {
+                    AppText(
+                        "No cities found. Try another spelling.",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted
+                    )
+                }
             }
         }
     }

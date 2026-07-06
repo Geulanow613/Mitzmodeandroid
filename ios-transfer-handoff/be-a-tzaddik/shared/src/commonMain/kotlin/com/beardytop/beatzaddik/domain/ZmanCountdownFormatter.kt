@@ -31,7 +31,10 @@ object ZmanCountdownFormatter {
     ): Pair<String, Map<String, String>>? {
         val start = windowStartMillis ?: return onlyAvailableWhenTemplate(atLabel, upcoming = true)
         val atSuffix = atSuffixForLabel(atLabel)
-        val diffMs = (start - nowMillis).coerceAtLeast(0)
+        val diffMs = start - nowMillis
+        if (diffMs <= 0) {
+            return null
+        }
         if (diffMs < 15_000) {
             return "Available now{at}" to mapOf("at" to atSuffix)
         }
@@ -66,6 +69,7 @@ object ZmanCountdownFormatter {
     ): String? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
             upcomingSummary(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
+                ?: onlyAvailableWhen(atLabel, upcoming = true)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhen(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null
@@ -81,6 +85,7 @@ object ZmanCountdownFormatter {
     ): Pair<String, Map<String, String>>? = when (availability) {
         ItemZmanAvailability.UPCOMING ->
             upcomingSummaryTemplate(windowStartMillis, nowMillis, atLabel, timezoneId, languageCode)
+                ?: onlyAvailableWhenTemplate(atLabel, upcoming = true)
         ItemZmanAvailability.EXPIRED ->
             onlyAvailableWhenTemplate(atLabel, upcoming = false)
         ItemZmanAvailability.ACTIVE -> null

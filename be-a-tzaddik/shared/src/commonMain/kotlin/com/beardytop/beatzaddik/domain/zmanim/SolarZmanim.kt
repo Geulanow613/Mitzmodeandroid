@@ -223,7 +223,7 @@ internal object SolarZmanim {
         decl = sunDeclination(newt)
         ha = sunHourAngleRadians(latitude, decl, zenith, event)
         if (ha.isNaN()) return Double.NaN
-        delta = longitude - Math.toDegrees(ha)
+        delta = longitude - (ha / RAD)
         timeDiff = 4 * delta
         timeUtc = 720 + timeDiff - eq
         return timeUtc

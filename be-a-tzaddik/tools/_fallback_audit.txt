@@ -1,0 +1,410 @@
+=== he: 70 fallbacks ===
+$body
+
+$blocks
+$count
+$mitzvotCount
+$weeks weeks and $rem days
+$weeks weeks and 1 day
+$weeks שבועות
+$weeks שבועות ו-$rem ימים
+$weeks שבועות ויום אחד
+(?:January|February|March|April|May|June|July|August|September|October|November|December)
+1 week and $rem days
+1 week and 1 day
+Available after halachic midnight (chatzos halayla) — later tonight. Most say {label} when they wake, even after a nap.
+Count the Omer — (\d+)
+Erev $name prep
+First Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havdalah in Kiddush (Yaknehaz), then Seder.
+First Seder is tonight (Friday night, commencing 15 Nisan). In the Diaspora, the second Seder is Saturday night — transitioning from Shabbat directly into the second day of Yom Tov, with Yaknehaz in Kiddush.
+Light Chanukah candles — Night $day
+Pray for world peace! - submitted by MM. The prophets describe the days of Mashiach as a time when nations will beat their swords into plowshares and war will be no more. Hillel taught us to be among the disciples of Aaron — a lover of peace and a pursuer of peace, who draws people closer to Torah through kindness. Our sages even teach that peace is so precious that G-d allows His holy Name to be erased in the bitter waters of the sotah ritual in order to restore peace between a husband and wife. When you pray for peace, you align your heart with one of the highest purposes of Torah.
+This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Shabbat (15 Nisan):
+
+• Bedikat chametz: Thursday night (night of 14 Nisan, after tzeit) — not Friday night. Recite the first bitul (Kol Chamira).
+• Taanit Bechorot: Friday daytime (14 Nisan) — fast or attend a siyum.
+• Biur chametz: Friday morning (14 Nisan) by the 5th halachic hour deadline. Both physical destruction and the final Kol Chamira nullification must be finished before this time.
+• Mechirat chametz: must be entirely completed before Shabbat/Yom Tov candle lighting on Friday evening.
+• First Seder: Friday night (commencing 15 Nisan).
+• Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text, Shehecheyanu — no spices/besamim).
+• Preparation warning: you may NOT do any prep work (chopping, cooking, table setting) on Shabbat day for the second Seder. All preparations must wait until Shabbat ends at nightfall. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only for when Yom Tov immediately precedes Shabbat.
+
+Confirm candle lighting, Yom Tov, and Seder times with your siddur and rav.
+This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the entire preparatory timeline shifts early (Peninei Halakha ch. 14):
+
+• Taanit Bechorot: Thursday (12 Nisan) — moved early; not on Shabbat or Friday. Ashkenazim fast or attend a siyum. Many Sephardic authorities rule the moved fast is nullified entirely; many still attend a siyum out of custom (ask your rav).
+• Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) immediately after the search.
+• Biur chametz: Friday morning (13 Nisan) — burn the chametz found. Do not recite the final Kol Chamira at the burning — you will still eat chametz over Shabbat.
+• Mechirat chametz: complete and finalize the sale before Shabbat begins Friday evening.
+• Matzah on Friday (13 Nisan): many authorities extend the prohibition of eating regular matzah to Friday as well when Erev Pesach falls on Shabbat, so matzah is eaten with a prime appetite at the Seder (ask your rav).
+• Seder prep: all physical cooking, roasting the zeroa (shankbone), checking lettuce/maror, and making charoset must be finished on Friday before Shabbat — you cannot prepare on Shabbat for Motzei Shabbat.
+• Shabbat (14 Nisan) — eating deadline: finish eating chametz by the end of the 4th halachic hour on Shabbat morning.
+• Shabbat (14 Nisan) — disposal: flush leftover crumbs down the toilet or nullify them chemically (e.g. pour liquid soap over them) before the 5th hour. Do not burn on Shabbat.
+• Shabbat (14 Nisan) — final nullification: recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
+• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim do not eat egg matzah on Pesach (Rema O.C. 462:4); use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
+• First Seder: Saturday night after Shabbat fully ends (tzeit). Kiddush includes the full Yaknehaz sequence (Wine, Yom Tov Kiddush, Ner/candle, Havdalah text, and Shehecheyanu — no spices/besamim).
+
+Plan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.
+Tomorrow (from tonight at sunset) is $name — a Yom Tov with melacha restrictions.
+Tonight at sunset begins $name, and Shabbat follows tomorrow — a Yom Tov–Shabbat sequence.
+When: Before Yom Tov begins — follow your Machzor for the exact time.
+When: Today (Friday) before Yom Tov candle lighting — $chagName begins tonight and Shabbat is tomorrow.
+When: Today, before the first day of $chagName tomorrow — in the Diaspora the next two days are Yom Tov, then Shabbat (set eruv on the day before the festival begins).
+\d+[dhms](?:\s+\d+[dhms])*
+\d{1,2}, \d{4}$
+\d{1,2}:\d{2}
+\s*/\s*
+^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),
+^(\d{1,2}:\d{2})(am|pm)(?:\s+(\w{3}))?$
+^Afternoon prayer \(Mincha\) (.+)$
+^Evening prayers available after (.+)$
+^Evening prayers available after sunset$
+^Latest time for morning Shema: (.+)$
+^Until nightfall$
+^Until nightfall: (.+)$
+^Until shortly after sunset: (.+)$
+beardytopproductions@gmail.com
+halachic_term
+https://www.beardy.top
+mailto:beardytopproductions@gmail.com
+www.beardy.top
+{name} · {timing}{endSuffix}
+אלהינו ואלהי אבותינו, יעלה ויבא יגיע יראה וירצה ישמע יפקד ויזכר זכרוננו ופקדוננו וזכרון אבותינו, וזכרון משיח בן דוד עבדך וזכרון ירושלים עיר קדשך וזכרון כל עמך בית ישראל לפניך לפלטה לטובה, לחן לחסד ולרחמים לחיים ולשלום ביום
+בראש חודש: ראש החדש
+בפסח: חג המצות
+בסוכות: חג הסכות
+זכרנו יהוה אלהינו בו לטובה, ופקדנו בו לברכה, והושיענו בו לחיים ובדבר ישועה ורחמים חוס וחננו, ורחם עלינו, והושיענו כי אליך עינינו, כי אל מלך חנון ורחום אתה.
+בחנוכה ובפורים אומרים כאן על הניסים
+על הנסים ועל הפרקן ועל הגבורות ועל התשועות ועל המלחמות שעשית לאבותינו בימים ההם בזמן הזה.
+
+בימי מתתיהו בן יוחנן כהן גדול חשמונאי ובניו כשעמדה מלכות יון הרשעה על עמך ישראל להשכיחם מתורתך ולהעבירם מחקי רצונך ואתה ברחמיך הרבים עמדת להם בעת צרתם רבת את ריבם דנת את דינם נקמת את נקמתם מסרת גבורים ביד חלשים ורבים ביד מעטים וטמאים ביד טהורים ורשעים ביד צדיקים וזדים ביד עוסקי תורתך ולך עשית שם גדול וקדוש בעולמך ולעמך ישראל עשית תשועה גדולה ופרקן כהיום הזה ואחר כך באו בניך לדביר ביתך ופנו את היכלך וטהרו את-מקדשך והדליקו נרות בחצרות קדשך וקבעו שמונת ימי חנכה אלו להודות ולהלל לשמך הגדול.
+ביום ראש החדש הזה
+            ביום חג המצות הזה
+            ביום חג הסכות הזה
+בימי מרדכי ואסתר בשושן הבירה כשעמד עליהם המן הרשע בקש להשמיד להרוג לאבד את-כל-היהודים מנער ועד זקן טף ונשים ביום אחד בשלשה עשר לחדש שנים עשר הוא חדש אדר וללם לבוז ואתה ברחמיך הרבים הפרת את עצתו וקלקלת את מחשבתו והשבות-לו גמולו בראשו ותלו אותו ואת בניו על העץ ועשית עמהם נסים ונפלאות ונודה לשמך הגדול סלה.
+בימים שאין בהם תחנון אומרים:
+
+שיר המעלות בשוב יהוה את שיבת ציון היינו כחלמים. אז ימלא שחוק פינו ולשוננו רנה אז יאמרו בגוים הגדיל יהוה לעשות עם אלה. הגדיל יהוה לעשות עמנו היינו שמחים. שובה יהוה את שביתנו כאפיקים בנגב. הזרעים בדמעה ברנה יקצרו. הלוך ילך ובכה נשא משך הזרע בא יבוא ברנה נשא אלמתיו
+בימים שיש בהם תחנון (ימי חול רגילים) אומרים:
+
+על נהרות בבל שם ישבנו גם בכינו בזכרנו את ציון. על ערבים בתוכה תלינו כנרותינו. כי שם שאלונו שובינו דברי שיר ותוללינו שמחה שירו לנו משיר ציון. איך נשיר את שיר יהוה על אדמת נכר. אם אשכחך ירושלם תשכח ימיני. תדבק לשוני לחכי אם לא אזכרכי אם לא אעלה את ירושלם על ראש שמחתי. זכר יהוה לבני אדום את יום ירושלם האמרים ערו ערו עד היסוד בה. בת בבל השדודה אשרי שישלם לך את גמולך שגמלת לנו. אשרי שיאחז ונפץ את עלליך אל הסלע.
+בעומר
+בראש חודש: הרחמן הוא יחדש עלינו את החדש הזה לטובה ולברכה.
+בסוכות: הרחמן הוא יקים לנו את סכת דוד הנופלת.
+ברוך אתה יהוה אלהינו מלך העולם הזן את העולם כלו בטובו בחן בחסד וברחמים, הוא נתן לחם לכל-בשר כי לעולם חסדו ובטובו הגדול תמיד לא חסר לנו ואל יחסר לנו מזון (תמיד) לעולם ועד בעבור שמו הגדול כי הוא אל זן ומפרנס לכל ומטיב לכל ומכין מזון לכל-בריותיו אשר ברא ברוך אתה יי הזן את הכל.
+ברוך אתה יי אלהינו, מלך העולם, האל אבינו, מלכנו, אדירנו, בוראנו, גאלנו, יוצרנו, קדושנו קדוש יעקב, רוענו רועה ישראל, המלך הטוב והמיטיב לכל, שבכל יום ויום הוא היטיב, הוא מיטיב, הוא ייטיב לנו, הוא גמלנו, הוא גומלנו, הוא יגמלנו לעד, לחן ולחסד ולרחמים ולרוח הצלה והצלחה, ברכה וישועה, נחמה פרנסה וכלכלה ורחמים וחיים ושלום, וכל טוב; ומכל טוב לעולם אל יחסרנו.
+ברכת המזון
+הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.
+הרחמן הוא ימלוך עלינו לעולם ועד. הרחמן הוא יתברך בשמים ובארץ. הרחמן הוא ישתבח לדור דורים, ויתפאר בנו לעד ולנצח נצחים, ויתהדר בנו לעד ולעולמי עולמים.
+הרחמן הוא יפרנסנו בכבוד. הרחמן הוא ישבור עלנו מעל צוארנו, והוא יוליכנו קוממיות לארצנו. הרחמן הוא ישלח לנו ברכה מרבה בבית הזה, ועל שלחן זה שאכלנו עליו. הרחמן הוא ישלח לנו את אליהו הנביא זכור לטוב, ויבשר לנו בשורות טובות ישועות ונחמות.
+
+בבית אביו אומר: הרחמן הוא יברך את אבי מורי בעל הבית הזה, ואת אמי מורתי בעלת הבית הזה.
+נשוי אומר: הרחמן הוא יברך אותי, (אם אביו ואמו בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת אשתי, ואת זרעי, ואת כל אשר לי.
+נשואה אומרת: הרחמן הוא יברך אותי, (אם איה ואמה בחיים: ואת אבי מורי, ואת אמי מורתי,) ואת בעלי, ואת זרעי, ואת כל אשר לי.
+אורח אומר: הרחמן הוא יברך את בעל הבית הזה ואת בעלת הבית הזה, אותם ואת ביתם ואת זרעם ואת כל אשר להם.
+זימון נאמר רק כשלפחות שלושה גברים יהודיים מגיל בר־מצווה (י״ג ומעלה) אכלו יחד באופן שמחייב ברכת המזון משותפת כפי שדינה; הסועד לבד או קבוצה שלא עומדת בזה אינה אומרת זימון. כשיש עשרה גברים כאלה — משלבים את הנוסח שבסוגריים (״אלהינו״ וכו׳).
+
+רבותי, נברך!
+המסבים עונים: יהי שם יי מברך מעתה ועד עולם.
+המזמן אומר: ברשות מרנן ורבנן ורבותי, נברך (בעשרה אלהינו) שאכלנו משלו.
+המסבים עונים: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.
+המזמן חוזר ואומר: ברוך (אלהינו) שאכלנו משלו ובטובו חיינו.
+יְהִי רָצוֹן מִלְּפָנֶיךָ ה׳ אֱלֹהֵינוּ וֵאלֹהֵי אֲבוֹתֵינוּ שֶׁתּוֹלִיכֵנוּ לְשָׁלוֹם וְתַצְעִידֵנוּ לְשָׁלוֹם וְתַדְרִיכֵנוּ לְשָׁלוֹם׃
+                וְתִסְמְכֵנוּ לְשָׁלוֹם וְתַגִּיעֵנוּ לִמְחוֹז חֶפְצֵנוּ לְחַיִּים וּלְשִׂמְחָה וּלְשָׁלוֹם׃
+                וְתַצִּילֵנוּ מִכַּף כָּל אוֹיֵב וְאוֹרֵב וְלִסְטִים וְחַיּוֹת רָעוֹת בַּדֶּרֶךְ וּמִכָּל מִינֵי פֻּרְעָנִיּוֹת הַמִּתְרַגְּשׁוֹת לָבוֹא לָעוֹלָם׃
+                וְתִשְׁלַח בְּרָכָה בְּכָל מַעֲשֵׂה יָדֵינוּ וְתִתְּנֵנוּ לְחֵן וּלְחֶסֶד וּלְרַחֲמִים בְּעֵינֶיךָ וּבְעֵינֵי כָל רוֹאֵינוּ׃
+                וְתִשְׁמַע קוֹל תַּחֲנוּנֵינוּ כִּי אֵל שׁוֹמֵעַ תְּפִלָּה וְתַחֲנוּן אָתָּה׃
+                בָּרוּךְ אַתָּה ה׳ שׁוֹמֵעַ תְּפִלָּה׃
+יראו את יי קדשיו, כי אין מחסור ליראיו. כפירים רשו ורעבו, ודרשי יי לא יחסרו כל טוב. הודו ליי כי טוב, כי לעולם חסדו. פותח את ידך, ומשביע לכל חי רצון. ברוך הגבר אשר יבטח ביי, והיה יי מבטחו. נער הייתי גם זקנתי, ולא ראיתי צדיק נעזב, וזרעו מבקש לחם. יי עז לעמו יתן, יי יברך את עמו בשלום.
+לעומר
+נודה לך יי אלהינו על שהנחלת לאבותינו ארץ חמדה טובה ורחבה. ועל שהוצאתנו יי אלהינו מארץ מצרים ופדיתנו מבית עבדים. ועל בריתך שחתמת בבשרנו. ועל תורתך שלמדתנו. ועל חוקיך שהודעתנו. ועל חיים חן וחסד שחנתנו. ועל אכילת מזון שאתה זן ומפרנס אותנו תמיד בכל יום ובכל עת ובכל שעה.
+
+ועל הכל יי אלהינו אנחנו מודים לך ומברכים אותך, יתברך שמך בפי כל חי תמיד לעולם ועד, ככתוב: ואכלת ושבעת, וברכת את יי אלהיך על הארץ הטובה אשר נתן לך. ברוך אתה יי, על הארץ ועל המזון.
+רחם נא יי אלהינו על ישראל עמך, ועל ירושלים עירך, ועל ציון משכן כבודך, ועל מלכות בית דוד משיחך, ועל הבית הגדול והקדוש שנקרא שמך עליו. אלהינו, אבינו, רענו, זוננו, פרנסנו וכלכלנו והרויחנו, והרוח לנו יי אלהינו מהרה מכל צרותינו. ונא אל תצריכנו י אלהינו, לא לידי מתנת בשר ודם ולא לידי הלואתם, כי אם לידך המלאה הפתוחה הקדושה והרחבה, שלא נבוש ולא נכלם לעולם ועד.
+
+ובנה ירושלים עיר הקדש במהרה בימינו. ברוך אתה יי, בונה ברחמיו ירושלים. אמן.
+שבוע אחד
+שבוע ו-$rem ימים
+שבוע ויום אחד
+שבועיים
+תפילת הדרך
+— enable location in Settings for your dawn time
+• When the 8th (final) day begins after tomorrow's Yom Tov ends, do NOT recite Shehecheyanu at candle lighting or Kiddush — plan for that before phones go off on Yom Tov.
+
+=== es: 70 fallbacks ===
+$body
+
+$blocks
+$count
+$mitzvotCount
+$pesachBegins
+
+$chametzNote
+
+Seder (first night):
+• $sederWhen
+• Matzah, maror, four cups of wine, reading the Haggadah, afikoman.
+• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
+• Kiddush, festive meal, Hallel, Nirtzah.
+
+Tomorrow by day:
+• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom).
+• Only eat food prepared for Pesach in kosher-for-Passover utensils.
+$diasporaNote$pesachShabbatBlock
+$translatedSwitchedTo $languageName.
+$weeks weeks and $rem days
+$weeks weeks and 1 day
+$weeks שבועות
+$weeks שבועות ו-$rem ימים
+$weeks שבועות ויום אחד
+(?:January|February|March|April|May|June|July|August|September|October|November|December)
+1 week and $rem days
+1 week and 1 day
+Another Yom Tov day of Pesach begins after sunset today — no melacha from then.
+
+Tomorrow:
+• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom).
+• Festive meals in kosher-for-Passover utensils only.
+• Light Yom Tov candles before sunset.
+$shehecheyanuNote$pesachFinalDayNote
+Beardy Top Productions
+Birkat Kohanim
+Count the Omer — (\d+)
+Erev $name prep
+First Seder is tomorrow night (Motzei Shabbat / Saturday night) — Havdalah in Kiddush (Yaknehaz), then Seder.
+First Seder is tonight (Friday night, commencing 15 Nisan). In the Diaspora, the second Seder is Saturday night — transitioning from Shabbat directly into the second day of Yom Tov, with Yaknehaz in Kiddush.
+In Israel: one seder tonight.
+In the Diaspora: first seder tonight; second seder tomorrow night.
+Light Chanukah candles — Night $day
+No
+Pesach begins tomorrow night after Shabbat ends (Saturday night). Today is Shabbat — no bedikat or biur today.
+Pesach begins tonight at nightfall. Torah-level Yom Tov — no melacha from then. Tomorrow (15 Nisan) is Shabbat, the first day of Pesach.
+Pesach begins tonight. Torah-level Yom Tov — no melacha.
+Shemini Atzeret begins tonight$sheminiAtzeretOpener
+
+Tonight & tomorrow:
+• Light Yom Tov candles.
+$shehecheyanuNote
+• No lulav on Shemini Atzeret — the mitzvah ended with the seventh day of Sukkot.
+$sheminiAtzeretDayBlock
+• Festive Yom Tov meals.
+Sukkot (first day) begins tonight — Zman Simchateinu.
+
+Before sunset:
+• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+
+Tonight & tomorrow:
+• Light Yom Tov candles in the sukkah (per custom) or home.
+$shehecheyanuNote
+• $lulavBrachaLine
+• Festive meals in the sukkah; Ushpizin welcome guests.
+• No melacha; Full Hallel and Musaf in davening.
+$diasporaNote
+Tomorrow (from tonight at sunset) is $name — a Yom Tov with melacha restrictions.
+Tonight at sunset begins $name, and Shabbat follows tomorrow — a Yom Tov–Shabbat sequence.
+When: Before Yom Tov begins — follow your Machzor for the exact time.
+When: Today (Friday) before Yom Tov candle lighting — $chagName begins tonight and Shabbat is tomorrow.
+When: Today, before the first day of $chagName tomorrow — in the Diaspora the next two days are Yom Tov, then Shabbat (set eruv on the day before the festival begins).
+\d+[dhms](?:\s+\d+[dhms])*
+\d{1,2}, \d{4}$
+\d{1,2}:\d{2}
+\s*/\s*
+^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),
+^(\d{1,2}:\d{2})(am|pm)(?:\s+(\w{3}))?$
+^Afternoon prayer \(Mincha\) (.+)$
+^Evening prayers available after (.+)$
+^Evening prayers available after sunset$
+^Latest time for morning Shema: (.+)$
+^Until nightfall$
+^Until nightfall: (.+)$
+^Until shortly after sunset: (.+)$
+beardytopproductions@gmail.com
+https://www.beardy.top
+lulav
+mailto:beardytopproductions@gmail.com
+maror
+misheyakir
+netilat yadayim
+posek
+psak
+treif
+tzitzit
+www.beardy.top
+zimun
+zmanim
+{name} · {timing}{endSuffix}
+בעומר
+לעומר
+שבוע אחד
+שבוע ו-$rem ימים
+שבוע ויום אחד
+שבועיים
+— enable location in Settings for your dawn time
+• After Shabbat tonight: light $chagName candles from a pre-existing flame; Kiddush includes havdalah (Yaknehaz) — you should have prepared on Friday.
+
+=== fr: 60 fallbacks ===
+$body
+
+$blocks
+$count
+$intro
+
+$holidayBody
+
+Before chag — every erev Yom Tov:
+$sunsetLine
+$cookingLine
+• Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
+$shulServicesLine$simchasBlock$scheduleBlock
+$mitzvotCount
+$pesachBegins
+
+$chametzNote
+
+Seder (first night):
+• $sederWhen
+• Matzah, maror, four cups of wine, reading the Haggadah, afikoman.
+• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
+• Kiddush, festive meal, Hallel, Nirtzah.
+
+Tomorrow by day:
+• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom).
+• Only eat food prepared for Pesach in kosher-for-Passover utensils.
+$diasporaNote$pesachShabbatBlock
+$translatedSwitchedTo $languageName.
+$weeks weeks and $rem days
+$weeks weeks and 1 day
+$weeks שבועות
+$weeks שבועות ו-$rem ימים
+$weeks שבועות ויום אחד
+(?:January|February|March|April|May|June|July|August|September|October|November|December)
+Amidah / Shemoneh Esrei (Maariv)
+Another Yom Tov day of Pesach begins after sunset today — no melacha from then.
+
+Tomorrow:
+• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom).
+• Festive meals in kosher-for-Passover utensils only.
+• Light Yom Tov candles before sunset.
+$shehecheyanuNote$pesachFinalDayNote
+Beardy Top Productions
+Birkat Kohanim
+Count the Omer — (\d+)
+Erev $name prep
+In Israel: one seder tonight.
+In the Diaspora: first seder tonight; second seder tomorrow night.
+Light Chanukah candles — Night $day
+Maariv is the evening prayer service, instituted by our patriarch Yaakov (Jacob) and observed every night.
+
+What it is:
+Maariv (מַעֲרִיב — also called Arvit, עַרְבִית) is the evening prayer service. After the Shema and its blessings, we say the Amidah (Shemoneh Esrei) — the same standing prayer as in Shacharit and Mincha, though the evening version has some differences.
+
+Structure of Maariv:
+1. Ashrei and a short passage (in some traditions)
+2. Barchu — the call to prayer (בָּרְכוּ — "Bless G-d"), said when praying with a minyan of 10 men
+3. Evening Shema with its two blessings before and two after
+4. Amidah / Shemoneh Esrei
+5. Aleinu
+6. Mourner's Kaddish (said by mourners or those observing yahrzeit)
+
+Timing:
+From nightfall until dawn. If you miss Maariv, make it up at the following morning's Shacharit only — say the regular Shacharit Amidah first, then immediately say a second Amidah as the tashlumin for Maariv. If you miss that window too, the opportunity is permanently gone. See the guide entry on Tashlumin for full rules including the Tefilat Nedavah option.
+
+$nusachNote
+Pesach begins tonight. Torah-level Yom Tov — no melacha.
+Shemini Atzeret begins tonight$sheminiAtzeretOpener
+
+Tonight & tomorrow:
+• Light Yom Tov candles.
+$shehecheyanuNote
+• No lulav on Shemini Atzeret — the mitzvah ended with the seventh day of Sukkot.
+$sheminiAtzeretDayBlock
+• Festive Yom Tov meals.
+Sukkot (first day) begins tonight — Zman Simchateinu.
+
+Before sunset:
+• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+
+Tonight & tomorrow:
+• Light Yom Tov candles in the sukkah (per custom) or home.
+$shehecheyanuNote
+• $lulavBrachaLine
+• Festive meals in the sukkah; Ushpizin welcome guests.
+• No melacha; Full Hallel and Musaf in davening.
+$diasporaNote
+Tomorrow (from tonight at sunset) is $name — a Yom Tov with melacha restrictions.
+Tomorrow is $chagName. Observe Yom Tov laws: no melacha, festive meals, special davening. Ask your rabbi for details specific to this day.
+When: Before Yom Tov begins — follow your Machzor for the exact time.
+\d+[dhms](?:\s+\d+[dhms])*
+\d{1,2}, \d{4}$
+\d{1,2}:\d{2}
+\s*/\s*
+^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),
+^(\d{1,2}:\d{2})(am|pm)(?:\s+(\w{3}))?$
+^Afternoon prayer \(Mincha\) (.+)$
+^Evening prayers available after (.+)$
+^Evening prayers available after sunset$
+^Latest time for morning Shema: (.+)$
+^Until nightfall$
+^Until nightfall: (.+)$
+^Until shortly after sunset: (.+)$
+beardytopproductions@gmail.com
+https://www.beardy.top
+mailto:beardytopproductions@gmail.com
+maror
+netilat yadayim
+posek
+psak
+treif
+www.beardy.top
+zmanim
+{name} · {timing}{endSuffix}
+בעומר
+לעומר
+שבוע אחד
+שבוע ו-$rem ימים
+שבוע ויום אחד
+שבועיים
+— enable location in Settings for your dawn time
+• When the 8th (final) day begins after tomorrow's Yom Tov ends, do NOT recite Shehecheyanu at candle lighting or Kiddush — plan for that before phones go off on Yom Tov.
+
+=== ru: 36 fallbacks ===
+$body
+
+$blocks
+$count
+$mitzvotCount
+$translatedSwitchedTo $languageName.
+$weeks weeks and $rem days
+$weeks weeks and 1 day
+$weeks שבועות
+$weeks שבועות ו-$rem ימים
+$weeks שבועות ויום אחד
+(?:January|February|March|April|May|June|July|August|September|October|November|December)
+1 week and $rem days
+1 week and 1 day
+Beardy Top Productions
+In Israel: one seder tonight.
+\d+[dhms](?:\s+\d+[dhms])*
+\d{1,2}, \d{4}$
+\d{1,2}:\d{2}
+\s*/\s*
+^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),
+^(\d{1,2}:\d{2})(am|pm)(?:\s+(\w{3}))?$
+^Evening prayers available after (.+)$
+^Evening prayers available after sunset$
+^Until nightfall$
+^Until nightfall: (.+)$
+^Until shortly after sunset: (.+)$
+beardytopproductions@gmail.com
+https://www.beardy.top
+mailto:beardytopproductions@gmail.com
+www.beardy.top
+{name} · {timing}{endSuffix}
+בעומר
+לעומר
+שבוע אחד
+שבוע ו-$rem ימים
+שבוע ויום אחד
+שבועיים

@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.core.content.ContextCompat
+import com.beardytop.beatzaddik.domain.LocationTimezone
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -62,7 +63,8 @@ actual class PlatformLocationService(private val context: Context) {
                         cont.resume(LocationResult.Unavailable)
                         return@addOnSuccessListener
                     }
-                    val tz = TimeZone.getDefault().id
+                    val deviceTz = TimeZone.getDefault().id
+                    val tz = LocationTimezone.resolve(loc.latitude, loc.longitude, deviceTz)
                     val label = try {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                             val geocoder = Geocoder(context, Locale.getDefault())

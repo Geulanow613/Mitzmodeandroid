@@ -1,0 +1,22 @@
+[
+  "\"remember\" from the Exodus version of the Ten Commandments telling the Jews to remember Shabbat",
+  "$holidayName is about to begin. Please finish what you are doing, turn off your phone, and prepare to welcome this Yom Tov with joy.\n\nOur Sages teach that rejoicing on Yom Tov is itself a mitzvah — may your observance bring blessing and divine reward to you and your household.",
+  "${yaalehVyavoFemaleAmidahLead(\"Maariv\")}\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nIf you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.",
+  "${yaalehVyavoFemaleAmidahLead(\"Mincha\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.",
+  "${yaalehVyavoFemaleAmidahLead(\"Shacharit\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.",
+  "33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut",
+  "A Chumash (from chamesh, \"five\") is a printed book of the five books of the Torah — Bereishit, Shemot, Vayikra, Bamidbar, and Devarim. Most Chumashim include commentaries such as Rashi. You use a Chumash for Shnayim Mikra, following along in shul, or learning at home.",
+  "A bentcher (birkon) is a small booklet with Birkat Hamazon and sometimes Shabbat songs and benching additions. Keeping one at the table makes bentching after bread meals easy. Many are bilingual; some include zimun instructions and festival inserts.",
+  "A blech is a metal cover placed on the stove to cover flames and heat food on Shabbat.",
+  "A keli is a vessel, utensil, or tool. It generally refers to any manufactured object or receptacle that holds, processes, or contains something. A keli is used for netilat yadayim — a cup, bottle, or washing cup (usually) with two handles.",
+  "A machzor is a prayer book for the Jewish festivals and High Holidays — Rosh Hashana, Yom Kippur, Pesach, Sukkot, and Shavuot. It includes texts and prayers not found in the daily siddur. For Rosh Hashana and Yom Kippur, a machzor is required to perform the proper prayers.",
+  "A mechitza divides men and women's seating in shul during prayer so focus stays on tefillah per traditional practice. Heights and designs vary by community.",
+  "A shaliach tzibur is the prayer leader who represents the congregation before G-d — reciting the repetition of the Amidah and guiding pacing. He must be someone the community accepts and who knows the laws of prayer. Women and men have different roles per community in who may lead which parts.",
+  "A siddur (from seder, \"order\") is the Jewish prayer book with the fixed texts for daily and Shabbat services — blessings, Shema, Amidah, Birkat Hamazon, and more. Editions follow nusach (Ashkenaz, Sefard, Chabad, etc.), so words and order differ slightly. Your siddur is your map for davening.",
+  "A sofer (scribe) is trained to write STaM — Torah scrolls, tefillin, mezuzot, and megillot — by hand with special ink on parchment. Letters must be formed exactly; mistakes can invalidate the scroll. Soferim also check existing klafim. Never buy tefillin or mezuzot without reliable certification.",
+  "Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nAlso add Yaaleh V'yavo in bentching if you eat bread tonight.",
+  "Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}",
+  "Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nAlso add Yaaleh V'yavo in bentching if you eat bread today.",
+  "After Mezonot, wine/grape juice, and/or shivat ha-minim tree fruits — select what you had at this sitting.",
+  "Aggadah is the non-legal storytelling and teaching in the Talmud and midrash — ethics, theology, and narrative. It complements halacha (law). Shabbat table stories and many midrashim are aggadah."
+]

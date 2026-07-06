@@ -99,4 +99,35 @@ object PublicFastDayRules {
             else -> "Deferred from Shabbat"
         }
     }
+
+    /**
+     * True when tonight's nightfall ends the fast into Shabbat or Yom Tov (e.g. Taanit Esther on
+     * Friday, 10 Tevet on Friday). Those days keep the fast row visible with local break-fast copy.
+     */
+    fun fastEndsIntoShabbatOrYomTov(cal: DayInfo, tomorrowCal: DayInfo?): Boolean {
+        if (cal.fastDayIndex == null) return false
+        if (cal.isErevShabbat) return true
+        if (tomorrowCal?.isYomTovAssurBemelacha == true) return true
+        return false
+    }
+
+    /**
+     * After tzeit the fast is over; show "Fast ended at …" until chatzos halayla, then drop the row.
+     * Skipped when [fastEndsIntoShabbatOrYomTov] (Friday / erev chag fasts).
+     */
+    fun shouldHideEndedFastItem(
+        nowMillis: Long,
+        cal: DayInfo,
+        tomorrowCal: DayInfo?,
+        availability: ItemZmanAvailability,
+    ): Boolean {
+        if (availability != ItemZmanAvailability.EXPIRED) return false
+        if (cal.fastDayIndex == null) return true
+        if (fastEndsIntoShabbatOrYomTov(cal, tomorrowCal)) return false
+        val z = cal.zmanim ?: return true
+        val tzeit = z.tzeitMillis ?: return true
+        if (nowMillis < tzeit) return false
+        val chatzosLayla = ZmanimHelpers.chatzosLaylaMillis(z, nowMillis) ?: return true
+        return nowMillis >= chatzosLayla
+    }
 }

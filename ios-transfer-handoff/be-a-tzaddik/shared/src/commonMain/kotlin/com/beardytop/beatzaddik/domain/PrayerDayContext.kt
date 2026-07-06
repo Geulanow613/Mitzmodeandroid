@@ -14,6 +14,8 @@ data class PrayerDayContext(
     val latitude: Double? = null,
     val nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
     val fastDayIndex: Int? = null,
+    /** When set, Maariv is not tracked tonight (Erev Shabbat / Erev Yom Tov). */
+    val maarivBlockedTonightLabel: String? = null,
 ) {
     val isShabbatOrYomTov: Boolean = isShabbat || isYomTov
 
@@ -34,6 +36,8 @@ data class PrayerDayContext(
             cal: DayInfo,
             nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
             latitude: Double? = null,
+            inIsrael: Boolean = false,
+            tomorrowCal: DayInfo? = null,
         ) = PrayerDayContext(
             isShabbat = cal.isShabbat,
             isYomTov = cal.isYomTov,
@@ -44,6 +48,7 @@ data class PrayerDayContext(
             latitude = latitude,
             nusach = nusach,
             fastDayIndex = cal.fastDayIndex,
+            maarivBlockedTonightLabel = MaarivInAppRules.blockedTonightLabel(cal, tomorrowCal, inIsrael),
         )
     }
 }

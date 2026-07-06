@@ -63,6 +63,7 @@ fun ChecklistDebugMenu(
     var expanded by rememberSaveable { mutableStateOf(false) }
     val resolving by viewModel.checklistDebugResolving.collectAsState()
     val pendingTimeSlot by viewModel.pendingDebugTimeSlot.collectAsState()
+    val debugError by viewModel.checklistDebugError.collectAsState()
 
     CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides null) {
     Column(
@@ -99,9 +100,13 @@ fun ChecklistDebugMenu(
                         modifier = Modifier.padding(top = 2.dp),
                     )
                 } ?: Text(
-                    if (resolving) "Finding calendar date…" else "Tap to pick a holiday, fast, or season (erev / day of)",
+                    when {
+                        resolving -> "Finding calendar date…"
+                        debugError != null -> debugError!!
+                        else -> "Tap to pick a holiday, fast, or season (erev / day of)"
+                    },
                     style = MaterialTheme.typography.labelSmall,
-                    color = TzaddikColors.TextMuted,
+                    color = if (debugError != null) Color(0xFFB91C1C) else TzaddikColors.TextMuted,
                     modifier = Modifier.padding(top = 2.dp),
                 )
             }
@@ -182,31 +187,57 @@ fun ChecklistDebugMenu(
                                 color = TzaddikColors.TextBrown,
                                 modifier = Modifier.weight(1f),
                             )
-                            erev?.let { scenario ->
-                                DebugPhaseChip(
-                                    label = "Erev",
-                                    selected = activeOverride?.scenarioId == scenario.id,
-                                    enabled = !resolving,
-                                    onClick = {
-                                        viewModel.applyChecklistDebugScenario(
-                                            scenario,
-                                            activeOverride?.timeSlot ?: pendingTimeSlot,
-                                        )
-                                    },
-                                )
-                            }
-                            dayOf?.let { scenario ->
-                                DebugPhaseChip(
-                                    label = "Day",
-                                    selected = activeOverride?.scenarioId == scenario.id,
-                                    enabled = !resolving,
-                                    onClick = {
-                                        viewModel.applyChecklistDebugScenario(
-                                            scenario,
-                                            activeOverride?.timeSlot ?: pendingTimeSlot,
-                                        )
-                                    },
-                                )
+                            when {
+                                erev != null && dayOf != null -> {
+                                    DebugPhaseChip(
+                                        label = "Erev",
+                                        selected = activeOverride?.scenarioId == erev.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                erev,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
+                                    DebugPhaseChip(
+                                        label = "Day",
+                                        selected = activeOverride?.scenarioId == dayOf.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                dayOf,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
+                                }
+                                erev != null -> {
+                                    DebugPhaseChip(
+                                        label = "Simulate",
+                                        selected = activeOverride?.scenarioId == erev.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                erev,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
+                                }
+                                dayOf != null -> {
+                                    DebugPhaseChip(
+                                        label = "Simulate",
+                                        selected = activeOverride?.scenarioId == dayOf.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                dayOf,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
+                                }
                             }
                         }
                     }

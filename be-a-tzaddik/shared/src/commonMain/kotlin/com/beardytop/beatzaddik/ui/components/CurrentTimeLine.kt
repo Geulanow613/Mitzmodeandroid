@@ -24,15 +24,18 @@ fun CurrentTimeLine(
     timezoneId: String,
     locationLabel: String? = null,
     manualCityId: String? = null,
+    nowEpochMillis: Long? = null,
     modifier: Modifier = Modifier
 ) {
-    var nowMillis by remember { mutableLongStateOf(kotlinx.datetime.Clock.System.now().toEpochMilliseconds()) }
-    LaunchedEffect(Unit) {
+    var liveMillis by remember { mutableLongStateOf(kotlinx.datetime.Clock.System.now().toEpochMilliseconds()) }
+    LaunchedEffect(nowEpochMillis) {
+        if (nowEpochMillis != null) return@LaunchedEffect
         while (true) {
-            nowMillis = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
+            liveMillis = kotlinx.datetime.Clock.System.now().toEpochMilliseconds()
             delay(1_000)
         }
     }
+    val nowMillis = nowEpochMillis ?: liveMillis
 
     val appTranslation = LocalAppTranslation.current
     val use24Hour = ZmanimFormatter.uses24HourClock(appTranslation.displayLanguageCode)

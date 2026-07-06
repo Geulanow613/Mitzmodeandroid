@@ -23,6 +23,8 @@ object SeasonalChecklistItems {
         }
         if ("purim_meshulash_friday" in cal.activeSeasons) {
             addAll(purimMeshulashFridayItems(profile))
+        } else if ("purim_meshulash_shabbat" in cal.activeSeasons) {
+            addAll(purimMeshulashShabbatItems(profile))
         } else if ("purim_meshulash_sunday" in cal.activeSeasons) {
             addAll(purimMeshulashSundayItems(profile))
         } else if (cal.isPurim) {
@@ -39,6 +41,9 @@ object SeasonalChecklistItems {
         }
         if ("erev_purim" in cal.activeSeasons) {
             add(erevPurimPrepItem(cal, tomorrowCal))
+        }
+        if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
+            add(purimMeshulashErevMegillahItem(profile))
         }
         if ("erev_chanukah" in cal.activeSeasons) {
             add(erevChanukahPrepItem(profile))
@@ -347,20 +352,25 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 
     private fun erevPurimPrepItem(cal: DayInfo, tomorrowCal: DayInfo) = ChecklistItemDef(
         id = "erev_purim_prep",
-        title = if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
-            "Purim Meshulash — read full plan before Shabbat (phone off)"
-        } else {
-            "Erev Purim prep — arrange Megillah and mitzvot"
+        title = when {
+            PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal) ->
+                "Purim Meshulash — read full plan before Shabbat (phone off)"
+            tomorrowCal.hebrewDay == 15 ->
+                "Erev Shushan Purim prep — arrange Megillah and mitzvot"
+            else -> "Erev Purim prep — arrange Megillah and mitzvot"
         },
         section = "Purim",
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
         seasons = listOf("erev_purim"),
-        explanation = if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
-            PurimMeshulashText.erevPrepExplanation()
-        } else {
-            """Purim is tomorrow. Plan all four mitzvot: Megillah (night and morning), matanot la'evyonim, mishloach manot, and tomorrow's festive seudah (afternoon meal). Confirm reading times with your shul."""
+        explanation = when {
+            PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal) ->
+                PurimMeshulashText.erevPrepExplanation()
+            tomorrowCal.hebrewDay == 15 ->
+                """Shushan Purim is tomorrow (15 Adar). Plan all four mitzvot: Megillah (night and morning), matanot la'evyonim, mishloach manot, and tomorrow's festive seudah (afternoon meal). Confirm reading times with your shul."""
+            else ->
+                """Purim is tomorrow. Plan all four mitzvot: Megillah (night and morning), matanot la'evyonim, mishloach manot, and tomorrow's festive seudah (afternoon meal). Confirm reading times with your shul."""
         },
         links = purimPrepLinks(),
     )
@@ -935,6 +945,22 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         add(ChecklistLink("Aish — Purim mitzvot", "https://aish.com/holidays/purim/", "default"))
     }
 
+    private fun purimMeshulashErevMegillahItem(profile: UserProfile) = ChecklistItemDef(
+        id = "purim_meshulash_erev_megillah",
+        title = "Purim Meshulash (Thursday night): Hear the Megillah",
+        section = "Purim",
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        situational = false,
+        seasons = emptyList(),
+        explanation = PurimMeshulashText.erevMegillahExplanation(),
+        explanationAshkenaz = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
+        explanationSefard = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+        explanationEdotHamizrach = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
+        explanationChabad = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
+        links = purimMegillahLinks(profile),
+    )
+
     private fun purimMeshulashFridayItems(profile: UserProfile): List<ChecklistItemDef> = listOf(
         ChecklistItemDef(
             id = "purim_meshulash_friday_megillah",
@@ -962,6 +988,31 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             explanation = PurimMeshulashText.fridayMatanotExplanation(),
             links = purimMatanotLinks(profile)
         )
+    )
+
+    private fun purimMeshulashShabbatItems(profile: UserProfile): List<ChecklistItemDef> = listOf(
+        ChecklistItemDef(
+            id = "purim_meshulash_shabbat_al_hanissim",
+            title = "Purim Meshulash (Shabbat): Al HaNissim in davening & bentching",
+            section = "Purim",
+            timeOfDay = TimeOfDay.ANY,
+            required = true,
+            situational = false,
+            seasons = listOf("purim_meshulash_shabbat"),
+            explanation = PurimMeshulashText.shabbatAlHaNissimExplanation(),
+            links = purimPrepLinks(),
+        ),
+        ChecklistItemDef(
+            id = "purim_meshulash_shabbat_torah",
+            title = "Purim Meshulash (Shabbat): Vayavo Amalek at shul",
+            section = "Purim",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            seasons = listOf("purim_meshulash_shabbat"),
+            explanation = PurimMeshulashText.shabbatTorahExplanation(),
+            links = purimPrepLinks(),
+        ),
     )
 
     private fun purimMeshulashSundayItems(profile: UserProfile): List<ChecklistItemDef> = listOf(

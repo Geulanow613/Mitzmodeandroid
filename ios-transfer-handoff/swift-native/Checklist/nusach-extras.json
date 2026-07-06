@@ -1,0 +1,140 @@
+{
+  "version": 8,
+  "items": [
+    {
+      "id": "chabad_hayom_yom",
+      "title": "Hayom Yom / daily Chitas (Chabad)",
+      "section": "Torah Study",
+      "sortOrder": 15,
+      "timeOfDay": "any",
+      "required": true,
+      "situational": false,
+      "gender": "male",
+      "nusach": [
+        "chabad"
+      ],
+      "nusachOnly": true,
+      "nusachTag": "Nusach Ari",
+      "explanation": "Chabad custom: daily Chumash, Tehillim, and Tanya (Chitas), plus Hayom Yom. Many complete it after morning prayers, but you may learn today's portion anytime before the next Hebrew day — including at night if you did not finish earlier.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "ashkenaz_korbanot_before_shacharit",
+      "title": "Korbanot before Pesukei Dezimra (Ashkenaz)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 28,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "ashkenaz"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Ashkenaz siddurim include Korbanot (Temple offerings) before Pesukei Dezimra. Many say at least Parshat HaTamid; follow your siddur and rabbi.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "chabad_korbanot_before_shacharit",
+      "title": "Korbanot & preliminaries (Nusach Ari)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 28,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "chabad"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Tehillat Hashem includes Korbanot and other passages before Pesukei Dezimra. Follow the order in your Chabad siddur.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "sefard_birkat_kohanim",
+      "title": "Birkat Kohanim in Shacharit (Sephardi / Edot HaMizrach)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 55,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "sefard",
+        "edot_hamizrach"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Sephardi and Edot HaMizrach communities in the Diaspora commonly recite Birkat Kohanim daily during Shacharit (customs vary — follow your kehilla and Shulchan Aruch O.C. 128).",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "sefard_korbanot_before_mincha",
+      "title": "Korbanot before Mincha (Sephardi)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 5,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "sefard"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Sephardi siddurim open Mincha with Korbanot — especially Parshat HaTamid (the daily Temple offering) — before Ashrei and the Amidah (Shulchan Arukh O.C. 1:5, 232:1). Follow your siddur and kehilla.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "edot_hamizrach_korbanot_before_mincha",
+      "title": "Korbanot before Mincha (Edot HaMizrach)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 5,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "edot_hamizrach"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "explanation": "Edot HaMizrach siddurim open Mincha with Korbanot — especially Parshat HaTamid — before Ashrei and the Amidah, matching the Shulchan Arukh order (O.C. 1:5, 232:1). Some kehillot include additional passages; follow your siddur.",
+      "links": [],
+      "hideOnShabbat": false,
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "ashkenaz_musaf_tachanun",
+      "title": "Tachanun at Mincha (Ashkenaz weekdays)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 20,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "ashkenaz"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Shacharit (weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum and the full penitential section), shorter on other weekdays. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nTachanun at Mincha: Some Ashkenaz communities especially emphasize saying Tachanun at Mincha if it was skipped at Shacharit that day. On a normal weekday, Tachanun at Mincha is already part of the standard service (often the shorter form). Omitted on the same festive days — Mincha itself is still said.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    }
+  ]
+}

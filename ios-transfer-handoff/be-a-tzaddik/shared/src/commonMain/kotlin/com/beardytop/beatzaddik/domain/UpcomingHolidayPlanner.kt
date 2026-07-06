@@ -108,18 +108,73 @@ internal object UpcomingHolidayPlanner {
                 )
             }
 
-            if (nextPurim == null && "erev_purim" in info.activeSeasons) {
-                nextPurim = UpcomingHoliday(
-                    name = "Purim",
-                    daysAway = i + 1,
-                    hint = "Megillah, matanot, mishloach manot",
-                    beginsTonightWhenImminent = false,
-                    timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
-                        civilToday,
-                        info.date,
-                        UpcomingHolidayTiming.purimStartsLabel(info, profile),
-                    ),
-                )
+            if (nextPurim == null) {
+                val isJerusalem = JerusalemPurimRules.isJerusalemProfile(profile)
+                when {
+                    "erev_purim" in info.activeSeasons -> {
+                        val meshulashErev = isJerusalem &&
+                            "purim_meshulash_friday" in tomorrow.activeSeasons
+                        nextPurim = UpcomingHoliday(
+                            name = JerusalemPurimRules.upcomingDisplayName(
+                                isJerusalem = isJerusalem,
+                                meshulashFridayErev = meshulashErev,
+                            ),
+                            daysAway = i + 1,
+                            hint = JerusalemPurimRules.upcomingHint(
+                                isJerusalem = isJerusalem,
+                                meshulashFridayErev = meshulashErev,
+                            ),
+                            beginsTonightWhenImminent = false,
+                            timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
+                                civilToday,
+                                info.date,
+                                UpcomingHolidayTiming.purimStartsLabel(info, profile),
+                            ),
+                        )
+                    }
+                    isJerusalem && "purim_meshulash_friday" in info.activeSeasons -> {
+                        nextPurim = UpcomingHoliday(
+                            name = JerusalemPurimRules.upcomingDisplayName(
+                                isJerusalem = true,
+                                meshulashFriday = true,
+                            ),
+                            daysAway = i,
+                            hint = JerusalemPurimRules.upcomingHint(
+                                isJerusalem = true,
+                                meshulashFriday = true,
+                            ),
+                            beginsTonightWhenImminent = false,
+                        )
+                    }
+                    isJerusalem && "purim_meshulash_sunday" in info.activeSeasons -> {
+                        nextPurim = UpcomingHoliday(
+                            name = JerusalemPurimRules.upcomingDisplayName(
+                                isJerusalem = true,
+                                meshulashSunday = true,
+                            ),
+                            daysAway = i,
+                            hint = JerusalemPurimRules.upcomingHint(
+                                isJerusalem = true,
+                                meshulashSunday = true,
+                            ),
+                            beginsTonightWhenImminent = false,
+                        )
+                    }
+                    isJerusalem && "purim_meshulash_shabbat" in info.activeSeasons -> {
+                        nextPurim = UpcomingHoliday(
+                            name = JerusalemPurimRules.upcomingDisplayName(
+                                isJerusalem = true,
+                                meshulashShabbat = true,
+                            ),
+                            daysAway = daysUntilNextDayOfWeek(info.date, DayOfWeek.SUNDAY),
+                            hint = JerusalemPurimRules.upcomingHint(
+                                isJerusalem = true,
+                                meshulashShabbat = true,
+                            ),
+                            beginsTonightWhenImminent = false,
+                        )
+                    }
+                }
             }
 
             if (nextRoshChodesh == null && !info.isRoshChodesh && tomorrow.isRoshChodesh && i == 0) {
@@ -298,6 +353,13 @@ internal object UpcomingHolidayPlanner {
             }
         }
         return null
+    }
+
+    private fun daysUntilNextDayOfWeek(from: LocalDate, target: DayOfWeek): Int {
+        for (offset in 1..7) {
+            if (from.plus(offset, DateTimeUnit.DAY).dayOfWeek == target) return offset
+        }
+        return 1
     }
 
     private fun fastHolidayOnDay(

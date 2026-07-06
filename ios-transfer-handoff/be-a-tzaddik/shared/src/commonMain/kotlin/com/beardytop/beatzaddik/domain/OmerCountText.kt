@@ -111,11 +111,14 @@ object OmerCountText {
         val timePart = ZmanimFormatter.formatTime(tzeit, tz)?.let {
             ExplainerTemplateFill.fill(OMER_TIME_PART, mapOf("time" to it))
         } ?: ""
-        val tonight = cal.date.dayOfWeek.displayName()
-        val tomorrow = cal.date.plus(1, DateTimeUnit.DAY)
-        val tomorrowNight = tomorrow.dayOfWeek.displayName()
+        // After the tzeit rollover the DayInfo already describes the new Hebrew day:
+        // tonight's (ongoing) count is `day` itself and the real civil evening is date - 1.
+        val rolled = cal.startedTonightAtTzeit
+        val tonightDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
+        val tonight = tonightDate.dayOfWeek.displayName()
+        val tomorrowNight = tonightDate.plus(1, DateTimeUnit.DAY).dayOfWeek.displayName()
         val todaySummary = omerDaySummary(day, nusach)
-        val tonightCountDay = day + 1
+        val tonightCountDay = if (rolled) day else day + 1
         val tonightSummary = if (tonightCountDay <= 49) omerDaySummary(tonightCountDay, nusach) else ""
         val nextDaySummary = if (tonightCountDay < 49) omerDaySummary(tonightCountDay + 1, nusach) else ""
         val nextNightLine = if (tonightCountDay < 49) OMER_NEXT_NIGHT_LINE else ""

@@ -1,0 +1,30 @@
+package com.beardytop.beatzaddik.domain
+
+import kotlinx.datetime.LocalDate
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+
+class ChecklistDebugTimeSlotTest {
+
+    @Test
+    fun timeSlotsMapToDistinctChecklistPeriods() {
+        assertEquals(TimeOfDay.NIGHT, ChecklistDebugTimeSlot.PRE_DAWN.toTimeOfDay())
+        assertEquals(TimeOfDay.DAY, ChecklistDebugTimeSlot.MORNING.toTimeOfDay())
+        assertEquals(TimeOfDay.AFTERNOON, ChecklistDebugTimeSlot.AFTERNOON.toTimeOfDay())
+        assertEquals(TimeOfDay.NIGHT, ChecklistDebugTimeSlot.EVENING.toTimeOfDay())
+        assertEquals(TimeOfDay.NIGHT, ChecklistDebugTimeSlot.NIGHT.toTimeOfDay())
+    }
+
+    @Test
+    fun epochMillisAtChangesWithTimeSlot() {
+        val date = LocalDate(2026, 7, 2)
+        val preDawn = ChecklistDebugDateFinder.epochMillisAt(date, ChecklistDebugTimeSlot.PRE_DAWN, "America/New_York")
+        val morning = ChecklistDebugDateFinder.epochMillisAt(date, ChecklistDebugTimeSlot.MORNING, "America/New_York")
+        val afternoon = ChecklistDebugDateFinder.epochMillisAt(date, ChecklistDebugTimeSlot.AFTERNOON, "America/New_York")
+        val night = ChecklistDebugDateFinder.epochMillisAt(date, ChecklistDebugTimeSlot.NIGHT, "America/New_York")
+        assertTrue(morning > preDawn)
+        assertTrue(afternoon > morning)
+        assertTrue(night > afternoon)
+    }
+}

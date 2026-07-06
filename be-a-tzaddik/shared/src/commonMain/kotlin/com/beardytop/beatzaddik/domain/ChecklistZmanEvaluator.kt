@@ -43,6 +43,9 @@ object ChecklistZmanEvaluator {
         "melave_malkah",
         "public_fast_day",
         "motzei_yom_kippur_meal",
+        "purim_meshulash_erev_megillah",
+        "purim_meshulash_friday_megillah",
+        "purim_meshulash_friday_matanot",
     )
 
     fun appliesTo(itemId: String): Boolean = itemId in zmanItemIds
@@ -124,6 +127,9 @@ object ChecklistZmanEvaluator {
             "melave_malkah" -> melaveMalkaWindow(nowMillis, z, tz, prayerDay)
             "public_fast_day" -> publicFastWindow(nowMillis, z, tz, prayerDay.fastDayIndex)
             "motzei_yom_kippur_meal" -> motzeiYomKippurMealWindow(nowMillis, z, tz)
+            "purim_meshulash_erev_megillah" -> purimMegillahNightWindow(nowMillis, z, tz)
+            "purim_meshulash_friday_megillah" -> purimMegillahDayWindow(nowMillis, z, tz, "Friday daytime Megillah")
+            "purim_meshulash_friday_matanot" -> purimMatanotDayWindow(nowMillis, z, tz)
             else -> ItemZmanStatus()
         }
     }
@@ -541,20 +547,15 @@ object ChecklistZmanEvaluator {
         val subtitle = PublicFastDayText.fastDaySubtitle(idx, z, tz)
         val end = z.tzeitMillis
             ?: return ItemZmanStatus(hint = subtitle)
+        val endLabel = ZmanimFormatter.formatTime(end, tz) ?: "nightfall"
         if (PublicFastDayRules.fastStartsAtSunset(idx)) {
             val sunsetToday = z.sunsetMillis
             val sunsetYesterday = sunsetToday?.minus(24 * 60 * 60 * 1000L)
             val dawnToday = z.alotHaShacharMillis ?: z.sunriseMillis
-            val start = when {
-                dawnToday != null && now >= dawnToday ->
-                    sunsetYesterday ?: dawnToday
-                sunsetToday != null && now >= sunsetToday ->
-                    sunsetToday
-                sunsetToday != null ->
-                    sunsetToday
-                else ->
-                    dawnToday ?: 0L
-            }
+            // Once this fast day is active (from tzeit rollover the evening before through its
+            // own tzeit), the fast began at the previous sunset — during the night portion the
+            // window must already be ACTIVE, not "begins at sunset".
+            val start = sunsetYesterday ?: dawnToday ?: sunsetToday ?: 0L
             val upcomingLabel = if (sunsetToday != null && now < sunsetToday) "sunset" else "dawn"
             return windowStatus(
                 now = now,
@@ -563,7 +564,9 @@ object ChecklistZmanEvaluator {
                 upcoming = "$subtitle — fast begins at sunset.",
                 upcomingTemplate = "{subtitle} — fast begins at sunset.",
                 upcomingArgs = mapOf("subtitle" to subtitle),
-                expired = "The fast ended at nightfall.",
+                expired = "The fast ended at nightfall ($endLabel).",
+                expiredTemplate = "The fast ended at nightfall ({time}).",
+                expiredArgs = mapOf("time" to endLabel),
                 makeup = null,
                 availableAtLabel = upcomingLabel,
                 activeHint = subtitle,
@@ -581,10 +584,78 @@ object ChecklistZmanEvaluator {
                 "subtitle" to subtitle,
                 "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "alot hashachar"),
             ),
-            expired = "Today's fast ended at nightfall.",
+            expired = "Today's fast ended at nightfall ($endLabel).",
+            expiredTemplate = "Today's fast ended at nightfall ({time}).",
+            expiredArgs = mapOf("time" to endLabel),
             makeup = null,
             availableAtLabel = "dawn",
             activeHint = subtitle,
+        )
+    }
+
+    private fun purimMegillahNightWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = z.tzeitMillis
+            ?: return ItemZmanStatus(hint = "Set location in Settings for nightfall (tzeit) times.")
+        val end = z.sunriseMillis?.plus(24 * 60 * 60 * 1000L)
+            ?: z.alotHaShacharMillis?.plus(24 * 60 * 60 * 1000L)
+        val startLabel = ZmanimFormatter.formatTime(start, tz) ?: "nightfall"
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "Megillah reading — after nightfall (tzeit).",
+            upcomingTemplate = "Megillah reading — after nightfall ({time}).",
+            upcomingArgs = mapOf("time" to startLabel),
+            expired = "Tonight's Megillah window has passed — hear it tomorrow morning if you missed it.",
+            makeup = "If you missed tonight's reading, the Friday morning reading is still required.",
+            availableAtLabel = "nightfall",
+            activeHint = "Hear the Megillah tonight after Maariv or at your shul's reading time.",
+        )
+    }
+
+    private fun purimMegillahDayWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        label: String,
+    ): ItemZmanStatus {
+        val start = z.alotHaShacharMillis ?: z.sunriseMillis
+            ?: return ItemZmanStatus(hint = "$label — set location in Settings for dawn times.")
+        val end = z.sunsetMillis
+            ?: return ItemZmanStatus(hint = "$label — set location in Settings for sunset times.")
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "$label — from dawn until sunset.",
+            upcomingTemplate = "{label} — from dawn ({time}) until sunset.",
+            upcomingArgs = mapOf(
+                "label" to label,
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "dawn"),
+            ),
+            expired = "Today's daytime Megillah window has passed (before sunset).",
+            makeup = "Ask your rav if you still need to hear the daytime reading.",
+            availableAtLabel = "dawn",
+            activeHint = "Hear the Megillah during the daytime, usually after Shacharit.",
+        )
+    }
+
+    private fun purimMatanotDayWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = z.alotHaShacharMillis ?: z.sunriseMillis
+            ?: return ItemZmanStatus(hint = "Matanot la'evyonim — set location for dawn times.")
+        val end = z.sunsetMillis
+            ?: return ItemZmanStatus(hint = "Matanot la'evyonim — set location for sunset times.")
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "Matanot la'evyonim — from dawn until sunset.",
+            upcomingTemplate = "Matanot la'evyonim — from dawn ({time}) until sunset.",
+            upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "dawn")),
+            expired = "Today's matanot la'evyonim window has passed.",
+            makeup = null,
+            availableAtLabel = "dawn",
+            activeHint = "Give gifts to the poor during the daytime only.",
         )
     }
 

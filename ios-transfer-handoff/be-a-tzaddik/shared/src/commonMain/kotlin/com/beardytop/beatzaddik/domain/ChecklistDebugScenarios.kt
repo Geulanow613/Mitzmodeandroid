@@ -10,10 +10,19 @@ import kotlinx.datetime.toInstant
 enum class ChecklistDebugPhase { EREV, DAY_OF }
 
 enum class ChecklistDebugTimeSlot(val hour: Int, val label: String) {
+    PRE_DAWN(3, "Pre-dawn"),
     MORNING(9, "Morning"),
     AFTERNOON(14, "Afternoon"),
-    EVENING(18, "Evening"),
-    NIGHT(21, "Night"),
+    EVENING(19, "Evening"),
+    NIGHT(22, "Night"),
+    ;
+
+    /** Checklist section order / period chip while debug sim is active. */
+    fun toTimeOfDay(): TimeOfDay = when (this) {
+        PRE_DAWN, EVENING, NIGHT -> TimeOfDay.NIGHT
+        MORNING -> TimeOfDay.DAY
+        AFTERNOON -> TimeOfDay.AFTERNOON
+    }
 }
 
 data class ChecklistDebugScenario(
@@ -197,8 +206,46 @@ object ChecklistDebugScenarios {
         }
         erev(seasonal, "Purim", "purim", match = season("erev_purim"))
         dayOf(seasonal, "Purim", "purim") { cal, _ ->
-            cal.isPurim && cal.hebrewDay == 14 &&
-                (cal.hebrewMonth == HebrewCalendarEngine.ADAR || cal.hebrewMonth == HebrewCalendarEngine.ADAR_II)
+            cal.isPurim &&
+                (cal.hebrewMonth == HebrewCalendarEngine.ADAR ||
+                    cal.hebrewMonth == HebrewCalendarEngine.ADAR_II) &&
+                cal.hebrewDay == 14
+        }
+
+        val shushan = "Shushan Purim (Jerusalem)"
+        dayOf(shushan, "12 Adar — week before", "shushan_12adar") { cal, _ ->
+            cal.hebrewDay == 12 &&
+                (cal.hebrewMonth == HebrewCalendarEngine.ADAR ||
+                    cal.hebrewMonth == HebrewCalendarEngine.ADAR_II) &&
+                "erev_purim" !in cal.activeSeasons &&
+                !cal.isPurim
+        }
+        dayOf(shushan, "13 Adar — Taanit Esther", "shushan_fast_esther") { cal, _ ->
+            cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER
+        }
+        erev(shushan, "14 Adar — Erev Shushan Purim", "shushan_erev") { cal, _ ->
+            "erev_purim" in cal.activeSeasons && cal.hebrewDay == 14
+        }
+        dayOf(shushan, "15 Adar — Shushan Purim", "shushan_day") { cal, _ ->
+            cal.isPurim && cal.hebrewDay == 15
+        }
+        dayOf(shushan, "Meshulash — Wed advance prep", "shushan_meshulash_adv") { cal, tomorrow ->
+            cal.hebrewDay == 12 &&
+                "erev_purim" in tomorrow.activeSeasons &&
+                "erev_purim" !in cal.activeSeasons
+        }
+        erev(shushan, "Meshulash — Thu erev (Megillah tonight)", "shushan_meshulash_erev") { cal, tomorrow ->
+            "erev_purim" in cal.activeSeasons &&
+                "purim_meshulash_friday" in tomorrow.activeSeasons
+        }
+        dayOf(shushan, "Meshulash — Fri Megillah & matanot", "shushan_meshulash_fri") { cal, _ ->
+            "purim_meshulash_friday" in cal.activeSeasons
+        }
+        dayOf(shushan, "Meshulash — Shabbat (communal)", "shushan_meshulash_shabbat") { cal, _ ->
+            "purim_meshulash_shabbat" in cal.activeSeasons
+        }
+        dayOf(shushan, "Meshulash — Sun mishloach & seudah", "shushan_meshulash_sun") { cal, _ ->
+            "purim_meshulash_sunday" in cal.activeSeasons
         }
         dayOf(seasonal, "Month of Nissan", "nissan") { cal, _ ->
             cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 15
@@ -226,11 +273,28 @@ object ChecklistDebugScenarios {
         }
         return "$phase — ${scenario.label}"
     }
+
+    fun usesJerusalemCalendar(scenario: ChecklistDebugScenario): Boolean =
+        scenario.group == "Shushan Purim (Jerusalem)"
+}
+
+/** Shushan / Meshulash debug simulates walled-city calendar rules regardless of GPS city. */
+fun UserProfile.forDebugCalendar(scenario: ChecklistDebugScenario?): UserProfile {
+    if (scenario == null || !ChecklistDebugScenarios.usesJerusalemCalendar(scenario)) return this
+    return copy(
+        manualCityId = "jlm",
+        locationLabel = "Jerusalem, Israel",
+        latitude = 31.7683,
+        longitude = 35.2137,
+        timezoneId = "Asia/Jerusalem",
+        useGps = false,
+        locationSource = LocationSource.MANUAL,
+    )
 }
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 6
+    private const val CACHE_VERSION = 8
 
     private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
@@ -262,6 +326,8 @@ object ChecklistDebugDateFinder {
         append(profile.timezoneId)
         append('|')
         append(profile.manualCityId ?: "")
+        append('|')
+        append(profile.locationLabel ?: "")
     }
 
     fun resolve(
@@ -400,8 +466,25 @@ object ChecklistDebugDateFinder {
             "yom_kippur_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 10)
             "chanukah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 24)
             "chanukah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)
-            "purim_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 13)
-            "purim_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
+            "purim_erev" -> if (JerusalemPurimRules.isJerusalemProfile(profile)) {
+                CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
+            } else {
+                CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 13)
+            }
+            "purim_day" -> if (JerusalemPurimRules.isJerusalemProfile(profile)) {
+                CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 15)
+            } else {
+                CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
+            }
+            "shushan_12adar_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 12)
+            "shushan_fast_esther_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 13)
+            "shushan_erev_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
+            "shushan_day_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 15)
+            "shushan_meshulash_adv_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 12)
+            "shushan_meshulash_erev_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 13)
+            "shushan_meshulash_fri_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
+            "shushan_meshulash_shabbat_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 15)
+            "shushan_meshulash_sun_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 16)
             "lag_baomer_day" -> CanonicalHebrewDate(HebrewCalendarEngine.IYAR, 18)
             "nissan_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
             else -> null
@@ -418,6 +501,9 @@ object ChecklistDebugDateFinder {
     /** Erev scenarios skip Shabbat (checklist is off). Debug preview ignores electronics-rest windows. */
     private fun isErevDebuggable(cal: DayInfo): Boolean =
         !HolyDayPhoneRules.isShabbatMelachaDay(cal)
+
+    fun epochMillisAt(date: LocalDate, timeSlot: ChecklistDebugTimeSlot, timezoneId: String): Long =
+        date.atLocalTime(timeSlot.hour, timezoneId)
 
     private fun LocalDate.atLocalTime(hour: Int, timezoneId: String): Long {
         val tz = TimeZone.of(timezoneId)

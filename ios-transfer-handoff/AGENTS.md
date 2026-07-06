@@ -1,9 +1,14 @@
-# iOS handoff — agent instructions (start here)
+# iOS handoff — agent instructions
+
+**Start with `INSTRUCTIONS.md`** — architecture (KMP embed vs standalone), location/timezone
+logic, Windows→Mac sync, Mac build steps, and recent halacha fixes. This file adds the
+handoff folder map and file index.
 
 This folder is a **file bundle for handoff**, not an installation guide. **Preferred integration:** point the iOS/Mac project at the same `be-a-tzaddik/shared` path as Android (see **`EMBED.md`**). Use this mirror when you must copy files; run **`verify-handoff.ps1`** after sync to catch drift.
 
 ## What to do (in order)
 
+0. Read **`INSTRUCTIONS.md`** — project architecture, GPS/timezone, sync workflow (read first).
 1. Read **`EMBED.md`** — path-based embed (Android model), zmanim split, test commands.
 2. Read **`docs/PARITY_CHECKLIST.md`** — acceptance criteria (must match Android / embedded Mitz Mode).
 2. Read **`docs/SOURCE_MAP.md`** — which files matter and where they live in this mirror.

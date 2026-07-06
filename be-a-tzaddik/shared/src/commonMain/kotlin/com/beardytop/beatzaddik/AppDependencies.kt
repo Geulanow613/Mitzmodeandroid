@@ -11,8 +11,11 @@ import com.beardytop.beatzaddik.data.createAppRepository
 import com.beardytop.beatzaddik.domain.ChecklistEngine
 import com.beardytop.beatzaddik.domain.JewishCalendarService
 import com.beardytop.beatzaddik.domain.KashrutTimerService
+import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.domain.createJewishCalendarBackend
 import com.beardytop.beatzaddik.platform.PlatformLocationService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class AppDependencies(
     platformContext: Any?,
@@ -28,14 +31,22 @@ class AppDependencies(
     companion object {
         suspend fun create(
             platformContext: Any?,
-            locationService: PlatformLocationService
-        ): AppDependencies {
+            locationService: PlatformLocationService,
+            embeddedMode: Boolean = false,
+        ): AppDependencies = withContext(Dispatchers.Default) {
             ChecklistCatalog.loadFromAssets()
             ManualCitiesCatalog.loadFromAssets()
-            CityGeographyCatalog.loadFromAssets()
-            BundledTranslationsCatalog.loadFromAssets()
+            ManualCities.onCatalogLoaded(ManualCitiesCatalog.all)
+            if (!embeddedMode) {
+                CityGeographyCatalog.loadFromAssets()
+                BundledTranslationsCatalog.loadFromAssets()
+            }
             val holidays = HolidaysLoader.load()
-            return AppDependencies(platformContext, locationService, holidays)
+            val deps = AppDependencies(platformContext, locationService, holidays)
+            if (embeddedMode) {
+                deps.repository.warmStartupReads()
+            }
+            deps
         }
     }
 }

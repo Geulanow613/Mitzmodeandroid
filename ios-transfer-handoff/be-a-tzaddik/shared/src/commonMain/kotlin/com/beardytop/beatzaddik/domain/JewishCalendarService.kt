@@ -38,7 +38,13 @@ class JewishCalendarService(
             zmanim = nowInfo.zmanim,
         )
         val fromPlanner = UpcomingHolidayPlanner.plan(backend, nowEpochMillis, profile)
+        val plannerCoversPurim = fromPlanner.any { it.name.contains("Purim", ignoreCase = true) }
         val fromOverlay = holidayOverlay.mapNotNull { entry ->
+            if (entry.id == "purim" &&
+                (JerusalemPurimRules.isJerusalemProfile(profile) || plannerCoversPurim)
+            ) {
+                return@mapNotNull null
+            }
             overlayToHoliday(entry, from, profile)
         }
         return (fromPlanner + fromOverlay)

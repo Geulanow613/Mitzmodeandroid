@@ -1,0 +1,42 @@
+{
+  "he": {
+    "Translation Notice": "הודעת תרגום",
+    "Translations in this app are translated from English using machine-assisted methods and may not be perfect. Please send any errors you find to:": "התרגומים באפליקציה זו מתורגמים מאנגלית באמצעים ממוחשבים וייתכן שאינם מושלמים. אנא שלחו שגיאות שתמצאו ל:",
+    "Found an error or have suggestions? Email": "מצאתם שגיאה או יש לכם הצעות? שלחו דוא\"ל ל",
+    "Got it": "הבנתי",
+    "English:": "אנגלית:",
+    "Listen to more Jewish music from": "האזינו לעוד מוזיקה יהודית מ-",
+    "Performed by": "בוצע על ידי",
+    "(Most URL links still lead to English-based websites.)": "(רוב קישורי האתרים עדיין מובילים לאתרים באנגלית.)"
+  },
+  "es": {
+    "Translation Notice": "Aviso de traducción",
+    "Translations in this app are translated from English using machine-assisted methods and may not be perfect. Please send any errors you find to:": "Las traducciones de esta aplicación se hacen del inglés con métodos asistidos por máquina y pueden no ser perfectas. Envíe cualquier error que encuentre a:",
+    "Found an error or have suggestions? Email": "¿Encontró un error o tiene sugerencias? Envíe un correo a",
+    "Got it": "Entendido",
+    "English:": "Inglés:",
+    "Listen to more Jewish music from": "Escuche más música judía de",
+    "Performed by": "Interpretado por",
+    "(Most URL links still lead to English-based websites.)": "(La mayoría de los enlaces siguen dirigiendo a sitios en inglés.)"
+  },
+  "fr": {
+    "Translation Notice": "Avis de traduction",
+    "Translations in this app are translated from English using machine-assisted methods and may not be perfect. Please send any errors you find to:": "Les traductions de cette application sont faites à partir de l'anglais avec des méthodes assistées par machine et peuvent ne pas être parfaites. Signale toute erreur à :",
+    "Found an error or have suggestions? Email": "Tu avez trouvé une erreur ou une suggestion ? Écrivez à",
+    "Got it": "Compris",
+    "English:": "Anglais :",
+    "Listen to more Jewish music from": "Écoutez plus de musique juive de",
+    "Performed by": "Interprété par",
+    "(Most URL links still lead to English-based websites.)": "(La plupart des liens mènent encore vers des sites en anglais.)"
+  },
+  "ru": {
+    "Translation Notice": "Уведомление о переводе",
+    "Translations in this app are translated from English using machine-assisted methods and may not be perfect. Please send any errors you find to:": "Переводы в этом приложении выполнены с английского с помощью машинных методов и могут быть неточными. Пожалуйста, сообщайте об ошибках на:",
+    "Found an error or have suggestions? Email": "Нашли ошибку или есть предложения? Напишите на",
+    "Got it": "Понятно",
+    "English:": "Английский:",
+    "Listen to more Jewish music from": "Слушайте больше еврейской музыки от",
+    "Performed by": "Исполнено",
+    "(Most URL links still lead to English-based websites.)": "(Большинство ссылок всё ещё ведут на англоязычные сайты.)"
+  }
+}

@@ -71,15 +71,17 @@ fun HolyLightChecklistRow(
     onInfoClick: () -> Unit,
     onHolyFlash: () -> Unit = {},
     onRemove: (() -> Unit)? = null,
+    clockNowEpochMillis: Long? = null,
     modifier: Modifier = Modifier
 ) {
     val tracksZman = ChecklistZmanEvaluator.appliesTo(item.def.id)
-    var nowMillis by remember { mutableLongStateOf(Clock.System.now().toEpochMilliseconds()) }
-    LaunchedEffect(tracksZman, item.zmanWindowStartMillis, item.zmanWindowEndMillis, item.zmanAvailability) {
+    var liveNowMillis by remember { mutableLongStateOf(Clock.System.now().toEpochMilliseconds()) }
+    LaunchedEffect(tracksZman, clockNowEpochMillis, item.zmanWindowStartMillis, item.zmanWindowEndMillis, item.zmanAvailability) {
         if (!tracksZman) return@LaunchedEffect
+        if (clockNowEpochMillis != null) return@LaunchedEffect
         while (true) {
-            nowMillis = Clock.System.now().toEpochMilliseconds()
-            val until = item.zmanWindowStartMillis?.let { it - nowMillis }
+            liveNowMillis = Clock.System.now().toEpochMilliseconds()
+            val until = item.zmanWindowStartMillis?.let { it - liveNowMillis }
             val delayMs = when {
                 until != null && until > 0 && until < 5 * 60_000 -> 5_000L
                 until != null && until > 0 && until < 60 * 60_000 -> 15_000L
@@ -88,6 +90,7 @@ fun HolyLightChecklistRow(
             delay(delayMs)
         }
     }
+    val nowMillis = clockNowEpochMillis ?: liveNowMillis
     val liveAvailability = if (tracksZman) {
         remember(item.zmanAvailability, item.zmanWindowStartMillis, item.zmanWindowEndMillis, nowMillis) {
             ZmanAvailabilityLive.derive(
@@ -149,6 +152,7 @@ private fun CollapsedZmanChecklistRow(
     val languageCode = LocalAppTranslation.current.displayLanguageCode
 
     val collapsedTemplate = item.zmanCollapsedTemplate
+        ?: if (liveAvailability == ItemZmanAvailability.EXPIRED) item.zmanHintTemplate else null
         ?: ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
             availability = liveAvailability,
             windowStartMillis = item.zmanWindowStartMillis,
@@ -158,14 +162,18 @@ private fun CollapsedZmanChecklistRow(
             languageCode = languageCode,
         )?.first
     val collapsedArgs = item.zmanCollapsedArgs.ifEmpty {
-        ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
-            availability = liveAvailability,
-            windowStartMillis = item.zmanWindowStartMillis,
-            nowMillis = nowMillis,
-            atLabel = item.zmanAvailableAtLabel,
-            timezoneId = timezoneId,
-            languageCode = languageCode,
-        )?.second.orEmpty()
+        if (liveAvailability == ItemZmanAvailability.EXPIRED && item.zmanHintTemplate != null) {
+            item.zmanHintArgs
+        } else {
+            ZmanCountdownFormatter.unavailableCollapsedSummaryTemplate(
+                availability = liveAvailability,
+                windowStartMillis = item.zmanWindowStartMillis,
+                nowMillis = nowMillis,
+                atLabel = item.zmanAvailableAtLabel,
+                timezoneId = timezoneId,
+                languageCode = languageCode,
+            )?.second.orEmpty()
+        }
     }
     val collapsedSummary = if (collapsedTemplate != null) {
         rememberAppTranslatedTemplate(collapsedTemplate, collapsedArgs)

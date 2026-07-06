@@ -2,6 +2,57 @@
 
 What the mirrored `be-a-tzaddik/` files and `docs/` contain.
 
+## 2026-07-06 (b) — GPS timezone fix + world city catalog (~3,900 cities)
+
+### GPS clock / zmanim timezone (Android + iOS KMP)
+- **`domain/LocationTimezone.kt`** (new) — resolves IANA timezone from GPS lat/lng using the
+  bundled city catalog (timezone id only; zmanim still use exact GPS coordinates)
+- **`domain/ManualCities.kt`** — `nearestTimezoneId()` for catalog lookup (no distance cap)
+- **`viewmodel/AppViewModel.kt`** — reconcile timezone on startup, GPS toggle, GPS success,
+  and when GPS fix is pending but coordinates are already saved
+- **`PlatformLocationService.android.kt`** — no longer uses emulator/device UTC as the
+  primary timezone when catalog match exists
+- **`androidUnitTest/.../LocationTimezoneTest.kt`** — Mountain View → `America/Los_Angeles`,
+  Jerusalem → `Asia/Jerusalem`
+
+Fixes: Android emulator GPS at Mountain View showing **2:42 PM UTC** instead of **7:42 AM Pacific**.
+
+### City catalog expansion
+- **`tools/manual_cities.tsv`** — 550 → **3,926** cities (GeoNames, pop ≥ 100k)
+- **`composeResources/files/manual-cities.json`** — same (~700 KB bundled)
+- New maintainer scripts: `expand_manual_cities_from_geonames.py`,
+  `backfill_city_elevations_from_geonames.py`; `add_city_elevations.py` rate-limit safe
+
+### Mac / Xcode (Mitz Mode at `~/Dropbox/claudesucks/mitzi`)
+Podfile points at `../be-a-tzaddik/shared`. After Dropbox sync from Windows:
+```bash
+cd ~/Dropbox/claudesucks/mitzi   # or Library/CloudStorage/Dropbox/...
+pod install
+# Clean build folder in Xcode (Cmd+Shift+K), then Run
+```
+Or: `scripts/build_shared_framework.sh` (Gradle + pod install).
+
+## 2026-07-06 — Hebrew date rollover at tzeit + fast time fixes
+
+### Halachic day boundary (both platforms, KMP)
+- **`domain/HalachicDayRollover.kt`** (new) — Hebrew day advances at **tzeit**, not civil midnight
+- **`JewishCalendarBackend.android.kt`** + **`iosMain/.../NativeJewishCalendarBackend.kt`** — after tonight's tzeit,
+  `dayInfoAt` returns the next Hebrew day (date label, fast/holiday flags, seasons, zmanim);
+  civil label keeps the real Gregorian date; new `DayInfo.startedTonightAtTzeit` flag
+- Fixes: "still 17 Tammuz at 10 PM after the fast ended"; fast now shows
+  "begins at dawn (~4:10 AM)" on the eve after nightfall
+- **`ChecklistZmanEvaluator`** — Yom Kippur / Tisha B'Av night portion is ACTIVE from the previous sunset
+- **`OmerCountText`** — tonight's count is rollover-aware (no off-by-one at night)
+- **`PublicFastDayText`** — erev prep uses **tomorrow's** dawn for the fast start time
+
+### iOS build fixes (Kotlin/Native)
+- **`SolarZmanim.kt`**, **`LocationElevation.kt`** — removed JVM-only `Math.toDegrees`/`Math.toRadians`
+  (broke the iOS framework compile; likely cause of stale zmanim behavior on device)
+
+### Tests (androidUnitTest)
+- **`HebrewDateTzeitRolloverTest`** — 17→18 Tammuz at tzeit, erev-fast night, Shabbat entry/exit, no-location fallback
+- **`zmanim/FastDayZmanimSanityTest`** — Jerusalem 17 Tammuz 5786: fast starts 3–5 AM, ends in the evening
+
 ## 2026-07-02 — Full app mirror + Mac Dropbox extract
 
 ### New

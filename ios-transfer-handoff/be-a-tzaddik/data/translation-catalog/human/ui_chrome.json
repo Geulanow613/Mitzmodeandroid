@@ -1,0 +1,30 @@
+{
+  "he": {
+    "All done for now!": "סיימתם לעכשיו!",
+    "You can eat {food} as of {time}": "מותר לאכול {food} החל מ-{time}",
+    "dairy": "חלבי",
+    "meat": "בשרי",
+    "now": "עכשיו"
+  },
+  "es": {
+    "All done for now!": "¡Todo listo por ahora!",
+    "You can eat {food} as of {time}": "Puedes comer {food} a partir de {time}",
+    "dairy": "lácteos",
+    "meat": "carne",
+    "now": "ahora"
+  },
+  "fr": {
+    "All done for now!": "Tout est fait pour l'instant !",
+    "You can eat {food} as of {time}": "Tu peux manger {food} à partir de {time}",
+    "dairy": "laitier",
+    "meat": "viande",
+    "now": "maintenant"
+  },
+  "ru": {
+    "All done for now!": "На сейчас всё готово!",
+    "You can eat {food} as of {time}": "Можно есть {food} с {time}",
+    "dairy": "молочное",
+    "meat": "мясное",
+    "now": "сейчас"
+  }
+}

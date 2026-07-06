@@ -57,4 +57,11 @@ data class DayInfo(
     /** Tomorrow's public fast day index when today is erev prep. */
     val upcomingFastDayIndex: Int? = null,
     val upcomingFastDayName: String? = null,
+    /**
+     * True from tzeit until civil midnight: this DayInfo describes the Hebrew day that began
+     * tonight at nightfall, while the civil (Gregorian) date is still the previous day.
+     * [date] and [zmanim] refer to this Hebrew day's upcoming civil daytime;
+     * [civilLabel] keeps the real civil date for display. See [HalachicDayRollover].
+     */
+    val startedTonightAtTzeit: Boolean = false,
 )

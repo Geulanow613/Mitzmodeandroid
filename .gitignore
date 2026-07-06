@@ -84,3 +84,7 @@ sentry.properties
 
 # Sensitive files with credentials
 sensitive-config.properties
+
+# Local SDK mirror and Dropbox sync (not part of Android repo)
+.android-sdk/
+Dropbox/

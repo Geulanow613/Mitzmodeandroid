@@ -29,31 +29,30 @@ Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Pur
 
 Why the calendar splits:
 • Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
-• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar): individual home mitzvot (Megillah, matanot, mishloach, seudah) do not happen today, but Shabbat carries communal Purim obligations — see below.
+• The four mitzvot spread across three days: Friday, Shabbat, and Sunday.
 
 Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
 
-The four mitzvot — when they happen this year:
-1. Megillah — Thursday night after tzeit (start of Friday / 14 Adar) AND Friday daytime (before sunset). Two readings, like a normal Purim. Confirm times with your shul; write them down or print them.
-2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). Give at least one gift to each of two different poor people (minimum of two recipients total); money is common. Prepare cash, envelopes, or charity contacts before Friday.
-3. Mishloach manot — Sunday (16 Adar) before sunset. At least two ready-to-eat foods to one friend. Prepare and label packages before Shabbat; plan who delivers on Sunday (you, family, or shul list).
-4. Purim seudah — Sunday afternoon (16 Adar), before sunset. Festive meal with bread, joy, and Torah words — not on Shabbat.
+Day 1 — Friday (14 Adar) — first day of Meshulash:
+• Megillah: Hear the Book of Esther Thursday night after tzeit AND again Friday morning (daytime, before sunset) — both readings are required, like a normal Purim.
+• Matanot la'evyonim: Give gifts to the poor Friday daytime only (at least one gift to each of two different poor people).
+• Do not say Al HaNissim in davening or bentching today.
+• Do not hold the festive Purim seudah today — that waits until Sunday.
 
-What to finish before Shabbat candles (Friday):
-• Megillah: attend Thursday night and Friday morning readings (or know your shul's schedule).
-• Matanot: complete on Friday — have funds ready Friday morning.
-• Mishloach: packages packed, labeled, and stored; delivery list written (Sunday only).
-• Seudah: Sunday menu and timing planned; invite guests if needed.
-• Machatzit haShekel: if your custom, many give before Megillah — handle before or with Thursday/Friday readings.
+Day 2 — Shabbat (15 Adar) — second day:
+• Al HaNissim: Insert into every Amidah and into Birkat Hamazon (Grace After Meals) today — not on Friday or Sunday.
+• Synagogue: Two Torah scrolls — the weekly portion plus Vayavo Amalek (Exodus 17:8–16); special Haftarah for Purim.
+• No Purim seudah today (Shabbat rules). It is customary to elevate your Shabbat meals with extra delicacies.
+• No Megillah, matanot, mishloach, or seudah at home today — communal Purim observance at shul only.
 
-Shabbat (15 Adar):
-• While individual home mitzvot like Megillah, matanot, mishloach, and the seudah do not happen today, Shabbat carries the communal Purim obligations.
-• Synagogue: Attend for the special Purim Torah reading (Parashat Vayavo Amalek, Exodus 17:8–16) and the unique Haftarah for Purim.
-• Davening & meals: Insert Al HaNissim into all Shabbat prayers (Amidah) and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
-• No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
+Day 3 — Sunday (16 Adar) — third day:
+• Mishloach manot: Send at least two ready-to-eat foods to one friend before sunset (prepare packages before Shabbat).
+• Purim seudah: Hold the main festive Purim meal today — joy, wine, words of Torah; the widespread custom of ad delo yada (rejoicing until you cannot tell) applies responsibly and within halacha.
 
-Sunday (16 Adar):
-• Send mishloach manot and celebrate the Purim seudah. The app will show today's items after Shabbat ends.
+Before Shabbat candles (Friday):
+• Complete Megillah (night + morning) and matanot la'evyonim on Friday.
+• Pack and label mishloach manot; plan Sunday delivery and seudah menu.
+• Machatzit haShekel: if your custom, many give before Megillah — handle Thursday night or Friday.
 
 Ask your rav about edge cases (travel, illness, minhag).
     """.trimIndent()
@@ -69,7 +68,7 @@ Purim Meshulash starts tonight in Jerusalem. Because Shabbat falls in the middle
 
 ${'$'}scheduleBlock
 
-Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday): second Megillah reading and matanot la'evyonim. Mishloach and seudah wait until Sunday.
+Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday): second Megillah reading, matanot la'evyonim — but no Al HaNissim and no Purim seudah on Friday. Mishloach manot and the seudah wait until Sunday; Shabbat is Al HaNissim and synagogue readings only.
     """.trimIndent()
 
     fun advancePrepTemplate(): String = ADVANCE_PREP_TEMPLATE
@@ -90,6 +89,11 @@ Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday):
         erevPrepArgs(),
     )
 
+    fun erevMegillahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.purimBasics(),
+        EREV_MEGILLAH_BODY,
+    )
+
     fun fridayMegillahTemplate(): String = FRIDAY_MEGILLAH_BODY
 
     fun fridayMatanotTemplate(): String = FRIDAY_MATANOT_BODY
@@ -103,8 +107,26 @@ Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday):
         FRIDAY_MEGILLAH_BODY,
     )
 
+    fun shabbatAlHaNissimExplanation(): String = SHABBAT_AL_HANISSIM_BODY
+
+    fun shabbatTorahExplanation(): String = SHABBAT_TORAH_BODY
+
+    private val EREV_MEGILLAH_BODY = """
+Purim Meshulash — Thursday night (13 Adar): first Megillah reading
+
+Tonight after nightfall (tzeit) is the first of two required Megillah readings this year. Friday morning is the second reading.
+
+How:
+• Hear every word from a kosher megillah scroll; men and women are equally obligated.
+• Stand for the blessings; customs at Haman's name vary by shul.
+
+${PurimBrachotText.MEGILLAH_BLESSINGS_COMMON}
+
+Tomorrow (Friday): second Megillah reading and matanot la'evyonim — but no Al HaNissim and no Purim seudah on Friday.
+    """.trimIndent()
+
     private val FRIDAY_MEGILLAH_BODY = """
-Purim Meshulash — Megillah on Friday (14 Adar)
+Purim Meshulash — Day 1 (Friday / 14 Adar): Megillah
 
 When this year:
 • Thursday night after tzeit — first reading (you should have heard it then).
@@ -116,7 +138,10 @@ How (same laws as regular Purim):
 
 ${PurimBrachotText.MEGILLAH_BLESSINGS_COMMON}
 
-Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach manot and the seudah are Sunday — prepare packages before Shabbat if you have not already.
+Friday only — also today:
+• Matanot la'evyonim (gifts to the poor) — see today's other checklist item.
+• Do not say Al HaNissim in davening or bentching today (that is Shabbat only this year).
+• Do not hold the Purim seudah today — Sunday is for the festive meal. Mishloach manot is also Sunday.
     """.trimIndent()
 
     fun fridayMatanotExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -125,7 +150,7 @@ Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach man
     )
 
     private val FRIDAY_MATANOT_BODY = """
-Purim Meshulash — matanot la'evyonim on Friday only (14 Adar)
+Purim Meshulash — Day 1 (Friday / 14 Adar): matanot la'evyonim
 
 Today (Friday daytime) — not on Shabbat:
 • Give at least one gift to each of two different poor people (minimum of two recipients total).
@@ -134,7 +159,7 @@ Today (Friday daytime) — not on Shabbat:
 
 You may use a trustworthy messenger or organization that distributes today. If you cannot find recipients, ask your rabbi or shul Friday morning.
 
-Sunday is for mishloach manot and the seudah — those should already be prepared before Shabbat.
+Do not say Al HaNissim today. Mishloach manot and the Purim seudah are Sunday — prepare packages before Shabbat.
     """.trimIndent()
 
     fun sundayMishloachExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -143,7 +168,7 @@ Sunday is for mishloach manot and the seudah — those should already be prepare
     )
 
     private val SUNDAY_MISHLOACH_BODY = """
-Purim Meshulash — mishloach manot on Sunday (16 Adar)
+Purim Meshulash — Day 3 (Sunday / 16 Adar): mishloach manot
 
 Deferred from Shabbat because Purim mitzvot are not performed on Shabbat this year.
 
@@ -152,7 +177,7 @@ The mitzvah:
 • Deliver before sunset; a messenger is fine.
 • Food should be ready to eat without cooking; label sender and recipient.
 
-You should have prepared packages before Shabbat. If not, ask your rav what you may still do today.
+You should have prepared packages before Shabbat. Do not say Al HaNissim today — that was Shabbat only.
     """.trimIndent()
 
     fun sundaySeudahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -161,17 +186,37 @@ You should have prepared packages before Shabbat. If not, ask your rav what you 
     )
 
     private val SUNDAY_SEUDAH_BODY = """
-Purim Meshulash — Purim seudah on Sunday (16 Adar)
+Purim Meshulash — Day 3 (Sunday / 16 Adar): Purim seudah
 
-The festive Purim meal is today (not Friday or Shabbat this year).
+The main festive Purim meal is today — not Friday or Shabbat this year.
 
 When:
 • Sunday daytime before sunset — many hold the meal in the afternoon after mishloach manot.
 
 How:
 • Festive meal with bread, meat, wine, and joy; include words of Torah or thanks to Hashem.
-• Drinking wine is a widespread custom; celebrate responsibly.
+• Drinking wine is a widespread custom; the tradition of ad delo yada (rejoicing until you cannot tell Haman from Mordechai) is bounded by safety and halacha — celebrate responsibly.
 
 This completes the four Purim mitzvot for Purim Meshulash in Jerusalem.
+    """.trimIndent()
+
+    private val SHABBAT_AL_HANISSIM_BODY = """
+Purim Meshulash — Day 2 (Shabbat / 15 Adar): Al HaNissim
+
+Today only (not Friday or Sunday):
+• Insert Al HaNissim into every Amidah of Shabbat davening.
+• Insert Al HaNissim into Birkat Hamazon (Grace After Meals) at every Shabbat meal today.
+
+There is no Purim seudah today — elevate your Shabbat meals with extra delicacies if you wish, but the formal Purim feast is Sunday.
+    """.trimIndent()
+
+    private val SHABBAT_TORAH_BODY = """
+Purim Meshulash — Day 2 (Shabbat / 15 Adar): synagogue readings
+
+Attend shul for the communal Purim observance on Shabbat:
+• Two Torah scrolls: the weekly parsha plus the special reading of Vayavo Amalek (Exodus 17:8–16).
+• The unique Haftarah for Purim when 15 Adar falls on Shabbat.
+
+No Megillah, matanot la'evyonim, mishloach manot, or Purim seudah at home today — those were Friday or wait until Sunday.
     """.trimIndent()
 }

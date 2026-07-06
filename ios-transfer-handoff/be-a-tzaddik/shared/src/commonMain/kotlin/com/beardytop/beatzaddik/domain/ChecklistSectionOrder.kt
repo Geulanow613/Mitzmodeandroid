@@ -38,7 +38,14 @@ object ChecklistSectionOrder {
         ) {
             add("Prepare for the festival")
         }
-        if ("erev_purim" in cal.activeSeasons) add("Purim")
+        if (
+            "erev_purim" in cal.activeSeasons ||
+            "purim_meshulash_friday" in cal.activeSeasons ||
+            "purim_meshulash_shabbat" in cal.activeSeasons ||
+            "purim_meshulash_sunday" in cal.activeSeasons
+        ) {
+            add("Purim")
+        }
         if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
         if ("fast_day" in cal.activeSeasons ||
             "erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||

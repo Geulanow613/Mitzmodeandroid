@@ -69,6 +69,7 @@ class ChecklistEngine(
         weeklyCheckedWeeks: Map<String, String> = emptyMap(),
         tzeitCheckedDays: Map<String, String> = emptyMap(),
         nowMillis: Long = Clock.System.now().toEpochMilliseconds(),
+        forcedActivePeriod: TimeOfDay? = null,
     ): DayChecklists {
         val cal = calendar.dayInfoAt(nowMillis, profile)
         val yesterdayCal = calendar.dayInfoForDate(cal.date.plus(-1, DateTimeUnit.DAY), profile)
@@ -102,6 +103,7 @@ class ChecklistEngine(
         val prioritizePrepSections = ChecklistSectionOrder.prioritizedPrepSections(
             cal, tomorrowCal, profile, nowMillis,
         )
+        val activePeriod = forcedActivePeriod ?: cal.activeTimeOfDay
         val sinkMorningPrayerSection = cal.zmanim?.let { z ->
             !ZmanPeriodLogic.isMorningPrayerSectionPriority(nowMillis, z)
         } ?: false
@@ -112,13 +114,19 @@ class ChecklistEngine(
                 (catalog + seasonal + customDefs).filter {
                     matches(it, profile, cal, nowMillis, tomorrowCal)
                 },
-                cal.activeTimeOfDay,
+                activePeriod,
                 prioritizePrepSections,
                 sinkMorningPrayerSection,
             )
         }
 
-        val prayerDay = PrayerDayContext.from(cal, profile.effectiveNusach(), profile.latitude)
+        val prayerDay = PrayerDayContext.from(
+            cal,
+            profile.effectiveNusach(),
+            profile.latitude,
+            profile.isInIsrael,
+            tomorrowCal,
+        )
         fun resolveList(defs: List<ChecklistItemDef>) = defs.map { def ->
             val checked = when {
                 def.id.startsWith("custom_") -> customChecked[def.id] == true
@@ -150,14 +158,32 @@ class ChecklistEngine(
         val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
 
         val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile)
+        val periodLabels = if (forcedActivePeriod != null) {
+            cal.zmanim?.let {
+                ZmanPeriodLabels.forPeriod(forcedActivePeriod, it, profile.effectiveNusach())
+            } ?: ZmanPeriodLabels.forPeriodWithoutZmanim(forcedActivePeriod)
+        } else {
+            ZmanPeriodLabels.Labels(
+                activeTitle = cal.activePeriodLabel,
+                activeSummary = cal.activePeriodHint,
+                laterSummary = cal.inactivePeriodHint,
+            )
+        }
         return DayChecklists(
-            activePeriod = cal.activeTimeOfDay,
-            activePeriodLabel = cal.activePeriodLabel,
-            activePeriodHint = if (profile.hasZmanimLocation()) cal.activePeriodHint else null,
-            inactivePeriodHint = if (profile.hasZmanimLocation()) cal.inactivePeriodHint else null,
+            activePeriod = activePeriod,
+            activePeriodLabel = periodLabels.activeTitle,
+            activePeriodHint = if (profile.hasZmanimLocation()) periodLabels.activeSummary else null,
+            inactivePeriodHint = if (profile.hasZmanimLocation()) periodLabels.laterSummary else null,
             items = resolveList(allDefs).filter { item ->
-                item.def.id != "rosh_chodesh_observances" ||
-                    item.zmanAvailability != ItemZmanAvailability.EXPIRED
+                (item.def.id != "rosh_chodesh_observances" ||
+                    item.zmanAvailability != ItemZmanAvailability.EXPIRED) &&
+                    (item.def.id != "public_fast_day" ||
+                        !PublicFastDayRules.shouldHideEndedFastItem(
+                            nowMillis = nowMillis,
+                            cal = cal,
+                            tomorrowCal = tomorrowCal,
+                            availability = item.zmanAvailability,
+                        ))
             },
             inactiveItemCount = 0,
             inactiveItems = emptyList(),
@@ -175,7 +201,7 @@ class ChecklistEngine(
                         if ("Motzei Shabbat" in filtered) filtered else filtered + "Motzei Shabbat"
                     }
                 },
-                timeLabel = if (profile.hasZmanimLocation()) cal.activePeriodLabel else null,
+                timeLabel = if (profile.hasZmanimLocation()) periodLabels.activeTitle else null,
                 todayOccasionLabel = occasion?.label,
                 todayOccasionTemplate = occasion?.labelTemplate,
                 todayOccasionTemplateArgs = occasion?.labelArgs ?: emptyMap(),

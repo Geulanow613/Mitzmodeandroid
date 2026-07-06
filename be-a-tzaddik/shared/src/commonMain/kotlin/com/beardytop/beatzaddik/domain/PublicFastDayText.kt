@@ -227,8 +227,12 @@ Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Chi
     ): Map<String, String> {
         val fastName = PublicFastDayRules.displayName(tomorrowFastIdx)
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
+        // The fast starts at TOMORROW's dawn — nightObligationsEndMillis is tomorrow's alot.
         val alotTomorrow = cal.zmanim?.let { z ->
-            ZmanimFormatter.formatTime(z.alotHaShacharMillis, tz)
+            ZmanimFormatter.formatTime(
+                z.nightObligationsEndMillis ?: z.alotHaShacharMillis,
+                tz,
+            )
         }
         val alotLine = alotLine(alotTomorrow)
         val fridayNote = when (tomorrowFastIdx) {

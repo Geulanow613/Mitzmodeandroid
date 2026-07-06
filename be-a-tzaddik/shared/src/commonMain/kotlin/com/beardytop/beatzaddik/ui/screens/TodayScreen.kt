@@ -53,8 +53,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.produceState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -89,7 +89,8 @@ import com.beardytop.beatzaddik.domain.EffectiveNusach
 import com.beardytop.beatzaddik.domain.OmerCountText
 import com.beardytop.beatzaddik.domain.ParshaData
 import com.beardytop.beatzaddik.domain.HolyDayPhoneNotice
-import com.beardytop.beatzaddik.domain.ChecklistEngine
+import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
+import com.beardytop.beatzaddik.domain.forDebugCalendar
 import com.beardytop.beatzaddik.domain.ChecklistSectionOrder
 import com.beardytop.beatzaddik.domain.Gender
 import com.beardytop.beatzaddik.domain.ItemZmanAvailability
@@ -132,18 +133,9 @@ fun TodayScreen(
     val kashrut by viewModel.kashrutWait.collectAsState()
     val upcoming by viewModel.upcomingHolidays.collectAsState()
     val debugOverride by viewModel.checklistDebugOverride.collectAsState()
-    val nowMillis by produceState(
-        initialValue = debugOverride?.epochMillis ?: Clock.System.now().toEpochMilliseconds(),
-        debugOverride,
-    ) {
-        if (debugOverride != null) {
-            value = debugOverride!!.epochMillis
-            return@produceState
-        }
-        while (true) {
-            value = Clock.System.now().toEpochMilliseconds()
-            delay(1000)
-        }
+    val displayTimezone = remember(debugOverride, profile.timezoneId) {
+        val scenario = debugOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
+        profile.forDebugCalendar(scenario).timezoneId
     }
     var customText by remember { mutableStateOf("") }
     var infoItem by remember { mutableStateOf<ResolvedChecklistItem?>(null) }
@@ -194,15 +186,16 @@ fun TodayScreen(
             ChecklistDebugMenu(
                 viewModel = viewModel,
                 activeOverride = debugOverride,
-                timezoneId = profile.timezoneId,
+                timezoneId = displayTimezone,
             )
             CalendarHeader(
                 day = day,
-                timezoneId = profile.timezoneId,
+                timezoneId = displayTimezone,
                 locationLabel = profile.locationLabel,
                 manualCityId = profile.manualCityId,
                 effectiveNusach = profile.effectiveNusach(),
                 upcoming = upcoming,
+                nowEpochMillis = debugOverride?.epochMillis,
                 onNusachClick = onOpenSettings,
                 onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
                 onOpenShabbatGuide = openShabbatGuide,
@@ -226,7 +219,14 @@ fun TodayScreen(
                 )
             }
             kashrut?.let { wait ->
-                val isDone = nowMillis >= wait.endsAtEpochMillis
+                var isDone by remember(wait.endsAtEpochMillis) {
+                    mutableStateOf(Clock.System.now().toEpochMilliseconds() >= wait.endsAtEpochMillis)
+                }
+                LaunchedEffect(wait.endsAtEpochMillis) {
+                    val remaining = wait.endsAtEpochMillis - Clock.System.now().toEpochMilliseconds()
+                    if (remaining > 0) delay(remaining)
+                    isDone = true
+                }
                 if (isDone) {
                     val allowedFood = when (wait.category) {
                         MealCategory.MEAT -> "dairy"
@@ -349,9 +349,10 @@ fun TodayScreen(
                     expandPeriodRequest = expandPeriodRequest,
                     onExpandPeriodConsumed = { expandPeriodRequest = null },
                     scrollRootY = scrollRootY,
+                    scrollInProgress = scrollState.isScrollInProgress,
                     onPeriodAnchorPosition = { period, y ->
                         periodScrollOffsets = periodScrollOffsets + (period to y)
-                    }
+                    },
                 )
             }
             if (day?.holyDayPhoneNotice == null) {
@@ -536,7 +537,8 @@ private fun ChecklistSections(
     expandPeriodRequest: TimeOfDay? = null,
     onExpandPeriodConsumed: () -> Unit = {},
     scrollRootY: Float = 0f,
-    onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> }
+    scrollInProgress: Boolean = false,
+    onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> },
 ) {
     if (items.isEmpty()) {
         AppText(
@@ -575,12 +577,14 @@ private fun ChecklistSections(
     }
 
     val collapsedSet = remember(collapsedSectionKeys) { collapsedSectionKeys.toSet() }
-    items.groupBy { it.sectionLabel }
-        .toList()
-        .sortedBy { (section, _) ->
-            sectionSortKey(section, activePeriod, prioritizePrepSections, sinkMorningPrayerSection)
-        }
-        .forEach { (section, sectionItems) ->
+    val sortedSections = remember(items, activePeriod, prioritizePrepSections, sinkMorningPrayerSection) {
+        items.groupBy { it.sectionLabel }
+            .toList()
+            .sortedBy { (section, _) ->
+                sectionSortKey(section, activePeriod, prioritizePrepSections, sinkMorningPrayerSection)
+            }
+    }
+    sortedSections.forEach { (section, sectionItems) ->
             val sectionKey = sectionPrefix + section
             val expanded = sectionKey !in collapsedSet
             val baseSection = sectionItems.firstOrNull()?.def?.section
@@ -591,8 +595,10 @@ private fun ChecklistSections(
             }
             val anchorModifier = if (periodAnchor != null) {
                 Modifier.onGloballyPositioned { coords ->
-                    val yInScroll = (coords.positionInRoot().y - scrollRootY).toInt()
-                    onPeriodAnchorPosition(periodAnchor, yInScroll)
+                    if (!scrollInProgress) {
+                        val yInScroll = (coords.positionInRoot().y - scrollRootY).toInt()
+                        onPeriodAnchorPosition(periodAnchor, yInScroll)
+                    }
                 }
             } else {
                 Modifier
@@ -629,6 +635,7 @@ private fun ChecklistSections(
                 Column {
                     sectionItems.sortedWith(compareBy({ it.def.sortOrder }, { it.displayTitle })).forEach { item ->
                         val isCustom = item.def.id.startsWith("custom_")
+                        key(item.def.id) {
                         HolyLightChecklistRow(
                             item = item,
                             timezoneId = profile.timezoneId,
@@ -653,6 +660,7 @@ private fun ChecklistSections(
                                 { viewModel.removeCustomItem(item.def.id) }
                             } else null
                         )
+                        }
                     }
                 }
             }
@@ -1043,6 +1051,7 @@ private fun CalendarHeader(
     manualCityId: String? = null,
     effectiveNusach: EffectiveNusach,
     upcoming: List<UpcomingHoliday> = emptyList(),
+    nowEpochMillis: Long? = null,
     onNusachClick: () -> Unit = {},
     onPeriodClick: () -> Unit = {},
     onOpenShabbatGuide: (anchor: String?) -> Unit = {},
@@ -1064,6 +1073,7 @@ private fun CalendarHeader(
             timezoneId = timezoneId,
             locationLabel = locationLabel,
             manualCityId = manualCityId,
+            nowEpochMillis = nowEpochMillis,
             modifier = Modifier.padding(bottom = 6.dp)
         )
         day?.let { d ->

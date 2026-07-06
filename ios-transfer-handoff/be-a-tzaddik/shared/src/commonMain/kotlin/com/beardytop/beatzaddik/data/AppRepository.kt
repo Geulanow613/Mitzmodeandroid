@@ -50,4 +50,7 @@ interface AppRepository {
     val tzeitCheckedDays: Flow<Map<String, String>>
 
     suspend fun setTzeitDayChecked(id: String, checked: Boolean, tzeitDayKey: String)
+
+    /** Eager-read persisted state on a background thread so the first checklist frame is not blocked. */
+    suspend fun warmStartupReads() {}
 }

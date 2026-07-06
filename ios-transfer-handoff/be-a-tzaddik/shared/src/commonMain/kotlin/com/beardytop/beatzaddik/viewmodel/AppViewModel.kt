@@ -15,6 +15,7 @@ import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.UpcomingHoliday
 import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.LocationElevation
+import com.beardytop.beatzaddik.domain.LocationTimezone
 import com.beardytop.beatzaddik.platform.LocationResult
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ChecklistDebugDateFinder
@@ -22,6 +23,7 @@ import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
 import com.beardytop.beatzaddik.domain.ChecklistDebugOverride
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenario
 import com.beardytop.beatzaddik.domain.ChecklistDebugTimeSlot
+import com.beardytop.beatzaddik.domain.forDebugCalendar
 import com.beardytop.beatzaddik.domain.ElectronicsRestPeriod
 import com.beardytop.beatzaddik.domain.HolyDayPhoneRules
 import com.beardytop.beatzaddik.domain.RestKind
@@ -112,13 +114,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     /** Keep GPS mode on even when a fix is still pending (emulator / weak signal). */
     private fun persistGpsModeEnabled() {
         viewModelScope.launch {
-            deps.repository.saveProfile(
+            val reconciled = LocationTimezone.resolveForProfile(
                 profile.value.copy(
                     useGps = true,
                     manualCityId = null,
                     locationSource = LocationSource.GPS,
                 )
             )
+            deps.repository.saveProfile(reconciled)
         }
     }
 
@@ -171,8 +174,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     private val _checklistDebugOverride = MutableStateFlow<ChecklistDebugOverride?>(null)
     val checklistDebugOverride: StateFlow<ChecklistDebugOverride?> = _checklistDebugOverride
 
+    private val _pendingDebugTimeSlot = MutableStateFlow(ChecklistDebugTimeSlot.MORNING)
+    val pendingDebugTimeSlot: StateFlow<ChecklistDebugTimeSlot> = _pendingDebugTimeSlot
+
     private val _checklistDebugResolving = MutableStateFlow(false)
     val checklistDebugResolving: StateFlow<Boolean> = _checklistDebugResolving
+
+    private val _checklistDebugError = MutableStateFlow<String?>(null)
+    val checklistDebugError: StateFlow<String?> = _checklistDebugError
 
     private var checklistDebugResolveJob: Job? = null
 
@@ -181,23 +190,25 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
+        _pendingDebugTimeSlot.value = timeSlot
         checklistDebugResolveJob?.cancel()
         checklistDebugResolveJob = viewModelScope.launch {
             _checklistDebugResolving.value = true
+            _checklistDebugError.value = null
+            val prof = profile.value.forDebugCalendar(scenario)
             ChecklistDebugDateFinder.clearCache()
-            val profile = profile.value
             val override = withContext(Dispatchers.Default) {
                 ChecklistDebugDateFinder.resolve(
                     calendar = deps.calendar,
-                    profile = profile,
+                    profile = prof,
                     scenario = scenario,
                     timeSlot = timeSlot,
                 )
             }
             _checklistDebugResolving.value = false
             if (override == null) {
-                _locationMessage.value =
-                    "Debug: no calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
+                _checklistDebugError.value =
+                    "No calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
                 return@launch
             }
             _checklistDebugOverride.value = override
@@ -205,13 +216,23 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {
+        _pendingDebugTimeSlot.value = timeSlot
         val current = _checklistDebugOverride.value ?: return
-        val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
-        applyChecklistDebugScenario(scenario, timeSlot)
+        val scenario = ChecklistDebugScenarios.byId(current.scenarioId)
+        val prof = profile.value.forDebugCalendar(scenario)
+        _checklistDebugOverride.value = current.copy(
+            timeSlot = timeSlot,
+            epochMillis = ChecklistDebugDateFinder.epochMillisAt(
+                current.simulatedDate,
+                timeSlot,
+                prof.timezoneId,
+            ),
+        )
     }
 
     fun clearChecklistDebug() {
         _checklistDebugOverride.value = null
+        _checklistDebugError.value = null
     }
 
     val dayChecklists: StateFlow<DayChecklists?> = combine(
@@ -219,8 +240,10 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         effectiveNowMillis,
         checklistDebugOverride,
     ) { input, nowMillis, debug ->
+        val scenario = debug?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
+        val calendarProfile = input.profile.forDebugCalendar(scenario)
         deps.checklistEngine.resolve(
-            input.profile, input.checked, input.custom, input.customChecked,
+            calendarProfile, input.checked, input.custom, input.customChecked,
             input.monthlyMonths, input.weeklyWeeks, input.tzeitDays,
             nowMillis = nowMillis,
         )
@@ -238,8 +261,13 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(
         profile,
         effectiveNowMillis,
-    ) { prof, now ->
-        deps.calendar.upcomingHolidays(nowEpochMillis = now, profile = prof)
+        checklistDebugOverride,
+    ) { prof, now, debug ->
+        val scenario = debug?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
+        deps.calendar.upcomingHolidays(
+            nowEpochMillis = now,
+            profile = prof.forDebugCalendar(scenario),
+        )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val electronicsRest: StateFlow<ElectronicsRestPeriod?> = combine(
@@ -293,6 +321,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                 prof = prof.copy(elevationMeters = elevation)
                 deps.repository.saveProfile(prof)
             }
+        }
+        prof = deps.repository.profile.first()
+        val reconciled = withContext(Dispatchers.Default) {
+            LocationTimezone.resolveForProfile(prof)
+        }
+        if (reconciled != prof) {
+            deps.repository.saveProfile(reconciled)
+            prof = reconciled
         }
         if (prof.useGps) {
             refreshGps()
@@ -486,17 +522,26 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                 is LocationResult.Success -> {
                     val d = result.data
                     val current = profile.value
-                    val elevation = LocationElevation.resolveForGps(
-                        latitude = d.latitude,
-                        longitude = d.longitude,
-                        gpsAltitudeMeters = d.elevationMeters,
-                        hasAltitudeReading = d.hasAltitudeReading,
-                    )
+                    val elevation = withContext(Dispatchers.Default) {
+                        LocationElevation.resolveForGps(
+                            latitude = d.latitude,
+                            longitude = d.longitude,
+                            gpsAltitudeMeters = d.elevationMeters,
+                            hasAltitudeReading = d.hasAltitudeReading,
+                        )
+                    }
+                    val resolvedTimezoneId = withContext(Dispatchers.Default) {
+                        LocationTimezone.resolve(
+                            latitude = d.latitude,
+                            longitude = d.longitude,
+                            deviceFallback = d.timezoneId,
+                        )
+                    }
                     deps.repository.saveProfile(
                         current.copy(
                             latitude = d.latitude,
                             longitude = d.longitude,
-                            timezoneId = d.timezoneId,
+                            timezoneId = resolvedTimezoneId,
                             locationLabel = d.label,
                             elevationMeters = elevation,
                             locationSource = LocationSource.GPS,
@@ -506,16 +551,28 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                     )
                     _locationMessage.value = buildString {
                         d.label?.let { append("Location: $it. ") }
-                        append("Zmanim use device timezone (${d.timezoneId}) — pick a manual city when traveling.")
+                        if (resolvedTimezoneId == d.timezoneId) {
+                            append("Using timezone $resolvedTimezoneId.")
+                        } else {
+                            append("Using timezone $resolvedTimezoneId (matched from nearby city).")
+                        }
                     }
                 }
                 LocationResult.PermissionDenied -> {
                     _locationMessage.value = null
                     _showLocationPermissionDialog.value = true
                 }
-                LocationResult.Unavailable ->
+                LocationResult.Unavailable -> {
+                    val current = profile.value
+                    val reconciled = withContext(Dispatchers.Default) {
+                        LocationTimezone.resolveForProfile(current)
+                    }
+                    if (reconciled != current) {
+                        deps.repository.saveProfile(reconciled)
+                    }
                     _locationMessage.value =
                         "Could not get GPS fix yet — still using GPS mode; set emulator location or pick a city below"
+                }
             }
         }
     }

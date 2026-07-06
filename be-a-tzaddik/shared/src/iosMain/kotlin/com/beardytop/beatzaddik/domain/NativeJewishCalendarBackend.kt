@@ -77,6 +77,23 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val local = Instant.fromEpochMilliseconds(nowEpochMillis).toLocalDateTime(tz)
         val date = local.date
 
+        // Hebrew day advances at tzeit, not civil midnight. Between tzeit and midnight,
+        // describe tomorrow's calendar day (Hebrew date, holidays, seasons, zmanim) while
+        // keeping the real clock for the active time-of-day period.
+        val tzeitTonight = SharedZmanimBuilder.build(nowEpochMillis, profile)?.tzeitMillis
+        if (HalachicDayRollover.hasRolledOver(nowEpochMillis, tzeitTonight)) {
+            val rolled = dayInfoAt(noonMillis(date.plus(1, DateTimeUnit.DAY), tz), profile)
+            val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, rolled.zmanim)
+            return rolled.copy(
+                civilLabel = ZmanimFormatter.formatCivilDate(date),
+                activeTimeOfDay = period.timeOfDay,
+                activePeriodLabel = period.activeTitle,
+                activePeriodHint = period.activeSummary,
+                inactivePeriodHint = period.laterSummary,
+                startedTonightAtTzeit = true,
+            )
+        }
+
         val hd = getHDate(nowEpochMillis, profile.timezoneId)
         val isLeap = HebrewCalendarEngine.isJewishLeapYear(hd.year)
 
@@ -87,8 +104,9 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             hd.year, hd.month, hd.day, hd.weekday, isLeap,
             inIsrael = profile.isInIsrael
         )
-        val isJerusalemPurim = isJerusalemProfile(profile)
+        val isJerusalemPurim = JerusalemPurimRules.isJerusalemProfile(profile)
         val tomorrowDate = date.plus(1, DateTimeUnit.DAY)
+        val dayAfterTomorrowDate = date.plus(2, DateTimeUnit.DAY)
         val tomorrowMillis = LocalDateTime(
             tomorrowDate.year,
             tomorrowDate.monthNumber,
@@ -104,6 +122,23 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             tomorrowHd.day,
             tomorrowHd.weekday,
             tomorrowLeap,
+            inIsrael = profile.isInIsrael
+        )
+        val dayAfterTomorrowMillis = LocalDateTime(
+            dayAfterTomorrowDate.year,
+            dayAfterTomorrowDate.monthNumber,
+            dayAfterTomorrowDate.dayOfMonth,
+            12,
+            0
+        ).toInstant(tz).toEpochMilliseconds()
+        val dayAfterTomorrowHd = getHDate(dayAfterTomorrowMillis, profile.timezoneId)
+        val dayAfterTomorrowLeap = HebrewCalendarEngine.isJewishLeapYear(dayAfterTomorrowHd.year)
+        val dayAfterTomorrowIdx = HebrewCalendarEngine.getYomTovIndex(
+            dayAfterTomorrowHd.year,
+            dayAfterTomorrowHd.month,
+            dayAfterTomorrowHd.day,
+            dayAfterTomorrowHd.weekday,
+            dayAfterTomorrowLeap,
             inIsrael = profile.isInIsrael
         )
         val yesterdayDate = date.plus(-1, DateTimeUnit.DAY)
@@ -134,18 +169,30 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val yomTovHolidayName = if (isYomTovAssurBemelacha) holidayName(idx) else null
         val isChanukah    = HebrewCalendarEngine.getDayOfChanukah(hd.year, hd.month, hd.day) != null
         val chanukahDay   = HebrewCalendarEngine.getDayOfChanukah(hd.year, hd.month, hd.day)
-        val isPurimMeshulashFriday = isJerusalemPurim &&
-            idx == HebrewCalendarEngine.PURIM &&
-            tomorrowIdx == HebrewCalendarEngine.SHUSHAN_PURIM &&
-            date.dayOfWeek == DayOfWeek.FRIDAY
-        val isPurimMeshulashSunday = isJerusalemPurim &&
-            date.dayOfWeek == DayOfWeek.SUNDAY &&
-            yesterdayIdx == HebrewCalendarEngine.SHUSHAN_PURIM
-        val isPurim = if (isJerusalemPurim) {
-            idx == HebrewCalendarEngine.SHUSHAN_PURIM || isPurimMeshulashFriday
-        } else {
-            idx == HebrewCalendarEngine.PURIM
-        }
+        val isPurimMeshulashFriday = JerusalemPurimRules.isPurimMeshulashFriday(
+            isJerusalemPurim,
+            idx,
+            tomorrowIdx,
+            date.dayOfWeek,
+        )
+        val isPurimMeshulashSunday = JerusalemPurimRules.isPurimMeshulashSunday(
+            isJerusalemPurim,
+            date.dayOfWeek,
+            yesterdayIdx,
+        )
+        val isShushanPurimOnMeshulashShabbat = JerusalemPurimRules.isShushanPurimOnMeshulashShabbat(
+            isJerusalemPurim,
+            idx,
+            yesterdayIdx,
+            date.dayOfWeek,
+        )
+        val isPurim = JerusalemPurimRules.isPurimDay(
+            isJerusalemPurim,
+            idx,
+            tomorrowIdx,
+            yesterdayIdx,
+            date.dayOfWeek,
+        )
         val omerDay       = HebrewCalendarEngine.getOmerDay(hd.month, hd.day)
         val isLagBaomer   = idx == HebrewCalendarEngine.LAG_BAOMER
         val isSefirah     = omerDay != null && omerDay in 1..49 && !isLagBaomer
@@ -185,7 +232,13 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             null
         }
         val upcomingChagYomTovIndex = if (isErevChag) tomorrowIdx else null
-        val isErevPurim = !isPurim && tomorrowIdx == HebrewCalendarEngine.PURIM
+        val isErevPurim = JerusalemPurimRules.isErevPurimDay(
+            isJerusalem = isJerusalemPurim,
+            isPurimToday = isPurim,
+            tomorrowYomTovIndex = tomorrowIdx,
+            dayAfterTomorrowYomTovIndex = dayAfterTomorrowIdx,
+            tomorrowDayOfWeek = tomorrowDate.dayOfWeek,
+        )
         val isErevChanukah = !isChanukah &&
             HebrewCalendarEngine.getDayOfChanukah(tomorrowHd.year, tomorrowHd.month, tomorrowHd.day) != null
 
@@ -195,6 +248,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             if (isPurim) add("purim")
             if (isPurimMeshulashFriday) add("purim_meshulash_friday")
             if (isPurimMeshulashSunday) add("purim_meshulash_sunday")
+            if (isShushanPurimOnMeshulashShabbat) add("purim_meshulash_shabbat")
             if (isErevChag) add("erev_chag")
             if (isErevPurim) add("erev_purim")
             if (isErevChanukah) add("erev_chanukah")
@@ -239,7 +293,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
                 add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
             }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
-            if (isPurim) add("Purim")
+            if (isPurim) add(JerusalemPurimRules.statusChipLabel(isJerusalemPurim))
             if (isYomHaShoah) add("Yom HaShoah")
             if (isYomHaZikaron) add("Yom HaZikaron")
             if (isYomHaAtzmaut) add("Yom Ha'atzmaut")
@@ -510,7 +564,3 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
     private fun formatCivil(date: LocalDate): String = ZmanimFormatter.formatCivilDate(date)
 }
 
-private fun isJerusalemProfile(profile: UserProfile): Boolean {
-    if (profile.manualCityId in setOf("jlm", "jerusalem")) return true
-    return profile.locationLabel?.contains("jerusalem", ignoreCase = true) == true
-}

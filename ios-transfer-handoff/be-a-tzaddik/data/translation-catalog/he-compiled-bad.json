@@ -1,0 +1,90 @@
+[
+  {
+    "ratio": 0.727,
+    "key": "$translatedSwitchedTo $languageName.\n$translatedPleaseNote"
+  },
+  {
+    "ratio": 0.598,
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Shacharit\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too."
+  },
+  {
+    "ratio": 0.583,
+    "key": "New mitzvah submission from the Mitz Mode app:\n            \n            Submitted by: $submitterName\n            Mitzvah text: $mitzvahText\n            \n            Submitted on: ${java.text.SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\", java.util.Locale.getDefault()).format(java.util.Date())}\n            \n            Please review and consider adding to the mitzvah database."
+  },
+  {
+    "ratio": 0.579,
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Mincha\")}\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}\n\nIf you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too."
+  },
+  {
+    "ratio": 0.554,
+    "key": "${yaalehVyavoFemaleAmidahLead(\"Maariv\")}\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nIf you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too."
+  },
+  {
+    "ratio": 0.518,
+    "key": "Shemini Atzeret begins tonight${if (profile.isInIsrael) \" — in Israel this is also Simchat Torah.\" else \".\"}\n\nTonight & tomorrow:\n• Light Yom Tov candles.\n${shehecheyanuErevLines(HebrewCalendarEngine.SHEMINI_ATZERES, tomorrowCal, profile)}\n• No lulav on Shemini Atzeret — the mitzvah ended with the seventh day of Sukkot.\n${if (profile.isInIsrael)"
+  },
+  {
+    "ratio": 0.465,
+    "key": "Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Mincha\")}"
+  },
+  {
+    "ratio": 0.435,
+    "key": "Another Yom Tov day of Pesach begins after sunset today — no melacha from then.\n\nTomorrow:\n• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom).\n• Festive meals in kosher-for-Passover utensils only.\n• Light Yom Tov candles before sunset.\n${shehecheyanuErevLines(HebrewCalendarEngine.PESACH, tomorrowCal, profile)}${diasporaFinalPesachAdvanceNote(tomorrowCal, profile)}"
+  },
+  {
+    "ratio": 0.425,
+    "key": "You may open the app again $tzeitNote — $endLabel."
+  },
+  {
+    "ratio": 0.412,
+    "key": "Before chag — every erev Yom Tov:\n$sunsetLine\n$cookingLine\n• Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.\n$shulServicesLine$simchasBlock"
+  },
+  {
+    "ratio": 0.326,
+    "key": "Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotShacharitOrMincha(\"Shacharit\")}\n\nAlso add Yaaleh V'yavo in bentching if you eat bread today."
+  },
+  {
+    "ratio": 0.274,
+    "key": "Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).\n\n${yaalehVyavoForgotMaarivRoshChodesh()}\n\nAlso add Yaaleh V'yavo in bentching if you eat bread tonight."
+  },
+  {
+    "ratio": 0.256,
+    "key": "If you forgot:\n• Still in Retzei (before concluding the blessing) — insert Yaaleh V'yavo in its place and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Finished the entire Amidah (after the final Yihiyu L'ratzon) — repeat only the $service Amidah (Shemoneh Esrei), never the full service, even if you already davened Musaf, Maariv, or anything else afterward ($YAALEH_VYAVO_HALACHA_SOURCE)."
+  },
+  {
+    "ratio": 0.242,
+    "key": "Rosh Hashana — Jewish New Year; Day of Judgment. No melacha from tonight.\n\nIf this year Rosh Hashana meets Shabbat, a detailed section follows (eruv tavshilin, Yaknehaz Kiddush–havdalah, etc.) — only in years when the calendar requires it. Use your Machzor for the exact wording.\n\nTonight & tomorrow:\n• Light Yom Tov candles before sunset.\n${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}\n• Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).\n• Hear the shofar blown during daytime services tomorrow (not tonight).\n• Add Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.\n\nCustoms:\n• Greet others with wishes for a good year (L'shanah tovah).\n• Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).\n• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.\n\n${diasporaSecondDayNote(profile, \"Rosh Hashana\")}"
+  },
+  {
+    "ratio": 0.24,
+    "key": "$pesachBegins\n\n$chametzNote\n\nSeder (first night):\n• $sederWhen\n• Matzah, maror, four cups of wine, reading the Haggadah, afikoman.\n• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).\n• Kiddush, festive meal, Hallel, Nirtzah.\n\nTomorrow by day:\n• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom).\n• Only eat food prepared for Pesach in kosher-for-Passover utensils.\n\n${diasporaSecondDayNote(profile, \"Pesach\")}$shabbatBlock"
+  },
+  {
+    "ratio": 0.239,
+    "key": "Sukkot (first day) begins tonight — Zman Simchateinu.\n\nBefore sunset:\n• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.\n• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).\n\nTonight & tomorrow:\n• Light Yom Tov candles in the sukkah (per custom) or home.\n${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}\n• ${if (profile.isInIsrael) \"Shake lulav and etrog with bracha tomorrow (first day of Sukkot).\" else \"Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom.\"}\n• Festive meals in the sukkah; Ushpizin welcome guests.\n• No melacha; Full Hallel and Musaf in davening.\n\n${diasporaSecondDayNote(profile, \"Sukkot\")}"
+  },
+  {
+    "ratio": 0.226,
+    "key": "If you forgot at Maariv on Rosh Chodesh:\n• Still in Retzei before God's name at the conclusion — insert Yaaleh V'yavo there and continue ($YAALEH_VYAVO_HALACHA_SOURCE).\n• Once you finished Retzei, or after the entire Amidah — do not go back and do not repeat. Beit Din sanctified the new month by day, not at night (Berachot 30b; $YAALEH_VYAVO_HALACHA_SOURCE). Continue davening."
+  },
+  {
+    "ratio": 0.222,
+    "key": "This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year."
+  },
+  {
+    "ratio": 0.205,
+    "key": "This year, tomorrow (Shabbat) is Erev $chagName — $chagName begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year."
+  },
+  {
+    "ratio": 0.191,
+    "key": "Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.\n\nToday in the Omer: $todaySummary (day $day of 49).\n\nTonight's count:\n• $tonight night — count $todaySummary after nightfall$timePart.\n$nextNightLine\n\nHow to count:\n• Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).\n• Say: \"${omerCountSpeechPhrase(day)}\"\n• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.\n\n$nusachWhen"
+  },
+  {
+    "ratio": 0.183,
+    "key": "Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).\n\n${fullScheduleBlock()}"
+  },
+  {
+    "ratio": 0.18,
+    "key": "Simchat Torah begins tonight (Diaspora) — rejoicing with the Torah.\n\nTonight & tomorrow:\n• Light Yom Tov candles.\n${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}\n• Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.\n• Festive meals and drinking (responsibly) in many communities.\n• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.\n• Full Yom Tov — no melacha; Full Hallel and Musaf.\n• In Israel, Simchat Torah coincides with Shemini Atzeret (one day)."
+  }
+]
