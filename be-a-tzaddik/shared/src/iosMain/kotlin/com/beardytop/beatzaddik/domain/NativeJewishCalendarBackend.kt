@@ -526,7 +526,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         HebrewCalendarEngine.YOM_KIPPUR          -> "Yom Kippur"
         HebrewCalendarEngine.SUCCOS              -> "Sukkot"
         HebrewCalendarEngine.CHOL_HAMOED_SUCCOS  -> "Chol HaMoed Sukkot"
-        HebrewCalendarEngine.HOSHANA_RABBA       -> "Hoshana Raba"
+        HebrewCalendarEngine.HOSHANA_RABBA       -> "Hoshana Rabbah"
         HebrewCalendarEngine.SHEMINI_ATZERES     -> "Shemini Atzeret"
         HebrewCalendarEngine.SIMCHAS_TORAH       -> "Simchat Torah"
         HebrewCalendarEngine.CHANUKAH            -> "Chanukah"

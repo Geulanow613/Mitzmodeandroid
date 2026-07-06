@@ -15,7 +15,7 @@ object ErevChagPrepText {
         val name = cal.upcomingChagName ?: "Yom Tov"
         val idx = cal.upcomingChagYomTovIndex
         val common = commonErevBlock(cal, profile, tomorrowCal)
-        val shabbatChagBlock = YomTovShabbatPrepText.scheduleBlock(cal, profile, name)
+        val shabbatChagBlock = YomTovShabbatPrepText.scheduleBlock(cal, profile, name, tomorrowCal = tomorrowCal)
         val intro = when {
             YomTovShabbatPrepText.isShabbatErevChag(cal) ->
                 "Today is Shabbat — the checklist is off today. You should have read Friday's “Tomorrow: $name & Shabbat — prepare today” item before Shabbat candles. $name begins tonight at Motzei Shabbat (Havdalah in Kiddush — Yaknehaz)."

@@ -15,6 +15,7 @@ object ChecklistSectionOrder {
 
     private val prepSectionSortPriority = mapOf(
         "Motzei Shabbat" to -60,
+        "Hoshana Rabbah" to -65,
         "Chol HaMoed" to -55,
         "Seasonal" to -50,
         "Pesach prep" to -40,
@@ -58,6 +59,9 @@ object ChecklistSectionOrder {
         }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             add("Chol HaMoed")
+        }
+        if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+            add("Hoshana Rabbah")
         }
     }
 

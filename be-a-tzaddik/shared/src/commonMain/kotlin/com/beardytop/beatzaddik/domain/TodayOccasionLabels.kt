@@ -100,22 +100,28 @@ object TodayOccasionLabels {
         val n = festivalDayNumber(cal, HebrewCalendarEngine.TISHREI, 15..21) ?: return null
         if ("sukkot" !in cal.activeSeasons && "chol_hamoed_sukkot" !in cal.activeSeasons) return null
         val isCholHamoed = "chol_hamoed_sukkot" in cal.activeSeasons && !cal.isYomTovAssurBemelacha
-        val template = if (isCholHamoed) {
-            "{ordinal} day of Sukkot (Chol HaMoed)"
-        } else {
-            "{ordinal} day of Sukkot"
+        val isHoshanaRabbah = n == 7 && isCholHamoed
+        val template = when {
+            isHoshanaRabbah -> "Hoshana Rabbah"
+            isCholHamoed -> "{ordinal} day of Sukkot (Chol HaMoed)"
+            else -> "{ordinal} day of Sukkot"
         }
-        val args = mapOf("ordinal" to ordinal(n))
+        val args = if (isHoshanaRabbah) {
+            emptyMap()
+        } else {
+            mapOf("ordinal" to ordinal(n))
+        }
         val anchor = when {
-            n == 7 && isCholHamoed -> "hoshana_raba"
+            isHoshanaRabbah -> "hoshana_raba"
             isCholHamoed -> "chol_hamoed_sukkot"
             else -> "sukkot"
         }
         return Occasion(
-            label = fillOccasionTemplate(template, args),
-            labelTemplate = template,
+            label = if (isHoshanaRabbah) "Hoshana Rabbah" else fillOccasionTemplate(template, args),
+            labelTemplate = template.takeIf { !isHoshanaRabbah },
             labelArgs = args,
             guideAnchor = anchor,
+            subtitle = if (isHoshanaRabbah) "7th day of Sukkot · Chol HaMoed" else null,
         )
     }
 

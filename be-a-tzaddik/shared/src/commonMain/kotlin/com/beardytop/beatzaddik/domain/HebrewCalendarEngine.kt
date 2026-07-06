@@ -259,6 +259,10 @@ internal object HebrewCalendarEngine {
     fun isErevFirstPesachSeder(hebrewMonth: Int?, hebrewDay: Int?): Boolean =
         hebrewMonth == NISSAN && hebrewDay == 14
 
+    /** 21 Tishrei — seventh day of Sukkot; Hoshana Rabbah. */
+    fun isHoshanaRabbah(hebrewMonth: Int?, hebrewDay: Int?): Boolean =
+        hebrewMonth == TISHREI && hebrewDay == 21
+
     /** Opening Yom Tov night(s) of Pesach when Shehecheyanu is recited. */
     fun pesachOpeningYomTovGetsShehecheyanu(
         hebrewMonth: Int?,

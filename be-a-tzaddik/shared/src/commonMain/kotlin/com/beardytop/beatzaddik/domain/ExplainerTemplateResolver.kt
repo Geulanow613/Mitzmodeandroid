@@ -63,6 +63,9 @@ object ExplainerTemplateResolver {
                     ExplainerTemplateSupport.arbaMinimArgs(profile, female),
                 )
 
+            item.id == "hoshana_rabbah_aravot" ->
+                staticBundle(SeasonalMitzvahText.hoshanaRabbahAravotExplanation())
+
             item.id == "chol_hamoed_honor" ->
                 Bundle(
                     ExplainerTemplateSupport.cholHamoedHonorTemplate(),
@@ -246,6 +249,11 @@ object ExplainerTemplateResolver {
                 val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
                 val prep = ErevChagPrepText.build(cal, profile, tomorrow)
                 staticBundle(prep.explanation)
+            }
+
+            item.id == "eruv_tavshilin" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                staticBundle(YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrow))
             }
 
             item.id == "erev_pesach_mechirat_chametz" ->

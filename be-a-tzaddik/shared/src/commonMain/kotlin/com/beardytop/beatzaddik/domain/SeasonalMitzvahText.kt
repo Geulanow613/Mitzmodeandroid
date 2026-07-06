@@ -141,6 +141,48 @@ First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah (sit 
             ),
         )
 
+    fun hoshanaRabbahAravotExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.sukkotBasics(),
+        """
+Hoshana Rabbah (הושענא רבה) is the 21st of Tishrei — the seventh and final day of Sukkot. It is Chol HaMoed, but the day has its own identity and heightened teshuvah: many treat it as the final sealing of the divine judgment from Yom Kippur.
+
+Morning — lulav and Hoshanot:
+• Take the arba minim as on other Chol HaMoed days (not on Shabbat).
+• In many kehillot there are extra hakafot (circuits) around the bimah with Hoshanot prayers — follow your siddur and shul.
+
+Minhag Nevi'im — beating the aravot:
+• Separate from your daily lulav set, prepare a bundle of five fresh willow branches (aravot).
+• At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), the community performs Chagizat Aravah — striking these branches against the ground.
+• Strike exactly five times — this custom is classified as Minhag Nevi'im, instituted by the final Prophets (Haggai, Zechariah, and Malachi), with fixed parameters unlike ordinary customs.
+• The beaten branches are not used for the lulav mitzvah; many discard them respectfully after the rite.
+
+Nusach notes:
+• Ashkenaz: extended Hoshanot with seven hakafot; aravot beaten on the ground after circuits.
+• Sephardi / Edot HaMizrach: Hoshanot customs vary by kehilla — follow your siddur.
+• Chabad: hakafot with Hoshanot; aravot beaten five times on the ground (not the lulav itself) — see your Chabad machzor.
+
+Confirm times with your shul — especially if Hoshana Rabbah is Erev Shabbat / Erev Shemini Atzeret.
+        """.trim(),
+    )
+
+    fun hoshanaRabbahLinks() = listOf(
+        ChecklistLink(
+            "Chabad — Hoshana Rabbah",
+            "https://www.chabad.org/library/article_cdo/aid/757453/jewish/Hoshana-Rabbah.htm",
+            "chabad",
+        ),
+        ChecklistLink(
+            "Peninei Halakha — Sukkot",
+            "https://ph.yhb.org.il/en/category/13/13-05/",
+            "default",
+        ),
+        ChecklistLink(
+            "Ohr Somayach — Sukkot",
+            "https://ohr.edu/holidays/succos/",
+            "default",
+        ),
+    )
+
     fun sheminiAtzeretExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.block(
             BeginnerHalachaGlossary.YOM_TOV,

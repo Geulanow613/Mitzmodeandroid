@@ -79,6 +79,9 @@ object SeasonalChecklistItems {
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) {
             addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile))
         }
+        if (EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)) {
+            add(eruvTavshilinItem(cal, profile, tomorrowCal))
+        }
         festivalWeekPrepItem(cal, profile)?.let { add(it) }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             addAll(cholHamoedItems(cal, profile))
@@ -339,6 +342,25 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         )
     }
 
+    private fun eruvTavshilinItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
+        val chagName = EruvTavshilinRules.chagName(cal)
+        return ChecklistItemDef(
+            id = "eruv_tavshilin",
+            title = "Eruv tavshilin — cook on Yom Tov for Shabbat",
+            section = EruvTavshilinRules.checklistSection(cal),
+            sortOrder = 25,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            situational = false,
+            seasons = listOfNotNull(
+                "erev_chag".takeIf { it in cal.activeSeasons },
+                "erev_pesach".takeIf { it in cal.activeSeasons },
+            ),
+            explanation = YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrowCal),
+            links = YomTovShabbatPrepText.links(cal, profile, chagName),
+        )
+    }
+
     private fun erevChagPrepItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
         val prep = ErevChagPrepText.build(cal, profile, tomorrowCal)
         return ChecklistItemDef(
@@ -429,10 +451,17 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         val list = mutableListOf<ChecklistItemDef>()
         if ("chol_hamoed_sukkot" in cal.activeSeasons) {
             list += arbaMinimItem(profile).copy(
-                section = "Chol HaMoed",
+                section = if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+                    "Hoshana Rabbah"
+                } else {
+                    "Chol HaMoed"
+                },
                 sortOrder = -30,
                 seasons = listOf("chol_hamoed_sukkot", "sukkot"),
             )
+            if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+                list += hoshanaRabbahAravotItem(profile)
+            }
             list += cholHamoedSukkahItem(profile)
         }
         list += listOf(
@@ -508,6 +537,19 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             links = SeasonalMitzvahText.sukkahLinks(profile),
         )
     }
+
+    private fun hoshanaRabbahAravotItem(profile: UserProfile) = ChecklistItemDef(
+        id = "hoshana_rabbah_aravot",
+        title = "Hoshana Rabbah — beat the aravot (Minhag Nevi'im)",
+        section = "Hoshana Rabbah",
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        sortOrder = -35,
+        seasons = listOf("chol_hamoed_sukkot", "sukkot"),
+        explanation = SeasonalMitzvahText.hoshanaRabbahAravotExplanation(),
+        links = SeasonalMitzvahText.hoshanaRabbahLinks(),
+    )
 
     private fun arbaMinimItem(profile: UserProfile): ChecklistItemDef {
         val isFemale = profile.gender == Gender.FEMALE

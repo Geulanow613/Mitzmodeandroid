@@ -17,14 +17,9 @@ object YomTovShabbatPrepText {
         cal.upcomingChagYomTovIndex == HebrewCalendarEngine.ROSH_HASHANA ||
             chagName.contains("Rosh Hashana", ignoreCase = true)
 
-    /** Civil Shabbat that follows this erev chag (1 = tomorrow is Shabbat, 3 = two Yom Tov days then Shabbat). */
-    private fun shabbatDaysAfterErevChag(cal: DayInfo): Int? {
-        if ("erev_chag" !in cal.activeSeasons) return null
-        for (i in 1..4) {
-            if (dayAfter(cal, i).dayOfWeek == DayOfWeek.SATURDAY) return i
-        }
-        return null
-    }
+    /** Civil Shabbat that follows this festival eve (1 = tomorrow is Shabbat, 3 = two Yom Tov days then Shabbat). */
+    private fun shabbatDaysAfterErevChag(cal: DayInfo): Int? =
+        EruvTavshilinRules.civilDaysUntilShabbat(cal)
 
     fun isShabbatErevChag(cal: DayInfo): Boolean =
         "erev_chag" in cal.activeSeasons && cal.isShabbat
@@ -42,7 +37,7 @@ object YomTovShabbatPrepText {
 
     /** Yom Tov begins tonight; one day of Yom Tov then Shabbat (erev is Friday). */
     fun isErevChagYomTovStartsBeforeShabbat(cal: DayInfo): Boolean {
-        if ("erev_chag" !in cal.activeSeasons || !cal.isErevShabbat) return false
+        if (!EruvTavshilinRules.isFestivalEve(cal) || !cal.isErevShabbat) return false
         if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
         return shabbatDaysAfterErevChag(cal) == 2 &&
             cal.upcomingChagYomTovIndex != null &&
@@ -52,7 +47,7 @@ object YomTovShabbatPrepText {
     /** Diaspora: two days of Yom Tov starting tomorrow, then Shabbat (erev is Wed or Thu). */
     fun isErevChagTwoDayYomTovBeforeShabbat(cal: DayInfo, profile: UserProfile): Boolean {
         if (profile.isInIsrael) return false
-        if ("erev_chag" !in cal.activeSeasons) return false
+        if (!EruvTavshilinRules.isFestivalEve(cal)) return false
         if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
         return shabbatDaysAfterErevChag(cal) == 3 &&
             cal.upcomingChagYomTovIndex != null &&
@@ -62,23 +57,25 @@ object YomTovShabbatPrepText {
     fun isYomTovFridayLeadsIntoShabbat(cal: DayInfo): Boolean =
         cal.isYomTovAssurBemelacha && cal.date.dayOfWeek == DayOfWeek.FRIDAY
 
-    fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile): Boolean =
-        isErevChagYomTovStartsBeforeShabbat(cal) ||
-            isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ||
-            isYomTovFridayLeadsIntoShabbat(cal)
+    fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): Boolean =
+        EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)
 
     fun scheduleBlock(
         cal: DayInfo,
         profile: UserProfile,
         chagName: String,
         forFridayAdvance: Boolean = false,
+        tomorrowCal: DayInfo = cal,
     ): String? {
         val parts = mutableListOf<String>()
         shabbatErevChagHavdalahBlock(cal, profile, chagName, forFridayAdvance)?.let { parts.add(it) }
-        eruvTavshilinBlock(cal, profile, chagName)?.let { parts.add(it) }
+        eruvTavshilinBlock(cal, profile, chagName, tomorrowCal)?.let { parts.add(it) }
         yomTovFridayCookingBlock(cal, profile, chagName)?.let { parts.add(it) }
         return parts.takeIf { it.isNotEmpty() }?.joinToString("\n\n")
     }
+
+    fun eruvTavshilinExplanation(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): String =
+        eruvTavshilinBlock(cal, profile, EruvTavshilinRules.chagName(cal), tomorrowCal).orEmpty()
 
     /**
      * Show on a readable day before prep is needed — especially **Friday before Shabbat–erev–chag**
@@ -87,7 +84,7 @@ object YomTovShabbatPrepText {
     fun shouldShowAdvancePrepDay(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): Boolean {
         if (HolyDayPhoneRules.isShabbatMelachaDay(today)) return false
         if (isFridayBeforeShabbatErevChag(today, tomorrow)) return true
-        if ("erev_chag" in today.activeSeasons) return false
+        if (EruvTavshilinRules.isFestivalEve(today)) return false
         return advanceBlock(today, tomorrow, profile) != null
     }
 
@@ -258,8 +255,8 @@ Candles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabb
     )
     }
 
-    private fun eruvTavshilinBlock(cal: DayInfo, profile: UserProfile, chagName: String): String? {
-        if (!requiresEruvTavshilin(cal, profile)) return null
+    private fun eruvTavshilinBlock(cal: DayInfo, profile: UserProfile, chagName: String, tomorrowCal: DayInfo): String? {
+        if (!requiresEruvTavshilin(cal, profile, tomorrowCal)) return null
         if (isYomTovFridayLeadsIntoShabbat(cal)) return null
 
         return if (isRoshHashanaChag(cal, chagName)) {

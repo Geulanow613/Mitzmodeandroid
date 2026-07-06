@@ -353,6 +353,7 @@ fun TodayScreen(
                     onPeriodAnchorPosition = { period, y ->
                         periodScrollOffsets = periodScrollOffsets + (period to y)
                     },
+                    clockNowEpochMillis = debugOverride?.epochMillis,
                 )
             }
             if (day?.holyDayPhoneNotice == null) {
@@ -539,6 +540,8 @@ private fun ChecklistSections(
     scrollRootY: Float = 0f,
     scrollInProgress: Boolean = false,
     onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> },
+    /** When set (e.g. checklist debug), live zman rows use this clock instead of wall time. */
+    clockNowEpochMillis: Long? = null,
 ) {
     if (items.isEmpty()) {
         AppText(
@@ -640,6 +643,7 @@ private fun ChecklistSections(
                             item = item,
                             timezoneId = profile.timezoneId,
                             effectiveNusach = profile.effectiveNusach(),
+                            clockNowEpochMillis = clockNowEpochMillis,
                             onCheckedChange = { checked ->
                                 if (item.zmanAvailability == ItemZmanAvailability.ACTIVE) {
                                     when {

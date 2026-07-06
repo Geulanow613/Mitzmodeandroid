@@ -26,6 +26,7 @@ class ChecklistEngine(
             "Important Lifestyle Mitzvot",
             "Prepare for Shabbat",
             "Motzei Shabbat",
+            "Hoshana Rabbah",
             "Chol HaMoed",
             "Mourning customs",
             "Seasonal",

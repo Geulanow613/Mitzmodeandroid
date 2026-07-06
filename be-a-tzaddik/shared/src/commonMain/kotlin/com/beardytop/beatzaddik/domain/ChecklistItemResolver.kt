@@ -148,6 +148,7 @@ object ChecklistItemResolver {
         "erev_public_fast_prep",
         "erev_yom_kippur_eat",
         "erev_tisha_beav_prep",
+        "eruv_tavshilin",
     )
 
     /** Daytime Torah study stays active until sunset, not only until Mincha Gedola. */

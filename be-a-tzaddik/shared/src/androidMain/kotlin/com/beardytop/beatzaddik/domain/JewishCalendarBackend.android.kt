@@ -123,8 +123,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val isYomHaAtzmaut = jc.yomTovIndex == JewishCalendar.YOM_HAATZMAUT
         val isYomYerushalayim = jc.yomTovIndex == JewishCalendar.YOM_YERUSHALAYIM
         val isSefirah = omerDay != null && omerDay in 1..49 && !isLagBaomer
-        val isErevChag = !isYomTovAssurBemelacha && !jc.isYomTov &&
-            jcTomorrow.isYomTov &&
+        val isErevChag = !isYomTovAssurBemelacha &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(jcTomorrow.yomTovIndex)
         val upcomingChagName = if (isErevChag) {
             UpcomingHolidayNames.erevUpcomingDisplayName(
@@ -559,7 +558,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         JewishCalendar.YOM_KIPPUR -> "Yom Kippur"
         JewishCalendar.SUCCOS -> "Sukkot"
         JewishCalendar.CHOL_HAMOED_SUCCOS -> "Chol HaMoed Sukkot"
-        JewishCalendar.HOSHANA_RABBA -> "Hoshana Raba"
+        JewishCalendar.HOSHANA_RABBA -> "Hoshana Rabbah"
         JewishCalendar.SHEMINI_ATZERES -> "Shemini Atzeret"
         JewishCalendar.SIMCHAS_TORAH -> "Simchat Torah"
         JewishCalendar.CHANUKAH -> "Chanukah"
