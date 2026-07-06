@@ -95,6 +95,24 @@ ITEM_LINKS: dict[str, list[dict]] = {
             "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.237",
         }
     ],
+    "torah_study_women": [
+        {
+            "displayText": "Kitzur Shulchan Arukh",
+            "url": "https://www.sefaria.org/Kitzur_Shulchan_Arukh",
+        },
+        {
+            "displayText": "DailyHalacha.com",
+            "url": "https://www.dailyhalacha.com/",
+        },
+        {
+            "displayText": "Halachipedia",
+            "url": "https://www.halachipedia.com/",
+        },
+        {
+            "displayText": "Sefaria.org",
+            "url": "https://www.sefaria.org/",
+        },
+    ],
     "torah_study": [
         {
             "displayText": "Rambam — Torah study",

@@ -78,7 +78,20 @@ object ChecklistItemResolver {
             zmanAvailableAtLabel = zman.availableAtLabel,
             explanationTemplate = explanationTemplate,
             explanationArgs = explanationArgs,
+            resourceLinks = resourceLinksFor(item, profile),
         )
+    }
+
+    private fun resourceLinksFor(item: ChecklistItemDef, profile: UserProfile): List<ChecklistLink> {
+        if (item.links.isEmpty()) return emptyList()
+        val key = when (profile.effectiveNusach()) {
+            EffectiveNusach.CHABAD -> "chabad"
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "sefard"
+            EffectiveNusach.ASHKENAZ -> "ashkenaz"
+        }
+        return item.links.filter { link ->
+            link.nusach == null || link.nusach == "default" || link.nusach == key
+        }
     }
 
     private fun pickExplanation(item: ChecklistItemDef, profile: UserProfile): String {

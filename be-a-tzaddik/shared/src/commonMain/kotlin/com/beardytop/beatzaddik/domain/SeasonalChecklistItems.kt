@@ -119,6 +119,11 @@ object SeasonalChecklistItems {
             if (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR) {
                 add(motzeiYomKippurMealItem(cal, profile))
             }
+            if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
+                TishaBeavTefillinRules.omitsMorningTefillin(profile.effectiveNusach())
+            ) {
+                add(tefillinTishaBeavMinchaItem())
+            }
         }
     }
 
@@ -792,7 +797,7 @@ Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to 
 
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
+Prayers: Standard weekday davening — Tachanun is said as usual at Shacharit and Mincha. Tachanun is omitted only on Yom Ha'atzmaut and Yom Yerushalayim in communities that treat those days as religious holidays — not because of Yom HaZikaron itself.
 
 Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun throughout the day.
 
@@ -1032,7 +1037,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             title = "Purim Meshulash (Sunday): Purim seudah",
             section = "Purim",
             timeOfDay = TimeOfDay.DAY,
-            required = false,
+            required = true,
             situational = false,
             seasons = listOf("purim_meshulash_sunday"),
             explanation = PurimMeshulashText.sundaySeudahExplanation(),
@@ -1242,6 +1247,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             links = PublicFastDayText.fastDayLinks(idx, profile),
         )
     }
+
+    private fun tefillinTishaBeavMinchaItem() = ChecklistItemDef(
+        id = "tefillin_tisha_beav_mincha",
+        title = TishaBeavTefillinRules.minchaItemTitle(),
+        section = "Afternoon Prayer",
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        gender = "male",
+        sortOrder = 8,
+        seasons = listOf("fast_day"),
+        explanation = TishaBeavTefillinRules.minchaItemExplanation(),
+        links = listOf(
+            ChecklistLink(
+                "Shulchan Arukh — Tisha B'Av",
+                "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.555",
+            ),
+            ChecklistLink(
+                "Rambam — mourning practices",
+                "https://www.sefaria.org/Mishneh_Torah,_Fasts.5",
+            ),
+        ),
+    )
 
     private fun motzeiYomKippurMealItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
         id = "motzei_yom_kippur_meal",

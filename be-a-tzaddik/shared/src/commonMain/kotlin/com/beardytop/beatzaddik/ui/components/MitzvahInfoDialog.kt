@@ -108,6 +108,7 @@ fun MitzvahInfoDialog(
                             zmanMakeupTemplate = item.zmanMakeupTemplate,
                             zmanMakeupArgs = item.zmanMakeupArgs,
                             situational = item.def.situational,
+                            knownLinks = item.resourceLinks,
                         )
                         Spacer(Modifier.height(8.dp))
                         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {

@@ -366,6 +366,8 @@ Ask your rav for details if you are ill, pregnant, or nursing.
             HebrewCalendarEngine.TISHA_BEAV -> mapOf(
                 "tzeitSuffix" to tzeitSuffix,
                 "time" to (tzeitTime ?: ""),
+                "tefillinNote" to TishaBeavTefillinRules.fastDayTefillinNote(profile.effectiveNusach()),
+                "travelNote" to TishaBeavTefillinRules.FAST_DAY_TRAVEL_NOTE,
                 "common" to common,
             )
             else -> emptyMap()
@@ -419,11 +421,11 @@ What is forbidden today (in addition to eating and drinking):
 • Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
 • Greeting people with "hello" during the fast day — even after chatzos, do not greet or reply to greetings until nightfall when the fast ends.
 • Idle conversation; work is discouraged (follow your community).
-• Tefillin are not worn in the morning (like the day of burial); tallit and tefillin are worn at Mincha after halachic chatzos.
+• ${'$'}tefillinNote
 • Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
 • Hand washing: only to remove ritual impurity — wash only to the knuckle where fingers join the hand; or to remove actual dirt on the hand.
 • Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
-• Do not fly on Tisha B'Av, even to Israel to make aliyah.
+• ${'$'}travelNote
 
 What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
