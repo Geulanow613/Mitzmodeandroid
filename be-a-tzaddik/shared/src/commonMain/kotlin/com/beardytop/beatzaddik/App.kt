@@ -10,13 +10,17 @@ fun App(
     deps: AppDependencies,
     embeddedMode: Boolean = false,
     onRequestClose: () -> Unit = {},
-    returnToMainIcon: (@Composable () -> Unit)? = null
+    returnToMainIcon: (@Composable () -> Unit)? = null,
+    mitzvotCount: Int = 0,
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     val viewModel: AppViewModel = viewModel { AppViewModel(deps) }
     BeATzaddikApp(
         viewModel = viewModel,
         embeddedMode = embeddedMode,
         onRequestClose = onRequestClose,
-        returnToMainIcon = returnToMainIcon
+        returnToMainIcon = returnToMainIcon,
+        mitzvotCount = mitzvotCount,
+        onChecklistItemChecked = onChecklistItemChecked,
     )
 }

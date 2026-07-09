@@ -28,6 +28,7 @@ fun MainViewController() = ComposeUIViewController {
 /** Embedded Daily Mitzvot Checklist inside Mitz Mode iOS (same as Android). */
 fun EmbeddedChecklistViewController(onClose: () -> Unit) = ComposeUIViewController {
     val deps by ChecklistEmbedBridge.depsFlow.collectAsState()
+    val mitzvotCount by ChecklistEmbedBridge.mitzvotCountFlow.collectAsState()
     LaunchedEffect(Unit) {
         ChecklistEmbedBridge.ensureDependencies()
     }
@@ -41,6 +42,10 @@ fun EmbeddedChecklistViewController(onClose: () -> Unit) = ComposeUIViewControll
             deps = ready,
             embeddedMode = true,
             onRequestClose = onClose,
+            mitzvotCount = mitzvotCount,
+            onChecklistItemChecked = { itemId, title ->
+                ChecklistEmbedBridge.notifyChecklistItemChecked(itemId, title)
+            },
         )
     }
 }

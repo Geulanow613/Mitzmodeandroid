@@ -16,7 +16,7 @@ import java.net.SocketTimeoutException
 import java.net.ConnectException
 
 class MitzvotLoader(private val context: Context) {
-    data class MitzvotList(val mitzvot: List<Mitzvah>, val version: Int = 1)
+    data class MitzvotList(val mitzvot: List<Mitzvah> = emptyList(), val version: Int = 1)
 
     /**
      * Result from a conditional cloud fetch.
@@ -69,10 +69,11 @@ class MitzvotLoader(private val context: Context) {
                 val jsonString = connection.inputStream.bufferedReader().use { it.readText() }
                 val parsed = Gson().fromJson<MitzvotList>(
                     jsonString, object : TypeToken<MitzvotList>() {}.type
-                )
+                ) ?: MitzvotList()
+                val list = parsed.mitzvot
 
-                Log.d("MitzvotLoader", "Cloud updated: ${parsed.mitzvot.size} entries, v${parsed.version}, ETag: $newEtag")
-                CloudLoadResult(parsed.mitzvot, newEtag, wasModified = true, version = parsed.version)
+                Log.d("MitzvotLoader", "Cloud updated: ${list.size} entries, v${parsed.version}, ETag: $newEtag")
+                CloudLoadResult(list, newEtag, wasModified = true, version = parsed.version)
             } catch (e: Exception) {
                 Log.e("MitzvotLoader", "Conditional cloud fetch error: ${e.message}")
                 throw e
@@ -84,9 +85,19 @@ class MitzvotLoader(private val context: Context) {
     fun loadLocalMitzvot(): List<Mitzvah> {
         return try {
             val jsonString = context.assets.open("mitzvotlistfull.json").use { it.bufferedReader().readText() }
-            Log.d("MitzvotLoader", "Local JSON loaded")
+            Log.d("MitzvotLoader", "Local JSON loaded (${jsonString.length} chars)")
             try {
-                Gson().fromJson<MitzvotList>(jsonString, object : TypeToken<MitzvotList>() {}.type).mitzvot
+                val parsed = Gson().fromJson<MitzvotList>(
+                    jsonString,
+                    object : TypeToken<MitzvotList>() {}.type,
+                )
+                val list = parsed?.mitzvot.orEmpty()
+                if (list.isEmpty()) {
+                    Log.e("MitzvotLoader", "Local JSON parsed but mitzvot list is empty/null")
+                } else {
+                    Log.d("MitzvotLoader", "Local mitzvot: ${list.size}")
+                }
+                list
             } catch (e: Exception) {
                 Log.e("MitzvotLoader", "Failed to parse local JSON", e)
                 emptyList()

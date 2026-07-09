@@ -150,10 +150,10 @@ Morning — lulav and Hoshanot:
 • Take the arba minim as on other Chol HaMoed days (not on Shabbat).
 • In many kehillot there are extra hakafot (circuits) around the bimah with Hoshanot prayers — follow your siddur and shul.
 
-Minhag Nevi'im — beating the aravot:
+Beating the aravot (widespread custom):
 • Separate from your daily lulav set, prepare a bundle of five fresh willow branches (aravot).
-• At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), the community performs Chagizat Aravah — striking these branches against the ground.
-• Strike exactly five times — this custom is classified as Minhag Nevi'im, instituted by the final Prophets (Haggai, Zechariah, and Malachi), with fixed parameters unlike ordinary customs.
+• At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), many communities beat these branches against the ground (Chagizat Aravah).
+• The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom; some traditions link this to Minhag Nevi'im (the final Prophets). Follow your siddur.
 • The beaten branches are not used for the lulav mitzvah; many discard them respectfully after the rite.
 
 Nusach notes:
@@ -205,7 +205,7 @@ Davening highlights:
 • Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
 • Yizkor — memorial prayer in many Ashkenaz communities.
 • Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Hallel and Musaf; Yom Tov Amidah.
 
 Simchat Torah joy:
@@ -252,7 +252,7 @@ Yom Tov:
 
 The mitzvah of the day — simcha and Torah:
 • Hakafot — circling the bimah with Torah scrolls, singing and dancing (often many circuits).
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Complete the last parsha of Devarim and begin Bereshit — the Torah never ends.
 • Aliyot — Kol HaNearim (all children together; an adult or bar mitzvah boy recites the blessing with them), Chatan Torah, Chatan Bereshit, and honors for members.
 • Many shuls extend Hakafot to the evening or multiple sessions.
@@ -607,18 +607,25 @@ When Rosh Chodesh spans two days (30th of the previous month and 1st), observanc
 Chanukah night ${'$'}day of 8 — lighting the menorah.
 
 When:
-• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
-• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.
-• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
-• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
+• Ideal: after tzeit (nightfall).
+• Earliest time (when necessary): from Plag HaMincha (1¼ halachic hours before sunset — often ~60–75 minutes before sunset, season-dependent).
+• Friday: light Chanukah before Shabbat candles; use enough oil/large enough candles to last 30 minutes after nightfall.
+• Motzei Shabbat: light before or after Havdalah per minhag (but do not do melacha before Shabbat ends).
+
+Late lighting (bedieved):
+If you were unable to light at the ideal time (around sunset or nightfall), the absolute final cutoff is dawn (alot hashachar).
+
+Whether you can still say the blessings depends on who is awake:
+• If 2–3 household members are awake (or people are still on the street outside), you may light and recite the usual blessings — pirsumei nisa is still achieved.
+• If everyone is asleep and the streets are empty, you should still light until dawn, but do not recite the blessings.
+
+Oil/candle requirement:
+Make sure there is enough oil / a large enough candle to burn for at least 30 minutes. If you light early (from plag), it should still burn at least 30 minutes after nightfall (tzeit). Once dawn passes, that night’s mitzvah is missed.
 
 How:
 • Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.
-• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).
-• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.
-• Oil or candles must burn at least 30 minutes after nightfall.
-• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.
-• Do not use the Chanukah lights for work — shamash is for utility light.
+• Candles: insert right→left; light left→right; use the shamash.
+• Do not use the Chanukah lights for work (use the shamash for utility light).
 
 Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.
@@ -861,7 +868,7 @@ Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are ob
 
 ${'$'}waitLine
 
-Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
+Deadline: The window ends at or before the full moon. Many authorities calculate this as approximately half the mean lunar month from the molad — often cited as roughly 14 days, 18 hours, and 22 minutes (~14.75 days) — though poskim disagree whether the cutoff follows that calculation or when the moon is visibly waning. Saying it on the night of the 15th may already be too late depending on the month and opinion. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
 
 When:
 • After nightfall (tzeit), standing outdoors under the open sky.
@@ -873,7 +880,7 @@ How:
 • The moon must be clearly visible — if clouds block it, wait for a clear night within the window.
 • Use your siddur; it praises G-d for creation — not worship of the moon.
 
-Window closes at the full moon (~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
+Window closes at or before the full moon (approximately — opinions vary; often ~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
     """.trimIndent()
 
     private val THREE_WEEKS_INTRO = """

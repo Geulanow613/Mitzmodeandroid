@@ -197,7 +197,8 @@ fun MitzvahDialog(
     mitzvah: Mitzvah,
     onDismiss: () -> Unit,
     onAccept: () -> Unit,
-    onNext: () -> Unit
+    onNext: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var accepted by remember(mitzvah.id) { mutableStateOf(false) }
     /** Synchronous guard: Compose may not recompose before a second tap sees old [accepted]. */
@@ -228,18 +229,31 @@ fun MitzvahDialog(
         else -> 16.sp
     }
 
-    Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
-    ) {
-        Box(Modifier.fillMaxSize()) {
+    // Opening tap can otherwise dismiss immediately via outside-click / scrim.
+    var allowOutsideDismiss by remember(mitzvah.id) { mutableStateOf(false) }
+    LaunchedEffect(mitzvah.id) {
+        allowOutsideDismiss = false
+        delay(350)
+        allowOutsideDismiss = true
+    }
 
-            // ── Scrim ──────────────────────────────────────────────────
+    Dialog(
+        onDismissRequest = { if (allowOutsideDismiss) onDismiss() },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            decorFitsSystemWindows = false,
+            dismissOnClickOutside = false,
+        )
+    ) {
+        Box(modifier.fillMaxSize()) {
+
+            // Scrim
             Box(
                 Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.55f))
                     .clickable(
+                        enabled = allowOutsideDismiss,
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onDismiss() }

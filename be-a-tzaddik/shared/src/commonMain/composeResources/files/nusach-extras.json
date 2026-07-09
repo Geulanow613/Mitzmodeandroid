@@ -1,5 +1,5 @@
 {
-  "version": 8,
+  "version": 10,
   "items": [
     {
       "id": "chabad_hayom_yom",
@@ -118,6 +118,82 @@
       "persistChecked": false
     },
     {
+      "id": "ashkenaz_shacharit_tachanun",
+      "title": "Tachanun at Shacharit (Ashkenaz weekdays)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 52,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "ashkenaz"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Shacharit (weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum and the full penitential section), shorter on other weekdays. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "sefard_shacharit_tachanun",
+      "title": "Tachanun at Shacharit (Sephardi weekdays)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 52,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "sefard"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Shacharit (Sephardi weekdays): After the morning Amidah — Vidui, the Thirteen Attributes of Mercy, then Psalm 25 (LeDavid). Recite sitting upright per Rav Ovadia Yosef (Yechaveh Daat 6:7) and the Ben Ish Chai. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "edot_hamizrach_shacharit_tachanun",
+      "title": "Tachanun at Shacharit (Edot HaMizrach weekdays)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 52,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "edot_hamizrach"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Shacharit (Edot HaMizrach weekdays): After the morning Amidah — Vidui and the Thirteen Attributes per your siddur. Recite sitting upright per kabbalistic guidance cited by the Ben Ish Chai and Rav Ovadia Yosef. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "chabad_shacharit_tachanun",
+      "title": "Tachanun at Shacharit (Chabad weekdays)",
+      "section": "Morning Prayer (Shacharit)",
+      "sortOrder": 52,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "chabad"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Shacharit (Chabad weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum), shorter on other days. Omitted on Rosh Chodesh, Yom Tov, Chanukah, and other special days your siddur lists.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
       "id": "ashkenaz_musaf_tachanun",
       "title": "Tachanun at Mincha (Ashkenaz weekdays)",
       "section": "Afternoon Prayer",
@@ -131,7 +207,64 @@
       "nusachOnly": true,
       "gender": "male",
       "hideOnShabbat": true,
-      "explanation": "Tachanun at Shacharit (weekdays): After the morning Amidah — longer on Mondays and Thursdays (Vehu Rachum and the full penitential section), shorter on other weekdays. Omitted on Rosh Chodesh, festivals, Chanukah, and other days your siddur lists.\n\nTachanun at Mincha: Some Ashkenaz communities especially emphasize saying Tachanun at Mincha if it was skipped at Shacharit that day. On a normal weekday, Tachanun at Mincha is already part of the standard service (often the shorter form). Omitted on the same festive days — Mincha itself is still said.",
+      "explanation": "Tachanun at Mincha (weekdays): After the afternoon Amidah — on ordinary weekdays, typically the shorter form (often Vayomer David el Gad). Omitted on Rosh Chodesh, Yom Tov, Chanukah, and other days your siddur lists — Mincha itself is still said.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "sefard_mincha_tachanun",
+      "title": "Tachanun at Mincha (Sephardi weekdays)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 20,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "sefard"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Mincha (Sephardi weekdays): After the afternoon Amidah on ordinary weekdays. Recite sitting upright — Rav Ovadia Yosef (Yechaveh Daat 6:7) and the Ben Ish Chai rule against physical nefilat apayim at Mincha. Omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other festive days your siddur lists — Mincha itself is still said.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "edot_hamizrach_mincha_tachanun",
+      "title": "Tachanun at Mincha (Edot HaMizrach weekdays)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 20,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "edot_hamizrach"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Mincha (Edot HaMizrach weekdays): After the afternoon Amidah — including Vidui (Ashamnu) and the Thirteen Attributes per your siddur. Following the Arizal (per Kaf HaChaim and Yalkut Yosef), do not perform nefilat apayim at Mincha — recite sitting upright, including Psalm 25 (LeDavid Alecha). Omitted on Rosh Chodesh, holidays, and standard festive days — Mincha itself is still said.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
+      "links": [],
+      "shabbatOnly": false,
+      "persistChecked": false
+    },
+    {
+      "id": "chabad_mincha_tachanun",
+      "title": "Tachanun at Mincha (Chabad weekdays)",
+      "section": "Afternoon Prayer",
+      "sortOrder": 20,
+      "timeOfDay": "day",
+      "required": true,
+      "situational": false,
+      "nusach": [
+        "chabad"
+      ],
+      "nusachOnly": true,
+      "gender": "male",
+      "hideOnShabbat": true,
+      "explanation": "Tachanun at Mincha (Chabad weekdays): After the afternoon Amidah — typically the shorter form (Vayomer David el Gad). Omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other special occasions your siddur lists — Mincha itself is still said.\n\nFrom Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag.",
       "links": [],
       "shabbatOnly": false,
       "persistChecked": false

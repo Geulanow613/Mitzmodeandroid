@@ -228,18 +228,31 @@ fun MitzvahDialog(
         else -> 16.sp
     }
 
+    // Opening tap can otherwise dismiss immediately via outside-click / scrim.
+    var allowOutsideDismiss by remember(mitzvah.id) { mutableStateOf(false) }
+    LaunchedEffect(mitzvah.id) {
+        allowOutsideDismiss = false
+        delay(350)
+        allowOutsideDismiss = true
+    }
+
     Dialog(
-        onDismissRequest = onDismiss,
-        properties = DialogProperties(usePlatformDefaultWidth = false, decorFitsSystemWindows = false)
+        onDismissRequest = { if (allowOutsideDismiss) onDismiss() },
+        properties = DialogProperties(
+            usePlatformDefaultWidth = false,
+            decorFitsSystemWindows = false,
+            dismissOnClickOutside = false,
+        )
     ) {
         Box(Modifier.fillMaxSize()) {
 
-            // ── Scrim ──────────────────────────────────────────────────
+            // Scrim
             Box(
                 Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.55f))
                     .clickable(
+                        enabled = allowOutsideDismiss,
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onDismiss() }

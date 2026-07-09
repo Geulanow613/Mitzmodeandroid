@@ -20,17 +20,27 @@ class VideoManager private constructor(context: Context) {
     private val contextRef = WeakReference(context)
     private var backgroundPlayer: ExoPlayer? = null
     private var rewardPlayer: ExoPlayer? = null
+    private var capabilitiesChecked = false
     private var isLowMemoryDevice = false
     private var backgroundPlayerReady = AtomicBoolean(false)
     private var rewardPlayerReady = AtomicBoolean(false)
     private var rewardSurface: Surface? = null
+    /** Surface arrived before [rewardPlayer]; wired when the player is created. */
+    private var pendingRewardSurfaceTexture: SurfaceTexture? = null
+    private var pendingRewardSurfaceWidth: Int = 0
+    private var pendingRewardSurfaceHeight: Int = 0
     private var backgroundSurface: Surface? = null
     /** Ensures we only call [Player.prepare] once per background player instance (after surface wiring). */
     private var backgroundPrepareStarted = false
-    /** Reward clip: [Player.prepare] only after [TextureView] surface exists (avoids decoder surface churn / black flash). */
+    /** Reward clip: [Player.prepare] starts immediately; surface attach completes wiring. */
     private var rewardPrepareStarted = false
     /** User requested play; applied once surface exists and player is [Player.STATE_READY]. */
     private var rewardPlayPending = false
+    private var prewarmedAsset: String? = null
+    private var rewardOnComplete: (() -> Unit)? = null
+    private var rewardOnError: ((PlaybackException) -> Unit)? = null
+    /** When true, reward prewarm is suppressed so the embedded checklist can use the codec/GC budget. */
+    private var checklistOpen = false
     
     companion object {
         @Volatile
@@ -43,7 +53,9 @@ class VideoManager private constructor(context: Context) {
         }
     }
     
-    init {
+    private fun ensureDeviceCapabilitiesChecked() {
+        if (capabilitiesChecked) return
+        capabilitiesChecked = true
         checkDeviceCapabilities()
     }
     
@@ -60,6 +72,7 @@ class VideoManager private constructor(context: Context) {
         onComplete: () -> Unit = {},
         onError: (PlaybackException) -> Unit = {}
     ): ExoPlayer? {
+        ensureDeviceCapabilitiesChecked()
         if (isLowMemoryDevice) {
             Log.d(TAG, "Skipping background video creation - low memory device")
             return null
@@ -150,58 +163,146 @@ class VideoManager private constructor(context: Context) {
         volume: Float? = null
     ): ExoPlayer? {
         val context = contextRef.get() ?: return null
-        
+
+        if (rewardPlayer != null && prewarmedAsset == videoAsset && !rewardPlayPending) {
+            bindRewardCallbacks(onComplete, onError)
+            volume?.let { rewardPlayer?.volume = it }
+            prewarmedAsset = null
+            rewardPlayer?.seekTo(0)
+            attachPendingRewardSurfaceIfAny()
+            Log.d(TAG, "Reusing prewarmed reward player for $videoAsset")
+            return rewardPlayer
+        }
+
+        val savedPendingTexture = pendingRewardSurfaceTexture
+        val savedPendingW = pendingRewardSurfaceWidth
+        val savedPendingH = pendingRewardSurfaceHeight
+
         // Release existing reward player first
         releaseRewardPlayer()
-        
+        pendingRewardSurfaceTexture = savedPendingTexture
+        pendingRewardSurfaceWidth = savedPendingW
+        pendingRewardSurfaceHeight = savedPendingH
+        prewarmedAsset = null
+        bindRewardCallbacks(onComplete, onError)
+
         try {
             rewardPlayer = ExoPlayer.Builder(context)
                 .setHandleAudioBecomingNoisy(false)
                 .build().apply {
-                    
+
                     val dataSourceFactory = DefaultDataSource.Factory(context)
                     val source = ProgressiveMediaSource.Factory(dataSourceFactory)
                         .createMediaSource(MediaItem.fromUri("asset:///$videoAsset"))
-                    
+
                     setMediaSource(source)
                     playWhenReady = false
                     volume?.let { this.volume = it }
-                    // Set video scaling mode to fit with letterboxing (black bars) instead of stretching
                     videoScalingMode = androidx.media3.common.C.VIDEO_SCALING_MODE_SCALE_TO_FIT
-                    
-                    addListener(object : Player.Listener {
-                        override fun onPlaybackStateChanged(state: Int) {
-                            when (state) {
-                                Player.STATE_READY -> {
-                                    Log.d(TAG, "Reward video ready")
-                                    rewardPlayerReady.set(true)
-                                    tryStartRewardPlayback()
-                                }
-                                Player.STATE_ENDED -> {
-                                    Log.d(TAG, "Reward video completed")
-                                    onComplete()
-                                }
-                                Player.STATE_BUFFERING -> {
-                                    Log.d(TAG, "Reward video buffering")
-                                }
-                            }
-                        }
-                        
-                        override fun onPlayerError(error: PlaybackException) {
-                            Log.e(TAG, "Reward video error: ${error.message}", error)
-                            rewardPlayerReady.set(false)
-                            onError(error)
-                        }
-                    })
-                    // prepare() runs in [attachRewardSurface] after setVideoSurface (see background player pattern).
+
+                    addListener(rewardPlayerListener)
                 }
-            
-            Log.d(TAG, "Reward player created successfully")
+
+            startRewardPrepare()
+            attachPendingRewardSurfaceIfAny()
+            Log.d(TAG, "Reward player created successfully for $videoAsset")
             return rewardPlayer
-            
+
         } catch (e: Exception) {
             Log.e(TAG, "Failed to create reward player", e)
             return null
+        }
+    }
+
+    fun setChecklistOpen(open: Boolean) {
+        checklistOpen = open
+        if (open) cancelIdlePrewarm()
+    }
+
+    /** Drop a prewarmed (not playing) reward player to free codec and memory. */
+    fun cancelIdlePrewarm() {
+        if (rewardPlayPending) return
+        if (rewardPlayer == null && prewarmedAsset == null) return
+        releaseRewardPlayer()
+        Log.d(TAG, "Cancelled idle reward prewarm")
+    }
+
+    /**
+     * Demux/decode the next likely reward clip while the user is still on the home screen.
+     * Safe to call from the main thread when idle.
+     */
+    fun prewarmRewardPlayer(videoAsset: String) {
+        ensureDeviceCapabilitiesChecked()
+        if (isLowMemoryDevice) return
+        if (checklistOpen) return
+        if (rewardPlayPending) return
+        if (prewarmedAsset == videoAsset && rewardPlayer != null) return
+
+        releaseRewardPlayer()
+        bindRewardCallbacks({}, {})
+        val context = contextRef.get() ?: return
+
+        try {
+            rewardPlayer = ExoPlayer.Builder(context)
+                .setHandleAudioBecomingNoisy(false)
+                .build().apply {
+                    val dataSourceFactory = DefaultDataSource.Factory(context)
+                    val source = ProgressiveMediaSource.Factory(dataSourceFactory)
+                        .createMediaSource(MediaItem.fromUri("asset:///$videoAsset"))
+                    setMediaSource(source)
+                    playWhenReady = false
+                    videoScalingMode = androidx.media3.common.C.VIDEO_SCALING_MODE_SCALE_TO_FIT
+                    addListener(rewardPlayerListener)
+                }
+            prewarmedAsset = videoAsset
+            startRewardPrepare()
+            Log.d(TAG, "Prewarming reward player for $videoAsset")
+        } catch (e: Exception) {
+            Log.e(TAG, "Failed to prewarm reward player", e)
+            releaseRewardPlayer()
+        }
+    }
+
+    private val rewardPlayerListener = object : Player.Listener {
+        override fun onPlaybackStateChanged(state: Int) {
+            when (state) {
+                Player.STATE_READY -> {
+                    Log.d(TAG, "Reward video ready")
+                    rewardPlayerReady.set(true)
+                    tryStartRewardPlayback()
+                }
+                Player.STATE_ENDED -> {
+                    Log.d(TAG, "Reward video completed")
+                    rewardOnComplete?.invoke()
+                }
+                Player.STATE_BUFFERING -> {
+                    Log.d(TAG, "Reward video buffering")
+                }
+            }
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            Log.e(TAG, "Reward video error: ${error.message}", error)
+            rewardPlayerReady.set(false)
+            rewardOnError?.invoke(error)
+        }
+    }
+
+    private fun bindRewardCallbacks(
+        onComplete: () -> Unit,
+        onError: (PlaybackException) -> Unit,
+    ) {
+        rewardOnComplete = onComplete
+        rewardOnError = onError
+    }
+
+    private fun startRewardPrepare() {
+        rewardPlayer?.let { player ->
+            if (rewardPrepareStarted) return
+            if (player.playbackState != Player.STATE_IDLE) return
+            rewardPrepareStarted = true
+            player.prepare()
+            Log.d(TAG, "Reward player prepare()")
         }
     }
     
@@ -274,18 +375,55 @@ class VideoManager private constructor(context: Context) {
         prepareBackgroundPlayer()
     }
 
+    /** Call when the reward [TextureView] is on screen — covers surface-ready-before-player races. */
+    fun bindRewardTextureView(textureView: TextureView) {
+        val surfaceTexture = textureView.surfaceTexture ?: return
+        val width = textureView.width.takeIf { it > 0 } ?: pendingRewardSurfaceWidth
+        val height = textureView.height.takeIf { it > 0 } ?: pendingRewardSurfaceHeight
+        attachRewardSurface(
+            surfaceTexture,
+            width.coerceAtLeast(1),
+            height.coerceAtLeast(1),
+        )
+    }
+
     private fun attachRewardSurface(surfaceTexture: SurfaceTexture, width: Int, height: Int) {
+        if (width > 0 && height > 0) {
+            surfaceTexture.setDefaultBufferSize(width, height)
+        }
         Log.d(TAG, "Surface texture available: ${width}x${height}")
+        if (rewardPlayer == null) {
+            pendingRewardSurfaceTexture = surfaceTexture
+            pendingRewardSurfaceWidth = width
+            pendingRewardSurfaceHeight = height
+            Log.d(TAG, "Reward surface pending — player not ready yet")
+            return
+        }
+        applyRewardSurface(surfaceTexture)
+    }
+
+    private fun attachPendingRewardSurfaceIfAny() {
+        val surfaceTexture = pendingRewardSurfaceTexture ?: return
+        pendingRewardSurfaceTexture = null
+        applyRewardSurface(surfaceTexture)
+    }
+
+    private fun applyRewardSurface(surfaceTexture: SurfaceTexture) {
         rewardSurface?.release()
         val videoSurface = Surface(surfaceTexture)
         rewardSurface = videoSurface
         val player = rewardPlayer ?: return
         player.setVideoSurface(videoSurface)
         if (!rewardPrepareStarted && player.playbackState == Player.STATE_IDLE) {
-            rewardPrepareStarted = true
-            player.prepare()
+            startRewardPrepare()
         }
         tryStartRewardPlayback()
+    }
+
+    private fun clearPendingRewardSurface() {
+        pendingRewardSurfaceTexture = null
+        pendingRewardSurfaceWidth = 0
+        pendingRewardSurfaceHeight = 0
     }
 
     private fun tryStartRewardPlayback() {
@@ -368,6 +506,10 @@ class VideoManager private constructor(context: Context) {
     fun releaseRewardPlayer() {
         rewardPlayPending = false
         rewardPrepareStarted = false
+        prewarmedAsset = null
+        rewardOnComplete = null
+        rewardOnError = null
+        clearPendingRewardSurface()
         rewardPlayer?.let { player ->
             try {
                 player.clearVideoSurface()
@@ -406,7 +548,10 @@ class VideoManager private constructor(context: Context) {
         releaseAll()
     }
     
-    fun isLowMemoryDevice(): Boolean = isLowMemoryDevice
+    fun isLowMemoryDevice(): Boolean {
+        ensureDeviceCapabilitiesChecked()
+        return isLowMemoryDevice
+    }
 
     /** Used to detect when the UI still holds a player ref but [releaseBackgroundPlayer] already ran. */
     fun hasBackgroundPlayer(): Boolean = backgroundPlayer != null

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beardytop.beatzaddik.domain.AppDisclaimer
 @Composable
 fun AboutDialog(
     onDismiss: () -> Unit
@@ -28,6 +29,15 @@ fun AboutDialog(
                 fontSize = 36.sp,
                 color = DialogGoldBorder
             )
+
+            TranslatableText(
+                text = AppDisclaimer.STARTUP_BODY,
+                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
+                color = DialogTextPrimary,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(Modifier.height(12.dp))
 
             TranslatableText(
                 text = "This app is brought to you by",

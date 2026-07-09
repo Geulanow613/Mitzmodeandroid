@@ -126,6 +126,7 @@ fun TodayScreen(
     holyFlash: HolyFlashController,
     onOpenTimer: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     val day by viewModel.dayChecklists.collectAsState()
     val profile by viewModel.profile.collectAsState()
@@ -354,6 +355,7 @@ fun TodayScreen(
                         periodScrollOffsets = periodScrollOffsets + (period to y)
                     },
                     clockNowEpochMillis = debugOverride?.epochMillis,
+                    onChecklistItemChecked = onChecklistItemChecked,
                 )
             }
             if (day?.holyDayPhoneNotice == null) {
@@ -470,16 +472,20 @@ private fun sectionSortKey(
     activePeriod: TimeOfDay,
     prioritizePrepSections: Set<String> = emptySet(),
     sinkMorningPrayerSection: Boolean = false,
-): Int = ChecklistSectionOrder.sortIndex(
-    section,
-    activePeriod,
-    prioritizePrepSections,
-    sinkMorningPrayerSection,
-)
+): Int {
+    // Force the two ongoing groups to the bottom (below everything else).
+    if (section == "Daily ongoing mitzvot") return 100_000
+    if (section == "Permanent ongoing mitzvot") return 100_001
+    return ChecklistSectionOrder.sortIndex(
+        section,
+        activePeriod,
+        prioritizePrepSections,
+        sinkMorningPrayerSection,
+    )
+}
 
 /** Sections that start collapsed — mostly one-time or infrequent setup. */
 private val defaultCollapsedSectionNames = setOf(
-    "Ongoing mitzvot",
     "Important Lifestyle Mitzvot",
     // "Married women's mitzvot" is intentionally expanded by default when present.
     "Prepare for Shabbat",
@@ -542,6 +548,7 @@ private fun ChecklistSections(
     onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> },
     /** When set (e.g. checklist debug), live zman rows use this clock instead of wall time. */
     clockNowEpochMillis: Long? = null,
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     if (items.isEmpty()) {
         AppText(
@@ -551,20 +558,40 @@ private fun ChecklistSections(
         )
         return
     }
+    // Default collapsed behavior:
+    // - Keep the "setup / infrequent" sections collapsed (existing behavior)
+    // - Additionally: sections whose items are not ACTIVE *and* whose period does not match
+    //   the current period start collapsed (but remain expandable via the header toggle).
+    val inactiveOtherPeriodKeys = remember(items, activePeriod, sectionPrefix) {
+        items.groupBy { it.sectionLabel }
+            .mapNotNull { (sectionLabel, sectionItems) ->
+                val hasActive = sectionItems.any { it.zmanAvailability == ItemZmanAvailability.ACTIVE }
+                if (hasActive) return@mapNotNull null
+                val baseSection = sectionItems.firstOrNull()?.def?.section ?: return@mapNotNull null
+                val period = ChecklistPeriodScroll.periodForBaseSection(baseSection) ?: return@mapNotNull null
+                if (period == activePeriod) return@mapNotNull null
+                sectionPrefix + sectionLabel
+            }
+            .distinct()
+            .sorted()
+    }
+
     var collapsedSectionKeys by rememberSaveable(
         sectionPrefix,
         activePeriod,
         profile.married,
         profile.gender,
         prioritizePrepSections,
+        // Recompute defaults when availability shifts materially (e.g. morning→afternoon).
+        inactiveOtherPeriodKeys,
     ) {
         mutableStateOf(
-            defaultCollapsedSectionKeys(
+            (defaultCollapsedSectionKeys(
                 sectionPrefix,
                 activePeriod,
                 profile,
                 prioritizePrepSections,
-            ).toList()
+            ) + inactiveOtherPeriodKeys).distinct().toList()
         )
     }
 
@@ -589,7 +616,14 @@ private fun ChecklistSections(
     }
     sortedSections.forEach { (section, sectionItems) ->
             val sectionKey = sectionPrefix + section
-            val expanded = sectionKey !in collapsedSet
+            val hasActive = sectionItems.any { it.zmanAvailability == ItemZmanAvailability.ACTIVE }
+            val expanded = when (section) {
+                // Sections should always be expandable if they are visible in the list.
+                // Individual rows can still be "inactive" and render as collapsed zman rows.
+                "Permanent ongoing mitzvot" -> !profile.permanentOngoingCollapsed
+                "Daily ongoing mitzvot" -> !profile.dailyOngoingCollapsed
+                else -> sectionKey !in collapsedSet
+            }
             val baseSection = sectionItems.firstOrNull()?.def?.section
             val periodAnchor = baseSection?.let { base ->
                 ChecklistPeriodScroll.periodForBaseSection(base)?.takeIf { period ->
@@ -607,16 +641,27 @@ private fun ChecklistSections(
                 Modifier
             }
             if (collapsibleSections) {
+                val ongoingSubtitle = when (section) {
+                    "Permanent ongoing mitzvot" -> "Click once — it will stay checked."
+                    "Daily ongoing mitzvot" -> "Click each day you fulfilled this mitzvah (resets at nightfall)."
+                    "Eating & Blessings" -> "Check off if you will observe these mitzvot today (resets at nightfall)"
+                    else -> null
+                }
                 CollapsibleChecklistSectionHeader(
                     title = section,
+                    subtitle = ongoingSubtitle,
                     expanded = expanded,
                     itemCount = sectionItems.size,
                     onToggle = {
-                        collapsedSectionKeys = if (expanded) {
-                            collapsedSectionKeys + sectionKey
-                        } else {
-                            collapsedSectionKeys - sectionKey
+                        when (section) {
+                            "Permanent ongoing mitzvot",
+                            "Daily ongoing mitzvot" -> {
+                                viewModel.setOngoingSectionCollapsed(section, collapsed = expanded)
+                                return@CollapsibleChecklistSectionHeader
+                            }
                         }
+                        collapsedSectionKeys = if (expanded) collapsedSectionKeys + sectionKey
+                        else collapsedSectionKeys - sectionKey
                     },
                     modifier = anchorModifier
                 )
@@ -628,6 +673,29 @@ private fun ChecklistSections(
                     color = TzaddikColors.NavyMid,
                     modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
                 )
+                when (section) {
+                    "Permanent ongoing mitzvot" -> AppText(
+                        "Click once — it will stay checked.",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                    "Daily ongoing mitzvot" -> AppText(
+                        "Click each day you fulfilled this mitzvah (resets at nightfall).",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                    "Eating & Blessings" -> AppText(
+                        "Check off if you will observe these mitzvot today (resets at nightfall)",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                }
             }
             val showItems = !collapsibleSections || expanded
             AnimatedVisibility(
@@ -651,10 +719,13 @@ private fun ChecklistSections(
                                             viewModel.setMonthlyChecked(item.def.id, checked)
                                         item.def.weeklyMitzvah ->
                                             viewModel.setWeeklyChecked(item.def.id, checked)
-                                        item.def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID ->
+                                        item.def.tzeitMitzvah || item.def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID ->
                                             viewModel.setTzeitDayChecked(item.def.id, checked)
                                         else ->
                                             viewModel.setChecked(item.def.id, checked, item.def.persistChecked)
+                                    }
+                                    if (checked) {
+                                        onChecklistItemChecked?.invoke(item.def.id, item.displayTitle)
                                     }
                                 }
                             },
@@ -709,7 +780,9 @@ private fun UpcomingHolidayRtlRow(
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.Top,
+        // Keep the small timing hint on the same baseline as the row text.
+        // Otherwise the smaller font can look "floated" above/right of its holiday.
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = nameAnnotated,
@@ -724,18 +797,20 @@ private fun UpcomingHolidayRtlRow(
                         }
                     }
                 }
-            },
+            }.alignByBaseline(),
         )
         Text(
             whenPart,
             style = bodyStyle,
             color = TzaddikColors.ParchTop,
+            modifier = Modifier.alignByBaseline(),
         )
         timingCluster?.takeIf { it.isNotBlank() }?.let { cluster ->
             Text(
                 text = " · $cluster",
                 style = bodyStyle.merge(timingStyle),
                 color = TzaddikColors.ParchTop.copy(alpha = 0.65f),
+                modifier = Modifier.alignByBaseline(),
             )
         }
     }

@@ -35,7 +35,10 @@ object ChecklistItemResolver {
         val zman = when {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
                 ChecklistZmanEvaluator.evaluate(item.id, nowMillis, zmanim, prayerDay)
-            isFestivalPrepItem(item) -> ItemZmanStatus()
+            isFestivalPrepItem(item) -> when (item.id) {
+                "yom_tov_shabbat_advance_prep" -> ItemZmanStatus(hint = "Eruv Tavshilin")
+                else -> ItemZmanStatus()
+            }
             isMourningPeriodItem(item) -> ItemZmanStatus()
             isCholHamoedItem(item) -> ItemZmanStatus()
             !item.persistChecked && item.timeOfDay != TimeOfDay.ANY ->

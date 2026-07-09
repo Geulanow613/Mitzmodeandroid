@@ -1,8 +1,8 @@
 # Be a Tzaddik — Complete App Text for Halachic Review
 
-Plain-English export of **all user-visible halachic and educational copy** in the app.
+Plain-English export of **all user-visible halachic and educational copy** in Be a Tzaddik / Holy Light Checklist.
 
-**Part 1:** Short + full glossary · **Part 2:** Shabbat Guide · **Part 3:** Seasonal/hidden/festival checklist · **Part 4:** Daily mitzvot checklist · **Part 5:** Disclaimer, About, rest screens
+**Part 1:** Short + full glossary · **Part 2:** Shabbat Guide (incl. 39 melachot) · **Part 3:** Seasonal/hidden/festival checklist · **Part 4:** Daily mitzvot checklist · **Part 5:** Disclaimer, About, rest screens
 
 Dynamic placeholders (local times, Hebrew dates, Omer day number, Chanukah night) appear as bracketed notes where the app fills them at runtime.
 
@@ -30,7 +30,7 @@ One-line and brief glossary entries — from BeginnerHalachaGlossary key-term bl
 - **Beit HaMikdash** — The Beit HaMikdash (Holy Temple) stood in Jerusalem as the center of sacrifice, pilgrimage, and divine presence. Its destruction on Tisha B'Av is mourned yearly.
 - **Bentching / Birkat Hamazon** — Grace after Meals
 - **Birkat HaMazon** — Grace After Meals after eating bread
-- **Birkat Kohanim** — Priestly blessing; recited daily by everyone in Israel and by Sephardim worldwide; usually recited only on festivals by Ashkenazim in the Diaspora
+- **Birkat Kohanim** — Priestly blessing; delivered daily by Kohanim in Israel and in Sephardic communities worldwide; usually recited only on festivals by Ashkenazim in the Diaspora
 - **bitul** — nullification (e.g. Kol Chamira nullifying chametz)
 - **Biur chametz** — destroying chametz the next morning
 - **Blech** — metal cover on the stove so food stays warm on Shabbat without cooking
@@ -49,7 +49,7 @@ object BeginnerHalachaGlossary {
 - **bracha acharona** — Bracha acharona is the after-blessing said when you ate or drank enough of a food but did not have a bread meal requiring Birkat Hamazon — for example borei nefashot or al hamichya.
 - **candle lighting** — Shabbat candles before sunset; weekday Erev Yom Tov before sunset; Motzei Shabbat going into a Yom Tov at tzeit from a pre-existing flame
 - **Chag** — festival (same idea as Yom Tov in everyday speech)
-- **Chamar medina** — a prestigious local beverage (such as kosher liquor or coffee, per community standards) used for daytime Kiddush or Havdalah when wine is unavailable — never for Friday night Shabbat Kiddush, which strictly requires wine, grape juice, or washing for bread; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)
+- **Chamar medina** — a prestigious local beverage (such as kosher liquor or coffee, per community standards) used for daytime Kiddush or Havdalah when wine is unavailable — generally not for Friday night Shabbat Kiddush, which typically requires wine, grape juice, or washing for bread; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)
 - **Chametz** — leavened grain (bread, beer, etc.) forbidden on Pesach
 - **chametz she'avar** — chametz that was in your possession over Pesach (forbidden to benefit from after)
 - **Chasidim** — a group of Jews who follow a movement that emphasizes deep mystical devotion, joyful worship, and a close-knit community led by a spiritual leader known as a Rebbe.
@@ -69,7 +69,7 @@ object BeginnerHalachaGlossary {
 - **etrog** — citron, one of the Four Species on Sukkot
 - **Fast of Gedaliah** — fast day after Rosh Hashana
 - **fleishig** — meat status; dairy may not be eaten for a waiting period afterward, usually 6 hours
-- **Full Hallel** — complete Hallel psalms on festivals/Chanukah
+- **Full Hallel** — complete Hallel psalms (113–118) on Yom Tov days, all eight days of Chanukah, and the first day(s) of Pesach
 - **gabbai** — synagogue officer who coordinates aliyot and services
 - **Gam zu l'tovah** — this too is for the good; trust that hardship can be for the greater good
 - **Gemara** — Talmudic commentary and discussion on the Mishnah
@@ -91,7 +91,7 @@ object BeginnerHalachaGlossary {
 - **Havdalah in Kiddush** — Yaknehaz order when Shabbat leads into Yom Tov
 - **hechsher** — in kashrut, a certification that food was produced under reliable kosher supervision
 - **honoring your parents** — Kibud Av V'Eim - mitzvah to honor/respect and care for parents
-- **Hoshana Raba** — seventh day of Sukkot; Minhag Nevi'im — beating aravot five times on the ground
+- **Hoshana Raba** — seventh day of Sukkot; climax of Hoshanot; many communities beat aravot on the ground
 - **kallah** — Kallah means bride; kallah classes teach taharat hamishpacha, mitzvot of the home, and wedding laws before marriage. The kallah and chatan prepare for chuppah and building a Jewish family.
 - **karmelit** — rabbinic semi-public area with carrying restrictions
 - **Kashering** — making utensils kosher
@@ -105,7 +105,7 @@ object BeginnerHalachaGlossary {
 - **Kitniyot** — legumes/rice; an Ashkenazi customary stringency on Pesach (not Torah chametz); halachically permitted for Sephardim
 - **klaf** — The klaf is the special kosher parchment on which scribes write Torah scrolls, mezuzots, tefillin scrolls, etc.
 - **kneidlach** — matzah balls; those who observe the stringency of not eating gebrochts do not eat kneidlach on Pesach until the 8th day in the diaspora
-- **kohen** — priest descended from Aaron. They perform the service in the Temple when it's standing.
+- **kohen** — priest descended from Aaron. In Temple times they performed the sacred service. Today kohanim still observe ongoing halachot: Birkat Kohanim (daily in Israel and Sephardic communities; on festivals in Ashkenazi diaspora), restrictions on contact with the dead (tumat meit), and special marriage laws. They receive the first aliyah when the Torah is read.
 - **Kol Chamira** — declaration nullifying any chametz still in your possession
 - **Krias Shema** — recitation of the Shema and its blessings
 - **Lag BaOmer** — 33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut
@@ -113,7 +113,6 @@ object BeginnerHalachaGlossary {
 - **loving your fellow Jew** — central Torah principle taught by Rabbi Akiva
 - **lulav** — palm branch waved with the etrog, willows, and myrtle branches on Sukkot
 - **Makeh B'patish** — final finishing touch melacha
-- **maleh lugmov** — Maleh lugmov is drinking a cheekful from the Kiddush cup (approx 2 fl oz) after the blessing — from at least a total of a revi'it of wine or grape juice in the cup. Grape juice counts like wine for many poskim.
 - **Maoz Tzur** — "Rock of Ages," Chanukah hymn sung after lighting
 - **Matan Torah** — receiving the Torah at Mount Sinai, celebrated on Shavuot
 - **matana al menat lehachzir** — gift on condition it is returned; commonly used for borrowing a lulav on the first day of Sukkot
@@ -131,7 +130,7 @@ object BeginnerHalachaGlossary {
 - **melicha** — salting meat to remove blood after shechita
 - **menorah** — Chanukah candelabra; candles are lit each night
 - **mesorah** — tradition faithfully transmitted generation to generation
-- **Mezonot** — Mezonot (borei minei mezonot) is the blessing on grain foods that are not bread — cake, crackers, pasta, cereal. It is shorter than hamotzi but still thanks G-d for grain sustenance.
+- **Mezonot** — The blessing said over grain-based foods that aren't bread — like cake, pastry, pasta, or crackers — thanking G-d for grain sustenance (borei minei mezonot).
 - **milchig** — dairy status
 - **Minhag** — community or family custom (not always identical in every synagogue)
 - **Mishloach manot** — sending at least two ready-to-eat foods to one friend on Purim day
@@ -159,7 +158,6 @@ object BeginnerHalachaGlossary {
 - **refuah shleimah** — complete healing; said when praying for someone ill
 - **Revi'it** — one-quarter of a log; minimum ritual liquid volume for Kiddush, Havdalah, netilat yadayim, and the four cups (86–150 ml depending on poskim; confirm with your rav)
 - **ruach** — wind or spirit; middle soul level in some teachings
-- **Ruach Ra'ah** — Ruach Ra'ah ("evil spirit") is a rabbinic term for the impurity resting on hands after sleep. Morning netilat yadayim removes it by washing hands alternating right and left 3 times each.
 - **Schach** — plant covering on the sukkah roof
 - **Seder** — Pesach night ritual meal with the Haggadah, matzah, four cups of wine, etc.
 - **Sefardim** — Jews following Sephardi rites and customs
@@ -207,7 +205,7 @@ object BeginnerHalachaGlossary {
 - **Tisha B'Av** — fast mourning the destruction of the Temple
 - **Tochen** — grinding melacha
 - **tzedakah box** — charity box; collecting coins for those in need is itself a mitzvah
-- **Tzeit** — halachic nightfall (when three medium stars appear). Required start time for night mitzvot like bedikat chametz, Chanukah candles, Megillah, and counting the Omer. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame
+- **Tzeit** — halachic nightfall (when three medium stars appear). Standard time for many night mitzvot — Omer count, Purim Megillah, Motzei Shabbat. Bedikat chametz is the night before Pesach begins. Chanukah candles are ideally after tzeit, though many allow from sunset when needed. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame
 - **tzniut** — modest dress and conduct
 - **Vatodi'enu** — Vatodi'enu ("You have made us know") is an insert in the Maariv Amidah on Saturday night when Yom Tov begins after Shabbat. It acknowledges that Shabbat has ended and the festival has begun.
 - **walk in G-d's ways** — imitating divine kindness (clothing the needy, visiting the sick)
@@ -238,7 +236,7 @@ Aggadah is the non-legal storytelling and teaching in the Talmud and midrash —
 
 ### al hamichya
 
-Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4-9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot- depending on the type of food. Ask your rav.
+Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4–9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot — depending on the type of food. Ask your rav.
 
 ### Al HaNissim
 
@@ -246,7 +244,7 @@ Al HaNissim ("for the miracles") is added to the Amidah and Birkat Hamazon on Ch
 
 ### Al netilat lulav
 
-Al netilat lulav is the blessing before taking the Four Species on Sukkot — "Who sanctified us with His mitzvot and commanded us to take the lulav." Men say it every day of the festival when taking the lulav (except Shabbat); women follow community custom. Shehecheyanu is said on the first day only. Then wave the lulav in the directions your siddur prescribes.
+Al netilat lulav is the blessing before taking the Four Species on Sukkot — "Who sanctified us with His mitzvot and commanded us to take the lulav." Men say it every day of the festival when taking the lulav (except Shabbat); women follow community custom — Ashkenazi women say the bracha and wave; Sephardic women generally wave without the bracha. Say Shehecheyanu on the first day you take the lulav; if you missed the first day, say it on the first day you take (Mishnah Berurah 651:12). Then wave the lulav in the directions your siddur prescribes.
 
 ### Al Netilat Yadayim
 
@@ -266,7 +264,7 @@ Alot hashachar is halachic dawn — when the sky begins to lighten. Many morning
 
 ### Amen
 
-Amen affirms a bracha someone else recited, "so may it be." The Talmud praises one who answers Amen even more than the one who made the blessing. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. (Literally, it's an acronym for 'G-d, King Who is faithful' — Keil Melech Ne'eman).
+Amen affirms a bracha someone else recited, "so may it be." The Talmud praises one who answers Amen even more than the one who made the blessing. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. The Talmud (Shabbat 119b) offers a homiletic reading: its letters recall "G-d, faithful King" (Keil Melech Ne'eman) — a drash, not the word's etymology.
 
 ### Amidah
 
@@ -294,7 +292,7 @@ Ten Days of Repentance from Rosh Hashana to Yom Kippur
 
 ### Ashkenazi
 
-Ashkenazi Jews trace roots to Central and Eastern Europe and follow customs and nusach developed there — Yiddish culture, certain Pesach stringencies (kitniyot), and specific mourning and festival practices. "Ashkenaz" in a siddur means that prayer wording. Many American and Israeli shuls are Ashkenazi; ask your rav which sub-tradition applies.
+Ashkenazi Jews trace roots to the medieval Rhineland (Ashkenaz in Hebrew) and later spread across Central and Eastern Europe, developing distinct customs and nusach — Yiddish culture, certain Pesach stringencies (kitniyot), and specific mourning and festival practices. "Ashkenaz" in a siddur means that prayer wording. Many American and Israeli shuls are Ashkenazi; ask your rav which sub-tradition applies.
 
 ### assur bemelacha
 
@@ -310,7 +308,7 @@ The baal koreh (master of reading) chants the Torah from the scroll with correct
 
 ### Baal Shem Tov
 
-The Baal Shem Tov (Rabbi Israel ben Eliezer, c. 1700–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.
+The Baal Shem Tov (Rabbi Israel ben Eliezer, 1698–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.
 
 ### bal yera'eh
 
@@ -378,7 +376,7 @@ Besamim are fragrant spices smelled during Havdalah Saturday night — comfortin
 
 ### birchat hamapil
 
-Birchat Hamapil (Hamapil) is the blessing before sleep entrusting the soul to G-d. Say it as the last words before closing your eyes. After reciting it, do not eat, drink, or speak until sleep; quietly repeating familiar Shema or protection verses while dozing is permitted, but classical poskim discourage sitting up for new Torah study or lengthy Tehillim (Biur Halachah O.C. 239:1). Some omit it if they know they may not fall asleep for a long time. It pairs with Shema al hamitah for protection.
+Birchat Hamapil (Hamapil) is the blessing before sleep entrusting the soul to G-d. Say it as the last words before closing your eyes. After reciting it, one should avoid interruptions as much as possible — ideally no eating, drinking, or unnecessary speech until sleep; quietly repeating familiar Shema or protection verses while dozing is permitted, but classical poskim discourage sitting up for new Torah study or lengthy Tehillim (Biur Halachah O.C. 239:1). Some omit it if they know they may not fall asleep for a long time. It pairs with Shema al hamitah for protection.
 
 ### Birchot HaShachar
 
@@ -485,7 +483,7 @@ Challah is the bread often prepared for Shabbat and festival meals — often bra
 
 ### chamar medina
 
-Chamar medina ("drink of the land") is a prestigious local beverage — such as coffee, tea, or kosher liquor — that some authorities allow for daytime Kiddush or Havdalah when wine or grape juice is unavailable or difficult. It can never be used for Friday night Shabbat Kiddush, which strictly requires wine, grape juice, or bread (Shulchan Arukh O.C. 272).
+Chamar medina ("drink of the land") is a prestigious local beverage — such as coffee, tea, or kosher liquor — that some authorities allow for daytime Kiddush or Havdalah when wine or grape juice is unavailable or difficult. It is generally not used for Friday night Shabbat Kiddush, which typically requires wine, grape juice, or bread per most poskim (Shulchan Arukh O.C. 272); some authorities discuss narrow exceptions — ask your rav.
 
 ### Chametz
 
@@ -669,7 +667,7 @@ meat status; dairy may not be eaten for a waiting period afterward, usually 6 ho
 
 ### Full Hallel
 
-complete Hallel psalms on festivals/Chanukah
+complete Hallel psalms (113–118) on Yom Tov days, all eight days of Chanukah, and the first day(s) of Pesach
 
 ### gabbai
 
@@ -689,7 +687,7 @@ Gebrochts ("broken") is matzah that has come into contact with liquid after baki
 
 ### gemach
 
-A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and its the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.
+A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and it's the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.
 
 ### Gemara
 
@@ -781,7 +779,7 @@ blessing entrusting the soul to G-d before sleep, part of bedtime Shema
 
 ### Hamotzi
 
-Hamotzi is the blessing over bread — "Who brings forth bread from the earth" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat, lechem mishneh — two whole loaves.
+Hamotzi is the blessing over bread — "Who brings forth bread from the earth" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat and Yom Tov, lechem mishneh — two whole loaves.
 
 ### HaNeiros halalu
 
@@ -809,7 +807,7 @@ Kibud Av V'Eim - mitzvah to honor/respect and care for parents
 
 ### Hoshana Raba
 
-Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. The beating of aravot (willow branches) against the ground is classified as a Minhag Nevi'im — an ancient custom instituted by the final Prophets (Haggai, Zechariah, and Malachi). Because of its prophetic roots, it follows strict parameters that ordinary customs do not — notably striking the branches against the ground exactly five times to sweeten the divine judgments. See also Hoshanot.
+Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits; this is a widespread custom, sometimes linked in tradition to the final Prophets (Minhag Nevi'im). The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.
 
 ### Hoshanot
 
@@ -897,7 +895,7 @@ Kiddush Hashem means sanctifying G-d's Name — living and speaking in a way tha
 
 ### Kiddush Levana
 
-Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at the moment of the full moon (roughly 14.75 days into the month) — saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.
+Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at or before the full moon — often calculated as approximately half the mean lunar month from the molad (~14.75 days), though poskim disagree on the exact cutoff; saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.
 
 ### Kinot
 
@@ -929,7 +927,7 @@ matzah balls; those who observe the stringency of not eating gebrochts do not ea
 
 ### kohen
 
-priest descended from Aaron. They perform the service in the Temple when it's standing.
+priest descended from Aaron. In Temple times they performed the sacred service. Today kohanim still observe ongoing halachot: Birkat Kohanim (daily in Israel and Sephardic communities; on festivals in Ashkenazi diaspora), restrictions on contact with the dead (tumat meit), and special marriage laws. They receive the first aliyah when the Torah is read.
 
 ### Kol Chamira
 
@@ -1029,7 +1027,7 @@ final finishing touch melacha
 
 ### maleh lugmov
 
-Maleh lugmov is drinking a cheekful from the Kiddush cup (approx 2 fl oz) after the blessing — from at least a total of a revi'it of wine or grape juice in the cup. Grape juice counts like wine for many poskim.
+Maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60 ml / ~2 fl oz) is what you drink after the Kiddush or Havdalah blessing — most of a revi'it, but not the full cup. The cup itself must still hold at least a revi'it of wine or grape juice. Grape juice counts like wine for many poskim.
 
 ### Maoz Tzur
 
@@ -1117,7 +1115,7 @@ tradition faithfully transmitted generation to generation
 
 ### Mezonot
 
-Mezonot (borei minei mezonot) is the blessing on grain foods that are not bread — cake, crackers, pasta, cereal. It is shorter than hamotzi but still thanks G-d for grain sustenance.
+The blessing said over grain-based foods that aren't bread — like cake, pastry, pasta, or crackers — thanking G-d for grain sustenance (borei minei mezonot).
 
 ### mezuzah
 
@@ -1149,7 +1147,7 @@ A minyan is ten Jewish men above bar mitzvah age (13) forming a quorum for publi
 
 ### misheyakir
 
-Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir you do not fulfill the mitzvah, even after dawn. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.
+Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir, you cannot recite the blessing l'chatchila, though putting them on after dawn (alot hashachar) still fulfills the core obligation bedieved in a case of great need. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.
 
 ### Mishloach Manot
 
@@ -1217,7 +1215,7 @@ Neshama yeteira ("extra soul") is the tradition that Shabbat brings an added mea
 
 ### netilat yadayim
 
-Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah after sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating.
+Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah from sleep (see glossary): pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating. Hand washing without a bracha is also customary after other situations where ruach ra'ah may linger — such as a cemetery, haircut, or bathroom.
 
 ### Nevi'im
 
@@ -1261,7 +1259,7 @@ The oleh (one who goes up) recites blessings before and after the Torah reading 
 
 ### ona'ah
 
-Overcharging or underpaying when the other party does not know the fair value. A variation of one-sixth or more above or below fair market price triggers the Torah laws of financial fraud (Bava Metzia 49b), requiring the overcharged amount to be fully refunded. Honest business is a mitzvah; "everyone does it" does not excuse geneivat da'at or ona'ah.
+Overcharging or underpaying when the other party does not know the fair value. Classic rule (Bava Metzia 49b): when price differs from fair market value by one-sixth or more, Torah laws of ona'ah apply — at exactly one-sixth, return the excess; beyond one-sixth, the wronged party may rescind the entire sale. Honest business is a mitzvah; "everyone does it" does not excuse geneivat da'at or ona'ah.
 
 ### ona'at devarim
 
@@ -1385,7 +1383,7 @@ Retzei asks G-d to be pleased with our rest and to restore the Temple and Davidi
 
 ### revi'it
 
-A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (minimum wine drunk from the cup), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, many require drinking melo lugmov or the majority of the cup; ask your rav which measure to use.
+A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (the cup must hold a revi'it; you drink maleh lugmov), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, you drink maleh lugmov (a cheekful) or ideally the majority of the cup; ask your rav which measure to use.
 
 ### Rosh Chodesh
 
@@ -1401,7 +1399,7 @@ wind or spirit; middle soul level in some teachings
 
 ### Ruach Ra'ah
 
-Ruach Ra'ah ("evil spirit") is a rabbinic term for the impurity resting on hands after sleep. Morning netilat yadayim removes it by washing hands alternating right and left 3 times each.
+Ruach Ra'ah (רוּחַ רָעָה — "evil spirit") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery, cutting hair, or leaving the bathroom — details vary by minhag.
 
 ### schach
 
@@ -1685,7 +1683,7 @@ prayer; from a root meaning to judge oneself
 
 ### Tefillin
 
-Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. Recite the bracha at misheyakir (see glossary). They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.
+Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. Recite the blessing while putting them on, provided the daily time of misheyakir has already arrived (see glossary). They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.
 
 ### Tehillim
 
@@ -1761,7 +1759,7 @@ charity box; collecting coins for those in need is itself a mitzvah
 
 ### Tzeit
 
-Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.
+Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.
 
 ### tzitzit
 
@@ -1894,7 +1892,7 @@ Kiddush is the Torah-level commandment to "remember the Shabbat day to sanctify 
 
 Key rules:
 • Kiddush must be recited in the same place where you will eat your meal (Kiddush b'Makom Seudah).
-• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 50ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
+• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
@@ -2134,7 +2132,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 
 Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
 
-The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a period of increasing mourning.
+The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).
 
 ### Fast of Gedaliah
 
@@ -2199,7 +2197,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
 
 Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.
 
 ### Yom Yerushalayim
 
@@ -2473,7 +2471,7 @@ Kiddush is the Torah-level commandment to "remember the Shabbat day to sanctify 
 
 Key rules:
 • Kiddush must be recited in the same place where you will eat your meal (Kiddush b'Makom Seudah).
-• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 50ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
+• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
@@ -2713,7 +2711,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 
 Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
 
-The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a period of increasing mourning.
+The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).
 
 ### Fast of Gedaliah
 
@@ -2778,7 +2776,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
 
 Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.
 
 ### Yom Yerushalayim
 
@@ -2862,19 +2860,27 @@ Today is Shabbat. Please put away your phone and keep the day holy — pray, lea
 
 Put away your phone and enjoy a peaceful, screen-free Shabbat.
 
-### [Holiday name] (Yom Tov)
-
-**Title:** [Holiday name]
-
-Today is [holiday name] (Yom Tov — a festival day). Please put away your device and keep the day holy. Melacha (forbidden labor) applies on Yom Tov similar to Shabbat. This app is for weekdays and erev chag preparation, not for use on Yom Tov.
-
-Put away your phone and keep the festival day holy.
-
 
 ## Seasonal checklist items (SeasonalChecklistItems.kt)
+### Eruv tavshilin — cook on Yom Tov for Shabbat
+
+ · ID: `eruv_tavshilin`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
 ### Yaaleh V'yavo — Rosh Chodesh (in Mincha Amidah)
 
 *Section: Afternoon Prayer* · ID: `yaaleh_vyavo_rosh_chodesh_mincha`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
+### tefillin_tisha_beav_mincha
+
+*Section: Afternoon Prayer* · ID: `tefillin_tisha_beav_mincha`
 
 
 *(No static explanation text — may be assembled at runtime.)*
@@ -2904,7 +2910,7 @@ Put away your phone and keep the festival day holy.
 *(No static explanation text — may be assembled at runtime.)*
 
 
-### Honor Chol HaMoed with a festive day
+### Honor Chol HaMoed
 
 *Section: Chol HaMoed* · ID: `chol_hamoed_honor`
 
@@ -2920,9 +2926,17 @@ Put away your phone and keep the festival day holy.
 *(No static explanation text — may be assembled at runtime.)*
 
 
-### Wear nicer clothes in honor of the moed
+### Wear Nicer Clothes in Honor of the Moed
 
 *Section: Chol HaMoed* · ID: `chol_hamoed_nicer_clothes`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
+### chol_hamoed_sukkah
+
+*Section: Chol HaMoed* · ID: `chol_hamoed_sukkah`
 
 
 *(No static explanation text — may be assembled at runtime.)*
@@ -2976,6 +2990,14 @@ Put away your phone and keep the festival day holy.
 *(No static explanation text — may be assembled at runtime.)*
 
 
+### Hoshana Rabbah — beat the aravot (widespread custom)
+
+*Section: Hoshana Rabbah* · ID: `hoshana_rabbah_aravot`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
 ### Kiddush Levana — Sanctification of the Moon (once per Hebrew month)
 
 *Section: Monthly* · ID: `kiddush_levana`
@@ -3019,6 +3041,14 @@ Put away your phone and keep the festival day holy.
 ### Yaaleh V'yavo — Rosh Chodesh (in Shacharit Amidah)
 
 *Section: Morning Prayer (Shacharit)* · ID: `yaaleh_vyavo_rosh_chodesh_shacharit`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
+### Motzei Yom Kippur: begin building the sukkah (men)
+
+*Section: Motzei Yom Kippur* · ID: `motzei_yk_build_sukkah`
 
 
 *(No static explanation text — may be assembled at runtime.)*
@@ -3193,6 +3223,22 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
 *(No static explanation text — may be assembled at runtime.)*
 
 
+### Purim Meshulash (Shabbat): Al HaNissim in davening & bentching
+
+*Section: Purim* · ID: `purim_meshulash_shabbat_al_hanissim`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
+### Purim Meshulash (Shabbat): Vayavo Amalek at shul
+
+*Section: Purim* · ID: `purim_meshulash_shabbat_torah`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
 ### Purim Meshulash (Sunday): Mishloach manot
 
 *Section: Purim* · ID: `purim_meshulash_sunday_mishloach`
@@ -3204,6 +3250,14 @@ Tips: You need not reciprocate every package you receive the same day. Plan ahea
 ### Purim Meshulash (Sunday): Purim seudah
 
 *Section: Purim* · ID: `purim_meshulash_sunday_seudah`
+
+
+*(No static explanation text — may be assembled at runtime.)*
+
+
+### Purim Meshulash (Thursday night): Hear the Megillah
+
+*Section: Purim* · ID: `purim_meshulash_erev_megillah`
 
 
 *(No static explanation text — may be assembled at runtime.)*
@@ -3259,14 +3313,6 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 *(No static explanation text — may be assembled at runtime.)*
 
 
-### Motzei Yom Kippur: begin building the sukkah (men)
-
-*Section: Seasonal* · ID: `motzei_yk_build_sukkah`
-
-
-*(No static explanation text — may be assembled at runtime.)*
-
-
 ### Say Selichot (Ashkenaz timing)
 
 *Section: Seasonal* · ID: `selichot_elul_ashkenaz`
@@ -3304,11 +3350,11 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 *Section: Seasonal* · ID: `yom_haatzmaut`
 
 
-Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948. It is not a Biblical or Rabbinic Yom Tov — melacha (work) is fully permitted.
+Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948.
 
 Customs vary significantly by community:
 
-Religious Zionist / Modern Orthodox: Hallel is recited (instituted by the Chief Rabbinate of Israel). Whether Hallel is said with a bracha is disputed — the Chief Rabbinate instructed with a bracha; many Ashkenazi poskim outside Israel say without a bracha. Tachanun is omitted. Some communities add special festive prayers (Hallel u'Maariv).
+Religious Zionist / Modern Orthodox: Some communities recite Hallel (instituted by the Chief Rabbinate of Israel) and omit Tachanun; many others treat the day as a regular weekday. Whether Hallel is said with a bracha is disputed — the Chief Rabbinate instructed with a bracha; many Ashkenazi poskim outside Israel say without a bracha. Some communities add special festive prayers (Hallel u'Maariv).
 
 Sephardic (Rav Ovadia Yosef / Yalkut Yosef): Rav Ovadia Yosef ruled that Hallel should not be recited (concern of bracha levatala since the day was not established by Chazal). Tachanun omission is also disputed in these communities.
 
@@ -3328,15 +3374,13 @@ Ask your rav which custom your community follows.
 
 Yom HaShoah V'HaGevurah (27 Nisan) is the national day of remembrance for the six million Jews murdered in the Holocaust. It was established by the Israeli Knesset in 1953.
 
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance, not a halachically mandated fast or prayer day.
-
 Date adjustment: If 27 Nisan falls on Friday, the day is observed on Thursday (26 Nisan). If it falls on Sunday, it is observed on Monday (28 Nisan), to avoid disruption of Shabbat.
 
 Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day. Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -3349,14 +3393,9 @@ Chabad: No official communal observance is instituted, though the memory of the 
 
 
 Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of the Israel Defense Forces and victims of terrorism who gave their lives for the State of Israel. It was established by the Knesset in 1963 and always falls the day before Yom Ha'atzmaut.
-
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance.
-
-Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to keep Yom HaZikaron and Yom Ha'atzmaut together on consecutive days and not adjacent to Shabbat.
-
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
+Prayers: Standard weekday davening for most communities. Some Religious Zionist shuls omit Tachanun at Mincha before the transition into Yom Ha'atzmaut; many Charedi and Chabad communities treat the day as an ordinary weekday throughout.
 
 Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun throughout the day.
 
@@ -3368,11 +3407,11 @@ The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations.
 *Section: Seasonal* · ID: `yom_yerushalayim`
 
 
-Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727). It is not a Yom Tov — melacha is fully permitted.
+Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727).
 
 Customs vary by community:
 
-Religious Zionist / Dati Leumi: Hallel is recited (with or without a bracha, depending on the posek and community). Tachanun is omitted. Some communities recite special tefillot.
+Religious Zionist / Dati Leumi: Some communities recite Hallel (with or without a bracha, depending on the posek and community) and omit Tachanun; many others treat the day as a regular weekday. Some communities recite special tefillot.
 
 Sephardic (Rav Ovadia Yosef): Hallel is not recited for the same reason as Yom Ha'atzmaut — not established by Chazal. Practice varies.
 
@@ -3418,14 +3457,14 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}
 • Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).
 • Hear the shofar blown during daytime services tomorrow (not tonight).
-• Add Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+• Daven from a Machzor: Rosh Hashana uses a special festival Amidah (and a unique Musaf) — not the regular prayer with a small insert. Tachanun is omitted.
 
 Customs:
 • Greet others with wishes for a good year (L'shanah tovah).
 • Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
-• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.
+• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday. If you missed it, many communities do it later — commonly any day until Hoshana Rabbah (the last day of Sukkot); follow your minhag.
 
-${diasporaSecondDayNote(profile, "Rosh Hashana")}
+• A second day of Rosh Hashana follows tomorrow night — in Israel and the Diaspora — so prepare candles and meals for two days of Yom Tov.
 
 
 ### Erev Pesach prep — Yom Tov & seder
@@ -3470,7 +3509,8 @@ Sukkot (first day) begins tonight — Zman Simchateinu.
 
 Before sunset:
 • Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
-• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards). The etrog is held separately — never bound with the others.
+• Bind the lulav with hadasim and aravot before sunset. Tying a secure double knot is prohibited on Yom Tov, so standard custom is to bind them erev with a double knot or koishelach (woven leaf holder). Pre-made holders may be slipped on during Yom Tov, but do not tie new knots. If you forgot: wrap a lulav leaf around the species and tuck the end in — no knot.
 
 Tonight & tomorrow:
 • Light Yom Tov candles in the sukkah (per custom) or home.
@@ -3502,7 +3542,7 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}
 • Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.
 • Festive meals and drinking (responsibly) in many communities.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Yom Tov — no melacha; Full Hallel and Musaf.
 • In Israel, Simchat Torah coincides with Shemini Atzeret (one day).
 
@@ -3527,14 +3567,14 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}
 • Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).
 • Hear the shofar blown during daytime services tomorrow (not tonight).
-• Add Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+• Daven from a Machzor: Rosh Hashana uses a special festival Amidah (and a unique Musaf) — not the regular prayer with a small insert. Tachanun is omitted.
 
 Customs:
 • Greet others with wishes for a good year (L'shanah tovah).
 • Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
-• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.
+• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday. If you missed it, many communities do it later — commonly any day until Hoshana Rabbah (the last day of Sukkot); follow your minhag.
 
-${diasporaSecondDayNote(profile, "Rosh Hashana")}
+• A second day of Rosh Hashana follows tomorrow night — in Israel and the Diaspora — so prepare candles and meals for two days of Yom Tov.
 
 Yom Kippur — Day of Atonement. Full 25-hour fast; five afflictions from sunset tonight until nightfall tomorrow.
 
@@ -3542,12 +3582,12 @@ Today before the fast:
 • The mitzvah of eating: There is a unique halachic obligation to eat and drink throughout the day on Erev Yom Kippur (Berachot 8b). Halacha considers eating today and fasting tomorrow as two halves of the same complete mitzvah — eat regular meals during the day, not only the final pre-fast meal.
 • Eat a festive pre-fast meal (seudah hamafseket) before sunset — finish eating and drinking in time.
 • Light candles before Kol Nidre with the bracha (neir shel Yom Hakippurim per your siddur) — all flames must be lit before sunset. Yom Kippur has the same strict fire restrictions as Shabbat: unlike regular Yom Tov, you cannot transfer a flame once the fast begins.
-• Crucial timing note: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. If you plan to drive to synagogue for Kol Nidre, either arrive early and light at shul, or explicitly make a mental halachic condition (tnai) before lighting at home that you are not accepting the holiday until you arrive at synagogue (ask your rav for guidance).
+• Candle-lighting and travel: Once you light candles and say the blessing, Yom Kippur has fully begun for you — you cannot drive or ride in a vehicle after that point. Plan to walk when possible, or arrive at synagogue early and light candles there before Kol Nidre. Driving on Yom Kippur is treated with exceptional stringency across communities, and vehicle use raises serious melacha concerns independent of candle-lighting. Some advanced poskim discuss a rare disputed workaround (a mental halachic condition / tnai before lighting at home) only in narrow cases — not a DIY option. Ask your rav only if you genuinely have no other option; do not rely on it without expert guidance.
 • Give tzedakah and ask forgiveness from others.
 • Kaparot (if your custom) is done before Yom Kippur.
 
 On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):
-• Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).
+• Daven from a Machzor: Kol Nidre tonight, then a full day of Yom Kippur services tomorrow (special liturgy throughout).
 • Clothing & shoes: There is a widespread custom to wear white clothing to look like angels. Separately, it is a strict halachic prohibition for everyone to wear leather shoes or leather footwear of any kind on Yom Kippur (one of the five mandatory inuyim).
 • Ne'ilah at the end; after nightfall pray Maariv, then Havdalah over wine and a ner she-shavat (a flame that burned throughout Yom Kippur, such as a 48-hour candle lit before the fast). Do not use besamim (spices) — Yom Kippur has no neshama yeteira; spices are omitted unless Yom Kippur itself fell on Shabbat. Then break the fast.
 
@@ -3599,7 +3639,8 @@ Sukkot (first day) begins tonight — Zman Simchateinu.
 
 Before sunset:
 • Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
-• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards). The etrog is held separately — never bound with the others.
+• Bind the lulav with hadasim and aravot before sunset. Tying a secure double knot is prohibited on Yom Tov, so standard custom is to bind them erev with a double knot or koishelach (woven leaf holder). Pre-made holders may be slipped on during Yom Tov, but do not tie new knots. If you forgot: wrap a lulav leaf around the species and tuck the end in — no knot.
 
 Tonight & tomorrow:
 • Light Yom Tov candles in the sukkah (per custom) or home.
@@ -3630,7 +3671,7 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}
 • Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.
 • Festive meals and drinking (responsibly) in many communities.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Yom Tov — no melacha; Full Hallel and Musaf.
 • In Israel, Simchat Torah coincides with Shemini Atzeret (one day).
 
@@ -3639,69 +3680,10 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile
 ## Seasonal text modules (Kotlin)
 
 ### SeasonalMitzvahText.kt
-#### arbaMinimExplanation
-
-${arbaMinimSharedBody(profile)}
-
-Men — Torah obligation:
-• The first day of Sukkot worldwide (15 Tishrei) is the Torah-level day for men. In the Diaspora, the mitzvah continues rabbinically on the second day of Yom Tov and Chol HaMoed.
-• Bracha: Men say Al netilat lulav every day when taking the lulav (except Shabbat). Shehecheyanu is on the first day only.
-• ${arbaMinimMenWave(profile)}
-
-The ownership rule (lakhem — u'lekachtem lakhem):
-• In Israel: the strict requirement to fully own your lulav and etrog set applies on the first day of Sukkot (15 Tishrei; Shulchan Arukh O.C. 658:3). If you do not own a set, ask the owner for matana al menat lehachzir (gift on condition of return) before you wave.
-• In the Diaspora: because the second day of Yom Tov is kept as a safek de'oraita, the same lakhem ownership requirement applies on both Day 1 and Day 2 — you cannot simply borrow a synagogue set; it must be given to you as matana al menat lehachzir.
-• In the Diaspora from the third day onward (the first day of Chol HaMoed): you may borrow a shared or synagogue set without a formal gift — the rabbinic continuation no longer carries the Torah ownership requirement (Peninei Halakha, Laws of Sukkot 13:13).
-• In Israel on Chol HaMoed: borrowing without a gift is permitted — ownership was required only on the first day.
-
-
 #### birkatHaIlanotChabadNote
 
 Chabad in the Southern Hemisphere:
 Some Chabad communities look for rare late-blooming fruit trees during Nissan (local autumn) to align with the traditional month. If no suitable blossoms are found in Nissan, rely on the general rule and recite the blessing in Elul–Tishrei when local trees flower — as above.
-
-
-#### birkatHaIlanotExplanation
-
-When (Southern Hemisphere — your location):
-The Shulchan Arukh places this blessing in Nissan, when spring arrives in Israel. Mainstream poskim rule that the blessing follows the natural blossoming of fruit trees in your locale — not the calendar month alone (Yalkut Yosef; Peninei Halakha). In Australia, South America, southern Africa, and similar regions, local spring falls in Elul and Tishrei (typically September–October). Say it once during that window, as soon as you see the first blossoms.
-
-When (Northern Hemisphere — your location):
-Say it during Nissan, when fruit trees in your area begin to blossom — ideally as early in the month as you first see flowers (Shulchan Arukh O.C. 226:1).
-
-When:
-In the Northern Hemisphere, say it during Nissan when fruit trees blossom (Shulchan Arukh O.C. 226:1). In the Southern Hemisphere, say it when local fruit trees blossom in Elul–Tishrei. Set your city or GPS in Settings so the app shows this item in the correct season for you.
-
-Birkat Ha'Ilanot (בִּרְכַּת הָאִילָנוֹת — Blessing of the Trees) is recited once each Jewish year upon seeing fruit trees in bloom — thanking Hashem for the beauty and renewal of creation.
-
-This checklist appears during the likely season for your hemisphere — a reminder to go look for blossoms, not an obligation to recite before you see them.
-
-$whenBlock
-
-The blessing (said once per year):
-Baruch Atah Ado-nai Eloheinu Melech ha'olam shelo chiser be'olamo kelum u'vara vo beriyot tovot v'ilanot tovim lehanot bahem benei adam.
-(בָּרוּךְ אַתָּה ה' אֱלֹקֵינוּ מֶלֶךְ הָעוֹלָם שֶׁלֹּא חִסֵּר בְּעוֹלָמוֹ כְּלוּם וּבָרָא בוֹ בְּרִיּוֹת טוֹבוֹת וְאִילָנוֹת טוֹבִים לֵהָנוֹת בָּהֶם בְּנֵי אָדָם)
-"Blessed are You, L-rd our G-d, King of the universe, Who has withheld nothing from His world and created in it good creatures and good trees for people to enjoy."
-
-How to fulfill it:
-• Go outdoors to fruit-bearing trees — at least one tree; preferably two or more of the same or different species.
-• Recite the blessing once while viewing the blossoms. Many add Tehillim 104 or other verses; follow your siddur or community custom.
-• Once a year: if you said it in your local spring, you do not repeat it when traveling to another hemisphere later in the same Jewish year.
-• Many communities avoid saying it on Shabbat — go during the week when you first see suitable blossoms.
-
-What stage must the tree be in (melav'lave — מְלַבְלְבֵי)?
-The rabbis require the tree to be actively flowering — not merely sprouting leaves. Shulchan Arukh O.C. 226:1 defines the Talmudic stage of melav'lave as when trees "put forth flowers" (shemotzi'in perach): you need open, visible blossoms that you can recognize as flowers. The blessing praises Hashem for creating "good trees for people to enjoy" — that response is meant to come from seeing beautiful, open blooms.
-
-L'chatchilah (ideal): the tree has moved past the leaf-only stage and shows open flowers, but the petals have not yet fallen and fruit has not begun to form.
-
-What does not work:
-• Green leaf buds alone — invalid; do not recite the blessing on leaves without open flowers.
-• After petals have dropped and fruit is forming — too late for this year's blessing.
-
-Bedieved (after the fact): some contemporary poskim allow reciting on swollen, tightly closed flower buds that are clearly about to open when no properly blooming trees are available — ask your rav if that is your only option.
-
-Spiritual note:
-Nissan is the month of redemption; blossoming trees recall that creation itself waits to praise Hashem. Even a brief walk among flowering orchards can be a mitzvah.
 
 
 #### cholHamoedClothesExplanation
@@ -3710,7 +3692,6 @@ Wearing nicer clothing on Chol HaMoed honors the festival (kavod ha'moed).
 
 Practice:
 • Wear clothes you would not wear for dirty chores — clean, pressed, or festive attire.
-• Some avoid new clothing that would require a Shehecheyanu on Chol HaMoed (ask your rav).
 • Men: many wear a hat and jacket for shul even if weekday dress is casual.
 
 This applies each day of Chol HaMoed — it is a simple daily way to mark the moed apart from ordinary weekdays.
@@ -3730,25 +3711,26 @@ How:
 • No chametz or kitniyot (per your custom) the entire Pesach.
 
 
-#### kiddushLevanaExplanation
+#### hoshanaRabbahAravotExplanation
 
-Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obligated in this time-bound positive mitzvah; women are exempt and the widespread custom is that women do not recite it at all (see Deracheha link below).
+Hoshana Rabbah (הושענא רבה) is the 21st of Tishrei — the seventh and final day of Sukkot. It is Chol HaMoed, but the day has its own identity and heightened teshuvah: many treat it as the final sealing of the divine judgment from Yom Kippur.
 
-$waitLine
+Morning — lulav and Hoshanot:
+• Take the arba minim as on other Chol HaMoed days (not on Shabbat).
+• In many kehillot there are extra hakafot (circuits) around the bimah with Hoshanot prayers — follow your siddur and shul.
 
-Deadline: The window ends at the moment of the full moon (roughly 14 days, 18 hours, and 22 minutes from the molad — about 14.75 days into the month). Saying it on the night of the 15th may already be too late depending on the month. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
+Beating the aravot (widespread custom):
+• Separate from your daily lulav set, prepare a bundle of five fresh willow branches (aravot).
+• At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), many communities beat these branches against the ground (Chagizat Aravah).
+• The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom; some traditions link this to Minhag Nevi'im (the final Prophets). Follow your siddur.
+• The beaten branches are not used for the lulav mitzvah; many discard them respectfully after the rite.
 
-When:
-• After nightfall (tzeit), standing outdoors under the open sky.
-• Ideally on Motzei Shabbat while still in nice clothes — a widespread custom because you are already dressed up.
-• In Av, many wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur — but say sooner on Motzei Shabbat if waiting risks cloudy nights.
-• Not on Shabbat or Yom Tov itself.
+Nusach notes:
+• Ashkenaz: extended Hoshanot with seven hakafot; aravot beaten on the ground after circuits.
+• Sephardi / Edot HaMizrach: Hoshanot customs vary by kehilla — follow your siddur.
+• Chabad: hakafot with Hoshanot; aravot beaten five times on the ground (not the lulav itself) — see your Chabad machzor.
 
-How:
-• The moon must be clearly visible — if clouds block it, wait for a clear night within the window.
-• Use your siddur; it praises G-d for creation — not worship of the moon.
-
-Window closes at the full moon (~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
+Confirm times with your shul — especially if Hoshana Rabbah is Erev Shabbat / Erev Shemini Atzeret.
 
 
 #### ldovidExplanation
@@ -3756,120 +3738,12 @@ Window closes at the full moon (~14.75 days from the molad). Check Sof Zman Kidd
 Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
 
 When:
-• Said after the morning service (often after Shacharit Amidah, before concluding prayers — follow your siddur).
+• Said at the end of Shacharit — after Musaf on days when Musaf is recited; otherwise after the main morning service (follow your siddur).
 • Start and end dates vary by minhag — this item follows your nusach setting.
 
 Why:
 • "The L-rd is my light and my salvation — whom shall I fear?" (Tehillim 27:1) — trust in divine protection through judgment season.
 • A widespread custom in Elul–Tishrei; widely adopted across Ashkenaz, Sephard, and Edot HaMizrach with different calendars.
-
-
-#### nineDaysAshkenazExplanation
-
-The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
-
-From 1 Av:
-• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
-• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
-• Bathing: bathing or showering for pleasure is prohibited.
-• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
-
-${nineDaysSharedHalacha()}
-
-After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
-
-Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
-
-
-#### nineDaysChabadExplanation
-
-The Nine Days (from Rosh Chodesh Av until after Tisha B'Av) follow strict Ashkenazi mourning in Chabad practice.
-
-From Rosh Chodesh Av:
-• Meat & wine: prohibited entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum).
-• Laundry, bathing & home: traditional Ashkenazi prohibitions against laundering, bathing for pleasure, home improvements, and buying new garments are observed.
-
-${nineDaysSharedHalacha()}
-
-After the fast (10 Av): follow accepted Chabad psak on meat, wine, music, laundry, and bathing until chatzos on 10 Av — ask your rav if unsure.
-
-Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
-
-
-#### nineDaysSephardicExplanation
-
-The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
-
-From Rosh Chodesh Av (1 Av):
-• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
-
-From the week in which Tisha B'Av falls (shavuah she'chal bo):
-• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
-• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
-
-${nineDaysSharedHalacha()}
-
-After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
-
-
-#### pesachWeekPrepExplanation
-
-Pesach begins in about a week — use this time for practical preparation (not spring cleaning every closet, but removing chametz where it matters).
-
-Focus areas:
-• Kitchen and dining — where chametz is eaten: counters, stove, microwave, toaster, fridge, pantry.
-• Cars, offices, bags, coat pockets — crumbs and snack wrappers.
-• Sell or use up chametz food you will not keep; plan Pesach menus and shopping.
-• Haggadahs, matzah, wine, seder plate — order before prices rise and stores sell out.
-
-Kashering vessels for Pesach:
-• Year-round pots, pans, dishes, and utensils absorb chametz from hot foods and long use. For Pesach you need either kashered vessels or a separate Pesach set.
-• Common methods (each item has rules — ask your rabbi): hagalah (immersion in boiling water), irui (pouring boiling water on surfaces), libun (heat for metal that cannot be kashered by hagalah).
-• Start early — kashering the whole kitchen takes time. Many families use only their Pesach dishes and keep year-round dishes sealed away for the week.
-
-Pesach dishes vs selling chametz dishes:
-• Unpack or buy a dedicated Pesach set; label milchig/fleishig if needed.
-• Many people include the chametz residue and absorbed flavor within their year-round dishes and pots in the sale, locking them away securely. The physical dishes themselves are not sold, avoiding the halachic requirement to re-immerse them in a Mikveh (tevilat kelim) after Pesach (Shulchan Arukh Y.D. 120). Rabbis structure the contract accordingly — list items clearly and do not use sealed dishes until buy-back.
-
-Mechirat chametz (plan this week):
-• Authorize the sale with your rabbi or community several days before Erev Pesach — most rabbis stop accepting sale forms by the night before Erev Pesach, even though the sale takes effect on Erev Pesach morning. Many accept online forms through your local rabbi or kashrut council. The sale must be valid halachically; follow your rabbi's instructions on what to include and when it takes effect.
-• Selling transfers ownership so chametz you are not destroying can sit sealed in your home without belonging to you during Pesach.
-
-After Pesach — chametz owned by a Jew during Pesach:
-• Chametz that belonged to a Jew over Pesach becomes forbidden (chametz she'avar alav haPesach) — you may not own it, eat it, or otherwise benefit from it even after Pesach ends.
-• That is why the sale must be real, and why you must not use sold chametz during Pesach. Ask your rav about repurchase timing and about store-bought chametz after Pesach if you are unsure.
-
-Halachic mindset:
-• You need not make the home sterile — remove edible chametz and clean places where chametz was brought.
-• Bedikat chametz and biur happen on Erev Pesach — this week sets you up to succeed.
-
-Children & family: assign zones, check school bags, plan chametz finish-up meals before Pesach.
-
-
-#### roshChodeshExplanation
-
-Chanukah night $day of 8 — lighting the menorah.
-
-When:
-• Light after tzeit (nightfall) — not before sunset. On Friday, light Chanukah candles before Shabbat candles (approx. 20–25 minutes before nightfall).
-• Friday candle size warning: Because Chanukah candles must burn for at least 30 minutes after nightfall (tzeit), standard small Chanukah candles cannot be used on Friday afternoon — they will burn out before nightfall and invalidate the mitzvah. Use larger candles (like standard Shabbat candles) or pour enough oil to burn for at least ~90 minutes from lighting (often longer if you light well before sunset) so they survive well past dark.
-• On Motzei Shabbat, light Chanukah before or after Havdalah per minhag.
-• Motzei Shabbat lighting: If your custom is to light Chanukah candles before formal Havdalah over wine, you must terminate Shabbat first — recite Atah Chonantanu in the Maariv Amidah, or say "Baruch hamavdil bein kodesh l'chol" aloud before striking a match. Melacha remains forbidden until Shabbat has ended.
-
-How:
-• Pirsumei nisa — publicize the miracle; place menorah by a window or doorway where passersby can see.
-• Placement: Insert candles from right to left in the menorah (universal custom per Shulchan Arukh O.C. 676:5 — Ashkenaz, Sephard, and Chabad).
-• Lighting: Light from left to right, always starting with the newest candle (the leftmost one) and moving toward the right. Use the shamash to light each candle.
-• Oil or candles must burn at least 30 minutes after nightfall.
-• Brachot (first night all three; other nights two): lehadlik ner shel Chanukah, she'asa nissim; Shehecheyanu on first night.
-• Do not use the Chanukah lights for work — shamash is for utility light.
-
-Prayers & meals:
-• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long.
-
-${if (day == 1) "First night: say all three brachot including Shehecheyanu." else "Tonight: two brachot (no Shehecheyanu unless first time lighting this year)."}
-
-After lighting: sing HaNeiros halalu and Maoz Tzur (custom).
 
 
 #### roshChodeshFullHallelAshkenazNote
@@ -3988,107 +3862,6 @@ Other customs:
 When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
 
 
-#### shavuotWeekPrepExplanation
-
-The week before Shavuot is for practical preparation — Shavuot celebrates Matan Torah (receiving the Torah at Sinai).
-
-Food & home:
-• Dairy is a cherished Shavuot minhag (cheesecake, blintzes, lasagna, ice cream) — plan menus and shop early. A festive meat meal with wine remains standard practice to fulfill the primary mitzvah of Simchat Yom Tov (Shulchan Arukh O.C. 529:2); many families have a dairy kiddush or snack, then a full meat Yom Tov meal.
-• Some decorate with flowers and greenery (minhag of a garden around Sinai).
-• Stock wine, grape juice, and Yom Tov staples for festive meals${if (!profile.isInIsrael) " — in the Diaspora, prepare for two days of Yom Tov" else ""}.
-
-Torah & tefillah:
-• Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.
-• Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.
-• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).
-
-Joy & family (simchat Yom Tov):
-• Plan festive meat meals with wine — the core Simchat Yom Tov obligation — alongside any dairy minhag.
-• Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
-
-Practical:
-• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.
-• Turn off devices before Yom Tov — this app is for prep, not use on chag.
-
-
-#### sheminiAtzeretExplanation
-
-Shemini Atzeret / Simchat Torah (22 Tishrei in Israel) — one day combining both.
-
-Yom Tov:
-• Full Yom Tov — no melacha; festive meals with Kiddush and Shehecheyanu (if not said already).
-• Sukkot has ended — in Israel, do not eat or sleep in the sukkah today; festive meals are indoors (not in the sukkah).
-
-Davening highlights:
-• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
-• Yizkor — memorial prayer in many Ashkenaz communities.
-• Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
-• Full Hallel and Musaf; Yom Tov Amidah.
-
-Simchat Torah joy:
-• Everyone receives an aliyah in many shuls; Kol HaNearim (children's aliyah) with flags — an adult (or a boy over bar mitzvah) stands with the group and recites the Torah blessing aloud so the aliya is halachically valid.
-• Singing, dancing — honor the day with Torah celebration.
-
-Evening: Candle lighting and Yom Tov; morning services are long — plan accordingly.
-
-Shemini Atzeret (22 Tishrei in the Diaspora) — eighth day of Sukkot.
-
-Yom Tov:
-• Full Yom Tov — no melacha; Kiddush and festive meals.
-• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
-
-Davening:
-• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
-• Yizkor — Ashkenaz communities recite memorial prayers.
-• Full Hallel and Musaf; Yom Tov Amidah.
-
-Simchat Torah is tomorrow (23 Tishrei) in the Diaspora — see that day's checklist item for hakafot and Torah joy.
-
-Tonight: light Yom Tov candles; no lulav on Shemini Atzeret.
-
-Simchat Torah (23 Tishrei in the Diaspora) — rejoicing with the Torah.
-
-Yom Tov:
-• Full Yom Tov — no melacha; Kiddush, festive meals, joy.
-• Sukkah: Most Ashkenazim do not eat in the sukkah on Simchat Torah (it is no longer Sukkot) — Sefardic practice varies; follow your rav.
-• Davening: Full Hallel and Musaf (like other Yom Tov days).
-
-The mitzvah of the day — simcha and Torah:
-• Hakafot — circling the bimah with Torah scrolls, singing and dancing (often many circuits).
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
-• Complete the last parsha of Devarim and begin Bereshit — the Torah never ends.
-• Aliyot — Kol HaNearim (all children together; an adult or bar mitzvah boy recites the blessing with them), Chatan Torah, Chatan Bereshit, and honors for members.
-• Many shuls extend Hakafot to the evening or multiple sessions.
-
-Practical tips:
-• Dress festively; arrive early for a good spot.
-• If you have a Torah honor, prepare your brachot.
-• Celebrate responsibly — the day is about love of Torah, not excess.
-
-Candle lighting last night of Yom Tov; havdalah when Yom Tov ends (often with Sukkot/Yom Tov additions in havdalah — use your siddur).
-
-Hoshana Raba prep (tomorrow — 21 Tishrei):
-• Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for tomorrow morning — separate from your daily lulav set.
-• At the conclusion of synagogue services tomorrow, the community performs Chagizat Aravah — striking these branches against the ground five times (Minhag Nevi'im). Hoshana Raba is the final sealing of judgment from Yom Kippur.
-
-Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.
-$hoshanaRabaBlock
-
-Spirit of the day:
-• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
-• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.
-• Ochel nefesh — food preparation is permitted.
-
-What to do:
-$hallelBlock
-• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
-$festivalLines
-
-Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
-• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
-
-
 #### simchasYomTovPrepBlock
 
 Simchas Yom Tov (שִׂמְחַת יוֹם טוֹב) — the mitzvah to rejoice on the festival:
@@ -4114,7 +3887,7 @@ Yom Tov:
 
 The mitzvah of the day — simcha and Torah:
 • Hakafot — circling the bimah with Torah scrolls, singing and dancing (often many circuits).
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Complete the last parsha of Devarim and begin Bereshit — the Torah never ends.
 • Aliyot — Kol HaNearim (all children together; an adult or bar mitzvah boy recites the blessing with them), Chatan Torah, Chatan Bereshit, and honors for members.
 • Many shuls extend Hakafot to the evening or multiple sessions.
@@ -4144,85 +3917,13 @@ Practical steps:
 2. Build the frame and walls first; lay schach last so it stays dry and valid.
 3. Arrange schach loosely with gaps — not a solid rainproof roof (use a removable slatted cover on top only if rain is expected, per halachic guidance).
 4. Set up table, chairs, and decorations (fruit, lights — electric on Yom Tov/Chol HaMoed per your rav).
-5. Before the first night of Sukkot, eat at least a kezayit of bread in the sukkah with the bracha leishev basukkah (first night is Torah-level for men; women per minhag).
+5. Before the first night of Sukkot, eat at least a kezayit of bread in the sukkah with the bracha leishev basukkah (first night is Torah-level for men; Ashkenazi women who eat there say leishev baSukkah; Sephardic women generally do not).
 
 First night rain protocol (if it rains on the first night):
 • Ashkenaz (Rema O.C. 639:5): Wait up to one hour. If rain does not stop, enter the sukkah, make Kiddush, eat a kezayit of bread without leishev basukkah, then finish the rest of the meal indoors.
 • Sephardic (Shulchan Arukh): If rain is heavy enough to spoil the meal, you are exempt from eating the full meal in the sukkah — make Kiddush and eat the full meal indoors from the start, without leishev basukkah. Nevertheless, many Sephardic decisors (including Yalkut Yosef) rule that it remains proper and praiseworthy at the very end of the meal to go out to the sukkah and eat a single kezayit of bread without reciting leishev basukkah — honoring the first night's unique obligation in part.
 
 First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah (sit in the sukkah — a blessing said before eating bread in the sukkah). Throughout Sukkot: eat bread and sleep in sukkah when possible (rain and illness have exemptions — ask your rabbi).
-
-
-#### sukkotWeekPrepExplanation
-
-The week before Sukkot (Tishrei 8–13) is for building joy and getting the mitzvot ready — many begin the sukkah right after Yom Kippur.
-
-Sukkah:
-• Build or repair your sukkah — walls, frame, and schach (plant covering, not metal or solid roof).
-• Choose a spot with more shade than sun under the schach; avoid blocking by trees or porch roofs.
-• Set up table, chairs, and decorations; plan to eat (and sleep, when possible) in the sukkah all seven days.
-
-Arba Minim (Four Species):
-• Order or buy a kosher set: lulav, etrog, hadassim (myrtle), aravot (willow).
-• Check the etrog (pitom intact if present) and that leaves are fresh — buy early before stores sell out.
-• Get a lulav holder (hoshanah holder / koisan) and an etrog box.
-
-Meals & Yom Tov:
-• Plan menus for seven days of festive meals in and out of the sukkah.
-• Wine, grape juice, challah, and Yom Tov groceries — ${if (profile.isInIsrael) "one day of Yom Tov at the start" else "two days of Yom Tov at the start in the Diaspora"}.
-• First night: Kiddush and bread in the sukkah; men say leishev basukkah before eating bread (women per minhag). If it rains on the first night: Ashkenaz — wait up to one hour, then eat a kezayit in the sukkah without leishev basukkah and finish indoors (Rema O.C. 639:5); Sephardic — if rain spoils the meal, eat the full meal indoors from the start (Shulchan Arukh), but many Sephardic decisors (including Yalkut Yosef) hold it is proper at the end of dinner to walk out to the sukkah and eat a kezayit of bread without leishev basukkah.
-
-Joy & family:
-• Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
-
-Practical:
-• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).
-• Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.
-• Turn off devices before Yom Tov — this app is for prep, not use on chag.
-
-
-#### threeWeeksAshkenazExplanation
-
-${threeWeeksIntro()}
-
-Ashkenazi custom observes a longer, stricter mourning throughout the Three Weeks, intensifying during the Nine Days.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts & shaving: prohibited for the entire Three Weeks.
-• Music: instrumental music is not listened to throughout the period.
-• Weddings: not held.
-• Shehecheyanu: traditionally not recited on new clothes or new fruits; permitted on Shabbat.
-
-From 1 Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
-
-
-#### threeWeeksChabadExplanation
-
-${threeWeeksIntro()}
-
-Chabad follows strict Ashkenazi mourning customs, with specific emphasis from the Lubavitcher Rebbe on spiritual growth during this period.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts, music & weddings: prohibited throughout the entire Three Weeks.
-• Shehecheyanu: avoided entirely, except on Shabbat or when required for a mitzvah (e.g. brit milah).
-• Torah & charity: increase Torah study — especially subjects about the Holy Temple's layout and construction — and give extra tzedakah during this time.
-
-From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
-
-
-#### threeWeeksSephardicExplanation
-
-${threeWeeksIntro()}
-
-Sephardic and Edot HaMizrach communities, following Shulchan Arukh, generally take a more lenient approach than Ashkenazim during the early Three Weeks.
-
-From 17 Tammuz (general Three Weeks):
-• Haircuts & shaving: permitted during most of the Three Weeks; shaving is usually prohibited only during the week in which Tisha B'Av falls (shavuah she'chal bo).
-• Music: live or recorded music is avoided.
-• Weddings: some communities avoid weddings from 17 Tammuz; others are lenient and avoid them only from Rosh Chodesh Av — follow your kehilla.
-• Shehecheyanu: avoided on new items for the duration of the period.
-
-From Rosh Chodesh Av or the week of Tisha B'Av: additional restrictions apply — see the Nine Days checklist item. Some communities (e.g. Syrian, Mashadi) are stricter on meat and wine from Rosh Chodesh Av.
 
 
 #### tuBshvatExplanation
@@ -4240,233 +3941,6 @@ Customs:
 • No fasting; work is permitted; it is not Yom Tov.
 
 Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth (trees blossom in Israel around this season).
-
-
-#### yaalehVyavoMaarivExplanation
-
-Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
-
-${yaalehVyavoForgotMaarivRoshChodesh()}
-
-Also add Yaaleh V'yavo in bentching if you eat bread tonight.
-
-
-#### yaalehVyavoMaarivExplanationFemale
-
-${yaalehVyavoFemaleAmidahLead("Maariv")}
-
-${yaalehVyavoForgotMaarivRoshChodesh()}
-
-If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
-
-
-#### yaalehVyavoMinchaExplanation
-
-Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
-
-${yaalehVyavoForgotShacharitOrMincha("Mincha")}
-
-
-#### yaalehVyavoMinchaExplanationFemale
-
-${yaalehVyavoFemaleAmidahLead("Mincha")}
-
-${yaalehVyavoForgotShacharitOrMincha("Mincha")}
-
-If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
-
-
-#### yaalehVyavoShacharitExplanation
-
-Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
-
-${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
-
-Also add Yaaleh V'yavo in bentching if you eat bread today.
-
-
-#### yaalehVyavoShacharitExplanationFemale
-
-${yaalehVyavoFemaleAmidahLead("Shacharit")}
-
-${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
-
-If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
-
-
-
-### ErevPesachPrepText.kt
-#### bedikatExplanation
-
-Bedikat chametz (בְּדִיקַת חָמֵץ) — the formal search for chametz — is a rabbinic mitzvah on the night **before** Erev Pesach day (after tzeit when the Hebrew date becomes 14 Nisan).
-
-$whenLine
-
-How to search:
-• Use a candle (or flashlight per many poskim), a wooden spoon, and a feather (or paper bag) to gather crumbs.
-• Search every room where chametz may have been brought during the year — especially kitchen, dining areas, living room, car, office, children's bags, and coat pockets.
-• Check under furniture, cushions, car seats, and appliances where crumbs collect.
-• Place ten pieces of bread (wrapped) in rooms before searching if your custom includes finding known pieces (optional minhag). If you hide them, write down every location and verify all 10 are recovered — a missed piece means known chametz remains in your home.
-
-After the search:
-• Recite the blessing Al bi'ur chametz and the Kol chamira nullification (bitul) — many siddurim print the text.
-• Text difference: Use the night version of Kol Chamira from your siddur. It nullifies only chametz you have not seen and do not know about — because you may still legally own chametz for breakfast tomorrow morning.
-• When Erev Pesach is Shabbat, this first bitul is Thursday night after bedikat; the final Kol Chamira is on Shabbat morning before the end of the 5th halachic hour — not at Friday's burning.
-• Gather found chametz in a bag to destroy the next morning at biur chametz.
-• Eating restrictions: You may not eat a meal or start work after nightfall until you complete the search. Once the search is finished, you may eat normally. Tomorrow morning is biur chametz — avoid a heavy meal from midday (chatzos) onward to preserve your appetite for the Seder.
-
-If you are traveling or staying elsewhere, your host or rabbi can guide which rooms you are responsible to search.
-
-
-#### biurExplanation
-
-Biur chametz (בִּעוּר חָמֵץ) — destroying chametz — completes the mitzvah of removing leaven before Pesach.
-
-$morningNote
-• Burn or destroy all chametz found last night and any remaining chametz you are not selling.
-• Many burn chametz in a safe outdoor fire; flushing crumbs in the toilet or similar is acceptable for small amounts per many poskim — ask your rav.
-• $zmanNote
-• Timeline guardrail: ${if (dow == PesachErevDow.SHABBAT) {
-            "On this year's schedule, do not recite the final Kol Chamira at today's burning — keep chametz for Shabbat meals. The final Kol Chamira is recited on Shabbat morning before the end of the 5th halachic hour."
-        } else {
-            "Both the physical destruction of chametz and the final recitation of Kol Chamira must be fully completed before the end of the 5th halachic hour. Once the 5th hour ends, chametz becomes assur b'hana'ah — you can no longer nullify ownership, and a late Kol Chamira is invalid."
-        }}
-• Text difference: Use the morning version of Kol Chamira from your siddur — it is structurally different from the night text and completely disowns ALL chametz in your possession, whether you have seen it or not and whether you have destroyed it or not.
-• Recite the final Kol Chamira immediately after destruction while still before that deadline${if (dow == PesachErevDow.SHABBAT) " (on Shabbat morning, not at today's burning)" else ""}.
-
-Mechirat chametz:
-• Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.
-
-After biur:
-• Eat only kosher-for-Passover food until Pesach ends.
-• Firstborns: Taanit Bechorot earlier per schedule; Seder ${
-            when (dow) {
-                PesachErevDow.SHABBAT -> "after Shabbat (Motzei Shabbat)"
-                PesachErevDow.FRIDAY -> "tonight (first Seder); second Seder Saturday night in the Diaspora (Yaknehaz — Shabbat into second day of Yom Tov)"
-                else -> "tonight"
-            }
-        }.
-
-
-#### erevPesachFridayBeforeShabbatFullSchedule
-
-$bedikatLeadIn
-
-This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Shabbat (15 Nisan):
-
-• Bedikat chametz: Thursday night (night of 14 Nisan, after tzeit) — not Friday night. Recite the first bitul (Kol Chamira).
-• Taanit Bechorot: Friday daytime (14 Nisan) — fast or attend a siyum.
-• Biur chametz: Friday morning (14 Nisan) by the 5th halachic hour deadline. Both physical destruction and the final Kol Chamira nullification must be finished before this time.
-• Mechirat chametz: must be entirely completed before Shabbat/Yom Tov candle lighting on Friday evening.
-• First Seder: Friday night (commencing 15 Nisan).
-• Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text, Shehecheyanu — no spices/besamim).
-• Preparation warning: you may NOT do any prep work (chopping, cooking, table setting) on Shabbat day for the second Seder. All preparations must wait until Shabbat ends at nightfall. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only for when Yom Tov immediately precedes Shabbat.
-
-Confirm candle lighting, Yom Tov, and Seder times with your siddur and rav.
-
-
-#### erevPesachOnShabbatFullSchedule
-
-$bedikatLeadIn
-
-This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the entire preparatory timeline shifts early (Peninei Halakha ch. 14):
-
-• Taanit Bechorot: Thursday (12 Nisan) — moved early; not on Shabbat or Friday. Ashkenazim fast or attend a siyum. Many Sephardic authorities rule the moved fast is nullified entirely; many still attend a siyum out of custom (ask your rav).
-• Bedikat chametz: Thursday night (night of 13 Nisan, after tzeit) with bracha — not the usual night of 14 Nisan, and not on Shabbat. Recite the first bitul (Kol Chamira) immediately after the search.
-• Biur chametz: Friday morning (13 Nisan) — burn the chametz found. Do not recite the final Kol Chamira at the burning — you will still eat chametz over Shabbat.
-• Mechirat chametz: complete and finalize the sale before Shabbat begins Friday evening.
-• Matzah on Friday (13 Nisan): many authorities extend the prohibition of eating regular matzah to Friday as well when Erev Pesach falls on Shabbat, so matzah is eaten with a prime appetite at the Seder (ask your rav).
-• Seder prep: all physical cooking, roasting the zeroa (shankbone), checking lettuce/maror, and making charoset must be finished on Friday before Shabbat — you cannot prepare on Shabbat for Motzei Shabbat.
-• Shabbat (14 Nisan) — eating deadline: finish eating chametz by the end of the 4th halachic hour on Shabbat morning.
-• Shabbat (14 Nisan) — disposal: flush leftover crumbs down the toilet or nullify them chemically (e.g. pour liquid soap over them) before the 5th hour. Do not burn on Shabbat.
-• Shabbat (14 Nisan) — final nullification: recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
-• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim do not eat egg matzah on Pesach (Rema O.C. 462:4); use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
-• First Seder: Saturday night after Shabbat fully ends (tzeit). Kiddush includes the full Yaknehaz sequence (Wine, Yom Tov Kiddush, Ner/candle, Havdalah text, and Shehecheyanu — no spices/besamim).
-
-Plan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.
-
-
-#### includePesachScheduleOnBedikatItem
-
-Mechirat chametz (מְכִירַת חָמֵץ) — selling your chametz to a non-Jew through your rabbi before Pesach — lets you keep chametz products locked away without owning them during Pesach (Shulchan Arukh O.C. 448).
-
-Why:
-• On Pesach, owning chametz is forbidden (bal yera'eh / bal yimatzei). Selling transfers ownership so sealed chametz in your home does not belong to you during the festival.
-
-How to do it:
-• Sign or authorize a sale with your rabbi or community (online forms are common). Deadline warning: While the sale takes effect on Erev Pesach morning, you must authorize your rabbi to sell your chametz several days in advance — most rabbis stop accepting sale forms by the night before Erev Pesach. The rabbi needs time to organize contracts and complete the kinyan (legal transfer) before the halachic deadline.
-• Mark cabinets or rooms included in the sale; keep sold chametz separate from what you will burn or discard.
-• Do not eat or use sold chametz after the sale takes effect — it belongs to the buyer until buy-back after Pesach.
-• Dishes used with chametz: Many people include the chametz residue and absorbed flavor within their year-round dishes and pots in the sale, locking them away securely. The physical dishes themselves are not sold, avoiding the halachic requirement to re-immerse them in a Mikveh (tevilat kelim) after Pesach (Shulchan Arukh Y.D. 120). Rabbis structure the contract accordingly — follow your rabbi's sale form.
-• Store the contract or confirmation; many communities sell through a central rabbi (e.g. local kashrut council).
-
-After Pesach: chametz is repurchased per the terms of the sale — follow your rabbi's instructions on when you may use it again.
-$urgency
-
-
-#### taanitBechorExplanation
-
-Second Seder prep (Diaspora this year):
-• Saturday daytime is the first day of Yom Tov (Shabbat). Saturday night begins the second day of Yom Tov — not a regular Motzei Shabbat weekend.
-• Kiddush at the second Seder includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text, Shehecheyanu — no spices).
-• You may NOT cook, chop, or prepare on Shabbat day for the second Seder. Hachana from weekday across Shabbat to a later Yom Tov is forbidden. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only when Yom Tov immediately precedes Shabbat. All food prep, cooking, and table setting for the second night must wait until Shabbat fully ends Saturday night.
-
-• Omer count trigger: The night after the first Seder (16 Nisan) officially begins Sefirat HaOmer. Before leaving the table on that night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item).
-
-• Omer count trigger: The second night of Pesach (second Seder) officially begins Sefirat HaOmer. Before leaving the Seder table on the second night, count Day 1 of the Omer — if you miss a full day-and-night cycle, ask your rav about continuing with a bracha (see the Omer checklist item).
-
-$intro
-
-$sederNights
-$secondSederHachana
-$omerTrigger
-
-Set up before Yom Tov:
-• Matzah — shmurah matzah for motzi/matza mitzvah (three matzot on the plate per custom)
-• Maror — romaine, horseradish, or bitter herbs per your minhag
-• Four cups of wine per participant (grape juice is widely used if needed — ask your rav; not the same debate as Chol HaMoed wine)
-• Haggadah for each person (or shared)
-• Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
-• Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.
-• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
-• Festive table; candles for Yom Tov
-
-Kitchen:
-• Only kosher-for-Passover food and utensils from this point
-• Warm food on a blech or pre-set timer for Yom Tov meals
-
-At the Seder: follow your Haggadah step by step — Kiddush, the order of the night, brachot, and the four cups are all laid out there. ${if (profile.isInIsrael) "One" else "Two"} Seder night(s) this Pesach.
-
-
-
-### PublicFastDayText.kt
-#### commonFastLawsBlock
-
-Who must fast:
-Jewish adults from bar/bat mitzvah age who are healthy enough to fast. Children are trained gradually — ask your rav. Women who are pregnant, nursing, or recently gave birth, and anyone who is ill, should ask a posek — many eat in measured amounts (shiurim) or are fully exempt.
-
-If you ate by mistake:
-If you forgot and ate or drank unintentionally, you may continue fasting once you remember — the fast remains valid (Shulchan Arukh O.C. 568:1).
-
-If you cannot fast:
-Do not endanger your health. Ask a rav about shiurim (small amounts at intervals), postponing the fast, or exemption. Pikuach nefesh overrides fasting.
-
-
-#### erevMinorFastPrepTitle
-
-Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).
-
-If you plan to eat before the fast begins:
-• Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
-• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).
-• Stop all eating and drinking at alot hashachar${alotTomorrow?.let { " (approx. $it — enable location for your exact zman)" } ?: " — enable location in Settings for your dawn time"}.
-
-Practical prep tonight:
-• Hydrate well and eat a balanced dinner.
-• Plan a lighter morning if you will not eat before dawn.
-• Know your synagogue schedule if you plan to attend special prayers.
-
-Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote
 
 
 
@@ -4495,16 +3969,17 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How (Peninei Halakha 12:8:2):
-• Set aside a baked food (challah or matzah) and a cooked food (meat, fish, or unpeeled hard-boiled egg are common examples).
-• Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.
-• One eruv per household is sufficient.
-• Food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).
+• Set aside two foods: a baked item (whole challah or matzah) and a cooked dish (meat, fish, or a hard-boiled egg with the shell on are common choices).
+• The cooked dish is the essential part. Having both baked and cooked is ideal; a cooked dish alone is valid. A baked item without any cooked food does not work — ask your rav if you're unsure.
+• Recite the blessing and eruv declaration from your Machzor or siddur, in any language you understand.
+• One eruv per household is enough.
+• The foods should be fit to eat with bread; keep at least a kezayit of the cooked food until your Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled spot. If those foods are eaten or thrown out before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens).
 
 Limits:
 • Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.
-• Food should be ready early enough Friday afternoon that it could theoretically be eaten before Shabbat.
-• Does not permit non-food Shabbat prep (e.g. certain laundry) — ask your rav.
+• Start early enough Friday afternoon that your food could theoretically be eaten before Shabbat begins.
+• Covers food preparation for Shabbat — not other melacha that remains forbidden on Yom Tov.
 
 
 #### genericHavdalahInKiddushBlock
@@ -4535,10 +4010,11 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How to make eruv tavshilin (Peninei Halakha 12:8:2):
-• Foods: challah (or matzah) plus cooked food — commonly fish, meat, or an unpeeled hard-boiled egg.
+• Foods: a baked item (whole challah or matzah) plus a cooked dish — commonly fish, meat, or a hard-boiled egg with the shell on. The cooked dish is essential; both together is ideal, but cooked alone is valid. Baked alone without cooked food does not work.
 • Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv — use your siddur text.
-• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation) — use the printed wording; it permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled, visible spot before the Friday afternoon rush — they are easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
+• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation). It permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
+• Keep at least a kezayit of the cooked food until Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled, visible spot before the Friday afternoon rush — it is easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.
@@ -4599,120 +4075,6 @@ If you have not made eruv tavshilin, ask your rabbi immediately.
 Shabbat tonight: light candles from a pre-existing flame after Yom Tov ends; follow your siddur for when Yom Tov ends and Shabbat begins.
 
 
-
-### PurimMeshulashText.kt
-#### advancePrepExplanation
-
-Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).
-
-${fullScheduleBlock()}
-
-
-#### erevPrepExplanation
-
-Purim Meshulash starts tonight in Jerusalem. Because Shabbat falls in the middle of the festival, read and save this plan now — you will not be able to rely on the app on Shabbat for Sunday's mitzvot.
-
-${fullScheduleBlock()}
-
-Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday): second Megillah reading and matanot la'evyonim. Mishloach and seudah wait until Sunday.
-
-
-#### fridayMatanotExplanation
-
-Purim Meshulash — matanot la'evyonim on Friday only (14 Adar)
-
-Today (Friday daytime) — not on Shabbat:
-• Give at least one gift to each of two different poor people (minimum of two recipients total).
-• Each gift should enable a modest Purim meal (money is common; amounts vary by community).
-• Many give after the daytime Megillah reading.
-
-You may use a trustworthy messenger or organization that distributes today. If you cannot find recipients, ask your rabbi or shul Friday morning.
-
-Sunday is for mishloach manot and the seudah — those should already be prepared before Shabbat.
-
-
-#### fridayMegillahExplanation
-
-Purim Meshulash — Megillah on Friday (14 Adar)
-
-When this year:
-• Thursday night after tzeit — first reading (you should have heard it then).
-• Today (Friday) — second reading during the daytime (usually after Shacharit, before sunset) — a universal obligation, not optional.
-
-How (same laws as regular Purim):
-• Hear every word from a kosher megillah scroll; men and women are equally obligated.
-• Stand for the blessings; customs at Haman's name vary by shul.
-
-${PurimBrachotText.MEGILLAH_BLESSINGS_COMMON}
-
-Reminder: matanot la'evyonim are also today (Friday), not Shabbat. Mishloach manot and the seudah are Sunday — prepare packages before Shabbat if you have not already.
-
-
-#### fullScheduleBlock
-
-Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Purim (15 Adar) falls on Shabbat
-
-Why the calendar splits:
-• Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
-• Megillah and matanot la'evyonim move to Friday (14 Adar). Mishloach manot and the seudah move to Sunday (16 Adar). Shabbat (15 Adar): individual home mitzvot (Megillah, matanot, mishloach, seudah) do not happen today, but Shabbat carries communal Purim obligations — see below.
-
-Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
-
-The four mitzvot — when they happen this year:
-1. Megillah — Thursday night after tzeit (start of Friday / 14 Adar) AND Friday daytime (before sunset). Two readings, like a normal Purim. Confirm times with your shul; write them down or print them.
-2. Matanot la'evyonim — Friday daytime only (not Thursday night, not Shabbat). Give at least one gift to each of two different poor people (minimum of two recipients total); money is common. Prepare cash, envelopes, or charity contacts before Friday.
-3. Mishloach manot — Sunday (16 Adar) before sunset. At least two ready-to-eat foods to one friend. Prepare and label packages before Shabbat; plan who delivers on Sunday (you, family, or shul list).
-4. Purim seudah — Sunday afternoon (16 Adar), before sunset. Festive meal with bread, joy, and Torah words — not on Shabbat.
-
-What to finish before Shabbat candles (Friday):
-• Megillah: attend Thursday night and Friday morning readings (or know your shul's schedule).
-• Matanot: complete on Friday — have funds ready Friday morning.
-• Mishloach: packages packed, labeled, and stored; delivery list written (Sunday only).
-• Seudah: Sunday menu and timing planned; invite guests if needed.
-• Machatzit haShekel: if your custom, many give before Megillah — handle before or with Thursday/Friday readings.
-
-Shabbat (15 Adar):
-• While individual home mitzvot like Megillah, matanot, mishloach, and the seudah do not happen today, Shabbat carries the communal Purim obligations.
-• Synagogue: Attend for the special Purim Torah reading (Parashat Vayavo Amalek, Exodus 17:8–16) and the unique Haftarah for Purim.
-• Davening & meals: Insert Al HaNissim into all Shabbat prayers (Amidah) and Birkat Hamazon today. Do not say Al HaNissim on Friday (14 Adar) or Sunday (16 Adar), even though other Purim mitzvot happen those days.
-• No melacha for Purim prep on Shabbat — everything for Sunday must already be prepared.
-
-Sunday (16 Adar):
-• Send mishloach manot and celebrate the Purim seudah. The app will show today's items after Shabbat ends.
-
-Ask your rav about edge cases (travel, illness, minhag).
-
-
-#### sundayMishloachExplanation
-
-Purim Meshulash — mishloach manot on Sunday (16 Adar)
-
-Deferred from Shabbat because Purim mitzvot are not performed on Shabbat this year.
-
-The mitzvah:
-• Send at least two different ready-to-eat foods or drinks to one friend today — one package.
-• Deliver before sunset; a messenger is fine.
-• Food should be ready to eat without cooking; label sender and recipient.
-
-You should have prepared packages before Shabbat. If not, ask your rav what you may still do today.
-
-
-#### sundaySeudahExplanation
-
-Purim Meshulash — Purim seudah on Sunday (16 Adar)
-
-The festive Purim meal is today (not Friday or Shabbat this year).
-
-When:
-• Sunday daytime before sunset — many hold the meal in the afternoon after mishloach manot.
-
-How:
-• Festive meal with bread, meat, wine, and joy; include words of Torah or thanks to Hashem.
-• Drinking wine is a widespread custom; celebrate responsibly.
-
-This completes the four Purim mitzvot for Purim Meshulash in Jerusalem.
-
-
 # Part 4 — Daily Mitzvot Checklist Explainers
 
 Full explanation text for every item in the daily checklist (`checklist-items.json`). Includes default text plus Ashkenaz, Sefard, Edot HaMizrach, Chabad, and female variants where present. Shnayim Mikra prepends "This week's parsha: Parshat [name]" at runtime.
@@ -4740,10 +4102,10 @@ At Shacharit:
 • Other weekdays: shorter form (exact text varies by nusach).
 
 At Mincha:
-Usually the shorter version — often beginning with "Vayomer David el Gad" ("And David said to Gad..."). If you already said Tachanun at Shacharit, Mincha may still include Tachanun depending on your custom — follow your siddur or congregation.
+Tachanun (תַּחֲנוּן — supplication) is a penitential prayer after the Amidah on most ordinary weekdays at Mincha — usually the shorter form (often beginning with "Vayomer David el Gad"). It is omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other days of joy. Follow your siddur or congregation.
 
 Timing:
-Mincha begins from about 30 minutes after midday and must finish before sunset. The app shows the current window. If you miss Mincha, it can be made up at Maariv only — say the Maariv Amidah first, then immediately say a second Amidah as the tashlumin. This window closes when Maariv ends; you cannot make it up the following morning. See the guide entry on Tashlumin for full rules.
+Mincha begins from about 30 minutes after midday (Mincha Gedolah). The latest time to start the Amidah depends on nusach: Ashkenazi (Gra) — ideal before sunset, bedi'eved until about 15 minutes after sunset; Sephardi / Edot HaMizrach — often may begin shortly before sunset even if the Amidah continues after sunset, until about 15 minutes after sunset; Chabad — highly optimal before sunset, but custom permits Mincha during twilight until nightfall (tzeit). The app shows your current window.
 
 **Ashkenaz:**
 
@@ -4867,7 +4229,7 @@ Drinks only — which after-blessing?
 • Mezonot snack plus wine at the same sitting: one Al HaMichya including the wine phrase if both meet their thresholds
 
 Where to find the exact text:
-Open your siddur or bentcher to the bracha acharona section. In Mitz Mode, tap the menu (⋮) → **Blessings** for before- and after-blessing texts.
+Open your siddur or bentcher to the bracha acharona section for the exact texts.
 
 ### Asher Yatzar (After using the bathroom)
 
@@ -4892,7 +4254,7 @@ How to do it:
 1. After using the bathroom, wash your hands (without a blessing, unless this is your morning washing)
 2. Say Asher Yatzar — it takes about 20 seconds
 
-Find the text in any Jewish prayer book (siddur) or app. In Mitz Mode, tap the menu (⋮) → **Blessings** for the text.
+Find the text in any Jewish prayer book (siddur) or bentcher.
 
 ### Shema with its blessings (Evening)
 
@@ -4934,7 +4296,7 @@ Structure of Maariv:
 6. Mourner's Kaddish (said by mourners or those observing yahrzeit)
 
 Timing:
-From nightfall until dawn. If you miss Maariv, make it up at the following morning's Shacharit only — say the regular Shacharit Amidah first, then immediately say a second Amidah as the tashlumin for Maariv. If you miss that window too, the opportunity is permanently gone. See the guide entry on Tashlumin for full rules including the Tefilat Nedavah option.
+Earliest Maariv is at sunset (shkiyah). Many communities ideally daven after nightfall (tzeit hakochavim). If you daven Maariv before tzeit, repeat the Shema (without its blessings) once it is fully dark. In time of need, some minyanim daven between plag haMincha and sunset — an individual cannot daven Mincha after plag and Maariv before sunset on the same day (tarti d'satri); a minyan may do both for convenience. On Erev Shabbat or Yom Tov, early Maariv after plag is a common leniency.
 
 ### Kriat Shema al HaMitah (Bedtime Shema)
 
@@ -5058,13 +4420,16 @@ Standards vary by community. The key is sincere progress and consistency, guided
 
 *Section: Married women's mitzvot · ID: `cover_hair_in_public_if_married`*
 
-Married Jewish women are required to cover their hair whenever they are in public or in the presence of men other than their husband.
+Married Jewish women in Orthodox communities traditionally cover their hair in public and in the presence of men other than their husband.
 
 What it is:
-Kisui rosh (כִּיסּוּי רֹאשׁ — literally "covering of the head") is one of the fundamental practices of Jewish married life. It is a Torah-level obligation (Shulchan Aruch, Even HaEzer 115:4).
+Kisui rosh (כִּיסּוּי רֹאשׁ — literally "covering of the head") is one of the fundamental practices of Jewish married life across Orthodox communities.
+
+Halachic status:
+Poskim disagree on its source. Shulchan Aruch (Even HaEzer 115:4) requires married women to cover their hair. Many major authorities (including Rav Moshe Feinstein and others) understand the obligation as dat Yehudit — Jewish communal custom with halachic force — rather than a direct Torah-level din. Others treat it as Torah law. The practice is widely accepted in Orthodox life; ask your rav for guidance.
 
 Why:
-A married woman's hair is considered ervah (עֶרְוָה — literally "nakedness"; in halachic terms, something private that should not be publicly displayed). Covering it expresses that her deepest beauty is reserved for the privacy of her home and her husband. It is also an expression of tzniut (modesty) — the Jewish value of inner dignity over external display.
+In communities that require covering, a married woman's hair is treated as something private that should not be publicly displayed. Covering expresses that her deepest beauty is reserved for the privacy of her home and her husband. It is also an expression of tzniut (modesty) — the Jewish value of inner dignity over external display.
 
 Methods of covering:
 • Tichel (טִיכֶל) — a headscarf or wrap, commonly used across many communities
@@ -5299,7 +4664,7 @@ If you are praying in a synagogue, follow the congregation's practice for Tachan
 Timing:
 The morning Amidah becomes available at dawn (alot hashachar — shown in the app). Ideally say it at sunrise or later, when the full Shacharit service is ordinarily prayed. If you are in a hurry, you may say the Amidah after dawn even before sunrise.
 
-Ideal deadline: before the end of the fourth halachic hour (sof zman tefillah — visible in the app). Bedi'eved you may still daven Shacharit until halachic midday (chatzos). If you miss it entirely, at Mincha pray two Amidot — Mincha first, then tashlumin for the missed Shacharit.
+Ideal deadline: before the end of the fourth halachic hour (sof zman tefillah — visible in the app). Bedi'eved you may still daven Shacharit until halachic midday (chatzos).
 
 **Ashkenaz:**
 
@@ -5383,7 +4748,7 @@ Married women are obligated in hair covering — see the modesty section.
 
 *Section: Ongoing mitzvot · ID: `wear_tzitzit_recommended_for_divine_protection`*
 
-The Torah commands Jewish men to wear fringes on the corners of four-cornered garments — a constant physical reminder of all G-d's commandments.
+The mitzvah of tzitzit applies when a Jewish man wears a four-cornered garment — you are not strictly required to wear such a garment at all times, but if you put on a garment with four corners, you must attach kosher tzitzit to each corner (Numbers 15:38; Shulchan Arukh O.C. 10:1).
 
 What tzitzit are:
 Tzitzit (צִיצִית — fringes or tassels) are knotted strings attached to each corner of a four-cornered garment. Each set of tzitzit has 8 threads and 5 knots. A famous derash (Bamidbar Rabbah) links the gematria of tzitzit (600) plus 8 threads and 5 knots to 613 — a symbolic reminder of all the mitzvot, not a halachic calculation.
@@ -5391,8 +4756,11 @@ Tzitzit (צִיצִית — fringes or tassels) are knotted strings attached to 
 The Torah source:
 "Speak to the Children of Israel and tell them to make fringes on the corners of their garments... so that you may look upon them and remember all the commandments of G-d." (Numbers 15:38-39)
 
+Why wear a tallit katan every day:
+Although you are not obligated to wear a four-cornered garment, it is strongly recommended to wear a tallit katan (small undergarment with tzitzit) throughout the day. Kabbalistic tradition teaches that tzitzit provide spiritual protection from harmful forces; the mitzvah is intended to keep Jewish men mindful of holiness and all of G-d's commandments in daily life.
+
 How to observe it:
-Most observant Jewish men wear a tallit katan (small garment) under their shirt all day. During morning prayers (Shacharit), a tallit gadol (large prayer shawl) is worn over the clothing.
+Most observant Jewish men wear a tallit katan under their shirt all day. During morning prayers (Shacharit), a tallit gadol (large prayer shawl) is worn over the clothing.
 
 Getting started:
 • Buy a tallit katan at any Judaica store or online
@@ -5433,6 +4801,27 @@ The Torah gives these laws as divine commands. Beyond the reason, observing them
 Getting started:
 Consult your local Orthodox rabbi before setting up a kosher kitchen. Many people begin by removing non-kosher meat and seafood, then work toward full observance.
 
+### Shmirat Einayim (Guard your eyes)
+
+*Section: Ongoing mitzvot · ID: `shmirat_einayim`*
+
+The Torah commands: "Do not follow after your heart and after your eyes" (Bamidbar 15:39) — what we look at can lead the heart astray. Shmirat einayim (שְׁמִירַת עֵינַיִם — guarding the eyes) is the ongoing mitzvah for men to protect themselves from improper gazing.
+
+What to guard:
+• Looking at women (or images) in a way that arouses inappropriate desire — including prolonged staring, immodest media, and feeds designed to catch the eye.
+• Situations you know will test you when you can avoid them: certain streets, beaches, parties, or unfiltered browsing.
+
+Why it matters:
+Jewish tradition teaches that the eyes are a gateway to thought and desire. Guarding them is part of kedushah (holiness) and self-mastery — preserving clarity for prayer, marriage, and a focused Torah life.
+
+How to practice:
+• Turn away or lower your eyes when you notice an improper sight; do not let your gaze linger.
+• Choose routes and activities wisely when you have a choice.
+• Use technology thoughtfully — filters, limits, and accountability help many men.
+• If married, channel desire toward your wife; if single, build habits now that support a holy marriage later.
+
+Halachic details vary (workplace situations, medical contexts, what brief glances are permitted) — ask your rabbi when unsure. This checklist item is a daily intention to be mindful, not a scorecard of perfection.
+
 ### Shmirat HaLashon (Guard your speech)
 
 *Section: Ongoing mitzvot · ID: `shmirat_halashon`*
@@ -5463,7 +4852,7 @@ Jewish law applies in the marketplace and office just as in the synagogue. Hones
 
 What this includes:
 • Geneivat da'at (גְּנֵבַת דַּעַת — deception): misleading a customer or employer about price, quality, terms, or your qualifications.
-• Ona'ah (אוֹנָאָה): overcharging or underpaying when the other party does not know the fair value. A variation of one-sixth or more above or below fair market price triggers the Torah laws of financial fraud, requiring the overcharged amount to be fully refunded.
+• Ona'ah (אוֹנָאָה): overcharging or underpaying when the other party does not know the fair value. Classic rule (Bava Metzia 49b): when price differs from fair market value by one-sixth or more, Torah laws of ona'ah apply. At exactly one-sixth, return the excess; beyond one-sixth, the wronged party may rescind the entire sale.
 • Keeping your word: honoring agreements, deadlines, and commitments; not making promises you cannot keep.
 • Paying workers on time: wages owed must be paid when due (Leviticus 19:13).
 • Not stealing in any form — including time theft, expense fraud, or taking what is not yours.
@@ -5801,9 +5190,9 @@ Evening prayer (separate section):
 Women say Kriat Shema al HaMitah (Bedtime Shema) before sleep. You do not need Shema with its Maariv blessings as a separate obligation.
 
 Good starting points:
-• [Kitzur Shulchan Arukh](https://www.sefaria.org/Kitzur_Shulchan_Arukh) or a women's halacha book from your community
-• Daily halacha — [DailyHalacha.com](https://www.dailyhalacha.com/) or [Halachipedia](https://www.halachipedia.com/)
-• [Sefaria.org](https://www.sefaria.org/) — search topics you need for your home and family
+• Kitzur Shulchan Arukh — or a women's halacha book from your community
+• DailyHalacha.com or Halachipedia — short daily halacha
+• Sefaria.org — search topics for your home and family
 
 Ask your rabbi or rebbetzin which areas to prioritize as you grow in observance.
 
@@ -6121,7 +5510,7 @@ Be a Tzaddik helps you track standard daily mitzvot in a Torah-observant routine
 
 ### Welcome Intro (embedded in MitzMode)
 
-The Daily Mitzvot Checklist helps you track standard daily mitzvot in a Torah-observant routine.
+The Holy Light Checklist helps you track standard daily mitzvot in a Torah-observant routine.
 
 ### Disclaimer / About Body
 
@@ -6164,16 +5553,6 @@ Please put away your device and keep Shabbat. Rest, pray, learn Torah, and enjoy
 Shabbat is about to begin. Please finish what you are doing, turn off your phone, and prepare to welcome the holy day.
 
 Our Sages teach that Shabbat is a taste of the World to Come, and one who guards Shabbat according to its laws receives forgiveness and a reward beyond measure (Shabbat 25b; Shabbat 118a).
-
-**Yom Tov (active):**
-
-Today is [holiday name] (Yom Tov — a festival day). Please put away your device and keep the day holy. Melacha (forbidden labor) applies on Yom Tov similar to Shabbat.
-
-**Yom Tov (approaching):**
-
-[holiday name] is about to begin. Please finish what you are doing, turn off your phone, and prepare to welcome this Yom Tov with joy.
-
-Our Sages teach that rejoicing on Yom Tov is itself a mitzvah — may your observance bring blessing and divine reward to you and your household.
 
 
 ## Omer Count Text Template (OmerCountText.kt)

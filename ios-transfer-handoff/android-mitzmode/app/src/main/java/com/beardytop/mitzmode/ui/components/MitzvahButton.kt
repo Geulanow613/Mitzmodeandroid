@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import android.util.Log
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
@@ -19,17 +20,18 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.core.content.getSystemService
 
 @Composable
 fun MitzvahButton(
@@ -38,12 +40,14 @@ fun MitzvahButton(
 ) {
     val context = LocalContext.current
     val vibrator = remember {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            (context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager).defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
+        runCatching {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                (context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager).defaultVibrator
+            } else {
+                @Suppress("DEPRECATION")
+                context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            }
+        }.getOrNull()
     }
 
     val interactionSource = remember { MutableInteractionSource() }
@@ -83,29 +87,40 @@ fun MitzvahButton(
         }.asImageBitmap()
     }
 
-    Image(
-        bitmap = originalBitmap,
-        contentDescription = "Mitzvah Button",
-        contentScale = ContentScale.Fit,
+    // Keep clickable on a stable hit box; animate the Image visually inside so floating
+    // translation doesn't desync the pointer target from the bitmap.
+    Box(
         modifier = modifier
             .size(180.dp)
-            .graphicsLayer {
-                scaleX = scale
-                scaleY = scale
-                translationX = offsetX
-                translationY = offsetY
-            }
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
             ) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-                } else {
-                    @Suppress("DEPRECATION")
-                    vibrator.vibrate(50)
-                }
+                runCatching {
+                    val vib = vibrator ?: return@runCatching
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vib.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vib.vibrate(50)
+                    }
+                }.onFailure { Log.w("MitzvahButton", "Vibrate failed", it) }
                 onClick()
             },
-    )
+        contentAlignment = Alignment.Center,
+    ) {
+        Image(
+            bitmap = originalBitmap,
+            contentDescription = "Mitzvah Button",
+            contentScale = ContentScale.Fit,
+            modifier = Modifier
+                .size(180.dp)
+                .graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                    translationX = offsetX
+                    translationY = offsetY
+                },
+        )
+    }
 }

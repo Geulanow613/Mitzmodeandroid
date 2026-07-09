@@ -21,6 +21,7 @@ import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ChecklistDebugDateFinder
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
 import com.beardytop.beatzaddik.domain.ChecklistDebugOverride
+import com.beardytop.beatzaddik.domain.ChecklistDebugPhase
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenario
 import com.beardytop.beatzaddik.domain.ChecklistDebugTimeSlot
 import com.beardytop.beatzaddik.domain.forDebugCalendar
@@ -218,15 +219,20 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {
         _pendingDebugTimeSlot.value = timeSlot
         val current = _checklistDebugOverride.value ?: return
-        val scenario = ChecklistDebugScenarios.byId(current.scenarioId)
+        val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
         val prof = profile.value.forDebugCalendar(scenario)
-        _checklistDebugOverride.value = current.copy(
-            timeSlot = timeSlot,
-            epochMillis = ChecklistDebugDateFinder.epochMillisAt(
+        val millis = if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
+            current.epochMillis
+        } else {
+            ChecklistDebugDateFinder.epochMillisAt(
                 current.simulatedDate,
                 timeSlot,
                 prof.timezoneId,
-            ),
+            )
+        }
+        _checklistDebugOverride.value = current.copy(
+            timeSlot = timeSlot,
+            epochMillis = millis,
         )
     }
 
@@ -286,6 +292,23 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             deps.repository.disclaimerAcknowledged.first()
             _prefsLoaded.value = true
         }
+        // Ensure daily checklist items reset at tzeit (halachic day boundary), not midnight.
+        viewModelScope.launch {
+            combine(profile, effectiveNowMillis) { prof, now -> prof to now }
+                .collect { (prof, nowMillis) ->
+                    val today = deps.calendar.dayInfoAt(nowMillis, prof)
+                    val yesterday = deps.calendar.dayInfoAt(nowMillis - 86_400_000L, prof)
+                    val key = TzeitDay.currentKey(nowMillis, today, yesterday) ?: nowMillis.toString()
+                    deps.repository.clearDayIfNewDate(key)
+
+                    // Daily ongoing section: if user collapsed it on a previous halachic day, re-expand now.
+                    if (prof.dailyOngoingCollapsed && prof.dailyOngoingCollapsedDate != key) {
+                        deps.repository.saveProfile(
+                            prof.copy(dailyOngoingCollapsed = false, dailyOngoingCollapsedDate = null)
+                        )
+                    }
+                }
+        }
         viewModelScope.launch { runStartupMaintenance() }
         viewModelScope.launch {
             combine(dayChecklists, profile, checklistDebugOverride) { day, prof, debug -> Triple(day, prof, debug) }
@@ -303,8 +326,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     private suspend fun runStartupMaintenance() {
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
-        deps.repository.clearDayIfNewDate(today)
+        // Note: daily rollover is handled by the collector in init() using a tzeit-based key.
         val now = Clock.System.now().toEpochMilliseconds()
         val wait = deps.repository.kashrutWait.first()
         var prof = deps.repository.profile.first()
@@ -332,6 +354,29 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
         if (prof.useGps) {
             refreshGps()
+        }
+    }
+
+    fun setOngoingSectionCollapsed(section: String, collapsed: Boolean) {
+        viewModelScope.launch {
+            val current = deps.repository.profile.first()
+            val nowMillis = Clock.System.now().toEpochMilliseconds()
+            val todayInfo = deps.calendar.dayInfoAt(nowMillis, current)
+            val yesterdayInfo = deps.calendar.dayInfoAt(nowMillis - 86_400_000L, current)
+            val halachicKey = TzeitDay.currentKey(nowMillis, todayInfo, yesterdayInfo) ?: nowMillis.toString()
+            when (section) {
+                "Permanent ongoing mitzvot" -> {
+                    deps.repository.saveProfile(current.copy(permanentOngoingCollapsed = collapsed))
+                }
+                "Daily ongoing mitzvot" -> {
+                    deps.repository.saveProfile(
+                        current.copy(
+                            dailyOngoingCollapsed = collapsed,
+                            dailyOngoingCollapsedDate = if (collapsed) halachicKey else null,
+                        )
+                    )
+                }
+            }
         }
     }
 

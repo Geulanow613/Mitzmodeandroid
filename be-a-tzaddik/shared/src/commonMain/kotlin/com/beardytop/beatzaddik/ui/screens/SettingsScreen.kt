@@ -50,6 +50,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.domain.Gender
 import com.beardytop.beatzaddik.domain.IsraelDetectionSource
+import com.beardytop.beatzaddik.domain.JerusalemPurimRules
 import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.ui.ManualCityListRow
 import com.beardytop.beatzaddik.ui.cityDisplayLabel
@@ -295,6 +296,36 @@ fun SettingsScreen(
                 text = "More cities (dropdown)",
                 modifier = Modifier.fillMaxWidth()
             )
+
+            // Walled-city Purim in cities of doubt.
+            val isPurimDoubtCity = remember(profile.manualCityId) {
+                JerusalemPurimRules.isPurimDoubtCity(profile.manualCityId)
+            }
+            if (isPurimDoubtCity) {
+                Spacer(Modifier.height(12.dp))
+                SettingsDivider()
+                Spacer(Modifier.height(10.dp))
+                AppText(
+                    "Purim in this city (status in doubt)",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                    color = TzaddikColors.NavyDeep,
+                    enableTerms = false,
+                )
+                Spacer(Modifier.height(6.dp))
+                AppText(
+                    "Some cities (in Israel and a few diaspora communities) have a disputed status about whether they were walled in Yehoshua's time — or historically observed 15 Adar. In such places, some observe both sets of customs. Ask your rav what your community does.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TzaddikColors.TextMuted,
+                    enableTerms = false,
+                )
+                Spacer(Modifier.height(10.dp))
+                ProfileToggle(
+                    label = "Observe walled-city Purim here (Shushan Purim / Meshulash when applicable)",
+                    description = "If enabled, the app will show Shushan Purim / Purim Meshulash scheduling like Jerusalem for this city.",
+                    checked = profile.observeWalledCityPurim,
+                    onChange = { enabled -> viewModel.saveProfile(profile.copy(observeWalledCityPurim = enabled)) }
+                )
+            }
             Spacer(Modifier.height(12.dp))
             SettingsDivider()
             Spacer(Modifier.height(10.dp))

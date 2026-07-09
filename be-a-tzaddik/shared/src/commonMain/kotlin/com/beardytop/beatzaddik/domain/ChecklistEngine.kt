@@ -14,6 +14,7 @@ class ChecklistEngine(
     companion object {
         val sectionOrder: List<String> = listOf(
             "Upon waking",
+            "Selichot",
             "Morning Prayer (Shacharit)",
             "Ongoing mitzvot",
             "Torah Study",
@@ -139,7 +140,7 @@ class ChecklistEngine(
                     checkedById[def.id] == true &&
                         weeklyCheckedWeeks[def.id] == currentWeekKey
                 }
-                def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID -> {
+                def.tzeitMitzvah || def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID -> {
                     checkedById[def.id] == true &&
                         currentTzeitDayKey != null &&
                         tzeitCheckedDays[def.id] == currentTzeitDayKey
@@ -280,7 +281,9 @@ class ChecklistEngine(
             if (RoshChodeshRules.hallelKind(cal) != RoshChodeshRules.HallelKind.FULL_DURING_CHANUKAH) {
                 return false
             }
-        } else if (TachanunRules.isTachanunOnlyItem(item.id) && !TachanunRules.isRecited(cal)) {
+        } else if (TachanunRules.isTachanunOnlyItem(item.id) &&
+            !TachanunRules.isRecited(cal, profile, item.id, tomorrowCal)
+        ) {
             return false
         } else if (item.shabbatOnly && !cal.isShabbatOrYomTov && !cal.isErevShabbat) {
             return false

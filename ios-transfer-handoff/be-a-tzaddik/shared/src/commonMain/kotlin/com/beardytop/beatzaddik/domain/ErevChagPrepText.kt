@@ -15,7 +15,7 @@ object ErevChagPrepText {
         val name = cal.upcomingChagName ?: "Yom Tov"
         val idx = cal.upcomingChagYomTovIndex
         val common = commonErevBlock(cal, profile, tomorrowCal)
-        val shabbatChagBlock = YomTovShabbatPrepText.scheduleBlock(cal, profile, name)
+        val shabbatChagBlock = YomTovShabbatPrepText.scheduleBlock(cal, profile, name, tomorrowCal = tomorrowCal)
         val intro = when {
             YomTovShabbatPrepText.isShabbatErevChag(cal) ->
                 "Today is Shabbat — the checklist is off today. You should have read Friday's “Tomorrow: $name & Shabbat — prepare today” item before Shabbat candles. $name begins tonight at Motzei Shabbat (Havdalah in Kiddush — Yaknehaz)."
@@ -152,14 +152,14 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}
 • Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).
 • Hear the shofar blown during daytime services tomorrow (not tonight).
-• Add Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+• Daven from a Machzor: Rosh Hashana uses a special festival Amidah (and a unique Musaf) — not the regular prayer with a small insert. Tachanun is omitted.
 
 Customs:
 • Greet others with wishes for a good year (L'shanah tovah).
 • Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
-• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.
+• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday. If you missed it, many communities do it later — commonly any day until Hoshana Rabbah (the last day of Sukkot); follow your minhag.
 
-${diasporaSecondDayNote(profile, "Rosh Hashana")}""",
+• A second day of Rosh Hashana follows tomorrow night — in Israel and the Diaspora — so prepare candles and meals for two days of Yom Tov.""",
             ),
             roshHashanaLinks(profile)
         )
@@ -185,7 +185,7 @@ Today before the fast:
 • Kaparot (if your custom) is done before Yom Kippur.
 
 On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather shoes, or marital relations):
-• Spend the day in prayer at shul (Kol Nidre tonight, full day of services tomorrow).
+• Daven from a Machzor: Kol Nidre tonight, then a full day of Yom Kippur services tomorrow (special liturgy throughout).
 • Clothing & shoes: There is a widespread custom to wear white clothing to look like angels. Separately, it is a strict halachic prohibition for everyone to wear leather shoes or leather footwear of any kind on Yom Kippur (one of the five mandatory inuyim).
 • Ne'ilah at the end; after nightfall pray Maariv, then Havdalah over wine and a ner she-shavat (a flame that burned throughout Yom Kippur, such as a 48-hour candle lit before the fast). Do not use besamim (spices) — Yom Kippur has no neshama yeteira; spices are omitted unless Yom Kippur itself fell on Shabbat. Then break the fast.""",
             ),
@@ -292,7 +292,8 @@ No melacha; treat meals and prayer with joy and Torah focus.""",
 
 Before sunset:
 • Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
-• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards). The etrog is held separately — never bound with the others.
+• Bind the lulav with hadasim and aravot before sunset. Tying a secure double knot is prohibited on Yom Tov, so standard custom is to bind them erev with a double knot or koishelach (woven leaf holder). Pre-made holders may be slipped on during Yom Tov, but do not tie new knots. If you forgot: wrap a lulav leaf around the species and tuck the end in — no knot.
 
 Tonight & tomorrow:
 • Light Yom Tov candles in the sukkah (per custom) or home.
@@ -341,7 +342,7 @@ Tonight & tomorrow:
 ${shehecheyanuErevLines(HebrewCalendarEngine.SIMCHAS_TORAH, tomorrowCal, profile)}
 • Hakafot — dancing with Torah scrolls; finish the annual cycle and begin Bereshit.
 • Festive meals and drinking (responsibly) in many communities.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Yom Tov — no melacha; Full Hallel and Musaf.
 • In Israel, Simchat Torah coincides with Shemini Atzeret (one day).""",
             ),

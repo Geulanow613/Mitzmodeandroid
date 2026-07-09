@@ -43,6 +43,7 @@ fun AboutScreen(
         ParchmentContentCard {
             AppText(
                 appTitle,
+                enableTerms = false,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep
             )

@@ -57,7 +57,7 @@ Note: There is a strict earliest boundary for this mitzvah. You cannot light can
 
 Key rules:
 • Kiddush must be recited in the same place where you will eat your meal (Kiddush b'Makom Seudah).
-• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 50ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
+• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
@@ -559,7 +559,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 
 Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
 
-The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a period of increasing mourning.""",
+The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"
         ),
         GuideTopic(
@@ -646,7 +646,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
             hebrewTitle = "יוֹם הָעַצְמָאוּת",
             body = """Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.""",
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.""",
         ),
         GuideTopic(
             id = "yom_yerushalayim",

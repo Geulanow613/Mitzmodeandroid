@@ -7,7 +7,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 
-enum class ChecklistDebugPhase { EREV, DAY_OF }
+enum class ChecklistDebugPhase { EREV, DAY_OF, MOTZEI }
 
 enum class ChecklistDebugTimeSlot(val hour: Int, val label: String) {
     PRE_DAWN(3, "Pre-dawn"),
@@ -45,6 +45,8 @@ data class ChecklistDebugOverride(
 
 object ChecklistDebugScenarios {
 
+    internal const val TWO_DAYS_BEFORE_SUFFIX = "_2d"
+
     val all: List<ChecklistDebugScenario> = buildList {
         fun erev(
             group: String,
@@ -67,6 +69,9 @@ object ChecklistDebugScenarios {
         fun dayOf(group: String, name: String, id: String, match: (DayInfo, DayInfo) -> Boolean) {
             add(ChecklistDebugScenario("${id}_day", group, name, ChecklistDebugPhase.DAY_OF, match))
         }
+        fun motzei(group: String, name: String, id: String, match: (DayInfo, DayInfo) -> Boolean) {
+            add(ChecklistDebugScenario("${id}_motzei", group, name, ChecklistDebugPhase.MOTZEI, match))
+        }
         fun season(s: String): (DayInfo, DayInfo) -> Boolean = { cal, _ -> s in cal.activeSeasons }
         fun upcomingChag(idx: Int): (DayInfo, DayInfo) -> Boolean = { cal, _ ->
             cal.upcomingChagYomTovIndex == idx
@@ -80,10 +85,16 @@ object ChecklistDebugScenarios {
         dayOf(shabbat, "Shabbat", "shabbat") { cal, _ ->
             HolyDayPhoneRules.isShabbatMelachaDay(cal)
         }
+        motzei(shabbat, "Shabbat", "shabbat") { cal, _ ->
+            HolyDayPhoneRules.isShabbatMelachaDay(cal)
+        }
 
         val yomTov = "Yamim Tovim"
         erev(yomTov, "Pesach", "pesach") { cal, _ -> "erev_pesach" in cal.activeSeasons }
         dayOf(yomTov, "Pesach", "pesach") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 15
+        }
+        motzei(yomTov, "Pesach", "pesach") { cal, _ ->
             cal.hebrewMonth == HebrewCalendarEngine.NISSAN && cal.hebrewDay == 15
         }
         erev(yomTov, "Shavuot", "shavuot") { cal, _ ->
@@ -92,16 +103,28 @@ object ChecklistDebugScenarios {
         dayOf(yomTov, "Shavuot", "shavuot") { cal, _ ->
             cal.hebrewMonth == HebrewCalendarEngine.SIVAN && cal.hebrewDay == 6
         }
+        motzei(yomTov, "Shavuot", "shavuot") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.SIVAN && cal.hebrewDay == 6
+        }
         erev(yomTov, "Rosh Hashana", "rosh_hashana") { cal, _ ->
             "erev_chag" in cal.activeSeasons && upcomingChag(HebrewCalendarEngine.ROSH_HASHANA)(cal, cal)
         }
         dayOf(yomTov, "Rosh Hashana", "rosh_hashana") { cal, _ ->
             cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 1
         }
+        motzei(yomTov, "Rosh Hashana", "rosh_hashana") { cal, _ ->
+            // Motzei Rosh Hashana = after the second day ends (tzeit of 2 Tishrei).
+            // In years when Day 2 is Shabbat, this is Motzei Shabbat (motzash) as well.
+            cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 2
+        }
         erev(yomTov, "Sukkot", "sukkot") { cal, _ ->
             "erev_chag" in cal.activeSeasons && upcomingChag(HebrewCalendarEngine.SUCCOS)(cal, cal)
         }
         dayOf(yomTov, "Sukkot", "sukkot") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 15 &&
+                cal.isYomTovAssurBemelacha
+        }
+        motzei(yomTov, "Sukkot", "sukkot") { cal, _ ->
             cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 15 &&
                 cal.isYomTovAssurBemelacha
         }
@@ -118,6 +141,10 @@ object ChecklistDebugScenarios {
             cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 22 &&
                 ("shemini_atzeret" in cal.activeSeasons || "simchat_torah" in cal.activeSeasons)
         }
+        motzei(yomTov, "Shemini Atzeret", "shemini_atzeret") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.TISHREI && cal.hebrewDay == 22 &&
+                ("shemini_atzeret" in cal.activeSeasons || "simchat_torah" in cal.activeSeasons)
+        }
         erev(
             yomTov,
             "Simchat Torah",
@@ -127,6 +154,9 @@ object ChecklistDebugScenarios {
             "shemini_atzeret" in cal.activeSeasons && "simchat_torah" in tomorrow.activeSeasons
         }
         dayOf(yomTov, "Simchat Torah", "simchat_torah") { cal, _ ->
+            "simchat_torah" in cal.activeSeasons
+        }
+        motzei(yomTov, "Simchat Torah", "simchat_torah") { cal, _ ->
             "simchat_torah" in cal.activeSeasons
         }
 
@@ -177,6 +207,9 @@ object ChecklistDebugScenarios {
         dayOf(fasts, "Yom Kippur", "yom_kippur") { cal, _ ->
             cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR || "yom_kippur" in cal.activeSeasons
         }
+        motzei(fasts, "Yom Kippur", "yom_kippur") { cal, _ ->
+            cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR || "yom_kippur" in cal.activeSeasons
+        }
 
         val israel = "Israel (modern)"
         dayOf(israel, "Yom HaShoah", "yom_hashoah") { cal, _ -> cal.isYomHaShoah }
@@ -200,9 +233,31 @@ object ChecklistDebugScenarios {
         dayOf(seasonal, "Rosh Chodesh", "rosh_chodesh") { cal, _ ->
             cal.isRoshChodesh && cal.hebrewDay == 1
         }
-        erev(seasonal, "Chanukah", "chanukah", match = season("erev_chanukah"))
-        dayOf(seasonal, "Chanukah", "chanukah") { cal, _ ->
+        // Erev Rosh Chodesh: preview "begins tonight" + upcoming tiny-print label.
+        // We use canonical dates so these are stable regardless of the user's real today.
+        // 1 day RC: 29 Iyar → 1 Sivan
+        erev(seasonal, "Rosh Chodesh (1 day)", "rosh_chodesh") { cal, tomorrow ->
+            !cal.isRoshChodesh && tomorrow.isRoshChodesh && tomorrow.hebrewDay == 1
+        }
+        // 2 day RC: 29 Sivan → 30 Sivan + 1 Tammuz
+        erev(seasonal, "Rosh Chodesh (2 days)", "rosh_chodesh_2day") { cal, tomorrow ->
+            !cal.isRoshChodesh && tomorrow.isRoshChodesh && tomorrow.hebrewDay == 30
+        }
+        // Chanukah
+        erev(seasonal, "Chanukah (night 1 begins)", "chanukah", match = season("erev_chanukah"))
+        dayOf(seasonal, "Chanukah (night 1 / day 1)", "chanukah") { cal, _ ->
             cal.isChanukah && cal.hebrewMonth == HebrewCalendarEngine.KISLEV && cal.hebrewDay == 25
+        }
+        dayOf(seasonal, "Chanukah (during)", "chanukah_mid") { cal, _ ->
+            cal.isChanukah && cal.chanukahDay != null && cal.chanukahDay in 2..7
+        }
+        // Friday daytime during Chanukah: helpful for "light before Shabbat candles".
+        erev(seasonal, "Erev Shabbat during Chanukah", "chanukah_erev_shabbat") { cal, _ ->
+            cal.isChanukah && cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.FRIDAY
+        }
+        // Motzei Shabbat during Chanukah: helpful for "light after havdalah" customs.
+        motzei(seasonal, "Motzei Shabbat during Chanukah", "chanukah_motzei_shabbat") { cal, _ ->
+            cal.isChanukah && cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.SATURDAY
         }
         erev(seasonal, "Purim", "purim", match = season("erev_purim"))
         dayOf(seasonal, "Purim", "purim") { cal, _ ->
@@ -210,6 +265,38 @@ object ChecklistDebugScenarios {
                 (cal.hebrewMonth == HebrewCalendarEngine.ADAR ||
                     cal.hebrewMonth == HebrewCalendarEngine.ADAR_II) &&
                 cal.hebrewDay == 14
+        }
+
+        val doubt = "Purim (City of doubt)"
+        // Simulate being in a "city of doubt" (e.g. Tiberias). Some users follow regular Purim (14),
+        // others follow walled-city Purim (15) and Meshulash when it occurs.
+        dayOf(doubt, "Purim — regular (14 Adar)", "doubt_regular_purim") { cal, _ ->
+            cal.isPurim &&
+                (cal.hebrewMonth == HebrewCalendarEngine.ADAR ||
+                    cal.hebrewMonth == HebrewCalendarEngine.ADAR_II) &&
+                cal.hebrewDay == 14
+        }
+        // Walled-mode scenarios (observeWalledCityPurim = true via forDebugCalendar id prefix)
+        dayOf(doubt, "Shushan Purim (walled-mode)", "doubt_walled_shushan") { cal, _ ->
+            cal.isPurim && cal.hebrewDay == 15
+        }
+        dayOf(doubt, "Meshulash — Wed advance prep (walled-mode)", "doubt_walled_meshulash_adv") { cal, tomorrow ->
+            cal.hebrewDay == 12 &&
+                "erev_purim" in tomorrow.activeSeasons &&
+                "erev_purim" !in cal.activeSeasons
+        }
+        erev(doubt, "Meshulash — Thu erev (walled-mode)", "doubt_walled_meshulash_erev") { cal, tomorrow ->
+            "erev_purim" in cal.activeSeasons &&
+                "purim_meshulash_friday" in tomorrow.activeSeasons
+        }
+        dayOf(doubt, "Meshulash — Fri Megillah & matanot (walled-mode)", "doubt_walled_meshulash_fri") { cal, _ ->
+            "purim_meshulash_friday" in cal.activeSeasons
+        }
+        dayOf(doubt, "Meshulash — Shabbat communal (walled-mode)", "doubt_walled_meshulash_shabbat") { cal, _ ->
+            "purim_meshulash_shabbat" in cal.activeSeasons
+        }
+        dayOf(doubt, "Meshulash — Sun mishloach & seudah (walled-mode)", "doubt_walled_meshulash_sun") { cal, _ ->
+            "purim_meshulash_sunday" in cal.activeSeasons
         }
 
         val shushan = "Shushan Purim (Jerusalem)"
@@ -260,6 +347,20 @@ object ChecklistDebugScenarios {
         dayOf(seasonal, "Birkat Hachamah (day)", "birkat_hachamah") { cal, _ ->
             BirkatHachamahRules.isRecitationDay(cal.date)
         }
+    }.let { base ->
+        val twoDaysBefore = base.map { s ->
+            s.copy(
+                id = s.id + TWO_DAYS_BEFORE_SUFFIX,
+                label = "${s.label} (2 days before)",
+                // Not a real "erev/day/motzei" — it's a shifted date used for testing Upcoming labels.
+                phase = ChecklistDebugPhase.DAY_OF,
+                // Resolution is handled specially by ChecklistDebugDateFinder; this matcher is unused.
+                matcher = { _, _ -> false },
+                // Skip any erev-window checks (we are not trying to land on a halachic eve).
+                relaxErevWindowCheck = true,
+            )
+        }
+        base + twoDaysBefore
     }
 
     val groups: List<String> = all.map { it.group }.distinct()
@@ -270,31 +371,52 @@ object ChecklistDebugScenarios {
         val phase = when (scenario.phase) {
             ChecklistDebugPhase.EREV -> "Erev"
             ChecklistDebugPhase.DAY_OF -> "Day of"
+            ChecklistDebugPhase.MOTZEI -> "Motzei"
         }
         return "$phase — ${scenario.label}"
     }
 
     fun usesJerusalemCalendar(scenario: ChecklistDebugScenario): Boolean =
         scenario.group == "Shushan Purim (Jerusalem)"
+
+    fun usesPurimDoubtCityCalendar(scenario: ChecklistDebugScenario): Boolean =
+        scenario.group == "Purim (City of doubt)"
 }
 
 /** Shushan / Meshulash debug simulates walled-city calendar rules regardless of GPS city. */
 fun UserProfile.forDebugCalendar(scenario: ChecklistDebugScenario?): UserProfile {
-    if (scenario == null || !ChecklistDebugScenarios.usesJerusalemCalendar(scenario)) return this
-    return copy(
-        manualCityId = "jlm",
-        locationLabel = "Jerusalem, Israel",
-        latitude = 31.7683,
-        longitude = 35.2137,
-        timezoneId = "Asia/Jerusalem",
-        useGps = false,
-        locationSource = LocationSource.MANUAL,
-    )
+    if (scenario == null) return this
+    if (ChecklistDebugScenarios.usesJerusalemCalendar(scenario)) {
+        return copy(
+            manualCityId = "jlm",
+            locationLabel = "Jerusalem, Israel",
+            latitude = 31.7683,
+            longitude = 35.2137,
+            timezoneId = "Asia/Jerusalem",
+            useGps = false,
+            locationSource = LocationSource.MANUAL,
+        )
+    }
+    if (ChecklistDebugScenarios.usesPurimDoubtCityCalendar(scenario)) {
+        // Pick a "city of doubt" and allow toggling walled-city Purim behavior per scenario id.
+        val walled = scenario.id.startsWith("doubt_walled_")
+        return copy(
+            manualCityId = "tiberias",
+            locationLabel = "Tiberias, Israel",
+            latitude = 32.7936,
+            longitude = 35.5328,
+            timezoneId = "Asia/Jerusalem",
+            useGps = false,
+            locationSource = LocationSource.MANUAL,
+            observeWalledCityPurim = walled,
+        )
+    }
+    return this
 }
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 8
+    private const val CACHE_VERSION = 10
 
     private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
@@ -349,23 +471,48 @@ object ChecklistDebugDateFinder {
         scenario: ChecklistDebugScenario,
         timeSlot: ChecklistDebugTimeSlot,
     ): ChecklistDebugOverride? {
+        // Synthetic "2 days before" debug variants: resolve the base scenario and shift it.
+        if (scenario.id.endsWith(ChecklistDebugScenarios.TWO_DAYS_BEFORE_SUFFIX)) {
+            val baseId = scenario.id.removeSuffix(ChecklistDebugScenarios.TWO_DAYS_BEFORE_SUFFIX)
+            val baseScenario = ChecklistDebugScenarios.byId(baseId) ?: return null
+            val baseOverride = resolve(calendar, profile, baseScenario, timeSlot) ?: return null
+            val shiftedDate = baseOverride.simulatedDate.plus(-2, DateTimeUnit.DAY)
+            if (shiftedDate !in SEARCH_START..SEARCH_END) return null
+            val millis = epochMillisAt(shiftedDate, timeSlot, profile.timezoneId)
+            return ChecklistDebugOverride(
+                scenarioId = scenario.id,
+                label = ChecklistDebugScenarios.displayLabel(scenario),
+                simulatedDate = shiftedDate,
+                timeSlot = timeSlot,
+                epochMillis = millis,
+            )
+        }
+
         val anchor = calendar.dayInfoAt(
             kotlinx.datetime.Clock.System.now().toEpochMilliseconds(),
             profile,
         ).date
-        resolveBirkatHachamah(scenario, timeSlot, profile, anchor)?.let { return it }
+        resolveBirkatHachamah(calendar, scenario, timeSlot, profile, anchor)?.let { return it }
         val canonical = canonicalHebrewDateForScenario(scenario, profile)
         var best: ChecklistDebugOverride? = null
         var bestDistance = Int.MAX_VALUE
 
         for ((distance, date) in spiralDates(anchor)) {
             if (date !in SEARCH_START..SEARCH_END) continue
-            val millis = date.atLocalTime(timeSlot.hour, profile.timezoneId)
-            val cal = calendar.dayInfoAt(millis, profile)
+            val probeHour = if (scenario.phase == ChecklistDebugPhase.MOTZEI) 12 else timeSlot.hour
+            val probeMillis = date.atLocalTime(probeHour, profile.timezoneId)
+            val cal = calendar.dayInfoAt(probeMillis, profile)
             val tomorrow = calendar.dayInfoForDate(cal.date.plus(1, DateTimeUnit.DAY), profile)
             if (canonical != null && !matchesCanonicalHebrew(cal, canonical)) continue
             if (!scenario.matcher(cal, tomorrow)) continue
             if (scenario.phase == ChecklistDebugPhase.EREV && !isErevDebuggable(cal)) continue
+            val millis = epochMillisFor(
+                calendar = calendar,
+                profile = profile,
+                scenario = scenario,
+                simulatedDate = cal.date,
+                timeSlot = timeSlot,
+            )
             val override = ChecklistDebugOverride(
                 scenarioId = scenario.id,
                 label = ChecklistDebugScenarios.displayLabel(scenario),
@@ -394,6 +541,7 @@ object ChecklistDebugDateFinder {
      * search window, so jump directly to the nearest occurrence.
      */
     private fun resolveBirkatHachamah(
+        calendar: JewishCalendarService,
         scenario: ChecklistDebugScenario,
         timeSlot: ChecklistDebugTimeSlot,
         profile: UserProfile,
@@ -406,7 +554,13 @@ object ChecklistDebugDateFinder {
             else -> return null
         }
         if (simulatedDate !in SEARCH_START..SEARCH_END) return null
-        val millis = simulatedDate.atLocalTime(timeSlot.hour, profile.timezoneId)
+        val millis = epochMillisFor(
+            calendar = calendar,
+            profile = profile,
+            scenario = scenario,
+            simulatedDate = simulatedDate,
+            timeSlot = timeSlot,
+        )
         return ChecklistDebugOverride(
             scenarioId = scenario.id,
             label = ChecklistDebugScenarios.displayLabel(scenario),
@@ -415,6 +569,38 @@ object ChecklistDebugDateFinder {
             epochMillis = millis,
         )
     }
+
+    private fun epochMillisFor(
+        calendar: JewishCalendarService,
+        profile: UserProfile,
+        scenario: ChecklistDebugScenario,
+        simulatedDate: LocalDate,
+        timeSlot: ChecklistDebugTimeSlot,
+    ): Long {
+        if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
+            return motzeiEpochMillis(calendar, profile, simulatedDate, timeSlot)
+        }
+        return epochMillisAt(simulatedDate, timeSlot, profile.timezoneId)
+    }
+
+    /** ~2 hours after tzeit on the holy day — when the weekday checklist returns. */
+    private fun motzeiEpochMillis(
+        calendar: JewishCalendarService,
+        profile: UserProfile,
+        date: LocalDate,
+        fallbackTimeSlot: ChecklistDebugTimeSlot,
+    ): Long {
+        val noon = date.atLocalTime(12, profile.timezoneId)
+        val dayInfo = calendar.dayInfoAt(noon, profile)
+        val tzeit = dayInfo.zmanim?.tzeitMillis
+        return if (tzeit != null) {
+            tzeit + MOTZEI_HOURS_AFTER_TZEIT_MS
+        } else {
+            epochMillisAt(date, fallbackTimeSlot, profile.timezoneId)
+        }
+    }
+
+    private const val MOTZEI_HOURS_AFTER_TZEIT_MS = 2L * 60 * 60 * 1000
 
     /** Today first, then alternating future/past — nearest observance to real today. */
     private fun spiralDates(anchor: LocalDate): Sequence<Pair<Int, LocalDate>> = sequence {
@@ -435,18 +621,25 @@ object ChecklistDebugDateFinder {
     ): CanonicalHebrewDate? =
         when (scenario.id) {
             "pesach_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 14)
-            "pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
+            "pesach_day", "pesach_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
             "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 18)
             "shavuot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 5)
-            "shavuot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 6)
+            "shavuot_day", "shavuot_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 6)
             "rosh_hashana_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ELUL, 29)
             "rosh_hashana_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 1)
+            "rosh_hashana_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 2)
             "sukkot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 14)
-            "sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 15)
+            "sukkot_day", "sukkot_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 15)
             "shemini_atzeret_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 21)
-            "shemini_atzeret_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 22)
+            "shemini_atzeret_day", "shemini_atzeret_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 22)
             "simchat_torah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 22)
             "simchat_torah_day" -> if (profile.isInIsrael) {
+                CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 22)
+            } else {
+                CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 23)
+            }
+            "simchat_torah_motzei" -> if (profile.isInIsrael) {
                 CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 22)
             } else {
                 CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 23)
@@ -463,9 +656,15 @@ object ChecklistDebugDateFinder {
             "tisha_beav_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 8)
             "tisha_beav_day" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 9)
             "yom_kippur_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 9)
-            "yom_kippur_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 10)
+            "yom_kippur_day", "yom_kippur_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 10)
             "chanukah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 24)
             "chanukah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)
+            "chanukah_mid_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 27)
+            // Rosh Chodesh debug: force stable "erev" dates.
+            // 1-day Rosh Chodesh (month with 29 days): 29 Iyar (erev) → 1 Sivan.
+            "rosh_chodesh_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.IYAR, 29)
+            // 2-day Rosh Chodesh (month with 30 days): 29 Sivan (erev) → 30 Sivan + 1 Tammuz.
+            "rosh_chodesh_2day_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 29)
             "purim_erev" -> if (JerusalemPurimRules.isJerusalemProfile(profile)) {
                 CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 14)
             } else {
@@ -501,6 +700,14 @@ object ChecklistDebugDateFinder {
     /** Erev scenarios skip Shabbat (checklist is off). Debug preview ignores electronics-rest windows. */
     private fun isErevDebuggable(cal: DayInfo): Boolean =
         !HolyDayPhoneRules.isShabbatMelachaDay(cal)
+
+    fun overrideEpochMillis(
+        calendar: JewishCalendarService,
+        profile: UserProfile,
+        scenario: ChecklistDebugScenario,
+        simulatedDate: LocalDate,
+        timeSlot: ChecklistDebugTimeSlot,
+    ): Long = epochMillisFor(calendar, profile, scenario, simulatedDate, timeSlot)
 
     fun epochMillisAt(date: LocalDate, timeSlot: ChecklistDebugTimeSlot, timezoneId: String): Long =
         date.atLocalTime(timeSlot.hour, timezoneId)

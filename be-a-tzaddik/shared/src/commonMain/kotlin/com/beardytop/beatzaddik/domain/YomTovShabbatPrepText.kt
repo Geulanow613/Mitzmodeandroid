@@ -83,9 +83,9 @@ object YomTovShabbatPrepText {
      */
     fun shouldShowAdvancePrepDay(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): Boolean {
         if (HolyDayPhoneRules.isShabbatMelachaDay(today)) return false
-        if (isFridayBeforeShabbatErevChag(today, tomorrow)) return true
-        if (EruvTavshilinRules.isFestivalEve(today)) return false
-        return advanceBlock(today, tomorrow, profile) != null
+        // Only show an "advance" reminder when tomorrow is Shabbat + erev chag, since the app
+        // is not for use on Shabbat itself. Other eruv tavshilin reminders belong on the festival eve.
+        return isFridayBeforeShabbatErevChag(today, tomorrow)
     }
 
     fun advanceBlock(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): String? {
@@ -280,16 +280,17 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How (Peninei Halakha 12:8:2):
-• Set aside a baked food (challah or matzah) and a cooked food (meat, fish, or unpeeled hard-boiled egg are common examples).
-• Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.
-• One eruv per household is sufficient.
-• Food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).
+• Set aside two foods: a baked item (whole challah or matzah) and a cooked dish (meat, fish, or a hard-boiled egg with the shell on are common choices).
+• The cooked dish is the essential part. Having both baked and cooked is ideal; a cooked dish alone is valid. A baked item without any cooked food does not work — ask your rav if you're unsure.
+• Recite the blessing and eruv declaration from your Machzor or siddur, in any language you understand.
+• One eruv per household is enough.
+• The foods should be fit to eat with bread; keep at least a kezayit of the cooked food until your Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled spot. If those foods are eaten or thrown out before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens).
 
 Limits:
 • Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.
-• Food should be ready early enough Friday afternoon that it could theoretically be eaten before Shabbat.
-• Does not permit non-food Shabbat prep (e.g. certain laundry) — ask your rav.
+• Start early enough Friday afternoon that your food could theoretically be eaten before Shabbat begins.
+• Covers food preparation for Shabbat — not other melacha that remains forbidden on Yom Tov.
         """.trim(),
         )
     }
@@ -308,10 +309,11 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How to make eruv tavshilin (Peninei Halakha 12:8:2):
-• Foods: challah (or matzah) plus cooked food — commonly fish, meat, or an unpeeled hard-boiled egg.
+• Foods: a baked item (whole challah or matzah) plus a cooked dish — commonly fish, meat, or a hard-boiled egg with the shell on. The cooked dish is essential; both together is ideal, but cooked alone is valid. Baked alone without cooked food does not work.
 • Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv — use your siddur text.
-• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation) — use the printed wording; it permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled, visible spot before the Friday afternoon rush — they are easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
+• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation). It permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
+• Keep at least a kezayit of the cooked food until Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled, visible spot before the Friday afternoon rush — it is easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.

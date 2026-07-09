@@ -1,9 +1,8 @@
 package com.beardytop.beatzaddik.domain
 
 /**
- * Purim Meshulash (Jerusalem when Shushan Purim falls on Shabbat): mitzvot split across
- * Thursday night / Friday / Sunday, with Shabbat in between. Users need the full schedule
- * before Shabbat when the phone is off.
+ * Purim Meshulash (walled-city Purim when 15 Adar falls on Shabbat): mitzvot split across
+ * Thursday night / Friday / Sunday, with Shabbat in between.
  */
 object PurimMeshulashText {
 
@@ -25,13 +24,13 @@ object PurimMeshulashText {
     fun fullScheduleBlock(): String = FULL_SCHEDULE_BLOCK
 
     private val FULL_SCHEDULE_BLOCK = """
-Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem when Shushan Purim (15 Adar) falls on Shabbat
+Purim Meshulash (פורים מְשֻׁלָּשׁ) — Jerusalem (and certain other communities that keep walled‑city Purim) when 15 Adar falls on Shabbat
 
 Why the calendar splits:
 • Your Purim observance (walled city / Jerusalem) would normally be 15 Adar, but Purim mitzvot are not done on Shabbat.
 • The four mitzvot spread across three days: Friday, Shabbat, and Sunday.
 
-Read this entire guide before Shabbat — your phone will be off on Shabbat, so you will not see Sunday's checklist until after Havdalah.
+Read this entire guide before Shabbat so you know the full schedule in advance.
 
 Day 1 — Friday (14 Adar) — first day of Meshulash:
 • Megillah: Hear the Book of Esther Thursday night after tzeit AND again Friday morning (daytime, before sunset) — both readings are required, like a normal Purim.
@@ -46,29 +45,28 @@ Day 2 — Shabbat (15 Adar) — second day:
 • No Megillah, matanot, mishloach, or seudah at home today — communal Purim observance at shul only.
 
 Day 3 — Sunday (16 Adar) — third day:
-• Mishloach manot: Send at least two ready-to-eat foods to one friend before sunset (prepare packages before Shabbat).
-• Purim seudah: Hold the main festive Purim meal today — joy, wine, words of Torah; the widespread custom of ad delo yada (rejoicing until you cannot tell) applies responsibly and within halacha.
+• Mishloach manot: Send at least two ready-to-eat foods to one friend before sunset.
+• Purim seudah: Hold the main festive Purim meal today — joy, wine, and words of Torah. Some have the custom for men to drink wine until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
 
 Before Shabbat candles (Friday):
 • Complete Megillah (night + morning) and matanot la'evyonim on Friday.
-• Pack and label mishloach manot; plan Sunday delivery and seudah menu.
+• Plan Sunday mishloach manot delivery and the seudah menu.
 • Machatzit haShekel: if your custom, many give before Megillah — handle Thursday night or Friday.
 
 Ask your rav about edge cases (travel, illness, minhag).
     """.trimIndent()
 
     private val ADVANCE_PREP_TEMPLATE = """
-Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).
+Tomorrow is erev Purim — and this year is Purim Meshulash for Jerusalem (and those observing walled‑city Purim). Shabbat is in the middle, so you need the full plan now (not only tomorrow).
 
 ${'$'}scheduleBlock
     """.trimIndent()
 
     private val EREV_PREP_TEMPLATE = """
-Purim Meshulash starts tonight in Jerusalem. Because Shabbat falls in the middle of the festival, read and save this plan now — you will not be able to rely on the app on Shabbat for Sunday's mitzvot.
+Purim Meshulash starts tonight for Jerusalem (and those observing walled‑city Purim). Because Shabbat falls in the middle of the festival, read and save this plan now so you have Sunday's mitzvot ready before Shabbat.
 
 ${'$'}scheduleBlock
 
-Tonight (Thursday night after tzeit): first Megillah reading. Tomorrow (Friday): second Megillah reading, matanot la'evyonim — but no Al HaNissim and no Purim seudah on Friday. Mishloach manot and the seudah wait until Sunday; Shabbat is Al HaNissim and synagogue readings only.
     """.trimIndent()
 
     fun advancePrepTemplate(): String = ADVANCE_PREP_TEMPLATE
@@ -159,7 +157,7 @@ Today (Friday daytime) — not on Shabbat:
 
 You may use a trustworthy messenger or organization that distributes today. If you cannot find recipients, ask your rabbi or shul Friday morning.
 
-Do not say Al HaNissim today. Mishloach manot and the Purim seudah are Sunday — prepare packages before Shabbat.
+Do not say Al HaNissim today. Mishloach manot and the Purim seudah are Sunday.
     """.trimIndent()
 
     fun sundayMishloachExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -177,7 +175,7 @@ The mitzvah:
 • Deliver before sunset; a messenger is fine.
 • Food should be ready to eat without cooking; label sender and recipient.
 
-You should have prepared packages before Shabbat. Do not say Al HaNissim today — that was Shabbat only.
+Do not say Al HaNissim today — that was Shabbat only.
     """.trimIndent()
 
     fun sundaySeudahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -195,9 +193,9 @@ When:
 
 How:
 • Festive meal with bread, meat, wine, and joy; include words of Torah or thanks to Hashem.
-• Drinking wine is a widespread custom; the tradition of ad delo yada (rejoicing until you cannot tell Haman from Mordechai) is bounded by safety and halacha — celebrate responsibly.
+• Drinking wine is a widespread custom. Some have the custom for men to drink until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
 
-This completes the four Purim mitzvot for Purim Meshulash in Jerusalem.
+This completes the four Purim mitzvot for Purim Meshulash.
     """.trimIndent()
 
     private val SHABBAT_AL_HANISSIM_BODY = """

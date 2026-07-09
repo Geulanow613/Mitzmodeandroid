@@ -141,6 +141,48 @@ First night: Kiddush and Yom Tov meal in the sukkah. Men: leishev basukkah (sit 
             ),
         )
 
+    fun hoshanaRabbahAravotExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.sukkotBasics(),
+        """
+Hoshana Rabbah (הושענא רבה) is the 21st of Tishrei — the seventh and final day of Sukkot. It is Chol HaMoed, but the day has its own identity and heightened teshuvah: many treat it as the final sealing of the divine judgment from Yom Kippur.
+
+Morning — lulav and Hoshanot:
+• Take the arba minim as on other Chol HaMoed days (not on Shabbat).
+• In many kehillot there are extra hakafot (circuits) around the bimah with Hoshanot prayers — follow your siddur and shul.
+
+Beating the aravot (widespread custom):
+• Separate from your daily lulav set, prepare a bundle of five fresh willow branches (aravot).
+• At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), many communities beat these branches against the ground (Chagizat Aravah).
+• The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom; some traditions link this to Minhag Nevi'im (the final Prophets). Follow your siddur.
+• The beaten branches are not used for the lulav mitzvah; many discard them respectfully after the rite.
+
+Nusach notes:
+• Ashkenaz: extended Hoshanot with seven hakafot; aravot beaten on the ground after circuits.
+• Sephardi / Edot HaMizrach: Hoshanot customs vary by kehilla — follow your siddur.
+• Chabad: hakafot with Hoshanot; aravot beaten five times on the ground (not the lulav itself) — see your Chabad machzor.
+
+Confirm times with your shul — especially if Hoshana Rabbah is Erev Shabbat / Erev Shemini Atzeret.
+        """.trim(),
+    )
+
+    fun hoshanaRabbahLinks() = listOf(
+        ChecklistLink(
+            "Chabad — Hoshana Rabbah",
+            "https://www.chabad.org/library/article_cdo/aid/757453/jewish/Hoshana-Rabbah.htm",
+            "chabad",
+        ),
+        ChecklistLink(
+            "Peninei Halakha — Sukkot",
+            "https://ph.yhb.org.il/en/category/13/13-05/",
+            "default",
+        ),
+        ChecklistLink(
+            "Ohr Somayach — Sukkot",
+            "https://ohr.edu/holidays/succos/",
+            "default",
+        ),
+    )
+
     fun sheminiAtzeretExplanation(profile: UserProfile): String = BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.block(
             BeginnerHalachaGlossary.YOM_TOV,
@@ -163,7 +205,7 @@ Davening highlights:
 • Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
 • Yizkor — memorial prayer in many Ashkenaz communities.
 • Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Hallel and Musaf; Yom Tov Amidah.
 
 Simchat Torah joy:
@@ -210,7 +252,7 @@ Yom Tov:
 
 The mitzvah of the day — simcha and Torah:
 • Hakafot — circling the bimah with Torah scrolls, singing and dancing (often many circuits).
-• Synagogue note: Because drinking often occurs during daytime hakafot, many synagogues move the Priestly Blessing (Birkat Kohanim) up to the early morning Shacharit service instead of keeping it in Musaf, so Kohanim are completely sober for the blessing.
+• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Complete the last parsha of Devarim and begin Bereshit — the Torah never ends.
 • Aliyot — Kol HaNearim (all children together; an adult or bar mitzvah boy recites the blessing with them), Chatan Torah, Chatan Bereshit, and honors for members.
 • Many shuls extend Hakafot to the evening or multiple sessions.
@@ -927,17 +969,17 @@ From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days c
         EffectiveNusach.CHABAD -> threeWeeksChabadExplanation()
     }
 
-    private val NINE_DAYS_SHARED_HALACHA = """
+    private fun nineDaysSharedHalacha(nusach: EffectiveNusach) = """
 Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the final meal (seudah hamafseket) before the fast. Tallit and tefillin are worn at Shacharit on Erev Tisha B'Av — the restriction applies on Tisha B'Av day itself. At the seudah hamafseket, do not bentch with a mezuman or at a minyan meal — only the simple final meal before the fast.
 
 Tisha B'Av (9 Av) — the fast and the day:
-• Full 25-hour fast from sunset to nightfall; kinot at Shacharit without tallit and tefillin.
-• Like the day of burial, tefillin are not worn in the morning; tallit and tefillin are worn at Mincha after halachic chatzos (use your zmanim app).
+• Full 25-hour fast from sunset to nightfall; kinot at Shacharit without tallit and tefillin (Ashkenazi/Chabad omit morning tefillin; Sephardi custom varies).
+• ${TishaBeavTefillinRules.fastDayTefillinNote(nusach)}
 • Until chatzos on 9 Av: maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm).
 • After chatzos on 9 Av: the five afflictions still apply until nightfall when the fast ends — but do not greet others during the fast day (until nightfall when the fast ends).
 • Hand washing: only to remove ritual impurity (tum'a) — wash only to the knuckle where the fingers join the hand; or to remove actual dirt where it is on the hand.
 • Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
-• Do not fly on Tisha B'Av, even to Israel to make aliyah.
+• ${TishaBeavTefillinRules.FAST_DAY_TRAVEL_NOTE}
 
 When 9 Av begins on Motzei Shabbat (Saturday night fast):
 • Recite Baruch ha'mavdil when Shabbat ends; say the candle blessing after Maariv.
@@ -971,7 +1013,7 @@ From 1 Av:
 • Kiddush Levana: if you will not likely see the moon on any day from 10–14 Av, you may say kiddush levana during the Nine Days.
 • Investments & projects: do not start new projects or investments if they can be delayed without loss.
 
-""" + NINE_DAYS_SHARED_HALACHA + """
+""" + nineDaysSharedHalacha(EffectiveNusach.ASHKENAZ) + """
 
 After the fast day is over, after nightfall when the fast ends: some Nine Days restrictions begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, or when 10 Av is Friday, see the special-calendar notes above. Ask your rav before resuming.
 
@@ -993,7 +1035,7 @@ From the week in which Tisha B'Av falls (shavuah she'chal bo):
 • Fresh clothing & home projects: many avoid freshly laundered garments, renovations, painting, and major purchases during that stricter week.
 • Shehecheyanu: avoided on new items except on Shabbat — but if you do eat a new fruit, you must still say Shehecheyanu.
 
-""" + NINE_DAYS_SHARED_HALACHA + """
+""" + nineDaysSharedHalacha(EffectiveNusach.SEFARD) + """
 
 After the fast day is over, after nightfall when the fast ends: many Sephardim resume most restrictions at that point, while others continue meat, wine, laundry, and bathing for pleasure until chatzos on 10 Av — confirm your community's psak before resuming.
 """).trim()
@@ -1008,7 +1050,7 @@ From Rosh Chodesh Av:
 • Music, weddings & haircuts: Three Weeks restrictions continue in full through the Nine Days.
 • Temple focus: increase study about the Beit HaMikdash and add tzedakah, following the Rebbe's emphasis for these days.
 
-""" + NINE_DAYS_SHARED_HALACHA + """
+""" + nineDaysSharedHalacha(EffectiveNusach.CHABAD) + """
 
 After the fast day is over, after nightfall when the fast ends: follow accepted Chabad psak — Ashkenazi custom often continues meat, wine, music, laundry, and bathing for pleasure until chatzos on 10 Av (not at nightfall of 9 Av itself). Ask your rav if unsure.
 

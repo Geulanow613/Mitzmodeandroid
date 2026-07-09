@@ -12,7 +12,8 @@ import kotlinx.datetime.toLocalDateTime
 
 /**
  * Halachic-aware upcoming observance list.
- * Counting starts at alot hashachar; erev days show major night observances as "Tonight" (daysAway = 0).
+ * Counting starts at alot hashachar. Evening observances show "Tonight" from alot on the erev day;
+ * the previous night shows a weekday-evening label (e.g. "Mon evening").
  */
 internal object UpcomingHolidayPlanner {
 
@@ -22,15 +23,17 @@ internal object UpcomingHolidayPlanner {
         profile: UserProfile,
     ): List<UpcomingHoliday> {
         val nowInfo = backend.dayInfoAt(nowEpochMillis, profile)
-        val from = ZmanPeriodLogic.effectivePlanningDate(
-            nowMillis = nowEpochMillis,
-            civilDate = nowInfo.date,
-            zmanim = nowInfo.zmanim,
-        )
-
         val civilToday = Instant.fromEpochMilliseconds(nowEpochMillis)
             .toLocalDateTime(TimeZone.of(profile.timezoneId))
             .date
+        val planningToday = ZmanPeriodLogic.effectivePlanningDate(
+            nowMillis = nowEpochMillis,
+            civilDate = civilToday,
+            zmanim = nowInfo.zmanim,
+        )
+        // Days-away labels ("tomorrow", "in 2 days") are civil-midnight based.
+        // Separate logic (alot-based) is used only for when an evening observance may say "Tonight".
+        val from = civilToday
 
         var nextShabbat: UpcomingHoliday? = null
         var nextYomTov: UpcomingHoliday? = null
@@ -55,7 +58,8 @@ internal object UpcomingHolidayPlanner {
                 profile,
             )
 
-            if (nextShabbat == null && info.isErevShabbat && !nowInfo.isShabbat) {
+            val isCivilErevShabbat = d.dayOfWeek == DayOfWeek.FRIDAY
+            if (nextShabbat == null && isCivilErevShabbat && !nowInfo.isShabbat) {
                 nextShabbat = UpcomingHoliday(
                     name = "Shabbat",
                     daysAway = i,
@@ -82,6 +86,7 @@ internal object UpcomingHolidayPlanner {
                     }
                     nextYomTov = UpcomingHoliday(
                         name = name,
+                        // Yom Kippur begins the evening before (sunset), so count to the start.
                         daysAway = i,
                         hint = UpcomingHolidayNames.yomTovPrepHint(name),
                         beginsTonightWhenImminent = true,
@@ -114,21 +119,32 @@ internal object UpcomingHolidayPlanner {
                     "erev_purim" in info.activeSeasons -> {
                         val meshulashErev = isJerusalem &&
                             "purim_meshulash_friday" in tomorrow.activeSeasons
+                        val onErevFromAlot = UpcomingHolidayTiming.canShowTonightForEveningObservance(
+                            nowEpochMillis,
+                            info.date,
+                            info.zmanim,
+                            profile.timezoneId,
+                        )
+                        val rawTimingHint = if (onErevFromAlot) {
+                            UpcomingHolidayTiming.purimStartsLabel(info, profile)
+                        } else {
+                            UpcomingHolidayTiming.weekdayEveningLabel(info.date)
+                        }
                         nextPurim = UpcomingHoliday(
                             name = JerusalemPurimRules.upcomingDisplayName(
                                 isJerusalem = isJerusalem,
                                 meshulashFridayErev = meshulashErev,
                             ),
-                            daysAway = i + 1,
+                            daysAway = if (onErevFromAlot) 0 else i.coerceAtLeast(1),
                             hint = JerusalemPurimRules.upcomingHint(
                                 isJerusalem = isJerusalem,
                                 meshulashFridayErev = meshulashErev,
                             ),
-                            beginsTonightWhenImminent = false,
+                            beginsTonightWhenImminent = onErevFromAlot,
                             timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
                                 civilToday,
                                 info.date,
-                                UpcomingHolidayTiming.purimStartsLabel(info, profile),
+                                rawTimingHint,
                             ),
                         )
                     }
@@ -177,36 +193,44 @@ internal object UpcomingHolidayPlanner {
                 }
             }
 
-            if (nextRoshChodesh == null && !info.isRoshChodesh && tomorrow.isRoshChodesh && i == 0) {
-                // Erev Rosh Chodesh (from alot): observance begins tonight.
+            if (nextRoshChodesh == null && !info.isRoshChodesh && tomorrow.isRoshChodesh) {
+                // Anchor the countdown to when it STARTS (the evening before day 1).
+                val eveDate = info.date
+                val firstDay = tomorrow.date
+                val secondDay = firstDay.plus(1, DateTimeUnit.DAY)
+                val isTwoDays = backend.dayInfoAt(secondDay.toEpochMillisAtNoon(profile), profile).isRoshChodesh
+                val roshChodeshDays = if (isTwoDays) 2 else 1
+                val showFrom = UpcomingHolidayTiming.roshChodeshWhenLabelShouldStartShowing(eveDate)
+                val canSayTonight = UpcomingHolidayTiming.canShowTonightForEveningObservance(
+                    nowEpochMillis,
+                    eveDate,
+                    info.zmanim,
+                    profile.timezoneId,
+                )
                 nextRoshChodesh = UpcomingHoliday(
                     name = "Rosh Chodesh",
-                    daysAway = 0,
+                    // Count to the START evening (eve date).
+                    daysAway = daysBetween(civilToday, eveDate),
                     hint = "Yaaleh V'yavo, Hallel",
-                    beginsTonightWhenImminent = true,
-                    timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
-                        civilToday,
-                        info.date,
-                        UpcomingHolidayTiming.roshChodeshStartsLabel(info, profile),
-                    ),
+                    beginsTonightWhenImminent = canSayTonight,
+                    // Always show the weekday-evening label (it's not an exact zman).
+                    timingHint = UpcomingHolidayTiming.weekdayEveningLabel(eveDate, days = roshChodeshDays)
+                        .takeIf { civilToday >= showFrom },
                 )
-            } else if (nextRoshChodesh == null && info.isRoshChodesh && i > 0) {
-                // Count down to the next Rosh Chodesh (not the day already in progress tonight).
-                val eveDate = UpcomingHolidayTiming.eveBefore(info.date)
-                nextRoshChodesh = UpcomingHoliday(
-                    name = "Rosh Chodesh",
-                    daysAway = i,
-                    hint = "Yaaleh V'yavo, Hallel",
-                    beginsTonightWhenImminent = false,
-                    timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
-                        civilToday,
-                        eveDate,
-                        UpcomingHolidayTiming.roshChodeshStartsLabel(
-                            UpcomingHolidayTiming.dayInfoOn(backend, eveDate, profile),
-                            profile,
-                        ),
-                    ),
-                )
+            }
+
+            if (nextMinorHoliday == null) {
+                eveMinorCommemorativeHolidayOnDay(
+                    info,
+                    tomorrow,
+                    backend,
+                    profile,
+                    i,
+                    civilToday,
+                    nowEpochMillis,
+                )?.let { holiday ->
+                    nextMinorHoliday = holiday
+                }
             }
 
             if (nextMinorHoliday == null) {
@@ -216,10 +240,35 @@ internal object UpcomingHolidayPlanner {
             }
 
             if (nextMinorHoliday == null) {
-                fastHolidayOnDay(info, backend, profile, i, civilToday)?.let { holiday ->
+                fastHolidayOnDay(info, backend, profile, i, civilToday, nowEpochMillis)?.let { holiday ->
                     nextMinorHoliday = holiday
                 }
             }
+        }
+
+        // Birkat Hachamah is extremely rare (once every 28 years) and needs preparation.
+        // Show it in "Upcoming & seasonal" during the built-in advance window with exact sunrise time.
+        val birkatHachamah = run {
+            val occurrence = BirkatHachamahRules.visibleOccurrence(civilToday) ?: return@run null
+            if (BirkatHachamahRules.isRecitationDay(civilToday)) return@run null
+            val days = BirkatHachamahRules.daysUntilOccurrence(civilToday, occurrence)
+            if (days !in 1..BirkatHachamahRules.ADVANCE_DAYS) return@run null
+
+            val occInfo = backend.dayInfoAt(occurrence.toEpochMillisAtNoon(profile), profile)
+            val sunrise = occInfo.zmanim?.sunriseMillis
+            val tz = occInfo.zmanim?.timezoneId ?: profile.timezoneId
+            val timeInline = ZmanimFormatter.formatTimeInline(sunrise, tz)
+            val weekday = ZmanimFormatter.formatWeekdayShort(sunrise, tz)
+            val cluster = listOfNotNull(timeInline, weekday).joinToString(" ").ifBlank { null }
+            val rawTimingHint = if (cluster != null) "Sunrise $cluster" else "Sunrise"
+            UpcomingHoliday(
+                name = "Birkat Hachamah",
+                daysAway = days,
+                hint = "Blessing the Sun — once every 28 years",
+                beginsTonightWhenImminent = false,
+                // Always show the exact time during the 7-day advance window (unlike other holidays).
+                timingHint = rawTimingHint,
+            )
         }
 
         return listOfNotNull(
@@ -229,6 +278,7 @@ internal object UpcomingHolidayPlanner {
             nextPurim,
             nextRoshChodesh,
             nextMinorHoliday,
+            birkatHachamah,
         )
             .sortedBy { it.daysAway }
             .take(8)
@@ -314,6 +364,38 @@ internal object UpcomingHolidayPlanner {
         )
     }
 
+    private fun eveMinorCommemorativeHolidayOnDay(
+        info: DayInfo,
+        tomorrow: DayInfo,
+        backend: JewishCalendarBackend,
+        profile: UserProfile,
+        daysAway: Int,
+        civilToday: LocalDate,
+        nowMillis: Long,
+    ): UpcomingHoliday? {
+        val tomorrowIdx = yomTovIndexOnDay(tomorrow, profile) ?: return null
+        if (!TachanunRules.isEveningStartMinorHoliday(tomorrowIdx)) return null
+        val (name, hint) = minorHolidayForIndex(tomorrowIdx) ?: return null
+        val eveDate = info.date
+        val canSayTonight = UpcomingHolidayTiming.canShowTonightForEveningObservance(
+            nowMillis,
+            eveDate,
+            info.zmanim,
+            profile.timezoneId,
+        )
+        return UpcomingHoliday(
+            name = name,
+            daysAway = daysBetween(civilToday, eveDate),
+            hint = hint,
+            beginsTonightWhenImminent = canSayTonight,
+            timingHint = UpcomingHolidayTiming.timingHintIfThisWeek(
+                civilToday,
+                eveDate,
+                UpcomingHolidayTiming.weekdayEveningLabel(eveDate),
+            ),
+        )
+    }
+
     private fun erevFastHolidayOnDay(
         info: DayInfo,
         tomorrow: DayInfo,
@@ -326,6 +408,7 @@ internal object UpcomingHolidayPlanner {
             "erev_tisha_beav" in info.activeSeasons -> {
                 return UpcomingHoliday(
                     name = "Tisha B'Av",
+                    // Tisha B'Av begins at sunset, so count to the start.
                     daysAway = daysAway,
                     hint = "Fast day — mourning the Temple",
                     beginsTonightWhenImminent = true,
@@ -362,21 +445,53 @@ internal object UpcomingHolidayPlanner {
         return 1
     }
 
+    private fun daysBetween(from: LocalDate, to: LocalDate): Int {
+        if (from == to) return 0
+        var days = 0
+        var d = from
+        while (d != to && days < 400) {
+            d = d.plus(1, DateTimeUnit.DAY)
+            days++
+        }
+        return days
+    }
+
     private fun fastHolidayOnDay(
         info: DayInfo,
         backend: JewishCalendarBackend,
         profile: UserProfile,
         daysAway: Int,
         civilToday: LocalDate,
+        nowMillis: Long,
     ): UpcomingHoliday? {
         val idx = yomTovIndexOnDay(info, profile) ?: return null
         val (name, hint) = minorHolidayForIndex(idx) ?: return null
-        val timingHint = timingHintForMinorIdx(idx, info, backend, profile, civilToday)
+        val startsAtNightfall = TachanunRules.isEveningStartMinorHoliday(idx) ||
+            isIsraeliMemorialDay(idx) ||
+            (PublicFastDayRules.isPublicFast(idx) && PublicFastDayRules.fastStartsAtSunset(idx))
+        val eveDate = if (startsAtNightfall) UpcomingHolidayTiming.eveBefore(info.date) else info.date
+        val canSayTonight = startsAtNightfall &&
+            UpcomingHolidayTiming.canShowTonightForEveningObservance(
+                nowMillis,
+                eveDate,
+                info.zmanim,
+                profile.timezoneId,
+            )
+        val timingHint = when {
+            startsAtNightfall && !canSayTonight && daysAway <= 1 ->
+                UpcomingHolidayTiming.timingHintIfThisWeek(
+                    civilToday,
+                    eveDate,
+                    UpcomingHolidayTiming.weekdayEveningLabel(eveDate),
+                )
+            else -> timingHintForMinorIdx(idx, info, backend, profile, civilToday)
+        }
         return UpcomingHoliday(
             name = name,
-            daysAway = daysAway,
+            // Evening-start observances are anchored to the eve date.
+            daysAway = if (startsAtNightfall) (daysAway - 1).coerceAtLeast(0) else daysAway,
             hint = hint,
-            beginsTonightWhenImminent = false,
+            beginsTonightWhenImminent = canSayTonight,
             timingHint = timingHint,
         )
     }
@@ -401,6 +516,10 @@ internal object UpcomingHolidayPlanner {
                 val eveDate = UpcomingHolidayTiming.eveBefore(info.date)
                 val eve = UpcomingHolidayTiming.dayInfoOn(backend, eveDate, profile)
                 eveDate to UpcomingHolidayTiming.israeliMemorialStartsLabel(eve, profile)
+            }
+            TachanunRules.isEveningStartMinorHoliday(idx) -> {
+                val eveDate = UpcomingHolidayTiming.eveBefore(info.date)
+                eveDate to UpcomingHolidayTiming.weekdayEveningLabel(eveDate)
             }
             else -> return null
         }
@@ -434,7 +553,11 @@ internal object UpcomingHolidayPlanner {
         HebrewCalendarEngine.LAG_BAOMER ->
             "Lag BaOmer" to "Minor holiday — 33rd day of the Omer"
         HebrewCalendarEngine.TU_BEAV ->
-            "Tu B'Av" to "Minor holiday — celebration of joy"
+            "Tu B'Av" to "Minor holiday — day of joy and matchmaking"
+        HebrewCalendarEngine.PURIM_KATAN ->
+            "Purim Katan" to "Minor holiday — \"little Purim\" in a leap year (Tachanun omitted)"
+        HebrewCalendarEngine.SHUSHAN_PURIM_KATAN ->
+            "Shushan Purim Katan" to "Walled-city Purim Katan — Tachanun omitted"
         HebrewCalendarEngine.TISHA_BEAV ->
             "Tisha B'Av" to "Fast day — mourning the Temple"
         HebrewCalendarEngine.FAST_OF_GEDALYAH ->

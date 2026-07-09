@@ -256,6 +256,7 @@ fun ChecklistSectionHeader(title: String, modifier: Modifier = Modifier) {
 @Composable
 fun CollapsibleChecklistSectionHeader(
     title: String,
+    subtitle: String? = null,
     expanded: Boolean,
     onToggle: () -> Unit,
     itemCount: Int,
@@ -324,6 +325,15 @@ fun CollapsibleChecklistSectionHeader(
                     )
                 )
         )
+        if (!subtitle.isNullOrBlank()) {
+            Spacer(Modifier.height(4.dp))
+            AppText(
+                text = subtitle,
+                enableTerms = false,
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.NavyMid,
+            )
+        }
         if (expanded) {
             Spacer(Modifier.height(4.dp))
         }

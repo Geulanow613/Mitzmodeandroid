@@ -82,10 +82,24 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         // keeping the real clock for the active time-of-day period.
         val tzeitTonight = SharedZmanimBuilder.build(nowEpochMillis, profile)?.tzeitMillis
         if (HalachicDayRollover.hasRolledOver(nowEpochMillis, tzeitTonight)) {
+            val civilWeekdayChip = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+            val civilIsErevShabbat = date.dayOfWeek == kotlinx.datetime.DayOfWeek.FRIDAY
+            val civilIsShabbat = date.dayOfWeek == kotlinx.datetime.DayOfWeek.SATURDAY
             val rolled = dayInfoAt(noonMillis(date.plus(1, DateTimeUnit.DAY), tz), profile)
             val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, rolled.zmanim)
+            val rolledChipsWithoutCivil = rolled.statusChips.filterNot { chip ->
+                chip == "Erev Shabbat" || chip == "Shabbat" ||
+                    chip in setOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+            }
+            val civilChips = buildList {
+                add(civilWeekdayChip)
+                if (civilIsErevShabbat) add("Erev Shabbat")
+                if (civilIsShabbat) add("Shabbat")
+            }
             return rolled.copy(
+                date = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
+                statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,

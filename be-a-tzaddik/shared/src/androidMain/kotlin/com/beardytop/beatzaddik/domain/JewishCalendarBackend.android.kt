@@ -32,6 +32,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         // keeping the real clock for the active time-of-day period.
         val tzeitTonight = geo?.let { zmanimCalendar(it, now).nightfallMillis() }
         if (HalachicDayRollover.hasRolledOver(nowEpochMillis, tzeitTonight)) {
+            val civilWeekdayChip = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+            val civilIsErevShabbat = date.dayOfWeek == DayOfWeek.FRIDAY
+            val civilIsShabbat = date.dayOfWeek == DayOfWeek.SATURDAY
             val noonTomorrow = (now.clone() as Calendar).apply {
                 add(Calendar.DAY_OF_MONTH, 1)
                 set(Calendar.HOUR_OF_DAY, 12)
@@ -41,8 +44,19 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             }
             val rolled = dayInfoAt(noonTomorrow.timeInMillis, profile)
             val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, rolled.zmanim)
+            val rolledChipsWithoutCivil = rolled.statusChips.filterNot { chip ->
+                chip == "Erev Shabbat" || chip == "Shabbat" ||
+                    chip in setOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+            }
+            val civilChips = buildList {
+                add(civilWeekdayChip)
+                if (civilIsErevShabbat) add("Erev Shabbat")
+                if (civilIsShabbat) add("Shabbat")
+            }
             return rolled.copy(
+                date = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
+                statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,

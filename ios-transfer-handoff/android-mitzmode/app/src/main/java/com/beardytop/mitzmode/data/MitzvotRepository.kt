@@ -37,25 +37,20 @@ class MitzvotRepository @Inject constructor(
     // Any cached file with a lower version will be wiped and re-downloaded.
     private val REQUIRED_MIN_CLOUD_VERSION = 2
 
-    data class MitzvotList(val mitzvot: List<Mitzvah>, val version: Int = 1)
+    data class MitzvotList(val mitzvot: List<Mitzvah> = emptyList(), val version: Int = 1)
 
     // ---- Public API ----
 
     suspend fun getRandomMitzvah(): Mitzvah = withContext(Dispatchers.IO) {
         mutex.withLock {
-            if (mitzvot == null) {
-                buildCacheFirstList()
-            }
+            ensurePoolLoadedLocked()
             nextShuffledMitzvahLocked()
         }
     }
 
     suspend fun preloadMitzvot() = withContext(Dispatchers.IO) {
         mutex.withLock {
-            if (mitzvot == null) {
-                Log.d("MitzvotRepository", "Preloading mitzvot")
-                mitzvot = buildCacheFirstList()
-            }
+            ensurePoolLoadedLocked()
         }
     }
 
@@ -64,17 +59,23 @@ class MitzvotRepository @Inject constructor(
             Log.d("MitzvotRepository", "Force-refreshing mitzvot (ignoring ETag)")
             try {
                 val loader = MitzvotLoader(context)
-                val local = loader.loadLocalMitzvot()
+                val local = sanitizeMitzvot(loader.loadLocalMitzvot())
                 if (loader.isNetworkAvailable()) {
                     // Pass null to skip ETag — always re-download
                     val result = loader.loadCloudMitzvotConditional(null)
                     if (result.wasModified && result.mitzvot.isNotEmpty()) {
-                        saveCloudCache(result.mitzvot, result.etag, result.version)
+                        saveCloudCache(sanitizeMitzvot(result.mitzvot), result.etag, result.version)
                     }
                 }
-                mitzvot = (local + readCloudCache()).distinctBy { it.id }
-                resetShuffleQueue(mitzvot!!)
-                Log.d("MitzvotRepository", "Refreshed: ${mitzvot!!.size} mitzvot")
+                val combined = (local + sanitizeMitzvot(readCloudCache())).distinctBy { it.id }
+                if (combined.isNotEmpty()) {
+                    mitzvot = combined
+                    resetShuffleQueue(combined)
+                    Log.d("MitzvotRepository", "Refreshed: ${combined.size} mitzvot")
+                } else {
+                    Log.e("MitzvotRepository", "Force refresh produced empty pool; keeping previous list")
+                    ensurePoolLoadedLocked()
+                }
             } catch (e: Exception) {
                 Log.e("MitzvotRepository", "Error during force refresh: ${e.message}", e)
             }
@@ -90,13 +91,27 @@ class MitzvotRepository @Inject constructor(
      */
     suspend fun getRandomMitzvahIfAvailable(): Mitzvah? = withContext(Dispatchers.IO) {
         mutex.withLock {
-            val pool = mitzvot ?: return@withLock null
-            if (pool.isEmpty()) return@withLock null
+            val pool = mitzvot
+            if (pool.isNullOrEmpty()) return@withLock null
             nextShuffledMitzvahLocked()
         }
     }
 
     // ---- Core loading logic ----
+
+    /**
+     * Ensures [mitzvot] is a non-empty in-memory list.
+     * Reloads when null OR empty (empty used to crash because only null was treated as unloaded).
+     */
+    private fun ensurePoolLoadedLocked() {
+        if (!mitzvot.isNullOrEmpty()) return
+        val loaded = buildCacheFirstList()
+        if (loaded.isNotEmpty()) return
+        Log.e("MitzvotRepository", "Cache-first load returned empty; installing emergency fallback")
+        val fallback = listOf(emergencyFallbackMitzvah())
+        mitzvot = fallback
+        resetShuffleQueue(fallback)
+    }
 
     /**
      * Cache-first strategy:
@@ -108,15 +123,29 @@ class MitzvotRepository @Inject constructor(
     private fun buildCacheFirstList(): List<Mitzvah> {
         val loader = MitzvotLoader(context)
 
-        val local = loader.loadLocalMitzvot()
-        val cachedCloud = readCloudCache()
+        val local = sanitizeMitzvot(loader.loadLocalMitzvot())
+        val cachedCloud = sanitizeMitzvot(readCloudCache())
         val combined = (local + cachedCloud).distinctBy { it.id }
 
-        Log.d("MitzvotRepository",
+        Log.d(
+            "MitzvotRepository",
             "Cache-first: ${combined.size} mitzvot ready " +
-            "(local=${local.size}, cloud=${cachedCloud.size})")
+                "(local=${local.size}, cloud=${cachedCloud.size})",
+        )
 
-        // Set the in-memory list immediately so the app can start
+        // Keep previous non-empty pool if this load somehow came up empty
+        // (e.g. asset open race / transient parse failure).
+        if (combined.isEmpty()) {
+            val previous = mitzvot
+            if (!previous.isNullOrEmpty()) {
+                Log.w("MitzvotRepository", "Load empty; retaining previous pool size=${previous.size}")
+                return previous
+            }
+            mitzvot = emptyList()
+            resetShuffleQueue(emptyList())
+            return emptyList()
+        }
+
         mitzvot = combined
         resetShuffleQueue(combined)
 
@@ -145,15 +174,28 @@ class MitzvotRepository @Inject constructor(
                 return
             }
 
-            Log.d("MitzvotRepository", "Background check: cloud updated to ${result.mitzvot.size} entries (v${result.version})")
-            saveCloudCache(result.mitzvot, result.etag, result.version)
+            Log.d(
+                "MitzvotRepository",
+                "Background check: cloud updated to ${result.mitzvot.size} entries (v${result.version})",
+            )
+            val cloud = sanitizeMitzvot(result.mitzvot)
+            if (cloud.isEmpty()) {
+                Log.w("MitzvotRepository", "Background check: cloud payload sanitized to empty; skipped")
+                return
+            }
+            saveCloudCache(cloud, result.etag, result.version)
 
             // Merge new cloud into in-memory list under mutex
             mutex.withLock {
-                val local = loader.loadLocalMitzvot()
-                mitzvot = (local + result.mitzvot).distinctBy { it.id }
-                resetShuffleQueue(mitzvot!!)
-                Log.d("MitzvotRepository", "In-memory list silently refreshed: ${mitzvot!!.size} mitzvot")
+                val local = sanitizeMitzvot(loader.loadLocalMitzvot())
+                val combined = (local + cloud).distinctBy { it.id }
+                if (combined.isEmpty()) {
+                    Log.w("MitzvotRepository", "Background refresh would empty pool; skipped")
+                    return@withLock
+                }
+                mitzvot = combined
+                resetShuffleQueue(combined)
+                Log.d("MitzvotRepository", "In-memory list silently refreshed: ${combined.size} mitzvot")
             }
         } catch (e: Exception) {
             Log.w("MitzvotRepository", "Background ETag check failed: ${e.message}")
@@ -171,15 +213,19 @@ class MitzvotRepository @Inject constructor(
         if (cloudCacheFile.exists()) {
             return try {
                 val cached = Gson().fromJson(cloudCacheFile.readText(), MitzvotList::class.java)
+                    ?: return emptyList()
                 if (cached.version < REQUIRED_MIN_CLOUD_VERSION) {
-                    Log.d("MitzvotRepository",
-                        "Cloud cache version ${cached.version} < required $REQUIRED_MIN_CLOUD_VERSION — invalidating")
+                    Log.d(
+                        "MitzvotRepository",
+                        "Cloud cache version ${cached.version} < required $REQUIRED_MIN_CLOUD_VERSION — invalidating",
+                    )
                     cloudCacheFile.delete()
                     prefs.edit().remove(PREF_CLOUD_ETAG).remove(PREF_CLOUD_VERSION).apply()
                     return emptyList()
                 }
-                Log.d("MitzvotRepository", "Cloud cache file: ${cached.mitzvot.size} entries (v${cached.version})")
-                cached.mitzvot
+                val list = cached.mitzvot
+                Log.d("MitzvotRepository", "Cloud cache file: ${list.size} entries (v${cached.version})")
+                list
             } catch (e: Exception) {
                 Log.e("MitzvotRepository", "Failed to read cloud cache file: ${e.message}", e)
                 cloudCacheFile.delete() // corrupt — remove so we re-download
@@ -190,8 +236,8 @@ class MitzvotRepository @Inject constructor(
         // Migration: extract cloud IDs from old SharedPreferences combined cache
         val oldJson = prefs.getString("cached_mitzvot", null) ?: return emptyList()
         return try {
-            val all = Gson().fromJson(oldJson, MitzvotList::class.java).mitzvot
-            val cloudOnly = all.filter { it.id.startsWith("cloud") }
+            val parsed = Gson().fromJson(oldJson, MitzvotList::class.java) ?: return emptyList()
+            val cloudOnly = parsed.mitzvot.filter { it.id.startsWith("cloud") }
             if (cloudOnly.isNotEmpty()) {
                 Log.d("MitzvotRepository", "Migrating ${cloudOnly.size} cloud entries from old prefs cache")
                 saveCloudCache(cloudOnly, null)
@@ -240,15 +286,47 @@ class MitzvotRepository @Inject constructor(
         shuffleDeck[swapIdx] = tmp
     }
 
-    /** Call only while holding [mutex]. */
+    /** Call only while holding [mutex]. Never throws for empty pool. */
     private fun nextShuffledMitzvahLocked(): Mitzvah {
-        val pool = mitzvot!!
-        check(pool.isNotEmpty()) { "nextShuffledMitzvahLocked with empty pool" }
+        ensurePoolLoadedLocked()
+        val pool = mitzvot
+        if (pool.isNullOrEmpty()) {
+            // Should be unreachable after ensurePoolLoadedLocked(); keep a hard safety net.
+            return emergencyFallbackMitzvah()
+        }
         if (shuffleDeck.isEmpty() || shuffleIndex >= shuffleDeck.size) {
             resetShuffleQueue(pool)
+        }
+        if (shuffleDeck.isEmpty() || shuffleIndex >= shuffleDeck.size) {
+            return pool.random()
         }
         val m = shuffleDeck[shuffleIndex++]
         lastIssuedId = m.id
         return m
     }
+
+    private fun emergencyFallbackMitzvah(): Mitzvah =
+        Mitzvah(
+            id = "emergency_fallback",
+            text = "Say Modeh Ani / thank G-d for this moment. Even when the list takes a second to load, gratitude always works!",
+            links = emptyList(),
+        )
+
+    /** Drop Gson-null / blank entries so UI composition never trips on null fields. */
+    @Suppress("UNNECESSARY_SAFE_CALL", "USELESS_ELVIS")
+    private fun sanitizeMitzvot(raw: List<Mitzvah>): List<Mitzvah> =
+        raw.mapNotNull { m ->
+            // Gson may still produce nulls into non-null Kotlin fields via reflection.
+            val id = (m.id as String?)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+            val text = (m.text as String?)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+            val links = (m.links as List<MitzvahLink>?)
+                .orEmpty()
+                .mapNotNull { link ->
+                    val display = (link.displayText as String?)?.takeIf { it.isNotBlank() }
+                        ?: return@mapNotNull null
+                    val url = (link.url as String?)?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+                    MitzvahLink(displayText = display, url = url)
+                }
+            Mitzvah(id = id, text = text, links = links)
+        }
 }

@@ -103,12 +103,27 @@ data class UserProfile(
     val elevationMeters: Double? = null,
     val useGps: Boolean = false,
     val manualCityId: String? = null,
+    /**
+     * Purim in walled / doubtful cities:
+     * - Jerusalem is universally treated as walled (15 Adar / Meshulash).
+     * - Some Israeli cities have disputed status; users there may choose to observe walled-city Purim.
+     */
+    val observeWalledCityPurim: Boolean = false,
     val textScale: Float = 1f,
     val meatAfterDairyHours: Int? = null,
     val dairyAfterMeatHours: Int? = null,
     val tzaddikShownDate: String? = null,
     /** Explicit "I live in Israel" toggle, used as a fallback when location is unavailable. */
-    val liveInIsrael: Boolean = false
+    val liveInIsrael: Boolean = false,
+
+    /** UI preference: collapse the permanent ongoing section until user expands it. */
+    val permanentOngoingCollapsed: Boolean = false,
+    /**
+     * UI preference: collapse the daily ongoing section (resets each new day so users see it again).
+     * [dailyOngoingCollapsedDate] stores the civil date key when the collapse was last set.
+     */
+    val dailyOngoingCollapsed: Boolean = false,
+    val dailyOngoingCollapsedDate: String? = null,
 ) {
     fun effectiveNusach(): EffectiveNusach = nusachSelection.toEffective()
 
@@ -212,7 +227,12 @@ data class ChecklistItemDef(
      * Checked state is stored with the upcoming Saturday's date as the key so it resets
      * each week on Motzei Shabbat (when the next parsha week begins).
      */
-    val weeklyMitzvah: Boolean = false
+    val weeklyMitzvah: Boolean = false,
+    /**
+     * True when a "daily" checklist item should reset at nightfall (tzeit), not at civil midnight.
+     * Checked state is keyed by [TzeitDay.currentKey].
+     */
+    val tzeitMitzvah: Boolean = false,
 )
 
 @Serializable
@@ -305,7 +325,7 @@ data class UpcomingHoliday(
     val name: String,
     val daysAway: Int,
     val hint: String = "",
-    /** When [daysAway] is 0: true → label "Tonight" (begins at sunset); false → "today". */
+    /** When [daysAway] is 0: true → label "Tonight" (from alot on the erev day); false → "today". */
     val beginsTonightWhenImminent: Boolean = true,
     /** When set, Today screen uses this instead of [daysAway] / [beginsTonightWhenImminent]. */
     val whenLabelOverride: String? = null,

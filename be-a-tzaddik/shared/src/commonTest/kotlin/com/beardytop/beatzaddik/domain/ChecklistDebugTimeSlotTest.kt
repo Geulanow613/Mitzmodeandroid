@@ -27,4 +27,12 @@ class ChecklistDebugTimeSlotTest {
         assertTrue(afternoon > morning)
         assertTrue(night > afternoon)
     }
+
+    @Test
+    fun motzeiPhaseDisplayLabel() {
+        val scenario = ChecklistDebugScenarios.byId("yom_kippur_motzei")
+        requireNotNull(scenario)
+        assertEquals(ChecklistDebugPhase.MOTZEI, scenario.phase)
+        assertEquals("Motzei — Yom Kippur", ChecklistDebugScenarios.displayLabel(scenario))
+    }
 }

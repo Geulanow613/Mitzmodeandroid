@@ -2199,7 +2199,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
 
 Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.
 
 ### Yom Yerushalayim
 
@@ -2778,7 +2778,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
 
 Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.
 
 ### Yom Yerushalayim
 
@@ -3304,7 +3304,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 *Section: Seasonal* · ID: `yom_haatzmaut`
 
 
-Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948. It is not a Biblical or Rabbinic Yom Tov — melacha (work) is fully permitted.
+Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948.
 
 Customs vary significantly by community:
 
@@ -3328,15 +3328,13 @@ Ask your rav which custom your community follows.
 
 Yom HaShoah V'HaGevurah (27 Nisan) is the national day of remembrance for the six million Jews murdered in the Holocaust. It was established by the Israeli Knesset in 1953.
 
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance, not a halachically mandated fast or prayer day.
-
 Date adjustment: If 27 Nisan falls on Friday, the day is observed on Thursday (26 Nisan). If it falls on Sunday, it is observed on Monday (28 Nisan), to avoid disruption of Shabbat.
 
 Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -3349,11 +3347,6 @@ Chabad: No official communal observance is instituted, though the memory of the 
 
 
 Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of the Israel Defense Forces and victims of terrorism who gave their lives for the State of Israel. It was established by the Knesset in 1963 and always falls the day before Yom Ha'atzmaut.
-
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance.
-
-Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to keep Yom HaZikaron and Yom Ha'atzmaut together on consecutive days and not adjacent to Shabbat.
-
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
 Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
@@ -3368,7 +3361,7 @@ The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations.
 *Section: Seasonal* · ID: `yom_yerushalayim`
 
 
-Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727). It is not a Yom Tov — melacha is fully permitted.
+Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727).
 
 Customs vary by community:
 

@@ -20,7 +20,7 @@ object PublicFastDayText {
     private const val TENTH_OF_TEVES_FRIDAY_NOTE =
         "\n\n10 Tevet on Friday: This is the only public fast that is never postponed. If it falls on Friday, you still fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
     private const val FAST_OF_ESTHER_FRIDAY_NOTE =
-        "\n\nFast of Esther on Friday: Many communities still fast until shortly before Shabbat; break in time for Shabbat preparations — ask your rav for local practice."
+        "\n\nFast of Esther note: Under the fixed Hebrew calendar, Taanit Esther does not occur on Friday. When 13 Adar is Shabbat, the fast is moved back to Thursday (Shulchan Arukh O.C. 686)."
     private const val SHABBAT_EREV_TISHA_BEAV_NOTE = """
 
 Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):

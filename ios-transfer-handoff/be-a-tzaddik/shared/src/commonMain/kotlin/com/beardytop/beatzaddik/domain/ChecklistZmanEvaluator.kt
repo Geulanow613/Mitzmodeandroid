@@ -42,6 +42,7 @@ object ChecklistZmanEvaluator {
         "birkat_hailanot",
         "melave_malkah",
         "public_fast_day",
+        "tefillin_tisha_beav_mincha",
         "motzei_yom_kippur_meal",
         "purim_meshulash_erev_megillah",
         "purim_meshulash_friday_megillah",
@@ -82,7 +83,7 @@ object ChecklistZmanEvaluator {
             )
             "sefard_korbanot_before_mincha",
             "edot_hamizrach_korbanot_before_mincha" -> minchaWindow(
-                nowMillis, z, tz, label = "Korbanot before Mincha"
+                nowMillis, z, tz, label = "Korbanot before Mincha", prayerDay = prayerDay,
             )
             "minimum_pesukei_d_zimra" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "Pesukei DeZimra"
@@ -99,12 +100,39 @@ object ChecklistZmanEvaluator {
                         hint = "Tefillin are not worn on Shabbat or Festivals."
                     )
                 }
-                tefillinWindow(nowMillis, z, tz)
+                if (TefillinSeasonalRules.shouldOmitTefillinOnCholHamoed(prayerDay)) {
+                    return ItemZmanStatus(
+                        availability = ItemZmanAvailability.EXPIRED,
+                        hint = TefillinSeasonalRules.cholHamoedOmittedHint(),
+                    )
+                }
+                if (TishaBeavTefillinRules.isTishaBeav(prayerDay.fastDayIndex) &&
+                    TishaBeavTefillinRules.omitsMorningTefillin(prayerDay.nusach)
+                ) {
+                    return ItemZmanStatus(
+                        availability = ItemZmanAvailability.EXPIRED,
+                        hint = TishaBeavTefillinRules.morningOmittedHint(),
+                    )
+                }
+                val base = tefillinWindow(nowMillis, z, tz)
+                when {
+                    prayerDay.isCholHamoed &&
+                        prayerDay.nusach == EffectiveNusach.ASHKENAZ &&
+                        !prayerDay.isInIsrael &&
+                        base.availability == ItemZmanAvailability.ACTIVE ->
+                        base.copy(hint = TefillinSeasonalRules.cholHamoedAshkenazActiveHint())
+                    TishaBeavTefillinRules.isTishaBeav(prayerDay.fastDayIndex) &&
+                        !TishaBeavTefillinRules.omitsMorningTefillin(prayerDay.nusach) &&
+                        base.availability == ItemZmanAvailability.ACTIVE ->
+                        base.copy(hint = TishaBeavTefillinRules.sephardiMorningHint())
+                    else -> base
+                }
             }
+            "tefillin_tisha_beav_mincha" -> tefillinTishaBeavMinchaWindow(nowMillis, z, tz)
             "musaf_only_on_rosh_chodesh_festivals_and_shabbat" ->
                 musafWindow(nowMillis, z, tz, prayerDay)
-            "ashkenaz_musaf_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Tachanun at Mincha")
-            "mincha_shemoneh_esrei_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Mincha")
+            "ashkenaz_musaf_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Tachanun at Mincha", prayerDay = prayerDay)
+            "mincha_shemoneh_esrei_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Mincha", prayerDay = prayerDay)
             "evening_shema_with_its_blessings" -> eveningShemaWindow(nowMillis, z, tz)
             "maariv_shemoneh_esrei" -> maarivWindow(nowMillis, z, tz, prayerDay)
             "rosh_chodesh_half_hallel",
@@ -112,7 +140,7 @@ object ChecklistZmanEvaluator {
                 nowMillis, z, tz, label = "Hallel at Shacharit",
             )
             "yaaleh_vyavo_rosh_chodesh_shacharit" -> yaalehVyavoShacharitWindow(nowMillis, z, tz)
-            "yaaleh_vyavo_rosh_chodesh_mincha" -> yaalehVyavoMinchaWindow(nowMillis, z, tz)
+            "yaaleh_vyavo_rosh_chodesh_mincha" -> yaalehVyavoMinchaWindow(nowMillis, z, tz, prayerDay)
             "yaaleh_vyavo_rosh_chodesh" -> yaalehVyavoMaarivWindow(nowMillis, z, tz)
             "rosh_chodesh_observances" -> roshChodeshObservancesWindow(nowMillis, z, tz)
             "bedtime_shema_first_paragraph_though_recommended_to_say_enti",
@@ -194,7 +222,7 @@ object ChecklistZmanEvaluator {
                 "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"),
             ),
             expired = "The morning Shacharit window has closed (past halachic midday / chatzos).",
-            makeup = "If you missed Shacharit today, at Mincha pray two Amidot — Mincha first, then tashlumin for Shacharit.",
+            makeup = null,
             availableAtLabel = "dawn",
             activeHintTemplate = lateTemplate,
             activeHintArgs = lateArgs,
@@ -279,7 +307,7 @@ object ChecklistZmanEvaluator {
             upcomingTemplate = upcomingTemplate,
             upcomingArgs = upcomingArgs,
             expired = "Shacharit window closed at halachic midday (chatzos).",
-            makeup = "Missed Shacharit? At Mincha, pray two Amidot — first for Mincha itself, then second as tashlumin for the missed Shacharit.",
+            makeup = null,
             availableAtLabel = "dawn",
             activeHintTemplate = lateTemplate,
             activeHintArgs = lateArgs,
@@ -355,16 +383,48 @@ object ChecklistZmanEvaluator {
             expired = "Musaf window has closed (sunset).$shabbatNote",
             expiredTemplate = "Musaf window has closed (sunset).{shabbatNote}",
             expiredArgs = mapOf("shabbatNote" to shabbatNote),
-            makeup = "If you missed Musaf entirely, there is no makeup (tashlumin) for it (SA OC 286:1).",
+            makeup = null,
             availableAtLabel = "sunrise",
             activeHintTemplate = lateHintTemplate,
             activeHintArgs = lateHintArgs,
         )
     }
 
-    private fun minchaWindow(now: Long, z: ZmanimSnapshot, tz: String, label: String): ItemZmanStatus {
-        val start = z.minchaGedolaMillis ?: z.chatzosMillis?.let { it + 30 * 60 * 1000L }
+    private fun tefillinTishaBeavMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
+        val start = z.chatzosMillis ?: z.minchaGedolaMillis
         val end = z.tzeitMillis ?: z.sunsetMillis ?: z.plagHaminchaMillis
+        return windowStatus(
+            now, start, end,
+            upcoming = "Tisha B'Av: tallit and tefillin at Mincha after halachic chatzos (midday).",
+            upcomingTemplate = TishaBeavTefillinRules.minchaUpcomingHint("{time}"),
+            upcomingArgs = mapOf(
+                "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after chatzos (midday)"),
+            ),
+            expired = TishaBeavTefillinRules.minchaExpiredHint(),
+            makeup = null,
+            availableAtLabel = "chatzos",
+        )
+    }
+
+    private fun minchaWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        label: String,
+        prayerDay: PrayerDayContext,
+    ): ItemZmanStatus {
+        val nusach = prayerDay.nusach
+        val start = z.minchaGedolaMillis ?: z.chatzosMillis?.let { it + 30 * 60 * 1000L }
+        val end = PrayerZmanRules.minchaAbsoluteEndMillis(z, nusach)
+            ?: z.tzeitMillis
+            ?: z.sunsetMillis
+            ?: z.plagHaminchaMillis
+        val sunset = z.sunsetMillis
+        val lateHint = if (sunset != null && now >= sunset && end != null && now < end) {
+            PrayerZmanRules.minchaActiveLateHint(nusach)
+        } else {
+            null
+        }
         return windowStatus(
             now, start, end,
             upcoming = "$label appears about 30 min after chatzos (midday) — Mincha Gedolah.",
@@ -373,14 +433,15 @@ object ChecklistZmanEvaluator {
                 "label" to label,
                 "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "about 30 min after chatzos (midday)"),
             ),
-            expired = "Today's $label window ended at nightfall.",
+            expired = PrayerZmanRules.minchaExpiredMessage(nusach),
             expiredTemplate = "Today's {label} window ended {time}.",
             expiredArgs = mapOf(
                 "label" to label,
                 "time" to (ZmanimFormatter.formatUntil(end, tz) ?: "at nightfall"),
             ),
-            makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha. You may make up only the service immediately before Maariv (Mincha) — not an earlier missed service such as Shacharit, which can only be made up at Mincha.",
-            availableAtLabel = "Mincha Gedola"
+            makeup = null,
+            availableAtLabel = "Mincha Gedola",
+            activeHint = lateHint,
         )
     }
 
@@ -413,8 +474,8 @@ object ChecklistZmanEvaluator {
             makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; after concluding Retzei — return to beginning of Retzei; after Yihiyu L'ratzon — repeat only Shacharit Amidah (SA O.C. 422:1).",
         )
 
-    private fun yaalehVyavoMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus =
-        minchaWindow(now, z, tz, label = "Yaaleh V'yavo at Mincha").copy(
+    private fun yaalehVyavoMinchaWindow(now: Long, z: ZmanimSnapshot, tz: String, prayerDay: PrayerDayContext): ItemZmanStatus =
+        minchaWindow(now, z, tz, label = "Yaaleh V'yavo at Mincha", prayerDay = prayerDay).copy(
             makeupNote = "Forgot Yaaleh V'yavo? In Retzei — insert there; after concluding Retzei — return to beginning of Retzei; after Yihiyu L'ratzon — repeat only Mincha Amidah (SA O.C. 422:1).",
         )
 
@@ -450,27 +511,42 @@ object ChecklistZmanEvaluator {
         MaarivInAppRules.blockedMaarivStatusIfApplicable(prayerDay, now, z, tz)?.let { return it }
         val start = ZmanPeriodLogic.effectiveEveningStart(now, z)
         val end = ZmanPeriodLogic.effectiveEveningEnd(now, z)
-        val tzeitNote = z.tzeitMillis?.let { tzeit ->
-            if (now >= tzeit) return@let ""
-            " Many daven Maariv ideally ${ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"} — ask your rabbi."
-        }.orEmpty()
+        val plagTime = z.plagHaminchaMillis?.let { plag ->
+            ZmanimFormatter.formatAfter(plag, tz)
+        }
         val tzeitTime = z.tzeitMillis?.let { tzeit ->
             if (now >= tzeit) null else ZmanimFormatter.formatAfter(tzeit, tz) ?: "after nightfall (tzeit)"
         }
         val startTime = ZmanimFormatter.formatAfter(start, tz) ?: "after sunset"
-        val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
-            "Maariv — available {time}. Many daven Maariv ideally {tzeitTime} — ask your rabbi." to
-                mapOf("time" to startTime, "tzeitTime" to tzeitTime)
+        val shemaRepeatNote = if (tzeitTime != null) {
+            " If Maariv is before nightfall, repeat Shema (without blessings) at tzeit."
         } else {
-            "Maariv — available {time}." to mapOf("time" to startTime)
+            ""
+        }
+        val plagNote = if (plagTime != null) {
+            " In time of need, some minyanim daven between plag haMincha and sunset — see explainer for tarti d'satri rules."
+        } else {
+            ""
+        }
+        val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
+            "Maariv — earliest {time} (sunset). Ideal for many: {tzeitTime}.{plagNote}{shemaNote}" to
+                mapOf(
+                    "time" to startTime,
+                    "tzeitTime" to tzeitTime,
+                    "plagNote" to plagNote,
+                    "shemaNote" to shemaRepeatNote,
+                )
+        } else {
+            "Maariv — available from {time} (sunset).{plagNote}" to
+                mapOf("time" to startTime, "plagNote" to plagNote)
         }
         return windowStatus(
             now, start, end,
-            upcoming = "Maariv — available $startTime.$tzeitNote",
+            upcoming = "Maariv — earliest $startTime (sunset).$plagNote$shemaRepeatNote",
             upcomingTemplate = upcomingTemplate,
             upcomingArgs = upcomingArgs,
             expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
-            makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha only. Shacharit cannot be made up at Maariv — its makeup was only at Mincha.",
+            makeup = null,
             availableAtLabel = "sunset"
         )
     }

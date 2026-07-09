@@ -24,7 +24,7 @@ Learn about the Korban Tamid — the daily offering that doesn't skip a beat whe
 ---STRING---
 Learn about the mezuzah — and the surprising halachic criteria that determine which doorways actually require one! 🚪 The Torah says 'write them on the doorposts of your house and your gates' (Deuteronomy 6:9). But not every doorway qualifies. The Rambam lists the conditions: the space must have a minimum area (4 by 4 cubits), a roof or ceiling, two proper doorposts, a lintel connecting them, and be used for regular living purposes. This means: a walk-in closet might require a mezuzah; a bathroom doesn't (due to dignity); a garage door might. PLACEMENT: on the RIGHT side as you enter, in the upper third of the doorpost, angled so the top points inward. Ashkenazim angle it at 45 degrees (compromise between the Rambam who says vertical and Rashi who says horizontal). Sephardim place it vertically. HEIGHT: must be in the top third of the height of the doorpost, or typically around an adult's shoulder height. The parchment inside must be written by a qualified sofer (scribe) — a printed mezuzah scroll is invalid. The mezuzah provides Divine protection for whoever has them on the required doorways in their house, even when they're not in the house!
 ---STRING---
-Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948. It is not a Biblical or Rabbinic Yom Tov — melacha (work) is fully permitted.
+Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948.
 
 Customs vary significantly by community:
 
@@ -293,11 +293,6 @@ Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.
 ---STRING---
 Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of the Israel Defense Forces and victims of terrorism who gave their lives for the State of Israel. It was established by the Knesset in 1963 and always falls the day before Yom Ha'atzmaut.
-
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance.
-
-Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to keep Yom HaZikaron and Yom Ha'atzmaut together on consecutive days and not adjacent to Shabbat.
-
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
 Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.

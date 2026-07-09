@@ -68,7 +68,11 @@ object ErevPesachPrepText {
             if (nissanDay == taanitNissanDay(dow)) {
                 add(taanitItem(cal, profile))
             }
-            if (nissanDay == 14 || (nissanDay == 13 && dow == PesachErevDow.SHABBAT)) {
+            // The general "Erev Pesach prep — Yom Tov & seder" item (from the erev-chag system)
+            // covers seder/Yom Tov setup on the normal erev Pesach day.
+            // Keep this dedicated seder-prep row only for the special Shabbat-intersection schedule,
+            // where seder prep timing shifts and the erev-chag row is hidden on Shabbat itself.
+            if (nissanDay == 13 && dow == PesachErevDow.SHABBAT) {
                 add(sederPrepItem(cal, profile))
             }
         }

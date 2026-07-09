@@ -1,4 +1,4 @@
-package com.beardytop.beatzaddik.ui.components
+﻿package com.beardytop.beatzaddik.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically

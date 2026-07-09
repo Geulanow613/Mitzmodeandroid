@@ -79,6 +79,9 @@ object SeasonalChecklistItems {
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) {
             addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile))
         }
+        if (EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)) {
+            add(eruvTavshilinItem(cal, profile, tomorrowCal))
+        }
         festivalWeekPrepItem(cal, profile)?.let { add(it) }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             addAll(cholHamoedItems(cal, profile))
@@ -118,6 +121,11 @@ object SeasonalChecklistItems {
             add(publicFastDayItem(cal, profile))
             if (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR) {
                 add(motzeiYomKippurMealItem(cal, profile))
+            }
+            if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
+                TishaBeavTefillinRules.omitsMorningTefillin(profile.effectiveNusach())
+            ) {
+                add(tefillinTishaBeavMinchaItem())
             }
         }
     }
@@ -334,6 +342,25 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         )
     }
 
+    private fun eruvTavshilinItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
+        val chagName = EruvTavshilinRules.chagName(cal)
+        return ChecklistItemDef(
+            id = "eruv_tavshilin",
+            title = "Eruv tavshilin — cook on Yom Tov for Shabbat",
+            section = EruvTavshilinRules.checklistSection(cal),
+            sortOrder = 25,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            situational = false,
+            seasons = listOfNotNull(
+                "erev_chag".takeIf { it in cal.activeSeasons },
+                "erev_pesach".takeIf { it in cal.activeSeasons },
+            ),
+            explanation = YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrowCal),
+            links = YomTovShabbatPrepText.links(cal, profile, chagName),
+        )
+    }
+
     private fun erevChagPrepItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
         val prep = ErevChagPrepText.build(cal, profile, tomorrowCal)
         return ChecklistItemDef(
@@ -424,10 +451,17 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         val list = mutableListOf<ChecklistItemDef>()
         if ("chol_hamoed_sukkot" in cal.activeSeasons) {
             list += arbaMinimItem(profile).copy(
-                section = "Chol HaMoed",
+                section = if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+                    "Hoshana Rabbah"
+                } else {
+                    "Chol HaMoed"
+                },
                 sortOrder = -30,
                 seasons = listOf("chol_hamoed_sukkot", "sukkot"),
             )
+            if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+                list += hoshanaRabbahAravotItem(profile)
+            }
             list += cholHamoedSukkahItem(profile)
         }
         list += listOf(
@@ -504,6 +538,19 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         )
     }
 
+    private fun hoshanaRabbahAravotItem(profile: UserProfile) = ChecklistItemDef(
+        id = "hoshana_rabbah_aravot",
+        title = "Hoshana Rabbah — beat the aravot (widespread custom)",
+        section = "Hoshana Rabbah",
+        timeOfDay = TimeOfDay.DAY,
+        required = false,
+        situational = false,
+        sortOrder = -35,
+        seasons = listOf("chol_hamoed_sukkot", "sukkot"),
+        explanation = SeasonalMitzvahText.hoshanaRabbahAravotExplanation(),
+        links = SeasonalMitzvahText.hoshanaRabbahLinks(),
+    )
+
     private fun arbaMinimItem(profile: UserProfile): ChecklistItemDef {
         val isFemale = profile.gender == Gender.FEMALE
         return ChecklistItemDef(
@@ -555,7 +602,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
     private fun buildSukkahAfterYomKippurItem(profile: UserProfile) = ChecklistItemDef(
         id = "motzei_yk_build_sukkah",
         title = "Motzei Yom Kippur: begin building the sukkah (men)",
-        section = "Seasonal",
+        section = "Motzei Yom Kippur",
         timeOfDay = TimeOfDay.NIGHT,
         required = false,
         situational = true,
@@ -732,7 +779,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             if (diff < 4) candidate.plus(-7, DateTimeUnit.DAY) else candidate
         })
 
-    private fun isNightAfterYomKippur(cal: DayInfo): Boolean {
+    fun isNightAfterYomKippur(cal: DayInfo): Boolean {
         val month = cal.hebrewMonth ?: return false
         val day = cal.hebrewDay ?: return false
         return month == HebrewCalendarEngine.TISHREI && day == 11
@@ -754,15 +801,13 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         seasons = listOf("yom_hashoah"),
         explanation = """Yom HaShoah V'HaGevurah (27 Nisan) is the national day of remembrance for the six million Jews murdered in the Holocaust. It was established by the Israeli Knesset in 1953.
 
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance, not a halachically mandated fast or prayer day.
-
 Date adjustment: If 27 Nisan falls on Friday, the day is observed on Thursday (26 Nisan). If it falls on Sunday, it is observed on Monday (28 Nisan), to avoid disruption of Shabbat.
 
 Customs by community:
 
 In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
 
-Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day; Religious Zionist / Dati Leumi communities do not omit Tachanun specifically because of Yom HaShoah. (27 Nisan falls in Nisan — Tachanun is omitted throughout the entire month of Nisan per Shulchan Arukh O.C. 429:2, the universal standard for Ashkenazim and Sephardim alike; that is a separate rule of the joyous month, not this observance.) Some communities hold memorial learning or ceremonies.
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day. Some communities hold memorial learning or ceremonies.
 
 Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
 
@@ -786,15 +831,9 @@ Chabad: No official communal observance is instituted, though the memory of the 
         seasons = listOf("yom_hazikaron"),
         explanation = """Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of the Israel Defense Forces and victims of terrorism who gave their lives for the State of Israel. It was established by the Knesset in 1963 and always falls the day before Yom Ha'atzmaut.
 
-This is not a Yom Tov — melacha is fully permitted. It is a national civil observance.
-
-Date adjustment: KosherJava adjusts the date when 4 Iyar falls near Shabbat, to keep Yom HaZikaron and Yom Ha'atzmaut together on consecutive days and not adjacent to Shabbat.
-
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Prayers (Religious Zionist / Dati Leumi): Tachanun is recited fully at Shacharit — the day is one of solemn national memory. Tachanun is omitted only at Mincha as the calendar transitions into Yom Ha'atzmaut celebrations (Peninei Halakha 5:4:11; Koren Yom Ha'atzmaut mahzor — Mincha ketana before nightfall). Communities that do not treat Yom Ha'atzmaut as a religious day say Tachanun at Mincha too.
-
-Most Charedi and Chabad communities: Do not observe as a religious day; regular weekday davening with Tachanun throughout the day.
+Prayers: Standard weekday davening for most communities. Some Religious Zionist shuls omit Tachanun at Mincha before the transition into Yom Ha'atzmaut; many Charedi and Chabad communities treat the day as an ordinary weekday throughout.
 
 The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations.""",
         links = listOf(
@@ -814,11 +853,11 @@ The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations."
         required = false,
         situational = false,
         seasons = listOf("yom_haatzmaut"),
-        explanation = """Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948. It is not a Biblical or Rabbinic Yom Tov — melacha (work) is fully permitted.
+        explanation = """Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948.
 
 Customs vary significantly by community:
 
-Religious Zionist / Modern Orthodox: Hallel is recited (instituted by the Chief Rabbinate of Israel). Whether Hallel is said with a bracha is disputed — the Chief Rabbinate instructed with a bracha; many Ashkenazi poskim outside Israel say without a bracha. Tachanun is omitted. Some communities add special festive prayers (Hallel u'Maariv).
+Religious Zionist / Modern Orthodox: Some communities recite Hallel (instituted by the Chief Rabbinate of Israel) and omit Tachanun; many others treat the day as a regular weekday. Whether Hallel is said with a bracha is disputed — the Chief Rabbinate instructed with a bracha; many Ashkenazi poskim outside Israel say without a bracha. Some communities add special festive prayers (Hallel u'Maariv).
 
 Sephardic (Rav Ovadia Yosef / Yalkut Yosef): Rav Ovadia Yosef ruled that Hallel should not be recited (concern of bracha levatala since the day was not established by Chazal). Tachanun omission is also disputed in these communities.
 
@@ -826,7 +865,7 @@ Chabad: The Rebbe did not institute any special observance. Most Chabad communit
 
 Charedi communities (Agudah, Litvish): Generally do not observe the day as a religious holiday. Tachanun is said as usual.
 
-The Omer continues to be counted normally. There is no Al HaNissim addition to davening.
+The Omer continues to be counted normally.
 
 Ask your rav which custom your community follows.""",
         links = listOf(
@@ -846,11 +885,11 @@ Ask your rav which custom your community follows.""",
         required = false,
         situational = false,
         seasons = listOf("yom_yerushalayim"),
-        explanation = """Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727). It is not a Yom Tov — melacha is fully permitted.
+        explanation = """Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727).
 
 Customs vary by community:
 
-Religious Zionist / Dati Leumi: Hallel is recited (with or without a bracha, depending on the posek and community). Tachanun is omitted. Some communities recite special tefillot.
+Religious Zionist / Dati Leumi: Some communities recite Hallel (with or without a bracha, depending on the posek and community) and omit Tachanun; many others treat the day as a regular weekday. Some communities recite special tefillot.
 
 Sephardic (Rav Ovadia Yosef): Hallel is not recited for the same reason as Yom Ha'atzmaut — not established by Chazal. Practice varies.
 
@@ -1032,7 +1071,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             title = "Purim Meshulash (Sunday): Purim seudah",
             section = "Purim",
             timeOfDay = TimeOfDay.DAY,
-            required = false,
+            required = true,
             situational = false,
             seasons = listOf("purim_meshulash_sunday"),
             explanation = PurimMeshulashText.sundaySeudahExplanation(),
@@ -1242,6 +1281,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             links = PublicFastDayText.fastDayLinks(idx, profile),
         )
     }
+
+    private fun tefillinTishaBeavMinchaItem() = ChecklistItemDef(
+        id = "tefillin_tisha_beav_mincha",
+        title = TishaBeavTefillinRules.minchaItemTitle(),
+        section = "Afternoon Prayer",
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        gender = "male",
+        sortOrder = 8,
+        seasons = listOf("fast_day"),
+        explanation = TishaBeavTefillinRules.minchaItemExplanation(),
+        links = listOf(
+            ChecklistLink(
+                "Shulchan Arukh — Tisha B'Av",
+                "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.555",
+            ),
+            ChecklistLink(
+                "Rambam — mourning practices",
+                "https://www.sefaria.org/Mishneh_Torah,_Fasts.5",
+            ),
+        ),
+    )
 
     private fun motzeiYomKippurMealItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
         id = "motzei_yom_kippur_meal",

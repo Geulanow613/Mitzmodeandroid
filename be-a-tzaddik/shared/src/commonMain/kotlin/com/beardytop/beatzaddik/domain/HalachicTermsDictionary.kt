@@ -89,7 +89,7 @@ object HalachicTermsDictionary {
         line("Kinot — elegies read on Tisha B'Av mourning the Temple"),
         line("Tisha B'Av — fast mourning the destruction of the Temple"),
         line("Lag BaOmer — 33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut"),
-        line("Hoshana Raba — seventh day of Sukkot; Minhag Nevi'im — beating aravot five times on the ground"),
+        line("Hoshana Raba — seventh day of Sukkot; climax of Hoshanot; many communities beat aravot on the ground"),
         line("Hakafot — dancing while circling around the synagogue with Torah scrolls on Simchat Torah"),
         line("Hagbah — lifting the Torah scroll for the congregation to see; Ashkenazim/Chabad after reading, Sephardim before"),
         line("Geshem — Rain. Can refer to the prayer for rain inserted on Shemini Atzeret throughout the winter"),
@@ -125,7 +125,7 @@ object HalachicTermsDictionary {
         line("nusach Ashkenaz — Ashkenazi prayer wording"),
         line("nusach Sefard — Ashkenazi-Chasidic prayer rite (not the same as Sephardic Nusach Edot HaMizrach)"),
         line("Half Hallel — shortened Hallel psalms on Rosh Chodesh and after the first Yom Tov of Pesach"),
-        line("Full Hallel — complete Hallel psalms on festivals/Chanukah"),
+        line("Full Hallel — complete Hallel psalms (113–118) on Yom Tov days, all eight days of Chanukah, and the first day(s) of Pesach"),
         line("Davening — praying; any prayer, often refers to the formal daily prayer services"),
         line("Chag — festival (everyday term for Yom Tov)"),
         line("Erev — the day before a holy day (Erev Shabbat is friday until sunset"),
@@ -150,7 +150,7 @@ object HalachicTermsDictionary {
         line("Shalom bayit — peace in the home; a central Jewish value"),
         line("tzedakah box — charity box; collecting coins for those in need is itself a mitzvah"),
         line("Parshah — weekly Torah portion read in synagogue", "parsha"),
-        line("Birkat Kohanim — Priestly blessing; recited daily by everyone in Israel and by Sephardim worldwide; usually recited only on festivals by Ashkenazim in the Diaspora"),
+        line("Birkat Kohanim — Priestly blessing; delivered daily by Kohanim in Israel and in Sephardic communities worldwide; usually recited only on festivals by Ashkenazim in the Diaspora"),
         line("Birkat HaMazon — Grace After Meals after eating bread"),
         line("Shmoneh Esrei — the nineteen blessings of the standing Amidah prayer"),
         line("Krias Shema — recitation of the Shema and its blessings"),
@@ -186,7 +186,7 @@ object HalachicTermsDictionary {
         line("Barchu — call to bless G-d that opens communal prayer with a minyan"),
         line("Aseret Yemei Teshuvah — Ten Days of Repentance from Rosh Hashana to Yom Kippur"),
         line("gabbai — synagogue officer who coordinates aliyot and services"),
-        line("kohen — priest descended from Aaron. They perform the service in the Temple when it's standing."),
+        line("kohen — priest descended from Aaron. In Temple times they performed the sacred service. Today kohanim still observe ongoing halachot: Birkat Kohanim (daily in Israel and Sephardic communities; on festivals in Ashkenazi diaspora), restrictions on contact with the dead (tumat meit), and special marriage laws. They receive the first aliyah when the Torah is read."),
         line("assur bemelacha — forbidden to do melacha on Shabbat or Yom Tov"),
         line("karmelit — rabbinic semi-public area with carrying restrictions"),
         line("shevarim — broken shofar blast"),
@@ -280,7 +280,7 @@ object HalachicTermsDictionary {
             "Minyan",
         ),
         line(
-            "Amen — Amen affirms a bracha someone else recited, \"so may it be.\" The Talmud praises one who answers Amen even more than the one who made the blessing. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. (Literally, it's an acronym for 'G-d, King Who is faithful' — Keil Melech Ne'eman).",
+            "Amen — Amen affirms a bracha someone else recited, \"so may it be.\" The Talmud praises one who answers Amen even more than the one who made the blessing. It should not be rushed or mumbled; it is a small but constant mitzvah opportunity in synagogue and at home. The Talmud (Shabbat 119b) offers a homiletic reading: its letters recall \"G-d, faithful King\" (Keil Melech Ne'eman) — a drash, not the word's etymology.",
         ),
         line(
             "Chazal — Chazal (חז\"ל) is an acronym for \"our Sages of blessed memory\" — the rabbis of the Mishnah, Talmud, and midrash who transmitted halacha and values. When a source says \"Chazal teach,\" it refers to this collective tradition rather than a single author.",
@@ -356,7 +356,7 @@ object HalachicTermsDictionary {
             "chag",
         ),
         line(
-            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at the moment of the full moon (roughly 14.75 days into the month) — saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
+            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at or before the full moon — often calculated as approximately half the mean lunar month from the molad (~14.75 days), though poskim disagree on the exact cutoff; saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
             "Kiddush Levana",
             "Kiddush Levanah",
             "Birkat HaLevanah",
@@ -423,7 +423,7 @@ object HalachicTermsDictionary {
             "libun",
         ),
         line(
-            "chamar medina — Chamar medina (\"drink of the land\") is a prestigious local beverage — such as coffee, tea, or kosher liquor — that some authorities allow for daytime Kiddush or Havdalah when wine or grape juice is unavailable or difficult. It can never be used for Friday night Shabbat Kiddush, which strictly requires wine, grape juice, or bread (Shulchan Arukh O.C. 272).",
+            "chamar medina — Chamar medina (\"drink of the land\") is a prestigious local beverage — such as coffee, tea, or kosher liquor — that some authorities allow for daytime Kiddush or Havdalah when wine or grape juice is unavailable or difficult. It is generally not used for Friday night Shabbat Kiddush, which typically requires wine, grape juice, or bread per most poskim (Shulchan Arukh O.C. 272); some authorities discuss narrow exceptions — ask your rav.",
             "Chamar medina",
             "chamar medinah",
             "Chamar medinah",
@@ -515,7 +515,7 @@ object HalachicTermsDictionary {
             "Blech",
         ),
         line(
-            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah after sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating.",
+            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah from sleep (see glossary): pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating. Hand washing without a bracha is also customary after other situations where ruach ra'ah may linger — such as a cemetery, haircut, or bathroom.",
             "Netilat Yadayim",
             "netilat yadayim",
             "Al Netilat Yadayim",
@@ -526,7 +526,7 @@ object HalachicTermsDictionary {
             "Al Netilat Lulav",
         ),
         line(
-            "al hamichya — Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4-9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot- depending on the type of food. Ask your rav.",
+            "al hamichya — Al hamichya (Al HaMichya) is the after-blessing on mezonot, grain foods that are not bread — cake, crackers, pasta, cereal, etc. — when you ate a kezayit (approx. golf ball size of food) within k'dei achilat pras (4–9 mins). If you had a bread meal, Birkat Hamazon covers all foods. You may also need to say Birkat Hamazon if you ate a lot of mezonot — depending on the type of food. Ask your rav.",
             "al hamichya",
             "Al HaMichya",
             "Al hamichya",
@@ -562,11 +562,11 @@ object HalachicTermsDictionary {
             "Matanot la'evyonim",
         ),
         line(
-            "Purim Meshulash — Purim Meshulash is the rare Jerusalem schedule when Shushan Purim (15 Adar) falls on Shabbat. Megillah and matanot l'evyonim move to Friday; mishloach manot and the seudah move to Sunday. Shabbat carries communal Purim obligations — special Torah reading (Vayavo Amalek), Haftarah, and Al HaNissim in Amidah and bentching (not on Friday or Sunday).",
+            "Purim Meshulash — Purim Meshulash is the rare walled‑city Purim schedule (Jerusalem is primary today) when 15 Adar falls on Shabbat. Megillah and matanot la'evyonim move to Friday; mishloach manot and the seudah move to Sunday. Shabbat carries communal Purim obligations — special Torah reading (Vayavo Amalek), Haftarah, and Al HaNissim in Amidah and bentching (not on Friday or Sunday).",
             "Purim Meshulash",
         ),
         line(
-            "gemach — A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and its the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.",
+            "gemach — A gemach (gemilut chasadim) is a free-loan fund or kindness society — lending items or money without interest, or channeling charity. On Purim, giving through a trustworthy gemach can fulfill matanot la'evyonim if the poor receive funds Purim day (and it's the same day you're celebrating Purim). Gemachim also run baby gear, wedding dress, and medical equipment loans in many communities.",
             "gemach",
             "Gemach",
         ),
@@ -594,7 +594,7 @@ object HalachicTermsDictionary {
             "Days of Awe",
         ),
         line(
-            "Ruach Ra'ah — Ruach Ra'ah (\"evil spirit\") is a rabbinic term for the impurity resting on hands after sleep. Morning netilat yadayim removes it by washing hands alternating right and left 3 times each.",
+            "Ruach Ra'ah — Ruach Ra'ah (רוּחַ רָעָה — \"evil spirit\") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery, cutting hair, or leaving the bathroom — details vary by minhag.",
             "Ruach Ra'ah",
             "ruach ra'ah",
         ),
@@ -625,7 +625,7 @@ object HalachicTermsDictionary {
             "Krias Shema",
         ),
         line(
-            "Tefillin — Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. Recite the bracha at misheyakir (see glossary). They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.",
+            "Tefillin — Tefillin are holy black leather boxes containing parchment with Torah verses, bound on the arm and head during weekdays. Men age thirteen and over are required to wear them. Shel yad (arm-tefillin) goes on the upper left arm for right-handed individuals, or the upper right arm if you are left-handed. Recite the blessing while putting them on, provided the daily time of misheyakir has already arrived (see glossary). They require kosher scrolls and proper placement. They are not worn on Shabbat or festivals.",
             "tefillin",
             "Tefillin",
         ),
@@ -660,7 +660,7 @@ object HalachicTermsDictionary {
             "Shabbat",
         ),
         line(
-            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
+            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: When a festival begins on a Saturday night (Motzei Shabbat), Yom Tov candles are lit only after Shabbat ends (after tzeit), from a pre-existing flame. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
             "tzeit",
             "Tzeit",
             "three stars",
@@ -736,7 +736,7 @@ object HalachicTermsDictionary {
             "selichot",
         ),
         line(
-            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, and other happy days. Many kneel or lean on the arm. Skipping tachanun on a sad day is a sign the calendar treats the day as joyful. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
+            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, Chanukah, Purim, all of Nisan, and many other days (Erev Yom Kippur at Shacharit only; 11–14 Tishrei; after Simchat Torah through month-end; minor holidays; 5 & 28 Iyar in Israel). From Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
             "Tachanun",
             "tachanun",
         ),
@@ -765,7 +765,7 @@ object HalachicTermsDictionary {
             "Grace After Meals",
         ),
         line(
-            "Hamotzi — Hamotzi is the blessing over bread — \"Who brings forth bread from the earth\" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat, lechem mishneh — two whole loaves.",
+            "Hamotzi — Hamotzi is the blessing over bread — \"Who brings forth bread from the earth\" — beginning a meal that requires bentching. Wash netilat yadayim before bread meals. Cut bread for others after you bless if you are host. On Pesach, hamotzi is on matzah; on Shabbat and Yom Tov, lechem mishneh — two whole loaves.",
             "Hamotzi",
             "hamotzi",
         ),
@@ -844,7 +844,7 @@ object HalachicTermsDictionary {
             "arba minim",
         ),
         line(
-            "revi'it — A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (minimum wine drunk from the cup), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, many require drinking melo lugmov or the majority of the cup; ask your rav which measure to use.",
+            "revi'it — A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (the cup must hold a revi'it; you drink maleh lugmov), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, you drink maleh lugmov (a cheekful) or ideally the majority of the cup; ask your rav which measure to use.",
             "revi'it",
             "Revi'it",
         ),
@@ -958,7 +958,7 @@ object HalachicTermsDictionary {
             "Birchot HaShachar",
         ),
         line(
-            "birchat hamapil — Birchat Hamapil (Hamapil) is the blessing before sleep entrusting the soul to G-d. Say it as the last words before closing your eyes. After reciting it, do not eat, drink, or speak until sleep; quietly repeating familiar Shema or protection verses while dozing is permitted, but classical poskim discourage sitting up for new Torah study or lengthy Tehillim (Biur Halachah O.C. 239:1). Some omit it if they know they may not fall asleep for a long time. It pairs with Shema al hamitah for protection.",
+            "birchat hamapil — Birchat Hamapil (Hamapil) is the blessing before sleep entrusting the soul to G-d. Say it as the last words before closing your eyes. After reciting it, one should avoid interruptions as much as possible — ideally no eating, drinking, or unnecessary speech until sleep; quietly repeating familiar Shema or protection verses while dozing is permitted, but classical poskim discourage sitting up for new Torah study or lengthy Tehillim (Biur Halachah O.C. 239:1). Some omit it if they know they may not fall asleep for a long time. It pairs with Shema al hamitah for protection.",
             "birchat hamapil",
             "Hamapil",
             "hamapil",
@@ -968,7 +968,7 @@ object HalachicTermsDictionary {
             "Elokei Neshama",
         ),
         line(
-            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. A variation of one-sixth or more above or below fair market price triggers the Torah laws of financial fraud (Bava Metzia 49b), requiring the overcharged amount to be fully refunded. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
+            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. Classic rule (Bava Metzia 49b): when price differs from fair market value by one-sixth or more, Torah laws of ona'ah apply — at exactly one-sixth, return the excess; beyond one-sixth, the wronged party may rescind the entire sale. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
             "Ona'ah",
             "ona'ah",
         ),
@@ -1109,7 +1109,7 @@ object HalachicTermsDictionary {
             "hoshanot",
         ),
         line(
-            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. The beating of aravot (willow branches) against the ground is classified as a Minhag Nevi'im — an ancient custom instituted by the final Prophets (Haggai, Zechariah, and Malachi). Because of its prophetic roots, it follows strict parameters that ordinary customs do not — notably striking the branches against the ground exactly five times to sweeten the divine judgments. See also Hoshanot.",
+            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits; this is a widespread custom, sometimes linked in tradition to the final Prophets (Minhag Nevi'im). The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.",
             "Hoshana Raba",
             "Hoshana Rabbah",
             "hoshana raba",
@@ -1190,7 +1190,7 @@ object HalachicTermsDictionary {
             "Bracha acharona",
         ),
         line(
-            "Mezonot — Mezonot (borei minei mezonot) is the blessing on grain foods that are not bread — cake, crackers, pasta, cereal. It is shorter than hamotzi but still thanks G-d for grain sustenance.",
+            "Mezonot — The blessing said over grain-based foods that aren't bread — like cake, pastry, pasta, or crackers — thanking G-d for grain sustenance (borei minei mezonot).",
             "Mezonot",
             "mezonot",
         ),
@@ -1306,7 +1306,7 @@ object HalachicTermsDictionary {
             "Kiddush b'Makom Seudah",
         ),
         line(
-            "maleh lugmov — Maleh lugmov is drinking a cheekful from the Kiddush cup (approx 2 fl oz) after the blessing — from at least a total of a revi'it of wine or grape juice in the cup. Grape juice counts like wine for many poskim.",
+            "maleh lugmov — Maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60 ml / ~2 fl oz) is what you drink after the Kiddush or Havdalah blessing — most of a revi'it, but not the full cup. The cup itself must still hold at least a revi'it of wine or grape juice. Grape juice counts like wine for many poskim.",
             "maleh lugmov",
         ),
         line(
@@ -1393,7 +1393,7 @@ object HalachicTermsDictionary {
             "sofer",
         ),
         line(
-            "Ashkenazi — Ashkenazi Jews trace roots to Central and Eastern Europe and follow customs and nusach developed there — Yiddish culture, certain Pesach stringencies (kitniyot), and specific mourning and festival practices. \"Ashkenaz\" in a siddur means that prayer wording. Many American and Israeli shuls are Ashkenazi; ask your rav which sub-tradition applies.",
+            "Ashkenazi — Ashkenazi Jews trace roots to the medieval Rhineland (Ashkenaz in Hebrew) and later spread across Central and Eastern Europe, developing distinct customs and nusach — Yiddish culture, certain Pesach stringencies (kitniyot), and specific mourning and festival practices. \"Ashkenaz\" in a siddur means that prayer wording. Many American and Israeli shuls are Ashkenazi; ask your rav which sub-tradition applies.",
             "Ashkenazi",
             "Ashkenaz",
         ),
@@ -1471,13 +1471,13 @@ object HalachicTermsDictionary {
             "alot haShachar",
         ),
         line(
-            "misheyakir — Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir you do not fulfill the mitzvah, even after dawn. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.",
+            "misheyakir — Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir, you cannot recite the blessing l'chatchila, though putting them on after dawn (alot hashachar) still fulfills the core obligation bedieved in a case of great need. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.",
             "misheyakir",
             "Misheyakir",
             "mi'sheyakir",
         ),
         line(
-            "Plag HaMincha — Plag hamincha is one and a quarter halachic hours before nightfall — used for early Mincha, early Shabbat entry in some communities, and certain Pesach and Chanukah times. It is also the earliest time you may light Shabbat candles; lighting before plag invalidates the mitzvah and makes the blessing unnecessary. It is not identical to sunset; check your calendar.",
+            "Plag HaMincha is a late‑afternoon zman. It is calculated as 1¼ proportional (halachic) hours before sunset.\n\nWhy it matters:\n• Early Shabbat (Friday): You may not light Shabbat candles or accept Shabbat before plag.\n• Prayer timing: There is a halachic debate whether Maariv can begin after plag (and whether Mincha should then be finished before plag). Many “early Shabbat” minyanim schedule Mincha before plag and Maariv after plag — follow your shul and rav.",
             "Plag HaMincha",
             "plag hamincha",
             "plag",
@@ -1634,7 +1634,7 @@ object HalachicTermsDictionary {
             "Peninei Halacha",
         ),
         line(
-            "Baal Shem Tov — The Baal Shem Tov (Rabbi Israel ben Eliezer, c. 1700–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.",
+            "Baal Shem Tov — The Baal Shem Tov (Rabbi Israel ben Eliezer, 1698–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.",
             "Baal Shem Tov",
             "Besht",
         ),

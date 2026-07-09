@@ -55,6 +55,7 @@ import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.MitzModeBottomNav
+import com.beardytop.beatzaddik.ui.components.MitzModeCountPillOverlay
 import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
 import com.beardytop.beatzaddik.ui.components.StarryScaffold
@@ -75,7 +76,9 @@ fun BeATzaddikApp(
     viewModel: AppViewModel,
     embeddedMode: Boolean = false,
     onRequestClose: () -> Unit = {},
-    returnToMainIcon: (@Composable () -> Unit)? = null
+    returnToMainIcon: (@Composable () -> Unit)? = null,
+    mitzvotCount: Int = 0,
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     val embeddedTitle = AppDisclaimer.EMBEDDED_APP_TITLE
     val profile by viewModel.profile.collectAsState()
@@ -166,7 +169,9 @@ fun BeATzaddikApp(
                 viewModel = viewModel,
                 embeddedMode = embeddedMode,
                 onRequestClose = onRequestClose,
-                returnToMainIcon = returnToMainIcon
+                returnToMainIcon = returnToMainIcon,
+                mitzvotCount = mitzvotCount,
+                onChecklistItemChecked = onChecklistItemChecked,
             )
         }
         if (showLocationPermission) {
@@ -265,7 +270,9 @@ private fun MainShell(
     viewModel: AppViewModel,
     embeddedMode: Boolean = false,
     onRequestClose: () -> Unit = {},
-    returnToMainIcon: (@Composable () -> Unit)? = null
+    returnToMainIcon: (@Composable () -> Unit)? = null,
+    mitzvotCount: Int = 0,
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     var scrollSettingsToKashrut by remember { mutableStateOf(false) }
@@ -322,6 +329,7 @@ private fun MainShell(
         }
     }
 
+    Box(Modifier.fillMaxSize()) {
     StarryScaffold(
         holyFlash = holyFlash,
         candlelightReward = candlelightReward,
@@ -359,6 +367,7 @@ private fun MainShell(
                     viewModel, holyFlash,
                     onOpenTimer = { tab = 1 },
                     onOpenSettings = { tab = settingsTabIndex },
+                    onChecklistItemChecked = onChecklistItemChecked,
                 )
                 1 -> TimerScreen(
                     viewModel = viewModel,
@@ -374,6 +383,15 @@ private fun MainShell(
                 )
                 aboutTabIndex -> AboutScreen(appTitle = appTitle)
             }
+        }
+    }
+        if (embeddedMode && onChecklistItemChecked != null) {
+            MitzModeCountPillOverlay(
+                mitzvotCount = mitzvotCount,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(top = 8.dp, end = 14.dp),
+            )
         }
     }
 }

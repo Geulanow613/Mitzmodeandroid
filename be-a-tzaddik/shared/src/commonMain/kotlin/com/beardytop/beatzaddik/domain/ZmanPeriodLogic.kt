@@ -17,8 +17,10 @@ import kotlinx.datetime.toLocalDateTime
 object ZmanPeriodLogic {
 
     fun activeTimeOfDay(nowMillis: Long, zmanim: ZmanimSnapshot): TimeOfDay {
-        val sunrise = zmanim.sunriseMillis
-        if (sunrise != null && nowMillis < sunrise) return TimeOfDay.NIGHT
+        // Treat "daytime — morning" as starting at alot hashachar (dawn), not sunrise.
+        // This matches typical halachic usage for when Shacharit becomes available.
+        val dawn = zmanim.alotHaShacharMillis ?: zmanim.sunriseMillis
+        if (dawn != null && nowMillis < dawn) return TimeOfDay.NIGHT
 
         val sunset = zmanim.sunsetMillis
         if (sunset != null && nowMillis >= sunset) return TimeOfDay.NIGHT

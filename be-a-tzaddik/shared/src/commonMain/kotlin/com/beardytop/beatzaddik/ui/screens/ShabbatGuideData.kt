@@ -57,7 +57,7 @@ Note: There is a strict earliest boundary for this mitzvah. You cannot light can
 
 Key rules:
 • Kiddush must be recited in the same place where you will eat your meal (Kiddush b'Makom Seudah).
-• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 50ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
+• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
 • On Friday night, if wine is unavailable, challah (bread) may substitute.
@@ -509,45 +509,78 @@ Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz cus
             id = "tu_bshvat",
             title = "Tu B'Shvat",
             hebrewTitle = "טוּ בִּשְׁבָט",
-            body = """Tu B'Shvat (the 15th of Shvat) is the New Year for Trees — one of the four "new years" mentioned in the Mishnah. It marks the date used for calculating the age of fruit trees for tithing purposes.
+            body = """Tu B'Shvat (15 Shevat) is the New Year for Trees — used for calculating fruit-tree tithes. The day begins at nightfall the evening before (14 Shevat).
 
-Tu B'Shvat is not a fast day, and work is permitted. It is customary to eat fruits of Israel, especially the seven species: wheat, barley, grapes, figs, pomegranates, olives, and dates. Many communities hold a "Tu B'Shvat seder" with fruits and wine.
+Liturgical note: Tachanun is omitted at Shacharit and Mincha on Tu B'Shvat, and at Mincha on the preceding afternoon (14 Shevat).
 
-In Kabbalistic tradition (particularly from the 16th-century Safed mystics), Tu B'Shvat became associated with the spiritual rectification of the world through eating fruits with intention.""",
+Customs (all optional; work is permitted):
+• Eat fruit, especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, and dates.
+• Say brachot and after-brachot carefully; Shehecheyanu on seasonal fruit that is new to the market this year.
+• Many hold a Tu B'Shvat seder — four cups of wine (often white to red) and themed fruit — following a printed guide if hosting.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/468738/jewish/Tu-BiShvat-What-and-How.htm"
         ),
         GuideTopic(
             id = "pesach_sheni",
             title = "Pesach Sheni",
             hebrewTitle = "פֶּסַח שֵׁנִי",
-            body = """Pesach Sheni (the Second Passover) falls on 14 Iyar. It originated from a request in the Torah (Numbers 9:6–13) by Jews who were ritually impure and could not bring the Passover offering — G-d granted them a second chance one month later.
+            body = """Pesach Sheni (14 Iyar) recalls the Torah's "second chance" for the Passover offering (Numbers 9:6–13). The day begins at nightfall the evening before (13 Iyar).
 
-Today, Pesach Sheni is a minor holiday. It is not observed with full Yom Tov restrictions. The main custom is to eat matzah on this day. Tachanun (the penitential prayer) is not recited.
+Liturgical note: Tachanun is omitted; it is not Yom Tov and work is permitted.
 
-A classic Chabad teaching — attributed to the Lubavitcher Rebbeim (Rabbi Yosef Yitzchak Schneersohn, citing his father the Rebbe Rashab) — holds that Pesach Sheni means "ein davar avud": nothing is lost; it is always possible to correct and return.""",
+Customs:
+• Many eat matzah during the day as a remembrance — some at lunch, some only at night; follow your family or community minhag.
+• A Chabad teaching: "ein davar avud" — it is never too late to return and correct.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4377624/jewish/What-Is-Pesach-Sheni-the-Second-Passover.htm"
         ),
         GuideTopic(
             id = "lag_baomer",
             title = "Lag BaOmer",
             hebrewTitle = "לַ\"ג בָּעֹמֶר",
-            body = """Lag BaOmer is the 33rd day of the Omer count (18 Iyar). It marks the yahrzeit (anniversary of passing) of Rabbi Shimon bar Yochai, the author of the Zohar, as well as a pause in the mourning period observed during the Omer.
+            body = """Lag BaOmer is the 33rd day of the Omer (18 Iyar). The day begins at nightfall the evening before (17 Iyar).
 
-The restrictions of the Omer period (no haircuts, no weddings, no music) are lifted on Lag BaOmer. In Israel, large bonfires are lit, especially in Meron at Rabbi Shimon's tomb.
+Liturgical note: Tachanun is omitted.
 
-It is also a day celebrated for the cessation of a plague that killed 24,000 students of Rabbi Akiva during the Omer period.""",
+Observances:
+• Many communities lift Omer mourning restrictions on this day — haircuts, weddings, and music may resume (depending on whether your minhag ends mourning at Lag BaOmer or at Shavuot).
+• Bonfires, especially in Israel and at Rabbi Shimon bar Yochai's tomb in Meron, mark his yahrzeit and the tradition that the plague among Rabbi Akiva's students ceased.
+• Some visit Rabbi Shimon's gravesite; others mark the day with outings, archery, or learning — follow your community.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/679300/jewish/What-Is-Lag-BaOmer.htm"
         ),
         GuideTopic(
             id = "tu_beav",
             title = "Tu B'Av",
             hebrewTitle = "טוּ בְּאָב",
-            body = """Tu B'Av is the 15th of Av. It is described in the Talmud (Taanit 26b) as one of the two happiest days in the Jewish calendar (along with Yom Kippur).
+            body = """Tu B'Av (15 Av) is described in the Talmud as one of the happiest days of the year. The day begins at nightfall the evening before (14 Av).
 
-Historically, it marked several positive events, including the end of the plague that killed those who accepted the report of the spies in the wilderness. In the era of the Temple, it was a day when unmarried women would dance in the vineyards.
+Liturgical note: Tachanun is omitted.
 
-Today, Tu B'Av is observed as a minor holiday of joy. Tachanun is not recited. Many communities treat it as an auspicious day for marriage and love.""",
+Customs:
+• A day associated with joy, matchmaking, and weddings — many treat it as an auspicious time for marriage.
+• In Temple times, unmarried women would dance in the vineyards; today communities may hold social gatherings or learning.
+• Work is permitted; it is not a fast day.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/717167/jewish/7-Joyous-Events-That-Happened-on-the-15th-of-Av.htm"
+        ),
+        GuideTopic(
+            id = "birkat_hachamah",
+            title = "Birkat Hachamah — Blessing the Sun",
+            hebrewTitle = "בִּרְכַּת הַחַמָּה",
+            body = """Birkat Hachamah (בִּרְכַּת הַחַמָּה — Blessing of the Sun) is recited once every 28 years, when the sun completes the machzor gadol (מחזור גדול) — the great 28-year solar cycle described in the Talmud (Berakhot 59b).
+
+The cycle:
+Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at sundown, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, it is recited the following morning — Wednesday at sunrise.
+
+When:
+• Recite outdoors at sunrise on the morning of the occurrence, while viewing the sun (not through a window, per most poskim).
+• Ideal time: from sunrise through the third halachic hour of the day (sof zman tefillah). According to some opinions, you may still recite it until chatzos (halachic midday).
+
+The blessing:
+Baruch Atah Ado-nai Eloheinu Melech ha'olam oseh ma'aseh bereishit.
+(בָּרוּךְ אַתָּה ה' אֱלֹקֵינוּ מֶלֶךְ הָעוֹלָם עוֹשֵׂה מַעֲשֵׂה בְרֵאשִׁית)
+
+Notes:
+• This mitzvah comes only once every 28 years.
+• Check your local synagogue or Chabad center — large communal gatherings are common.""",
+            learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/3731/jewish/Birkat-Hachama.htm"
         ),
         GuideTopic(
             id = "tisha_beav",
@@ -559,7 +592,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 
 Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
 
-The three weeks from 17 Tammuz until Tisha B'Av are called "The Three Weeks," a period of increasing mourning.""",
+The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"
         ),
         GuideTopic(
@@ -646,7 +679,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
             hebrewTitle = "יוֹם הָעַצְמָאוּת",
             body = """Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
 
-In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs. Halachic treatment (Hallel, Tachanun, melachah) varies by community — ask your rav.""",
+In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.""",
         ),
         GuideTopic(
             id = "yom_yerushalayim",
@@ -705,9 +738,17 @@ It is a full Yom Tov in the Diaspora; in Israel it shares the day with Shemini A
             id = "purim_katan",
             title = "Purim Katan",
             hebrewTitle = "פורים קטן",
-            body = """In a Jewish leap year, 14 Adar I is Purim Katan ("little Purim"). The full Purim mitzvot — Megillah, mishloach manot, matanot l'evyonim, and the festive meal — apply only on regular Purim (14 Adar, or 15 Adar in walled cities).
+            body = """In a Jewish leap year, 14 Adar I is Purim Katan ("little Purim"). The full Purim mitzvot — Megillah, mishloach manot, matanot l'evyonim, and the festive meal — apply only on regular Purim in Adar II (14 Adar, or 15 Adar in walled cities).
 
-Purim Katan is marked by a slightly more festive tone; some communities add a special meal or omit Tachanun. It is not a substitute for Purim observance.""",
+Purim Katan is a minor festive day: Tachanun is omitted. Some communities add a slightly more festive meal or learning; it is not a substitute for Purim observance.""",
+        ),
+        GuideTopic(
+            id = "shushan_purim_katan",
+            title = "Shushan Purim Katan",
+            hebrewTitle = "שושן פורים קטן",
+            body = """In a leap year, 15 Adar I is Shushan Purim Katan — the "walled-city" counterpart to Purim Katan, parallel to Shushan Purim on 15 Adar.
+
+Like Purim Katan, it is a minor day: Tachanun is omitted. The full Purim mitzvot are observed only on regular Purim in Adar II.""",
         ),
         GuideTopic(
             id = "erev_pesach",
@@ -748,6 +789,7 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
         "Chanukah" to "chanukah",
         "Purim" to "purim",
         "Purim Katan" to "purim_katan",
+        "Shushan Purim Katan" to "shushan_purim_katan",
         "Pesach" to "pesach",
         "Erev Pesach" to "erev_pesach",
         "Passover" to "pesach",
@@ -809,6 +851,7 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
         "Chanukah" to "chanukah",
         "Purim" to "purim",
         "Purim Katan" to "purim_katan",
+        "Shushan Purim Katan" to "shushan_purim_katan",
         "Pesach" to "pesach",
         "Shevi'i shel Pesach" to "pesach",
         "Acharon shel Pesach" to "pesach",
@@ -836,6 +879,7 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
         "Yom HaZikaron" to "yom_hazikaron",
         "Yom Ha'atzmaut" to "yom_haatzmaut",
         "Yom Yerushalayim" to "yom_yerushalayim",
+        "Birkat Hachamah" to "birkat_hachamah",
     )
 
     private fun normalizeHolidayLabel(label: String): String =
@@ -852,7 +896,15 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
     }
 
     fun topicForAnchor(anchor: String): GuideTopic? =
-        glossary.firstOrNull { it.id == anchor }
+        com.beardytop.beatzaddik.domain.SeasonalChecklistItems.israeliCivilHolidayExplainerForAnchor(anchor)
+            ?.let { explainer ->
+                GuideTopic(
+                    id = explainer.id,
+                    title = explainer.title,
+                    body = explainer.body,
+                )
+            }
+            ?: glossary.firstOrNull { it.id == anchor }
             ?: holidays.firstOrNull { it.id == anchor }
 
     fun topicForLabel(label: String): GuideTopic? =
@@ -860,17 +912,34 @@ The Seder is held after nightfall on 15 Nissan (and the second night in the Dias
 
     /** Resolves a guide topic for upcoming-holiday rows and header occasions. */
     fun topicForUpcomingHoliday(name: String): GuideTopic? =
-        topicForLabel(name)
+        com.beardytop.beatzaddik.domain.SeasonalChecklistItems.israeliCivilHolidayExplainerForName(name)
+            ?.let { explainer ->
+                GuideTopic(
+                    id = explainer.id,
+                    title = explainer.title,
+                    body = explainer.body,
+                )
+            }
+            ?: topicForLabel(name)
 
     /** Always returns a topic for an upcoming row — full explainer when mapped, hint-only last resort. */
     fun guideTopicForUpcoming(name: String, hint: String = ""): GuideTopic =
-        topicForUpcomingHoliday(name) ?: GuideTopic(
-            id = "upcoming_${name.lowercase().replace(' ', '_').replace('\'', '_')}",
-            title = name,
-            body = hint.trim().ifBlank {
-                "Open “Shabbat guide” above for holiday explainers and related halachic topics."
-            },
-        )
+        com.beardytop.beatzaddik.domain.SeasonalChecklistItems.israeliCivilHolidayExplainerForName(name)
+            ?.let { explainer ->
+                GuideTopic(
+                    id = explainer.id,
+                    title = explainer.title,
+                    body = explainer.body,
+                )
+            }
+            ?: topicForUpcomingHoliday(name)
+            ?: GuideTopic(
+                id = "upcoming_${name.lowercase().replace(' ', '_').replace('\'', '_')}",
+                title = name,
+                body = hint.trim().ifBlank {
+                    "Open “Shabbat guide” above for holiday explainers and related halachic topics."
+                },
+            )
 
     fun anchorForTerm(term: HalachicTerm): String? {
         if (term.id in glossaryOnlyTermIds) return null

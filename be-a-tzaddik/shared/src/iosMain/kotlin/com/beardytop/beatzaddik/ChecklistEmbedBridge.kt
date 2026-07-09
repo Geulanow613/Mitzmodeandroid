@@ -21,6 +21,12 @@ object ChecklistEmbedBridge {
     private val _cachedDeps = MutableStateFlow<AppDependencies?>(null)
     val depsFlow: StateFlow<AppDependencies?> = _cachedDeps.asStateFlow()
 
+    /** Mitz Mode home counter — updated from Swift before/during embed. */
+    private val _mitzvotCount = MutableStateFlow(0)
+    val mitzvotCountFlow: StateFlow<Int> = _mitzvotCount.asStateFlow()
+
+    private var checklistItemCheckedHandler: ((itemId: String, title: String) -> Unit)? = null
+
     @Volatile
     var cachedDeps: AppDependencies?
         get() = _cachedDeps.value
@@ -37,6 +43,18 @@ object ChecklistEmbedBridge {
         scope.launch {
             runCatching { ensureDependencies() }
         }
+    }
+
+    fun setMitzvotCount(count: Int) {
+        _mitzvotCount.value = count
+    }
+
+    fun setChecklistItemCheckedHandler(handler: ((itemId: String, title: String) -> Unit)?) {
+        checklistItemCheckedHandler = handler
+    }
+
+    internal fun notifyChecklistItemChecked(itemId: String, title: String) {
+        checklistItemCheckedHandler?.invoke(itemId, title)
     }
 
     suspend fun ensureDependencies(): AppDependencies {

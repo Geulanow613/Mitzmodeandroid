@@ -186,7 +186,7 @@ Work and restrictions:
 
 Hoshana Raba prep (tomorrow — 21 Tishrei):
 • Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for tomorrow morning — separate from your daily lulav set.
-• At the conclusion of synagogue services tomorrow, the community performs Chagizat Aravah — striking these branches against the ground five times (Minhag Nevi'im). Hoshana Raba is the final sealing of judgment from Yom Kippur."""
+• At the conclusion of synagogue services tomorrow, many communities beat aravot against the ground (often about five times in Ashkenaz and Chabad custom; form varies — follow your siddur). Hoshana Raba is the final sealing of judgment from Yom Kippur."""
         } else {
             ""
         }
@@ -324,7 +324,7 @@ Joy & family:
 • Simchat Yom Tov — plan treats for children, festive clothing, and meals that bring household joy.
 
 Practical:
-• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, the community performs Chagizat Aravah, striking these branches against the ground five times (Minhag Nevi'im).
+• Hoshana Raba prep (21 Tishrei): Buy or prepare a dedicated bundle of five fresh willow branches (aravot) for Hoshana Raba morning — separate from your daily lulav set. At the conclusion of synagogue services, many communities beat aravot against the ground (often about five times in Ashkenaz and Chabad custom; form varies — follow your siddur).
 • Confirm shul times for Hallel and Hoshanot throughout Sukkot, and for hakafot on Hoshana Raba.
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
     """.trimIndent()

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmodeios-publish" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmodeios-publish/be-a-tzaddik" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/be-a-tzaddik" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ios-transfer-handoff/be-a-tzaddik" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/mitzmode" vcs="Git" />

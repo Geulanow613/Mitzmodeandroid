@@ -19,7 +19,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat
 import com.beardytop.beatzaddik.App
 import com.beardytop.beatzaddik.AppDependencies
 import com.beardytop.mitzmode.R
+import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import com.beardytop.beatzaddik.platform.PlatformActivityHolder
 import com.beardytop.beatzaddik.platform.PlatformLocationService
 import com.beardytop.beatzaddik.platform.initKashrutNotifications
@@ -161,11 +162,14 @@ object TzaddikPermissionHost {
 @Composable
 fun EmbeddedTzaddikChecklist(
     activity: ComponentActivity,
-    onDismiss: () -> Unit
+    viewModel: MitzModeViewModel,
+    onDismiss: () -> Unit,
 ) {
-    val deps by TzaddikBridge.depsFlow.collectAsState()
+    val deps by TzaddikBridge.depsFlow.collectAsStateWithLifecycle()
+    val completedMitzvot by viewModel.completedMitzvot.collectAsStateWithLifecycle()
 
     LaunchedEffect(activity) {
+        TzaddikBridge.bindActivity(activity)
         TzaddikBridge.ensureDependencies(activity)
     }
 
@@ -191,7 +195,11 @@ fun EmbeddedTzaddikChecklist(
                 deps = ready,
                 embeddedMode = true,
                 onRequestClose = onDismiss,
-                returnToMainIcon = { MitzModeSilverEmbossedIcon() }
+                returnToMainIcon = { MitzModeSilverEmbossedIcon() },
+                mitzvotCount = completedMitzvot.size,
+                onChecklistItemChecked = { itemId, title ->
+                    viewModel.onChecklistMitzvahChecked(itemId, title)
+                },
             )
         }
     }

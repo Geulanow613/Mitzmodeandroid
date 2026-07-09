@@ -20,7 +20,6 @@ object ChecklistZmanEvaluator {
         "put_on_tefillin_during_morning_prayers_except_shabbat_festiv",
         "musaf_only_on_rosh_chodesh_festivals_and_shabbat",
         "mincha_shemoneh_esrei_tachanun",
-        "ashkenaz_musaf_tachanun",
         "evening_shema_with_its_blessings",
         "maariv_shemoneh_esrei",
         "rosh_chodesh_half_hallel",
@@ -47,9 +46,10 @@ object ChecklistZmanEvaluator {
         "purim_meshulash_erev_megillah",
         "purim_meshulash_friday_megillah",
         "purim_meshulash_friday_matanot",
-    )
+    ) + TachanunRules.tachanunItemIds
 
-    fun appliesTo(itemId: String): Boolean = itemId in zmanItemIds
+    fun appliesTo(itemId: String): Boolean =
+        itemId in zmanItemIds || itemId.startsWith("chanukah_lighting_day_")
 
     fun evaluate(
         itemId: String,
@@ -64,6 +64,52 @@ object ChecklistZmanEvaluator {
             return ItemZmanStatus()
         }
         val tz = z.timezoneId
+        // Chanukah candles: earliest plag hamincha; ideal after tzeit.
+        // We treat it as available from plag so it doesn't look "unavailable" all afternoon.
+        if (itemId.startsWith("chanukah_lighting_day_")) {
+            val rawPlag = z.plagHaminchaMillis
+                ?: return ItemZmanStatus(hint = "Set location in Settings for Plag HaMincha times.")
+            val end = ZmanPeriodLogic.nightObligationWindowEnd(z) ?: return ItemZmanStatus()
+
+            // Chanukah lighting "belongs" to the night that began after sunset.
+            // Some backends attach night zmanim to the next civil date; in that case, a 10pm
+            // simulation could be before today's (next-day) plag/tzeit. Correct by shifting
+            // relevant times back by 24h when we're before dawn.
+            val dawn = z.alotHaShacharMillis ?: z.sunriseMillis
+            val shiftBack = (dawn != null && nowMillis < dawn)
+            val plag = if (shiftBack) rawPlag - 24 * 60 * 60 * 1000L else rawPlag
+
+            val plagClock = ZmanimFormatter.formatAfter(plag, tz) ?: "Plag HaMincha"
+            val tzeitForThisNight = z.tzeitMillis?.let { tzeit -> if (shiftBack) tzeit - 24 * 60 * 60 * 1000L else tzeit }
+            val burnUntilMillis = tzeitForThisNight?.plus(30 * 60 * 1000L)
+            val burnUntilTime = ZmanimFormatter.formatTime(burnUntilMillis, tz)
+            val burnNoteAlways = "Candles must have enough oil/wick to burn at least 30 minutes after nightfall."
+            val burnNoteWithTime = burnUntilTime?.let {
+                "If lighting early, ensure enough oil/candles to burn until $it (30 min after nightfall)."
+            } ?: burnNoteAlways
+            return when {
+                nowMillis < plag -> ItemZmanStatus(
+                    availability = ItemZmanAvailability.UPCOMING,
+                    windowStartMillis = plag,
+                    windowEndMillis = end,
+                    hintTemplate = "Available in {time} · at Plag HaMincha",
+                    hintArgs = mapOf("time" to plagClock),
+                    makeupNote = burnNoteWithTime,
+                    availableAtLabel = "Plag HaMincha",
+                )
+                nowMillis >= end -> ItemZmanStatus(
+                    availability = ItemZmanAvailability.EXPIRED,
+                )
+                else -> ItemZmanStatus(
+                    availability = ItemZmanAvailability.ACTIVE,
+                    windowStartMillis = plag,
+                    windowEndMillis = end,
+                    hint = burnNoteAlways,
+                    availableAtLabel = "Plag HaMincha",
+                )
+            }
+        }
+
         return when (itemId) {
             // Birchot HaShachar / Birkat HaTorah — available after chatzos halayla with no hard
             // daytime cutoff; say them when you wake.
@@ -77,6 +123,12 @@ object ChecklistZmanEvaluator {
             "ashkenaz_korbanot_before_shacharit",
             "chabad_korbanot_before_shacharit" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "Korbanot"
+            )
+            "ashkenaz_shacharit_tachanun",
+            "sefard_shacharit_tachanun",
+            "edot_hamizrach_shacharit_tachanun",
+            "chabad_shacharit_tachanun" -> shacharitPartsWindow(
+                nowMillis, z, tz, label = "Tachanun at Shacharit",
             )
             "ldovid_hashem_ori" -> shacharitPartsWindow(
                 nowMillis, z, tz, label = "L'Dovid (Psalm 27)"
@@ -131,7 +183,11 @@ object ChecklistZmanEvaluator {
             "tefillin_tisha_beav_mincha" -> tefillinTishaBeavMinchaWindow(nowMillis, z, tz)
             "musaf_only_on_rosh_chodesh_festivals_and_shabbat" ->
                 musafWindow(nowMillis, z, tz, prayerDay)
-            "ashkenaz_musaf_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Tachanun at Mincha", prayerDay = prayerDay)
+            "ashkenaz_musaf_tachanun",
+            "sefard_mincha_tachanun",
+            "edot_hamizrach_mincha_tachanun",
+            "chabad_mincha_tachanun",
+            -> minchaWindow(nowMillis, z, tz, label = "Tachanun at Mincha", prayerDay = prayerDay)
             "mincha_shemoneh_esrei_tachanun" -> minchaWindow(nowMillis, z, tz, label = "Mincha", prayerDay = prayerDay)
             "evening_shema_with_its_blessings" -> eveningShemaWindow(nowMillis, z, tz)
             "maariv_shemoneh_esrei" -> maarivWindow(nowMillis, z, tz, prayerDay)
@@ -222,7 +278,7 @@ object ChecklistZmanEvaluator {
                 "time" to (ZmanimFormatter.formatAfter(start, tz) ?: "after dawn"),
             ),
             expired = "The morning Shacharit window has closed (past halachic midday / chatzos).",
-            makeup = "If you missed Shacharit today, at Mincha pray two Amidot — Mincha first, then tashlumin for Shacharit.",
+            makeup = null,
             availableAtLabel = "dawn",
             activeHintTemplate = lateTemplate,
             activeHintArgs = lateArgs,
@@ -307,7 +363,7 @@ object ChecklistZmanEvaluator {
             upcomingTemplate = upcomingTemplate,
             upcomingArgs = upcomingArgs,
             expired = "Shacharit window closed at halachic midday (chatzos).",
-            makeup = "Missed Shacharit? At Mincha, pray two Amidot — first for Mincha itself, then second as tashlumin for the missed Shacharit.",
+            makeup = null,
             availableAtLabel = "dawn",
             activeHintTemplate = lateTemplate,
             activeHintArgs = lateArgs,
@@ -383,7 +439,7 @@ object ChecklistZmanEvaluator {
             expired = "Musaf window has closed (sunset).$shabbatNote",
             expiredTemplate = "Musaf window has closed (sunset).{shabbatNote}",
             expiredArgs = mapOf("shabbatNote" to shabbatNote),
-            makeup = "If you missed Musaf entirely, there is no makeup (tashlumin) for it (SA OC 286:1).",
+            makeup = null,
             availableAtLabel = "sunrise",
             activeHintTemplate = lateHintTemplate,
             activeHintArgs = lateHintArgs,
@@ -439,7 +495,7 @@ object ChecklistZmanEvaluator {
                 "label" to label,
                 "time" to (ZmanimFormatter.formatUntil(end, tz) ?: "at nightfall"),
             ),
-            makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha. You may make up only the service immediately before Maariv (Mincha) — not an earlier missed service such as Shacharit, which can only be made up at Mincha.",
+            makeup = null,
             availableAtLabel = "Mincha Gedola",
             activeHint = lateHint,
         )
@@ -524,10 +580,8 @@ object ChecklistZmanEvaluator {
             ""
         }
         val plagNote = if (plagTime != null) {
-            " In time of need, some minyanim daven between plag haMincha and sunset — see explainer for tarti d'satri rules."
-        } else {
-            ""
-        }
+            " Some communities may daven Maariv after plag haMincha — follow your shul and rav."
+        } else ""
         val (upcomingTemplate, upcomingArgs) = if (tzeitTime != null) {
             "Maariv — earliest {time} (sunset). Ideal for many: {tzeitTime}.{plagNote}{shemaNote}" to
                 mapOf(
@@ -546,7 +600,7 @@ object ChecklistZmanEvaluator {
             upcomingTemplate = upcomingTemplate,
             upcomingArgs = upcomingArgs,
             expired = "Tonight's Maariv window has passed (after alot hashachar / dawn).",
-            makeup = "Missed Mincha? At Maariv, pray the regular Maariv Amidah first, then one tashlumin Amidah for Mincha only. Shacharit cannot be made up at Maariv — its makeup was only at Mincha.",
+            makeup = null,
             availableAtLabel = "sunset"
         )
     }
@@ -815,7 +869,7 @@ object ChecklistZmanEvaluator {
      * Kiddush Levana — Sanctification of the New Moon.
      *
      * Window opens: Ashkenaz/Chabad from day 3, Sephardi from day 7 (days after the molad).
-     * Window closes: at the moment of the full moon (~14 days, 18 hours, 22 minutes from the molad).
+     * Window closes: at or before the full moon (~14.75 days from the molad — approximately; opinions vary).
      * This evaluator uses Hebrew calendar day as a coarse proxy; check Sof Zman Kiddush Levana for your location.
      *
      * Source: Shulchan Aruch OC 426:3–4; Rama ibid.; Mishnah Berurah 426:20.

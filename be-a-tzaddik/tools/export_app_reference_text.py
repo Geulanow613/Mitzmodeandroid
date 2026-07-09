@@ -11,7 +11,16 @@ ROOT = Path(__file__).resolve().parents[1]
 SHARED = ROOT / "shared" / "src" / "commonMain" / "kotlin" / "com" / "beardytop" / "beatzaddik"
 OUT = ROOT / "docs" / "APP_REFERENCE_TEXT_FOR_REVIEW.md"
 SEASONAL_OUT = ROOT / "docs" / "SEASONAL_AND_HIDDEN_CHECKLIST_TEXT.md"
+INFO_OUT = ROOT / "infotosearchthrough.md"
 DOMAIN = SHARED / "domain"
+EXTRA_SEASONAL_KOTLIN_FILES = [
+    "ExplainerTemplateSupport.kt",
+    "ErevPesachExplainerTemplates.kt",
+    "TishaBeavTefillinRules.kt",
+    "BirkatHachamahRules.kt",
+    "JerusalemPurimRules.kt",
+    "ZmanPeriodLabels.kt",
+]
 
 EXPLANATION_FIELD = re.compile(
     r"(explanation(?:Ashkenaz|Sefard|EdotHamizrach|Chabad|Female)?)\s*=\s*"
@@ -667,32 +676,174 @@ def write_static_blocks(f) -> None:
     write_omer_template(f)
 
 
+def write_nusach_extras(f) -> None:
+    f.write(section("Part 6 — Nusach-Only Checklist Items (nusach-extras.json)", 1))
+    path = ROOT / "shared" / "src" / "commonMain" / "composeResources" / "files" / "nusach-extras.json"
+    if not path.exists():
+        path = ROOT / "data" / "nusach-extras.json"
+    if not path.exists():
+        f.write("*nusach-extras.json not found.*\n\n")
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    items = sorted(data.get("items", []), key=lambda i: (i.get("section", ""), i.get("sortOrder", 0)))
+    for item in items:
+        title = item.get("title", item.get("id", "Unknown"))
+        section_name = item.get("section", "")
+        item_id = item.get("id", "")
+        f.write(f"### {title}\n\n")
+        if section_name or item_id:
+            f.write(f"*Section: {section_name} · ID: `{item_id}`*\n\n")
+        for field in (
+            "explanation",
+            "explanationAshkenaz",
+            "explanationSefard",
+            "explanationEdotHamizrach",
+            "explanationChabad",
+            "explanationFemale",
+        ):
+            text = (item.get(field) or "").strip()
+            if text:
+                label = EXPLANATION_VARIANT_LABELS.get(field, field)
+                if label != "Default":
+                    f.write(f"**{label}:**\n\n")
+                f.write(f"{text}\n\n")
+
+
+def write_extra_kotlin_modules(f) -> None:
+    f.write(section("Part 7 — Dynamic Templates & Zman / Holiday Hints (Kotlin)", 1))
+    for filename in EXTRA_SEASONAL_KOTLIN_FILES:
+        path = DOMAIN / filename
+        if not path.exists():
+            continue
+        content = read(path)
+        fns = [(n, b) for n, b in extract_functions_named(content, filename) if is_exportable_kotlin_function(n)]
+        const_blocks = []
+        for m in CONST_VAL.finditer(content):
+            val = unescape_kotlin(m.group(1))
+            if len(val) > 30 and any(c.isalpha() for c in val):
+                const_blocks.append(val)
+        for m in KOTLIN_STRING.finditer(content):
+            body = unescape_kotlin(m.group(1).strip())
+            if len(body) > 40 and "fun " not in body[:20]:
+                const_blocks.append(body)
+        if not fns and not const_blocks:
+            continue
+        f.write(section(filename, 2))
+        for name, body in sorted(fns, key=lambda x: x[0]):
+            f.write(f"### {name}\n\n{body}\n\n")
+        seen: set[str] = set()
+        for block in const_blocks:
+            if block in seen:
+                continue
+            seen.add(block)
+            f.write(f"{block}\n\n")
+
+
+def write_mitzvot_cloud(f) -> None:
+    f.write(section("Part 8 — Mitzvah Cloud Educational Blurbs (mitzvotcloud.json)", 1))
+    path = ROOT / "data" / "mitzvotcloud.json"
+    if not path.exists():
+        f.write("*mitzvotcloud.json not found.*\n\n")
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    for entry in data.get("mitzvot", []):
+        title = entry.get("title") or entry.get("id") or "Untitled"
+        text = (entry.get("text") or "").strip()
+        entry_id = entry.get("id", "")
+        if not text:
+            continue
+        f.write(f"### {title}\n\n")
+        if entry_id:
+            f.write(f"*ID: `{entry_id}`*\n\n")
+        f.write(f"{text}\n\n")
+
+
+def write_halachic_disclaimer_doc(f) -> None:
+    f.write(section("Part 9 — Standalone Halachic Disclaimer (docs/HALACHIC_DISCLAIMER.md)", 1))
+    path = ROOT / "docs" / "HALACHIC_DISCLAIMER.md"
+    if path.exists():
+        f.write(path.read_text(encoding="utf-8").strip() + "\n\n")
+    else:
+        f.write("*(HALACHIC_DISCLAIMER.md not found.)*\n\n")
+
+
+def write_ui_strings_appendix(f) -> None:
+    f.write(section("Part 10 — All Other UI Labels & Prompts (strings.json)", 1))
+    f.write(
+        "Deduped English strings from UI screens, zman hints, settings, onboarding, etc. "
+        "Many overlap with Parts 1–5; included for completeness when searching this file.\n\n"
+    )
+    path = ROOT / "data" / "translation-catalog" / "strings.json"
+    if not path.exists():
+        f.write("*strings.json not found — run `python tools/extract_all_strings.py` first.*\n\n")
+        return
+    data = json.loads(path.read_text(encoding="utf-8"))
+    strings = sorted(data.get("strings", data) if isinstance(data, dict) else data)
+    if isinstance(strings, dict):
+        strings = sorted(strings.keys())
+    for s in strings:
+        if not isinstance(s, str) or len(s.strip()) < 3:
+            continue
+        f.write(f"- {s}\n")
+    f.write("\n")
+
+
+def write_export_header(f, *, title: str, include_extra_parts: bool) -> None:
+    f.write(f"# {title}\n\n")
+    f.write(
+        "Plain-English export of **all user-visible halachic and educational copy** "
+        "in Be a Tzaddik / Holy Light Checklist.\n\n"
+        "**Part 1:** Short + full glossary · **Part 2:** Shabbat Guide (incl. 39 melachot) · "
+        "**Part 3:** Seasonal/hidden/festival checklist · **Part 4:** Daily mitzvot checklist · "
+        "**Part 5:** Disclaimer, About, rest screens"
+    )
+    if include_extra_parts:
+        f.write(
+            " · **Part 6:** Nusach extras · **Part 7:** Dynamic templates & zman hints · "
+            "**Part 8:** Mitzvah cloud blurbs · **Part 9:** Halachic disclaimer doc · "
+            "**Part 10:** Other UI strings"
+        )
+    f.write(
+        "\n\nDynamic placeholders (local times, Hebrew dates, Omer day number, Chanukah night) "
+        "appear as bracketed notes where the app fills them at runtime.\n\n"
+        "---\n"
+    )
+
+
+def write_all_content(f, *, include_extra_parts: bool = False) -> None:
+    write_glossary(f)
+    write_shabbat_guide(f)
+    write_seasonal_doc(f)
+    write_daily_checklist(f)
+    write_static_blocks(f)
+    if include_extra_parts:
+        write_nusach_extras(f)
+        write_extra_kotlin_modules(f)
+        write_mitzvot_cloud(f)
+        write_halachic_disclaimer_doc(f)
+        write_ui_strings_appendix(f)
+
+
 def main() -> None:
     OUT.parent.mkdir(parents=True, exist_ok=True)
     with OUT.open("w", encoding="utf-8") as f:
-        f.write("# Be a Tzaddik — Complete App Text for Halachic Review\n\n")
-        f.write(
-            "Plain-English export of **all user-visible halachic and educational copy** in the app.\n\n"
-            "**Part 1:** Short + full glossary · **Part 2:** Shabbat Guide · "
-            "**Part 3:** Seasonal/hidden/festival checklist · **Part 4:** Daily mitzvot checklist · "
-            "**Part 5:** Disclaimer, About, rest screens\n\n"
-            "Dynamic placeholders (local times, Hebrew dates, Omer day number, Chanukah night) "
-            "appear as bracketed notes where the app fills them at runtime.\n\n"
-            "---\n"
-        )
-
-        write_glossary(f)
-        write_shabbat_guide(f)
-        write_seasonal_doc(f)
-        write_daily_checklist(f)
-        write_static_blocks(f)
-
+        write_export_header(f, title="Be a Tzaddik — Complete App Text for Halachic Review", include_extra_parts=False)
+        write_all_content(f, include_extra_parts=False)
         f.write("\n---\n\n")
         f.write(
             "*End of export. Re-run `python tools/export_app_reference_text.py` to regenerate from source.*\n"
         )
 
+    with INFO_OUT.open("w", encoding="utf-8") as f:
+        write_export_header(f, title="infotosearchthrough", include_extra_parts=True)
+        write_all_content(f, include_extra_parts=True)
+        f.write("\n---\n\n")
+        f.write(
+            "*End of infotosearchthrough. Re-run `python tools/export_app_reference_text.py` to regenerate from source.*\n"
+        )
+
     print(f"Wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
+    print(f"Wrote {INFO_OUT} ({INFO_OUT.stat().st_size // 1024} KB)")
     if SEASONAL_OUT.exists():
         print(f"Wrote {SEASONAL_OUT} ({SEASONAL_OUT.stat().st_size // 1024} KB)")
 

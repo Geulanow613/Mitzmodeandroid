@@ -28266,6 +28266,109 @@
       "latitude": 52.5125,
       "longitude": 6.0944,
       "timezoneId": "Europe/Amsterdam"
+    },
+    {
+      "id": "hebron_il",
+      "label": "Hebron, Israel",
+      "latitude": 31.5326,
+      "longitude": 35.0998,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 930.0
+    },
+    {
+      "id": "jaffa_il",
+      "label": "Jaffa, Israel",
+      "latitude": 32.0504,
+      "longitude": 34.7522,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 20.0
+    },
+    {
+      "id": "acre_il",
+      "label": "Acre (Akko), Israel",
+      "latitude": 32.9281,
+      "longitude": 35.0818,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 10.0
+    },
+    {
+      "id": "beeri_il",
+      "label": "Be'eri (Beiriy), Israel",
+      "latitude": 31.4244,
+      "longitude": 34.4903,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 80.0
+    },
+    {
+      "id": "beit_shean_il",
+      "label": "Beit She'an (Beis Shean), Israel",
+      "latitude": 32.4971,
+      "longitude": 35.4973,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": -120.0
+    },
+    {
+      "id": "beit_shemesh_il",
+      "label": "Beit Shemesh, Israel",
+      "latitude": 31.7514,
+      "longitude": 34.9886,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 270.0
+    },
+    {
+      "id": "ein_zeitim_il",
+      "label": "Ein Zeitim (Eiyn Zeiton), Israel",
+      "latitude": 32.9872,
+      "longitude": 35.4925,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 800.0
+    },
+    {
+      "id": "gush_chalav_il",
+      "label": "Gush Chalav (Jish), Israel",
+      "latitude": 33.0222,
+      "longitude": 35.4464,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 860.0
+    },
+    {
+      "id": "jericho_il",
+      "label": "Jericho (Yericho), Israel",
+      "latitude": 31.8611,
+      "longitude": 35.4614,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": -250.0
+    },
+    {
+      "id": "lod_il",
+      "label": "Lod, Israel",
+      "latitude": 31.9510,
+      "longitude": 34.8881,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 50.0
+    },
+    {
+      "id": "ramla_il",
+      "label": "Ramla (Ramlah), Israel",
+      "latitude": 31.9292,
+      "longitude": 34.8656,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 80.0
+    },
+    {
+      "id": "shechem_il",
+      "label": "Shechem (Nablus), Israel",
+      "latitude": 32.2211,
+      "longitude": 35.2544,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 560.0
+    },
+    {
+      "id": "south_tarawa_ki",
+      "label": "South Tarawa, Kiribati",
+      "latitude": 1.3291,
+      "longitude": 172.9760,
+      "timezoneId": "Pacific/Tarawa"
     }
   ]
 }

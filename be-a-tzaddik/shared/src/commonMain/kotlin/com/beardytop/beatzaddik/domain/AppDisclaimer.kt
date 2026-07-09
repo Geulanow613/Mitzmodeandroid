@@ -5,30 +5,32 @@ object AppDisclaimer {
     const val TITLE = "Disclaimer"
 
     /** Embedded Mitz Mode checklist title (splash, onboarding, About). */
-    const val EMBEDDED_APP_TITLE = "the Daily Mitzvot Checklist"
+    const val EMBEDDED_APP_TITLE = "the Holy Light Checklist"
 
     /** Headline shown above the disclaimer body. */
     const val WELCOME_HEADLINE = "A companion for your day"
 
     fun welcomeIntro(embeddedMode: Boolean): String =
         if (embeddedMode) {
-            "The Daily Mitzvot Checklist helps you track standard daily mitzvot in a Torah-observant routine."
+            "The Holy Light Checklist helps you track standard daily mitzvot in a Torah-observant routine."
         } else {
             "Be a Tzaddik helps you track standard daily mitzvot in a Torah-observant routine."
         }
 
     /** Disclaimer body — first-launch dialog and About tab. */
     const val STARTUP_BODY =
-        "This app is a learning companion, not a rabbi — it does not give halachic rulings.\n\n" +
+        "This app is a learning companion, not a rabbi — it does not give halachic rulings, but we try to provide accurate information.\n\n" +
             "This checklist does not contain all the mitzvot in the entire Torah. It covers standard daily mitzvot " +
             "that observant Jews commonly practice — waking, prayer, blessings, meals, Torah study, " +
             "Shabbat preparation, and similar foundations.\n\n" +
+            "It is highly recommended to get a quality siddur (prayerbook). You can order one from any online Jewish bookstore, " +
+            "and there are also siddur apps. Many Jewish texts (including the Chumash) are available for free online.\n\n" +
             "With your permission, the app uses GPS or a city you choose to calculate Jewish calendar times " +
             "and when you can fulfill different mitzvot throughout the day (for example morning, afternoon, " +
             "and evening prayer windows, candle lighting, and Shabbat-related times). Location is kept on " +
             "your device only for zmanim and the calendar.\n\n" +
-            "If you are new to Judaism, take it slow and do what you can. Build steady habits without " +
-            "overwhelm, and always ask an Orthodox rabbi you trust when something is unclear or when " +
+            "If you are new to Judaism, take it slow. Build steady habits without " +
+            "stress, and do what you can. And always ask an Orthodox rabbi you trust when something is unclear or when " +
             "your situation needs personal guidance."
 
     const val PRODUCER_INTRO = "Brought to you by"

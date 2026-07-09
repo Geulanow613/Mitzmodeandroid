@@ -17,7 +17,9 @@ import javax.inject.Inject
 import com.google.gson.Gson
 import com.beardytop.mitzmode.BuildConfig
 import com.beardytop.mitzmode.util.MitzvahLevels
+import com.beardytop.mitzmode.util.RewardVideoAssets
 import com.beardytop.mitzmode.util.SentryUtil
+import com.beardytop.mitzmode.util.VideoManager
 
 @HiltViewModel
 class MitzModeViewModel @Inject constructor(
@@ -47,6 +49,7 @@ class MitzModeViewModel @Inject constructor(
     val isIdle: StateFlow<Boolean> = _isIdle.asStateFlow()
     
     private var idleJob: Job? = null
+    private var prewarmJob: Job? = null
     
     private val _acceptedMitzvotCount = MutableStateFlow(0)
     val acceptedMitzvotCount: StateFlow<Int> = _acceptedMitzvotCount.asStateFlow()
@@ -65,23 +68,39 @@ class MitzModeViewModel @Inject constructor(
     private val _showTour = MutableStateFlow(!prefs.getBoolean("tour_completed", false))
     val showTour: StateFlow<Boolean> = _showTour.asStateFlow()
 
+    private var uiReady = false
+
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                // Use parallel execution to avoid blocking
-                val loadSavedJob = async(Dispatchers.IO) { loadSavedMitzvotAsync() }
-                val preloadJob = async(Dispatchers.IO) { preloadMitzvotInBackground() }
-                
-                // Start idle timer immediately (non-blocking)
-                startIdleTimer()
-                
-                // Wait for data loading in background
+                val loadSavedJob = async { loadSavedMitzvotAsync() }
+                val preloadJob = async { preloadMitzvotInBackground() }
                 loadSavedJob.await()
                 preloadJob.await()
             } catch (e: Exception) {
                 handleError(e, "ViewModel initialization")
             }
         }
+        viewModelScope.launch {
+            isIdle.collect { idle ->
+                if (idle) {
+                    scheduleRewardPrewarm(_completedMitzvot.value.size, delayMs = 3_000L)
+                }
+            }
+        }
+    }
+
+    /** Called after the first frame is drawn — starts idle video prewarm timer. */
+    fun onMainScreenReady() {
+        if (uiReady) return
+        uiReady = true
+        startIdleTimer()
+    }
+
+    fun cancelRewardPrewarm() {
+        prewarmJob?.cancel()
+        prewarmJob = null
+        VideoManager.getInstance(context).cancelIdlePrewarm()
     }
     
     private suspend fun loadSavedMitzvotAsync() = withContext(Dispatchers.IO) {
@@ -190,8 +209,31 @@ class MitzModeViewModel @Inject constructor(
         startIdleTimer()
     }
     
+    fun onChecklistMitzvahChecked(itemId: String, title: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val mitzvah = Mitzvah(
+                    id = "checklist_${itemId}_${System.currentTimeMillis()}",
+                    text = title,
+                    links = emptyList(),
+                )
+                val updatedList = _completedMitzvot.value + mitzvah
+                withContext(Dispatchers.Main) {
+                    _completedMitzvot.value = updatedList
+                }
+                withTimeoutOrNull(3000) {
+                    val jsonSet = updatedList.map { Gson().toJson(it) }.toSet()
+                    prefs.edit().putStringSet("completed_mitzvot", jsonSet).apply()
+                }
+            } catch (e: Exception) {
+                handleError(e, "onChecklistMitzvahChecked")
+            }
+        }
+    }
+
     fun onVideoComplete() {
         _showVideo.value = null
+        scheduleRewardPrewarm(_completedMitzvot.value.size, delayMs = 8_000L)
     }
 
     /** Replay `finalreward.mp4` from the certificate (no level-up rainbow overlay). */
@@ -234,23 +276,16 @@ class MitzModeViewModel @Inject constructor(
     
     private fun getCurrentLevel(count: Int): String = MitzvahLevels.forCount(count)
     
-    private fun getVideoNumberForLevel(count: Int): Int {
-        return when (count) {
-            1 -> 1  // Beginner video at first mitzvah
-            10 -> 2  // Ba'al Teshuva video at 10th mitzvah
-            50 -> 3  // Master Cholent Chef at 50th mitzvah
-            100 -> 4  // Aspiring Kiddush Maker at 100th mitzvah
-            200 -> 5  // Assistant Gabbai at 200th mitzvah
-            300 -> 6  // Guy who hands out candy at shul at 300th mitzvah
-            400 -> 7  // Western Wall Reveler at 400th mitzvah
-            500 -> 8  // Sofer at 500th mitzvah
-            600 -> 9  // Tzaddik at 600th mitzvah
-            700 -> 10 // Living Sefer Torah at 700th mitzvah
-            800 -> 11 // Eliyahu HaNavi at 800th mitzvah
-            900 -> 12 // King David at 900th mitzvah
-            1000 -> 13 // Moshiach!!! at 1000th mitzvah
-            1800 -> FINAL_REWARD_VIDEO_ID // Mitz Mode! — finalreward.mp4
-            else -> 0  // No video for non-milestone numbers
+    private fun getVideoNumberForLevel(count: Int): Int =
+        RewardVideoAssets.videoIdForMilestone(count)
+
+    private fun scheduleRewardPrewarm(completedCount: Int, delayMs: Long = 20_000L) {
+        val asset = RewardVideoAssets.assetForNextMilestone(completedCount) ?: return
+        prewarmJob?.cancel()
+        prewarmJob = viewModelScope.launch(Dispatchers.Main) {
+            delay(delayMs)
+            if (_showVideo.value != null) return@launch
+            VideoManager.getInstance(context).prewarmRewardPlayer(asset)
         }
     }
     
@@ -285,7 +320,7 @@ class MitzModeViewModel @Inject constructor(
                 // Update completed mitzvot list FIRST
                 val updatedList = _completedMitzvot.value + mitzvah
                 
-                // Update UI state on main thread
+                // Update UI on main thread
                 withContext(Dispatchers.Main) {
                     _completedMitzvot.value = updatedList
                 }
@@ -309,9 +344,9 @@ class MitzModeViewModel @Inject constructor(
                             "Playing video ${getVideoNumberForLevel(newCount)} for level $newLevel"
                         )
                     }
-                    
-                    // Update UI on main thread (final reward: video only, no rainbow level-up overlay)
+
                     withContext(Dispatchers.Main) {
+                        cancelRewardPrewarm()
                         val videoId = getVideoNumberForLevel(newCount)
                         _showVideo.value = videoId
                         _showLevelUp.value =
