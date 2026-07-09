@@ -338,7 +338,7 @@ object HalachicTermsDictionary {
             "Havdalah in Kiddush",
         ),
         line(
-            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. Store the designated foods in a safe, labeled spot — if they are eaten before you finish Friday cooking for Shabbat, the eruv is void. It also reminds the home to prepare for Shabbat, not only for the festival.",
+            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. Store the designated foods in a safe, labeled spot — only the cooked dish is essential; if the baked item is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is destroyed before you finish Friday cooking for Shabbat, the eruv is void. It also reminds the home to prepare for Shabbat, not only for the festival.",
             "eruv tavshilin",
             "Eruv Tavshilin",
         ),
@@ -515,7 +515,7 @@ object HalachicTermsDictionary {
             "Blech",
         ),
         line(
-            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah from sleep (see glossary): pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating. Hand washing without a bracha is also customary after other situations where ruach ra'ah may linger — such as a cemetery, haircut, or bathroom.",
+            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning negel vasser removes ruach ra'ah from sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread (a kezayit or more), pour consecutively on each entire hand up to the wrist (usually two or three pours on the right, then two or three on the left — not alternating), then recite Al Netilat Yadayim. After the bathroom, wash with water before Asher Yatzar — no bracha; alternating triple-pour is optional stringency, not basic halacha. After a cemetery, many wash three times alternately without a bracha. Do not confuse bread washing with negel vasser.",
             "Netilat Yadayim",
             "netilat yadayim",
             "Al Netilat Yadayim",
@@ -594,7 +594,7 @@ object HalachicTermsDictionary {
             "Days of Awe",
         ),
         line(
-            "Ruach Ra'ah — Ruach Ra'ah (רוּחַ רָעָה — \"evil spirit\") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery, cutting hair, or leaving the bathroom — details vary by minhag.",
+            "Ruach Ra'ah — Ruach Ra'ah (רוּחַ רָעָה — \"evil spirit\") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery or cutting hair — details vary by minhag. After the bathroom, basic halacha requires only clean hands for Asher Yatzar; triple alternating pour is optional stringency.",
             "Ruach Ra'ah",
             "ruach ra'ah",
         ),
@@ -712,7 +712,7 @@ object HalachicTermsDictionary {
             "shofar",
         ),
         line(
-            "tashlich — Tashlich is a Rosh Hashana custom of casting breadcrumbs or symbolic sins into flowing water, reciting Micah 7:19. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat, tashlich is postponed to Sunday — a structural rule across mainstream Ashkenazi and Sephardic practice, not a local preference. The Sages enacted this to prevent carrying machzorim through a public domain without a kosher eruv. It is symbolic teshuvah — the real work is inward change and apology to people you hurt.",
+            "tashlich — Tashlich is a Rosh Hashana custom of reciting Micah 7:19 at flowing water, symbolically casting away sins. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat: Ashkenazim postpone to Sunday — a universal Rabbinic gezeirah against carrying in public, even with an eruv; many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day where carrying a machzor is permitted. Throwing breadcrumbs to fish is forbidden on Shabbat and Yom Tov — the custom is the prayers at the water, not feeding wildlife.",
             "Tashlich",
             "tashlich",
         ),
@@ -731,7 +731,7 @@ object HalachicTermsDictionary {
             "Neilah",
         ),
         line(
-            "Selichot — Selichot are penitential prayers recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). They include poetic pleas and the Thirteen Attributes of Mercy. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
+            "Selichot — Selichot are a formal order of penitential liturgy recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). The service centers on poetic pleas and the repeated Thirteen Attributes of Mercy. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
             "Selichot",
             "selichot",
         ),
@@ -1064,7 +1064,7 @@ object HalachicTermsDictionary {
             "Purim",
         ),
         line(
-            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi), not matzah. Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
+            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi). Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
             "Purim seudah",
         ),
         line(
@@ -1109,7 +1109,7 @@ object HalachicTermsDictionary {
             "hoshanot",
         ),
         line(
-            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits; this is a widespread custom, sometimes linked in tradition to the final Prophets (Minhag Nevi'im). The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.",
+            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits. The Talmud (Sukkah 44a) treats this rite as a Yesod Nevi'im or Minhag Nevi'im — an institution of the Prophets, not merely a local custom. The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.",
             "Hoshana Raba",
             "Hoshana Rabbah",
             "hoshana raba",
@@ -1257,7 +1257,7 @@ object HalachicTermsDictionary {
             "Shul",
         ),
         line(
-            "Elul — Elul is the month before Rosh Hashana — daily selichot (in Ashkenaz from before Rosh Hashana, Sephardim all month), blowing shofar after services, and cheshbon hanefesh. It is the runway for teshuvah. Increase charity, repair relationships, and learn one new halacha before the Days of Awe.",
+            "Elul — Elul is the final month before the new year, serving as the dedicated season of spiritual preparation, soul-searching, and repentance ahead of the High Holidays.",
             "Elul",
         ),
         line(

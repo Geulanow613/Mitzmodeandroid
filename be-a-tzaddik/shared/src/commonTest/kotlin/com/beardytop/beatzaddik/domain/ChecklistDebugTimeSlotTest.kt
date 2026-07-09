@@ -35,4 +35,16 @@ class ChecklistDebugTimeSlotTest {
         assertEquals(ChecklistDebugPhase.MOTZEI, scenario.phase)
         assertEquals("Motzei — Yom Kippur", ChecklistDebugScenarios.displayLabel(scenario))
     }
+
+    @Test
+    fun searchMatchesHolidayLabelPhaseAndTwoDaysBefore() {
+        val roshHashanaDay = requireNotNull(ChecklistDebugScenarios.byId("rosh_hashana_day"))
+        val roshHashanaMotzei = requireNotNull(ChecklistDebugScenarios.byId("rosh_hashana_motzei"))
+        val roshHashanaTwoDays = requireNotNull(ChecklistDebugScenarios.byId("rosh_hashana_day_2d"))
+
+        assertTrue(ChecklistDebugScenarios.matchesSearch(roshHashanaDay, "hash"))
+        assertTrue(ChecklistDebugScenarios.matchesSearch(roshHashanaMotzei, "motzei"))
+        assertTrue(ChecklistDebugScenarios.matchesSearch(roshHashanaTwoDays, "before"))
+        assertTrue(!ChecklistDebugScenarios.matchesSearch(roshHashanaDay, "motzei"))
+    }
 }

@@ -12,6 +12,7 @@ SHARED = ROOT / "shared" / "src" / "commonMain" / "kotlin" / "com" / "beardytop"
 OUT = ROOT / "docs" / "APP_REFERENCE_TEXT_FOR_REVIEW.md"
 SEASONAL_OUT = ROOT / "docs" / "SEASONAL_AND_HIDDEN_CHECKLIST_TEXT.md"
 INFO_OUT = ROOT / "infotosearchthrough.md"
+SIMPLE_OUT = ROOT / "simpleinfotolookthrough.md"
 DOMAIN = SHARED / "domain"
 EXTRA_SEASONAL_KOTLIN_FILES = [
     "ExplainerTemplateSupport.kt",
@@ -767,6 +768,231 @@ def write_halachic_disclaimer_doc(f) -> None:
         f.write("*(HALACHIC_DISCLAIMER.md not found.)*\n\n")
 
 
+def strip_key_terms_block(text: str) -> str:
+    idx = text.find("Key terms:")
+    if idx >= 0:
+        return text[:idx].rstrip()
+    return text.strip()
+
+
+def is_valid_glossary_entry(title: str, body: str) -> bool:
+    if not title or not body or len(body) < 8:
+        return False
+    junk_markers = (
+        "object BeginnerHalachaGlossary",
+        "fun withKeyTerms",
+        "explainers show body text only",
+        "callers may still pass",
+        "fun block(",
+    )
+    combined = f"{title} {body}"
+    return not any(marker in combined for marker in junk_markers)
+
+
+def humanize_kotlin_name(name: str) -> str:
+    spaced = re.sub(r"([a-z])([A-Z])", r"\1 \2", name)
+    spaced = re.sub(r"([A-Z]+)([A-Z][a-z])", r"\1 \2", spaced)
+    return spaced.replace("_", " ").strip()
+
+
+def extract_private_val_strings(content: str) -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    pattern = re.compile(r'private val (\w+)\s*=\s*"""([\s\S]*?)"""', re.MULTILINE)
+    for m in pattern.finditer(content):
+        name, body = m.group(1), unescape_kotlin(m.group(2).strip())
+        if len(body) < 40:
+            continue
+        if name.endswith("Links") or name.endswith("Link"):
+            continue
+        results.append((name, body))
+    return results
+
+
+def collect_glossary_maps() -> tuple[dict[str, tuple[str, str, str]], dict[str, tuple[str, str, str]]]:
+    beginner_src = read(SHARED / "domain" / "BeginnerHalachaGlossary.kt")
+    dict_src = read(SHARED / "domain" / "HalachicTermsDictionary.kt")
+    dict_blocks = extract_kotlin_list_blocks(dict_src)
+
+    beginner_terms = extract_beginner_terms(beginner_src)
+    supplemental_terms = extract_line_entries_from_block(dict_blocks.get("supplemental", ""))
+    enriched_terms = extract_line_entries_from_block(dict_blocks.get("enrichedOverrides", ""))
+    checklist_key_terms = extract_checklist_key_terms()
+
+    short_base = merge_term_maps(beginner_terms, supplemental_terms, checklist_key_terms)
+    for key, entry in enriched_terms.items():
+        title, body, _full = entry
+        if len(body) <= SHORT_DEF_MAX and key not in short_base:
+            short_base[key] = entry
+
+    full_terms = build_full_glossary(dict_src, beginner_terms)
+    return short_base, full_terms
+
+
+def extract_seasonal_explainer_titles() -> dict[str, str]:
+    """Map Kotlin explainer function names to checklist item titles."""
+    content = read(DOMAIN / "SeasonalChecklistItems.kt")
+    titles: dict[str, str] = {}
+    pos = 0
+    while True:
+        start = content.find("ChecklistItemDef(", pos)
+        if start < 0:
+            break
+        depth = 0
+        i = start + len("ChecklistItemDef")
+        while i < len(content):
+            ch = content[i]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+                if depth == 0:
+                    break
+            i += 1
+        block = content[start + len("ChecklistItemDef(") : i]
+        pos = i + 1
+
+        title_m = re.search(r'title\s*=\s*"([^"]*)"', block)
+        ref_m = re.search(r"explanation\s*=\s*(?:[\w.]+\.)?(\w+)\(", block)
+        if not title_m or not ref_m:
+            continue
+        expl_region = block[ref_m.start() : ref_m.start() + 120]
+        if '"""' in expl_region:
+            continue
+        titles.setdefault(ref_m.group(1), title_m.group(1))
+    return titles
+
+
+def collect_simple_checklist_explainers() -> list[tuple[str, str, str]]:
+    """Return (title, section, body) for checklist copy only."""
+    entries: list[tuple[str, str, str]] = []
+    seen_bodies: set[str] = set()
+    seasonal_titles = extract_seasonal_explainer_titles()
+
+    def add(title: str, section: str, text: str, variant: str = "") -> None:
+        cleaned = strip_key_terms_block(text.strip())
+        if not cleaned or len(cleaned) < 10:
+            return
+        body_key = re.sub(r"\s+", " ", cleaned)
+        if body_key in seen_bodies:
+            return
+        seen_bodies.add(body_key)
+        label = f"{title} ({variant})" if variant else title
+        entries.append((label, section, cleaned))
+
+    checklist = (
+        ROOT / "shared" / "src" / "commonMain" / "composeResources" / "files" / "checklist-items.json"
+    )
+    if checklist.exists():
+        data = json.loads(checklist.read_text(encoding="utf-8"))
+        for item in sorted(data.get("items", []), key=lambda i: (i.get("section", ""), i.get("sortOrder", 0))):
+            title = item.get("title", item.get("id", "Unknown"))
+            section = item.get("section", "Daily checklist")
+            for label, field in (
+                ("", "explanation"),
+                ("Ashkenaz", "explanationAshkenaz"),
+                ("Sefard", "explanationSefard"),
+                ("Edot HaMizrach", "explanationEdotHamizrach"),
+                ("Chabad", "explanationChabad"),
+                ("Female", "explanationFemale"),
+            ):
+                text = (item.get(field) or "").strip()
+                if text:
+                    add(title, section, text, label)
+
+    seasonal_items = extract_checklist_item_defs(read(DOMAIN / "SeasonalChecklistItems.kt"))
+    seasonal_items.sort(key=lambda i: (str(i.get("section", "")), str(i.get("title", ""))))
+    for item in seasonal_items:
+        title = str(item["title"])
+        section = str(item.get("section") or "Seasonal checklist")
+        fields = item.get("fields") or {}
+        for field, label in EXPLANATION_VARIANT_LABELS.items():
+            text = (fields.get(field) or "").strip()
+            if text:
+                add(title, section, text, "" if label == "Default" else label)
+
+    kotlin_files = list(SEASONAL_KOTLIN_FILES) + [
+        "ErevChagPrepText.kt",
+        "ErevPesachPrepText.kt",
+        "ExplainerTemplateSupport.kt",
+        "ErevPesachExplainerTemplates.kt",
+    ]
+    for filename in kotlin_files:
+        path = DOMAIN / filename
+        if not path.exists():
+            continue
+        content = read(path)
+        for name, body in extract_functions_named(content, filename):
+            if is_exportable_kotlin_function(name) and body:
+                title = seasonal_titles.get(name, humanize_kotlin_name(name))
+                add(title, f"Seasonal ({filename})", body)
+        for name, body in extract_private_val_strings(content):
+            if any(token in name for token in ("EXPLANATION", "TEMPLATE", "ADDENDUM", "BLOCK", "TEXT")):
+                base_name = name.removesuffix("_EXPLANATION").removesuffix("_TEMPLATE")
+                camel = "".join(part[:1].upper() + part[1:].lower() for part in base_name.split("_"))
+                fn_name = camel[0].lower() + camel[1:] if camel else name
+                if fn_name.endswith("Template"):
+                    fn_name = fn_name
+                elif not fn_name.endswith("Explanation"):
+                    fn_name += "Explanation"
+                title = seasonal_titles.get(fn_name, humanize_kotlin_name(name))
+                add(title, f"Seasonal ({filename})", body)
+        if filename == "ErevChagPrepText.kt":
+            for block_title, body in extract_erev_chag_triples(content):
+                add(block_title, "Erev Yom Tov prep", body)
+
+    entries.sort(key=lambda e: (e[1].lower(), e[0].lower()))
+    return entries
+
+
+def write_simple_info_file() -> None:
+    short_terms, full_terms = collect_glossary_maps()
+    explainers = collect_simple_checklist_explainers()
+
+    with SIMPLE_OUT.open("w", encoding="utf-8") as f:
+        f.write("simpleinfotolookthrough\n")
+        f.write(
+            "Plain glossary definitions and checklist explainers from the app source.\n"
+            "No cloud mitzvot, no mitzvotlistfull, no UI chrome.\n"
+            "Regenerate: python tools/export_app_reference_text.py\n"
+        )
+
+        f.write("\n" + "=" * 72 + "\n")
+        f.write("GLOSSARY — SHORT DEFINITIONS\n")
+        f.write("=" * 72 + "\n\n")
+        for key in sorted(short_terms.keys(), key=lambda k: short_terms[k][0].lower()):
+            title, body, _ = short_terms[key]
+            if not is_valid_glossary_entry(title, body):
+                continue
+            full_body = full_terms.get(key, (None, None, None))[1]
+            if full_body and body == full_body:
+                continue
+            f.write(f"{title}\n{body}\n\n")
+
+        f.write("\n" + "=" * 72 + "\n")
+        f.write("GLOSSARY — FULL DEFINITIONS\n")
+        f.write("=" * 72 + "\n\n")
+        for key in sorted(full_terms.keys(), key=lambda k: full_terms[k][0].lower()):
+            title, body, _ = full_terms[key]
+            if not is_valid_glossary_entry(title, body):
+                continue
+            f.write(f"{title}\n{body}\n\n")
+
+        f.write("\n" + "=" * 72 + "\n")
+        f.write("CHECKLIST EXPLAINERS\n")
+        f.write("=" * 72 + "\n\n")
+        for title, section, body in explainers:
+            f.write(f"{title}\n")
+            if section:
+                f.write(f"Section: {section}\n")
+            f.write(f"\n{body}\n\n")
+            f.write("-" * 72 + "\n\n")
+
+        f.write(
+            "End of simpleinfotolookthrough. "
+            "Re-run `python tools/export_app_reference_text.py` to regenerate from source.\n"
+        )
+
+
 def write_ui_strings_appendix(f) -> None:
     f.write(section("Part 10 — All Other UI Labels & Prompts (strings.json)", 1))
     f.write(
@@ -844,6 +1070,8 @@ def main() -> None:
 
     print(f"Wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
     print(f"Wrote {INFO_OUT} ({INFO_OUT.stat().st_size // 1024} KB)")
+    write_simple_info_file()
+    print(f"Wrote {SIMPLE_OUT} ({SIMPLE_OUT.stat().st_size // 1024} KB)")
     if SEASONAL_OUT.exists():
         print(f"Wrote {SEASONAL_OUT} ({SEASONAL_OUT.stat().st_size // 1024} KB)")
 

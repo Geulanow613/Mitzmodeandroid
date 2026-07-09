@@ -17,7 +17,7 @@ object ExplainerTemplateResolver {
         val nusachNote = nusachNote(item, profile)
 
         return when {
-            item.id.startsWith("sefirat_haomer_day_") ->
+            item.id == OmerCountText.CHECKLIST_ITEM_ID || item.id.startsWith("sefirat_haomer_day_") ->
                 Bundle(
                     OmerCountText.explanationTemplate(),
                     OmerCountText.explanationArgs(cal, profile),

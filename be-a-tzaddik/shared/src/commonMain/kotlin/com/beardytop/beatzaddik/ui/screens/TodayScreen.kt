@@ -134,6 +134,7 @@ fun TodayScreen(
     val kashrut by viewModel.kashrutWait.collectAsState()
     val upcoming by viewModel.upcomingHolidays.collectAsState()
     val debugOverride by viewModel.checklistDebugOverride.collectAsState()
+    val debugMenuVisible by viewModel.checklistDebugMenuVisible.collectAsState()
     val displayTimezone = remember(debugOverride, profile.timezoneId) {
         val scenario = debugOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
         profile.forDebugCalendar(scenario).timezoneId
@@ -184,11 +185,13 @@ fun TodayScreen(
             .padding(horizontal = 4.dp, vertical = 8.dp)
     ) {
         ParchmentContentCard {
-            ChecklistDebugMenu(
-                viewModel = viewModel,
-                activeOverride = debugOverride,
-                timezoneId = displayTimezone,
-            )
+            if (debugMenuVisible) {
+                ChecklistDebugMenu(
+                    viewModel = viewModel,
+                    activeOverride = debugOverride,
+                    timezoneId = displayTimezone,
+                )
+            }
             CalendarHeader(
                 day = day,
                 timezoneId = displayTimezone,
@@ -490,7 +493,7 @@ private val defaultCollapsedSectionNames = setOf(
     // "Married women's mitzvot" is intentionally expanded by default when present.
     "Prepare for Shabbat",
     "Pesach prep",
-    "Sefirat HaOmer",
+    // Sefirat HaOmer stays expanded by default so a missed nighttime count is visible during the day.
     "Chanukah",
     "Purim"
 )

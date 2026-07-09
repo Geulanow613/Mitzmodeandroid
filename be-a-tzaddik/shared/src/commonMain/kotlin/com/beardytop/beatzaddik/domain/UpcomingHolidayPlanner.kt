@@ -40,7 +40,11 @@ internal object UpcomingHolidayPlanner {
         var nextChanukah: UpcomingHoliday? = null
         var nextPurim: UpcomingHoliday? = null
         var nextRoshChodesh: UpcomingHoliday? = null
-        var nextMinorHoliday: UpcomingHoliday? = null
+        val minorHolidays = linkedMapOf<String, UpcomingHoliday>()
+
+        fun addMinorHoliday(holiday: UpcomingHoliday) {
+            minorHolidays.putIfAbsent(holiday.name, holiday)
+        }
 
         if (nowInfo.isRoshChodesh) {
             nextRoshChodesh = activeRoshChodeshHoliday(nowInfo, nowEpochMillis, backend, profile)
@@ -219,31 +223,19 @@ internal object UpcomingHolidayPlanner {
                 )
             }
 
-            if (nextMinorHoliday == null) {
-                eveMinorCommemorativeHolidayOnDay(
-                    info,
-                    tomorrow,
-                    backend,
-                    profile,
-                    i,
-                    civilToday,
-                    nowEpochMillis,
-                )?.let { holiday ->
-                    nextMinorHoliday = holiday
-                }
-            }
+            eveMinorCommemorativeHolidayOnDay(
+                info,
+                tomorrow,
+                backend,
+                profile,
+                i,
+                civilToday,
+                nowEpochMillis,
+            )?.let(::addMinorHoliday)
 
-            if (nextMinorHoliday == null) {
-                erevFastHolidayOnDay(info, tomorrow, backend, profile, i, civilToday)?.let { holiday ->
-                    nextMinorHoliday = holiday
-                }
-            }
+            erevFastHolidayOnDay(info, tomorrow, backend, profile, i, civilToday)?.let(::addMinorHoliday)
 
-            if (nextMinorHoliday == null) {
-                fastHolidayOnDay(info, backend, profile, i, civilToday, nowEpochMillis)?.let { holiday ->
-                    nextMinorHoliday = holiday
-                }
-            }
+            fastHolidayOnDay(info, backend, profile, i, civilToday, nowEpochMillis)?.let(::addMinorHoliday)
         }
 
         // Birkat Hachamah is extremely rare (once every 28 years) and needs preparation.
@@ -277,9 +269,7 @@ internal object UpcomingHolidayPlanner {
             nextChanukah,
             nextPurim,
             nextRoshChodesh,
-            nextMinorHoliday,
-            birkatHachamah,
-        )
+        ) + minorHolidays.values + listOfNotNull(birkatHachamah)
             .sortedBy { it.daysAway }
             .take(8)
     }
@@ -553,7 +543,7 @@ internal object UpcomingHolidayPlanner {
         HebrewCalendarEngine.LAG_BAOMER ->
             "Lag BaOmer" to "Minor holiday — 33rd day of the Omer"
         HebrewCalendarEngine.TU_BEAV ->
-            "Tu B'Av" to "Minor holiday — day of joy and matchmaking"
+            "Tu B'Av" to "Minor holiday"
         HebrewCalendarEngine.PURIM_KATAN ->
             "Purim Katan" to "Minor holiday — \"little Purim\" in a leap year (Tachanun omitted)"
         HebrewCalendarEngine.SHUSHAN_PURIM_KATAN ->

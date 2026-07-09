@@ -4,8 +4,6 @@
 
 # Media3 UI layouts reference drawables only from XML.
 -keep class androidx.media3.ui.** { *; }
--keepresourcexmlelements layout/exo_player_control_view
--keepresourcexmlelements layout/exo_player_view
 -keep class androidx.media3.ui.R$drawable { *; }
 -keep class androidx.media3.ui.R$layout { *; }
 

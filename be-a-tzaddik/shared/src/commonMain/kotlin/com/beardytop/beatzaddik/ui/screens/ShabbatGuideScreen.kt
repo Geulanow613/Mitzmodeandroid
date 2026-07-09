@@ -35,6 +35,7 @@ import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.foundation.layout.Row
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,9 +52,12 @@ import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldFlourishDivider
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.beatzaddik.ui.components.HolyLightFlashOverlay
+import com.beardytop.beatzaddik.ui.components.rememberHolyFlashController
 import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsEnabled
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import androidx.compose.runtime.CompositionLocalProvider
+import kotlinx.datetime.Clock
 
 // ── Navigation model ─────────────────────────────────────────────────────────
 
@@ -72,9 +76,11 @@ sealed class ShabbatPage {
 @Composable
 fun ShabbatGuideScreen(
     initialAnchor: String? = null,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onToggleChecklistDebugMenu: (() -> Unit)? = null,
 ) {
     val backStack = remember { mutableStateListOf<ShabbatPage>(ShabbatPage.Hub) }
+    val holyFlash = rememberHolyFlashController()
 
     // Jump to the right page for the requested anchor
     LaunchedEffect(initialAnchor) {
@@ -97,7 +103,7 @@ fun ShabbatGuideScreen(
     val canGoBack = backStack.size > 1
 
     fun goBack() {
-        if (canGoBack) backStack.removeLast() else onDismiss()
+        if (canGoBack) backStack.removeAt(backStack.lastIndex) else onDismiss()
     }
 
     PlatformBackHandler(onBack = ::goBack)
@@ -131,7 +137,12 @@ fun ShabbatGuideScreen(
             is ShabbatPage.MelachaDetail -> {
                 val m = ShabbatGuideData.melachot.find { it.id == page.melachaId }
                 val index = ShabbatGuideData.melachot.indexOfFirst { it.id == page.melachaId }
-                if (m != null) MelachaDetailPage(number = index + 1, topic = m)
+                if (m != null) MelachaDetailPage(
+                    number = index + 1,
+                    topic = m,
+                    onToggleChecklistDebugMenu = onToggleChecklistDebugMenu,
+                    onHolyFlash = holyFlash::trigger,
+                )
             }
             ShabbatPage.HolidaysList -> HolidaysListPage(
                 onOpenHoliday = { id -> backStack.add(ShabbatPage.HolidayDetail(id)) }
@@ -147,6 +158,13 @@ fun ShabbatGuideScreen(
             isClose = !canGoBack,
             modifier = Modifier.align(Alignment.TopEnd).padding(top = 48.dp, end = 12.dp),
             onClick = ::goBack
+        )
+        HolyLightFlashOverlay(
+            visible = holyFlash.visible,
+            alpha = holyFlash.alpha,
+            sweepT = holyFlash.sweepT,
+            variant = holyFlash.displayedVariant,
+            modifier = Modifier.fillMaxSize(),
         )
     }
     }
@@ -565,8 +583,24 @@ private fun MelachotListPage(onOpenMelacha: (String) -> Unit) {
 // ── Melacha detail page ───────────────────────────────────────────────────────
 
 @Composable
-private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
+private fun MelachaDetailPage(
+    number: Int,
+    topic: GuideTopic,
+    onToggleChecklistDebugMenu: (() -> Unit)? = null,
+    onHolyFlash: () -> Unit = {},
+) {
     val uriHandler = LocalUriHandler.current
+    val weavingTapTracker = remember { OregWeavingTapTracker() }
+    val onWeavingTap = if (topic.id == "oreg" && onToggleChecklistDebugMenu != null) {
+        {
+            if (weavingTapTracker.registerTap()) {
+                onToggleChecklistDebugMenu()
+                onHolyFlash()
+            }
+        }
+    } else {
+        null
+    }
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = shabbatGuideContentPadding(top = 56.dp),
@@ -593,7 +627,11 @@ private fun MelachaDetailPage(number: Int, topic: GuideTopic) {
                     )
                 }
                 Spacer(Modifier.height(10.dp))
-                PageTitle(title = topic.title, hebrew = topic.hebrewTitle)
+                PageTitle(
+                    title = topic.title,
+                    hebrew = topic.hebrewTitle,
+                    onSubtitleTap = onWeavingTap,
+                )
             }
         }
         item {
@@ -681,8 +719,36 @@ private fun HolidayDetailPage(topic: GuideTopic) {
 
 // ── Shared components ─────────────────────────────────────────────────────────
 
+private const val OREG_DEBUG_TAP_COUNT = 10
+private const val OREG_DEBUG_MAX_GAP_MS = 500L
+
+private class OregWeavingTapTracker {
+    private var tapCount = 0
+    private var lastTapMs = 0L
+
+    fun registerTap(): Boolean {
+        val now = Clock.System.now().toEpochMilliseconds()
+        tapCount = if (lastTapMs == 0L || now - lastTapMs <= OREG_DEBUG_MAX_GAP_MS) {
+            tapCount + 1
+        } else {
+            1
+        }
+        lastTapMs = now
+        if (tapCount >= OREG_DEBUG_TAP_COUNT) {
+            tapCount = 0
+            lastTapMs = 0L
+            return true
+        }
+        return false
+    }
+}
+
 @Composable
-private fun PageTitle(title: String, hebrew: String) {
+private fun PageTitle(
+    title: String,
+    hebrew: String,
+    onSubtitleTap: (() -> Unit)? = null,
+) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -699,12 +765,35 @@ private fun PageTitle(title: String, hebrew: String) {
             )
             Spacer(Modifier.height(4.dp))
         }
-        AppText(
-            title,
-            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-            color = TzaddikColors.ParchTop,
-            textAlign = TextAlign.Center
-        )
+        if (onSubtitleTap != null && " — " in title) {
+            val parts = title.split(" — ", limit = 2)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                AppText(
+                    "${parts[0]} — ",
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = TzaddikColors.ParchTop,
+                    textAlign = TextAlign.Center,
+                )
+                AppText(
+                    parts[1],
+                    style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = TzaddikColors.ParchTop,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.clickable(onClick = onSubtitleTap),
+                )
+            }
+        } else {
+            AppText(
+                title,
+                style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.ParchTop,
+                textAlign = TextAlign.Center
+            )
+        }
         Spacer(Modifier.height(10.dp))
         GoldFlourishDivider(widthFraction = 0.4f)
     }

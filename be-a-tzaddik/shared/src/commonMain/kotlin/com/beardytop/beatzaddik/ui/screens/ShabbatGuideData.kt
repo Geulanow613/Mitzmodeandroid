@@ -509,55 +509,144 @@ Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz cus
             id = "tu_bshvat",
             title = "Tu B'Shvat",
             hebrewTitle = "טוּ בִּשְׁבָט",
-            body = """Tu B'Shvat (15 Shevat) is the New Year for Trees — used for calculating fruit-tree tithes. The day begins at nightfall the evening before (14 Shevat).
+            body = """Tu B'Shvat (the 15th day of the Hebrew month of Shvat) is the New Year for Trees (Rosh Hashanah La'Ilanot). It usually falls in late January or early February.
 
-Liturgical note: Tachanun is omitted at Shacharit and Mincha on Tu B'Shvat, and at Mincha on the preceding afternoon (14 Shevat).
+Tu B'Shvat is the holiday of environmental mindfulness and deep-rooted potential. It marks the exact cosmic and agricultural turning point when the deepest winter chill begins to break, and the sap starts rising within the trees to form the fruit of the coming year.
 
-Customs (all optional; work is permitted):
-• Eat fruit, especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, and dates.
-• Say brachot and after-brachot carefully; Shehecheyanu on seasonal fruit that is new to the market this year.
-• Many hold a Tu B'Shvat seder — four cups of wine (often white to red) and themed fruit — following a printed guide if hosting.""",
+1. The tax day origin (the Mishnah)
+Tu B'Shvat does not appear in the Bible. It begins as a legal tax deadline in the Mishnah (Rosh Hashanah 1:1).
+
+In ancient Israel, farmers were obligated to tithe (give a percentage of) their crops to the Priests, the Levites, and the poor. However, biblical law forbids tithing fruit grown in one year to fulfill the tax obligation of a different year. The Rabbis needed a hard cutoff date to calculate a tree's "age" and separate the old crop from the new crop.
+
+They chose the 15th of Shvat because, by mid-winter, most of the winter rains have already fallen in Israel, the soil is saturated, and the trees are officially starting their new growth cycle.
+
+2. The mystical renaissance (the Kabbalistic seder)
+For centuries after the destruction of the Temple, Tu B'Shvat was a minor day where fasting was forbidden and people ate a little extra fruit. But in the 16th century, the Kabbalists (mystics) of Safed transformed it into a more spiritual semi-festival.
+
+Led by Rabbi Isaac Luria (the Ari), they created the Tu B'Shvat Seder, modeled loosely on the Passover Seder. They viewed eating fruit not just as a physical act, but as a way to release holy "sparks" trapped in the physical world. The seder revolves around drinking four cups of wine — gradually transitioning from pure white wine to dark red wine to mimic the changing of the seasons — and eating specific fruits categorized by how they are peeled and structured.
+
+3. The Seven Species (Shivat HaMinim)
+The central culinary custom of the day is eating fruits native to the Land of Israel, specifically the Seven Species praised in the Book of Deuteronomy (Deuteronomy 8:8):
+
+• Wheat and barley — representing physical nourishment and foundational sustenance.
+
+• Grapes — representing joy and transformation (as wine).
+
+• Figs — representing the sweetness of continuous Torah study (fig trees yield fruit over a long period rather than all at once).
+
+• Pomegranates — representing action and mitzvot (traditionally said to contain 613 seeds, matching the biblical commandments).
+
+• Olives — representing resilience under pressure (olives must be crushed to produce oil) and light.
+
+• Dates (honey) — representing peace, tranquility, and long-term growth.
+
+4. Modern ecology and connection to the Land
+With the return of the Jewish people to Israel in the late 19th and 20th centuries, Tu B'Shvat took on a powerful Zionist and ecological meaning. Schoolchildren across Israel traditionally go out to plant trees, a practice that helped reforest a landscape that had been stripped bare over centuries of neglect. Today, it functions globally as a Jewish Earth Day, focusing on environmental conservation, sustainability, and our responsibility to protect the planet.
+
+The psychological lesson: Jewish philosophy frequently compares a human being to a "tree of the field" (Deuteronomy 20:19). Tu B'Shvat teaches that real growth starts completely out of sight. When you look at a tree in mid-Shvat, it looks completely dead, frozen, and bare. Yet the sap is moving hidden underground. The holiday is a reminder that our most profound personal breakthroughs often happen quietly in the dark long before anyone else can see the fruit.
+
+Tu B'Shvat seder (optional)
+The Tu B'Shvat Seder is a mystical, multi-sensory feast created by the 16th-century Kabbalists of Safed to celebrate the "New Year for Trees." Modeled loosely after the Passover Seder, this evening ritual transitions participants through four worlds of spiritual consciousness.
+
+The experience revolves around drinking four cups of wine — gradually shifting from pure white to deep red to mirror the changing seasons — and eating at least 15 different fruits and nuts, with a special focus on the Seven Species of Israel. Each fruit is categorized by its physical structure (such as those with hard shells, those with internal pits, or those eaten whole), serving as a tangible meditation on human character, environmental stewardship, and the hidden potential waiting to bloom within us all.
+
+If you want the text of a Tu B'Shvat seder, [here](https://aish.com/48965616/) is a good one (Aish.com).
+
+Liturgical note: Tachanun is omitted at Shacharit and Mincha on Tu B'Shvat, and at Mincha on the preceding afternoon (14 Shevat). Work is permitted; it is not Yom Tov.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/468738/jewish/Tu-BiShvat-What-and-How.htm"
         ),
         GuideTopic(
             id = "pesach_sheni",
             title = "Pesach Sheni",
             hebrewTitle = "פֶּסַח שֵׁנִי",
-            body = """Pesach Sheni (14 Iyar) recalls the Torah's "second chance" for the Passover offering (Numbers 9:6–13). The day begins at nightfall the evening before (13 Iyar).
+            body = """Pesach Sheni (the "Second Passover") falls on the 14th day of the Hebrew month of Iyar — exactly one month after the eve of Passover (Pesach).
 
-Liturgical note: Tachanun is omitted; it is not Yom Tov and work is permitted.
+While it is not a traditional rest day (Yom Tov) where work is forbidden, it holds a deeply unique, empowering status in Jewish tradition. If Tu B'Av is the holiday of transformation, Pesach Sheni is the ultimate holiday of the second chance. It stands as the only biblical commandment that offers a built-in makeup date for those who missed it the first time around.
 
-Customs:
-• Many eat matzah during the day as a remembrance — some at lunch, some only at night; follow your family or community minhag.
-• A Chabad teaching: "ein davar avud" — it is never too late to return and correct.""",
+The origin story: the power of protesting
+The origin of Pesach Sheni, recorded in the Book of Numbers (Numbers 9:1–14), is one of the few instances in the Torah where a major law was initiated not from the top down by God or Moses, but from the bottom up by regular people.
+
+One year after the Exodus from Egypt, God commanded the Israelites to bring the Passover offering on the 14th of Nisan. However, a specific group of men had become ritually impure (tamei) because they had been carrying a human corpse (traditionally identified as the coffin of Joseph, or the remains of Nadav and Avihu).
+
+Because of their impurity, they were forbidden from entering the Tabernacle area to bring the sacrifice. Instead of accepting their exclusion, they approached Moses and Aaron with a raw, passionate protest: "Why should we be diminished by not being allowed to bring God's offering at its appointed time among the children of Israel?"
+
+Moses did not have an immediate answer. He told them to wait while he consulted God. God responded by validating their plea completely, establishing a permanent decree: anyone who was ritually impure, or away on a "distant journey" during the first Passover, could bring the offering exactly one month later.
+
+How it differed from the first Passover
+Pesach Sheni was a streamlined version of the holiday, offering a fascinating legal compromise between the strict rules of the original Passover and the practicalities of daily life:
+
+• No chametz ban — Unlike the main Passover festival, where owning or seeing leavened bread (chametz) is strictly forbidden for seven days, on Pesach Sheni you could have chametz and matzah in your house at the exact same time.
+
+• The menu — The individual celebrating would simply eat the meat of the late sacrifice along with matzah and bitter herbs (maror) on the evening of the 14th of Iyar.
+
+• Duration — It lasted only one evening, rather than a full seven-day festival.
+
+Modern observance and themes
+Because the Temple in Jerusalem is no longer standing, the animal sacrifice cannot be brought today. However, the day is still actively marked in Jewish practice and thought:
+
+• Eating matzah — It is a widespread custom to eat a piece of matzah on Pesach Sheni (often during lunch or dinner) to conceptually connect with the essence of the day.
+
+• Dropping Tachanun — The daily prayers of penitence and mourning (Tachanun) are omitted, signaling that the day retains a festive, joyful status.
+
+• The spiritual lesson — In Hasidic and contemporary Jewish philosophy, Pesach Sheni has become a powerful psychological symbol. It carries the foundational message that "it is never too late." No matter how spiritually distant a person feels, or how many mistakes or roadblocks ("impurities") have gotten in their way, there is always a mechanism to make amends and move forward.
+
+Liturgical note: Tachanun is omitted. It is not Yom Tov and work is permitted.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4377624/jewish/What-Is-Pesach-Sheni-the-Second-Passover.htm"
         ),
         GuideTopic(
             id = "lag_baomer",
             title = "Lag BaOmer",
             hebrewTitle = "לַ\"ג בָּעֹמֶר",
-            body = """Lag BaOmer is the 33rd day of the Omer (18 Iyar). The day begins at nightfall the evening before (17 Iyar).
+            body = """Lag BaOmer falls on the 18th day of the Hebrew month of Iyar. The name itself is a shorthand for its date: the Hebrew letters Lamed (ל) and Gimmel (ג) have a combined numerical value of 33, meaning the holiday takes place on the 33rd day of the Omer — the 49-day countdown connecting Passover to Shavuot.
 
-Liturgical note: Tachanun is omitted.
+While Passover and Shavuot are highly structured biblical festivals, Lag BaOmer is a fiery, mystical, grassroots celebration. It functions as a sudden, 24-hour pause button on a multi-week period of semi-mourning.
 
-Observances:
-• Many communities lift Omer mourning restrictions on this day — haircuts, weddings, and music may resume (depending on whether your minhag ends mourning at Lag BaOmer or at Shavuot).
-• Bonfires, especially in Israel and at Rabbi Shimon bar Yochai's tomb in Meron, mark his yahrzeit and the tradition that the plague among Rabbi Akiva's students ceased.
-• Some visit Rabbi Shimon's gravesite; others mark the day with outings, archery, or learning — follow your community.""",
+The two historic pillars of the day
+Lag BaOmer is anchored by two entirely different historical events that occurred centuries apart, combining a devastating tragedy with profound spiritual revelation.
+
+• The pause of the plague (Rabbi Akiva's students) — The weeks counting the Omer are traditionally a solemn time. The Talmud records that during the 2nd century CE, a catastrophic plague swept through the 24,000 students of the great sage Rabbi Akiva, killing them all. The sages teach that this tragedy occurred because "they did not show proper respect to one another." On the 33rd day of the count, the plague miraculously stopped. Because the dying ceased, Lag BaOmer became a celebration of survival and a reminder of the vital importance of radical interpersonal respect.
+
+• The passing of Rabbi Shimon bar Yochai — The second pillar centers on Rabbi Akiva's greatest surviving student: Rabbi Shimon bar Yochai (known as the Rashbi), who went on to become the premier master of Jewish mysticism and the traditional author of the Zohar (the foundational text of Kabbalah). Rabbi Shimon passed away on the 33rd day of the Omer. Before his death, he explicitly commanded his students to celebrate his passing not with weeping, but as a day of joy (Yom Hillula), because his death marked the moment his soul achieved perfect unity with God and his hidden spiritual teachings were fully revealed to the world.
+
+Why the fire? Traditions and observance
+Lag BaOmer is famous for its distinct, high-energy customs, each deeply tied to its historical themes:
+
+• Bonfires — Massive fires are lit all over Israel and Jewish communities worldwide. The fire serves a dual purpose: it symbolizes the immense "spiritual light" that Rabbi Shimon brought into the world through the Zohar, and it recalls the light of a miraculous fire that columned over his bed on the day he passed.
+
+• Lifting the mourning restrictions — Because the plague paused, all the traditional mourning practices observed during the Omer are suspended for the day. People blast music, dance around the bonfires, and schedule weddings that were delayed for weeks. (Whether your community ends all Omer mourning at Lag BaOmer or only on Shavuot varies by minhag — follow your community.)
+
+• The first haircut (upsherin) — It is a widespread tradition to hold off on cutting a boy's hair until he turns three years old. On Lag BaOmer, thousands of families travel to Meron (the burial site of Rabbi Shimon in northern Israel) to give their three-year-old boys their very first haircuts, a ceremony called an upsherin.
+
+• Bows and arrows — Children traditionally play with toy bows and arrows on this day. This recalls the midrashic tradition that no rainbow appeared in the sky during Rabbi Shimon's entire lifetime; his personal spiritual merit was so immense that the world never required a physical reminder of God's covenant not to destroy the earth.
+
+Liturgical note: Tachanun is omitted. Work is permitted; it is not Yom Tov.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/679300/jewish/What-Is-Lag-BaOmer.htm"
         ),
         GuideTopic(
             id = "tu_beav",
             title = "Tu B'Av",
             hebrewTitle = "טוּ בְּאָב",
-            body = """Tu B'Av (15 Av) is described in the Talmud as one of the happiest days of the year. The day begins at nightfall the evening before (14 Av).
+            body = """Tu B'Av (the 15th day of the Hebrew month of Av) holds a unique spot in Jewish tradition. The Mishnah (Taanit 4:8) famously states: "There were no greater days of joy for Israel than the 15th of Av and Yom Kippur."
 
-Liturgical note: Tachanun is omitted.
+Because it sits precisely six days after Tisha B'Av (the darkest day of mourning on the calendar), Tu B'Av represents a dramatic transformation from grief to joy, celebrated under the light of a mid-summer full moon.
 
-Customs:
-• A day associated with joy, matchmaking, and weddings — many treat it as an auspicious time for marriage.
-• In Temple times, unmarried women would dance in the vineyards; today communities may hold social gatherings or learning.
-• Work is permitted; it is not a fast day.""",
+The Talmud (Taanit 30b–31a) lists six distinct historical and agricultural reasons why this day became a major festival:
+
+• Matchmaking in the vineyards — The most famous reason, and why the day is celebrated as a "Day of Love" in modern Israel. In ancient times, the unmarried daughters of Jerusalem would dress in white garments and go out to dance in the vineyards. To ensure no one was humiliated due to poverty, all the dresses were borrowed — a wealthy girl would borrow from a poor girl, leveling the social playing field so suitors would focus on character and family rather than wealth.
+
+• Intermarriage between the tribes was permitted — When the Israelites first settled the Land of Israel, women who inherited land (such as the daughters of Zelophehad) were restricted to marrying only within their own tribe to prevent ancestral land from shifting boundaries. On a later Tu B'Av, this restriction was lifted, allowing the twelve tribes to fully intermarry and fostering national unity.
+
+• The rescue of the tribe of Benjamin — Following a devastating civil war described in the Book of Judges (the incident of the Concubine of Gibeah), the other tribes had sworn never to let their daughters marry anyone from the surviving remnant of Benjamin. On Tu B'Av, this ban was lifted, allowing Benjamin to re-integrate into the nation and avoid extinction.
+
+• The "desert generation" ceased to die — After the Sin of the Spies, God decreed that the generation that left Egypt would wander for 40 years and die out before entering the Promised Land. Every year on Tisha B'Av, a portion of that generation passed away. In the 40th year, the remaining people lay down expecting the decree to claim them, but woke up alive. They waited until the full moon of Tu B'Av to ensure they had not miscalculated the calendar; when they saw the full moon, they realized the decree of death had finally ended.
+
+• The blockade to Jerusalem was removed — When King Jeroboam split the kingdom, he set up armed guards and roadblocks to prevent citizens from making holiday pilgrimages to the Holy Temple in Jerusalem. Centuries later, King Hoshea ben Elah removed these blockades on the 15th of Av, restoring spiritual access and religious unity to the entire nation.
+
+• The breaking of the hatchets — The fires on the Temple altar required an immense amount of wood, which had to be perfectly dry and free of worms. By the 15th of Av, the summer sun began to lose its intense heat, meaning freshly cut wood would no longer dry quickly enough to guarantee it was worm-free. On this day they celebrated the successful completion of harvesting wood for the altar, and the axes were symbolically broken and put away for the year — a transition toward a season focused more intensely on Torah study during the longer autumn nights.
+
+Bonus — The burial of the martyrs of Betar: A later reason relates to the Bar Kochba revolt against the Romans. When the fortress city of Betar fell, the Romans slaughtered thousands of Jews and refused to let the bodies be buried. Miraculously, the bodies did not decompose, and on Tu B'Av permission was finally granted to give the martyrs a proper Jewish burial.
+
+Liturgical note: Tachanun is omitted. Work is permitted; it is not a fast day. Many communities treat it as an auspicious day for marriage and joy.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/717167/jewish/7-Joyous-Events-That-Happened-on-the-15th-of-Av.htm"
         ),
         GuideTopic(
@@ -567,7 +656,7 @@ Customs:
             body = """Birkat Hachamah (בִּרְכַּת הַחַמָּה — Blessing of the Sun) is recited once every 28 years, when the sun completes the machzor gadol (מחזור גדול) — the great 28-year solar cycle described in the Talmud (Berakhot 59b).
 
 The cycle:
-Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at sundown, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, it is recited the following morning — Wednesday at sunrise.
+Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at nightfall, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, recite it on Wednesday morning at sunrise.
 
 When:
 • Recite outdoors at sunrise on the morning of the occurrence, while viewing the sun (not through a window, per most poskim).

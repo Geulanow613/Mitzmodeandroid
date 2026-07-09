@@ -21,6 +21,8 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -61,6 +63,7 @@ fun ChecklistDebugMenu(
     modifier: Modifier = Modifier,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
     val resolving by viewModel.checklistDebugResolving.collectAsState()
     val pendingTimeSlot by viewModel.pendingDebugTimeSlot.collectAsState()
     val debugError by viewModel.checklistDebugError.collectAsState()
@@ -182,14 +185,50 @@ fun ChecklistDebugMenu(
                     }
                 }
 
-                ChecklistDebugScenarios.groups.forEach { group ->
+                val normalizedQuery = searchQuery.trim()
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    singleLine = true,
+                    placeholder = {
+                        Text(
+                            "Search holidays (e.g. hash, pesach, motzei)…",
+                            color = TzaddikColors.TextMuted,
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = DebugAccent,
+                        unfocusedBorderColor = DebugBannerBorder,
+                        cursorColor = DebugAccent,
+                    ),
+                )
+
+                val visibleGroups = ChecklistDebugScenarios.groups.mapNotNull { group ->
+                    val inGroup = ChecklistDebugScenarios.all
+                        .filter { it.group == group }
+                        .filter { ChecklistDebugScenarios.matchesSearch(it, normalizedQuery) }
+                    if (inGroup.isEmpty()) return@mapNotNull null
+                    group to inGroup
+                }
+                if (visibleGroups.isEmpty()) {
+                    Text(
+                        "No scenarios match \"$normalizedQuery\".",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                }
+
+                visibleGroups.forEach { (group, inGroup) ->
                     Text(
                         group,
                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                         color = TzaddikColors.NavyMid,
                         modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
                     )
-                    val inGroup = ChecklistDebugScenarios.all.filter { it.group == group }
                     val names = inGroup.map { it.label }.distinct()
                     names.forEach { name ->
                         val erev = inGroup.firstOrNull { it.label == name && it.phase == ChecklistDebugPhase.EREV }
@@ -284,6 +323,19 @@ fun ChecklistDebugMenu(
                                             },
                                         )
                                     }
+                                }
+                                motzei != null -> {
+                                    DebugPhaseChip(
+                                        label = "Motzei",
+                                        selected = activeOverride?.scenarioId == motzei.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                motzei,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
                                 }
                             }
                         }

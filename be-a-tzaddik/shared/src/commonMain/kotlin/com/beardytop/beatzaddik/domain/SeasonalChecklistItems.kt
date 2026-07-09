@@ -240,11 +240,14 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
     private fun omerItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
         val day = cal.omerDay!!
         return ChecklistItemDef(
-            id = "sefirat_haomer_day_$day",
+            id = OmerCountText.CHECKLIST_ITEM_ID,
             title = OmerCountText.buildTitle(day, profile.effectiveNusach()),
             section = "Sefirat HaOmer",
-            timeOfDay = TimeOfDay.NIGHT,
+            timeOfDay = TimeOfDay.ANY,
             required = true,
+            situational = false,
+            tzeitMitzvah = true,
+            sortOrder = -100,
             seasons = listOf("sefirah"),
             explanation = OmerCountText.explanationTemplate(),
             links = omerLinks(profile)
@@ -357,7 +360,7 @@ Prayers & meals:
 
 The mitzvah (Peninei Halakha 05-16-03):
 • Give at least one gift to each of two different poor people (minimum of two recipients total) during Purim daytime.
-• Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
+• Each gift should enable a modest Purim meal — money is common.
 
 How to do it:
 • Give during Purim daytime only (not at night); many give after the daytime Megillah reading (follow your minhag).
@@ -411,7 +414,7 @@ When:
 • During Purim day — before sunset (many hold the meal in the afternoon after mitzvot are underway).
 
 How:
-• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy. Do not use matzah — there is no Purim custom for matzah, and many avoid matzah in the weeks before Pesach so the Seder taste stays distinct (Rema O.C. 471:2).
+• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy.
 • Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
 • Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
 
@@ -668,7 +671,7 @@ Quick reference: https://ohr.edu/1304
 
     private fun hoshanaRabbahAravotItem(profile: UserProfile) = ChecklistItemDef(
         id = "hoshana_rabbah_aravot",
-        title = "Hoshana Rabbah — beat the aravot (widespread custom)",
+        title = "Hoshana Rabbah — beat the aravot (Minhag Nevi'im)",
         section = "Hoshana Rabbah",
         timeOfDay = TimeOfDay.DAY,
         required = false,
@@ -1253,7 +1256,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         id = "tu_bshvat_seder_optional",
         title = "Tu B'Shvat Seder (optional)",
         section = "Seasonal",
-        timeOfDay = TimeOfDay.NIGHT,
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         explanation = SeasonalMitzvahText.tuBshvatExplanation(),

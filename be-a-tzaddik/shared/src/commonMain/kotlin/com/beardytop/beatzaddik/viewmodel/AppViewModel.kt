@@ -241,6 +241,19 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         _checklistDebugError.value = null
     }
 
+    val checklistDebugMenuVisible: StateFlow<Boolean> = profile
+        .map { it.checklistDebugMenuVisible }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    fun toggleChecklistDebugMenu() {
+        viewModelScope.launch {
+            val current = profile.value
+            deps.repository.saveProfile(
+                current.copy(checklistDebugMenuVisible = !current.checklistDebugMenuVisible)
+            )
+        }
+    }
+
     val dayChecklists: StateFlow<DayChecklists?> = combine(
         checklistInput,
         effectiveNowMillis,

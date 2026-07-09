@@ -103,7 +103,7 @@ Building a sukkah (סֻכָּה) is a mitzvah — many begin right after Yom Kip
 
 Basic requirements (Shulchan Arukh O.C. 633–635):
 • Walls: At least two full walls plus part of a third (or three full walls). Walls can be wood, fabric on a frame, or existing walls — they must be stationary and not flap in a normal breeze (Shulchan Arukh O.C. 630:10).
-• Fabric / canvas sukkahs: Tie fabric walls down tightly so they do not move or flap in a normal wind, or reinforce with horizontal ropes/straps around the frame spaced less than 3 tefachim apart (lavud) to create valid stationary partitions — ask your rav. Pop-up kits that billow are a common beginner pitfall.
+• Fabric / canvas sukkahs: Tie fabric walls down tightly so they do not move or flap in a normal wind — loose canvas that billows inside the frame does not become valid merely by wrapping ropes around it. Lavud (gaps under 3 tefachim) can create a halachic wall from ropes alone in some cases, but cannot fix billowing fabric. Pop-up kits that flap are a common beginner pitfall — ask your rav.
 • Size: Large enough to fit a table and for an adult to sit with head and most of body inside (roughly 7×7 handbreadths minimum; build larger for comfort).
 • Schach (covering): Must be plant material that grew from the ground and is detached (tree branches, bamboo mats certified for schach, etc.) — not metal, plastic, or a solid roof. Schach rules: Material must be detached plant life that has NOT been manufactured into a functional tool, vessel, or finished item (such as old furniture parts or wooden slats from crates), as finished objects are susceptible to ritual impurity (kabalat tumah) and are completely invalid for schach.
 • Shade: More shade than sun on the floor under the schach. You may see some sky through gaps — that is fine.
@@ -150,10 +150,10 @@ Morning — lulav and Hoshanot:
 • Take the arba minim as on other Chol HaMoed days (not on Shabbat).
 • In many kehillot there are extra hakafot (circuits) around the bimah with Hoshanot prayers — follow your siddur and shul.
 
-Beating the aravot (widespread custom):
+Beating the aravot (Minhag Nevi'im):
 • Separate from your daily lulav set, prepare a bundle of five fresh willow branches (aravot).
 • At the conclusion of synagogue services (after Hoshanot / before or after Musaf per minhag), many communities beat these branches against the ground (Chagizat Aravah).
-• The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom; some traditions link this to Minhag Nevi'im (the final Prophets). Follow your siddur.
+• The Talmud (Sukkah 44a) treats this rite as a Yesod Nevi'im or Minhag Nevi'im — an institution of the Prophets, not merely a local custom. The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. Follow your siddur.
 • The beaten branches are not used for the lulav mitzvah; many discard them respectfully after the rite.
 
 Nusach notes:
@@ -205,7 +205,6 @@ Davening highlights:
 • Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf.
 • Yizkor — memorial prayer in many Ashkenaz communities.
 • Hakafot — dancing with Torah scrolls; finish the annual Torah reading and begin Bereshit again.
-• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
 • Full Hallel and Musaf; Yom Tov Amidah.
 
 Simchat Torah joy:
@@ -252,7 +251,7 @@ Yom Tov:
 
 The mitzvah of the day — simcha and Torah:
 • Hakafot — circling the bimah with Torah scrolls, singing and dancing (often many circuits).
-• Minhag in some shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved to early Shacharit instead of Musaf so Kohanim are sober — follow your synagogue's practice.
+• Minhag in some Ashkenaz Diaspora shuls (not universal): because drinking often accompanies daytime hakafot, Birkat Kohanim is sometimes moved from Musaf to early Shacharit so Kohanim are sober. This is generally irrelevant in Israel (where Birkat Kohanim is said daily at Shacharit) and in many Sephardic communities with different timing — follow your synagogue's practice.
 • Complete the last parsha of Devarim and begin Bereshit — the Torah never ends.
 • Aliyot — Kol HaNearim (all children together; an adult or bar mitzvah boy recites the blessing with them), Chatan Torah, Chatan Bereshit, and honors for members.
 • Many shuls extend Hakafot to the evening or multiple sessions.
@@ -261,8 +260,6 @@ Practical tips:
 • Dress festively; arrive early for a good spot.
 • If you have a Torah honor, prepare your brachot.
 • Celebrate responsibly — the day is about love of Torah, not excess.
-
-Candle lighting last night of Yom Tov; havdalah when Yom Tov ends (often with Sukkot/Yom Tov additions in havdalah — use your siddur).
     """.trim(),
     )
 
@@ -388,6 +385,8 @@ If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
 Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
 ${'$'}forgotBlock
+
+Also add Yaaleh V'yavo in bentching if you eat bread today.
     """.trimIndent()
 
     private val YAALEH_MINCHA_FEMALE_TEMPLATE = """
@@ -401,7 +400,7 @@ If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
     private val YAALEH_MAARIV_TEMPLATE = """
 Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
 
-${'$'}forgotBlock
+$YAALEH_FORGOT_MAARIV
 
 Also add Yaaleh V'yavo in bentching if you eat bread tonight.
     """.trimIndent()
@@ -409,7 +408,7 @@ Also add Yaaleh V'yavo in bentching if you eat bread tonight.
     private val YAALEH_MAARIV_FEMALE_TEMPLATE = """
 If you recite the Maariv Amidah on Rosh Chodesh, add Yaaleh V'yavo in the blessing Retzei (Avodah).
 
-${'$'}forgotBlock
+$YAALEH_FORGOT_MAARIV
 
 If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
     """.trimIndent()
@@ -429,8 +428,7 @@ If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there to
     fun yaalehVyavoMaarivTemplate(female: Boolean = false): String =
         if (female) YAALEH_MAARIV_FEMALE_TEMPLATE else YAALEH_MAARIV_TEMPLATE
 
-    fun yaalehVyavoMaarivArgs(): Map<String, String> =
-        mapOf("forgotBlock" to YAALEH_FORGOT_MAARIV)
+    fun yaalehVyavoMaarivArgs(): Map<String, String> = emptyMap()
 
     fun yaalehVyavoShacharitExplanation(): String =
         ExplainerTemplateFill.fill(yaalehVyavoShacharitTemplate(), yaalehVyavoShacharitArgs())
@@ -515,7 +513,7 @@ Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extr
 
 Festive meal (mitzvah):
 • It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
-• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
+• Have the meal during the day. Poskim write this commemorates the lavish feast the Sanhedrin held in the courtyard of Beit Ya'azek (בֵּית יַעְזֵק) in Jerusalem for witnesses who came to testify that they had seen the new moon — so they would be incentivized to make the trip in the future (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
 • Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
 
 Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
@@ -536,7 +534,7 @@ Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extr
 
 Festive meal (mitzvah):
 • It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
-• Have the meal during the day. Poskim write this commemorates the feast the Sanhedrin held at Beit Ya'zek for witnesses who came to testify they saw the new moon (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
+• Have the meal during the day. Poskim write this commemorates the lavish feast the Sanhedrin held in the courtyard of Beit Ya'azek (בֵּית יַעְזֵק) in Jerusalem for witnesses who came to testify that they had seen the new moon — so they would be incentivized to make the trip in the future (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
 • Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
 
 Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
@@ -615,9 +613,9 @@ When:
 Late lighting (bedieved):
 If you were unable to light at the ideal time (around sunset or nightfall), the absolute final cutoff is dawn (alot hashachar).
 
-Whether you can still say the blessings depends on who is awake:
-• If 2–3 household members are awake (or people are still on the street outside), you may light and recite the usual blessings — pirsumei nisa is still achieved.
-• If everyone is asleep and the streets are empty, you should still light until dawn, but do not recite the blessings.
+Whether you can still say the blessings depends on pirsumei nisa (publicizing the miracle):
+• If household members are awake, or people are still on the street outside, you may light and recite the usual blessings — pirsumei nisa is still achieved.
+• If everyone in the home is asleep and the streets are empty, many hold you should still light until dawn but omit the blessings — though mainstream poskim (Mishnah Berurah 672:11) and Chabad custom hold that if you can wake even one or two family members to create a household presence, you may still recite the blessings. Ask your rav when unsure.
 
 Oil/candle requirement:
 Make sure there is enough oil / a large enough candle to burn for at least 30 minutes. If you light early (from plag), it should still burn at least 30 minutes after nightfall (tzeit). Once dawn passes, that night’s mitzvah is missed.
@@ -696,15 +694,15 @@ How to fulfill it:
 • Many communities avoid saying it on Shabbat — go during the week when you first see suitable blossoms.
 
 What stage must the tree be in (melav'lave — מְלַבְלְבֵי)?
-The rabbis require the tree to be actively flowering — not merely sprouting leaves. Shulchan Arukh O.C. 226:1 defines the Talmudic stage of melav'lave as when trees "put forth flowers" (shemotzi'in perach): you need open, visible blossoms that you can recognize as flowers. The blessing praises Hashem for creating "good trees for people to enjoy" — that response is meant to come from seeing beautiful, open blooms.
+Melav'lave literally means when trees put forth shoots or blossoms (Shulchan Arukh O.C. 226:1, from the Talmud). The mainstream view requires that you see the flower emerge — ideally open, visible blossoms you can recognize as flowers.
 
 L'chatchilah (ideal): the tree has moved past the leaf-only stage and shows open flowers, but the petals have not yet fallen and fruit has not begun to form.
 
 What does not work:
-• Green leaf buds alone — invalid; do not recite the blessing on leaves without open flowers.
+• Green leaf buds alone — invalid; do not recite the blessing on leaves without recognizable flowers.
 • After petals have dropped and fruit is forming — too late for this year's blessing.
 
-Bedieved (after the fact): some contemporary poskim allow reciting on swollen, tightly closed flower buds that are clearly about to open when no properly blooming trees are available — ask your rav if that is your only option.
+Other views: several major poskim (including the Chazon Ish) rule that if flower buds are distinctly recognizable as flower buds — even if the petals have not yet opened — you may recite the blessing. Ask your rav when unsure.
 
 Spiritual note:
 Nissan is the month of redemption; blossoming trees recall that creation itself waits to praise Hashem. Even a brief walk among flowering orchards can be a mitzvah.
@@ -750,7 +748,7 @@ Some Chabad communities look for rare late-blooming fruit trees during Nissan (l
 Birkat Hachamah (בִּרְכַּת הַחַמָּה — Blessing of the Sun) is recited once every 28 years, when the sun completes the machzor gadol (מחזור גדול) — the great 28-year solar cycle described in the Talmud (Berakhot 59b).
 
 The cycle:
-Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at sundown, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, it is recited the following morning — Wednesday at sunrise.
+Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at nightfall, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, recite it on Wednesday morning at sunrise.
 
 This occurrence: ${'$'}dateLabel.
 
@@ -794,23 +792,29 @@ Why:
     fun ldovidChabadNote(): String =
         "Chabad minhag: from 2 Elul through Hoshana Rabbah (21 Tishrei). Some continue through Shemini Atzeret — follow your Chabad rabbi."
 
-    fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
-        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> BeginnerHalachaGlossary.withKeyTerms(
-            BeginnerHalachaGlossary.selichotBasics(),
-            """
-Selichot (סליחות) — penitential prayers — begin in Elul for Sefardim and Edot HaMizrach (Shulchan Arukh O.C. 581:1; Peninei Halakha, Laws of the Festivals 15-02-05).
+    private val SELICHOT_EXPLANATION = """
+Selichot (literally "Forgivenesses") is a formal order of liturgical prayer — penitential piyutim and biblical verses — recited in the lead-up to Rosh Hashana and Yom Kippur. It is not merely informal preparation before the High Holidays: it is a distinct service built around pleas for forgiveness and the Thirteen Attributes of Mercy (Shlosh-Esrei Midot Harachamim).
 
-How:
-• Said at night (often after chatzos layla / before dawn) or early morning per community.
-• Not on Rosh Chodesh Elul itself; then daily through Yom Kippur — follow your kehilla's schedule.
-• Includes the 13 Attributes of Mercy (Hashem Hashem) with congregation responses.
-• Prepare by checking local synagogue calendar — times shift through Elul.
-        """.trim(),
-        )
-        EffectiveNusach.CHABAD -> BeginnerHalachaGlossary.withKeyTerms(
-            BeginnerHalachaGlossary.selichotBasics(),
-            """
-Chabad follows the standard Ashkenazi Selichot calendar — beginning on Motzei Shabbat before Rosh Hashana (or the prior Motzei Shabbat when Rosh Hashana falls early in the week), not on Rosh Chodesh Elul.
+The Core: The 13 Attributes of Mercy
+
+The absolute centerpiece of every Selichot service is the repeated recitation of the Thirteen Attributes of Divine Mercy (Shlosh-Esrei Midot Harachamim).
+
+According to the Talmud (Rosh Hashanah 17b), after the Israelites sinned with the Golden Calf, God wrapped Himself in a prayer shawl (tallit) like a prayer leader and demonstrated this exact sequence of verses to Moses. God made a covenant: "Whenever Israel sins, let them recite this service before Me in this order, and I will forgive them." The verses (Exodus 34:6-7) emphasize God's infinite patience, compassion, and willingness to extend clean slates to those who genuinely seek change.
+
+The Great Timing Divide: Sephardic vs. Ashkenazic
+
+While the emotional intent is identical, the Jewish world splits significantly on when the Selichot prayers begin, rooted in different legal and cultural traditions:
+
+• The Sephardic Custom (An Entire Month): Sephardic communities begin reciting Selichot on the second day of the Hebrew month of Elul and continue every single day until Yom Kippur—a full 40-day marathon. This timeline directly mirrors the 40 days Moses spent on Mount Sinai pleading for forgiveness after the Golden Calf incident, ending on Yom Kippur.
+
+• The Ashkenazic Custom (The Final Countdown): Ashkenazic communities begin reciting Selichot much later—traditionally on the Saturday night/Sunday morning before Rosh Hashana (ensuring a minimum of four days of prayers before the New Year hits). The first night of Ashkenazic Selichot is a major communal event, packed with high-attendance services that often begin at midnight or pre-dawn hours, but can occur throughout the day.
+
+Mystical and psychological texts note that these hours carry a unique quality of quiet stillness. The distractions of the day have faded, the world is asleep, and the mind is stripped of its usual defenses. Pleading for forgiveness in a dimly lit synagogue while the rest of the neighborhood is dark creates an intensely intimate, raw conversation between the individual and God.
+    """.trim()
+
+    private val SELICHOT_CHABAD_ADDENDUM = """
+
+Chabad follows the Ashkenazic Selichot calendar described above (not from Rosh Chodesh Elul).
 
 During Elul before Selichot begin:
 • Blow the shofar daily after Shacharit (except Erev Rosh Hashana and when Rosh Hashana is Shabbat).
@@ -820,20 +824,18 @@ When Selichot begin:
 • Follow your local Chabad minyan — often late night or before Shacharit.
 • Use Nusach Ari for Selichot.
 • Increase in Torah, teshuvah, and tzedakah through the month of Elul.
-        """.trim(),
+    """.trim()
+
+    fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
+        EffectiveNusach.CHABAD -> BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.selichotBasics(),
+            "$SELICHOT_EXPLANATION\n\n$SELICHOT_CHABAD_ADDENDUM",
         )
+        EffectiveNusach.SEFARD,
+        EffectiveNusach.EDOT_HAMIZRACH,
         EffectiveNusach.ASHKENAZ -> BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.selichotBasics(),
-            """
-Ashkenaz Selichot begin on Motzei Shabbat before Rosh Hashana, with at least four days of Selichot before the holiday (Peninei Halakha 15-02-05; Rama). If Rosh Hashana falls on Monday or Tuesday, Selichot begin the previous Motzei Shabbat.
-
-How:
-• First night is often a large community gathering (Motzei Shabbat).
-• Said standing; many wear tallit if already worn for Maariv or at morning Selichot.
-• Arrive early — services are long and moving.
-• Continue daily until Yom Kippur (including Erev Rosh Hashana, fast day schedules differ).
-• Check your shul for exact times (usually late night or early morning).
-        """.trim(),
+            SELICHOT_EXPLANATION,
         )
     }
 
@@ -997,7 +999,7 @@ Shabbat Chazon (the Shabbat before 9 Av): Shabbat is observed normally — meat 
 When 9 Av falls on Shabbat and the fast is observed Sunday (10 Av):
 • Because you are already fasting on 10 Av, the usual daytime mourning restrictions for the 10th are heavily altered.
 • Ashkenazim: laundry, bathing, and haircuts are permitted immediately Motzei fast Sunday night — you do not wait until Monday chatzos. Meat and wine remain prohibited Sunday night; resume Monday morning. Havdalah is delayed from Saturday night until Sunday night after the fast over wine. Music: Ashkenazi custom often continues until Monday morning, though some lenient views permit it Sunday night.
-• Sephardim: many resume bathing and laundry immediately Thursday night after the fast when 10 Av is Friday; when the fast is Sunday, follow your rav — meat restrictions often continue until chatzos Monday or follow local psak.
+• Sephardim: when the fast is observed Sunday, laundry, haircuts, and bathing are permitted immediately Motzei fast Sunday night; only meat and wine remain restricted until Monday morning. When 10 Av is Friday, many resume bathing and laundry immediately Thursday night after the fast; follow your rav for meat restrictions.
 
 When the fast falls on Thursday and 10 Av is Friday (Shabbat prep — kvod Shabbat):
 • Haircuts, shaving, laundry, and bathing are permitted Friday morning right away so you can prepare for Shabbat — you do not wait until Friday chatzos for these.
@@ -1108,7 +1110,7 @@ Liturgical note:
 • Tachanun is completely omitted from standard weekday prayers today — as well as during yesterday afternoon's Mincha service (14 Shevat).
 
 Customs:
-• Eat fruit — especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, dates.
+• Eat fruit — especially tree fruit from the seven species: grapes, figs, pomegranates, olives, and dates. Wheat and barley are grains in the Shivat Haminim — honor them with bread or grain dishes separately, not under the tree-fruit bracha (Borei Pri Ha'etz).
 • Say brachot and after-brachot carefully.
 • Shehecheyanu on fruit: You may say Shehecheyanu only on a seasonal fruit that is genuinely new to the market this season (like fresh pomegranates or figs). Do not say this blessing on fruits grown and sold year-round (like bananas, pineapples, or apples), even if you personally have not eaten one recently.
 • Some hold a Tu B'Shvat Seder with four cups of wine (white to red) and themed fruit — follow a guide if hosting.

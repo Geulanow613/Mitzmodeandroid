@@ -222,6 +222,19 @@ object ChecklistDebugScenarios {
             cal.isSefiratHaomer && cal.omerDay == 15
         }
         dayOf(seasonal, "Lag BaOmer", "lag_baomer") { cal, _ -> cal.isLagBaomer }
+        dayOf(seasonal, "Pesach Sheini", "pesach_sheini") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.IYAR && cal.hebrewDay == 14
+        }
+        // Same day; multiple label spellings for convenience.
+        dayOf(seasonal, "Tu B'Av", "tu_beav") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.AV && cal.hebrewDay == 15
+        }
+        dayOf(seasonal, "Tu Bav", "tu_bav") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.AV && cal.hebrewDay == 15
+        }
+        dayOf(seasonal, "Tu' B'av", "tu_beav_alt") { cal, _ ->
+            cal.hebrewMonth == HebrewCalendarEngine.AV && cal.hebrewDay == 15
+        }
         dayOf(seasonal, "Three Weeks", "three_weeks") { cal, _ ->
             val m = cal.hebrewMonth
             val d = cal.hebrewDay
@@ -374,6 +387,31 @@ object ChecklistDebugScenarios {
             ChecklistDebugPhase.MOTZEI -> "Motzei"
         }
         return "$phase — ${scenario.label}"
+    }
+
+    /** Keyword filter for the debug menu — matches label, group, id, and phase words. */
+    fun matchesSearch(scenario: ChecklistDebugScenario, query: String): Boolean {
+        val normalized = query.trim().lowercase()
+        if (normalized.isEmpty()) return true
+        val haystack = buildString {
+            append(scenario.label)
+            append(' ')
+            append(scenario.group)
+            append(' ')
+            append(scenario.id.replace('_', ' '))
+            append(' ')
+            when (scenario.phase) {
+                ChecklistDebugPhase.EREV -> append("erev evening before")
+                ChecklistDebugPhase.DAY_OF -> append("day daytime")
+                ChecklistDebugPhase.MOTZEI -> append("motzei after nightfall")
+            }
+            if (scenario.id.endsWith(TWO_DAYS_BEFORE_SUFFIX)) {
+                append(" 2 days before upcoming")
+            }
+        }.lowercase()
+        return normalized.split(Regex("\\s+"))
+            .filter { it.isNotEmpty() }
+            .all { term -> haystack.contains(term) }
     }
 
     fun usesJerusalemCalendar(scenario: ChecklistDebugScenario): Boolean =
@@ -685,6 +723,8 @@ object ChecklistDebugDateFinder {
             "shushan_meshulash_shabbat_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 15)
             "shushan_meshulash_sun_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 16)
             "lag_baomer_day" -> CanonicalHebrewDate(HebrewCalendarEngine.IYAR, 18)
+            "pesach_sheini_day" -> CanonicalHebrewDate(HebrewCalendarEngine.IYAR, 14)
+            "tu_beav_day", "tu_bav_day", "tu_beav_alt_day" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 15)
             "nissan_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
             else -> null
         }

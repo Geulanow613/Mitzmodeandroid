@@ -46,7 +46,8 @@ Day 2 — Shabbat (15 Adar) — second day:
 
 Day 3 — Sunday (16 Adar) — third day:
 • Mishloach manot: Send at least two ready-to-eat foods to one friend before sunset.
-• Purim seudah: Hold the main festive Purim meal today — joy, wine, and words of Torah. Some have the custom for men to drink wine until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
+• Do not say Al HaNissim in Sunday's Shacharit or Mincha prayers.
+• Purim seudah: Hold the main festive Purim meal today — joy, wine, and words of Torah. Regarding Al HaNissim in Birkat Hamazon for this meal, there is a major halachic dispute: some rule it is omitted entirely, while others rule it is included because the meal is an official extension of Purim. Consult your rav for your family custom. Some have the custom for men to drink wine until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
 
 Before Shabbat candles (Friday):
 • Complete Megillah (night + morning) and matanot la'evyonim on Friday.
@@ -175,7 +176,7 @@ The mitzvah:
 • Deliver before sunset; a messenger is fine.
 • Food should be ready to eat without cooking; label sender and recipient.
 
-Do not say Al HaNissim today — that was Shabbat only.
+Do not say Al HaNissim in Sunday's Shacharit or Mincha prayers — that was Shabbat only for davening.
     """.trimIndent()
 
     fun sundaySeudahExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -194,6 +195,7 @@ When:
 How:
 • Festive meal with bread, meat, wine, and joy; include words of Torah or thanks to Hashem.
 • Drinking wine is a widespread custom. Some have the custom for men to drink until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
+• Regarding Al HaNissim in Birkat Hamazon for this meal, there is a major halachic dispute: some rule it is omitted entirely, while others rule it is included because the meal is an official extension of Purim. Consult your rav for your family custom.
 
 This completes the four Purim mitzvot for Purim Meshulash.
     """.trimIndent()

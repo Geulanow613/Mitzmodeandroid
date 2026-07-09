@@ -28,6 +28,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -52,6 +53,7 @@ import com.beardytop.beatzaddik.platform.exitApplication
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
+import com.beardytop.beatzaddik.ui.components.LocalRegisterChecklistDebugToggle
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.MitzModeBottomNav
@@ -90,6 +92,11 @@ fun BeATzaddikApp(
 
     TzaddikTheme(textScale = profile.textScale) {
         HalachicTermOverlay {
+        val registerChecklistDebugToggle = LocalRegisterChecklistDebugToggle.current
+        DisposableEffect(viewModel, registerChecklistDebugToggle) {
+            registerChecklistDebugToggle?.invoke { viewModel.toggleChecklistDebugMenu() }
+            onDispose { registerChecklistDebugToggle?.invoke(null) }
+        }
         if (!splashDone) {
             PlatformBackHandler {
                 if (embeddedMode) onRequestClose()

@@ -124,6 +124,8 @@ data class UserProfile(
      */
     val dailyOngoingCollapsed: Boolean = false,
     val dailyOngoingCollapsedDate: String? = null,
+    /** Easter-egg checklist debug menu — persists until toggled off via the same gesture. */
+    val checklistDebugMenuVisible: Boolean = false,
 ) {
     fun effectiveNusach(): EffectiveNusach = nusachSelection.toEffective()
 

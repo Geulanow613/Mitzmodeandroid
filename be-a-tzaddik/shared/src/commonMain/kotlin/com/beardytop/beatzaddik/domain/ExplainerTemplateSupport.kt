@@ -45,7 +45,7 @@ Men — Torah obligation:
 
 The ownership rule (lakhem — u'lekachtem lakhem):
 • In Israel: the strict requirement to fully own your lulav and etrog set applies on the first day of Sukkot (15 Tishrei; Shulchan Arukh O.C. 658:3). If you do not own a set, ask the owner for matana al menat lehachzir (gift on condition of return) before you wave.
-• In the Diaspora: because the second day of Yom Tov is kept as a safek de'oraita, the same lakhem ownership requirement applies on both Day 1 and Day 2 — you cannot simply borrow a synagogue set; it must be given to you as matana al menat lehachzir.
+• In the Diaspora: the same lakhem ownership requirement applies on both Day 1 and Day 2 — you cannot simply borrow a synagogue set; it must be given to you as matana al menat lehachzir.
 • In the Diaspora from the third day onward (the first day of Chol HaMoed): you may borrow a shared or synagogue set without a formal gift — the rabbinic continuation no longer carries the Torah ownership requirement (Peninei Halakha, Laws of Sukkot 13:13).
 • In Israel on Chol HaMoed: borrowing without a gift is permitted — ownership was required only on the first day.
     """.trimIndent()
@@ -207,15 +207,14 @@ Wine vs grape juice (a real debate — ask your rav):
 • Lenient view: Others (e.g. Rav Shlomo Zalman Auerbach, Rav Yaakov Kamenetsky) treat grape juice like wine for this purpose — drinking a revi'it of grape juice can fulfill the mitzvah per their psak.
 
 If you do not drink wine:
-• Chamar medina: If you cannot drink wine or grape juice, many poskim permit using a significant local beverage (such as an appropriate kosher-for-Passover liquor or coffee) depending on your community's standards.
-• Some hold that meat and other festival delicacies at Yom Tov meals also help fulfill the broader mitzvah of rejoicing — wine is still the classic way when you can.
+• Fulfilling the mitzvah of festival joy (simchat ha'moed) is traditionally linked to wine and meat. If you avoid alcohol and grape products entirely, focus on meat, clothing, and other festive delicacies to fulfill the mitzvah of rejoicing.
 
 How:
 • Ideally with bread and enjoyable food at a Chol HaMoed meal — Peninei Halakha encourages two proper meals each day when possible, but bread and extra food are not strict obligations on Chol HaMoed.
 ${'$'}kashrutLine
 • Each day of the moed counts separately.
 
-If you avoid alcohol for health or preference, ask your rav which option fits you: grape juice per the lenient view, chamar medina, or emphasizing meat and festive food.
+If you avoid alcohol for health or preference, ask your rav which option fits you: grape juice per the lenient view, or emphasizing meat and festive food.
     """.trimIndent()
 
     fun cholHamoedWineTemplate(): String = CHOL_HAMOED_WINE_TEMPLATE
@@ -235,7 +234,7 @@ If you avoid alcohol for health or preference, ask your rav which option fits yo
 Dwelling in the sukkah (סוכה) — eating bread and mezonot meals there — is a central mitzvah of Sukkot. Tradition teaches that the Shechinah (Divine Presence) rests in a kosher sukkah; we leave our permanent homes to dwell in a temporary booth, trusting in Hashem.
 
 How to observe:
-• Eat bread and mezonot meals in the sukkah whenever possible — eat more than a kezayit of each in the sukkah. Men say leishev baSukkah before eating bread.
+• Meals involving bread or significant baked goods (mezonot) must be eaten in the sukkah. Men recite leishev baSukkah when eating a kebeitzah (approx. 2 fl oz / the volume of an egg) or more of bread or cake.
 • Spend meaningful time beyond meals: learning, singing, resting — the more you "live" in the sukkah, the more you fulfill the spirit of the mitzvah.
 • Decorate the sukkah — fruits, lights, children's art — to increase simcha (joy).
 • Welcome guests and invoke the Ushpizin — mystical "guests" (Abraham, Isaac, Jacob, and others) invited into the sukkah each night in Kabbalistic custom.
@@ -250,7 +249,7 @@ For women: eating meals in the sukkah is a recommended mitzvah but not obligator
 ${'$'}leishevLine
 
 How to observe:
-• Eat bread and mezonot meals in the sukkah when you can — eat more than a kezayit of each there when applicable.
+• Meals involving bread or significant baked goods (mezonot) should be eaten in the sukkah when you can. The blessing leishev baSukkah applies when eating a kebeitzah (approx. 2 fl oz / the volume of an egg) or more of bread or cake.
 • Spend time learning, singing, and resting there, not only a quick bite.
 • Help decorate the sukkah and welcome guests; many families invite the Ushpizin — mystical "guests" (Abraham, Isaac, Jacob, and others) — each night.
 • Rain or heavy discomfort may exempt you — follow halacha for your situation.

@@ -207,7 +207,7 @@ Tomorrow is ${'$'}fastName — a public fast from dawn (alot hashachar) until ni
 
 If you plan to eat before the fast begins:
 • Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
-• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).
+• If you wake before dawn and want to eat before the fast begins, stick to water, coffee, fruit, or a very small snack. Establishing a formal meal or eating a significant amount of baked goods or bread is restricted if you wake up early to eat.
 • Stop all eating and drinking at alot hashachar${'$'}alotLine.
 
 Practical prep tonight:
@@ -430,7 +430,7 @@ What is forbidden today (in addition to eating and drinking):
 What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
 
-After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast; meat and wine often wait until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
+After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast for Ashkenazim; meat and wine often wait until Monday morning. Note for Sephardic users: when the fast is pushed to Sunday, restrictions on laundry, haircuts, and bathing lift immediately on Sunday night; only meat and wine are restricted until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
 
 ${'$'}common
     """.trimIndent()

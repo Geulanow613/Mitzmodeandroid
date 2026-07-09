@@ -69,6 +69,35 @@ class SeasonalChecklistItemsTest {
     }
 
     @Test
+    fun tuBshvatSederAvailableAllDayAndNight() {
+        val items = SeasonalChecklistItems.forDay(
+            cal = sampleDayInfo(
+                date = LocalDate(2026, 2, 3),
+                activeTimeOfDay = TimeOfDay.DAY,
+                hebrewMonth = HebrewCalendarEngine.SHEVAT,
+                hebrewDay = 15,
+            ),
+            profile = sampleProfile(),
+            tomorrowCal = sampleDayInfo(
+                date = LocalDate(2026, 2, 4),
+                activeTimeOfDay = TimeOfDay.NIGHT,
+                hebrewMonth = HebrewCalendarEngine.SHEVAT,
+                hebrewDay = 16,
+            ),
+            dayAfterTomorrowCal = sampleDayInfo(
+                date = LocalDate(2026, 2, 5),
+                activeTimeOfDay = TimeOfDay.DAY,
+                hebrewMonth = HebrewCalendarEngine.SHEVAT,
+                hebrewDay = 17,
+            ),
+            nowMillis = morningMillis,
+        )
+
+        val seder = items.first { it.id == "tu_bshvat_seder_optional" }
+        assertEquals(TimeOfDay.ANY, seder.timeOfDay)
+    }
+
+    @Test
     fun mourningItemsHiddenAfterChatzosOnTenAv() {
         val zmanim = ZmanimSnapshot(
             chatzosMillis = 1_000L,

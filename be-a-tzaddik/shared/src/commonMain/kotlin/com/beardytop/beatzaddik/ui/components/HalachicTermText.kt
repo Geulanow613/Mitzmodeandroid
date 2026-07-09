@@ -61,6 +61,9 @@ val LocalHalachicTermsEnabled = compositionLocalOf { true }
 /** When set (e.g. on Today), glossary taps for guide-linked terms open the Shabbat guide. */
 val LocalOpenShabbatGuide = compositionLocalOf<((String?) -> Unit)?> { null }
 
+/** Child screens register a handler so the Shabbat guide can toggle the checklist debug menu. */
+val LocalRegisterChecklistDebugToggle = compositionLocalOf<(((() -> Unit)?) -> Unit)?> { null }
+
 /** Tracks term ids already underlined on the current page; first occurrence only. */
 val LocalHalachicTermsUsedOnPage = compositionLocalOf<MutableSet<String>?> { null }
 
@@ -145,6 +148,8 @@ fun HalachicTermOverlay(
     var selected by remember { mutableStateOf<HalachicTerm?>(null) }
     var showShabbatGuide by remember { mutableStateOf(false) }
     var shabbatGuideAnchor by remember { mutableStateOf<String?>(null) }
+    var checklistDebugToggleHandler by remember { mutableStateOf<(() -> Unit)?>(null) }
+    val registerChecklistDebugToggle: ((() -> Unit)?) -> Unit = { checklistDebugToggleHandler = it }
     val openShabbatGuide: (String?) -> Unit = { anchor ->
         shabbatGuideAnchor = anchor
         showShabbatGuide = true
@@ -152,6 +157,7 @@ fun HalachicTermOverlay(
     CompositionLocalProvider(
         LocalShowHalachicTerm provides { term -> selected = term },
         LocalOpenShabbatGuide provides openShabbatGuide,
+        LocalRegisterChecklistDebugToggle provides registerChecklistDebugToggle,
     ) {
         content()
         HalachicTermDefinitionDialog(
@@ -171,6 +177,7 @@ fun HalachicTermOverlay(
                     ShabbatGuideScreen(
                         initialAnchor = shabbatGuideAnchor,
                         onDismiss = { showShabbatGuide = false },
+                        onToggleChecklistDebugMenu = { checklistDebugToggleHandler?.invoke() },
                     )
                 }
             }
@@ -576,7 +583,7 @@ private fun buildMarkdownWithTerms(
 }
 
 private fun linkSpanStyle(bodyColor: Color): SpanStyle = SpanStyle(
-    color = bodyColor,
+    color = Color(0xFF1565C0),
     textDecoration = TextDecoration.Underline,
     fontWeight = FontWeight.Medium,
 )

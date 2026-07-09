@@ -425,7 +425,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
                     HebrewCalendarEngine.TU_BESHVAT         -> UpcomingHoliday("Tu B'Shvat", i, "Minor holiday — New Year for Trees")
                     HebrewCalendarEngine.PESACH_SHENI        -> UpcomingHoliday("Pesach Sheni", i, "Minor holiday — Second Passover")
                     HebrewCalendarEngine.LAG_BAOMER          -> UpcomingHoliday("Lag BaOmer", i, "Minor holiday — 33rd day of the Omer")
-                    HebrewCalendarEngine.TU_BEAV             -> UpcomingHoliday("Tu B'Av", i, "Minor holiday — celebration of joy")
+                    HebrewCalendarEngine.TU_BEAV             -> UpcomingHoliday("Tu B'Av", i, "Minor holiday")
                     HebrewCalendarEngine.TISHA_BEAV          -> UpcomingHoliday("Tisha B'Av", i, "Fast day — mourning the Temple")
                     HebrewCalendarEngine.FAST_OF_GEDALYAH    -> UpcomingHoliday("Fast of Gedaliah", i, "Fast day")
                     HebrewCalendarEngine.TENTH_OF_TEVES      -> UpcomingHoliday("Fast of 10 Tevet", i, "Fast day")

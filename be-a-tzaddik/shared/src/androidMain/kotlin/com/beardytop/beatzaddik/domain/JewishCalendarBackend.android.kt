@@ -460,7 +460,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
                     JewishCalendar.LAG_BAOMER -> nextMinorHoliday =
                         UpcomingHoliday("Lag BaOmer", i, "Minor holiday — 33rd day of the Omer")
                     JewishCalendar.TU_BEAV -> nextMinorHoliday =
-                        UpcomingHoliday("Tu B'Av", i, "Minor holiday — celebration of joy")
+                        UpcomingHoliday("Tu B'Av", i, "Minor holiday")
                     JewishCalendar.TISHA_BEAV -> nextMinorHoliday =
                         UpcomingHoliday("Tisha B'Av", i, "Fast day — mourning the Temple")
                     JewishCalendar.FAST_OF_GEDALYAH -> nextMinorHoliday =
@@ -511,7 +511,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         JewishCalendar.TU_BESHVAT -> "Minor holiday — New Year for Trees"
         JewishCalendar.PESACH_SHENI -> "Minor holiday — Second Passover"
         JewishCalendar.LAG_BAOMER -> "Minor holiday — 33rd day of the Omer"
-        JewishCalendar.TU_BEAV -> "Minor holiday — celebration of joy"
+        JewishCalendar.TU_BEAV -> "Minor holiday"
         // Fast days
         JewishCalendar.FAST_OF_GEDALYAH -> "Fast day — Fast of Gedaliah"
         JewishCalendar.TENTH_OF_TEVES -> "Fast day — Fast of 10 Tevet"

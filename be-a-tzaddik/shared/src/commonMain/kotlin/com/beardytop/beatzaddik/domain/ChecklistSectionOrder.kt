@@ -22,6 +22,7 @@ object ChecklistSectionOrder {
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
         "Fasts" to -45,
+        "Sefirat HaOmer" to -48,
         "Chanukah" to -25,
     )
 
@@ -68,6 +69,9 @@ object ChecklistSectionOrder {
         if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
             add("Hoshana Rabbah")
         }
+        if (OmerCountText.isOmerCountPriority(nowMillis, cal)) {
+            add("Sefirat HaOmer")
+        }
         // Erev Shabbat: after midday, surface Shabbat prep near the top.
         if (cal.isErevShabbat && cal.activeTimeOfDay != TimeOfDay.DAY) {
             add("Prepare for Shabbat")
@@ -101,6 +105,12 @@ object ChecklistSectionOrder {
             if (base == "Prepare for Shabbat") {
                 return when (activePeriod) {
                     TimeOfDay.AFTERNOON -> -1 // very top on Friday afternoon
+                    TimeOfDay.NIGHT -> 1 // right below Maariv section
+                    else -> prepSectionSortPriority[base] ?: -20
+                }
+            }
+            if (base == "Sefirat HaOmer") {
+                return when (activePeriod) {
                     TimeOfDay.NIGHT -> 1 // right below Maariv section
                     else -> prepSectionSortPriority[base] ?: -20
                 }
