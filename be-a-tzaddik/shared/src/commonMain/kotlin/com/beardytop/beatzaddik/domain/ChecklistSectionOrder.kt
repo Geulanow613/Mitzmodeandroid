@@ -18,7 +18,8 @@ object ChecklistSectionOrder {
         "Motzei Shabbat" to -60,
         "Hoshana Rabbah" to -65,
         "Chol HaMoed" to -55,
-        "Seasonal" to -50,
+        // High so Zecher Machatzit / Birkat Hachamah pin near the top of Today.
+        "Seasonal" to -85,
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
         "Fasts" to -45,
@@ -32,7 +33,11 @@ object ChecklistSectionOrder {
         profile: UserProfile,
         nowMillis: Long,
     ): Set<String> = buildSet {
-        if (BirkatHachamahRules.visibleOccurrence(cal.date) != null) add("Seasonal")
+        if (BirkatHachamahRules.visibleOccurrence(cal.date) != null ||
+            SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(cal)
+        ) {
+            add("Seasonal")
+        }
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
         if (SeasonalChecklistItems.isNightAfterYomKippur(cal)) add("Motzei Yom Kippur")
         if (

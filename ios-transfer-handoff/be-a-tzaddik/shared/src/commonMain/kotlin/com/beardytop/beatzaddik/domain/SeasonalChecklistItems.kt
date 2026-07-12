@@ -146,6 +146,9 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         } else if (cal.isPurim) {
             addAll(purimItems(profile))
         }
+        if (shouldShowZecherMachatzitHaShekel(cal)) {
+            add(zecherMachatzitHaShekelItem(cal, profile))
+        }
         if ("erev_chag" in cal.activeSeasons && !HolyDayPhoneRules.isShabbatMelachaDay(cal)) {
             add(erevChagPrepItem(cal, profile, tomorrowCal))
         }
@@ -308,6 +311,36 @@ Ask your Chabad rabbi for details on your community.""",
             links = SeasonalMitzvahText.chanukahDayLinks(profile)
         )
 
+    /** Fast of Esther (Mincha), Purim morning, or Purim Meshulash Friday (Megillah day). */
+    fun shouldShowZecherMachatzitHaShekel(cal: DayInfo): Boolean =
+        cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER ||
+            cal.isPurim ||
+            "purim_meshulash_friday" in cal.activeSeasons
+
+    private fun zecherMachatzitHaShekelItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
+        val onFast = cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER
+        return ChecklistItemDef(
+            id = "zecher_machatzit_hashekel",
+            title = if (onFast) {
+                "Zecher LeMachatzit HaShekel (custom)"
+            } else {
+                "Zecher LeMachatzit HaShekel (custom) — if not given already on Fast of Esther"
+            },
+            section = "Seasonal",
+            sortOrder = -200,
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            seasons = buildList {
+                if (onFast) add("fast_day")
+                if (cal.isPurim) add("purim")
+                if ("purim_meshulash_friday" in cal.activeSeasons) add("purim_meshulash_friday")
+            }.takeIf { it.isNotEmpty() },
+            explanation = SeasonalMitzvahText.zecherMachatzitHaShekelExplanation(),
+            links = SeasonalMitzvahText.zecherMachatzitHaShekelLinks(profile),
+        )
+    }
+
     private fun purimItems(profile: UserProfile): List<ChecklistItemDef> = listOf(
         ChecklistItemDef(
             id = "purim_megillah",
@@ -335,7 +368,7 @@ Blessings before reading:
 • She'asa nissim
 • Shehecheyanu (recited on the first night; Ashkenazim recite it by day as well)
 
-Machatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.
+Confirm local Megillah reading times with your shul. Zecher LeMachatzit HaShekel (the half-shekel remembrance custom) appears as its own checklist item on the Fast of Esther and Purim.
 
 Prayers & meals:
 • Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.""",

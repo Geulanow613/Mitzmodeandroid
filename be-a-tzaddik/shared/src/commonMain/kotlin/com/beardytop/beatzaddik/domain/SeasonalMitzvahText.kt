@@ -1219,4 +1219,49 @@ Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth
         ChecklistLink("Aish — Tu B'Shvat", "https://aish.com/48965616/", "default"),
         ChecklistLink("Peninei Halacha — Tu B'Shvat", "https://ph.yhb.org.il/tu-beshvat/", "default")
     )
+
+    fun zecherMachatzitHaShekelExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.purimBasics(),
+        """Zecher LeMachatzit HaShekel (the remembrance of the half-shekel) is a custom observed today to commemorate the historic biblical tax. In Torah times, every adult Jewish male was required to contribute a yearly half-shekel to the Holy Temple (Beit HaMikdash) to fund the public communal sacrifices and maintenance of the sanctuary.
+
+Because the Temple is no longer standing, the absolute requirement no longer applies. Instead, we give a symbolic donation to charity to keep the memory of this mitzvah alive.
+
+Why is it performed?
+
+Historical commemoration: It serves as a physical reminder of the communal unity and shared responsibility of the Temple era.
+
+A spiritual shield: According to the Talmud, Haman offered 10,000 silver talents to King Achashverosh to justify destroying the Jewish people. God anticipated this, and the merit of the Jewish people's annual half-shekel donations countered and nullified Haman's wicked decree. By giving this donation today, we tap into that same spiritual protection.
+
+Tzedakah (charity): The money given is distributed to poor families, Torah institutions, or other charitable causes, fulfilling a vital role in supporting the community.
+
+When and how is it performed?
+
+The timing: The custom is traditionally performed on the Fast of Esther, during the afternoon Mincha service. Giving charity on a fast day is considered especially auspicious.
+
+If someone is unable to give it during Mincha, or if the fast falls early (like on a Thursday before a Sunday Purim), it can be given on Purim morning before the reading of the Megillah.
+
+The practice: It is customary to give three coins that represent the "half" unit of the local currency (for example, three half-dollar coins in the US, or three half-shekel coins in Israel). Three coins are used because the word terumah (contribution) is mentioned three times in the Torah portion discussing the commandment.
+
+Many synagogues place three silver coins out for the congregation to use. You lift the coins to acquire them, place your own donation into the charity box to "buy" them, and then drop the silver coins back into the box to fulfill the custom.
+
+This is a widespread custom (minhag), not one of the four Purim mitzvot. Follow your shul or rav.""",
+    )
+
+    fun zecherMachatzitHaShekelLinks(profile: UserProfile) = buildList {
+        add(
+            ChecklistLink(
+                "Chabad — Machatzit HaShekel",
+                "https://www.chabad.org/holidays/purim/article_cdo/aid/394172/jewish/Machatzit-HaShekel.htm",
+                if (profile.effectiveNusach() == EffectiveNusach.CHABAD) "chabad" else "default",
+            ),
+        )
+        add(
+            ChecklistLink(
+                "Sefaria — Shulchan Arukh O.C. 694",
+                "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.694",
+                "default",
+            ),
+        )
+        add(ChecklistLink("Aish — Purim", "https://aish.com/holidays/purim/", "default"))
+    }
 }

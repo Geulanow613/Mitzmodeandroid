@@ -2,6 +2,11 @@
 
 What the mirrored `be-a-tzaddik/` files and `docs/` contain.
 
+## 2026-07-13 (b) — Zecher LeMachatzit HaShekel custom
+
+- New Seasonal checklist item **Zecher LeMachatzit HaShekel (custom)** on Fast of Esther (Mincha) and Purim / Meshulash Friday (with note if not given on the fast)
+- Pinned near the top of Today when it appears
+
 ## 2026-07-13 — Tachanun Mincha erevs, glossary links, store trim (v5.6.0)
 
 - **`TachanunRules.kt`** — omit Mincha Tachanun on erev Shabbat, erev chagim, Purim, Chanukah, Tisha B’Av, Rosh Chodesh, and minor festive eves; Erev RH / Erev YK still say Mincha (Shacharit-only omission)

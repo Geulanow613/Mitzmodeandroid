@@ -1,8 +1,8 @@
 {
     "swift_native_manifest":  "swift-native/MANIFEST.json",
-    "generated_at":  "2026-07-12T22:46:01Z",
+    "generated_at":  "2026-07-12T22:56:39Z",
     "extract_mac":  "extract-to-dropbox.command",
     "dropbox_dest":  "~/Dropbox/claudesucks (or ~/Library/CloudStorage/Dropbox/claudesucks)",
     "android_app_files":  145,
-    "be_a_tzaddik_files":  920
+    "be_a_tzaddik_files":  921
 }

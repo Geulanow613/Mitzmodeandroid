@@ -52,7 +52,7 @@ Day 3 — Sunday (16 Adar) — third day:
 Before Shabbat candles (Friday):
 • Complete Megillah (night + morning) and matanot la'evyonim on Friday.
 • Plan Sunday mishloach manot delivery and the seudah menu.
-• Machatzit haShekel: if your custom, many give before Megillah — handle Thursday night or Friday.
+• Zecher LeMachatzit HaShekel (custom): ideally at Mincha on the Fast of Esther (often Thursday); otherwise Friday morning before Megillah.
 
 Ask your rav about edge cases (travel, illness, minhag).
     """.trimIndent()

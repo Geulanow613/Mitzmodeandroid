@@ -854,9 +854,11 @@ object HalachicTermsDictionary {
             "Kezayit",
         ),
         line(
-            "Machatzit HaShekel — Machatzit HaShekel recalls the half-shekel each Jew gave for Temple upkeep in Adar. Today many give charity before Purim — often three coins half of a local unit. It is a widespread custom, not one of the four Purim mitzvot, but it connects the community to unified redemption. Give through your shul or reputable charity.",
+            "Machatzit HaShekel — Zecher LeMachatzit HaShekel recalls the half-shekel each Jew gave for Temple upkeep in Adar. Today many give charity — ideally at Mincha on the Fast of Esther, or on Purim morning before Megillah — often three coins that are half of a local unit. It is a widespread custom, not one of the four Purim mitzvot. Give through your shul or reputable charity.",
             "Machatzit HaShekel",
             "Machatzit haShekel",
+            "Zecher LeMachatzit HaShekel",
+            "Zecher Lemachatzit HaShekel",
         ),
         line(
             "bal yera'eh — Bal yera'eh (\"it shall not be seen\") is the Torah prohibition against chametz remaining visible in your domain on Pesach. Together with bal yimatzei (\"it shall not be found\"), it drives bedikat, biur, and mechirat chametz. Even crumbs in your control matter. Sold chametz in a closed sold area must stay inaccessible.",

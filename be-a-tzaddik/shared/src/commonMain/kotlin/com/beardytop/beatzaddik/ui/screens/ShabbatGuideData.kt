@@ -721,7 +721,7 @@ It is a minor fast from dawn until nightfall. During the Three Weeks, weddings a
             hebrewTitle = "תַּעֲנִית אֶסְתֵּר",
             body = """The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim. It commemorates the three-day fast of Esther and the Jewish people before she approached King Achashverosh to plead on behalf of her people.
 
-It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the fast is moved to 11 Adar. Machatzit HaShekel (a half-shekel donation to charity) is given on Purim morning, sometimes before Megillah reading on the night before.""",
+It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the fast is moved to Thursday. Zecher LeMachatzit HaShekel (the half-shekel remembrance custom) is traditionally given at Mincha on the Fast of Esther, or on Purim morning before Megillah.""",
             learnMoreUrl = "https://www.chabad.org/holidays/purim/article_cdo/aid/1473/jewish/Fast-of-Esther.htm"
         ),
         GuideTopic(
