@@ -338,7 +338,7 @@ object HalachicTermsDictionary {
             "Havdalah in Kiddush",
         ),
         line(
-            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. Store the designated foods in a safe, labeled spot — if they are eaten before you finish Friday cooking for Shabbat, the eruv is void. It also reminds the home to prepare for Shabbat, not only for the festival.",
+            "Eruv tavshilin — Eruv tavshilin is a symbolic meal set aside on Erev Yom Tov when Shabbat follows immediately afterward. You take a baked food (challah or matzah) and a cooked food (often meat, fish, or an unpeeled hard-boiled egg), recite the blessing and declaration from your siddur or machzor in a language you understand, and thereby may continue food preparation on Yom Tov for Shabbat — which would otherwise be forbidden because you may not cook on one holy day for the next. Store the designated foods in a safe, labeled spot — only the cooked dish is essential; if the baked item is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is destroyed before you finish Friday cooking for Shabbat, the eruv is void. It also reminds the home to prepare for Shabbat, not only for the festival.",
             "eruv tavshilin",
             "Eruv Tavshilin",
         ),
@@ -356,7 +356,7 @@ object HalachicTermsDictionary {
             "chag",
         ),
         line(
-            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at the moment of the full moon (roughly 14.75 days into the month) — saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
+            "Kiddush Levana — Kiddush Levana (קִידּוּשׁ לְבָנָה — Sanctification of the Moon) is a monthly blessing said once each Hebrew month when the new moon is visible at night. It is not worship of the moon — it praises G-d for creation's cycles and Israel's renewal. The Talmud (Sanhedrin 42a) compares one who blesses the moon properly to greeting the Shechinah. Men are obligated in this time-bound positive mitzvah; women are exempt (like most time-bound mitzvot) and the widespread longstanding custom is that women do not recite Kiddush Levana at all — prominent authorities (Shelah, Magen Avraham O.C. 426:1) advise against it for kabbalistic reasons as well. Say it outdoors under the open sky when possible, standing, after nightfall. Ashkenazim and Chabad often wait at least three days after the new moon; most Sephardim wait seven (Shulchan Arukh O.C. 426:4); Moroccan and some North African kehillot may begin after three days (Peninei Halakha 05-01-18). Motzei Shabbat is a widespread preference when people are dressed up and the moon is visible — but if waiting risks a string of cloudy nights and missing the monthly window, say it on the first clear weeknight the mitzvah becomes possible. The window ends at or before the full moon — often calculated as approximately half the mean lunar month from the molad (~14.75 days), though poskim disagree on the exact cutoff; saying it on the night of the 15th may already be too late; check Sof Zman Kiddush Levana for your location. Also called Birkat HaLevanah.",
             "Kiddush Levana",
             "Kiddush Levanah",
             "Birkat HaLevanah",
@@ -515,7 +515,7 @@ object HalachicTermsDictionary {
             "Blech",
         ),
         line(
-            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning washing removes ruach ra'ah from sleep (see glossary): pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread, pour two or three times consecutively on each hand to purify for eating. Hand washing without a bracha is also customary after other situations where ruach ra'ah may linger — such as a cemetery, haircut, or bathroom.",
+            "netilat yadayim — Netilat yadayim is ritual handwashing with a cup (keli). Morning negel vasser removes ruach ra'ah from sleep: pour water three times on each hand in alternating sequence (right, left, right, left, right, left). Before bread (a kezayit or more), pour consecutively on each entire hand up to the wrist (usually two or three pours on the right, then two or three on the left — not alternating), then recite Al Netilat Yadayim. After the bathroom, wash with water before Asher Yatzar — no bracha; alternating triple-pour is optional stringency, not basic halacha. After a cemetery, many wash three times alternately without a bracha. Do not confuse bread washing with negel vasser.",
             "Netilat Yadayim",
             "netilat yadayim",
             "Al Netilat Yadayim",
@@ -562,7 +562,7 @@ object HalachicTermsDictionary {
             "Matanot la'evyonim",
         ),
         line(
-            "Purim Meshulash — Purim Meshulash is the rare Jerusalem schedule when Shushan Purim (15 Adar) falls on Shabbat. Megillah and matanot l'evyonim move to Friday; mishloach manot and the seudah move to Sunday. Shabbat carries communal Purim obligations — special Torah reading (Vayavo Amalek), Haftarah, and Al HaNissim in Amidah and bentching (not on Friday or Sunday).",
+            "Purim Meshulash — Purim Meshulash is the rare walled‑city Purim schedule (Jerusalem is primary today) when 15 Adar falls on Shabbat. Megillah and matanot la'evyonim move to Friday; mishloach manot and the seudah move to Sunday. Shabbat carries communal Purim obligations — special Torah reading (Vayavo Amalek), Haftarah, and Al HaNissim in Amidah and bentching (not on Friday or Sunday).",
             "Purim Meshulash",
         ),
         line(
@@ -594,7 +594,7 @@ object HalachicTermsDictionary {
             "Days of Awe",
         ),
         line(
-            "Ruach Ra'ah — Ruach Ra'ah (רוּחַ רָעָה — \"evil spirit\") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery, cutting hair, or leaving the bathroom — details vary by minhag.",
+            "Ruach Ra'ah — Ruach Ra'ah (רוּחַ רָעָה — \"evil spirit\") is a malevolent or impure spiritual force described in the Talmud and Kabbalah. It is said to cling to a person's hands — especially after waking from sleep, which is considered a one-sixtieth taste of death. To remove it and prevent it from harming the eyes, nose, and mouth, Jewish law requires washing the hands three times alternately upon waking (morning netilat yadayim). The concept is not limited to sleep: many also wash hands after activities where this spirit is said to linger, such as visiting a cemetery or cutting hair — details vary by minhag. After the bathroom, basic halacha requires only clean hands for Asher Yatzar; triple alternating pour is optional stringency.",
             "Ruach Ra'ah",
             "ruach ra'ah",
         ),
@@ -660,7 +660,7 @@ object HalachicTermsDictionary {
             "Shabbat",
         ),
         line(
-            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
+            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: When a festival begins on a Saturday night (Motzei Shabbat), Yom Tov candles are lit only after Shabbat ends (after tzeit), from a pre-existing flame. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
             "tzeit",
             "Tzeit",
             "three stars",
@@ -712,7 +712,7 @@ object HalachicTermsDictionary {
             "shofar",
         ),
         line(
-            "tashlich — Tashlich is a Rosh Hashana custom of casting breadcrumbs or symbolic sins into flowing water, reciting Micah 7:19. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat, tashlich is postponed to Sunday — a structural rule across mainstream Ashkenazi and Sephardic practice, not a local preference. The Sages enacted this to prevent carrying machzorim through a public domain without a kosher eruv. It is symbolic teshuvah — the real work is inward change and apology to people you hurt.",
+            "tashlich — Tashlich is a Rosh Hashana custom of reciting Micah 7:19 at flowing water, symbolically casting away sins. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat: Ashkenazim postpone to Sunday — a universal Rabbinic gezeirah against carrying in public, even with an eruv; many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day where carrying a machzor is permitted. Throwing breadcrumbs to fish is forbidden on Shabbat and Yom Tov — the custom is the prayers at the water, not feeding wildlife.",
             "Tashlich",
             "tashlich",
         ),
@@ -731,12 +731,12 @@ object HalachicTermsDictionary {
             "Neilah",
         ),
         line(
-            "Selichot — Selichot are penitential prayers recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). They include poetic pleas and the Thirteen Attributes of Mercy. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
+            "Selichot — Selichot are a formal order of penitential liturgy recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). The service centers on poetic pleas and the repeated Thirteen Attributes of Mercy. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
             "Selichot",
             "selichot",
         ),
         line(
-            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, and other happy days. Many kneel or lean on the arm. Skipping tachanun on a sad day is a sign the calendar treats the day as joyful. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
+            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, Chanukah, Purim, all of Nisan, and many other days (Erev Yom Kippur at Shacharit only; 11–14 Tishrei; after Simchat Torah through month-end; minor holidays; 5 & 28 Iyar in Israel). From Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
             "Tachanun",
             "tachanun",
         ),
@@ -968,7 +968,7 @@ object HalachicTermsDictionary {
             "Elokei Neshama",
         ),
         line(
-            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. A variation of one-sixth or more above or below fair market price triggers the Torah laws of financial fraud (Bava Metzia 49b), requiring the overcharged amount to be fully refunded. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
+            "ona'ah — Overcharging or underpaying when the other party does not know the fair value. Classic rule (Bava Metzia 49b): when price differs from fair market value by one-sixth or more, Torah laws of ona'ah apply — at exactly one-sixth, return the excess; beyond one-sixth, the wronged party may rescind the entire sale. Honest business is a mitzvah; \"everyone does it\" does not excuse geneivat da'at or ona'ah.",
             "Ona'ah",
             "ona'ah",
         ),
@@ -1064,7 +1064,7 @@ object HalachicTermsDictionary {
             "Purim",
         ),
         line(
-            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi), not matzah. Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
+            "Purim seudah — The Purim seudah is the festive afternoon meal on Purim day — part of the day's joy alongside Megillah, mishloach manot, and matanot la'evyonim. It requires bread (hamotzi). Many begin the meal before sunset and continue into the evening. It is a seudat mitzvah of celebration, not a fast day.",
             "Purim seudah",
         ),
         line(
@@ -1109,7 +1109,7 @@ object HalachicTermsDictionary {
             "hoshanot",
         ),
         line(
-            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits; this is a widespread custom, sometimes linked in tradition to the final Prophets (Minhag Nevi'im). The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.",
+            "Hoshana Raba — Hoshana Raba is the seventh day of Sukkot — the climax of Hoshanot with extra circuits around the bimah. Many communities beat aravot (willow branches) against the ground after the circuits. The Talmud (Sukkah 44a) treats this rite as a Yesod Nevi'im or Minhag Nevi'im — an institution of the Prophets, not merely a local custom. The number of times and exact form vary by kehilla — often about five strikes in Ashkenaz and Chabad custom. See also Hoshanot.",
             "Hoshana Raba",
             "Hoshana Rabbah",
             "hoshana raba",
@@ -1257,7 +1257,7 @@ object HalachicTermsDictionary {
             "Shul",
         ),
         line(
-            "Elul — Elul is the month before Rosh Hashana — daily selichot (in Ashkenaz from before Rosh Hashana, Sephardim all month), blowing shofar after services, and cheshbon hanefesh. It is the runway for teshuvah. Increase charity, repair relationships, and learn one new halacha before the Days of Awe.",
+            "Elul — Elul is the final month before the new year, serving as the dedicated season of spiritual preparation, soul-searching, and repentance ahead of the High Holidays.",
             "Elul",
         ),
         line(
@@ -1477,7 +1477,7 @@ object HalachicTermsDictionary {
             "mi'sheyakir",
         ),
         line(
-            "Plag HaMincha — Plag hamincha is one and a quarter halachic hours before nightfall — used for early Mincha, early Shabbat entry in some communities, and certain Pesach and Chanukah times. It is also the earliest time you may light Shabbat candles; lighting before plag invalidates the mitzvah and makes the blessing unnecessary. It is not identical to sunset; check your calendar.",
+            "Plag HaMincha is a late‑afternoon zman. It is calculated as 1¼ proportional (halachic) hours before sunset.\n\nWhy it matters:\n• Early Shabbat (Friday): You may not light Shabbat candles or accept Shabbat before plag.\n• Prayer timing: There is a halachic debate whether Maariv can begin after plag (and whether Mincha should then be finished before plag). Many “early Shabbat” minyanim schedule Mincha before plag and Maariv after plag — follow your shul and rav.",
             "Plag HaMincha",
             "plag hamincha",
             "plag",

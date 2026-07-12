@@ -14,6 +14,7 @@ class ChecklistEngine(
     companion object {
         val sectionOrder: List<String> = listOf(
             "Upon waking",
+            "Selichot",
             "Morning Prayer (Shacharit)",
             "Ongoing mitzvot",
             "Torah Study",
@@ -26,6 +27,7 @@ class ChecklistEngine(
             "Important Lifestyle Mitzvot",
             "Prepare for Shabbat",
             "Motzei Shabbat",
+            "Hoshana Rabbah",
             "Chol HaMoed",
             "Mourning customs",
             "Seasonal",
@@ -138,7 +140,7 @@ class ChecklistEngine(
                     checkedById[def.id] == true &&
                         weeklyCheckedWeeks[def.id] == currentWeekKey
                 }
-                def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID -> {
+                def.tzeitMitzvah || def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID -> {
                     checkedById[def.id] == true &&
                         currentTzeitDayKey != null &&
                         tzeitCheckedDays[def.id] == currentTzeitDayKey
@@ -147,7 +149,12 @@ class ChecklistEngine(
             }
             ChecklistItemResolver.resolve(
                 def, profile, checked, nowMillis, cal.zmanim, prayerDay,
-                upcomingShabbatParsha = cal.upcomingShabbatParsha,
+                upcomingShabbatParsha = WeeklyParshaLogic.displayParshaKey(
+                    cal = cal,
+                    tomorrowCal = tomorrowCal,
+                    nowMillis = nowMillis,
+                    isInIsrael = profile.isInIsrael,
+                ),
                 cal = cal,
             )
         }
@@ -191,7 +198,12 @@ class ChecklistEngine(
             header = CalendarHeader(
                 civilDateLabel = cal.civilLabel,
                 hebrewDateLabel = cal.hebrewLabel,
-                parshaLabel = headerParshaLabel(cal),
+                parshaLabel = WeeklyParshaLogic.displayParshaLabel(
+                    cal = cal,
+                    tomorrowCal = tomorrowCal,
+                    nowMillis = nowMillis,
+                    isInIsrael = profile.isInIsrael,
+                ),
                 statusChips = cal.statusChips.filterNot { chip ->
                     chip.startsWith("Omer day") ||
                         (chip.startsWith("Today is") && chip.contains("Omer", ignoreCase = true))
@@ -221,14 +233,6 @@ class ChecklistEngine(
             sinkMorningPrayerSection = sinkMorningPrayerSection,
         )
     }
-
-    /**
-     * Weekly Torah portion for the header. Prefer [DayInfo.upcomingShabbatParsha] so Motzei Shabbat
-     * shows the parsha being read next (not the one just finished). Fall back to [DayInfo.parsha].
-     */
-    private fun headerParshaLabel(cal: DayInfo): String? =
-        ParshaData.displayLabel(cal.upcomingShabbatParsha)
-            ?: cal.parsha?.takeIf { it.isNotBlank() }
 
     fun allItems(day: DayChecklists): List<ResolvedChecklistItem> =
         day.items + day.inactiveItems
@@ -279,7 +283,9 @@ class ChecklistEngine(
             if (RoshChodeshRules.hallelKind(cal) != RoshChodeshRules.HallelKind.FULL_DURING_CHANUKAH) {
                 return false
             }
-        } else if (TachanunRules.isTachanunOnlyItem(item.id) && !TachanunRules.isRecited(cal)) {
+        } else if (TachanunRules.isTachanunOnlyItem(item.id) &&
+            !TachanunRules.isRecited(cal, profile, item.id, tomorrowCal)
+        ) {
             return false
         } else if (item.shabbatOnly && !cal.isShabbatOrYomTov && !cal.isErevShabbat) {
             return false

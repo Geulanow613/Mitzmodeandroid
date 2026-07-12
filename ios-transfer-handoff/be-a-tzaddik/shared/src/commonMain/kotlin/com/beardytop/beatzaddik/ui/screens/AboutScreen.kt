@@ -24,7 +24,8 @@ import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 @Composable
 fun AboutScreen(
     appTitle: String = "Be a Tzaddik",
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onWhatsAMitzvah: (() -> Unit)? = null,
 ) {
     Column(
         modifier = modifier
@@ -43,6 +44,7 @@ fun AboutScreen(
         ParchmentContentCard {
             AppText(
                 appTitle,
+                enableTerms = false,
                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.NavyDeep
             )
@@ -55,7 +57,10 @@ fun AboutScreen(
                 color = TzaddikColors.NavyDeep
             )
             Spacer(Modifier.height(8.dp))
-            AboutContent(modifier = Modifier.fillMaxWidth())
+            AboutContent(
+                modifier = Modifier.fillMaxWidth(),
+                onWhatsAMitzvah = onWhatsAMitzvah,
+            )
         }
     }
 }

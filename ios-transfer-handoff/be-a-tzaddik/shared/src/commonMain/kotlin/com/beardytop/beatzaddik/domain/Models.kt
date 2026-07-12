@@ -90,6 +90,11 @@ enum class MealCategory { MEAT, DAIRY }
 @Serializable
 data class UserProfile(
     val onboardingComplete: Boolean = false,
+    /**
+     * First-run spotlight tour after onboarding. Defaults to true so existing installs
+     * are not interrupted; [completeOnboarding] sets this false for new users.
+     */
+    val appTourCompleted: Boolean = true,
     val gender: Gender = Gender.MALE,
     val married: Boolean = false,
     val hasChildren: Boolean = false,
@@ -103,24 +108,48 @@ data class UserProfile(
     val elevationMeters: Double? = null,
     val useGps: Boolean = false,
     val manualCityId: String? = null,
+    /**
+     * Purim in walled / doubtful cities:
+     * - Jerusalem is universally treated as walled (15 Adar / Meshulash).
+     * - Some Israeli cities have disputed status; users there may choose to observe walled-city Purim.
+     */
+    val observeWalledCityPurim: Boolean = false,
     val textScale: Float = 1f,
     val meatAfterDairyHours: Int? = null,
     val dairyAfterMeatHours: Int? = null,
     val tzaddikShownDate: String? = null,
+    /** Show meat/dairy countdown (or “you may eat…”) in the Android notification bar. */
+    val showKashrutTimerNotification: Boolean = false,
+    /** Play a sound when the kashrut wait notification finishes (Android). Default off. */
+    val kashrutTimerSound: Boolean = false,
+    /** Vibrate when the kashrut wait notification finishes (Android). Default on. */
+    val kashrutTimerVibrate: Boolean = true,
     /** Explicit "I live in Israel" toggle, used as a fallback when location is unavailable. */
-    val liveInIsrael: Boolean = false
+    val liveInIsrael: Boolean = false,
+    /**
+     * When true, follow chutz la'aretz customs (2-day Yom Tov, diaspora parsha) even if GPS or
+     * city selection places the user inside Israel.
+     */
+    val forceChutzLaAretzCustoms: Boolean = false,
+
+    /** UI preference: collapse the permanent ongoing section until user expands it. */
+    val permanentOngoingCollapsed: Boolean = false,
+    /**
+     * UI preference: collapse the daily ongoing section (resets each new day so users see it again).
+     * [dailyOngoingCollapsedDate] stores the civil date key when the collapse was last set.
+     */
+    val dailyOngoingCollapsed: Boolean = false,
+    val dailyOngoingCollapsedDate: String? = null,
+    /** Easter-egg checklist debug menu — persists until toggled off via the same gesture. */
+    val checklistDebugMenuVisible: Boolean = false,
 ) {
     fun effectiveNusach(): EffectiveNusach = nusachSelection.toEffective()
 
     /**
-     * True when the user is in Israel — affects parsha cycle (1-day vs 2-day Yom Tov).
-     *
-     * Priority:
-     * 1. GPS / manual-city coordinates: inside Israel's bounding box (lat 29.5–33.4, lon 34.2–35.9).
-     * 2. Manual city selected: known Israeli city in [ManualCities].
-     * 3. Explicit [liveInIsrael] flag set by the user.
+     * Location (GPS coordinates or selected city) suggests the user is physically in Israel.
+     * Independent of [forceChutzLaAretzCustoms] so Settings can still offer an override.
      */
-    val isInIsrael: Boolean
+    val locationSuggestsIsrael: Boolean
         get() {
             if (latitude != null && longitude != null) {
                 return latitude in 29.5..33.4 && longitude in 34.2..35.9
@@ -129,10 +158,26 @@ data class UserProfile(
                 val city = ManualCities.byId(manualCityId)
                 if (city != null) return city.timezoneId == "Asia/Jerusalem"
             }
+            return false
+        }
+
+    /**
+     * True when the app should use Israel customs — affects parsha cycle (1-day vs 2-day Yom Tov).
+     *
+     * Priority:
+     * 0. [forceChutzLaAretzCustoms] always wins (chutz la'aretz).
+     * 1. GPS / manual-city coordinates: inside Israel's bounding box (lat 29.5–33.4, lon 34.2–35.9).
+     * 2. Manual city selected: known Israeli city in [ManualCities].
+     * 3. Explicit [liveInIsrael] flag set by the user.
+     */
+    val isInIsrael: Boolean
+        get() {
+            if (forceChutzLaAretzCustoms) return false
+            if (locationSuggestsIsrael) return true
             return liveInIsrael
         }
 
-    /** Human-readable summary of how Israel status was determined (for UI hint). */
+    /** Human-readable summary of how Israel *location* was determined (for UI hint). */
     val isInIsraelSource: IsraelDetectionSource
         get() = when {
             latitude != null && longitude != null -> IsraelDetectionSource.GPS
@@ -212,7 +257,12 @@ data class ChecklistItemDef(
      * Checked state is stored with the upcoming Saturday's date as the key so it resets
      * each week on Motzei Shabbat (when the next parsha week begins).
      */
-    val weeklyMitzvah: Boolean = false
+    val weeklyMitzvah: Boolean = false,
+    /**
+     * True when a "daily" checklist item should reset at nightfall (tzeit), not at civil midnight.
+     * Checked state is keyed by [TzeitDay.currentKey].
+     */
+    val tzeitMitzvah: Boolean = false,
 )
 
 @Serializable
@@ -305,7 +355,7 @@ data class UpcomingHoliday(
     val name: String,
     val daysAway: Int,
     val hint: String = "",
-    /** When [daysAway] is 0: true → label "Tonight" (begins at sunset); false → "today". */
+    /** When [daysAway] is 0: true → label "Tonight" (from alot on the erev day); false → "today". */
     val beginsTonightWhenImminent: Boolean = true,
     /** When set, Today screen uses this instead of [daysAway] / [beginsTonightWhenImminent]. */
     val whenLabelOverride: String? = null,

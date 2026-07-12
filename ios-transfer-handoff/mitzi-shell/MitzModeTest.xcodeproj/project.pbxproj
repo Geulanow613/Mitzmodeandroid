@@ -1,0 +1,1118 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03B71F4FFF6441A7CA498121 /* mitzmodenew1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5963DD3316F0D8E19AD2D678 /* mitzmodenew1.mp4 */; };
+		0539ED417731EC4E3BA56A8E /* MitzvahPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59D6F0DE5CDEBF45B06A5114 /* MitzvahPopupView.swift */; };
+		0905F89D8DAF0230753D2DFD /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9553A7542A73F1E753CDDAC9 /* NetworkMonitor.swift */; };
+		0D650D016C5EE7F7FA28D99B /* MitzModeTest.xcodeproj in Resources */ = {isa = PBXBuildFile; fileRef = EB3C6C06140E47B6079AC2E5 /* MitzModeTest.xcodeproj */; };
+		0F356C60C1E93F4F31E10509 /* MitzModeTest.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = C16A0C278171B6224A7E4350 /* MitzModeTest.xcworkspace */; };
+		111A86475EEF821356E4372F /* TzaddikVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FD81A1B35064459B950489 /* TzaddikVideoView.swift */; };
+		1345EA319072CD7F13DDEE74 /* TranslatableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C17BB566873C43405A80BD /* TranslatableText.swift */; };
+		158FBB5DA8B388161B8C8489 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4399965B98AF3BF9CA1E54 /* Link.swift */; };
+		2337851A19135F3A63735063 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D489E1842D93553FF9F0B57 /* Config.swift */; };
+		24493BDAAB04B0D5D10DCBF6 /* Secrets.template.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E093B63392487621558407 /* Secrets.template.swift */; };
+		2493A1E03D1FF06A4A3D5B94 /* mitzmodenew5.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E561BBC8F2995CC3E3753E7D /* mitzmodenew5.mp4 */; };
+		265C61E94DFA1A1671A4D422 /* RainbowText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C142D9A22CD0C5B3A5A1864A /* RainbowText.swift */; };
+		28A099205B3D268F51ADB06C /* mitzmodenew6.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C9E95A76B3F8D5357218F450 /* mitzmodenew6.mp4 */; };
+		2C14B3A80B4ED6150E4AC9FA /* icon_template.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A656733B89812E6395CDF8F /* icon_template.png */; };
+		2CBBF9F8CEF4F38C38F7A5F2 /* BrachotData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98A7656907699C26B0938D5 /* BrachotData.swift */; };
+		2E4E3E900B6356F9751A3149 /* build_shared_framework.sh in Resources */ = {isa = PBXBuildFile; fileRef = 9B8155DA8893667F5B69A80D /* build_shared_framework.sh */; };
+		2E94E695C16E98D2F44CDD83 /* DailyMitzvotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F58BAA86171FD8DD2E3327 /* DailyMitzvotViewModel.swift */; };
+		312791FE2613BAD87F450977 /* MitzModeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB54102EFF3787A35F4D9F6 /* MitzModeViewModel.swift */; };
+		352AFEDF00EC9EC195EEE4BF /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 960C168EE522A48FE3893B78 /* Podfile.lock */; };
+		3CAEF3CB47DE3AA6355E791E /* LoopingVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B48BD9AC72C09341954D78DD /* LoopingVideoPlayer.swift */; };
+		3FB7FC2ED40E85C280B84544 /* MitzModeStaticBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2825D95E636AA54B964E389 /* MitzModeStaticBackground.swift */; };
+		40A1CFF5C95FC80909AFD102 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF406C3C761E3B09E03CA29 /* MainView.swift */; };
+		4167CE9775384AC994F2C370 /* mitzwhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D92A41E439B5F1072E3D7EF /* mitzwhite.png */; };
+		444521AC2F4BB95DA01D0A14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5E08EA34E51F37211721428 /* Assets.xcassets */; };
+		46BC7104609036D716CC8F59 /* mitzmodenew7.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE74AA2D565E7C83B5C991D3 /* mitzmodenew7.mp4 */; };
+		46C8B9656F818A970F67F42A /* ThemeComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48E1E255FC857C2ADDB97BE /* ThemeComponents.swift */; };
+		471E2074BE956DCBF46F493B /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FCD6FA8DB7DB769F2C7345 /* HapticFeedback.swift */; };
+		4C404BAB20FA3A172CB86F3F /* RewardVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BBAB65332F39142A300A77 /* RewardVideoPlayer.swift */; };
+		4CFE6BC68C92E2187E587D15 /* Gender.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A2EF4AFD55CC0CC07FBD59 /* Gender.swift */; };
+		4FA5F56CF6A86CC42B4F1117 /* MenuOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8A733B6255E4D337427A57 /* MenuOverlay.swift */; };
+		5266BB3D05AB4CF7653FFFAC /* GoogleTranslateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437C5F272ACB0FA60C70E756 /* GoogleTranslateService.swift */; };
+		540649B55E825C077596D8E8 /* DeviceLanguageBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE09F94DAAE8907D378C46 /* DeviceLanguageBootstrap.swift */; };
+		5415DF86D789A98F60E83151 /* CompletedMitzvotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F3F6F88BA9E506E64006B /* CompletedMitzvotView.swift */; };
+		552DCF682E19CB6FCAB5BD4E /* BirkatHamazonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59284F189858F621E428272B /* BirkatHamazonView.swift */; };
+		5E3C9D12DF036EF26CA8C846 /* appicon mitz mode.png in Resources */ = {isa = PBXBuildFile; fileRef = DBA4ED38B40860E59A651D64 /* appicon mitz mode.png */; };
+		5FCBF9EF8EA0A5D0F154316C /* mitzmodenew2.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5BDB79EBBED103BFC5B6B47E /* mitzmodenew2.mp4 */; };
+		64B0ED146DDBD6FAD63FBAB8 /* MitzvahCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494D36AE3096053169E7CA9B /* MitzvahCardView.swift */; };
+		66236FAB4E4E0DACFC110366 /* BirkatHamazonText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9EAB93195B9EE1FE5655D2 /* BirkatHamazonText.swift */; };
+		667BF6F488090F840F2325BB /* mitzmodenew10.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = BDE65CB539B60966C923DC5C /* mitzmodenew10.mp4 */; };
+		6BA67866C15A598F456886AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F7D8DA38832DB9A75C1239 /* Constants.swift */; };
+		6C9CC36B7BCCDDBD5FB94DAC /* AppTranslationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7ED126FBD74FA9DEAEECC20 /* AppTranslationStore.swift */; };
+		6ED2ACCFD1FDA70A03596848 /* libPods-MitzModeTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E798A0BD22AD28DB0E8EB5 /* libPods-MitzModeTests.a */; };
+		733233EDE7792A05C59F0D0F /* MitzvotCloudRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772E6D1225CFE229ACAEAEF4 /* MitzvotCloudRepository.swift */; };
+		7359E28EC6378D818DBD5EE5 /* BeginnerInfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1731DB640B3EFD5BB7388E43 /* BeginnerInfoDialog.swift */; };
+		74058A85A84DB873B100B1DA /* InfoDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1249A914DB31D8AD3799DAB9 /* InfoDialog.swift */; };
+		75C000C2FEF0EACC24D6ECD5 /* MitzModeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1C413F7001D3FEEF650CD5 /* MitzModeTests.swift */; };
+		778AC6D482AE80DB7560190D /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = CDC38F1CBB24258897227919 /* Sentry */; };
+		7B81E6F5F1D9BFF42E4CBFBE /* mitzmodenew9.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D2B243B4DF6A7949B1E4BE42 /* mitzmodenew9.mp4 */; };
+		7B87A4E3F3B270D66B15EEF9 /* MitzvahSubmissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223604D6574B4129B6947FEB /* MitzvahSubmissionView.swift */; };
+		7BB9145F8A34BADDBB015C6B /* mitzvotlistfull.json in Resources */ = {isa = PBXBuildFile; fileRef = 277BEDF0414FD7A15EF935B2 /* mitzvotlistfull.json */; };
+		7D697AF9D24C4C96ECE4C6D8 /* finalreward.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = D27769D402D9A0C88562C8FA /* finalreward.mp4 */; };
+		8003F1C2B3DB03E70B99F846 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23901B07B05998ED95E2552E /* MediaPlayerView.swift */; };
+		81F93C356EB7B165D1DB6007 /* MeinShaloshTextEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC31DE3AFEE0DF0E3F929DF5 /* MeinShaloshTextEngine.swift */; };
+		8311D009FBF5FACAC36675D9 /* tzaddik.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B614C0ED130E2FCADCECDB9F /* tzaddik.mp4 */; };
+		832087A37E18F3C8BF40E4E8 /* mitzmodenew11.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C7752350B13D08B856244890 /* mitzmodenew11.mp4 */; };
+		847F79BF13B6CD320284E400 /* mitzmodenew13.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 9EE67F2DE2727A2B8F65DCEF /* mitzmodenew13.mp4 */; };
+		8562E4DD4267D0D7079626A6 /* LanguageSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5609B71AF51C43AD91A30DBA /* LanguageSettingsView.swift */; };
+		85F464E93D8A2F5885B2D350 /* FormspreeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0C75A5859C8D828A8D351B /* FormspreeService.swift */; };
+		8E08134ED9A4EF01017620E2 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3009291F5FCE7C6EE25733 /* DesignTokens.swift */; };
+		8EC7658FFDFAF83E64C49EB3 /* TranslationNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8355588D7B64143C20D3CC55 /* TranslationNoticeView.swift */; };
+		902EF0206F4E932EC6E74D75 /* mitzmodenew8.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5A7881D55C801F2A9B3A42DB /* mitzmodenew8.mp4 */; };
+		92A70E162431E43A6764C770 /* entire mitzvot checklist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 7B1D5E78AA45C6EF32838C11 /* entire mitzvot checklist.txt */; };
+		95BAF2CC02431FD08B0A42B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 152937F12A641BEDCA4F13E0 /* LaunchScreen.storyboard */; };
+		98BE442D03A60021F62887FF /* LevelAchievedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55EA20CDB1E3E1A72CDB248E /* LevelAchievedView.swift */; };
+		99F2A7AA0776A141AB5AB50A /* MitzvahDefinitionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111403198608336044AF0EE8 /* MitzvahDefinitionView.swift */; };
+		9DF876B9160C58BCF0E85BA8 /* Info 2.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD5A0FA780329E765EA2FC51 /* Info 2.plist */; };
+		A234ECC51F21B04A40C48AF9 /* starbg.png in Resources */ = {isa = PBXBuildFile; fileRef = EAF4DC8E7430A05A0BE41F9D /* starbg.png */; };
+		A6CA0BF605C041859DE30F48 /* MitzvahSubmissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4850F016A9CF43057F40FFE9 /* MitzvahSubmissionViewModel.swift */; };
+		A95E235CA7E187335C68423C /* SparkleEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2970924676DAFEA874CE2F0 /* SparkleEffect.swift */; };
+		AD3277FA80EB7522A05CE6B8 /* mitzmodenew4.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6DC91A71818BF58FDAD84F18 /* mitzmodenew4.mp4 */; };
+		AE1421BA477E5E1A7BACD8FC /* song.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 49090AE79B14CB86DD3FE76D /* song.mp3 */; };
+		B69DE8771BE06AF434268DE9 /* TefilatHaderechView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EEEEAAA2EA4D762DC05F340 /* TefilatHaderechView.swift */; };
+		B6D2ABA22085B03D2A0AC9F3 /* Mitzvah.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1189C643F7719992440A51B8 /* Mitzvah.swift */; };
+		BB98AB25B2440F5652013188 /* MitzvahSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8A32B618C8040BB5DE7923A /* MitzvahSuggestion.swift */; };
+		BBF608E625A73A10C981C358 /* DailyChecklistHostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB6AB6D409F9C2FC557F04 /* DailyChecklistHostView.swift */; };
+		BEFD9E1461A19B4DD8BD0B7D /* BrachotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387A6B45C54AD855CE82DD44 /* BrachotView.swift */; };
+		C3163C40505DFA2ABEAF99E2 /* mitzmodenew12.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B727B0AA38109D93A94C5E5A /* mitzmodenew12.mp4 */; };
+		C7E7428DCDC43ED8838AE673 /* FirstTimeTourOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12D6D2FD9946D757C0DA70CA /* FirstTimeTourOverlay.swift */; };
+		C954D583637E415981E757EC /* LiturgyTranslationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7306CC6068A429797E68CD3 /* LiturgyTranslationText.swift */; };
+		CB5BE52557BA9217A959E90F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69743C8271D5079FE9F12083 /* ContentView.swift */; };
+		CBAAD5F2569B78DF66D16EB1 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE42C4B7D678EE6BC953912 /* AboutView.swift */; };
+		D2CE52CF35677066776B7A16 /* mitzvah-button.png in Resources */ = {isa = PBXBuildFile; fileRef = E7375CDFD21BAB606696D724 /* mitzvah-button.png */; };
+		D363237F44C83756BB64BE15 /* LaunchScreen 2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6E3BC223FE6EF6F0BD2E20C /* LaunchScreen 2.storyboard */; };
+		E40B596D39B610D035B3E40A /* SparkleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020CB500660F9EF819183CB7 /* SparkleView.swift */; };
+		F13E956CD50D52AE531F9C54 /* FINAL_REWARD_IOS_PORT_NOTES.txt in Resources */ = {isa = PBXBuildFile; fileRef = BE9FF801209572D0E4CB25DB /* FINAL_REWARD_IOS_PORT_NOTES.txt */; };
+		F34B749E3D3BA46D65D59F0D /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 930C8595BE8A4B7367739E9C /* background.mp4 */; };
+		F5E39ECA8360938C7BBB26DE /* libPods-MitzModeTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A6E069555E2E3F69AF510FB /* libPods-MitzModeTest.a */; };
+		F8677967B0CD09611426643F /* AndroidHomeChromeParity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB48FE862BB17B4D84DD3FB /* AndroidHomeChromeParity.swift */; };
+		FB17C9AA84A0A936D4102E4A /* MitzvahApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E25174F0DE7EAC7F7221E1C4 /* MitzvahApp.swift */; };
+		FBAA3696CEA9C6E4672F8FC1 /* MitzvotLevelDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB4BABCBA9BB58A8CA200D0 /* MitzvotLevelDialog.swift */; };
+		FDDB43DA36795DB64E1A7699 /* mitzmodenew3.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 476EA583D5F45088D31BA825 /* mitzmodenew3.mp4 */; };
+		FE83DD9556366A1CC427BC97 /* AlHaMichyaBlessingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDDAD6BD84D805BD051F6EA6 /* AlHaMichyaBlessingCard.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		59773325972B6ABA05D81FA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A75387D581C14B3EB15808A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 61089E256032B95ECEE362CC;
+			remoteInfo = MitzModeTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		020CB500660F9EF819183CB7 /* SparkleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkleView.swift; sourceTree = "<group>"; };
+		083636FD0109172A3B433496 /* Pods-MitzModeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MitzModeTests.debug.xcconfig"; path = "Target Support Files/Pods-MitzModeTests/Pods-MitzModeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0A3009291F5FCE7C6EE25733 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
+		111403198608336044AF0EE8 /* MitzvahDefinitionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahDefinitionView.swift; sourceTree = "<group>"; };
+		1189C643F7719992440A51B8 /* Mitzvah.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mitzvah.swift; sourceTree = "<group>"; };
+		1249A914DB31D8AD3799DAB9 /* InfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDialog.swift; sourceTree = "<group>"; };
+		12D6D2FD9946D757C0DA70CA /* FirstTimeTourOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTimeTourOverlay.swift; sourceTree = "<group>"; };
+		152937F12A641BEDCA4F13E0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1731DB640B3EFD5BB7388E43 /* BeginnerInfoDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginnerInfoDialog.swift; sourceTree = "<group>"; };
+		197DDA3C6C4585FFDB69086F /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		19FD81A1B35064459B950489 /* TzaddikVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TzaddikVideoView.swift; sourceTree = "<group>"; };
+		1D489E1842D93553FF9F0B57 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		223604D6574B4129B6947FEB /* MitzvahSubmissionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahSubmissionView.swift; sourceTree = "<group>"; };
+		23901B07B05998ED95E2552E /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
+		24E798A0BD22AD28DB0E8EB5 /* libPods-MitzModeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MitzModeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		277BEDF0414FD7A15EF935B2 /* mitzvotlistfull.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mitzvotlistfull.json; sourceTree = "<group>"; };
+		2A656733B89812E6395CDF8F /* icon_template.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_template.png; sourceTree = "<group>"; };
+		2CB54102EFF3787A35F4D9F6 /* MitzModeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzModeViewModel.swift; sourceTree = "<group>"; };
+		2D92A41E439B5F1072E3D7EF /* mitzwhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mitzwhite.png; sourceTree = "<group>"; };
+		2EDE09F94DAAE8907D378C46 /* DeviceLanguageBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceLanguageBootstrap.swift; sourceTree = "<group>"; };
+		31F7D8DA38832DB9A75C1239 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		387A6B45C54AD855CE82DD44 /* BrachotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrachotView.swift; sourceTree = "<group>"; };
+		437C5F272ACB0FA60C70E756 /* GoogleTranslateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleTranslateService.swift; sourceTree = "<group>"; };
+		476EA583D5F45088D31BA825 /* mitzmodenew3.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew3.mp4; sourceTree = "<group>"; };
+		4850F016A9CF43057F40FFE9 /* MitzvahSubmissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahSubmissionViewModel.swift; sourceTree = "<group>"; };
+		49090AE79B14CB86DD3FE76D /* song.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = song.mp3; sourceTree = "<group>"; };
+		494D36AE3096053169E7CA9B /* MitzvahCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahCardView.swift; sourceTree = "<group>"; };
+		4D0C75A5859C8D828A8D351B /* FormspreeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormspreeService.swift; sourceTree = "<group>"; };
+		4F9B4ABEA37FF4289B37CDE8 /* MitzModeTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MitzModeTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		50A9B813A9AB821B9F8F77E7 /* Pods-MitzModeTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MitzModeTest.release.xcconfig"; path = "Target Support Files/Pods-MitzModeTest/Pods-MitzModeTest.release.xcconfig"; sourceTree = "<group>"; };
+		55EA20CDB1E3E1A72CDB248E /* LevelAchievedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelAchievedView.swift; sourceTree = "<group>"; };
+		5609B71AF51C43AD91A30DBA /* LanguageSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingsView.swift; sourceTree = "<group>"; };
+		59284F189858F621E428272B /* BirkatHamazonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirkatHamazonView.swift; sourceTree = "<group>"; };
+		5963DD3316F0D8E19AD2D678 /* mitzmodenew1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew1.mp4; sourceTree = "<group>"; };
+		59D6F0DE5CDEBF45B06A5114 /* MitzvahPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahPopupView.swift; sourceTree = "<group>"; };
+		5A7881D55C801F2A9B3A42DB /* mitzmodenew8.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew8.mp4; sourceTree = "<group>"; };
+		5A8A733B6255E4D337427A57 /* MenuOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuOverlay.swift; sourceTree = "<group>"; };
+		5BDB79EBBED103BFC5B6B47E /* mitzmodenew2.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew2.mp4; sourceTree = "<group>"; };
+		5C9EAB93195B9EE1FE5655D2 /* BirkatHamazonText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BirkatHamazonText.swift; sourceTree = "<group>"; };
+		604D5C5E7F37563C3C64ACE2 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		69743C8271D5079FE9F12083 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6BE42C4B7D678EE6BC953912 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		6DC91A71818BF58FDAD84F18 /* mitzmodenew4.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew4.mp4; sourceTree = "<group>"; };
+		6E1C413F7001D3FEEF650CD5 /* MitzModeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzModeTests.swift; sourceTree = "<group>"; };
+		772E6D1225CFE229ACAEAEF4 /* MitzvotCloudRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvotCloudRepository.swift; sourceTree = "<group>"; };
+		7B1D5E78AA45C6EF32838C11 /* entire mitzvot checklist.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "entire mitzvot checklist.txt"; sourceTree = "<group>"; };
+		7EB4BABCBA9BB58A8CA200D0 /* MitzvotLevelDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvotLevelDialog.swift; sourceTree = "<group>"; };
+		7EEEEAAA2EA4D762DC05F340 /* TefilatHaderechView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TefilatHaderechView.swift; sourceTree = "<group>"; };
+		8355588D7B64143C20D3CC55 /* TranslationNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationNoticeView.swift; sourceTree = "<group>"; };
+		930C8595BE8A4B7367739E9C /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
+		9553A7542A73F1E753CDDAC9 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		95CB6AB6D409F9C2FC557F04 /* DailyChecklistHostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyChecklistHostView.swift; sourceTree = "<group>"; };
+		960C168EE522A48FE3893B78 /* Podfile.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
+		98C17BB566873C43405A80BD /* TranslatableText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatableText.swift; sourceTree = "<group>"; };
+		9A6E069555E2E3F69AF510FB /* libPods-MitzModeTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MitzModeTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B8155DA8893667F5B69A80D /* build_shared_framework.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_shared_framework.sh; sourceTree = "<group>"; };
+		9D4399965B98AF3BF9CA1E54 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		9EE67F2DE2727A2B8F65DCEF /* mitzmodenew13.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew13.mp4; sourceTree = "<group>"; };
+		A2970924676DAFEA874CE2F0 /* SparkleEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SparkleEffect.swift; sourceTree = "<group>"; };
+		A6F58BAA86171FD8DD2E3327 /* DailyMitzvotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMitzvotViewModel.swift; sourceTree = "<group>"; };
+		A828222986BF9FB0CBB976EA /* Pods-MitzModeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MitzModeTests.release.xcconfig"; path = "Target Support Files/Pods-MitzModeTests/Pods-MitzModeTests.release.xcconfig"; sourceTree = "<group>"; };
+		A8A32B618C8040BB5DE7923A /* MitzvahSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahSuggestion.swift; sourceTree = "<group>"; };
+		AD5A0FA780329E765EA2FC51 /* Info 2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info 2.plist"; sourceTree = "<group>"; };
+		B0E093B63392487621558407 /* Secrets.template.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.template.swift; sourceTree = "<group>"; };
+		B48AFFB7CDEA56D60FA028EF /* Pods-MitzModeTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MitzModeTest.debug.xcconfig"; path = "Target Support Files/Pods-MitzModeTest/Pods-MitzModeTest.debug.xcconfig"; sourceTree = "<group>"; };
+		B48BD9AC72C09341954D78DD /* LoopingVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopingVideoPlayer.swift; sourceTree = "<group>"; };
+		B5E08EA34E51F37211721428 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B614C0ED130E2FCADCECDB9F /* tzaddik.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tzaddik.mp4; sourceTree = "<group>"; };
+		B727B0AA38109D93A94C5E5A /* mitzmodenew12.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew12.mp4; sourceTree = "<group>"; };
+		B9FCD6FA8DB7DB769F2C7345 /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
+		BDE65CB539B60966C923DC5C /* mitzmodenew10.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew10.mp4; sourceTree = "<group>"; };
+		BE9FF801209572D0E4CB25DB /* FINAL_REWARD_IOS_PORT_NOTES.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = FINAL_REWARD_IOS_PORT_NOTES.txt; sourceTree = "<group>"; };
+		C142D9A22CD0C5B3A5A1864A /* RainbowText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RainbowText.swift; sourceTree = "<group>"; };
+		C16A0C278171B6224A7E4350 /* MitzModeTest.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = MitzModeTest.xcworkspace; sourceTree = "<group>"; };
+		C48E1E255FC857C2ADDB97BE /* ThemeComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeComponents.swift; sourceTree = "<group>"; };
+		C6A2EF4AFD55CC0CC07FBD59 /* Gender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gender.swift; sourceTree = "<group>"; };
+		C7752350B13D08B856244890 /* mitzmodenew11.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew11.mp4; sourceTree = "<group>"; };
+		C7ED126FBD74FA9DEAEECC20 /* AppTranslationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTranslationStore.swift; sourceTree = "<group>"; };
+		C9E95A76B3F8D5357218F450 /* mitzmodenew6.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew6.mp4; sourceTree = "<group>"; };
+		CAB48FE862BB17B4D84DD3FB /* AndroidHomeChromeParity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AndroidHomeChromeParity.swift; sourceTree = "<group>"; };
+		CE74AA2D565E7C83B5C991D3 /* mitzmodenew7.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew7.mp4; sourceTree = "<group>"; };
+		D27769D402D9A0C88562C8FA /* finalreward.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = finalreward.mp4; sourceTree = "<group>"; };
+		D2B243B4DF6A7949B1E4BE42 /* mitzmodenew9.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew9.mp4; sourceTree = "<group>"; };
+		D6E3BC223FE6EF6F0BD2E20C /* LaunchScreen 2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "LaunchScreen 2.storyboard"; sourceTree = "<group>"; };
+		D98A7656907699C26B0938D5 /* BrachotData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrachotData.swift; sourceTree = "<group>"; };
+		DA3876B91BA5C438B6D4FE93 /* MitzModeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MitzModeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBA4ED38B40860E59A651D64 /* appicon mitz mode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon mitz mode.png"; sourceTree = "<group>"; };
+		DC31DE3AFEE0DF0E3F929DF5 /* MeinShaloshTextEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeinShaloshTextEngine.swift; sourceTree = "<group>"; };
+		E25174F0DE7EAC7F7221E1C4 /* MitzvahApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzvahApp.swift; sourceTree = "<group>"; };
+		E561BBC8F2995CC3E3753E7D /* mitzmodenew5.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mitzmodenew5.mp4; sourceTree = "<group>"; };
+		E7375CDFD21BAB606696D724 /* mitzvah-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mitzvah-button.png"; sourceTree = "<group>"; };
+		EAF406C3C761E3B09E03CA29 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		EAF4DC8E7430A05A0BE41F9D /* starbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starbg.png; sourceTree = "<group>"; };
+		EB3C6C06140E47B6079AC2E5 /* MitzModeTest.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MitzModeTest.xcodeproj; sourceTree = "<group>"; };
+		F2825D95E636AA54B964E389 /* MitzModeStaticBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MitzModeStaticBackground.swift; sourceTree = "<group>"; };
+		F5BBAB65332F39142A300A77 /* RewardVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardVideoPlayer.swift; sourceTree = "<group>"; };
+		F7306CC6068A429797E68CD3 /* LiturgyTranslationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiturgyTranslationText.swift; sourceTree = "<group>"; };
+		FC4F3F6F88BA9E506E64006B /* CompletedMitzvotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletedMitzvotView.swift; sourceTree = "<group>"; };
+		FDDAD6BD84D805BD051F6EA6 /* AlHaMichyaBlessingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlHaMichyaBlessingCard.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6BB8FB9653657A5ED1D74B97 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6ED2ACCFD1FDA70A03596848 /* libPods-MitzModeTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E1966C60B65A4A2181815211 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				778AC6D482AE80DB7560190D /* Sentry in Frameworks */,
+				F5E39ECA8360938C7BBB26DE /* libPods-MitzModeTest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		000F922D48811AA33A510DFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4F9B4ABEA37FF4289B37CDE8 /* MitzModeTest.app */,
+				DA3876B91BA5C438B6D4FE93 /* MitzModeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01F9F4243B552C8E1770C2D0 /* Checklist */ = {
+			isa = PBXGroup;
+			children = (
+				95CB6AB6D409F9C2FC557F04 /* DailyChecklistHostView.swift */,
+			);
+			path = Checklist;
+			sourceTree = "<group>";
+		};
+		1024C434A5755A342F33D0C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B48AFFB7CDEA56D60FA028EF /* Pods-MitzModeTest.debug.xcconfig */,
+				50A9B813A9AB821B9F8F77E7 /* Pods-MitzModeTest.release.xcconfig */,
+				083636FD0109172A3B433496 /* Pods-MitzModeTests.debug.xcconfig */,
+				A828222986BF9FB0CBB976EA /* Pods-MitzModeTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		1ACEC86388F1700457DB1EBD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DBA4ED38B40860E59A651D64 /* appicon mitz mode.png */,
+				930C8595BE8A4B7367739E9C /* background.mp4 */,
+				D27769D402D9A0C88562C8FA /* finalreward.mp4 */,
+				5963DD3316F0D8E19AD2D678 /* mitzmodenew1.mp4 */,
+				5BDB79EBBED103BFC5B6B47E /* mitzmodenew2.mp4 */,
+				476EA583D5F45088D31BA825 /* mitzmodenew3.mp4 */,
+				6DC91A71818BF58FDAD84F18 /* mitzmodenew4.mp4 */,
+				E561BBC8F2995CC3E3753E7D /* mitzmodenew5.mp4 */,
+				C9E95A76B3F8D5357218F450 /* mitzmodenew6.mp4 */,
+				CE74AA2D565E7C83B5C991D3 /* mitzmodenew7.mp4 */,
+				5A7881D55C801F2A9B3A42DB /* mitzmodenew8.mp4 */,
+				D2B243B4DF6A7949B1E4BE42 /* mitzmodenew9.mp4 */,
+				BDE65CB539B60966C923DC5C /* mitzmodenew10.mp4 */,
+				C7752350B13D08B856244890 /* mitzmodenew11.mp4 */,
+				B727B0AA38109D93A94C5E5A /* mitzmodenew12.mp4 */,
+				9EE67F2DE2727A2B8F65DCEF /* mitzmodenew13.mp4 */,
+				E7375CDFD21BAB606696D724 /* mitzvah-button.png */,
+				277BEDF0414FD7A15EF935B2 /* mitzvotlistfull.json */,
+				49090AE79B14CB86DD3FE76D /* song.mp3 */,
+				EAF4DC8E7430A05A0BE41F9D /* starbg.png */,
+				B614C0ED130E2FCADCECDB9F /* tzaddik.mp4 */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		2D76A93B234DE770E2FBDECC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01F9F4243B552C8E1770C2D0 /* Checklist */,
+				4B0A61E01D8E4253A7DBE488 /* Components */,
+				D0AE8364AC5CF9F47C8BB713 /* Core */,
+				EFCBE57FB0A0584D7813CCC9 /* Media */,
+				AAD77AA880022B01DC3BEEA5 /* Mitzvah */,
+				875AE8CAF1480E604E230CD9 /* Overlays */,
+				8B0B79177314EE096781BF9A /* Prayers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		333BC60AE10C607D023E9B74 /* MitzModeTests */ = {
+			isa = PBXGroup;
+			children = (
+				6E1C413F7001D3FEEF650CD5 /* MitzModeTests.swift */,
+			);
+			path = MitzModeTests;
+			sourceTree = "<group>";
+		};
+		361CF6E8D94998506124F76C /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1D489E1842D93553FF9F0B57 /* Config.swift */,
+				31F7D8DA38832DB9A75C1239 /* Constants.swift */,
+				0A3009291F5FCE7C6EE25733 /* DesignTokens.swift */,
+				B9FCD6FA8DB7DB769F2C7345 /* HapticFeedback.swift */,
+				9553A7542A73F1E753CDDAC9 /* NetworkMonitor.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		448383DD25A1A3B8078582A6 /* mitzi */ = {
+			isa = PBXGroup;
+			children = (
+				604D5C5E7F37563C3C64ACE2 /* .gitignore */,
+				B5E08EA34E51F37211721428 /* Assets.xcassets */,
+				7B1D5E78AA45C6EF32838C11 /* entire mitzvot checklist.txt */,
+				BE9FF801209572D0E4CB25DB /* FINAL_REWARD_IOS_PORT_NOTES.txt */,
+				AD5A0FA780329E765EA2FC51 /* Info 2.plist */,
+				D6E3BC223FE6EF6F0BD2E20C /* LaunchScreen 2.storyboard */,
+				152937F12A641BEDCA4F13E0 /* LaunchScreen.storyboard */,
+				EB3C6C06140E47B6079AC2E5 /* MitzModeTest.xcodeproj */,
+				C16A0C278171B6224A7E4350 /* MitzModeTest.xcworkspace */,
+				E25174F0DE7EAC7F7221E1C4 /* MitzvahApp.swift */,
+				2D92A41E439B5F1072E3D7EF /* mitzwhite.png */,
+				197DDA3C6C4585FFDB69086F /* Podfile */,
+				960C168EE522A48FE3893B78 /* Podfile.lock */,
+				B0E093B63392487621558407 /* Secrets.template.swift */,
+			);
+			name = mitzi;
+			path = .;
+			sourceTree = "<group>";
+		};
+		4B0A61E01D8E4253A7DBE488 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CAB48FE862BB17B4D84DD3FB /* AndroidHomeChromeParity.swift */,
+				55EA20CDB1E3E1A72CDB248E /* LevelAchievedView.swift */,
+				F7306CC6068A429797E68CD3 /* LiturgyTranslationText.swift */,
+				23901B07B05998ED95E2552E /* MediaPlayerView.swift */,
+				F2825D95E636AA54B964E389 /* MitzModeStaticBackground.swift */,
+				7EB4BABCBA9BB58A8CA200D0 /* MitzvotLevelDialog.swift */,
+				C142D9A22CD0C5B3A5A1864A /* RainbowText.swift */,
+				A2970924676DAFEA874CE2F0 /* SparkleEffect.swift */,
+				020CB500660F9EF819183CB7 /* SparkleView.swift */,
+				C48E1E255FC857C2ADDB97BE /* ThemeComponents.swift */,
+				98C17BB566873C43405A80BD /* TranslatableText.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		58704DDEDF643D2CEB53AA80 = {
+			isa = PBXGroup;
+			children = (
+				448383DD25A1A3B8078582A6 /* mitzi */,
+				333BC60AE10C607D023E9B74 /* MitzModeTests */,
+				B18EA0BE16FD69D7E14924DF /* Models */,
+				1ACEC86388F1700457DB1EBD /* Resources */,
+				A07582575B6D5073E6C1AA0E /* scripts */,
+				A19A69112A44B954616258EF /* Services */,
+				996BA76FE04B51B54BC2AD9F /* TempIcons */,
+				361CF6E8D94998506124F76C /* Utilities */,
+				B4801F64F502CD3E68AF1937 /* ViewModels */,
+				2D76A93B234DE770E2FBDECC /* Views */,
+				000F922D48811AA33A510DFB /* Products */,
+				1024C434A5755A342F33D0C9 /* Pods */,
+				9C28A3BD12AFC9357E884B46 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		875AE8CAF1480E604E230CD9 /* Overlays */ = {
+			isa = PBXGroup;
+			children = (
+				1731DB640B3EFD5BB7388E43 /* BeginnerInfoDialog.swift */,
+				12D6D2FD9946D757C0DA70CA /* FirstTimeTourOverlay.swift */,
+				1249A914DB31D8AD3799DAB9 /* InfoDialog.swift */,
+				5609B71AF51C43AD91A30DBA /* LanguageSettingsView.swift */,
+				5A8A733B6255E4D337427A57 /* MenuOverlay.swift */,
+				8355588D7B64143C20D3CC55 /* TranslationNoticeView.swift */,
+			);
+			path = Overlays;
+			sourceTree = "<group>";
+		};
+		8B0B79177314EE096781BF9A /* Prayers */ = {
+			isa = PBXGroup;
+			children = (
+				FDDAD6BD84D805BD051F6EA6 /* AlHaMichyaBlessingCard.swift */,
+				59284F189858F621E428272B /* BirkatHamazonView.swift */,
+				387A6B45C54AD855CE82DD44 /* BrachotView.swift */,
+				7EEEEAAA2EA4D762DC05F340 /* TefilatHaderechView.swift */,
+			);
+			path = Prayers;
+			sourceTree = "<group>";
+		};
+		9097140D2FF68EBE00923E0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		996BA76FE04B51B54BC2AD9F /* TempIcons */ = {
+			isa = PBXGroup;
+			children = (
+				2A656733B89812E6395CDF8F /* icon_template.png */,
+			);
+			path = TempIcons;
+			sourceTree = "<group>";
+		};
+		9C28A3BD12AFC9357E884B46 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9A6E069555E2E3F69AF510FB /* libPods-MitzModeTest.a */,
+				24E798A0BD22AD28DB0E8EB5 /* libPods-MitzModeTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A07582575B6D5073E6C1AA0E /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				9B8155DA8893667F5B69A80D /* build_shared_framework.sh */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+		A19A69112A44B954616258EF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C7ED126FBD74FA9DEAEECC20 /* AppTranslationStore.swift */,
+				2EDE09F94DAAE8907D378C46 /* DeviceLanguageBootstrap.swift */,
+				4D0C75A5859C8D828A8D351B /* FormspreeService.swift */,
+				437C5F272ACB0FA60C70E756 /* GoogleTranslateService.swift */,
+				772E6D1225CFE229ACAEAEF4 /* MitzvotCloudRepository.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AAD77AA880022B01DC3BEEA5 /* Mitzvah */ = {
+			isa = PBXGroup;
+			children = (
+				FC4F3F6F88BA9E506E64006B /* CompletedMitzvotView.swift */,
+				494D36AE3096053169E7CA9B /* MitzvahCardView.swift */,
+				111403198608336044AF0EE8 /* MitzvahDefinitionView.swift */,
+				59D6F0DE5CDEBF45B06A5114 /* MitzvahPopupView.swift */,
+				223604D6574B4129B6947FEB /* MitzvahSubmissionView.swift */,
+			);
+			path = Mitzvah;
+			sourceTree = "<group>";
+		};
+		B18EA0BE16FD69D7E14924DF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5C9EAB93195B9EE1FE5655D2 /* BirkatHamazonText.swift */,
+				D98A7656907699C26B0938D5 /* BrachotData.swift */,
+				C6A2EF4AFD55CC0CC07FBD59 /* Gender.swift */,
+				9D4399965B98AF3BF9CA1E54 /* Link.swift */,
+				DC31DE3AFEE0DF0E3F929DF5 /* MeinShaloshTextEngine.swift */,
+				1189C643F7719992440A51B8 /* Mitzvah.swift */,
+				A8A32B618C8040BB5DE7923A /* MitzvahSuggestion.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B4801F64F502CD3E68AF1937 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A6F58BAA86171FD8DD2E3327 /* DailyMitzvotViewModel.swift */,
+				2CB54102EFF3787A35F4D9F6 /* MitzModeViewModel.swift */,
+				4850F016A9CF43057F40FFE9 /* MitzvahSubmissionViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D0AE8364AC5CF9F47C8BB713 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6BE42C4B7D678EE6BC953912 /* AboutView.swift */,
+				69743C8271D5079FE9F12083 /* ContentView.swift */,
+				EAF406C3C761E3B09E03CA29 /* MainView.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EFCBE57FB0A0584D7813CCC9 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				B48BD9AC72C09341954D78DD /* LoopingVideoPlayer.swift */,
+				F5BBAB65332F39142A300A77 /* RewardVideoPlayer.swift */,
+				19FD81A1B35064459B950489 /* TzaddikVideoView.swift */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		61089E256032B95ECEE362CC /* MitzModeTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1D5DAD842AC3179E10EA447 /* Build configuration list for PBXNativeTarget "MitzModeTest" */;
+			buildPhases = (
+				10EAEA6E63B784DFD062E5F6 /* [CP] Check Pods Manifest.lock */,
+				3C8CB7748CC75A0AB1FF08E9 /* Sources */,
+				E775084E3D4ED34CD4CDAF95 /* Resources */,
+				E1966C60B65A4A2181815211 /* Frameworks */,
+				BEA97030FDA9AAC36B8F3A1B /* Copy Sentry dSYMs */,
+				3131C806B5254DA0087EC1E7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MitzModeTest;
+			packageProductDependencies = (
+				CDC38F1CBB24258897227919 /* Sentry */,
+			);
+			productName = MitzModeTest;
+			productReference = 4F9B4ABEA37FF4289B37CDE8 /* MitzModeTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		70A0C4839924E12D9E1730BC /* MitzModeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D34D97BA343CEAC3364AF1C /* Build configuration list for PBXNativeTarget "MitzModeTests" */;
+			buildPhases = (
+				9C6F06AFA4CED14F4FFE5796 /* [CP] Check Pods Manifest.lock */,
+				C6DFF48C1082020D94FBCBD2 /* Sources */,
+				6BB8FB9653657A5ED1D74B97 /* Frameworks */,
+				77B4A4E563EDAAF2F6566E52 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0A78943355F2FBD69799EE8 /* PBXTargetDependency */,
+			);
+			name = MitzModeTests;
+			productName = MitzModeTests;
+			productReference = DA3876B91BA5C438B6D4FE93 /* MitzModeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A75387D581C14B3EB15808A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					61089E256032B95ECEE362CC = {
+						DevelopmentTeam = 6R9Y4JN92A;
+					};
+				};
+			};
+			buildConfigurationList = 1A6F5D79E61A90B7F7B9332B /* Build configuration list for PBXProject "MitzModeTest" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 58704DDEDF643D2CEB53AA80;
+			packageReferences = (
+				6BDA0EE8164AC37A0291F458 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
+			productRefGroup = 000F922D48811AA33A510DFB /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9097140D2FF68EBE00923E0F /* Products */;
+					ProjectRef = EB3C6C06140E47B6079AC2E5 /* MitzModeTest.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				61089E256032B95ECEE362CC /* MitzModeTest */,
+				70A0C4839924E12D9E1730BC /* MitzModeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E775084E3D4ED34CD4CDAF95 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				444521AC2F4BB95DA01D0A14 /* Assets.xcassets in Resources */,
+				F13E956CD50D52AE531F9C54 /* FINAL_REWARD_IOS_PORT_NOTES.txt in Resources */,
+				9DF876B9160C58BCF0E85BA8 /* Info 2.plist in Resources */,
+				D363237F44C83756BB64BE15 /* LaunchScreen 2.storyboard in Resources */,
+				95BAF2CC02431FD08B0A42B2 /* LaunchScreen.storyboard in Resources */,
+				0D650D016C5EE7F7FA28D99B /* MitzModeTest.xcodeproj in Resources */,
+				0F356C60C1E93F4F31E10509 /* MitzModeTest.xcworkspace in Resources */,
+				352AFEDF00EC9EC195EEE4BF /* Podfile.lock in Resources */,
+				5E3C9D12DF036EF26CA8C846 /* appicon mitz mode.png in Resources */,
+				F34B749E3D3BA46D65D59F0D /* background.mp4 in Resources */,
+				2E4E3E900B6356F9751A3149 /* build_shared_framework.sh in Resources */,
+				92A70E162431E43A6764C770 /* entire mitzvot checklist.txt in Resources */,
+				7D697AF9D24C4C96ECE4C6D8 /* finalreward.mp4 in Resources */,
+				2C14B3A80B4ED6150E4AC9FA /* icon_template.png in Resources */,
+				03B71F4FFF6441A7CA498121 /* mitzmodenew1.mp4 in Resources */,
+				667BF6F488090F840F2325BB /* mitzmodenew10.mp4 in Resources */,
+				832087A37E18F3C8BF40E4E8 /* mitzmodenew11.mp4 in Resources */,
+				C3163C40505DFA2ABEAF99E2 /* mitzmodenew12.mp4 in Resources */,
+				847F79BF13B6CD320284E400 /* mitzmodenew13.mp4 in Resources */,
+				5FCBF9EF8EA0A5D0F154316C /* mitzmodenew2.mp4 in Resources */,
+				FDDB43DA36795DB64E1A7699 /* mitzmodenew3.mp4 in Resources */,
+				AD3277FA80EB7522A05CE6B8 /* mitzmodenew4.mp4 in Resources */,
+				2493A1E03D1FF06A4A3D5B94 /* mitzmodenew5.mp4 in Resources */,
+				28A099205B3D268F51ADB06C /* mitzmodenew6.mp4 in Resources */,
+				46BC7104609036D716CC8F59 /* mitzmodenew7.mp4 in Resources */,
+				902EF0206F4E932EC6E74D75 /* mitzmodenew8.mp4 in Resources */,
+				7B81E6F5F1D9BFF42E4CBFBE /* mitzmodenew9.mp4 in Resources */,
+				D2CE52CF35677066776B7A16 /* mitzvah-button.png in Resources */,
+				7BB9145F8A34BADDBB015C6B /* mitzvotlistfull.json in Resources */,
+				4167CE9775384AC994F2C370 /* mitzwhite.png in Resources */,
+				AE1421BA477E5E1A7BACD8FC /* song.mp3 in Resources */,
+				A234ECC51F21B04A40C48AF9 /* starbg.png in Resources */,
+				8311D009FBF5FACAC36675D9 /* tzaddik.mp4 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10EAEA6E63B784DFD062E5F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MitzModeTest-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3131C806B5254DA0087EC1E7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MitzModeTest/Pods-MitzModeTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		77B4A4E563EDAAF2F6566E52 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MitzModeTests/Pods-MitzModeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C6F06AFA4CED14F4FFE5796 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MitzModeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEA97030FDA9AAC36B8F3A1B /* Copy Sentry dSYMs */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Sentry dSYMs";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"Release\" ]; then\n  find \"${BUILD_DIR}\" -name '*.dSYM' -exec cp -R {} \"${DWARF_DSYM_FOLDER_PATH}/\" \\;\n  find \"${BUILD_DIR}\" -name '*.bcsymbolmap' -exec cp {} \"${DWARF_DSYM_FOLDER_PATH}/\" \\;\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3C8CB7748CC75A0AB1FF08E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CBAAD5F2569B78DF66D16EB1 /* AboutView.swift in Sources */,
+				FE83DD9556366A1CC427BC97 /* AlHaMichyaBlessingCard.swift in Sources */,
+				F8677967B0CD09611426643F /* AndroidHomeChromeParity.swift in Sources */,
+				6C9CC36B7BCCDDBD5FB94DAC /* AppTranslationStore.swift in Sources */,
+				7359E28EC6378D818DBD5EE5 /* BeginnerInfoDialog.swift in Sources */,
+				66236FAB4E4E0DACFC110366 /* BirkatHamazonText.swift in Sources */,
+				552DCF682E19CB6FCAB5BD4E /* BirkatHamazonView.swift in Sources */,
+				2CBBF9F8CEF4F38C38F7A5F2 /* BrachotData.swift in Sources */,
+				BEFD9E1461A19B4DD8BD0B7D /* BrachotView.swift in Sources */,
+				5415DF86D789A98F60E83151 /* CompletedMitzvotView.swift in Sources */,
+				2337851A19135F3A63735063 /* Config.swift in Sources */,
+				6BA67866C15A598F456886AF /* Constants.swift in Sources */,
+				CB5BE52557BA9217A959E90F /* ContentView.swift in Sources */,
+				BBF608E625A73A10C981C358 /* DailyChecklistHostView.swift in Sources */,
+				2E94E695C16E98D2F44CDD83 /* DailyMitzvotViewModel.swift in Sources */,
+				8E08134ED9A4EF01017620E2 /* DesignTokens.swift in Sources */,
+				540649B55E825C077596D8E8 /* DeviceLanguageBootstrap.swift in Sources */,
+				C7E7428DCDC43ED8838AE673 /* FirstTimeTourOverlay.swift in Sources */,
+				85F464E93D8A2F5885B2D350 /* FormspreeService.swift in Sources */,
+				4CFE6BC68C92E2187E587D15 /* Gender.swift in Sources */,
+				5266BB3D05AB4CF7653FFFAC /* GoogleTranslateService.swift in Sources */,
+				471E2074BE956DCBF46F493B /* HapticFeedback.swift in Sources */,
+				74058A85A84DB873B100B1DA /* InfoDialog.swift in Sources */,
+				8562E4DD4267D0D7079626A6 /* LanguageSettingsView.swift in Sources */,
+				98BE442D03A60021F62887FF /* LevelAchievedView.swift in Sources */,
+				158FBB5DA8B388161B8C8489 /* Link.swift in Sources */,
+				C954D583637E415981E757EC /* LiturgyTranslationText.swift in Sources */,
+				3CAEF3CB47DE3AA6355E791E /* LoopingVideoPlayer.swift in Sources */,
+				40A1CFF5C95FC80909AFD102 /* MainView.swift in Sources */,
+				8003F1C2B3DB03E70B99F846 /* MediaPlayerView.swift in Sources */,
+				81F93C356EB7B165D1DB6007 /* MeinShaloshTextEngine.swift in Sources */,
+				4FA5F56CF6A86CC42B4F1117 /* MenuOverlay.swift in Sources */,
+				3FB7FC2ED40E85C280B84544 /* MitzModeStaticBackground.swift in Sources */,
+				312791FE2613BAD87F450977 /* MitzModeViewModel.swift in Sources */,
+				B6D2ABA22085B03D2A0AC9F3 /* Mitzvah.swift in Sources */,
+				FB17C9AA84A0A936D4102E4A /* MitzvahApp.swift in Sources */,
+				64B0ED146DDBD6FAD63FBAB8 /* MitzvahCardView.swift in Sources */,
+				99F2A7AA0776A141AB5AB50A /* MitzvahDefinitionView.swift in Sources */,
+				0539ED417731EC4E3BA56A8E /* MitzvahPopupView.swift in Sources */,
+				7B87A4E3F3B270D66B15EEF9 /* MitzvahSubmissionView.swift in Sources */,
+				A6CA0BF605C041859DE30F48 /* MitzvahSubmissionViewModel.swift in Sources */,
+				BB98AB25B2440F5652013188 /* MitzvahSuggestion.swift in Sources */,
+				733233EDE7792A05C59F0D0F /* MitzvotCloudRepository.swift in Sources */,
+				FBAA3696CEA9C6E4672F8FC1 /* MitzvotLevelDialog.swift in Sources */,
+				0905F89D8DAF0230753D2DFD /* NetworkMonitor.swift in Sources */,
+				265C61E94DFA1A1671A4D422 /* RainbowText.swift in Sources */,
+				4C404BAB20FA3A172CB86F3F /* RewardVideoPlayer.swift in Sources */,
+				24493BDAAB04B0D5D10DCBF6 /* Secrets.template.swift in Sources */,
+				A95E235CA7E187335C68423C /* SparkleEffect.swift in Sources */,
+				E40B596D39B610D035B3E40A /* SparkleView.swift in Sources */,
+				B69DE8771BE06AF434268DE9 /* TefilatHaderechView.swift in Sources */,
+				46C8B9656F818A970F67F42A /* ThemeComponents.swift in Sources */,
+				1345EA319072CD7F13DDEE74 /* TranslatableText.swift in Sources */,
+				8EC7658FFDFAF83E64C49EB3 /* TranslationNoticeView.swift in Sources */,
+				111A86475EEF821356E4372F /* TzaddikVideoView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C6DFF48C1082020D94FBCBD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C000C2FEF0EACC24D6ECD5 /* MitzModeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0A78943355F2FBD69799EE8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 61089E256032B95ECEE362CC /* MitzModeTest */;
+			targetProxy = 59773325972B6ABA05D81FA5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3AC4BA72E12F5AA45CA56884 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B48AFFB7CDEA56D60FA028EF /* Pods-MitzModeTest.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 7;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6R9Y4JN92A;
+				DWARF_DSYM_FILE_NAME = "$(PRODUCT_NAME).dSYM";
+				DWARF_DSYM_FOLDER_PATH = "$(CONFIGURATION_BUILD_DIR)";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CADisableMinimumFrameDurationOnPhone = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mitz Mode";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Mitz Mode uses your location to show accurate prayer times and zmanim in the Daily Mitzvot Checklist.";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_GENERATE_MAP_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beardytop.mitzmode;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				STRIP_SWIFT_SYMBOLS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		8B48E1B0D03ACE2712836394 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 083636FD0109172A3B433496 /* Pods-MitzModeTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.beardytop.mitzmode.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MitzModeTest.app/MitzModeTest";
+			};
+			name = Debug;
+		};
+		D55EDF9D02F45DEC91F70EC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A828222986BF9FB0CBB976EA /* Pods-MitzModeTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.beardytop.mitzmode.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MitzModeTest.app/MitzModeTest";
+			};
+			name = Release;
+		};
+		DC80BD3C91F04BC869CD7B88 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E0753F2FA2FBD36B5A0EF730 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50A9B813A9AB821B9F8F77E7 /* Pods-MitzModeTest.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 7;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6R9Y4JN92A;
+				DWARF_DSYM_FILE_NAME = "$(PRODUCT_NAME).dSYM";
+				DWARF_DSYM_FOLDER_PATH = "$(CONFIGURATION_BUILD_DIR)";
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CADisableMinimumFrameDurationOnPhone = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mitz Mode";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Mitz Mode uses your location to show accurate prayer times and zmanim in the Daily Mitzvot Checklist.";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_GENERATE_MAP_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 3.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.beardytop.mitzmode;
+				PROVISIONING_PROFILE_SPECIFIER = "Mitz Mode App Store";
+				SDKROOT = iphoneos;
+				STRIP_SWIFT_SYMBOLS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		F12987A3228CBFB249EF67E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A6F5D79E61A90B7F7B9332B /* Build configuration list for PBXProject "MitzModeTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F12987A3228CBFB249EF67E6 /* Debug */,
+				DC80BD3C91F04BC869CD7B88 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		8D34D97BA343CEAC3364AF1C /* Build configuration list for PBXNativeTarget "MitzModeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B48E1B0D03ACE2712836394 /* Debug */,
+				D55EDF9D02F45DEC91F70EC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C1D5DAD842AC3179E10EA447 /* Build configuration list for PBXNativeTarget "MitzModeTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AC4BA72E12F5AA45CA56884 /* Debug */,
+				E0753F2FA2FBD36B5A0EF730 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6BDA0EE8164AC37A0291F458 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.9.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CDC38F1CBB24258897227919 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6BDA0EE8164AC37A0291F458 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 1A75387D581C14B3EB15808A /* Project object */;
+}

@@ -19,11 +19,16 @@ import android.os.Handler
 import android.os.Looper
 import android.os.MessageQueue
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 @HiltAndroidApp
 class MitzModeApplication : Application() {
     private val mainHandler = Handler(Looper.getMainLooper())
     private val sentryInitialized = AtomicBoolean(false)
+    private val sentryInitScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     override fun onCreate() {
         super.onCreate()
@@ -31,8 +36,8 @@ class MitzModeApplication : Application() {
         // Initialize ThreeTenABP first (doesn't require network)
         AndroidThreeTen.init(this)
 
-        // Warm checklist deps on a background thread before first open.
-        TzaddikBridge.preload(this)
+        // Warm checklist deps after first frames — keeps cold start responsive.
+        mainHandler.postDelayed({ TzaddikBridge.preload(this) }, 1_500L)
         
         // Init Sentry after the UI is up — keeps crash reporting, avoids ~1s main-thread block at launch.
         scheduleSentryStartup()
@@ -60,12 +65,16 @@ class MitzModeApplication : Application() {
 
     private fun tryInitializeSentry(force: Boolean) {
         if (!sentryInitialized.compareAndSet(false, true)) return
-        initializeSentry()
-        try {
-            SentryUtil.startAnrWatchdog(startupGracePeriodMs = 5_000L)
-            Log.d("MitzModeApplication", "ANR watchdog started successfully")
-        } catch (e: Exception) {
-            Log.e("MitzModeApplication", "Failed to start ANR watchdog", e)
+        // Sentry init can block the main thread on some devices/emulators.
+        // Run it off the UI thread; if it fails, we continue without it.
+        sentryInitScope.launch {
+            initializeSentry()
+            try {
+                SentryUtil.startAnrWatchdog(startupGracePeriodMs = 5_000L)
+                Log.d("MitzModeApplication", "ANR watchdog started successfully")
+            } catch (e: Exception) {
+                Log.e("MitzModeApplication", "Failed to start ANR watchdog", e)
+            }
         }
     }
 

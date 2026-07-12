@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,6 +23,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Slider
@@ -45,11 +47,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.domain.Gender
 import com.beardytop.beatzaddik.domain.IsraelDetectionSource
+import com.beardytop.beatzaddik.domain.JerusalemPurimRules
 import com.beardytop.beatzaddik.domain.ManualCities
 import com.beardytop.beatzaddik.ui.ManualCityListRow
 import com.beardytop.beatzaddik.ui.cityDisplayLabel
@@ -57,6 +62,7 @@ import com.beardytop.beatzaddik.ui.filterManualCities
 import com.beardytop.beatzaddik.ui.localizedLocationLabel
 import com.beardytop.beatzaddik.ui.profileMatchesManualCity
 import com.beardytop.beatzaddik.ui.rememberCityDisplayLabel
+import com.beardytop.beatzaddik.domain.NusachExplainers
 import com.beardytop.beatzaddik.domain.NusachSelection
 import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.domain.KashrutWaitTimes
@@ -86,6 +92,7 @@ fun SettingsScreen(
     var kashrutScrollY by remember { mutableIntStateOf(0) }
     var showCityPicker by remember { mutableStateOf(false) }
     var cityQuery by remember { mutableStateOf("") }
+    var nusachExplainer by remember { mutableStateOf<NusachSelection?>(null) }
     val languageCode = LocalAppTranslation.current.displayLanguageCode
 
     LaunchedEffect(scrollToKashrut) {
@@ -167,12 +174,42 @@ fun SettingsScreen(
             )
             Spacer(Modifier.height(10.dp))
             NusachSelection.selectable.forEach { n ->
-                SettingsChip(
-                    label = n.displayLabel(),
-                    selected = profile.nusachSelection == n,
-                    onClick = { viewModel.saveProfile(profile.copy(nusachSelection = n)) },
-                    modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp)
-                )
+                val explainer = NusachExplainers.forSelection(n)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 3.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    SettingsChip(
+                        label = n.displayLabel(),
+                        selected = profile.nusachSelection == n,
+                        onClick = { viewModel.saveProfile(profile.copy(nusachSelection = n)) },
+                        modifier = Modifier.weight(1f),
+                        enableTerms = false,
+                    )
+                    if (explainer != null) {
+                        IconButton(
+                            onClick = { nusachExplainer = n },
+                            modifier = Modifier
+                                .size(36.dp)
+                                .semantics {
+                                    contentDescription = "About ${n.displayLabel()}"
+                                },
+                        ) {
+                            Text(
+                                text = "?",
+                                style = MaterialTheme.typography.titleMedium.copy(
+                                    fontWeight = FontWeight.Bold,
+                                ),
+                                color = TzaddikColors.GoldBorder.copy(alpha = 0.9f),
+                            )
+                        }
+                    } else {
+                        Spacer(Modifier.size(36.dp))
+                    }
+                }
             }
             val effectiveName = profile.effectiveNusach().displayLabel()
             Spacer(Modifier.height(6.dp))
@@ -233,7 +270,7 @@ fun SettingsScreen(
             Spacer(Modifier.height(10.dp))
             ProfileToggle(
                 label = "Use GPS for location",
-                description = "Updates prayer times from your device location. Turn off to pick a city below.",
+                description = "Updates prayer times from your exact device location — your town does not need to be in the city list.",
                 checked = profile.useGps,
                 onChange = { enabled -> viewModel.setGpsForZmanim(enabled) { } }
             )
@@ -243,6 +280,15 @@ fun SettingsScreen(
                 style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
                 color = TzaddikColors.NavyDeep
             )
+            if (!profile.useGps) {
+                Spacer(Modifier.height(4.dp))
+                AppText(
+                    "If your town isn’t listed, pick the nearest major city — or turn on GPS above for exact zmanim where you are.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TzaddikColors.TextMuted,
+                    enableTerms = false,
+                )
+            }
             Spacer(Modifier.height(6.dp))
             OutlinedTextField(
                 value = cityQuery,
@@ -282,7 +328,11 @@ fun SettingsScreen(
                 if (inlineCities.isEmpty()) {
                     item {
                         AppText(
-                            "No cities found. Try another spelling.",
+                            if (!profile.useGps) {
+                                "No cities found. Try another spelling, pick the nearest major city, or turn on GPS for exact times."
+                            } else {
+                                "No cities found. Try another spelling."
+                            },
                             style = MaterialTheme.typography.bodySmall,
                             color = TzaddikColors.TextMuted
                         )
@@ -295,32 +345,94 @@ fun SettingsScreen(
                 text = "More cities (dropdown)",
                 modifier = Modifier.fillMaxWidth()
             )
+
+            // Walled-city Purim in cities of doubt.
+            val isPurimDoubtCity = remember(profile.manualCityId) {
+                JerusalemPurimRules.isPurimDoubtCity(profile.manualCityId)
+            }
+            if (isPurimDoubtCity) {
+                Spacer(Modifier.height(12.dp))
+                SettingsDivider()
+                Spacer(Modifier.height(10.dp))
+                AppText(
+                    "Purim in this city (status in doubt)",
+                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                    color = TzaddikColors.NavyDeep,
+                    enableTerms = false,
+                )
+                Spacer(Modifier.height(6.dp))
+                AppText(
+                    "Some cities (in Israel and a few diaspora communities) have a disputed status about whether they were walled in Yehoshua's time — or historically observed 15 Adar. In such places, some observe both sets of customs. Ask your rav what your community does.",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TzaddikColors.TextMuted,
+                    enableTerms = false,
+                )
+                Spacer(Modifier.height(10.dp))
+                ProfileToggle(
+                    label = "Observe walled-city Purim here (Shushan Purim / Meshulash when applicable)",
+                    description = "If enabled, the app will show Shushan Purim / Purim Meshulash scheduling like Jerusalem for this city.",
+                    checked = profile.observeWalledCityPurim,
+                    onChange = { enabled -> viewModel.saveProfile(profile.copy(observeWalledCityPurim = enabled)) }
+                )
+            }
             Spacer(Modifier.height(12.dp))
             SettingsDivider()
             Spacer(Modifier.height(10.dp))
 
-            // "I live in Israel" — shown as a manual fallback when location can't auto-detect it.
-            // If GPS or city already resolves to Israel, we show an informational note instead.
+            // Always offer Israel vs chutz customs. Location only sets the default:
+            // in Israel → on; elsewhere → off (visitors from Israel can turn it on).
             val israelSource = profile.isInIsraelSource
-            val israelAutoDetected = israelSource != IsraelDetectionSource.MANUAL_FLAG && profile.isInIsrael
-            if (israelAutoDetected) {
-                AppText(
-                    if (israelSource == IsraelDetectionSource.GPS) {
-                        "🇮🇱 Israel customs active — detected from your GPS location (1-day Yom Tov, Israel parsha cycle)."
-                    } else {
-                        "🇮🇱 Israel customs active — detected from your city selection (1-day Yom Tov, Israel parsha cycle)."
-                    },
-                    style = MaterialTheme.typography.bodySmall,
-                    color = TzaddikColors.NavyMid,
-                    enableTerms = false,
-                )
-            } else {
-                ProfileToggle(
-                    label = "I live in Israel",
-                    description = "Uses 1-day Yom Tov customs and the Israel parsha cycle. Select a city above or enable GPS for automatic detection.",
-                    checked = profile.liveInIsrael,
-                    onChange = { viewModel.setLiveInIsrael(it) }
-                )
+            val locationInIsrael = profile.locationSuggestsIsrael
+            val useIsraelCustoms = profile.isInIsrael
+            val locationHint = when {
+                locationInIsrael && israelSource == IsraelDetectionSource.GPS ->
+                    "Location (GPS) is in Israel — defaults to Israel customs."
+                locationInIsrael ->
+                    "Location (city) is in Israel — defaults to Israel customs."
+                profile.latitude != null || profile.manualCityId != null ->
+                    "Location is outside Israel — defaults to chutz la'aretz. Turn on if you follow Israel customs (e.g. visiting from Israel)."
+                else ->
+                    "No Israel location detected — defaults to chutz la'aretz. Turn on for 1-day Yom Tov and the Israel parsha cycle."
+            }
+            AppText(
+                locationHint,
+                style = MaterialTheme.typography.bodySmall,
+                color = TzaddikColors.NavyMid,
+                enableTerms = false,
+            )
+            Spacer(Modifier.height(8.dp))
+            ProfileToggle(
+                label = "Use Israel customs",
+                description = "1-day Yom Tov and Israel parsha cycle. Off = chutz la'aretz (2-day Yom Tov, diaspora parsha), even if your GPS or city is in Israel.",
+                checked = useIsraelCustoms,
+                onChange = { enabled ->
+                    viewModel.setUseIsraelCustoms(enabled, locationInIsrael)
+                },
+            )
+        }
+
+        nusachExplainer?.let { selection ->
+            val body = NusachExplainers.forSelection(selection).orEmpty()
+            ParchmentDialog(
+                onDismiss = { nusachExplainer = null },
+                title = selection.displayLabel(),
+                confirmButton = {
+                    GoldButton(onClick = { nusachExplainer = null }, text = "Done")
+                },
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .heightIn(max = 420.dp)
+                        .verticalScroll(rememberScrollState()),
+                ) {
+                    AppText(
+                        body,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = TzaddikColors.NavyDeep,
+                        enableTerms = false,
+                    )
+                }
             }
         }
 
@@ -411,6 +523,29 @@ fun SettingsScreen(
                     viewModel.setKashrutHours(meatToDairyHours = null, dairyToMeatMinutes = it)
                 }
             )
+            Spacer(Modifier.height(12.dp))
+            ProfileToggle(
+                label = "Show timer status in notification bar",
+                description = "While waiting, shows time left. When finished, shows you can eat meat or dairy — tap or swipe to clear. Android only.",
+                checked = profile.showKashrutTimerNotification,
+                onChange = { viewModel.setShowKashrutTimerNotification(it) },
+            )
+            if (profile.showKashrutTimerNotification) {
+                Spacer(Modifier.height(8.dp))
+                ProfileToggle(
+                    label = "Sound when timer finishes",
+                    description = "Play a notification sound when the wait ends.",
+                    checked = profile.kashrutTimerSound,
+                    onChange = { viewModel.setKashrutTimerAlertPrefs(sound = it, vibrate = null) },
+                )
+                Spacer(Modifier.height(8.dp))
+                ProfileToggle(
+                    label = "Vibrate when timer finishes",
+                    description = "Vibrate the device when the wait ends.",
+                    checked = profile.kashrutTimerVibrate,
+                    onChange = { viewModel.setKashrutTimerAlertPrefs(sound = null, vibrate = it) },
+                )
+            }
             Spacer(Modifier.height(6.dp))
             AppText(
                 "Default wait times are set automatically based on your nusach if not customized here.",
@@ -829,6 +964,7 @@ private fun SettingsChip(
     label: String,
     selected: Boolean,
     modifier: Modifier = Modifier,
+    enableTerms: Boolean = true,
     onClick: () -> Unit
 ) {
     FilterChip(
@@ -840,7 +976,8 @@ private fun SettingsChip(
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
                 ),
-                color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown
+                color = if (selected) TzaddikColors.NavyDeep else TzaddikColors.TextBrown,
+                enableTerms = enableTerms,
             )
         },
         modifier = modifier,

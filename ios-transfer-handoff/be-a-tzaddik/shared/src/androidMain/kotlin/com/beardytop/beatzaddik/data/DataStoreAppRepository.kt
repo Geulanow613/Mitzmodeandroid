@@ -96,7 +96,6 @@ class DataStoreAppRepository(private val context: Context) : AppRepository {
 
     override suspend fun setChecked(id: String, checked: Boolean, persist: Boolean) {
         if (id.isBlank()) return
-        rolloverIfNeeded()
         context.dataStore.edit { prefs ->
             val dailyKey = booleanPreferencesKey(Keys.checklistPrefix + id)
             val persistKey = booleanPreferencesKey(Keys.persistPrefix + id)
@@ -157,11 +156,6 @@ class DataStoreAppRepository(private val context: Context) : AppRepository {
                 prefs[Keys.checklistDate] = todayKey
             }
         }
-    }
-
-    private suspend fun rolloverIfNeeded() {
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
-        clearDayIfNewDate(today)
     }
 
     override val monthlyCheckedMonths: Flow<Map<String, String>> = context.dataStore.data.map { prefs ->

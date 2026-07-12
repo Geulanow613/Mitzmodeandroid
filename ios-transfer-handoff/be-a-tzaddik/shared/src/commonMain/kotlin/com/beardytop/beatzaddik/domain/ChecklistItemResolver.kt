@@ -35,7 +35,10 @@ object ChecklistItemResolver {
         val zman = when {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
                 ChecklistZmanEvaluator.evaluate(item.id, nowMillis, zmanim, prayerDay)
-            isFestivalPrepItem(item) -> ItemZmanStatus()
+            isFestivalPrepItem(item) -> when (item.id) {
+                "yom_tov_shabbat_advance_prep" -> ItemZmanStatus(hint = "Eruv Tavshilin")
+                else -> ItemZmanStatus()
+            }
             isMourningPeriodItem(item) -> ItemZmanStatus()
             isCholHamoedItem(item) -> ItemZmanStatus()
             !item.persistChecked && item.timeOfDay != TimeOfDay.ANY ->
@@ -78,7 +81,20 @@ object ChecklistItemResolver {
             zmanAvailableAtLabel = zman.availableAtLabel,
             explanationTemplate = explanationTemplate,
             explanationArgs = explanationArgs,
+            resourceLinks = resourceLinksFor(item, profile),
         )
+    }
+
+    private fun resourceLinksFor(item: ChecklistItemDef, profile: UserProfile): List<ChecklistLink> {
+        if (item.links.isEmpty()) return emptyList()
+        val key = when (profile.effectiveNusach()) {
+            EffectiveNusach.CHABAD -> "chabad"
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "sefard"
+            EffectiveNusach.ASHKENAZ -> "ashkenaz"
+        }
+        return item.links.filter { link ->
+            link.nusach == null || link.nusach == "default" || link.nusach == key
+        }
     }
 
     private fun pickExplanation(item: ChecklistItemDef, profile: UserProfile): String {
@@ -135,6 +151,7 @@ object ChecklistItemResolver {
         "erev_public_fast_prep",
         "erev_yom_kippur_eat",
         "erev_tisha_beav_prep",
+        "eruv_tavshilin",
     )
 
     /** Daytime Torah study stays active until sunset, not only until Mincha Gedola. */

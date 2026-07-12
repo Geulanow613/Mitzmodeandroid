@@ -21,14 +21,16 @@ fun MainViewController() = ComposeUIViewController {
             CircularProgressIndicator()
         }
     } else {
-        App(deps = ready)
+        App(deps = ready, appMode = com.beardytop.beatzaddik.domain.AppMode.Unified)
     }
 }
 
-/** Embedded Daily Mitzvot Checklist inside Mitz Mode iOS (same as Android). */
+/**
+ * Full Mitz Mode + checklist shell for iOS host (checklist-first).
+ * [onClose] is kept for API compatibility with older Swift hosts but is unused in unified mode.
+ */
 fun EmbeddedChecklistViewController(onClose: () -> Unit) = ComposeUIViewController {
     val deps by ChecklistEmbedBridge.depsFlow.collectAsState()
-    val mitzvotCount by ChecklistEmbedBridge.mitzvotCountFlow.collectAsState()
     LaunchedEffect(Unit) {
         ChecklistEmbedBridge.ensureDependencies()
     }
@@ -40,12 +42,8 @@ fun EmbeddedChecklistViewController(onClose: () -> Unit) = ComposeUIViewControll
     } else {
         App(
             deps = ready,
-            embeddedMode = true,
+            appMode = com.beardytop.beatzaddik.domain.AppMode.Unified,
             onRequestClose = onClose,
-            mitzvotCount = mitzvotCount,
-            onChecklistItemChecked = { itemId, title ->
-                ChecklistEmbedBridge.notifyChecklistItemChecked(itemId, title)
-            },
         )
     }
 }

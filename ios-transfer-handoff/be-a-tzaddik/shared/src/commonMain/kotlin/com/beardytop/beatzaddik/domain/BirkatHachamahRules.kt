@@ -83,5 +83,7 @@ object BirkatHachamahRules {
 
     /** A civil date in the advance checklist window (not the recitation day itself). */
     fun sampleAdvanceDay(occurrence: LocalDate): LocalDate =
-        occurrence.plus(-4, DateTimeUnit.DAY)
+        // Use the start of the advance window (a week before) so the debug simulator
+        // doesn't land on Shabbat (the occurrence is Wednesday; -4 would be Shabbat).
+        occurrence.plus(-ADVANCE_DAYS, DateTimeUnit.DAY)
 }

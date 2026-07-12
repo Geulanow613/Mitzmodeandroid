@@ -6,6 +6,10 @@ data class DayInfo(
     val date: LocalDate,
     val civilLabel: String,
     val hebrewLabel: String,
+    /**
+     * This Shabbat's weekly parsha key (KosherJava enum name, e.g. `MATOS_MASEI`), or null
+     * on weekdays / Yom Tov with no weekly reading.
+     */
     val parsha: String?,
     val statusChips: List<String>,
     val isShabbat: Boolean,
@@ -42,9 +46,8 @@ data class DayInfo(
     val hebrewYear: Int? = null,
     val zmanim: ZmanimSnapshot? = null,
     /**
-     * The parsha (Torah portion) to be read on the upcoming Shabbat, formatted for display.
-     * Accounts for Israel vs Diaspora divergence (Yom Tov deferral).
-     * Null when no calendar library is available (heuristic backend).
+     * Parsha key for the upcoming Shabbat that has a weekly reading (skips Yom Tov NONE).
+     * Display / Motzei / Simchat Torah rules live in [WeeklyParshaLogic].
      */
     val upcomingShabbatParsha: String? = null,
     /** Display name of tomorrow's Yom Tov when today is erev chag (e.g. "Pesach", "Rosh Hashana"). */

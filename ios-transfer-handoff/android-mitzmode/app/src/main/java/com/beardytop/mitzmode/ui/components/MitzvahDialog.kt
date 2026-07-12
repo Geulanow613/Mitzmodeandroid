@@ -197,7 +197,8 @@ fun MitzvahDialog(
     mitzvah: Mitzvah,
     onDismiss: () -> Unit,
     onAccept: () -> Unit,
-    onNext: () -> Unit
+    onNext: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var accepted by remember(mitzvah.id) { mutableStateOf(false) }
     /** Synchronous guard: Compose may not recompose before a second tap sees old [accepted]. */
@@ -244,7 +245,7 @@ fun MitzvahDialog(
             dismissOnClickOutside = false,
         )
     ) {
-        Box(Modifier.fillMaxSize()) {
+        Box(modifier.fillMaxSize()) {
 
             // Scrim
             Box(

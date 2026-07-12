@@ -9,6 +9,30 @@ import kotlinx.datetime.plus
  */
 object OmerCountText {
 
+    const val CHECKLIST_ITEM_ID = "sefirat_haomer_count"
+
+    fun isActiveOmerCountSeason(cal: DayInfo): Boolean {
+        val day = cal.omerDay ?: return false
+        return cal.isSefiratHaomer && day in 1..49 && !cal.isLagBaomer
+    }
+
+    /**
+     * True from tonight's tzeit until dawn — when the nightly count should be prominent on the checklist.
+     * Before tzeit (even after sunset), returns false so the item stays in normal order until nightfall.
+     */
+    fun isOmerCountPriority(nowMillis: Long, cal: DayInfo): Boolean {
+        if (!isActiveOmerCountSeason(cal)) return false
+        val z = cal.zmanim
+        if (z == null) return cal.activeTimeOfDay == TimeOfDay.NIGHT
+        val tzeitTonight = omerNightfallMillis(z) ?: return cal.activeTimeOfDay == TimeOfDay.NIGHT
+        val dawn = z.alotHaShacharMillis ?: z.sunriseMillis
+        return when {
+            nowMillis >= tzeitTonight -> true
+            dawn != null && nowMillis < dawn -> cal.activeTimeOfDay == TimeOfDay.NIGHT
+            else -> false
+        }
+    }
+
     /** Ashkenaz: ba'omer (בעומר); Chabad, Sephardi, and Edot HaMizrach: la'omer (לעומר). */
     fun omerSuffixHe(nusach: EffectiveNusach): String = when (nusach) {
         EffectiveNusach.ASHKENAZ -> "בעומר"
@@ -181,10 +205,14 @@ Tonight's count:
 • ${'$'}tonight night — count ${'$'}tonightSummary after nightfall${'$'}timePart.
 ${'$'}nextNightLine
 
+If you forgot at night:
+• You may count the next day during the daytime — but without the blessing (no bracha).
+• If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
+
 How to count:
 • Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).
 • Say: "${'$'}speechPhrase"
-• Count after nightfall (tzeit); complete before dawn. If you forgot at night, count the next day during the daytime without a bracha. If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
+• Count after nightfall (tzeit); complete before dawn.
 
 ${'$'}nusachWhen
     """.trimIndent()

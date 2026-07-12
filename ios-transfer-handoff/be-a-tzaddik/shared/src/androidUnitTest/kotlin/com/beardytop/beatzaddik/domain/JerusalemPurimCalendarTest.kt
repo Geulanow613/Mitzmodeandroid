@@ -36,7 +36,8 @@ class JerusalemPurimCalendarTest {
         )
         val purim = holidays.firstOrNull { it.name.contains("Purim", ignoreCase = true) }
         assertEquals("Shushan Purim", purim?.name)
-        assertEquals(3, purim?.daysAway)
+        // Upcoming list anchors to the erev day (Megillah begins that night).
+        assertEquals(2, purim?.daysAway)
     }
 
     @Test

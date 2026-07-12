@@ -90,6 +90,11 @@ enum class MealCategory { MEAT, DAIRY }
 @Serializable
 data class UserProfile(
     val onboardingComplete: Boolean = false,
+    /**
+     * First-run spotlight tour after onboarding. Defaults to true so existing installs
+     * are not interrupted; [completeOnboarding] sets this false for new users.
+     */
+    val appTourCompleted: Boolean = true,
     val gender: Gender = Gender.MALE,
     val married: Boolean = false,
     val hasChildren: Boolean = false,
@@ -113,8 +118,19 @@ data class UserProfile(
     val meatAfterDairyHours: Int? = null,
     val dairyAfterMeatHours: Int? = null,
     val tzaddikShownDate: String? = null,
+    /** Show meat/dairy countdown (or “you may eat…”) in the Android notification bar. */
+    val showKashrutTimerNotification: Boolean = false,
+    /** Play a sound when the kashrut wait notification finishes (Android). Default off. */
+    val kashrutTimerSound: Boolean = false,
+    /** Vibrate when the kashrut wait notification finishes (Android). Default on. */
+    val kashrutTimerVibrate: Boolean = true,
     /** Explicit "I live in Israel" toggle, used as a fallback when location is unavailable. */
     val liveInIsrael: Boolean = false,
+    /**
+     * When true, follow chutz la'aretz customs (2-day Yom Tov, diaspora parsha) even if GPS or
+     * city selection places the user inside Israel.
+     */
+    val forceChutzLaAretzCustoms: Boolean = false,
 
     /** UI preference: collapse the permanent ongoing section until user expands it. */
     val permanentOngoingCollapsed: Boolean = false,
@@ -130,14 +146,10 @@ data class UserProfile(
     fun effectiveNusach(): EffectiveNusach = nusachSelection.toEffective()
 
     /**
-     * True when the user is in Israel — affects parsha cycle (1-day vs 2-day Yom Tov).
-     *
-     * Priority:
-     * 1. GPS / manual-city coordinates: inside Israel's bounding box (lat 29.5–33.4, lon 34.2–35.9).
-     * 2. Manual city selected: known Israeli city in [ManualCities].
-     * 3. Explicit [liveInIsrael] flag set by the user.
+     * Location (GPS coordinates or selected city) suggests the user is physically in Israel.
+     * Independent of [forceChutzLaAretzCustoms] so Settings can still offer an override.
      */
-    val isInIsrael: Boolean
+    val locationSuggestsIsrael: Boolean
         get() {
             if (latitude != null && longitude != null) {
                 return latitude in 29.5..33.4 && longitude in 34.2..35.9
@@ -146,10 +158,26 @@ data class UserProfile(
                 val city = ManualCities.byId(manualCityId)
                 if (city != null) return city.timezoneId == "Asia/Jerusalem"
             }
+            return false
+        }
+
+    /**
+     * True when the app should use Israel customs — affects parsha cycle (1-day vs 2-day Yom Tov).
+     *
+     * Priority:
+     * 0. [forceChutzLaAretzCustoms] always wins (chutz la'aretz).
+     * 1. GPS / manual-city coordinates: inside Israel's bounding box (lat 29.5–33.4, lon 34.2–35.9).
+     * 2. Manual city selected: known Israeli city in [ManualCities].
+     * 3. Explicit [liveInIsrael] flag set by the user.
+     */
+    val isInIsrael: Boolean
+        get() {
+            if (forceChutzLaAretzCustoms) return false
+            if (locationSuggestsIsrael) return true
             return liveInIsrael
         }
 
-    /** Human-readable summary of how Israel status was determined (for UI hint). */
+    /** Human-readable summary of how Israel *location* was determined (for UI hint). */
     val isInIsraelSource: IsraelDetectionSource
         get() = when {
             latitude != null && longitude != null -> IsraelDetectionSource.GPS

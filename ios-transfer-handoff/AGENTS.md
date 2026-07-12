@@ -9,6 +9,8 @@ This folder is a **file bundle for handoff**, not an installation guide. **Prefe
 ## What to do (in order)
 
 0. Read **`INSTRUCTIONS.md`** — project architecture, GPS/timezone, sync workflow (read first).
+0b. For **Mitz Mode iOS (Swift + Kotlin hybrid)**, read **`MITZI_IOS_WORKFLOW.md`** — two-track sync; never overwrite mitzi with Android.
+0c. **Unified product (2026-07):** Shipping Mitz Mode opens the checklist shell first (`AppMode.Unified`). Center nav pops a mitzvah; Blessings / Status are tabs. Legacy Swift/Android home is behind `legacyHomeEnabled = false`.
 1. Read **`EMBED.md`** — path-based embed (Android model), zmanim split, test commands.
 2. Read **`docs/PARITY_CHECKLIST.md`** — acceptance criteria (must match Android / embedded Mitz Mode).
 2. Read **`docs/SOURCE_MAP.md`** — which files matter and where they live in this mirror.
@@ -29,12 +31,15 @@ This folder is a **file bundle for handoff**, not an installation guide. **Prefe
 | **`swift-native/`** | Flat JSON for native Swift Mitz Mode (translations, mitzvot, checklist) |
 | **`android-mitzmode/`** | Android `app/` + Gradle wrapper (no reward videos) |
 | **`be-a-tzaddik/iosApp/`** | Standalone iOS app shell (Swift + Podfile) |
+| **`mitzi-shell/`** | Version-controlled mirror of `Dropbox/claudesucks/mitzi` Swift/Xcode shell (not Kotlin) |
 | **`docs/`** | Parity checklist, source map, gradient spec, Swift/Kotlin snippets |
 | **`extract-to-dropbox.command`** | Mac: extract entire handoff → `~/Dropbox/claudesucks` |
 | **`CHANGELOG.md`** | What changed in the last sync |
 | **`EMBED.md`** | Path-based integration (preferred), zmanim parity, test workflow |
-| **`sync-to-ios-handoff.ps1`** | Refreshes mirror from repo (Windows) |
-| **`verify-handoff.ps1`** | Fails if mirror ≠ source |
+| **`MITZI_IOS_WORKFLOW.md`** | Two-track sync: Kotlin checklist vs Swift Mitz Mode shell |
+| **`sync-to-ios-handoff.ps1`** | Refreshes KMP mirror from repo (Windows) |
+| **`sync-mitzi-to-handoff.ps1`** | Backs up Dropbox mitzi Swift shell → `mitzi-shell/` |
+| **`verify-handoff.ps1`** | Fails if KMP mirror ≠ source |
 
 **Not included on purpose:** `androidApp/`, `tools/`, build caches — Android-only or maintainer scripts.
 

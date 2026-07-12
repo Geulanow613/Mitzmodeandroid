@@ -49,7 +49,12 @@ class HeuristicJewishCalendarBackend : JewishCalendarBackend {
         for (i in 0..21) {
             val d = from.plus(i, DateTimeUnit.DAY)
             if (d.dayOfWeek == DayOfWeek.FRIDAY) {
-                results += UpcomingHoliday("Shabbat", i, "Weekly Shabbat")
+                results += UpcomingHoliday(
+                    name = "Shabbat",
+                    daysAway = i,
+                    hint = "Weekly Shabbat",
+                    beginsTonightWhenImminent = true,
+                )
             }
         }
         return results.distinctBy { it.name }.take(6)

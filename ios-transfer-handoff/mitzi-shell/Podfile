@@ -1,0 +1,89 @@
+platform :ios, '15.0'
+
+install! 'cocoapods', :disable_input_output_paths => true
+
+target 'MitzModeTest' do
+  pod 'shared', :path => '../be-a-tzaddik/shared'
+end
+
+target 'MitzModeTests' do
+  pod 'shared', :path => '../be-a-tzaddik/shared'
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '15.0'
+      config.build_settings['ENABLE_USER_SCRIPT_SANDBOXING'] = 'NO'
+    end
+  end
+
+  # Ensure the app can find libPods-MitzModeTest.a (fixes "Library 'Pods-MitzModeTest' not found").
+  ['Pods-MitzModeTest', 'Pods-MitzModeTests'].each do |pods_target|
+    %w[debug release].each do |config_name|
+      xcconfig_path = "Pods/Target Support Files/#{pods_target}/#{pods_target}.#{config_name}.xcconfig"
+      next unless File.exist?(xcconfig_path)
+
+      xcconfig = File.read(xcconfig_path)
+      unless xcconfig.include?('LIBRARY_SEARCH_PATHS')
+        File.open(xcconfig_path, 'a') do |f|
+          f.puts 'LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}"'
+        end
+      end
+    end
+  end
+
+  installer.pods_project.targets.each do |target|
+    target.build_phases.each do |phase|
+      next unless phase.respond_to?(:name) && phase.name&.start_with?('[CP')
+
+      phase.always_out_of_date = '1'
+    end
+  end
+
+  installer.aggregate_targets.each do |aggregate_target|
+    aggregate_target.user_project.native_targets.each do |target|
+      next unless ['MitzModeTest', 'MitzModeTests'].include?(target.name)
+
+      target.build_phases.each do |phase|
+        next unless phase.respond_to?(:name) && phase.name&.start_with?('[CP')
+
+        phase.always_out_of_date = '1'
+      end
+    end
+  end
+
+  # Xcode GUI builds do not inherit JAVA_HOME; patch KMP "Build shared" script after pod install.
+  pods_project = installer.pods_project
+  java_home_snippet = <<~'SH'
+    if [ -z "$JAVA_HOME" ] || [ ! -x "$JAVA_HOME/bin/java" ]; then
+      if [ -d "/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home" ]; then
+        export JAVA_HOME="/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+      elif [ -d "/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home" ]; then
+        export JAVA_HOME="/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+      elif [ -x "/usr/libexec/java_home" ]; then
+        export JAVA_HOME="$(/usr/libexec/java_home 2>/dev/null || true)"
+      fi
+    fi
+    if [ -n "$JAVA_HOME" ]; then
+      export PATH="$JAVA_HOME/bin:$PATH"
+    fi
+    if ! command -v java >/dev/null 2>&1; then
+      echo "error: Java 17+ is required to build the shared Kotlin framework."
+      echo "Install with: brew install openjdk@17"
+      exit 1
+    fi
+  SH
+
+  pods_project.targets.each do |target|
+    next unless target.name == 'shared'
+
+    target.shell_script_build_phases.each do |phase|
+      next unless phase.name&.include?('Build shared')
+      next if phase.shell_script.include?('openjdk@17')
+
+      phase.shell_script = phase.shell_script.sub("set -ev\n", "set -ev\n#{java_home_snippet}")
+    end
+  end
+  pods_project.save
+end

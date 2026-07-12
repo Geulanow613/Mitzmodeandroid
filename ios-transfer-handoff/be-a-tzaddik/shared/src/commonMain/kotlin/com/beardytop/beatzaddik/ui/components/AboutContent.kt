@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +25,8 @@ import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 @Composable
 fun AboutContent(
     modifier: Modifier = Modifier,
-    centered: Boolean = false
+    centered: Boolean = false,
+    onWhatsAMitzvah: (() -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
     val align = if (centered) Alignment.CenterHorizontally else Alignment.Start
@@ -118,6 +120,24 @@ fun AboutContent(
                 }
             }
         )
+
+        if (onWhatsAMitzvah != null) {
+            Spacer(Modifier.height(20.dp))
+            AppText(
+                com.beardytop.beatzaddik.domain.MitzvahDefinitionText.ABOUT_LINK,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    textDecoration = TextDecoration.Underline,
+                    fontWeight = FontWeight.SemiBold,
+                ),
+                color = TzaddikColors.NavyMid,
+                textAlign = textAlign,
+                // Glossary would steal the tap on "mitzvah" — this opens the definition dialog.
+                enableTerms = false,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable(onClick = onWhatsAMitzvah),
+            )
+        }
     }
 }
 

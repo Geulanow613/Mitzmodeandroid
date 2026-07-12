@@ -37,6 +37,7 @@ fun MitzvahInfoDialog(
     onDismiss: () -> Unit
 ) {
     PlatformBackHandler(onBack = onDismiss)
+    ProvideAppImageViewer {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -108,6 +109,7 @@ fun MitzvahInfoDialog(
                             zmanMakeupTemplate = item.zmanMakeupTemplate,
                             zmanMakeupArgs = item.zmanMakeupArgs,
                             situational = item.def.situational,
+                            knownLinks = item.resourceLinks,
                         )
                         Spacer(Modifier.height(8.dp))
                         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
@@ -127,5 +129,6 @@ fun MitzvahInfoDialog(
                 Icon(Icons.Default.Close, "Close", tint = TzaddikColors.GoldBright)
             }
         }
+    }
     }
 }

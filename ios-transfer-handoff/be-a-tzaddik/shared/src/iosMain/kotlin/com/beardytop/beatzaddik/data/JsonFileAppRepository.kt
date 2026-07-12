@@ -11,8 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -76,7 +74,6 @@ class JsonFileAppRepository : AppRepository {
     override suspend fun acknowledgeDisclaimer() = update { it.copy(disclaimerAcknowledged = true) }
 
     override suspend fun setChecked(id: String, checked: Boolean, persist: Boolean) = update {
-        rolloverInState(it)
         if (persist) {
             val daily = it.checked.toMutableMap().apply { remove(id) }
             val persistent = it.persistChecked.toMutableMap().apply { put(id, checked) }
@@ -172,15 +169,7 @@ class JsonFileAppRepository : AppRepository {
         _tzeitDays.value = state.tzeitDays
     }
 
-    private fun rolloverInState(state: StoredState): StoredState {
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
-        if (state.checklistDate == today) return state
-        return state.copy(
-            checklistDate = today,
-            checked = emptyMap(),
-            customChecked = emptyMap()
-        )
-    }
+    // Daily rollover is handled by AppViewModel via clearDayIfNewDate() using a tzeit-based key.
 }
 
 private fun documentsDirectory(): String {

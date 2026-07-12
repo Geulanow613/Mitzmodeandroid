@@ -61,6 +61,9 @@ val LocalHalachicTermsEnabled = compositionLocalOf { true }
 /** When set (e.g. on Today), glossary taps for guide-linked terms open the Shabbat guide. */
 val LocalOpenShabbatGuide = compositionLocalOf<((String?) -> Unit)?> { null }
 
+/** Child screens register a handler so the Shabbat guide can toggle the checklist debug menu. */
+val LocalRegisterChecklistDebugToggle = compositionLocalOf<(((() -> Unit)?) -> Unit)?> { null }
+
 /** Tracks term ids already underlined on the current page; first occurrence only. */
 val LocalHalachicTermsUsedOnPage = compositionLocalOf<MutableSet<String>?> { null }
 
@@ -145,6 +148,8 @@ fun HalachicTermOverlay(
     var selected by remember { mutableStateOf<HalachicTerm?>(null) }
     var showShabbatGuide by remember { mutableStateOf(false) }
     var shabbatGuideAnchor by remember { mutableStateOf<String?>(null) }
+    var checklistDebugToggleHandler by remember { mutableStateOf<(() -> Unit)?>(null) }
+    val registerChecklistDebugToggle: ((() -> Unit)?) -> Unit = { checklistDebugToggleHandler = it }
     val openShabbatGuide: (String?) -> Unit = { anchor ->
         shabbatGuideAnchor = anchor
         showShabbatGuide = true
@@ -152,6 +157,7 @@ fun HalachicTermOverlay(
     CompositionLocalProvider(
         LocalShowHalachicTerm provides { term -> selected = term },
         LocalOpenShabbatGuide provides openShabbatGuide,
+        LocalRegisterChecklistDebugToggle provides registerChecklistDebugToggle,
     ) {
         content()
         HalachicTermDefinitionDialog(
@@ -171,6 +177,7 @@ fun HalachicTermOverlay(
                     ShabbatGuideScreen(
                         initialAnchor = shabbatGuideAnchor,
                         onDismiss = { showShabbatGuide = false },
+                        onToggleChecklistDebugMenu = { checklistDebugToggleHandler?.invoke() },
                     )
                 }
             }
@@ -277,17 +284,36 @@ fun AppText(
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip,
 ) {
+    // Titles never get glossary underlines/taps — even if a caller forgets enableTerms=false.
+    val termsForText = enableTerms && !isTitleTypography(style)
     HalachicClickableText(
         text = text,
         style = style,
         modifier = modifier,
         color = color,
         knownLinks = knownLinks,
-        enableTerms = enableTerms,
+        enableTerms = termsForText,
         textAlign = textAlign,
         maxLines = maxLines,
         overflow = overflow,
     )
+}
+
+@Composable
+private fun isTitleTypography(style: TextStyle): Boolean {
+    val t = MaterialTheme.typography
+    val titleSizes = listOf(
+        t.displayLarge.fontSize,
+        t.displayMedium.fontSize,
+        t.displaySmall.fontSize,
+        t.headlineLarge.fontSize,
+        t.headlineMedium.fontSize,
+        t.headlineSmall.fontSize,
+        t.titleLarge.fontSize,
+        t.titleMedium.fontSize,
+        t.titleSmall.fontSize,
+    )
+    return style.fontSize in titleSizes
 }
 
 @Composable
@@ -342,6 +368,7 @@ fun HalachicClickableText(
     val usedOnPage = LocalHalachicTermsUsedOnPage.current
     val appTranslation = LocalAppTranslation.current
     val uriHandler = LocalUriHandler.current
+    val openAppImage = LocalOpenAppImage.current
     val termsEnabled = enableTerms && LocalHalachicTermsEnabled.current
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
 
@@ -401,7 +428,7 @@ fun HalachicClickableText(
                 annotated.getStringAnnotations("URL", offset, offset)
                     .firstOrNull()
                     ?.item
-                    ?.let { uriHandler.openUri(it) }
+                    ?.let { openChecklistUri(it, uriHandler, openAppImage) }
             },
         )
         return
@@ -505,7 +532,7 @@ fun HalachicClickableText(
         resolvedAnnotated.getStringAnnotations("URL", offset, offset)
             .firstOrNull()
             ?.item
-            ?.let { uriHandler.openUri(it) }
+            ?.let { openChecklistUri(it, uriHandler, openAppImage) }
     }
 
     // ClickableText handles taps reliably inside vertically scrolling parents (e.g. mitzvah info).
@@ -576,7 +603,7 @@ private fun buildMarkdownWithTerms(
 }
 
 private fun linkSpanStyle(bodyColor: Color): SpanStyle = SpanStyle(
-    color = bodyColor,
+    color = Color(0xFF1565C0),
     textDecoration = TextDecoration.Underline,
     fontWeight = FontWeight.Medium,
 )

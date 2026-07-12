@@ -4511,12 +4511,13 @@ If your parents are no longer alive:
 You can absolutely continue kibbud av va'em. In Jewish tradition, a child's actions can be an ongoing merit for a parent's soul in Olam HaBa.
 
 Traditional and meaningful ways to honor them posthumously:
-• Speech and memory: when speaking or writing about a deceased parent, many add "of blessed memory" — Zichrono Livracha (ז"ל) for a father, or Zichronah Livracha (ז"ל) for a mother. During the first 12 months, some also add a traditional phrase like "Hareni kaparat mishkavo" ("may I be an atonement for their soul") when mentioning them.
+• Speech and memory: when mentioning a parent, add "of blessed memory" (z"l / zt"l). During the first twelve months, many also add the traditional phrase expressing "may I be an atonement for their soul."
 • Mitzvot and charity: give tzedakah and do acts of kindness in their memory.
 • Torah study: learn (or sponsor learning) l'ilui nishmatam (for the elevation of their soul).
 • Kaddish and Yizkor: say Mourner's Kaddish (commonly for eleven months) and participate in Yizkor on the major holidays.
 • Fulfilling their wishes: carry out appropriate requests they left (especially will / legacy matters) when halachically proper.
 • Live an ethical Torah life: the greatest honor is to live with derech eretz and yirat Shamayim — it reflects on them and brings them merit.
+
 
 In-laws:
 Honoring your spouse's parents is a great mitzvah and promotes shalom bayit, but the Torah-level obligation centers on your own father and mother (Y.D. 240:24).
@@ -5174,7 +5175,7 @@ In Temple times, special extra offerings (musaf korbanot) were brought on these 
 Timing:
 Said after Shacharit (the main morning service), ideally before the end of the 7th halachic hour; bedi'eved valid until sunset (Shulchan Arukh O.C. 286:1).
 
-### Melave Malka (festival meal after Shabbat)
+### Melave Malka (festive meal after Shabbat)
 
 *Section: Motzei Shabbat · ID: `melave_malkah`*
 
@@ -5540,7 +5541,7 @@ Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopp
 • Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink
 • Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy
 • Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink
-Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
+Follow your rabbi's guidance.
 
 If you have an urgent need to use the bathroom: go to the restroom first — you may not recite blessings or other holy words while needing to relieve oneself (guf naki / ba'al teshaktsu). Nikuy does not bypass this rule.
 
@@ -5562,66 +5563,12 @@ Other important notes:
 
 **Ashkenaz:**
 
-Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.
-
-What it is:
-Netilat Yadayim (נְטִילַת יָדַיִם — literally "lifting of the hands") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.
-
-Different minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.
-
-How to pour (all traditions):
-1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep
-2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left
-3. Dry your hands when your minhag calls for it (see blessing timing below)
-
 Ashkenaz minhag — when to say Al Netilat Yadayim:
 • Routine: wash upon waking (often pouring into a basin by the bed) without a blessing first.
 • Blessing: because most people need the bathroom shortly after waking — and one should not recite blessings while needing to relieve oneself — the custom is to say Al Netilat Yadayim only after the second washing: once you have used the bathroom, gotten dressed, washed again, and are about to dry your hands; then say Asher Yatzar as well.
 • If you woke with no urge to use the bathroom: say the blessing on the first morning washing instead.
 
-The blessing text:
-"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim"
-
-The 4 amot rule:
-Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full "journey" that allows the impurity to expand. If the sink is farther than 4 amot away:
-• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink
-• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy
-• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink
-Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
-
-If you have an urgent need to use the bathroom: go to the restroom first — you may not recite blessings or other holy words while needing to relieve oneself (guf naki / ba'al teshaktsu). Nikuy does not bypass this rule.
-
-If your hands are dirty but you are in a clean state of body (no urgent bathroom need) and no water is nearby:
-Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called Nikuy (ניקוי — cleaning by friction) and permits saying holy words when water is unavailable, but does NOT remove ruach ra'ah. You must still wash with water as soon as possible (Shulchan Aruch O.C. 4:22; Mishnah Berurah 4:61).
-
-After naps (Modeh Ani is not recited):
-When waking from a daytime nap, Modeh Ani is typically omitted — wash your hands (negel vasser) per the rules below:
-• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)
-• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi
-
-Other important notes:
-• Do not touch your eyes, mouth, or face before washing
-• Do not touch food before washing
-• After using the bathroom: wash your hands with water so they are clean before reciting Asher Yatzar — no blessing is required (Shulchan Aruch O.C. 4:18). Some Ashkenazi communities or individuals pour three times in alternation as a personal stringency, but that is not the basic halachic requirement.
-• After leaving a cemetery: many wash three times in alternating sequence (right-left-right-left-right-left) without a blessing — a minhag against ruach ra'ah (details vary by community).
-• Before eating bread (a kezayit or more): wash differently — pour consecutively on each entire hand up to the wrist (usually twice or three times on the right hand, then twice or three times on the left — not alternating like negel vasser), then recite Al Netilat Yadayim and Hamotzi.
-• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening
-
 **Sefard:**
-
-Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.
-
-What it is:
-Netilat Yadayim (נְטִילַת יָדַיִם — literally "lifting of the hands") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.
-
-Different minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.
-
-In this app, "Nusach Sefard" means the Chassidic Ashkenazi prayer rite — washing custom matches Ashkenaz, not Iberian/Mizrahi Sephardic halacha (see below).
-
-How to pour (all traditions):
-1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep
-2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left
-3. Dry your hands when your minhag calls for it (see blessing timing below)
 
 Nusach Sefard minhag — when to say Al Netilat Yadayim:
 Important: "Nusach Sefard" in this app is the Chassidic Ashkenazi prayer rite — not Sephardic (Iberian/Mizrahi) halacha. If you are Sephardic or Edot HaMizrach, choose Sephardi or Edot HaMizrach in Settings instead.
@@ -5629,129 +5576,21 @@ Important: "Nusach Sefard" in this app is the Chassidic Ashkenazi prayer rite �
 • Because most people need the bathroom shortly after waking, the custom is to say Al Netilat Yadayim only after the second washing: once you have used the bathroom, gotten dressed, washed again, and are about to dry your hands; then say Asher Yatzar as well.
 • If you woke with no urge to use the bathroom: say the blessing on the first morning washing instead.
 
-The blessing text:
-"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim"
-
-The 4 amot rule:
-Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full "journey" that allows the impurity to expand. If the sink is farther than 4 amot away:
-• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink
-• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy
-• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink
-Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
-
-If you have an urgent need to use the bathroom: go to the restroom first — you may not recite blessings or other holy words while needing to relieve oneself (guf naki / ba'al teshaktsu). Nikuy does not bypass this rule.
-
-If your hands are dirty but you are in a clean state of body (no urgent bathroom need) and no water is nearby:
-Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called Nikuy (ניקוי — cleaning by friction) and permits saying holy words when water is unavailable, but does NOT remove ruach ra'ah. You must still wash with water as soon as possible (Shulchan Aruch O.C. 4:22; Mishnah Berurah 4:61).
-
-After naps (Modeh Ani is not recited):
-When waking from a daytime nap, Modeh Ani is typically omitted — wash your hands (negel vasser) per the rules below:
-• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)
-• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi
-
-Other important notes:
-• Do not touch your eyes, mouth, or face before washing
-• Do not touch food before washing
-• After using the bathroom: wash your hands with water so they are clean before reciting Asher Yatzar — no blessing is required (Shulchan Aruch O.C. 4:18). Some Ashkenazi communities or individuals pour three times in alternation as a personal stringency, but that is not the basic halachic requirement.
-• After leaving a cemetery: many wash three times in alternating sequence (right-left-right-left-right-left) without a blessing — a minhag against ruach ra'ah (details vary by community).
-• Before eating bread (a kezayit or more): wash differently — pour consecutively on each entire hand up to the wrist (usually twice or three times on the right hand, then twice or three times on the left — not alternating like negel vasser), then recite Al Netilat Yadayim and Hamotzi.
-• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening
-
 **Edot HaMizrach:**
-
-Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.
-
-What it is:
-Netilat Yadayim (נְטִילַת יָדַיִם — literally "lifting of the hands") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.
-
-Different minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sephardi, Edot HaMizrach, and Chabad.
-
-How to pour (all traditions):
-1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep
-2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left
-3. Dry your hands when your minhag calls for it (see blessing timing below)
 
 Edot HaMizrach minhag (many kehillot) — when to say Al Netilat Yadayim:
 • Following Shulchan Aruch and the Rashba: morning washing primarily removes ruach ra'ah from sleep.
 • Say the blessing right after the first morning washing when you can — ideally immediately, even if you will use the bathroom afterward.
 • If you have an urgent, pressing need to use the bathroom, go first, then wash and recite the blessing.
 
-The blessing text:
-"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim"
-
-The 4 amot rule:
-Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full "journey" that allows the impurity to expand. If the sink is farther than 4 amot away:
-• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink
-• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy
-• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink
-Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
-
-If you have an urgent need to use the bathroom: go to the restroom first — you may not recite blessings or other holy words while needing to relieve oneself (guf naki / ba'al teshaktsu). Nikuy does not bypass this rule.
-
-If your hands are dirty but you are in a clean state of body (no urgent bathroom need) and no water is nearby:
-Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called Nikuy (ניקוי — cleaning by friction) and permits saying holy words when water is unavailable, but does NOT remove ruach ra'ah. You must still wash with water as soon as possible (Shulchan Aruch O.C. 4:22; Mishnah Berurah 4:61).
-
-After naps (Modeh Ani is not recited):
-When waking from a daytime nap, Modeh Ani is typically omitted — wash your hands (negel vasser) per the rules below:
-• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)
-• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi
-
-Other important notes:
-• Do not touch your eyes, mouth, or face before washing
-• Do not touch food before washing
-• After using the bathroom: wash your hands with water so they are clean before reciting Asher Yatzar — no blessing is required (Shulchan Aruch O.C. 4:18). Some Ashkenazi communities or individuals pour three times in alternation as a personal stringency, but that is not the basic halachic requirement.
-• After leaving a cemetery: many wash three times in alternating sequence (right-left-right-left-right-left) without a blessing — a minhag against ruach ra'ah (details vary by community).
-• Before eating bread (a kezayit or more): wash differently — pour consecutively on each entire hand up to the wrist (usually twice or three times on the right hand, then twice or three times on the left — not alternating like negel vasser), then recite Al Netilat Yadayim and Hamotzi.
-• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening
-
 Baladi Yemenite and some kehillot wash after the bathroom before reciting the blessing — follow your community's psak (Shulchan Aruch O.C. 4 and your rav).
 
 **Chabad:**
-
-Immediately after saying Modeh Ani, wash your hands in a specific ritual way before doing anything else.
-
-What it is:
-Netilat Yadayim (נְטִילַת יָדַיִם — literally "lifting of the hands") is a ritual washing — not just hygiene, but a spiritual act. During deep sleep, the soul partially ascends and a spiritual impurity called Ruach Ra'ah (evil spirit) settles on the fingers and nails. This washing removes it and prepares us for prayer, Torah, and the day ahead.
-
-Different minhagim disagree whether morning washing is mainly to remove ruach ra'ah upon waking or mainly as preparation for prayer — so when you say Al Netilat Yadayim differs between Ashkenaz, Sefard, and Chabad.
-
-How to pour (all traditions):
-1. Ideally have a cup, bottle, or washcup filled with water and a basin ready at your bedside before you sleep
-2. Pour over your right hand, then left, alternating three times: right, left, right, left, right, left
-3. Dry your hands when your minhag calls for it (see blessing timing below)
 
 Chabad minhag — when to say Al Netilat Yadayim (Alter Rebbe's Shulchan Aruch):
 • First washing: upon waking, before touching things or letting your feet touch the floor without washing — three alternating pours, no blessing.
 • Then: restroom, rinse your mouth, and personal grooming.
 • Second washing: at the sink — now recite Al Netilat Yadayim, with Asher Yatzar and Elokai Neshama, in a clean state of body and mind.
-
-The blessing text:
-"Baruch Atah Ado-nai Eloheinu Melech ha'olam, asher kid'shanu b'mitzvotav v'tzivanu al netilat yadayim"
-
-The 4 amot rule:
-Before washing, do not walk 4 amot (about 6–8 feet) continuously without stopping — this is considered a full "journey" that allows the impurity to expand. If the sink is farther than 4 amot away:
-• Strict / Kabbalistic approach (Zohar, Shulchan Aruch HaRav): walk in segments shorter than 4 amot, pause fully between each, and repeat until you reach the sink
-• Mainstream approach (Mishnah Berurah): walking directly to the sink to remove the impurity quickly is also permitted, though the stop-and-go method is praiseworthy
-• Lenient approach (Aruch HaShulchan): the entire modern house is considered one domain; walk normally to the sink
-Follow your rabbi's guidance. In all opinions, washing normally at the sink still fully removes the impurity even if you walked further first.
-
-If you have an urgent need to use the bathroom: go to the restroom first — you may not recite blessings or other holy words while needing to relieve oneself (guf naki / ba'al teshaktsu). Nikuy does not bypass this rule.
-
-If your hands are dirty but you are in a clean state of body (no urgent bathroom need) and no water is nearby:
-Rub your hands firmly on a clean, dry surface — a wooden headboard, wall, or clothing. This is called Nikuy (ניקוי — cleaning by friction) and permits saying holy words when water is unavailable, but does NOT remove ruach ra'ah. You must still wash with water as soon as possible (Shulchan Aruch O.C. 4:22; Mishnah Berurah 4:61).
-
-After naps (Modeh Ani is not recited):
-When waking from a daytime nap, Modeh Ani is typically omitted — wash your hands (negel vasser) per the rules below:
-• Nap under ~30 minutes: the severe Ruach Ra'ah does not apply; wash for cleanliness before prayer but no bracha is required and the 4-amot rule does not apply (Mishnah Berurah 4:34)
-• Long daytime nap: mainstream opinion — wash three times alternating but no bracha; strict opinion — treat as morning washing. Ask your rabbi
-
-Other important notes:
-• Do not touch your eyes, mouth, or face before washing
-• Do not touch food before washing
-• After using the bathroom: wash your hands with water so they are clean before reciting Asher Yatzar — no blessing is required (Shulchan Aruch O.C. 4:18). Some Ashkenazi communities or individuals pour three times in alternation as a personal stringency, but that is not the basic halachic requirement.
-• After leaving a cemetery: many wash three times in alternating sequence (right-left-right-left-right-left) without a blessing — a minhag against ruach ra'ah (details vary by community).
-• Before eating bread (a kezayit or more): wash differently — pour consecutively on each entire hand up to the wrist (usually twice or three times on the right hand, then twice or three times on the left — not alternating like negel vasser), then recite Al Netilat Yadayim and Hamotzi.
-• Once you have said Al Netilat Yadayim in the morning, all traditions agree you do not repeat the blessing when you wash again at shul before davening
 
 
 # Part 5 — App UI Copy (Disclaimer, About, Rest Screens)

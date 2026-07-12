@@ -81,7 +81,8 @@ class JerusalemPurimRulesTest {
         val byId = UserProfile(manualCityId = "jlm")
         val byLabel = UserProfile(locationLabel = "Jerusalem, Israel")
         assertTrue(JerusalemPurimRules.isJerusalemProfile(byId))
-        assertTrue(JerusalemPurimRules.isJerusalemProfile(byLabel))
+        // We do not infer Jerusalem from a GPS label; only explicit city id (or doubt-city + opt-in).
+        assertFalse(JerusalemPurimRules.isJerusalemProfile(byLabel))
         assertFalse(JerusalemPurimRules.isJerusalemProfile(UserProfile(locationLabel = "Tel Aviv")))
     }
 }

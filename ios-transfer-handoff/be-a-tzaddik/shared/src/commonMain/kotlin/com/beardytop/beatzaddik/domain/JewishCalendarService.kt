@@ -4,6 +4,7 @@ import com.beardytop.beatzaddik.data.ChecklistCatalog
 import com.beardytop.beatzaddik.data.HolidayOverlayEntry
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -32,11 +33,9 @@ class JewishCalendarService(
         profile: UserProfile = UserProfile()
     ): List<UpcomingHoliday> {
         val nowInfo = dayInfoAt(nowEpochMillis, profile)
-        val from = ZmanPeriodLogic.effectivePlanningDate(
-            nowMillis = nowEpochMillis,
-            civilDate = nowInfo.date,
-            zmanim = nowInfo.zmanim,
-        )
+        val from = Instant.fromEpochMilliseconds(nowEpochMillis)
+            .toLocalDateTime(TimeZone.of(profile.timezoneId))
+            .date
         val fromPlanner = UpcomingHolidayPlanner.plan(backend, nowEpochMillis, profile)
         val plannerCoversPurim = fromPlanner.any { it.name.contains("Purim", ignoreCase = true) }
         val fromOverlay = holidayOverlay.mapNotNull { entry ->
@@ -49,6 +48,7 @@ class JewishCalendarService(
         }
         return (fromPlanner + fromOverlay)
             .distinctBy { it.name }
+            .filter { it.daysAway <= UpcomingHolidayPlanner.HORIZON_DAYS }
             .sortedBy { it.daysAway }
             .take(8)
     }
@@ -83,11 +83,21 @@ class JewishCalendarService(
             else -> {
                 val days = daysUntilHebrewDate(from, entry.hebrewMonth, entry.hebrewDay, profile)
                 days?.let {
+                    val startsAtNightfall = entry.hebrewMonth != null && entry.hebrewDay != null && when (entry.id) {
+                        // Day-only observances: count to the civil day itself (morning/daytime).
+                        "birkat_hachamah" -> false
+                        // Minor fasts begin at dawn; count to the civil day.
+                        "fast_gedaliah", "fast_10tev", "fast_esther", "fast_17tam" -> false
+                        // These begin at sunset the evening before.
+                        "yom_kippur", "tisha_beav" -> true
+                        // Most yom-tov style days begin at nightfall.
+                        else -> true
+                    }
                     UpcomingHoliday(
                         name = entry.name,
-                        daysAway = it,
+                        daysAway = if (startsAtNightfall) (it - 1).coerceAtLeast(0) else it,
                         hint = hint,
-                        beginsTonightWhenImminent = false,
+                        beginsTonightWhenImminent = startsAtNightfall,
                     )
                 }
             }
@@ -117,7 +127,8 @@ class JewishCalendarService(
                 from.plus(i, DateTimeUnit.DAY).toEpochMillisAtNoon(profile),
                 profile
             )
-            if (cal.isRoshChodesh && i > 0) return i
+            // Anchor to the START evening (erev) of Rosh Chodesh, not the daytime date.
+            if (cal.isRoshChodesh && i > 0) return (i - 1).coerceAtLeast(0)
         }
         return null
     }

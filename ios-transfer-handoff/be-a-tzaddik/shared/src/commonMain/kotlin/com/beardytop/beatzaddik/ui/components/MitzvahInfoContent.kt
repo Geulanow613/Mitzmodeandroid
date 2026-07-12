@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedTemplate
 import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
@@ -59,6 +60,7 @@ fun MitzvahExplanationContent(
     explanationTemplate: String? = null,
     explanationArgs: Map<String, String> = emptyMap(),
     situational: Boolean = false,
+    knownLinks: List<ChecklistLink> = emptyList(),
     modifier: Modifier = Modifier
 ) {
     val translatedExplanation = if (explanationTemplate != null) {
@@ -107,7 +109,7 @@ fun MitzvahExplanationContent(
         }
 
         // Translate the full explainer body once, then split for layout (not for lookup).
-        RichExplanationText(translatedExplanation)
+        RichExplanationText(translatedExplanation, knownLinks)
 
         // Makeup / teshuvah note
         translatedMakeup?.let { makeup ->
@@ -134,12 +136,15 @@ private fun LinkableBodyText(
     text: String,
     style: androidx.compose.ui.text.TextStyle,
     modifier: Modifier = Modifier,
+    knownLinks: List<ChecklistLink> = emptyList(),
 ) {
-    Text(
+    HalachicClickableText(
         text = text,
         style = style,
         modifier = modifier,
         color = TzaddikColors.TextBrown,
+        knownLinks = knownLinks,
+        enableTerms = true,
     )
 }
 
@@ -163,6 +168,7 @@ private fun InfoBadge(text: String, containerColor: Color, textColor: Color) {
 @Composable
 private fun RichExplanationText(
     text: String,
+    knownLinks: List<ChecklistLink> = emptyList(),
 ) {
     val paragraphs = text.split("\n\n")
     paragraphs.forEachIndexed { pIdx, para ->
@@ -181,7 +187,7 @@ private fun RichExplanationText(
                     Spacer(Modifier.height(4.dp))
                 }
                 line.startsWith("• ") -> {
-                    GoldBulletRow(line.removePrefix("• ").trim())
+                    GoldBulletRow(line.removePrefix("• ").trim(), knownLinks)
                 }
                 lIdx == 0 && lines.size > 1 && !line.startsWith("\"") && !isBulletOrNumber(line) -> {
                     // First line of multi-line paragraph — slight emphasis
@@ -191,6 +197,7 @@ private fun RichExplanationText(
                             lineHeight = 22.sp,
                             fontWeight = FontWeight.Medium
                         ),
+                        knownLinks = knownLinks,
                     )
                 }
                 isNumberedItem(line) -> {
@@ -210,6 +217,7 @@ private fun RichExplanationText(
                     LinkableBodyText(
                         text = line,
                         style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
+                        knownLinks = knownLinks,
                     )
                 }
             }
@@ -247,7 +255,10 @@ private fun SectionHeading(title: String) {
 }
 
 @Composable
-private fun GoldBulletRow(text: String) {
+private fun GoldBulletRow(
+    text: String,
+    knownLinks: List<ChecklistLink> = emptyList(),
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -266,6 +277,7 @@ private fun GoldBulletRow(text: String) {
             text = text,
             style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 21.sp),
             modifier = Modifier.weight(1f),
+            knownLinks = knownLinks,
         )
     }
 }

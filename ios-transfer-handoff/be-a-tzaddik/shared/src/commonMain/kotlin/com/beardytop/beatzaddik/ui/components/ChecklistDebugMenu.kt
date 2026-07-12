@@ -1,4 +1,4 @@
-﻿package com.beardytop.beatzaddik.ui.components
+package com.beardytop.beatzaddik.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -21,6 +21,8 @@ import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -59,8 +61,11 @@ fun ChecklistDebugMenu(
     activeOverride: ChecklistDebugOverride?,
     timezoneId: String,
     modifier: Modifier = Modifier,
+    mitzvotCount: Int? = null,
+    onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
+    var searchQuery by rememberSaveable { mutableStateOf("") }
     val resolving by viewModel.checklistDebugResolving.collectAsState()
     val pendingTimeSlot by viewModel.pendingDebugTimeSlot.collectAsState()
     val debugError by viewModel.checklistDebugError.collectAsState()
@@ -92,8 +97,14 @@ fun ChecklistDebugMenu(
                 )
                 activeOverride?.let { o ->
                     val timeLabel = ZmanimFormatter.formatTime(o.epochMillis, timezoneId)
+                    val scenario = ChecklistDebugScenarios.byId(o.scenarioId)
+                    val slotLabel = if (scenario?.phase == ChecklistDebugPhase.MOTZEI) {
+                        "Motzei (~2h after tzeit)"
+                    } else {
+                        o.timeSlot.label
+                    }
                     Text(
-                        "Simulating: ${o.label} · ${ZmanimFormatter.formatCivilDate(o.simulatedDate)} · ${o.timeSlot.label}" +
+                        "Simulating: ${o.label} · ${ZmanimFormatter.formatCivilDate(o.simulatedDate)} · $slotLabel" +
                             (timeLabel?.let { " ($it)" } ?: ""),
                         style = MaterialTheme.typography.labelSmall,
                         color = TzaddikColors.NavyDeep,
@@ -103,7 +114,7 @@ fun ChecklistDebugMenu(
                     when {
                         resolving -> "Finding calendar date…"
                         debugError != null -> debugError!!
-                        else -> "Tap to pick a holiday, fast, or season (erev / day of)"
+                        else -> "Tap to pick a holiday, fast, or season (erev / day / motzei)"
                     },
                     style = MaterialTheme.typography.labelSmall,
                     color = if (debugError != null) Color(0xFFB91C1C) else TzaddikColors.TextMuted,
@@ -135,6 +146,47 @@ fun ChecklistDebugMenu(
             exit = shrinkVertically(),
         ) {
             Column(modifier = Modifier.padding(top = 10.dp)) {
+                if (onDebugSetMitzvotCount != null) {
+                    Text(
+                        "Mitzvot counter (Status / certificate)",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TzaddikColors.NavyMid,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                    if (mitzvotCount != null) {
+                        Text(
+                            "Now: $mitzvotCount · ${com.beardytop.beatzaddik.domain.MitzvahLevels.forCount(mitzvotCount)}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TzaddikColors.TextMuted,
+                            modifier = Modifier.padding(bottom = 6.dp),
+                        )
+                    }
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.padding(bottom = 12.dp),
+                    ) {
+                        listOf(0, 100, 500, 1800).forEach { n ->
+                            AssistChip(
+                                onClick = { onDebugSetMitzvotCount(n) },
+                                label = {
+                                    Text(
+                                        if (n == 0) "Reset 0" else "$n",
+                                        color = TzaddikColors.NavyDeep,
+                                    )
+                                },
+                                colors = AssistChipDefaults.assistChipColors(
+                                    containerColor = if (mitzvotCount == n) {
+                                        TzaddikColors.GoldBright.copy(alpha = 0.45f)
+                                    } else {
+                                        Color.White.copy(alpha = 0.7f)
+                                    },
+                                ),
+                            )
+                        }
+                    }
+                }
+
                 Text(
                     "Time of simulated day",
                     style = MaterialTheme.typography.labelMedium,
@@ -148,8 +200,12 @@ fun ChecklistDebugMenu(
                 ) {
                     ChecklistDebugTimeSlot.entries.forEach { slot ->
                         val selected = (activeOverride?.timeSlot ?: pendingTimeSlot) == slot
+                        val motzeiActive = activeOverride?.scenarioId?.let {
+                            ChecklistDebugScenarios.byId(it)?.phase == ChecklistDebugPhase.MOTZEI
+                        } == true
                         AssistChip(
                             onClick = { viewModel.setChecklistDebugTimeSlot(slot) },
+                            enabled = !motzeiActive,
                             label = { Text(slot.label, color = TzaddikColors.NavyDeep) },
                             colors = AssistChipDefaults.assistChipColors(
                                 containerColor = if (selected) {
@@ -161,19 +217,66 @@ fun ChecklistDebugMenu(
                         )
                     }
                 }
+                activeOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }?.let { scenario ->
+                    if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
+                        Text(
+                            "Motzei uses tzeit + 2 hours for your simulated location (time-of-day chips apply to erev/day only).",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TzaddikColors.TextMuted,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                        )
+                    }
+                }
 
-                ChecklistDebugScenarios.groups.forEach { group ->
+                val normalizedQuery = searchQuery.trim()
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
+                    singleLine = true,
+                    placeholder = {
+                        Text(
+                            "Search holidays (e.g. hash, pesach, motzei)…",
+                            color = TzaddikColors.TextMuted,
+                        )
+                    },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = DebugAccent,
+                        unfocusedBorderColor = DebugBannerBorder,
+                        cursorColor = DebugAccent,
+                    ),
+                )
+
+                val visibleGroups = ChecklistDebugScenarios.groups.mapNotNull { group ->
+                    val inGroup = ChecklistDebugScenarios.all
+                        .filter { it.group == group }
+                        .filter { ChecklistDebugScenarios.matchesSearch(it, normalizedQuery) }
+                    if (inGroup.isEmpty()) return@mapNotNull null
+                    group to inGroup
+                }
+                if (visibleGroups.isEmpty()) {
+                    Text(
+                        "No scenarios match \"$normalizedQuery\".",
+                        style = MaterialTheme.typography.labelSmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 8.dp),
+                    )
+                }
+
+                visibleGroups.forEach { (group, inGroup) ->
                     Text(
                         group,
                         style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
                         color = TzaddikColors.NavyMid,
                         modifier = Modifier.padding(top = 6.dp, bottom = 4.dp),
                     )
-                    val inGroup = ChecklistDebugScenarios.all.filter { it.group == group }
                     val names = inGroup.map { it.label }.distinct()
                     names.forEach { name ->
                         val erev = inGroup.firstOrNull { it.label == name && it.phase == ChecklistDebugPhase.EREV }
                         val dayOf = inGroup.firstOrNull { it.label == name && it.phase == ChecklistDebugPhase.DAY_OF }
+                        val motzei = inGroup.firstOrNull { it.label == name && it.phase == ChecklistDebugPhase.MOTZEI }
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -211,6 +314,19 @@ fun ChecklistDebugMenu(
                                             )
                                         },
                                     )
+                                    if (motzei != null) {
+                                        DebugPhaseChip(
+                                            label = "Motzei",
+                                            selected = activeOverride?.scenarioId == motzei.id,
+                                            enabled = !resolving,
+                                            onClick = {
+                                                viewModel.applyChecklistDebugScenario(
+                                                    motzei,
+                                                    activeOverride?.timeSlot ?: pendingTimeSlot,
+                                                )
+                                            },
+                                        )
+                                    }
                                 }
                                 erev != null -> {
                                     DebugPhaseChip(
@@ -227,12 +343,38 @@ fun ChecklistDebugMenu(
                                 }
                                 dayOf != null -> {
                                     DebugPhaseChip(
-                                        label = "Simulate",
+                                        label = "Day",
                                         selected = activeOverride?.scenarioId == dayOf.id,
                                         enabled = !resolving,
                                         onClick = {
                                             viewModel.applyChecklistDebugScenario(
                                                 dayOf,
+                                                activeOverride?.timeSlot ?: pendingTimeSlot,
+                                            )
+                                        },
+                                    )
+                                    if (motzei != null) {
+                                        DebugPhaseChip(
+                                            label = "Motzei",
+                                            selected = activeOverride?.scenarioId == motzei.id,
+                                            enabled = !resolving,
+                                            onClick = {
+                                                viewModel.applyChecklistDebugScenario(
+                                                    motzei,
+                                                    activeOverride?.timeSlot ?: pendingTimeSlot,
+                                                )
+                                            },
+                                        )
+                                    }
+                                }
+                                motzei != null -> {
+                                    DebugPhaseChip(
+                                        label = "Motzei",
+                                        selected = activeOverride?.scenarioId == motzei.id,
+                                        enabled = !resolving,
+                                        onClick = {
+                                            viewModel.applyChecklistDebugScenario(
+                                                motzei,
                                                 activeOverride?.timeSlot ?: pendingTimeSlot,
                                             )
                                         },

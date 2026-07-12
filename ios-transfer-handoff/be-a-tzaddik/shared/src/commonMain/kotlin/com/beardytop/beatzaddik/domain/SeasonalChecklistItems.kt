@@ -7,6 +7,122 @@ import kotlinx.datetime.plus
 
 object SeasonalChecklistItems {
 
+    data class Explainer(
+        val id: String,
+        val title: String,
+        val body: String,
+    )
+
+    /**
+     * Israeli civil holidays are not treated as mitzvot in the checklist, but we still want their
+     * full long explainers available (e.g. from the Upcoming & seasonal header).
+     */
+    fun israeliCivilHolidayExplainerForName(name: String): Explainer? {
+        // ONLY these 4 Israeli civil holidays. We just normalize apostrophes so the
+        // same holiday name matches across fonts / OSes.
+        val normalized = name
+            .replace('\u2019', '\'') // right single quote
+            .replace('\u02BC', '\'') // modifier letter apostrophe
+            .trim()
+        return when (normalized) {
+            "Yom HaShoah" -> Explainer(
+                id = "yom_hashoah",
+                title = "Yom HaShoah — Holocaust Remembrance Day",
+                body = YOM_HASHOAH_LONG_EXPLAINER,
+            )
+            "Yom HaZikaron" -> Explainer(
+                id = "yom_hazikaron",
+                title = "Yom HaZikaron — Fallen Soldiers Memorial Day",
+                body = YOM_HAZIKARON_LONG_EXPLAINER,
+            )
+            "Yom Ha'atzmaut", "Yom HaAtzmaut" -> Explainer(
+                id = "yom_haatzmaut",
+                title = "Yom Ha'atzmaut — Israeli Independence Day",
+                body = YOM_HAATZMAUT_LONG_EXPLAINER,
+            )
+            "Yom Yerushalayim" -> Explainer(
+                id = "yom_yerushalayim",
+                title = "Yom Yerushalayim — Jerusalem Day",
+                body = YOM_YERUSHALAYIM_LONG_EXPLAINER,
+            )
+            else -> null
+        }
+    }
+
+    fun israeliCivilHolidayExplainerForAnchor(anchor: String): Explainer? = when (anchor) {
+        "yom_hashoah" -> Explainer(
+            id = "yom_hashoah",
+            title = "Yom HaShoah — Holocaust Remembrance Day",
+            body = YOM_HASHOAH_LONG_EXPLAINER,
+        )
+        "yom_hazikaron" -> Explainer(
+            id = "yom_hazikaron",
+            title = "Yom HaZikaron — Fallen Soldiers Memorial Day",
+            body = YOM_HAZIKARON_LONG_EXPLAINER,
+        )
+        "yom_haatzmaut" -> Explainer(
+            id = "yom_haatzmaut",
+            title = "Yom Ha'atzmaut — Israeli Independence Day",
+            body = YOM_HAATZMAUT_LONG_EXPLAINER,
+        )
+        "yom_yerushalayim" -> Explainer(
+            id = "yom_yerushalayim",
+            title = "Yom Yerushalayim — Jerusalem Day",
+            body = YOM_YERUSHALAYIM_LONG_EXPLAINER,
+        )
+        else -> null
+    }
+
+    private val YOM_HASHOAH_LONG_EXPLAINER = """Yom HaShoah V'HaGevurah (27 Nisan) is the national day of remembrance for the six million Jews murdered in the Holocaust. It was established by the Israeli Knesset in 1953.
+
+Date adjustment: If 27 Nisan falls on Friday, the day is observed on Thursday (26 Nisan). If it falls on Sunday, it is observed on Monday (28 Nisan), to avoid disruption of Shabbat.
+
+Customs by community:
+
+In Israel: Two-minute siren sounds at 10:00 AM; most Israelis stop and stand in silence. Memorial ceremonies are held at Yad Vashem and throughout the country.
+
+Prayers: Standard weekday davening — Yom HaShoah does not add or remove any siddur insertions. It is a Knesset civil memorial, not a rabbinically instituted liturgical day. Some communities hold memorial learning or ceremonies.
+
+Charedi communities: Many do not observe this date as a religious memorial, preferring 10 Tevet (designated by the Chief Rabbinate in 1949 as Yom Kaddish HaKlali for those whose date of death is unknown) or Tisha B'Av as the appropriate day of mourning for all Jewish tragedies. This is a matter of minhag and communal leadership.
+
+Chabad: No official communal observance is instituted, though the memory of the kedoshim (holy martyrs) is honored."""
+
+    private val YOM_HAZIKARON_LONG_EXPLAINER = """Yom HaZikaron (4 Iyar) is Israel's national day of remembrance for soldiers of the Israel Defense Forces and victims of terrorism who gave their lives for the State of Israel. It was established by the Knesset in 1963 and always falls the day before Yom Ha'atzmaut.
+
+In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
+
+Prayers: Standard weekday davening for most communities. Some Religious Zionist shuls omit Tachanun at Mincha before the transition into Yom Ha'atzmaut; many Charedi and Chabad communities treat the day as an ordinary weekday throughout.
+
+The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations."""
+
+    private val YOM_HAATZMAUT_LONG_EXPLAINER = """Yom Ha'atzmaut (5 Iyar) commemorates Israeli independence in 1948.
+
+Customs vary significantly by community:
+
+Religious Zionist / Modern Orthodox: Some communities recite Hallel (instituted by the Chief Rabbinate of Israel) and omit Tachanun; many others treat the day as a regular weekday. Whether Hallel is said with a bracha is disputed — the Chief Rabbinate instructed with a bracha; many Ashkenazi poskim outside Israel say without a bracha. Some communities add special festive prayers (Hallel u'Maariv).
+
+Sephardic (Rav Ovadia Yosef / Yalkut Yosef): Rav Ovadia Yosef ruled that Hallel should not be recited (concern of bracha levatala since the day was not established by Chazal). Tachanun omission is also disputed in these communities.
+
+Chabad: The Rebbe did not institute any special observance. Most Chabad communities do not say Hallel and recite Tachanun as usual.
+
+Charedi communities (Agudah, Litvish): Generally do not observe the day as a religious holiday. Tachanun is said as usual.
+
+The Omer continues to be counted normally.
+
+Ask your rav which custom your community follows."""
+
+    private val YOM_YERUSHALAYIM_LONG_EXPLAINER = """Yom Yerushalayim (28 Iyar) marks the reunification of Jerusalem during the Six-Day War in 1967 (5727).
+
+Customs vary by community:
+
+Religious Zionist / Dati Leumi: Some communities recite Hallel (with or without a bracha, depending on the posek and community) and omit Tachanun; many others treat the day as a regular weekday. Some communities recite special tefillot.
+
+Sephardic (Rav Ovadia Yosef): Hallel is not recited for the same reason as Yom Ha'atzmaut — not established by Chazal. Practice varies.
+
+Chabad and Charedi communities: Generally no special observance. Tachanun is said as usual.
+
+Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there is no universally accepted halachic obligation. Ask your rav about your community's custom."""
+
     fun forDay(
         cal: DayInfo,
         profile: UserProfile,
@@ -64,18 +180,9 @@ object SeasonalChecklistItems {
         if (isTuBshvat(cal)) {
             add(tuBshvatSederItem(profile))
         }
-        if (cal.isYomHaShoah) {
-            add(yomHaShoahItem(profile))
-        }
-        if (cal.isYomHaZikaron) {
-            add(yomHaZikaronItem(profile))
-        }
-        if (cal.isYomHaAtzmaut) {
-            add(yomHaAtzmautItem(profile))
-        }
-        if (cal.isYomYerushalayim) {
-            add(yomYerushalayimItem(profile))
-        }
+        // Israeli civil holidays (Yom HaShoah / Yom HaZikaron / Yom Ha'atzmaut / Yom Yerushalayim)
+        // are intentionally not listed as "mitzvot" in the daily checklist. They still appear in the
+        // "Upcoming & seasonal" header block, and their full explainers remain accessible there.
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) {
             addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile))
         }
@@ -133,11 +240,14 @@ object SeasonalChecklistItems {
     private fun omerItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
         val day = cal.omerDay!!
         return ChecklistItemDef(
-            id = "sefirat_haomer_day_$day",
+            id = OmerCountText.CHECKLIST_ITEM_ID,
             title = OmerCountText.buildTitle(day, profile.effectiveNusach()),
             section = "Sefirat HaOmer",
-            timeOfDay = TimeOfDay.NIGHT,
+            timeOfDay = TimeOfDay.ANY,
             required = true,
+            situational = false,
+            tzeitMitzvah = true,
+            sortOrder = -100,
             seasons = listOf("sefirah"),
             explanation = OmerCountText.explanationTemplate(),
             links = omerLinks(profile)
@@ -250,7 +360,7 @@ Prayers & meals:
 
 The mitzvah (Peninei Halakha 05-16-03):
 • Give at least one gift to each of two different poor people (minimum of two recipients total) during Purim daytime.
-• Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
+• Each gift should enable a modest Purim meal — money is common.
 
 How to do it:
 • Give during Purim daytime only (not at night); many give after the daytime Megillah reading (follow your minhag).
@@ -304,7 +414,7 @@ When:
 • During Purim day — before sunset (many hold the meal in the afternoon after mitzvot are underway).
 
 How:
-• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy. Do not use matzah — there is no Purim custom for matzah, and many avoid matzah in the weeks before Pesach so the Seder taste stays distinct (Rema O.C. 471:2).
+• A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy.
 • Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
 • Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
 
@@ -363,15 +473,20 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 
     private fun erevChagPrepItem(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): ChecklistItemDef {
         val prep = ErevChagPrepText.build(cal, profile, tomorrowCal)
+        val isErevPesachCombinedPrep =
+            "erev_pesach" in cal.activeSeasons && cal.upcomingChagYomTovIndex == HebrewCalendarEngine.PESACH
         return ChecklistItemDef(
             id = "erev_chag_prep",
             title = prep.title,
-            section = "Prepare for the festival",
+            section = if (isErevPesachCombinedPrep) "Pesach prep" else "Prepare for the festival",
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
-            sortOrder = 0,
-            seasons = listOf("erev_chag"),
+            sortOrder = if (isErevPesachCombinedPrep) 30 else 0,
+            seasons = listOfNotNull(
+                "erev_chag".takeIf { "erev_chag" in cal.activeSeasons },
+                "erev_pesach".takeIf { isErevPesachCombinedPrep },
+            ),
             explanation = prep.explanation,
             links = prep.links
         )
@@ -381,7 +496,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
         id = "erev_purim_prep",
         title = when {
             PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal) ->
-                "Purim Meshulash — read full plan before Shabbat (phone off)"
+                "Purim Meshulash — read full plan before Shabbat"
             tomorrowCal.hebrewDay == 15 ->
                 "Erev Shushan Purim prep — arrange Megillah and mitzvot"
             else -> "Erev Purim prep — arrange Megillah and mitzvot"
@@ -422,13 +537,29 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 
     private fun erevChanukahPrepItem(profile: UserProfile) = ChecklistItemDef(
         id = "erev_chanukah_prep",
-        title = "Erev Chanukah prep — set up menorah, candles, and brachot",
+        title = "Erev Chanukah prep — set up menorah, candles, etc.",
         section = "Chanukah",
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
         seasons = listOf("erev_chanukah"),
-        explanation = "Chanukah starts tomorrow night. Prepare the menorah, enough candles/oil, and [review lighting time and brachot](https://ohr.edu/1304) before tomorrow night.",
+        explanation = """
+Chanukah starts tomorrow night. Set up now so lighting is calm and on time.
+
+Before the first night:
+• Place the menorah where it will be safe and visible (common: by a window/doorway for pirsumei nisa; avoid drafts and fire hazards).
+• Make sure you have enough candles/oil for all 8 nights (and a shamash each night).
+• Review the lighting order and what to say:
+  - First night: three brachot (lehadlik, she'asa nissim, Shehecheyanu).
+  - Other nights: two brachot (no Shehecheyanu unless first time lighting this year).
+
+Timing notes:
+• Ideally light after tzeit (nightfall).
+• Friday: light Chanukah before Shabbat candles; use enough oil/large enough candles to last 30 minutes after nightfall.
+• Motzei Shabbat: light before or after Havdalah per minhag.
+
+Quick reference: https://ohr.edu/1304
+        """.trimIndent(),
         links = erevChanukahPrepLinks()
     )
 
@@ -540,7 +671,7 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
 
     private fun hoshanaRabbahAravotItem(profile: UserProfile) = ChecklistItemDef(
         id = "hoshana_rabbah_aravot",
-        title = "Hoshana Rabbah — beat the aravot (widespread custom)",
+        title = "Hoshana Rabbah — beat the aravot (Minhag Nevi'im)",
         section = "Hoshana Rabbah",
         timeOfDay = TimeOfDay.DAY,
         required = false,
@@ -718,49 +849,54 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
     private fun selichotItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val month = cal.hebrewMonth ?: return null
         val day = cal.hebrewDay ?: return null
-        if (month != HebrewCalendarEngine.ELUL) return null
+        // Show Selichot:
+        // - Sefard/Edot: from Elul 2 through Erev Yom Kippur (9 Tishrei)
+        // - Ashkenaz/Chabad: from their start date through Erev Yom Kippur
+        val inSelichotWindow = when (month) {
+            HebrewCalendarEngine.ELUL -> day >= 2
+            HebrewCalendarEngine.TISHREI -> day in 2..9 // through Erev Yom Kippur (9 Tishrei)
+            else -> false
+        }
+        if (!inSelichotWindow) return null
         return when (profile.effectiveNusach()) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> {
-                if (day == 1) return null
-                val title = if (profile.effectiveNusach() == EffectiveNusach.EDOT_HAMIZRACH) {
-                    "Say Selichot (Edot HaMizrach — from Elul)"
-                } else {
-                    "Say Selichot (Sephardi — from Elul)"
-                }
                 ChecklistItemDef(
                 id = if (profile.effectiveNusach() == EffectiveNusach.EDOT_HAMIZRACH) {
                     "selichot_elul_edot_hamizrach"
                 } else {
                     "selichot_elul_sefard"
                 },
-                title = title,
-                section = "Seasonal",
-                timeOfDay = TimeOfDay.NIGHT,
+                title = "Say Selichot today",
+                section = "Selichot",
+                timeOfDay = TimeOfDay.ANY,
                 required = false,
                 situational = false,
+                tzeitMitzvah = true,
                 explanation = SeasonalMitzvahText.selichotExplanation(profile.effectiveNusach()),
                 links = selichotLinks(profile)
                 )
             }
             EffectiveNusach.CHABAD -> ChecklistItemDef(
                 id = "selichot_elul_chabad",
-                title = "Say Selichot (Chabad — Nusach Ari)",
-                section = "Seasonal",
-                timeOfDay = TimeOfDay.NIGHT,
+                title = "Say Selichot today",
+                section = "Selichot",
+                timeOfDay = TimeOfDay.ANY,
                 required = false,
                 situational = false,
+                tzeitMitzvah = true,
                 explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.CHABAD),
                 links = selichotLinks(profile)
             )
             EffectiveNusach.ASHKENAZ -> {
-                if (cal.date >= ashkenazSelichotStartDate(cal)) {
+                if (month == HebrewCalendarEngine.TISHREI || cal.date >= ashkenazSelichotStartDate(cal)) {
                     ChecklistItemDef(
                         id = "selichot_elul_ashkenaz",
-                        title = "Say Selichot (Ashkenaz timing)",
-                        section = "Seasonal",
-                        timeOfDay = TimeOfDay.NIGHT,
+                        title = "Say Selichot today",
+                        section = "Selichot",
+                        timeOfDay = TimeOfDay.ANY,
                         required = false,
                         situational = false,
+                        tzeitMitzvah = true,
                         explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.ASHKENAZ),
                         links = selichotLinks(profile)
                     )
@@ -1120,7 +1256,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         id = "tu_bshvat_seder_optional",
         title = "Tu B'Shvat Seder (optional)",
         section = "Seasonal",
-        timeOfDay = TimeOfDay.NIGHT,
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         explanation = SeasonalMitzvahText.tuBshvatExplanation(),

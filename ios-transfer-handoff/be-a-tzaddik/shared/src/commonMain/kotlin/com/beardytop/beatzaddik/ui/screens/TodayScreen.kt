@@ -114,6 +114,9 @@ import com.beardytop.beatzaddik.ui.components.ParchmentContentCard
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
 import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.tour.LocalTourTargetReporter
+import com.beardytop.beatzaddik.ui.tour.TourTarget
+import com.beardytop.beatzaddik.ui.tour.reportTourTarget
 import com.beardytop.beatzaddik.viewmodel.AppViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -126,6 +129,9 @@ fun TodayScreen(
     holyFlash: HolyFlashController,
     onOpenTimer: () -> Unit = {},
     onOpenSettings: () -> Unit = {},
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
+    mitzvotCount: Int? = null,
+    onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
 ) {
     val day by viewModel.dayChecklists.collectAsState()
     val profile by viewModel.profile.collectAsState()
@@ -133,6 +139,7 @@ fun TodayScreen(
     val kashrut by viewModel.kashrutWait.collectAsState()
     val upcoming by viewModel.upcomingHolidays.collectAsState()
     val debugOverride by viewModel.checklistDebugOverride.collectAsState()
+    val debugMenuVisible by viewModel.checklistDebugMenuVisible.collectAsState()
     val displayTimezone = remember(debugOverride, profile.timezoneId) {
         val scenario = debugOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
         profile.forDebugCalendar(scenario).timezoneId
@@ -172,6 +179,7 @@ fun TodayScreen(
     val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
     val appTranslation = LocalAppTranslation.current
     val displayLang = appTranslation.displayLanguageCode
+    val tourReporter = LocalTourTargetReporter.current
 
     AppDirectionalLayout(displayLang) {
     CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
@@ -183,40 +191,48 @@ fun TodayScreen(
             .padding(horizontal = 4.dp, vertical = 8.dp)
     ) {
         ParchmentContentCard {
-            ChecklistDebugMenu(
-                viewModel = viewModel,
-                activeOverride = debugOverride,
-                timezoneId = displayTimezone,
-            )
-            CalendarHeader(
-                day = day,
-                timezoneId = displayTimezone,
-                locationLabel = profile.locationLabel,
-                manualCityId = profile.manualCityId,
-                effectiveNusach = profile.effectiveNusach(),
-                upcoming = upcoming,
-                nowEpochMillis = debugOverride?.epochMillis,
-                onNusachClick = onOpenSettings,
-                onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
-                onOpenShabbatGuide = openShabbatGuide,
-                onOpenGuideTopic = { topic -> guideTopic = topic },
-                onOpenOmerExplainer = {
-                    omerExplainerTemplate = day?.header?.omerExplainerTemplate
-                    omerExplainerArgs = day?.header?.omerExplainerArgs ?: emptyMap()
-                },
-            )
-            if (!profile.hasZmanimLocation()) {
-                ZmanimLocationBanner(
-                    onOpenSettings = onOpenSettings,
-                    modifier = Modifier.padding(top = 10.dp),
+            if (debugMenuVisible) {
+                ChecklistDebugMenu(
+                    viewModel = viewModel,
+                    activeOverride = debugOverride,
+                    timezoneId = displayTimezone,
+                    mitzvotCount = mitzvotCount,
+                    onDebugSetMitzvotCount = onDebugSetMitzvotCount,
                 )
             }
-            if (upcoming.isNotEmpty()) {
-                UpcomingHolidaysBlock(
-                    holidays = upcoming,
-                    onOpenGuideTopic = { topic -> guideTopic = topic },
+            Column(
+                modifier = Modifier.reportTourTarget(TourTarget.HeaderUpcoming, tourReporter),
+            ) {
+                CalendarHeader(
+                    day = day,
+                    timezoneId = displayTimezone,
+                    locationLabel = profile.locationLabel,
+                    manualCityId = profile.manualCityId,
+                    effectiveNusach = profile.effectiveNusach(),
+                    upcoming = upcoming,
+                    nowEpochMillis = debugOverride?.epochMillis,
+                    onNusachClick = onOpenSettings,
+                    onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
                     onOpenShabbatGuide = openShabbatGuide,
+                    onOpenGuideTopic = { topic -> guideTopic = topic },
+                    onOpenOmerExplainer = {
+                        omerExplainerTemplate = day?.header?.omerExplainerTemplate
+                        omerExplainerArgs = day?.header?.omerExplainerArgs ?: emptyMap()
+                    },
                 )
+                if (!profile.hasZmanimLocation()) {
+                    ZmanimLocationBanner(
+                        onOpenSettings = onOpenSettings,
+                        modifier = Modifier.padding(top = 10.dp),
+                    )
+                }
+                if (upcoming.isNotEmpty()) {
+                    UpcomingHolidaysBlock(
+                        holidays = upcoming,
+                        onOpenGuideTopic = { topic -> guideTopic = topic },
+                        onOpenShabbatGuide = openShabbatGuide,
+                    )
+                }
             }
             kashrut?.let { wait ->
                 var isDone by remember(wait.endsAtEpochMillis) {
@@ -239,7 +255,7 @@ fun TodayScreen(
                     val translatedFood = rememberAppTranslatedText(allowedFood)
                     val translatedNow = rememberAppTranslatedText("now")
                     val kashrutMessage = rememberAppTranslatedTemplate(
-                        "You can eat {food} as of {time}",
+                        "You can now eat {food} (as of {time})",
                         mapOf(
                             "food" to translatedFood,
                             "time" to (endedAt ?: translatedNow),
@@ -287,6 +303,9 @@ fun TodayScreen(
                     Spacer(Modifier.height(12.dp))
                     return@let
                 }
+                Column(
+                    modifier = Modifier.reportTourTarget(TourTarget.Checklist, tourReporter),
+                ) {
                 val (done, total) = progress
                 if (total > 0) {
                     val allDone = done == total
@@ -353,7 +372,10 @@ fun TodayScreen(
                     onPeriodAnchorPosition = { period, y ->
                         periodScrollOffsets = periodScrollOffsets + (period to y)
                     },
+                    clockNowEpochMillis = debugOverride?.epochMillis,
+                    onChecklistItemChecked = onChecklistItemChecked,
                 )
+                } // checklist tour target
             }
             if (day?.holyDayPhoneNotice == null) {
                 Spacer(Modifier.height(12.dp))
@@ -469,21 +491,25 @@ private fun sectionSortKey(
     activePeriod: TimeOfDay,
     prioritizePrepSections: Set<String> = emptySet(),
     sinkMorningPrayerSection: Boolean = false,
-): Int = ChecklistSectionOrder.sortIndex(
-    section,
-    activePeriod,
-    prioritizePrepSections,
-    sinkMorningPrayerSection,
-)
+): Int {
+    // Force the two ongoing groups to the bottom (below everything else).
+    if (section == "Daily ongoing mitzvot") return 100_000
+    if (section == "Permanent ongoing mitzvot") return 100_001
+    return ChecklistSectionOrder.sortIndex(
+        section,
+        activePeriod,
+        prioritizePrepSections,
+        sinkMorningPrayerSection,
+    )
+}
 
 /** Sections that start collapsed — mostly one-time or infrequent setup. */
 private val defaultCollapsedSectionNames = setOf(
-    "Ongoing mitzvot",
     "Important Lifestyle Mitzvot",
     // "Married women's mitzvot" is intentionally expanded by default when present.
     "Prepare for Shabbat",
     "Pesach prep",
-    "Sefirat HaOmer",
+    // Sefirat HaOmer stays expanded by default so a missed nighttime count is visible during the day.
     "Chanukah",
     "Purim"
 )
@@ -539,6 +565,9 @@ private fun ChecklistSections(
     scrollRootY: Float = 0f,
     scrollInProgress: Boolean = false,
     onPeriodAnchorPosition: (TimeOfDay, Int) -> Unit = { _, _ -> },
+    /** When set (e.g. checklist debug), live zman rows use this clock instead of wall time. */
+    clockNowEpochMillis: Long? = null,
+    onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
 ) {
     if (items.isEmpty()) {
         AppText(
@@ -548,21 +577,48 @@ private fun ChecklistSections(
         )
         return
     }
+    // Default collapsed behavior:
+    // - Keep the "setup / infrequent" sections collapsed (existing behavior)
+    // - Additionally: sections whose items are not ACTIVE *and* whose period does not match
+    //   the current period start collapsed (but remain expandable via the header toggle).
+    val inactiveOtherPeriodKeys = remember(items, activePeriod, sectionPrefix) {
+        items.groupBy { it.sectionLabel }
+            .mapNotNull { (sectionLabel, sectionItems) ->
+                val hasActive = sectionItems.any { it.zmanAvailability == ItemZmanAvailability.ACTIVE }
+                if (hasActive) return@mapNotNull null
+                val baseSection = sectionItems.firstOrNull()?.def?.section ?: return@mapNotNull null
+                val period = ChecklistPeriodScroll.periodForBaseSection(baseSection) ?: return@mapNotNull null
+                if (period == activePeriod) return@mapNotNull null
+                sectionPrefix + sectionLabel
+            }
+            .distinct()
+            .sorted()
+    }
+
     var collapsedSectionKeys by rememberSaveable(
         sectionPrefix,
         activePeriod,
         profile.married,
         profile.gender,
         prioritizePrepSections,
+        // Recompute defaults when availability shifts materially (e.g. morning→afternoon).
+        inactiveOtherPeriodKeys,
     ) {
-        mutableStateOf(
+        val defaults = (
             defaultCollapsedSectionKeys(
                 sectionPrefix,
                 activePeriod,
                 profile,
                 prioritizePrepSections,
-            ).toList()
-        )
+            ) + inactiveOtherPeriodKeys
+            ).toMutableSet()
+        if (profile.dailyOngoingCollapsed) {
+            defaults += sectionPrefix + "Daily ongoing mitzvot"
+        }
+        if (profile.permanentOngoingCollapsed) {
+            defaults += sectionPrefix + "Permanent ongoing mitzvot"
+        }
+        mutableStateOf(defaults.distinct().toList())
     }
 
     LaunchedEffect(expandPeriodRequest) {
@@ -574,6 +630,21 @@ private fun ChecklistSections(
             collapsedSectionKeys = collapsedSectionKeys.filterNot { it == key }
         }
         onExpandPeriodConsumed()
+    }
+
+    // Keep ongoing collapse in sync if profile changes from outside (e.g. new-day re-expand).
+    LaunchedEffect(profile.dailyOngoingCollapsed, profile.permanentOngoingCollapsed, sectionPrefix) {
+        val dailyKey = sectionPrefix + "Daily ongoing mitzvot"
+        val permanentKey = sectionPrefix + "Permanent ongoing mitzvot"
+        collapsedSectionKeys = collapsedSectionKeys
+            .filterNot { it == dailyKey || it == permanentKey }
+            .let { base ->
+                buildList {
+                    addAll(base)
+                    if (profile.dailyOngoingCollapsed) add(dailyKey)
+                    if (profile.permanentOngoingCollapsed) add(permanentKey)
+                }
+            }
     }
 
     val collapsedSet = remember(collapsedSectionKeys) { collapsedSectionKeys.toSet() }
@@ -604,15 +675,29 @@ private fun ChecklistSections(
                 Modifier
             }
             if (collapsibleSections) {
+                val ongoingSubtitle = when (section) {
+                    "Permanent ongoing mitzvot" -> "Click once — it will stay checked."
+                    "Daily ongoing mitzvot" -> "Click each day you fulfilled this mitzvah (resets at nightfall)."
+                    "Eating & Blessings" -> "Check off if you observe these mitzvot today (resets at nightfall)"
+                    else -> null
+                }
                 CollapsibleChecklistSectionHeader(
                     title = section,
+                    subtitle = ongoingSubtitle,
                     expanded = expanded,
                     itemCount = sectionItems.size,
                     onToggle = {
-                        collapsedSectionKeys = if (expanded) {
+                        val willCollapse = expanded
+                        collapsedSectionKeys = if (willCollapse) {
                             collapsedSectionKeys + sectionKey
                         } else {
                             collapsedSectionKeys - sectionKey
+                        }
+                        when (section) {
+                            "Permanent ongoing mitzvot",
+                            "Daily ongoing mitzvot" -> {
+                                viewModel.setOngoingSectionCollapsed(section, collapsed = willCollapse)
+                            }
                         }
                     },
                     modifier = anchorModifier
@@ -625,6 +710,29 @@ private fun ChecklistSections(
                     color = TzaddikColors.NavyMid,
                     modifier = Modifier.padding(top = 8.dp, bottom = 4.dp)
                 )
+                when (section) {
+                    "Permanent ongoing mitzvot" -> AppText(
+                        "Click once — it will stay checked.",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                    "Daily ongoing mitzvot" -> AppText(
+                        "Click each day you fulfilled this mitzvah (resets at nightfall).",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                    "Eating & Blessings" -> AppText(
+                        "Check off if you observe these mitzvot today (resets at nightfall)",
+                        enableTerms = false,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = TzaddikColors.TextMuted,
+                        modifier = Modifier.padding(bottom = 6.dp),
+                    )
+                }
             }
             val showItems = !collapsibleSections || expanded
             AnimatedVisibility(
@@ -640,6 +748,7 @@ private fun ChecklistSections(
                             item = item,
                             timezoneId = profile.timezoneId,
                             effectiveNusach = profile.effectiveNusach(),
+                            clockNowEpochMillis = clockNowEpochMillis,
                             onCheckedChange = { checked ->
                                 if (item.zmanAvailability == ItemZmanAvailability.ACTIVE) {
                                     when {
@@ -647,10 +756,13 @@ private fun ChecklistSections(
                                             viewModel.setMonthlyChecked(item.def.id, checked)
                                         item.def.weeklyMitzvah ->
                                             viewModel.setWeeklyChecked(item.def.id, checked)
-                                        item.def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID ->
+                                        item.def.tzeitMitzvah || item.def.id == TzeitDay.WOMENS_DAILY_PRAYER_ID ->
                                             viewModel.setTzeitDayChecked(item.def.id, checked)
                                         else ->
                                             viewModel.setChecked(item.def.id, checked, item.def.persistChecked)
+                                    }
+                                    if (checked) {
+                                        onChecklistItemChecked?.invoke(item.def.id, item.displayTitle)
                                     }
                                 }
                             },
@@ -687,7 +799,8 @@ private fun UpcomingHolidayRtlRow(
     timingStyle: TextStyle,
     onNameClick: () -> Unit,
 ) {
-    val nameAnnotated = remember(translatedName, holidayName) {
+    val subtextColor = TzaddikColors.ParchTop.copy(alpha = 0.68f)
+    val annotated = remember(translatedName, holidayName, whenPart, timingCluster, timingStyle) {
         buildAnnotatedString {
             pushStringAnnotation(UPCOMING_HOLIDAY_NAME_TAG, holidayName)
             withStyle(
@@ -699,42 +812,41 @@ private fun UpcomingHolidayRtlRow(
                 append(translatedName)
             }
             pop()
+            withStyle(SpanStyle(color = subtextColor)) {
+                append(whenPart)
+            }
+            timingCluster?.takeIf { it.isNotBlank() }?.let { cluster ->
+                withStyle(
+                    SpanStyle(
+                        color = subtextColor,
+                        fontSize = timingStyle.fontSize,
+                        fontWeight = timingStyle.fontWeight,
+                    )
+                ) {
+                    append(" · $cluster")
+                }
+            }
         }
     }
-    var nameLayout by remember(nameAnnotated) { mutableStateOf<TextLayoutResult?>(null) }
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Start,
-        verticalAlignment = Alignment.Top,
-    ) {
-        Text(
-            text = nameAnnotated,
-            style = bodyStyle,
-            onTextLayout = { nameLayout = it },
-            modifier = Modifier.pointerInput(nameAnnotated) {
+    var textLayout by remember(annotated) { mutableStateOf<TextLayoutResult?>(null) }
+    Text(
+        text = annotated,
+        style = bodyStyle,
+        textAlign = TextAlign.Start,
+        onTextLayout = { textLayout = it },
+        modifier = Modifier
+            .fillMaxWidth()
+            .pointerInput(annotated) {
                 detectTapGestures { position ->
-                    nameLayout?.let { layout ->
+                    textLayout?.let { layout ->
                         val offset = layout.getOffsetForPosition(position)
-                        if (nameAnnotated.getStringAnnotations(UPCOMING_HOLIDAY_NAME_TAG, offset, offset).isNotEmpty()) {
+                        if (annotated.getStringAnnotations(UPCOMING_HOLIDAY_NAME_TAG, offset, offset).isNotEmpty()) {
                             onNameClick()
                         }
                     }
                 }
             },
-        )
-        Text(
-            whenPart,
-            style = bodyStyle,
-            color = TzaddikColors.ParchTop,
-        )
-        timingCluster?.takeIf { it.isNotBlank() }?.let { cluster ->
-            Text(
-                text = " · $cluster",
-                style = bodyStyle.merge(timingStyle),
-                color = TzaddikColors.ParchTop.copy(alpha = 0.65f),
-            )
-        }
-    }
+    )
 }
 
 @Composable
@@ -852,12 +964,19 @@ private fun GuideTopicExplainerDialog(topic: GuideTopic, onDismiss: () -> Unit) 
         title = topic.title,
         confirmButton = { GoldButton(onClick = onDismiss, text = "Done") },
     ) {
-        HalachicClickableText(
-            text = translatedBody,
-            style = MaterialTheme.typography.bodyMedium,
-            color = TzaddikColors.NavyDeep,
-            enableTerms = false,
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .heightIn(max = 480.dp)
+                .verticalScroll(rememberScrollState()),
+        ) {
+            HalachicClickableText(
+                text = translatedBody,
+                style = MaterialTheme.typography.bodyMedium,
+                color = TzaddikColors.NavyDeep,
+                enableTerms = false,
+            )
+        }
     }
 }
 
@@ -875,12 +994,16 @@ private fun UpcomingHolidaysBlock(
             .background(TzaddikColors.NavyMid.copy(alpha = 0.92f), RoundedCornerShape(12.dp))
             .padding(12.dp)
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        FlowRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
             AppText(
                 "Upcoming & seasonal",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.GoldBright,
-                modifier = Modifier.weight(1f)
+                enableTerms = false,
             )
             AppText(
                 "Shabbat guide ›",

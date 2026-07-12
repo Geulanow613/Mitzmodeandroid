@@ -1,4 +1,4 @@
-﻿package com.beardytop.beatzaddik.ui.components
+package com.beardytop.beatzaddik.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
@@ -61,6 +61,8 @@ fun ChecklistDebugMenu(
     activeOverride: ChecklistDebugOverride?,
     timezoneId: String,
     modifier: Modifier = Modifier,
+    mitzvotCount: Int? = null,
+    onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -144,6 +146,47 @@ fun ChecklistDebugMenu(
             exit = shrinkVertically(),
         ) {
             Column(modifier = Modifier.padding(top = 10.dp)) {
+                if (onDebugSetMitzvotCount != null) {
+                    Text(
+                        "Mitzvot counter (Status / certificate)",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TzaddikColors.NavyMid,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                    if (mitzvotCount != null) {
+                        Text(
+                            "Now: $mitzvotCount · ${com.beardytop.beatzaddik.domain.MitzvahLevels.forCount(mitzvotCount)}",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TzaddikColors.TextMuted,
+                            modifier = Modifier.padding(bottom = 6.dp),
+                        )
+                    }
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalArrangement = Arrangement.spacedBy(6.dp),
+                        modifier = Modifier.padding(bottom = 12.dp),
+                    ) {
+                        listOf(0, 100, 500, 1800).forEach { n ->
+                            AssistChip(
+                                onClick = { onDebugSetMitzvotCount(n) },
+                                label = {
+                                    Text(
+                                        if (n == 0) "Reset 0" else "$n",
+                                        color = TzaddikColors.NavyDeep,
+                                    )
+                                },
+                                colors = AssistChipDefaults.assistChipColors(
+                                    containerColor = if (mitzvotCount == n) {
+                                        TzaddikColors.GoldBright.copy(alpha = 0.45f)
+                                    } else {
+                                        Color.White.copy(alpha = 0.7f)
+                                    },
+                                ),
+                            )
+                        }
+                    }
+                }
+
                 Text(
                     "Time of simulated day",
                     style = MaterialTheme.typography.labelMedium,

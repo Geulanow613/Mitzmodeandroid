@@ -29,7 +29,15 @@ class KashrutTimerService {
         KashrutNotifications.schedule(wait, profile)
     }
 
+    fun showFinishedNotification(wait: KashrutWait, profile: UserProfile) {
+        KashrutNotifications.showFinished(wait, profile)
+    }
+
     fun cancelNotification() {
         KashrutNotifications.cancel()
+    }
+
+    fun dismissStatusNotification() {
+        KashrutNotifications.dismissStatusNotification()
     }
 }

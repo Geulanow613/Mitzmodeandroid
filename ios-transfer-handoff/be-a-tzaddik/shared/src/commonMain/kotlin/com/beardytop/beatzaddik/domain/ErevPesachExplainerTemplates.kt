@@ -120,7 +120,7 @@ This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Sh
 • Biur chametz: Friday morning (14 Nisan) by the 5th halachic hour deadline. Both physical destruction and the final Kol Chamira nullification must be finished before this time.
 • Mechirat chametz: must be entirely completed before Shabbat/Yom Tov candle lighting on Friday evening.
 • First Seder: Friday night (commencing 15 Nisan).
-• Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text — no Shehecheyanu on the second night of Pesach, and no spices/besamim).
+• Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text — no spices/besamim).
 • Preparation warning: you may NOT do any prep work (chopping, cooking, table setting) on Shabbat day for the second Seder. All preparations must wait until Shabbat ends at nightfall. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only for when Yom Tov immediately precedes Shabbat.
 
 Confirm candle lighting, Yom Tov, and Seder times with your siddur and rav.
@@ -180,7 +180,7 @@ ${'$'}scheduleLeadIn${'$'}scheduleBody${'$'}scheduleYomTov
 
 Second Seder prep (Diaspora this year):
 • Saturday daytime is the first day of Yom Tov (Shabbat). Saturday night begins the second day of Yom Tov — not a regular Motzei Shabbat weekend.
-• Kiddush at the second Seder includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text — no Shehecheyanu on the second night of Pesach, and no spices).
+• Kiddush at the second Seder includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text — no spices).
 • You may NOT cook, chop, or prepare on Shabbat day for the second Seder. Hachana from weekday across Shabbat to a later Yom Tov is forbidden. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only when Yom Tov immediately precedes Shabbat. All food prep, cooking, and table setting for the second night must wait until Shabbat fully ends Saturday night.
             """.trim()
         } else {

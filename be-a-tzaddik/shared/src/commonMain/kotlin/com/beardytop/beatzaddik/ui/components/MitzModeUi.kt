@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -47,6 +48,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.layout.boundsInRoot
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -59,6 +63,7 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.text.style.TextOverflow
 import com.beardytop.beatzaddik.ui.theme.TextScaleDefaults
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
+import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
 
 private val DialogShape = RoundedCornerShape(22.dp)
 
@@ -146,7 +151,8 @@ fun StarryScaffold(
 fun MitzModeBottomNav(
     selectedTab: Int,
     onTabSelected: (Int) -> Unit,
-    tabs: List<Pair<String, @Composable () -> Unit>>
+    tabs: List<Pair<String, @Composable () -> Unit>>,
+    onTabPositioned: ((index: Int, boundsInRoot: Rect) -> Unit)? = null,
 ) {
     NavigationBar(
         modifier = Modifier.navigationBarsPadding(),
@@ -155,17 +161,48 @@ fun MitzModeBottomNav(
         contentColor = TzaddikColors.GoldBright
     ) {
         tabs.forEachIndexed { index, (label, icon) ->
+            val isCenterSlot = label.isBlank()
+            val selected = selectedTab == index
+
             NavigationBarItem(
-                selected = selectedTab == index,
+                selected = selected,
                 onClick = { onTabSelected(index) },
-                icon = icon,
+                modifier = if (onTabPositioned != null) {
+                    Modifier.onGloballyPositioned { coords ->
+                        onTabPositioned(index, coords.boundsInRoot())
+                    }
+                } else {
+                    Modifier
+                },
+                icon = {
+                    if (selected && !isCenterSlot) {
+                        Box(contentAlignment = Alignment.Center) {
+                            Box(
+                                modifier = Modifier
+                                    .size(width = 34.dp, height = 26.dp)
+                                    .background(
+                                        color = TzaddikColors.GoldBorder.copy(alpha = 0.32f),
+                                        shape = RoundedCornerShape(14.dp),
+                                    ),
+                            )
+                            icon()
+                        }
+                    } else {
+                        icon()
+                    }
+                },
                 label = if (label.isNotBlank()) {
                     {
                         AppText(
                             label,
                             style = MaterialTheme.typography.labelSmall.copy(
-                                fontWeight = if (selectedTab == index) FontWeight.SemiBold else FontWeight.Normal
+                                fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal
                             ),
+                            color = if (selected) {
+                                TzaddikColors.GoldBright
+                            } else {
+                                TzaddikColors.ParchTop.copy(alpha = 0.72f)
+                            },
                             enableTerms = false,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -175,7 +212,8 @@ fun MitzModeBottomNav(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = TzaddikColors.GoldBright,
                     selectedTextColor = TzaddikColors.GoldBright,
-                    indicatorColor = TzaddikColors.GoldBorder.copy(alpha = 0.35f),
+                    // Custom tight glow drawn above — hide Material's larger indicator.
+                    indicatorColor = Color.Transparent,
                     unselectedIconColor = TzaddikColors.ParchTop.copy(alpha = 0.55f),
                     unselectedTextColor = TzaddikColors.ParchTop.copy(alpha = 0.55f)
                 )
@@ -262,57 +300,53 @@ fun CollapsibleChecklistSectionHeader(
     itemCount: Int,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier.padding(vertical = 6.dp)) {
+    // Translate bare section name first; appending the count beforehand would miss the bundle entry.
+    val translatedTitle = rememberAppTranslatedText(title)
+    val titleWithCount = if (itemCount > 0) "$translatedTitle ($itemCount)" else translatedTitle
+    val titleStyle = MaterialTheme.typography.titleMedium.copy(
+        fontWeight = FontWeight.Bold,
+        letterSpacing = 0.3.sp,
+    )
+    Column(
+        modifier
+            .clickable(onClick = onToggle)
+            .padding(vertical = 6.dp)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable(onClick = onToggle)
                 .padding(bottom = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Row(
-                modifier = Modifier.weight(1f),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(3.dp)
-                        .height(20.dp)
-                        .background(
-                            brush = Brush.verticalGradient(
-                                listOf(TzaddikColors.GoldBright, TzaddikColors.GoldBorder)
-                            ),
-                            shape = RoundedCornerShape(2.dp)
-                        )
-                )
-                Spacer(Modifier.width(8.dp))
-                // Translate the bare section name first; appending the count beforehand would
-                // produce a string like "Upon waking (2)" which has no bundle entry.
-                AppText(
-                    text = title,
-                    enableTerms = false,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 0.3.sp
-                    ),
-                    color = TzaddikColors.NavyDeep
-                )
-                if (itemCount > 0) {
-                    Text(
-                        text = " ($itemCount)",
-                        style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold,
-                            letterSpacing = 0.3.sp
+            Box(
+                modifier = Modifier
+                    .padding(top = 4.dp)
+                    .width(3.dp)
+                    .height(20.dp)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            listOf(TzaddikColors.GoldBright, TzaddikColors.GoldBorder)
                         ),
-                        color = TzaddikColors.NavyDeep
+                        shape = RoundedCornerShape(2.dp)
                     )
-                }
-            }
+            )
+            // One wrapping Text so the count stays with the title and wraps onto new lines
+            // instead of squeezing into a vertical column beside the chevron.
+            Text(
+                text = titleWithCount,
+                style = titleStyle,
+                color = TzaddikColors.NavyDeep,
+                softWrap = true,
+                modifier = Modifier.weight(1f),
+            )
             Icon(
                 imageVector = if (expanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                 contentDescription = if (expanded) "Collapse section" else "Expand section",
-                tint = TzaddikColors.GoldBorder
+                tint = TzaddikColors.GoldBorder,
+                modifier = Modifier
+                    .padding(top = 2.dp)
+                    .wrapContentWidth(),
             )
         }
         Box(
@@ -388,6 +422,7 @@ fun ParchmentDialog(
                                     textAlign = TextAlign.Center
                                 ),
                                 color = TzaddikColors.GoldBorder,
+                                enableTerms = false,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .padding(horizontal = 32.dp, vertical = 4.dp)

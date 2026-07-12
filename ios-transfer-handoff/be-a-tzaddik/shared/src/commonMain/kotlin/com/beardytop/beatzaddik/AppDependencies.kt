@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class AppDependencies(
-    platformContext: Any?,
+    val platformContext: Any?,
     locationService: PlatformLocationService,
     holidayOverlay: List<HolidayOverlayEntry> = emptyList()
 ) {

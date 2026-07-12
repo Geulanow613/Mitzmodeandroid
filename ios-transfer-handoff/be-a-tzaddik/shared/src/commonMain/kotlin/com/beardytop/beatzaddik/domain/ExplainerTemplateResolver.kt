@@ -17,7 +17,7 @@ object ExplainerTemplateResolver {
         val nusachNote = nusachNote(item, profile)
 
         return when {
-            item.id.startsWith("sefirat_haomer_day_") ->
+            item.id == OmerCountText.CHECKLIST_ITEM_ID || item.id.startsWith("sefirat_haomer_day_") ->
                 Bundle(
                     OmerCountText.explanationTemplate(),
                     OmerCountText.explanationArgs(cal, profile),
@@ -62,6 +62,9 @@ object ExplainerTemplateResolver {
                     ExplainerTemplateSupport.arbaMinimTemplate(female),
                     ExplainerTemplateSupport.arbaMinimArgs(profile, female),
                 )
+
+            item.id == "hoshana_rabbah_aravot" ->
+                staticBundle(SeasonalMitzvahText.hoshanaRabbahAravotExplanation())
 
             item.id == "chol_hamoed_honor" ->
                 Bundle(
@@ -246,6 +249,11 @@ object ExplainerTemplateResolver {
                 val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
                 val prep = ErevChagPrepText.build(cal, profile, tomorrow)
                 staticBundle(prep.explanation)
+            }
+
+            item.id == "eruv_tavshilin" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                staticBundle(YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrow))
             }
 
             item.id == "erev_pesach_mechirat_chametz" ->

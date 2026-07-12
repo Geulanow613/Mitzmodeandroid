@@ -1,12 +1,15 @@
 package com.beardytop.beatzaddik.domain
 
 import com.beardytop.beatzaddik.domain.zmanim.SharedZmanimBuilder
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
 import kotlinx.datetime.toInstant
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -25,6 +28,86 @@ class OmerCountTextTest {
         val filled = ExplainerTemplateFill.fill(OmerCountText.explanationTemplate(), args)
         assertTrue(filled.contains("count ${OmerCountText.omerDaySummary(4, nusach)} after nightfall"))
         assertTrue(!filled.contains("count ${OmerCountText.omerDaySummary(3, nusach)} after nightfall"))
+        assertTrue(filled.contains("If you forgot at night:"))
+        assertTrue(filled.contains("without the blessing (no bracha)"))
+    }
+
+    @Test
+    fun omerCountStaysActiveDuringDaytime() {
+        val tz = "America/New_York"
+        val date = LocalDate(2026, 6, 15)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0).toInstant(TimeZone.of(tz)).toEpochMilliseconds()
+        val zmanim = SharedZmanimBuilder.buildForLocation(noon, tz, 40.7128, -74.0060)
+        val item = ChecklistItemDef(
+            id = OmerCountText.CHECKLIST_ITEM_ID,
+            title = OmerCountText.buildTitle(12, EffectiveNusach.ASHKENAZ),
+            section = "Sefirat HaOmer",
+            timeOfDay = TimeOfDay.ANY,
+            required = true,
+            tzeitMitzvah = true,
+            seasons = listOf("sefirah"),
+        )
+        val resolved = ChecklistItemResolver.resolve(
+            item = item,
+            profile = sampleProfile(),
+            checked = false,
+            nowMillis = noon,
+            zmanim = zmanim,
+            prayerDay = PrayerDayContext.from(
+                sampleCal(omerDay = 12),
+                EffectiveNusach.ASHKENAZ,
+                40.7128,
+            ),
+        )
+        assertEquals(ItemZmanAvailability.ACTIVE, resolved.zmanAvailability)
+    }
+
+    @Test
+    fun omerCountResetsAtNextTzeit() {
+        val tz = "America/New_York"
+        val date = LocalDate(2026, 6, 15)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0).toInstant(TimeZone.of(tz)).toEpochMilliseconds()
+        val zmanim = SharedZmanimBuilder.buildForLocation(noon, tz, 40.7128, -74.0060)
+        val yesterdayNoon = LocalDateTime(2026, 6, 14, 12, 0).toInstant(TimeZone.of(tz)).toEpochMilliseconds()
+        val yesterdayZmanim = SharedZmanimBuilder.buildForLocation(yesterdayNoon, tz, 40.7128, -74.0060)
+        val cal = sampleCal(omerDay = 12).copy(zmanim = zmanim)
+        val yesterday = cal.copy(date = date.plus(-1, DateTimeUnit.DAY), zmanim = yesterdayZmanim)
+        val storedKey = assertNotNull(TzeitDay.currentKey(noon, cal, yesterday))
+        val tzeit = requireNotNull(OmerCountText.omerNightfallMillis(zmanim))
+        val afterTzeit = tzeit + 60_000L
+        val newKey = assertNotNull(TzeitDay.currentKey(afterTzeit, cal, yesterday))
+        assertTrue(storedKey != newKey)
+
+        fun showsChecked(nowMillis: Long): Boolean {
+            val key = TzeitDay.currentKey(nowMillis, cal, yesterday)
+            return key != null && storedKey == key
+        }
+
+        assertTrue(showsChecked(noon))
+        assertFalse(showsChecked(afterTzeit))
+    }
+
+    @Test
+    fun omerCountPriorityAfterTzeitNotBefore() {
+        val tz = "America/New_York"
+        val date = LocalDate(2026, 6, 15)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0).toInstant(TimeZone.of(tz)).toEpochMilliseconds()
+        val zmanim = SharedZmanimBuilder.buildForLocation(noon, tz, 40.7128, -74.0060)
+        val cal = sampleCal(omerDay = 12).copy(zmanim = zmanim)
+        val sunset = requireNotNull(zmanim.sunsetMillis)
+        val tzeit = requireNotNull(OmerCountText.omerNightfallMillis(zmanim))
+
+        assertFalse(OmerCountText.isOmerCountPriority(noon, cal))
+        assertFalse(OmerCountText.isOmerCountPriority(sunset + 60_000L, cal))
+        assertTrue(OmerCountText.isOmerCountPriority(tzeit + 60_000L, cal))
+        assertTrue(
+            "Sefirat HaOmer" in ChecklistSectionOrder.prioritizedPrepSections(
+                cal = cal,
+                tomorrowCal = cal,
+                profile = sampleProfile(),
+                nowMillis = tzeit + 60_000L,
+            )
+        )
     }
 
     @Test

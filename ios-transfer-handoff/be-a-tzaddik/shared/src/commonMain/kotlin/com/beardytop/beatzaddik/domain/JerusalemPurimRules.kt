@@ -10,8 +10,50 @@ object JerusalemPurimRules {
 
     fun isJerusalemProfile(profile: UserProfile): Boolean {
         if (profile.manualCityId in setOf("jlm", "jerusalem")) return true
-        return profile.locationLabel?.contains("jerusalem", ignoreCase = true) == true
+        if (profile.manualCityId in doubtfulWalledCityIds) return profile.observeWalledCityPurim
+        // Do not infer Jerusalem from freeform GPS labels; it causes false positives and
+        // incorrectly enables walled-city Purim / Meshulash outside Jerusalem.
+        return false
     }
+
+    fun isPurimDoubtCity(manualCityId: String?): Boolean =
+        manualCityId != null && manualCityId in doubtfulWalledCityIds
+
+    /**
+     * Cities with disputed “walled in Yehoshua’s time” status (or diaspora communities that
+     * historically observed 15 Adar). Users there may choose walled-city Purim customs.
+     */
+    val doubtfulWalledCityIds: Set<String> = setOf(
+        // Israel / Land of Israel (often cited)
+        "acre_il",
+        "ashdod",
+        "ashkelon",
+        "beeri_il",
+        "beersheba",
+        "beit_shean_il",
+        "beit_shemesh_il",
+        "ein_zeitim_il",
+        "gaza_city",
+        "gush_chalav_il",
+        "haifa",
+        "hebron_il",
+        "jaffa_il",
+        "jericho_il",
+        "lod_il",
+        "nablus_ps",
+        "ramallah",
+        "ramla_il",
+        "safed",
+        "shechem_il",
+        "tiberias",
+        // Outside Israel (community / lineage dependent)
+        "baghdad",
+        "damascus",
+        "prague",
+        "thessaloniki",
+        "izmir",
+        "istanbul",
+    )
 
     fun isPurimMeshulashFriday(
         isJerusalem: Boolean,

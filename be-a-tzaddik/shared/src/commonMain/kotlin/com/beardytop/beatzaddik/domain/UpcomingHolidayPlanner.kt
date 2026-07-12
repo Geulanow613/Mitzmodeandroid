@@ -17,6 +17,9 @@ import kotlinx.datetime.toLocalDateTime
  */
 internal object UpcomingHolidayPlanner {
 
+    /** Only list observances within this many civil days (inclusive of today). */
+    const val HORIZON_DAYS = 30
+
     fun plan(
         backend: JewishCalendarBackend,
         nowEpochMillis: Long,
@@ -43,14 +46,16 @@ internal object UpcomingHolidayPlanner {
         val minorHolidays = linkedMapOf<String, UpcomingHoliday>()
 
         fun addMinorHoliday(holiday: UpcomingHoliday) {
-            minorHolidays.putIfAbsent(holiday.name, holiday)
+            if (holiday.daysAway <= HORIZON_DAYS) {
+                minorHolidays.putIfAbsent(holiday.name, holiday)
+            }
         }
 
         if (nowInfo.isRoshChodesh) {
             nextRoshChodesh = activeRoshChodeshHoliday(nowInfo, nowEpochMillis, backend, profile)
         }
 
-        for (i in 0..60) {
+        for (i in 0..HORIZON_DAYS) {
             val d = from.plus(i, DateTimeUnit.DAY)
             val info = if (i == 0 && d == nowInfo.date) {
                 nowInfo
@@ -263,13 +268,14 @@ internal object UpcomingHolidayPlanner {
             )
         }
 
-        return listOfNotNull(
+        return (listOfNotNull(
             nextShabbat,
             nextYomTov,
             nextChanukah,
             nextPurim,
             nextRoshChodesh,
-        ) + minorHolidays.values + listOfNotNull(birkatHachamah)
+        ) + minorHolidays.values + listOfNotNull(birkatHachamah))
+            .filter { it.daysAway <= HORIZON_DAYS }
             .sortedBy { it.daysAway }
             .take(8)
     }
@@ -282,13 +288,21 @@ internal object UpcomingHolidayPlanner {
     ): UpcomingHoliday {
         val endMillis = roshChodeshPeriodEndMillis(nowInfo, nowMillis, backend, profile)
         val tz = profile.timezoneId
-        val whenLabel = buildRoshChodeshActiveWhenLabel(endMillis, tz)
+        val time = endMillis?.let { ZmanimFormatter.formatTime(it, tz) }
+        val night = endMillis?.let { weekdayNightLabel(it, tz) }
+        val whenLabel = when {
+            endMillis == null -> "Now"
+            time != null -> "Now — ends $time"
+            else -> "Now"
+        }
         return UpcomingHoliday(
             name = "Rosh Chodesh",
             daysAway = 0,
             hint = "Yaaleh V'yavo, Hallel",
             beginsTonightWhenImminent = false,
             whenLabelOverride = whenLabel,
+            // Weekday night as lighter timing subtext (not jammed into the when-label).
+            timingHint = night,
         )
     }
 
@@ -318,13 +332,6 @@ internal object UpcomingHolidayPlanner {
         val lastDayTzeit = tzeitOn(lastRcDate)
         if (lastDayTzeit != null && lastDayTzeit > nowMillis) return lastDayTzeit
         return tzeitOn(lastRcDate.plus(1, DateTimeUnit.DAY)) ?: lastDayTzeit
-    }
-
-    private fun buildRoshChodeshActiveWhenLabel(endMillis: Long?, timezoneId: String): String {
-        if (endMillis == null) return "Now"
-        val time = ZmanimFormatter.formatTime(endMillis, timezoneId)
-        val night = weekdayNightLabel(endMillis, timezoneId)
-        return if (time != null) "Now — ends $time $night" else "Now — ends $night"
     }
 
     private fun weekdayNightLabel(epochMillis: Long, timezoneId: String): String {

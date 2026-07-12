@@ -1,0 +1,20 @@
+import SwiftUI
+import shared
+
+/// Feature flags mirroring Kotlin `MitzModeFeatures` for the Swift shell.
+enum MitzModeIOSFeatures {
+    /// When false (default), the app opens the unified Kotlin checklist shell.
+    /// Set true only to temporarily restore the old Swift Mitzvah Me home.
+    static let legacyHomeEnabled = false
+}
+
+struct ContentView: View {
+    var body: some View {
+        if MitzModeIOSFeatures.legacyHomeEnabled {
+            LegacyMitzModeHomeView()
+        } else {
+            DailyChecklistHostView()
+                .ignoresSafeArea()
+                .onAppear {
+                    ChecklistEmbedBridge.shared.preloadChecklistDependencies()
+                }

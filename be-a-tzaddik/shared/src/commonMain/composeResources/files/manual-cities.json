@@ -8301,7 +8301,7 @@
     },
     {
       "id": "gaza_city",
-      "label": "Gaza City, Palestine",
+      "label": "Gaza City, Gaza Strip",
       "latitude": 31.5017,
       "longitude": 34.4668,
       "timezoneId": "Asia/Gaza",
@@ -17029,7 +17029,7 @@
     },
     {
       "id": "nablus_ps",
-      "label": "Nablus, Palestinian Territory",
+      "label": "Nablus, West Bank",
       "latitude": 32.2211,
       "longitude": 35.2544,
       "timezoneId": "Asia/Hebron",
@@ -20706,7 +20706,7 @@
     },
     {
       "id": "rafah_ps",
-      "label": "Rafah, Palestinian Territory",
+      "label": "Rafah, Gaza Strip",
       "latitude": 31.2972,
       "longitude": 34.2436,
       "timezoneId": "Asia/Gaza"
@@ -20791,7 +20791,7 @@
     },
     {
       "id": "ramallah",
-      "label": "Ramallah, Palestine",
+      "label": "Ramallah, West Bank",
       "latitude": 31.9038,
       "longitude": 35.2034,
       "timezoneId": "Asia/Hebron",
@@ -28268,22 +28268,6 @@
       "timezoneId": "Europe/Amsterdam"
     },
     {
-      "id": "hebron_il",
-      "label": "Hebron, Israel",
-      "latitude": 31.5326,
-      "longitude": 35.0998,
-      "timezoneId": "Asia/Jerusalem",
-      "elevationMeters": 930.0
-    },
-    {
-      "id": "jaffa_il",
-      "label": "Jaffa, Israel",
-      "latitude": 32.0504,
-      "longitude": 34.7522,
-      "timezoneId": "Asia/Jerusalem",
-      "elevationMeters": 20.0
-    },
-    {
       "id": "acre_il",
       "label": "Acre (Akko), Israel",
       "latitude": 32.9281,
@@ -28332,8 +28316,24 @@
       "elevationMeters": 860.0
     },
     {
+      "id": "hebron_il",
+      "label": "Hebron, West Bank",
+      "latitude": 31.5326,
+      "longitude": 35.0998,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 930.0
+    },
+    {
+      "id": "jaffa_il",
+      "label": "Jaffa, Israel",
+      "latitude": 32.0504,
+      "longitude": 34.7522,
+      "timezoneId": "Asia/Jerusalem",
+      "elevationMeters": 20.0
+    },
+    {
       "id": "jericho_il",
-      "label": "Jericho (Yericho), Israel",
+      "label": "Jericho (Yericho), West Bank",
       "latitude": 31.8611,
       "longitude": 35.4614,
       "timezoneId": "Asia/Jerusalem",
@@ -28342,7 +28342,7 @@
     {
       "id": "lod_il",
       "label": "Lod, Israel",
-      "latitude": 31.9510,
+      "latitude": 31.951,
       "longitude": 34.8881,
       "timezoneId": "Asia/Jerusalem",
       "elevationMeters": 50.0
@@ -28357,7 +28357,7 @@
     },
     {
       "id": "shechem_il",
-      "label": "Shechem (Nablus), Israel",
+      "label": "Shechem (Nablus), West Bank",
       "latitude": 32.2211,
       "longitude": 35.2544,
       "timezoneId": "Asia/Jerusalem",

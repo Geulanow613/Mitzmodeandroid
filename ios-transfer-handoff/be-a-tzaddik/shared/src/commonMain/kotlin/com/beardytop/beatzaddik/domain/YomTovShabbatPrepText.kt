@@ -17,14 +17,9 @@ object YomTovShabbatPrepText {
         cal.upcomingChagYomTovIndex == HebrewCalendarEngine.ROSH_HASHANA ||
             chagName.contains("Rosh Hashana", ignoreCase = true)
 
-    /** Civil Shabbat that follows this erev chag (1 = tomorrow is Shabbat, 3 = two Yom Tov days then Shabbat). */
-    private fun shabbatDaysAfterErevChag(cal: DayInfo): Int? {
-        if ("erev_chag" !in cal.activeSeasons) return null
-        for (i in 1..4) {
-            if (dayAfter(cal, i).dayOfWeek == DayOfWeek.SATURDAY) return i
-        }
-        return null
-    }
+    /** Civil Shabbat that follows this festival eve (1 = tomorrow is Shabbat, 3 = two Yom Tov days then Shabbat). */
+    private fun shabbatDaysAfterErevChag(cal: DayInfo): Int? =
+        EruvTavshilinRules.civilDaysUntilShabbat(cal)
 
     fun isShabbatErevChag(cal: DayInfo): Boolean =
         "erev_chag" in cal.activeSeasons && cal.isShabbat
@@ -42,7 +37,7 @@ object YomTovShabbatPrepText {
 
     /** Yom Tov begins tonight; one day of Yom Tov then Shabbat (erev is Friday). */
     fun isErevChagYomTovStartsBeforeShabbat(cal: DayInfo): Boolean {
-        if ("erev_chag" !in cal.activeSeasons || !cal.isErevShabbat) return false
+        if (!EruvTavshilinRules.isFestivalEve(cal) || !cal.isErevShabbat) return false
         if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
         return shabbatDaysAfterErevChag(cal) == 2 &&
             cal.upcomingChagYomTovIndex != null &&
@@ -52,7 +47,7 @@ object YomTovShabbatPrepText {
     /** Diaspora: two days of Yom Tov starting tomorrow, then Shabbat (erev is Wed or Thu). */
     fun isErevChagTwoDayYomTovBeforeShabbat(cal: DayInfo, profile: UserProfile): Boolean {
         if (profile.isInIsrael) return false
-        if ("erev_chag" !in cal.activeSeasons) return false
+        if (!EruvTavshilinRules.isFestivalEve(cal)) return false
         if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
         return shabbatDaysAfterErevChag(cal) == 3 &&
             cal.upcomingChagYomTovIndex != null &&
@@ -62,23 +57,25 @@ object YomTovShabbatPrepText {
     fun isYomTovFridayLeadsIntoShabbat(cal: DayInfo): Boolean =
         cal.isYomTovAssurBemelacha && cal.date.dayOfWeek == DayOfWeek.FRIDAY
 
-    fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile): Boolean =
-        isErevChagYomTovStartsBeforeShabbat(cal) ||
-            isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ||
-            isYomTovFridayLeadsIntoShabbat(cal)
+    fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): Boolean =
+        EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)
 
     fun scheduleBlock(
         cal: DayInfo,
         profile: UserProfile,
         chagName: String,
         forFridayAdvance: Boolean = false,
+        tomorrowCal: DayInfo = cal,
     ): String? {
         val parts = mutableListOf<String>()
         shabbatErevChagHavdalahBlock(cal, profile, chagName, forFridayAdvance)?.let { parts.add(it) }
-        eruvTavshilinBlock(cal, profile, chagName)?.let { parts.add(it) }
+        eruvTavshilinBlock(cal, profile, chagName, tomorrowCal)?.let { parts.add(it) }
         yomTovFridayCookingBlock(cal, profile, chagName)?.let { parts.add(it) }
         return parts.takeIf { it.isNotEmpty() }?.joinToString("\n\n")
     }
+
+    fun eruvTavshilinExplanation(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): String =
+        eruvTavshilinBlock(cal, profile, EruvTavshilinRules.chagName(cal), tomorrowCal).orEmpty()
 
     /**
      * Show on a readable day before prep is needed — especially **Friday before Shabbat–erev–chag**
@@ -86,9 +83,9 @@ object YomTovShabbatPrepText {
      */
     fun shouldShowAdvancePrepDay(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): Boolean {
         if (HolyDayPhoneRules.isShabbatMelachaDay(today)) return false
-        if (isFridayBeforeShabbatErevChag(today, tomorrow)) return true
-        if ("erev_chag" in today.activeSeasons) return false
-        return advanceBlock(today, tomorrow, profile) != null
+        // Only show an "advance" reminder when tomorrow is Shabbat + erev chag, since the app
+        // is not for use on Shabbat itself. Other eruv tavshilin reminders belong on the festival eve.
+        return isFridayBeforeShabbatErevChag(today, tomorrow)
     }
 
     fun advanceBlock(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): String? {
@@ -102,7 +99,7 @@ object YomTovShabbatPrepText {
                     """
 Read this today (Friday) before Shabbat candles — the app is not for use on Shabbat.
 
-Tomorrow is Shabbat and erev $tomorrowChag. $tomorrowChag begins tomorrow night at nightfall (Motzei Shabbat), not tonight. Finish Yaknehaz prep, Yom Tov candles from a pre-existing flame, wine, and festive food before Shabbat ends.
+Tomorrow is Shabbat and erev $tomorrowChag. $tomorrowChag begins tomorrow night at nightfall (Motzei Shabbat), not tonight. You cannot do Yaknehaz prep, light Yom Tov candles, or begin food prep on Shabbat — wait until after Shabbat ends at nightfall, recite Baruch hamavdil bein kodesh l'kodesh, and only then light Yom Tov candles from a pre-existing flame and begin Kiddush (Yaknehaz) per your Machzor.
                     """.trim()
                 } else {
                     """
@@ -199,9 +196,9 @@ This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (
             """.trim()
         }
         val prepWhen = if (forFridayAdvance) {
-            "Prepare today (Friday) before Shabbat candles"
+            "Prepare today (Friday) before Shabbat candles: have wine, festive food, and Yom Tov candles ready"
         } else {
-            "Prepare before Shabbat ends"
+            "After Shabbat ends at nightfall"
         }
         return BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.yomTovAndShabbat(),
@@ -210,11 +207,11 @@ $opener
 
 Havdalah when Shabbat leads into Yom Tov:
 • Havdalah is recited when entering a day of lesser holiness. Shabbat is holier than Yom Tov, so when Shabbat leads into a festival, havdalah is included in that night's Kiddush — not as a full separate havdalah with spices before Kiddush.
-• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles already lit on the table; do NOT pick up, move, or touch them — they are muktzeh once lit; gaze at the flames from where they stand) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
+• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles on the table; you may move a burning candle on Yom Tov if needed for the blessing or the meal, unlike Shabbat muktzeh rules) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
 • Spices (besamim) are omitted for this transition.
 • Before Kiddush, melacha permitted on Yom Tov but not on Shabbat: many say Baruch hamavdil bein kodesh l'kodesh, or rely on the Vatodi'enu insert in Maariv — follow your Machzor.
 
-$prepWhen: Yom Tov candles from a pre-existing flame; wine; festive meal ready; 48-hour candle or pilot light per your rav.
+$prepWhen: recite Baruch hamavdil bein kodesh l'kodesh after nightfall, then light Yom Tov candles from a pre-existing flame; 48-hour candle or pilot light per your rav.
     """.trim(),
     )
     }
@@ -232,7 +229,7 @@ This year, Shabbat is Erev Rosh Hashana — Rosh Hashana begins tonight at night
         val prepLead = if (forFridayAdvance) {
             "Rosh Hashana–specific prep today (Friday) before Shabbat"
         } else {
-            "Rosh Hashana–specific prep before Shabbat ends"
+            "After Shabbat ends at nightfall"
         }
         return BeginnerHalachaGlossary.withKeyTerms(
         BeginnerHalachaGlossary.yomTovAndShabbat(),
@@ -251,15 +248,15 @@ Before or at Maariv:
 $prepLead:
 • Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag).
 • Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.
-• Tashlich: when the first day of Rosh Hashana is Shabbat, it is postponed to Sunday (structural rule — avoiding carrying machzorim in public without an eruv).
+• Tashlich when the first day is Shabbat: Ashkenazim postpone to Sunday — a universal Rabbinic gezeirah against carrying in public, even where there is an eruv. Many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day when Shabbat is Rosh Hashana, where carrying a machzor is permitted. Tashlich is prayers at the water — not feeding fish (throwing breadcrumbs is forbidden on Shabbat and Yom Tov).
 
 Candles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (pre-existing flame).
     """.trim(),
     )
     }
 
-    private fun eruvTavshilinBlock(cal: DayInfo, profile: UserProfile, chagName: String): String? {
-        if (!requiresEruvTavshilin(cal, profile)) return null
+    private fun eruvTavshilinBlock(cal: DayInfo, profile: UserProfile, chagName: String, tomorrowCal: DayInfo): String? {
+        if (!requiresEruvTavshilin(cal, profile, tomorrowCal)) return null
         if (isYomTovFridayLeadsIntoShabbat(cal)) return null
 
         return if (isRoshHashanaChag(cal, chagName)) {
@@ -283,16 +280,17 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How (Peninei Halakha 12:8:2):
-• Set aside a baked food (challah or matzah) and a cooked food (meat, fish, or unpeeled hard-boiled egg are common examples).
-• Recite the blessing and declaration from your Machzor or siddur in any language you understand — use the printed wording; do not paraphrase from memory.
-• One eruv per household is sufficient.
-• Food must be appropriate to eat with bread; at least a kezayit of cooked food should remain until Shabbat prep is done.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled spot. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens).
+• Set aside two foods: a baked item (whole challah or matzah) and a cooked dish (meat, fish, or a hard-boiled egg with the shell on are common choices).
+• The cooked dish is the essential part. Having both baked and cooked is ideal; a cooked dish alone is valid. A baked item without any cooked food does not work — ask your rav if you're unsure.
+• Recite the blessing and eruv declaration from your Machzor or siddur, in any language you understand.
+• One eruv per household is enough.
+• The foods should be fit to eat with bread; keep at least a kezayit of the cooked food until your Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled spot. Only the cooked dish is essential — if the baked item is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens).
 
 Limits:
 • Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.
-• Food should be ready early enough Friday afternoon that it could theoretically be eaten before Shabbat.
-• Does not permit non-food Shabbat prep (e.g. certain laundry) — ask your rav.
+• Start early enough Friday afternoon that your food could theoretically be eaten before Shabbat begins.
+• Covers food preparation for Shabbat — not other melacha that remains forbidden on Yom Tov.
         """.trim(),
         )
     }
@@ -311,10 +309,11 @@ Why (Peninei Halakha 12:8):
 $whenLine
 
 How to make eruv tavshilin (Peninei Halakha 12:8:2):
-• Foods: challah (or matzah) plus cooked food — commonly fish, meat, or an unpeeled hard-boiled egg.
+• Foods: a baked item (whole challah or matzah) plus a cooked dish — commonly fish, meat, or a hard-boiled egg with the shell on. The cooked dish is essential; both together is ideal, but cooked alone is valid. Baked alone without cooked food does not work.
 • Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv — use your siddur text.
-• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation) — use the printed wording; it permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
-• Storage warning: Put the designated eruv foods in a safe, clearly labeled, visible spot before the Friday afternoon rush — they are easily thrown out by mistake. If the eruv foods are eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, your permission to prepare food is canceled (ask your rav if this happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
+• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation). It permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
+• Keep at least a kezayit of the cooked food until Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled, visible spot before the Friday afternoon rush — it is easily thrown out by mistake. Only the cooked dish is essential — if the challah or matzah is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.
@@ -352,7 +351,7 @@ Shofar: blown today (if today is a Yom Tov day of Rosh Hashana and not Shabbat) 
 
 If you did not make eruv tavshilin: ask your rabbi immediately what you may still prepare for Shabbat.
 
-Shabbat tonight: when Yom Tov ends Friday before Shabbat, light Shabbat candles from a pre-existing flame and follow your siddur for the transition — this is not the same as Motzei Shabbat into Yom Tov (no Yaknehaz tonight).
+Shabbat tonight: before Friday afternoon fades into Shabbat, transfer a flame and light Shabbat candles before sunset. Yom Tov and Shabbat overlap today — do not wait until nightfall to light Shabbat candles.
             """.trim(),
             )
         } else {
@@ -367,7 +366,7 @@ Today on Yom Tov (if you made eruv tavshilin before the festival began):
 
 If you have not made eruv tavshilin, ask your rabbi immediately.
 
-Shabbat tonight: light candles from a pre-existing flame after Yom Tov ends; follow your siddur for when Yom Tov ends and Shabbat begins.
+Shabbat tonight: before Friday afternoon fades into Shabbat, transfer a flame and light Shabbat candles before sunset — not after nightfall.
             """.trim(),
             )
         }

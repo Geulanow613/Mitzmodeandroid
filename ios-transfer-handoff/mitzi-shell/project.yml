@@ -1,0 +1,120 @@
+name: MitzModeTest
+options:
+  bundleIdPrefix: com.beardytop
+  deploymentTarget:
+    iOS: 15.0
+packages:
+  Sentry:
+    url: https://github.com/getsentry/sentry-cocoa.git
+    from: 8.9.3
+targets:
+  MitzModeTest:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: 
+      - path: .
+        excludes:
+          - "project.yml"
+          - ".git"
+          - "*.md"
+          - "Pods/**"
+          - "MitzModeTests/**"
+          - "AppStore/**"
+          - "*.kt"
+          - "generate_app_icons.py"
+          - "Views/Checklist/DailyMitzvotChecklist.swift"
+          - "Views/Checklist/MaleChecklistSection.swift"
+          - "Views/Checklist/FemaleChecklistSection.swift"
+          - "Views/Checklist/ChecklistSection.swift"
+          - "Views/Components/ChecklistItemWithInfo.swift"
+          - "Views/Components/SectionHeader.swift"
+          - "Views/Checklist/ChecklistUIState.swift"
+    dependencies:
+      - package: Sentry
+    postBuildScripts:
+      - script: |
+          if [ "$CONFIGURATION" == "Release" ]; then
+            find "${BUILD_DIR}" -name '*.dSYM' -exec cp -R {} "${DWARF_DSYM_FOLDER_PATH}/" \;
+            find "${BUILD_DIR}" -name '*.bcsymbolmap' -exec cp {} "${DWARF_DSYM_FOLDER_PATH}/" \;
+          fi
+        name: "Copy Sentry dSYMs"
+        basedOnDependencyAnalysis: false
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: 1
+        DEVELOPMENT_TEAM: 6R9Y4JN92A
+        PRODUCT_BUNDLE_IDENTIFIER: com.beardytop.mitzmode
+        MARKETING_VERSION: 3.1
+        CURRENT_PROJECT_VERSION: 7
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Mitz Mode
+        INFOPLIST_KEY_UILaunchStoryboardName: LaunchScreen
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIRequiresFullScreen: YES
+        INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: NO
+        INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: "Mitz Mode uses your location to show accurate prayer times and zmanim in the Daily Mitzvot Checklist."
+        INFOPLIST_KEY_CADisableMinimumFrameDurationOnPhone: true
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "Apple Distribution"
+        PROVISIONING_PROFILE_SPECIFIER: "Mitz Mode App Store"
+        DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+        ENABLE_BITCODE: NO
+        STRIP_SWIFT_SYMBOLS: NO
+        COPY_PHASE_STRIP: NO
+        ENABLE_NS_ASSERTIONS: YES
+        DWARF_DSYM_FOLDER_PATH: $(CONFIGURATION_BUILD_DIR)
+        DWARF_DSYM_FILE_NAME: $(PRODUCT_NAME).dSYM
+        LD_GENERATE_MAP_FILE: YES
+        ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES: YES
+        GCC_GENERATE_DEBUGGING_SYMBOLS: YES
+        SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+      configs:
+        Debug:
+          CODE_SIGN_STYLE: Automatic
+          CODE_SIGN_IDENTITY: Apple Development
+          PROVISIONING_PROFILE_SPECIFIER: ""
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+          ENABLE_TESTABILITY: YES
+          COPY_PHASE_STRIP: NO
+          ENABLE_NS_ASSERTIONS: YES
+          GCC_OPTIMIZATION_LEVEL: 0
+          SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        Release:
+          DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+          CODE_SIGN_IDENTITY: "Apple Distribution"
+          PROVISIONING_PROFILE_SPECIFIER: "Mitz Mode App Store"
+          STRIP_SWIFT_SYMBOLS: NO
+          COPY_PHASE_STRIP: NO
+          ENABLE_NS_ASSERTIONS: NO
+          GCC_OPTIMIZATION_LEVEL: s
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+          
+  MitzModeTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "15.0"
+    sources: 
+      - path: MitzModeTests
+    dependencies:
+      - target: MitzModeTest
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.beardytop.mitzmode.tests
+        GENERATE_INFOPLIST_FILE: YES
+
+schemes:
+  MitzModeTest:
+    build:
+      targets:
+        MitzModeTest: all
+        MitzModeTests: [test]
+    run:
+      config: Debug
+    test:
+      targets:
+        - MitzModeTests
+    archive:
+      config: Release

@@ -1,7 +1,6 @@
 package com.beardytop.beatzaddik.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,7 +9,6 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,9 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
@@ -34,7 +30,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -134,7 +129,7 @@ fun TimerScreen(
             )
             ParchmentTextButton(
                 onClick = onOpenKashrutSettings,
-                text = "Adjust wait times →"
+                text = "Adjust wait times + other settings →"
             )
         }
 
@@ -144,7 +139,17 @@ fun TimerScreen(
             enter = fadeIn(tween(300)) + scaleIn(tween(300), initialScale = 0.9f),
             exit = fadeOut(tween(200)) + scaleOut(tween(200))
         ) {
-            wait?.let { ActiveTimerCard(it, nowMillis, onClear = { viewModel.clearKashrut() }) }
+            wait?.let {
+                ActiveTimerCard(
+                    wait = it,
+                    nowMillis = nowMillis,
+                    showNotificationHint = profile.showKashrutTimerNotification,
+                    onCancel = { viewModel.cancelKashrut() },
+                    onRestart = { viewModel.restartKashrut() },
+                    onClear = { viewModel.clearKashrut() },
+                    onOpenNotificationSettings = onOpenKashrutSettings,
+                )
+            }
         }
 
         AnimatedVisibility(
@@ -202,21 +207,21 @@ private fun WaitTimeRow(emoji: String, text: String) {
 private fun ActiveTimerCard(
     wait: KashrutWait,
     nowMillis: Long,
-    onClear: () -> Unit
+    showNotificationHint: Boolean,
+    onCancel: () -> Unit,
+    onRestart: () -> Unit,
+    onClear: () -> Unit,
+    onOpenNotificationSettings: () -> Unit,
 ) {
     val remaining = (wait.endsAtEpochMillis - nowMillis).coerceAtLeast(0)
-    val totalMs = wait.endsAtEpochMillis - (wait.endsAtEpochMillis - remaining)
-    val progress by animateFloatAsState(
-        targetValue = if (wait.endsAtEpochMillis - nowMillis > 0) {
-            remaining.toFloat() / (wait.endsAtEpochMillis - (nowMillis - remaining)).coerceAtLeast(1).toFloat()
-        } else 0f,
-        animationSpec = tween(800)
-    )
-
     val hours = remaining / 3_600_000L
     val minutes = (remaining % 3_600_000L) / 60_000L
     val seconds = (remaining % 60_000L) / 1_000L
     val isDone = remaining == 0L
+    val allowedFood = when (wait.category) {
+        MealCategory.MEAT -> "dairy"
+        MealCategory.DAIRY -> "meat"
+    }
 
     Column(
         modifier = Modifier
@@ -243,10 +248,15 @@ private fun ActiveTimerCard(
 
         if (isDone) {
             AppText(
-                "✓ You may now eat",
+                "✓ You can now eat $allowedFood",
                 style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                 color = TzaddikColors.GoldBright,
                 textAlign = TextAlign.Center
+            )
+            GoldButton(
+                onClick = onClear,
+                text = "Clear",
+                modifier = Modifier.fillMaxWidth()
             )
         } else {
             Text(
@@ -265,11 +275,28 @@ private fun ActiveTimerCard(
                 style = MaterialTheme.typography.bodySmall,
                 color = TzaddikColors.GoldBright.copy(alpha = 0.55f)
             )
+            if (showNotificationHint) {
+                AppText(
+                    "Also shown in your notification bar",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = TzaddikColors.GoldBright.copy(alpha = 0.45f),
+                    textAlign = TextAlign.Center,
+                )
+            } else {
+                ParchmentTextButton(
+                    onClick = onOpenNotificationSettings,
+                    text = "Show in notification bar →"
+                )
+            }
+            GoldButton(
+                onClick = onRestart,
+                text = "Restart timer",
+                modifier = Modifier.fillMaxWidth()
+            )
+            ParchmentTextButton(
+                onClick = onCancel,
+                text = "Cancel timer"
+            )
         }
-
-        ParchmentTextButton(
-            onClick = onClear,
-            text = "Cancel timer"
-        )
     }
 }

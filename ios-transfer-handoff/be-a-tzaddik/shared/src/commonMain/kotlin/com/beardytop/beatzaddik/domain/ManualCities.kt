@@ -32,6 +32,12 @@ object ManualCities {
         "london", "paris", "melbourne", "sf", "boston", "philadelphia", "atlanta", "seattle",
         "denver", "houston", "dallas", "phoenix", "detroit", "cleveland", "baltimore", "tlv",
         "haifa", "teaneck", "lakewood", "monsey", "five_towns", "bnei_brak",
+        // Purim "cities of doubt" (walled-city status disputed)
+        "tiberias", "safed", "hebron_il", "jaffa_il", "acre_il",
+        "ashdod", "ashkelon", "beersheba",
+        "beit_shean_il", "beit_shemesh_il", "jericho_il", "lod_il", "ramla_il",
+        "gush_chalav_il", "ein_zeitim_il", "beeri_il", "shechem_il", "gaza_city",
+        "baghdad", "damascus", "prague", "thessaloniki", "izmir", "istanbul",
     )
 
     private var timezoneGrid: Map<Pair<Int, Int>, List<ManualCity>> = emptyMap()

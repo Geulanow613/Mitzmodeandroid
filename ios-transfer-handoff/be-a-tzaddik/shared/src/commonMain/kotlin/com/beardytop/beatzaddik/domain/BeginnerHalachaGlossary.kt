@@ -25,7 +25,7 @@ object BeginnerHalachaGlossary {
     const val CHAG =
         "Chag — festival (same idea as Yom Tov in everyday speech)"
     const val TZEIT =
-        "Tzeit — halachic nightfall (when three medium stars appear). Required start time for night mitzvot like bedikat chametz, Chanukah candles, Megillah, and counting the Omer. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame"
+        "Tzeit — halachic nightfall (when three medium stars appear). Standard time for many night mitzvot — Omer count, Purim Megillah, Motzei Shabbat. Bedikat chametz is the night before Pesach begins. Chanukah candles are ideally after tzeit, though many allow from sunset when needed. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame"
     const val RAV =
         "Rav — Hebrew title for a senior Torah scholar who rules on halacha (your community's decisor)"
     const val RABBI =
@@ -87,7 +87,7 @@ object BeginnerHalachaGlossary {
     const val OCHEL_NEFESH =
         "Ochel nefesh — the halachic allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day"
     const val CHAMAR_MEDINA =
-        "Chamar medina — a prestigious local beverage (such as kosher liquor or coffee, per community standards) used for daytime Kiddush or Havdalah when wine is unavailable — never for Friday night Shabbat Kiddush, which strictly requires wine, grape juice, or washing for bread; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)"
+        "Chamar medina — a prestigious local beverage (such as kosher liquor or coffee, per community standards) used for daytime Kiddush or Havdalah when wine is unavailable — generally not for Friday night Shabbat Kiddush, which typically requires wine, grape juice, or washing for bread; not valid for the Seder's four cups per most poskim; never beer on Pesach (beer is chametz)"
     const val SCHACH =
         "Schach — plant covering on the sukkah roof"
     const val LULAV_SET =

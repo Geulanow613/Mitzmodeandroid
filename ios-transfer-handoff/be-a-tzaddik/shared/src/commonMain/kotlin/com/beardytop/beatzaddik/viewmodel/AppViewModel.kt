@@ -17,10 +17,12 @@ import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.LocationElevation
 import com.beardytop.beatzaddik.domain.LocationTimezone
 import com.beardytop.beatzaddik.platform.LocationResult
+import com.beardytop.beatzaddik.platform.KashrutNotifications
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ChecklistDebugDateFinder
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
 import com.beardytop.beatzaddik.domain.ChecklistDebugOverride
+import com.beardytop.beatzaddik.domain.ChecklistDebugPhase
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenario
 import com.beardytop.beatzaddik.domain.ChecklistDebugTimeSlot
 import com.beardytop.beatzaddik.domain.forDebugCalendar
@@ -43,6 +45,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -77,6 +80,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
 
     fun dismissLocationPermissionDialog() { _showLocationPermissionDialog.value = false }
     fun openAppSettings() { deps.location.openAppSettings() }
+
+    private val _showNotificationPermissionDialog = MutableStateFlow(false)
+    val showNotificationPermissionDialog: StateFlow<Boolean> = _showNotificationPermissionDialog
+
+    fun dismissNotificationPermissionDialog() { _showNotificationPermissionDialog.value = false }
+    fun openNotificationSettings() {
+        KashrutNotifications.openNotificationSettings()
+    }
 
     fun hasLocationPermission(): Boolean = deps.location.hasLocationPermission()
 
@@ -218,21 +229,39 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     fun setChecklistDebugTimeSlot(timeSlot: ChecklistDebugTimeSlot) {
         _pendingDebugTimeSlot.value = timeSlot
         val current = _checklistDebugOverride.value ?: return
-        val scenario = ChecklistDebugScenarios.byId(current.scenarioId)
+        val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
         val prof = profile.value.forDebugCalendar(scenario)
-        _checklistDebugOverride.value = current.copy(
-            timeSlot = timeSlot,
-            epochMillis = ChecklistDebugDateFinder.epochMillisAt(
+        val millis = if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
+            current.epochMillis
+        } else {
+            ChecklistDebugDateFinder.epochMillisAt(
                 current.simulatedDate,
                 timeSlot,
                 prof.timezoneId,
-            ),
+            )
+        }
+        _checklistDebugOverride.value = current.copy(
+            timeSlot = timeSlot,
+            epochMillis = millis,
         )
     }
 
     fun clearChecklistDebug() {
         _checklistDebugOverride.value = null
         _checklistDebugError.value = null
+    }
+
+    val checklistDebugMenuVisible: StateFlow<Boolean> = profile
+        .map { it.checklistDebugMenuVisible }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    fun toggleChecklistDebugMenu() {
+        viewModelScope.launch {
+            val current = profile.value
+            deps.repository.saveProfile(
+                current.copy(checklistDebugMenuVisible = !current.checklistDebugMenuVisible)
+            )
+        }
     }
 
     val dayChecklists: StateFlow<DayChecklists?> = combine(
@@ -247,7 +276,18 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             input.monthlyMonths, input.weeklyWeeks, input.tzeitDays,
             nowMillis = nowMillis,
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+
+    /** Halachic day key (tzeit→tzeit) used so checklist mitzvah counts increment once per day. */
+    val halachicDayKey: StateFlow<String> = combine(profile, effectiveNowMillis) { prof, nowMillis ->
+        val today = deps.calendar.dayInfoAt(nowMillis, prof)
+        val yesterday = deps.calendar.dayInfoAt(nowMillis - 86_400_000L, prof)
+        TzeitDay.currentKeyOrCivilDate(nowMillis, today, yesterday, prof.timezoneId)
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "")
 
     val kashrutWait: StateFlow<KashrutWait?> = deps.repository.kashrutWait.stateIn(
         viewModelScope, SharingStarted.WhileSubscribed(5000), null
@@ -256,7 +296,9 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     val requiredProgress: StateFlow<Pair<Int, Int>> = combine(dayChecklists, profile) { d, prof ->
         if (d == null) 0 to 0
         else deps.checklistEngine.requiredProgress(d, prof)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0 to 0)
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0 to 0)
 
     val upcomingHolidays: StateFlow<List<UpcomingHoliday>> = combine(
         profile,
@@ -268,7 +310,9 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             nowEpochMillis = now,
             profile = prof.forDebugCalendar(scenario),
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val electronicsRest: StateFlow<ElectronicsRestPeriod?> = combine(
         profile,
@@ -278,13 +322,32 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         if (debug != null) return@combine null
         deps.calendar.electronicsRestPeriod(nowEpochMillis = now, profile = prof)
             ?: shabbatRestFallback(now, prof)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     init {
         viewModelScope.launch {
             deps.repository.profile.first()
             deps.repository.disclaimerAcknowledged.first()
             _prefsLoaded.value = true
+        }
+        // Ensure daily checklist items reset at tzeit (halachic day boundary), not midnight.
+        viewModelScope.launch(Dispatchers.Default) {
+            combine(profile, effectiveNowMillis) { prof, now -> prof to now }
+                .collect { (prof, nowMillis) ->
+                    val today = deps.calendar.dayInfoAt(nowMillis, prof)
+                    val yesterday = deps.calendar.dayInfoAt(nowMillis - 86_400_000L, prof)
+                    val key = TzeitDay.currentKeyOrCivilDate(nowMillis, today, yesterday, prof.timezoneId)
+                    deps.repository.clearDayIfNewDate(key)
+
+                    // Daily ongoing section: if user collapsed it on a previous halachic day, re-expand now.
+                    if (prof.dailyOngoingCollapsed && prof.dailyOngoingCollapsedDate != key) {
+                        deps.repository.saveProfile(
+                            prof.copy(dailyOngoingCollapsed = false, dailyOngoingCollapsedDate = null)
+                        )
+                    }
+                }
         }
         viewModelScope.launch { runStartupMaintenance() }
         viewModelScope.launch {
@@ -303,15 +366,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     }
 
     private suspend fun runStartupMaintenance() {
-        val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.toString()
-        deps.repository.clearDayIfNewDate(today)
+        // Note: daily rollover is handled by the collector in init() using a tzeit-based key.
         val now = Clock.System.now().toEpochMilliseconds()
         val wait = deps.repository.kashrutWait.first()
         var prof = deps.repository.profile.first()
         when {
             wait != null && wait.endsAtEpochMillis <= now -> {
-                deps.repository.setKashrutWait(null)
-                deps.kashrut.cancelNotification()
+                // Keep finished wait until the user clears it; refresh the “you can eat” notification.
+                deps.kashrut.showFinishedNotification(wait, prof)
             }
             wait != null -> deps.kashrut.scheduleEndNotification(wait, prof)
             else -> deps.kashrut.cancelNotification()
@@ -332,6 +394,34 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
         if (prof.useGps) {
             refreshGps()
+        }
+    }
+
+    fun setOngoingSectionCollapsed(section: String, collapsed: Boolean) {
+        viewModelScope.launch {
+            val current = deps.repository.profile.first()
+            val nowMillis = effectiveNowMillis.first()
+            val todayInfo = deps.calendar.dayInfoAt(nowMillis, current)
+            val yesterdayInfo = deps.calendar.dayInfoAt(nowMillis - 86_400_000L, current)
+            val halachicKey = TzeitDay.currentKeyOrCivilDate(
+                nowMillis,
+                todayInfo,
+                yesterdayInfo,
+                current.timezoneId,
+            )
+            when (section) {
+                "Permanent ongoing mitzvot" -> {
+                    deps.repository.saveProfile(current.copy(permanentOngoingCollapsed = collapsed))
+                }
+                "Daily ongoing mitzvot" -> {
+                    deps.repository.saveProfile(
+                        current.copy(
+                            dailyOngoingCollapsed = collapsed,
+                            dailyOngoingCollapsedDate = if (collapsed) halachicKey else null,
+                        )
+                    )
+                }
+            }
         }
     }
 
@@ -370,6 +460,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             val current = deps.repository.profile.first()
             val updated = current.copy(
                 onboardingComplete = true,
+                appTourCompleted = false,
                 gender = gender,
                 married = married,
                 hasChildren = hasChildren,
@@ -379,6 +470,14 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             deps.repository.saveProfile(updated)
             applyLauncherIcon(updated.gender)
             if (useGps) refreshGps()
+        }
+    }
+
+    fun completeAppTour() {
+        viewModelScope.launch {
+            val current = deps.repository.profile.first()
+            if (current.appTourCompleted) return@launch
+            deps.repository.saveProfile(current.copy(appTourCompleted = true))
         }
     }
 
@@ -416,6 +515,36 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     fun setLiveInIsrael(value: Boolean) {
         viewModelScope.launch {
             deps.repository.saveProfile(profile.value.copy(liveInIsrael = value))
+        }
+    }
+
+    /**
+     * Unified Settings toggle for Israel vs chutz la'aretz customs.
+     * [locationInIsrael] chooses which stored flag to update and clears the other override
+     * so switching cities (Eilat ↔ NYC) doesn't leave a stale force flag stuck on.
+     */
+    fun setUseIsraelCustoms(enabled: Boolean, locationInIsrael: Boolean) {
+        viewModelScope.launch {
+            val p = profile.value
+            deps.repository.saveProfile(
+                if (locationInIsrael) {
+                    p.copy(
+                        forceChutzLaAretzCustoms = !enabled,
+                    )
+                } else {
+                    p.copy(
+                        liveInIsrael = enabled,
+                        forceChutzLaAretzCustoms = false,
+                    )
+                }
+            )
+        }
+    }
+
+    /** When [force] is true, use chutz la'aretz customs even if location is in Israel. */
+    fun setForceChutzLaAretzCustoms(force: Boolean) {
+        viewModelScope.launch {
+            deps.repository.saveProfile(profile.value.copy(forceChutzLaAretzCustoms = force))
         }
     }
 
@@ -501,10 +630,97 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         }
     }
 
+    /**
+     * Clears a finished wait (banner / notification). Ignored while the countdown is still running —
+     * use [cancelKashrut] for that.
+     */
     fun clearKashrut() {
+        viewModelScope.launch {
+            val wait = deps.repository.kashrutWait.first() ?: return@launch
+            val now = Clock.System.now().toEpochMilliseconds()
+            if (wait.endsAtEpochMillis > now) return@launch
+            deps.repository.setKashrutWait(null)
+            deps.kashrut.cancelNotification()
+        }
+    }
+
+    /** Cancels a running (or finished) wait and dismisses notifications. */
+    fun cancelKashrut() {
         viewModelScope.launch {
             deps.repository.setKashrutWait(null)
             deps.kashrut.cancelNotification()
+        }
+    }
+
+    /** Cancels the current wait and starts a fresh countdown for the same meal category. */
+    fun restartKashrut() {
+        viewModelScope.launch {
+            val current = deps.repository.kashrutWait.first() ?: return@launch
+            val prof = profile.value
+            val wait = deps.kashrut.startMeal(
+                prof,
+                current.category,
+                Clock.System.now().toEpochMilliseconds(),
+            )
+            deps.repository.setKashrutWait(wait)
+            deps.kashrut.scheduleEndNotification(wait, prof)
+        }
+    }
+
+    fun setShowKashrutTimerNotification(enabled: Boolean) {
+        viewModelScope.launch {
+            if (!enabled) {
+                val p = profile.value.copy(showKashrutTimerNotification = false)
+                deps.repository.saveProfile(p)
+                refreshKashrutNotifications(p)
+                return@launch
+            }
+            if (KashrutNotifications.areNotificationsAllowed()) {
+                val p = profile.value.copy(showKashrutTimerNotification = true)
+                deps.repository.saveProfile(p)
+                refreshKashrutNotifications(p)
+                return@launch
+            }
+            KashrutNotifications.requestPermission { granted ->
+                viewModelScope.launch {
+                    if (granted) {
+                        val p = profile.value.copy(showKashrutTimerNotification = true)
+                        deps.repository.saveProfile(p)
+                        refreshKashrutNotifications(p)
+                    } else {
+                        val p = profile.value.copy(showKashrutTimerNotification = false)
+                        deps.repository.saveProfile(p)
+                        refreshKashrutNotifications(p)
+                        _showNotificationPermissionDialog.value = true
+                    }
+                }
+            }
+        }
+    }
+
+    fun setKashrutTimerAlertPrefs(sound: Boolean? = null, vibrate: Boolean? = null) {
+        viewModelScope.launch {
+            val cur = profile.value
+            val p = cur.copy(
+                kashrutTimerSound = sound ?: cur.kashrutTimerSound,
+                kashrutTimerVibrate = vibrate ?: cur.kashrutTimerVibrate,
+            )
+            deps.repository.saveProfile(p)
+            refreshKashrutNotifications(p)
+        }
+    }
+
+    private suspend fun refreshKashrutNotifications(p: com.beardytop.beatzaddik.domain.UserProfile) {
+        val wait = deps.repository.kashrutWait.first()
+        val now = Clock.System.now().toEpochMilliseconds()
+        when {
+            wait == null -> deps.kashrut.cancelNotification()
+            wait.endsAtEpochMillis <= now -> deps.kashrut.showFinishedNotification(wait, p)
+            p.showKashrutTimerNotification -> deps.kashrut.scheduleEndNotification(wait, p)
+            else -> {
+                deps.kashrut.dismissStatusNotification()
+                deps.kashrut.scheduleEndNotification(wait, p)
+            }
         }
     }
 

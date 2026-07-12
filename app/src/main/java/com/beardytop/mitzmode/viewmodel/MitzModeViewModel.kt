@@ -209,11 +209,14 @@ class MitzModeViewModel @Inject constructor(
         startIdleTimer()
     }
     
-    fun onChecklistMitzvahChecked(itemId: String, title: String) {
+    fun onChecklistMitzvahChecked(itemId: String, title: String, dayKey: String) {
+        if (dayKey.isBlank()) return
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                val entryId = "checklist_count_${itemId}_$dayKey"
+                if (_completedMitzvot.value.any { it.id == entryId }) return@launch
                 val mitzvah = Mitzvah(
-                    id = "checklist_${itemId}_${System.currentTimeMillis()}",
+                    id = entryId,
                     text = title,
                     links = emptyList(),
                 )

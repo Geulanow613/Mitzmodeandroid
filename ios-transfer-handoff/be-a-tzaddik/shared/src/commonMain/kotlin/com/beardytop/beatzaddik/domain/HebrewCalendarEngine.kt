@@ -43,6 +43,7 @@ internal object HebrewCalendarEngine {
     const val PURIM                = 25
     const val SHUSHAN_PURIM        = 26
     const val PURIM_KATAN          = 27
+    const val SHUSHAN_PURIM_KATAN  = 34
     const val YOM_HASHOAH          = 29
     const val YOM_HAZIKARON        = 30
     const val YOM_HAATZMAUT        = 31
@@ -233,6 +234,7 @@ internal object HebrewCalendarEngine {
                 !isLeapYear && day == 14 -> PURIM
                 !isLeapYear && day == 15 -> SHUSHAN_PURIM
                 isLeapYear && day == 14 -> PURIM_KATAN
+                isLeapYear && day == 15 -> SHUSHAN_PURIM_KATAN
                 else -> -1
             }
             ADAR_II -> when {
@@ -258,6 +260,10 @@ internal object HebrewCalendarEngine {
     /** True when today is 14 Nisan — erev first Seder. */
     fun isErevFirstPesachSeder(hebrewMonth: Int?, hebrewDay: Int?): Boolean =
         hebrewMonth == NISSAN && hebrewDay == 14
+
+    /** 21 Tishrei — seventh day of Sukkot; Hoshana Rabbah. */
+    fun isHoshanaRabbah(hebrewMonth: Int?, hebrewDay: Int?): Boolean =
+        hebrewMonth == TISHREI && hebrewDay == 21
 
     /** Opening Yom Tov night(s) of Pesach when Shehecheyanu is recited. */
     fun pesachOpeningYomTovGetsShehecheyanu(

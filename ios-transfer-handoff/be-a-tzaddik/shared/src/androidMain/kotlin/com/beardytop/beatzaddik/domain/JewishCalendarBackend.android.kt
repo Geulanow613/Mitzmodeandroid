@@ -32,6 +32,9 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         // keeping the real clock for the active time-of-day period.
         val tzeitTonight = geo?.let { zmanimCalendar(it, now).nightfallMillis() }
         if (HalachicDayRollover.hasRolledOver(nowEpochMillis, tzeitTonight)) {
+            val civilWeekdayChip = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+            val civilIsErevShabbat = date.dayOfWeek == DayOfWeek.FRIDAY
+            val civilIsShabbat = date.dayOfWeek == DayOfWeek.SATURDAY
             val noonTomorrow = (now.clone() as Calendar).apply {
                 add(Calendar.DAY_OF_MONTH, 1)
                 set(Calendar.HOUR_OF_DAY, 12)
@@ -41,8 +44,19 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
             }
             val rolled = dayInfoAt(noonTomorrow.timeInMillis, profile)
             val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, rolled.zmanim)
+            val rolledChipsWithoutCivil = rolled.statusChips.filterNot { chip ->
+                chip == "Erev Shabbat" || chip == "Shabbat" ||
+                    chip in setOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+            }
+            val civilChips = buildList {
+                add(civilWeekdayChip)
+                if (civilIsErevShabbat) add("Erev Shabbat")
+                if (civilIsShabbat) add("Shabbat")
+            }
             return rolled.copy(
+                date = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
+                statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,
@@ -123,8 +137,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val isYomHaAtzmaut = jc.yomTovIndex == JewishCalendar.YOM_HAATZMAUT
         val isYomYerushalayim = jc.yomTovIndex == JewishCalendar.YOM_YERUSHALAYIM
         val isSefirah = omerDay != null && omerDay in 1..49 && !isLagBaomer
-        val isErevChag = !isYomTovAssurBemelacha && !jc.isYomTov &&
-            jcTomorrow.isYomTov &&
+        val isErevChag = !isYomTovAssurBemelacha &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(jcTomorrow.yomTovIndex)
         val upcomingChagName = if (isErevChag) {
             UpcomingHolidayNames.erevUpcomingDisplayName(
@@ -232,23 +245,14 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         }
 
         val parsha = runCatching {
-            jc.parshah?.name?.replace('_', ' ')?.trim()
-        }.getOrNull()?.takeIf { it.isNotBlank() && it != "NONE" }
+            jc.parshah?.name?.takeIf { it.isNotBlank() && it != "NONE" }
+        }.getOrNull()
 
-        // Find the upcoming Shabbat and get its parsha (accounts for Israel/Diaspora divergence).
+        // Prefer KosherJava's upcoming API (skips Yom Tov NONE Shabbatot). Fall back to
+        // walking forward Saturdays so Israel/Diaspora combined portions stay correct.
         val upcomingShabbatParsha = runCatching {
-            val dowToday = now.get(Calendar.DAY_OF_WEEK) // Sunday=1 … Saturday=7
-            val daysUntilSaturday = (Calendar.SATURDAY - dowToday + 7) % 7
-            // If today is Saturday (daysUntilSaturday == 0) we want next Shabbat in 7 days,
-            // because the app shows the Shabbat screen today anyway.
-            val daysForward = if (daysUntilSaturday == 0) 7 else daysUntilSaturday
-            val shabbatCal = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_MONTH, daysForward) }
-            val jcShabbat = JewishCalendar(shabbatCal.time).apply {
-                inIsrael = profile.isInIsrael
-                isUseModernHolidays = true
-            }
-            val rawName = jcShabbat.parshah?.name
-            if (rawName == null || rawName == "NONE") null else rawName
+            jc.upcomingParshah?.name?.takeIf { it.isNotBlank() && it != "NONE" }
+                ?: findUpcomingParshaName(now, profile.isInIsrael)
         }.getOrNull()
 
         return DayInfo(
@@ -419,7 +423,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         var nextRoshChodesh: UpcomingHoliday? = null
         var nextMinorHoliday: UpcomingHoliday? = null
 
-        for (i in 0..60) {
+        for (i in 0..UpcomingHolidayPlanner.HORIZON_DAYS) {
             val d = from.plus(i, DateTimeUnit.DAY)
             val jc = calendarFor(d)
             if (nextShabbat == null && d.dayOfWeek == DayOfWeek.FRIDAY) {
@@ -447,7 +451,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
                     JewishCalendar.LAG_BAOMER -> nextMinorHoliday =
                         UpcomingHoliday("Lag BaOmer", i, "Minor holiday — 33rd day of the Omer")
                     JewishCalendar.TU_BEAV -> nextMinorHoliday =
-                        UpcomingHoliday("Tu B'Av", i, "Minor holiday — celebration of joy")
+                        UpcomingHoliday("Tu B'Av", i, "Minor holiday")
                     JewishCalendar.TISHA_BEAV -> nextMinorHoliday =
                         UpcomingHoliday("Tisha B'Av", i, "Fast day — mourning the Temple")
                     JewishCalendar.FAST_OF_GEDALYAH -> nextMinorHoliday =
@@ -498,7 +502,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         JewishCalendar.TU_BESHVAT -> "Minor holiday — New Year for Trees"
         JewishCalendar.PESACH_SHENI -> "Minor holiday — Second Passover"
         JewishCalendar.LAG_BAOMER -> "Minor holiday — 33rd day of the Omer"
-        JewishCalendar.TU_BEAV -> "Minor holiday — celebration of joy"
+        JewishCalendar.TU_BEAV -> "Minor holiday"
         // Fast days
         JewishCalendar.FAST_OF_GEDALYAH -> "Fast day — Fast of Gedaliah"
         JewishCalendar.TENTH_OF_TEVES -> "Fast day — Fast of 10 Tevet"
@@ -532,6 +536,24 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         return JewishCalendar(jld).apply { isUseModernHolidays = true }
     }
 
+    /** Walk forward to the next Shabbat that has a weekly parsha (skip Yom Tov NONE). */
+    private fun findUpcomingParshaName(now: Calendar, inIsrael: Boolean): String? {
+        val dowToday = now.get(Calendar.DAY_OF_WEEK)
+        val daysUntilSaturday = (Calendar.SATURDAY - dowToday + 7) % 7
+        var daysForward = if (daysUntilSaturday == 0) 7 else daysUntilSaturday
+        repeat(8) {
+            val shabbatCal = (now.clone() as Calendar).apply { add(Calendar.DAY_OF_MONTH, daysForward) }
+            val jcShabbat = JewishCalendar(shabbatCal.time).apply {
+                this.inIsrael = inIsrael
+                isUseModernHolidays = true
+            }
+            val rawName = jcShabbat.parshah?.name
+            if (rawName != null && rawName != "NONE") return rawName
+            daysForward += 7
+        }
+        return null
+    }
+
     private fun monthName(month: Int): String = when (month) {
         JewishDate.NISSAN -> "Nissan"
         JewishDate.IYAR -> "Iyar"
@@ -559,7 +581,7 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         JewishCalendar.YOM_KIPPUR -> "Yom Kippur"
         JewishCalendar.SUCCOS -> "Sukkot"
         JewishCalendar.CHOL_HAMOED_SUCCOS -> "Chol HaMoed Sukkot"
-        JewishCalendar.HOSHANA_RABBA -> "Hoshana Raba"
+        JewishCalendar.HOSHANA_RABBA -> "Hoshana Rabbah"
         JewishCalendar.SHEMINI_ATZERES -> "Shemini Atzeret"
         JewishCalendar.SIMCHAS_TORAH -> "Simchat Torah"
         JewishCalendar.CHANUKAH -> "Chanukah"

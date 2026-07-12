@@ -30,9 +30,11 @@ import com.beardytop.beatzaddik.App
 import com.beardytop.beatzaddik.AppDependencies
 import com.beardytop.mitzmode.R
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
+import com.beardytop.beatzaddik.platform.KashrutNotifications
 import com.beardytop.beatzaddik.platform.PlatformActivityHolder
 import com.beardytop.beatzaddik.platform.PlatformLocationService
 import com.beardytop.beatzaddik.platform.initKashrutNotifications
+import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -81,6 +83,9 @@ object TzaddikBridge {
         PlatformLocationService.permissionRequestHandler = {
             TzaddikPermissionHost.requestFromActivity(activity)
         }
+        KashrutNotifications.permissionRequestHandler = {
+            TzaddikPermissionHost.requestNotificationPermission(activity)
+        }
         preload(activity.application)
     }
 
@@ -127,6 +132,11 @@ object TzaddikPermissionHost {
             ) {
                 PlatformLocationService.notifyPermissionResult(locationGranted)
             }
+            if (grants.containsKey(Manifest.permission.POST_NOTIFICATIONS)) {
+                KashrutNotifications.notifyPermissionResult(
+                    grants[Manifest.permission.POST_NOTIFICATIONS] == true,
+                )
+            }
         }
     }
 
@@ -156,6 +166,24 @@ object TzaddikPermissionHost {
         if (locationGranted) {
             PlatformLocationService.notifyPermissionResult(true)
         }
+    }
+
+    fun requestNotificationPermission(activity: ComponentActivity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(activity, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            val l = launcher
+            if (l != null) {
+                l.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+            } else {
+                KashrutNotifications.notifyPermissionResult(false)
+            }
+            return
+        }
+        KashrutNotifications.notifyPermissionResult(
+            NotificationManagerCompat.from(activity).areNotificationsEnabled(),
+        )
     }
 }
 
@@ -197,8 +225,8 @@ fun EmbeddedTzaddikChecklist(
                 onRequestClose = onDismiss,
                 returnToMainIcon = { MitzModeSilverEmbossedIcon() },
                 mitzvotCount = completedMitzvot.size,
-                onChecklistItemChecked = { itemId, title ->
-                    viewModel.onChecklistMitzvahChecked(itemId, title)
+                onChecklistItemChecked = { itemId, title, dayKey ->
+                    viewModel.onChecklistMitzvahChecked(itemId, title, dayKey)
                 },
             )
         }

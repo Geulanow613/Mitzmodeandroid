@@ -317,7 +317,6 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
 
         val parsha = if (isShabbat)
             HebrewCalendarEngine.getParshaKey(hd.year, hd.month, hd.day, hd.weekday, profile.isInIsrael)
-                ?.let { key -> ParshaData.forKey(key)?.displayName ?: key.replace('_', ' ') }
         else null
 
         val upcomingShabbatParsha = HebrewCalendarEngine.getUpcomingParshaKey(
@@ -384,7 +383,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             .toInstant(TimeZone.of(profile.timezoneId))
             .toEpochMilliseconds()
 
-        for (i in 0..60) {
+        for (i in 0..UpcomingHolidayPlanner.HORIZON_DAYS) {
             if (nextShabbat != null && nextYomTov != null && nextChanukah != null &&
                 nextPurim != null && nextRoshChodesh != null && nextMinorHoliday != null) break
 

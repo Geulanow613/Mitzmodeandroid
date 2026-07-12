@@ -82,10 +82,24 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         // keeping the real clock for the active time-of-day period.
         val tzeitTonight = SharedZmanimBuilder.build(nowEpochMillis, profile)?.tzeitMillis
         if (HalachicDayRollover.hasRolledOver(nowEpochMillis, tzeitTonight)) {
+            val civilWeekdayChip = date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+            val civilIsErevShabbat = date.dayOfWeek == kotlinx.datetime.DayOfWeek.FRIDAY
+            val civilIsShabbat = date.dayOfWeek == kotlinx.datetime.DayOfWeek.SATURDAY
             val rolled = dayInfoAt(noonMillis(date.plus(1, DateTimeUnit.DAY), tz), profile)
             val period = ZmanPeriodLogic.activePeriodContext(nowEpochMillis, profile, rolled.zmanim)
+            val rolledChipsWithoutCivil = rolled.statusChips.filterNot { chip ->
+                chip == "Erev Shabbat" || chip == "Shabbat" ||
+                    chip in setOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+            }
+            val civilChips = buildList {
+                add(civilWeekdayChip)
+                if (civilIsErevShabbat) add("Erev Shabbat")
+                if (civilIsShabbat) add("Shabbat")
+            }
             return rolled.copy(
+                date = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
+                statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,
@@ -303,7 +317,6 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
 
         val parsha = if (isShabbat)
             HebrewCalendarEngine.getParshaKey(hd.year, hd.month, hd.day, hd.weekday, profile.isInIsrael)
-                ?.let { key -> ParshaData.forKey(key)?.displayName ?: key.replace('_', ' ') }
         else null
 
         val upcomingShabbatParsha = HebrewCalendarEngine.getUpcomingParshaKey(
@@ -370,7 +383,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
             .toInstant(TimeZone.of(profile.timezoneId))
             .toEpochMilliseconds()
 
-        for (i in 0..60) {
+        for (i in 0..UpcomingHolidayPlanner.HORIZON_DAYS) {
             if (nextShabbat != null && nextYomTov != null && nextChanukah != null &&
                 nextPurim != null && nextRoshChodesh != null && nextMinorHoliday != null) break
 
@@ -411,7 +424,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
                     HebrewCalendarEngine.TU_BESHVAT         -> UpcomingHoliday("Tu B'Shvat", i, "Minor holiday — New Year for Trees")
                     HebrewCalendarEngine.PESACH_SHENI        -> UpcomingHoliday("Pesach Sheni", i, "Minor holiday — Second Passover")
                     HebrewCalendarEngine.LAG_BAOMER          -> UpcomingHoliday("Lag BaOmer", i, "Minor holiday — 33rd day of the Omer")
-                    HebrewCalendarEngine.TU_BEAV             -> UpcomingHoliday("Tu B'Av", i, "Minor holiday — celebration of joy")
+                    HebrewCalendarEngine.TU_BEAV             -> UpcomingHoliday("Tu B'Av", i, "Minor holiday")
                     HebrewCalendarEngine.TISHA_BEAV          -> UpcomingHoliday("Tisha B'Av", i, "Fast day — mourning the Temple")
                     HebrewCalendarEngine.FAST_OF_GEDALYAH    -> UpcomingHoliday("Fast of Gedaliah", i, "Fast day")
                     HebrewCalendarEngine.TENTH_OF_TEVES      -> UpcomingHoliday("Fast of 10 Tevet", i, "Fast day")
@@ -526,7 +539,7 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         HebrewCalendarEngine.YOM_KIPPUR          -> "Yom Kippur"
         HebrewCalendarEngine.SUCCOS              -> "Sukkot"
         HebrewCalendarEngine.CHOL_HAMOED_SUCCOS  -> "Chol HaMoed Sukkot"
-        HebrewCalendarEngine.HOSHANA_RABBA       -> "Hoshana Raba"
+        HebrewCalendarEngine.HOSHANA_RABBA       -> "Hoshana Rabbah"
         HebrewCalendarEngine.SHEMINI_ATZERES     -> "Shemini Atzeret"
         HebrewCalendarEngine.SIMCHAS_TORAH       -> "Simchat Torah"
         HebrewCalendarEngine.CHANUKAH            -> "Chanukah"

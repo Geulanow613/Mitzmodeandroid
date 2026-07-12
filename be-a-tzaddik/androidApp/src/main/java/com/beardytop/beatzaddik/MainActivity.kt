@@ -1,6 +1,7 @@
 package com.beardytop.beatzaddik
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -11,12 +12,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.beardytop.beatzaddik.platform.KashrutNotifications
 import com.beardytop.beatzaddik.platform.PlatformActivityHolder
 import com.beardytop.beatzaddik.platform.PlatformLocationService
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.platform.flushPendingLauncherAliasDisable
+import com.beardytop.beatzaddik.platform.handleAppNavigationIntent
 import com.beardytop.beatzaddik.platform.initKashrutNotifications
 import com.beardytop.beatzaddik.platform.recordLauncherEntryIntent
+import androidx.core.app.NotificationManagerCompat
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.android.translation.ProvideAppTranslation
 import com.beardytop.beatzaddik.viewmodel.TranslationViewModel
@@ -35,6 +39,11 @@ class MainActivity : ComponentActivity() {
         if (grants.keys.any { it == Manifest.permission.ACCESS_FINE_LOCATION || it == Manifest.permission.ACCESS_COARSE_LOCATION }) {
             PlatformLocationService.notifyPermissionResult(locationGranted)
         }
+        if (grants.containsKey(Manifest.permission.POST_NOTIFICATIONS)) {
+            KashrutNotifications.notifyPermissionResult(
+                grants[Manifest.permission.POST_NOTIFICATIONS] == true,
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,8 +52,10 @@ class MainActivity : ComponentActivity() {
         PlatformActivityHolder.bind(this)
         enableEdgeToEdge()
         initKashrutNotifications(applicationContext)
+        handleAppNavigationIntent(intent)
         val locationService = PlatformLocationService(applicationContext)
         PlatformLocationService.permissionRequestHandler = { requestNeededPermissions() }
+        KashrutNotifications.permissionRequestHandler = { requestNotificationPermission() }
         requestNeededPermissions()
 
         val deps = runBlocking {
@@ -69,6 +80,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleAppNavigationIntent(intent)
+    }
+
     private fun requestNeededPermissions() {
         val needed = mutableListOf<String>()
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -84,6 +101,19 @@ class MainActivity : ComponentActivity() {
             needed += Manifest.permission.POST_NOTIFICATIONS
         }
         if (needed.isNotEmpty()) permissionLauncher.launch(needed.toTypedArray())
+    }
+
+    private fun requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            permissionLauncher.launch(arrayOf(Manifest.permission.POST_NOTIFICATIONS))
+            return
+        }
+        KashrutNotifications.notifyPermissionResult(
+            NotificationManagerCompat.from(this).areNotificationsEnabled(),
+        )
     }
 
     override fun onStop() {

@@ -1,5 +1,9 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+
 /**
  * Halachic day boundaries for mitzvot counted from tzeit to tzeit (nightfall to nightfall).
  */
@@ -20,5 +24,24 @@ object TzeitDay {
             else -> todayTzeit
         }
         return dayStart?.toString()
+    }
+
+    /**
+     * Stable day key for prefs that must not flicker when zmanim are missing.
+     * Prefers tzeit→tzeit; falls back to the civil calendar date in [timezoneId].
+     */
+    fun currentKeyOrCivilDate(
+        nowMillis: Long,
+        today: DayInfo,
+        yesterday: DayInfo,
+        timezoneId: String,
+    ): String {
+        currentKey(nowMillis, today, yesterday)?.let { return it }
+        return runCatching {
+            Instant.fromEpochMilliseconds(nowMillis)
+                .toLocalDateTime(TimeZone.of(timezoneId))
+                .date
+                .toString()
+        }.getOrElse { "civil-$nowMillis" }
     }
 }

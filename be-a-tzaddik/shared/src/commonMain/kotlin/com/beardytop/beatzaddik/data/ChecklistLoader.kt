@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik.data
 
+import com.beardytop.beatzaddik.domain.TextEncodingFixes
 import com.beardytop.beatzaddik.domain.ChecklistItemDef
 import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.domain.EffectiveNusach
@@ -89,8 +90,8 @@ object ChecklistLoader {
 
     private fun ChecklistItemJson.toDef() = ChecklistItemDef(
         id = id,
-        title = title,
-        section = section,
+        title = TextEncodingFixes.sanitizeDisplayTitle(title),
+        section = TextEncodingFixes.repairMojibake(section),
         timeOfDay = when (timeOfDay.lowercase()) {
             "day" -> TimeOfDay.DAY
             "afternoon" -> TimeOfDay.AFTERNOON
@@ -102,13 +103,19 @@ object ChecklistLoader {
         gender = gender,
         married = married,
         hasChildren = hasChildren,
-        explanation = explanation,
-        explanationFemale = explanationFemale,
-        explanationAshkenaz = explanationAshkenaz,
-        explanationSefard = explanationSefard,
-        explanationEdotHamizrach = explanationEdotHamizrach,
-        explanationChabad = explanationChabad,
-        links = links.map { ChecklistLink(it.displayText, it.url, it.nusach) },
+        explanation = TextEncodingFixes.repairMojibake(explanation),
+        explanationFemale = TextEncodingFixes.repairMojibake(explanationFemale),
+        explanationAshkenaz = TextEncodingFixes.repairMojibake(explanationAshkenaz),
+        explanationSefard = TextEncodingFixes.repairMojibake(explanationSefard),
+        explanationEdotHamizrach = TextEncodingFixes.repairMojibake(explanationEdotHamizrach),
+        explanationChabad = TextEncodingFixes.repairMojibake(explanationChabad),
+        links = links.map {
+            ChecklistLink(
+                TextEncodingFixes.repairMojibake(it.displayText),
+                it.url,
+                it.nusach,
+            )
+        },
         hideOnShabbat = hideOnShabbat,
         shabbatOnly = shabbatOnly,
         shabbatEveOnly = shabbatEveOnly,

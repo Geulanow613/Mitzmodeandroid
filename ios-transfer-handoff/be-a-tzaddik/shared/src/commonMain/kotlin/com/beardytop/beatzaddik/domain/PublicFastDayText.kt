@@ -20,7 +20,7 @@ object PublicFastDayText {
     private const val TENTH_OF_TEVES_FRIDAY_NOTE =
         "\n\n10 Tevet on Friday: This is the only public fast that is never postponed. If it falls on Friday, you still fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
     private const val FAST_OF_ESTHER_FRIDAY_NOTE =
-        "\n\nFast of Esther on Friday: Many communities still fast until shortly before Shabbat; break in time for Shabbat preparations — ask your rav for local practice."
+        "\n\nFast of Esther note: Under the fixed Hebrew calendar, Taanit Esther does not occur on Friday. When 13 Adar is Shabbat, the fast is moved back to Thursday (Shulchan Arukh O.C. 686)."
     private const val SHABBAT_EREV_TISHA_BEAV_NOTE = """
 
 Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
@@ -207,7 +207,7 @@ Tomorrow is ${'$'}fastName — a public fast from dawn (alot hashachar) until ni
 
 If you plan to eat before the fast begins:
 • Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
-• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).
+• If you wake before dawn and want to eat before the fast begins, stick to water, coffee, fruit, or a very small snack. Establishing a formal meal or eating a significant amount of baked goods or bread is restricted if you wake up early to eat.
 • Stop all eating and drinking at alot hashachar${'$'}alotLine.
 
 Practical prep tonight:
@@ -366,6 +366,8 @@ Ask your rav for details if you are ill, pregnant, or nursing.
             HebrewCalendarEngine.TISHA_BEAV -> mapOf(
                 "tzeitSuffix" to tzeitSuffix,
                 "time" to (tzeitTime ?: ""),
+                "tefillinNote" to TishaBeavTefillinRules.fastDayTefillinNote(profile.effectiveNusach()),
+                "travelNote" to TishaBeavTefillinRules.FAST_DAY_TRAVEL_NOTE,
                 "common" to common,
             )
             else -> emptyMap()
@@ -419,16 +421,16 @@ What is forbidden today (in addition to eating and drinking):
 • Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
 • Greeting people with "hello" during the fast day — even after chatzos, do not greet or reply to greetings until nightfall when the fast ends.
 • Idle conversation; work is discouraged (follow your community).
-• Tefillin are not worn in the morning (like the day of burial); tallit and tefillin are worn at Mincha after halachic chatzos.
+• ${'$'}tefillinNote
 • Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
 • Hand washing: only to remove ritual impurity — wash only to the knuckle where fingers join the hand; or to remove actual dirt on the hand.
 • Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
-• Do not fly on Tisha B'Av, even to Israel to make aliyah.
+• ${'$'}travelNote
 
 What is permitted (unlike Yom Kippur in some communities):
 • Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
 
-After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast; meat and wine often wait until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
+After the fast day is over, after nightfall when the fast ends: some mourning restrictions of the Nine Days begin to lift — but Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av (not at nightfall of 9 Av itself). When 9 Av was Shabbat and the fast was Sunday, laundry, bathing, and haircuts may be permitted Motzei fast for Ashkenazim; meat and wine often wait until Monday morning. Note for Sephardic users: when the fast is pushed to Sunday, restrictions on laundry, haircuts, and bathing lift immediately on Sunday night; only meat and wine are restricted until Monday morning. When 10 Av is Friday, haircuts, laundry, and bathing may be permitted Friday morning for Shabbat prep; meat and wine for Ashkenazim often until Friday chatzos. Ask your rav before resuming.
 
 ${'$'}common
     """.trimIndent()

@@ -104,7 +104,10 @@ fun HolyLightChecklistRow(
         item.zmanAvailability
     }
     val zmanMuted = liveAvailability != ItemZmanAvailability.ACTIVE
-    val isZmanTracked = tracksZman && zmanMuted
+    // On a fast day, users should immediately see the fast's start time.
+    // So don't minimize the fast-day row into the collapsed-zman style.
+    val shouldMinimizeZmanRow = tracksZman && zmanMuted && item.def.id != "public_fast_day"
+    val isZmanTracked = shouldMinimizeZmanRow
     val canCheck = !zmanMuted
 
     if (isZmanTracked) {
@@ -302,9 +305,9 @@ private fun ExpandedZmanHintPanel(
             )
             val makeupTemplate = item.zmanMakeupTemplate
             val makeupPlain = item.zmanMakeupNote
-            if (item.zmanAvailability == ItemZmanAvailability.EXPIRED &&
-                (makeupTemplate != null || makeupPlain != null)
-            ) {
+    if ((makeupTemplate != null || makeupPlain != null) &&
+        item.zmanAvailability != ItemZmanAvailability.ACTIVE
+    ) {
                 val displayNote = if (makeupTemplate != null) {
                     rememberAppTranslatedTemplate(makeupTemplate, item.zmanMakeupArgs)
                 } else {

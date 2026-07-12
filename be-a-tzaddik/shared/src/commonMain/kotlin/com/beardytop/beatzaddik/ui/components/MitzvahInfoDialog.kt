@@ -37,6 +37,7 @@ fun MitzvahInfoDialog(
     onDismiss: () -> Unit
 ) {
     PlatformBackHandler(onBack = onDismiss)
+    ProvideAppImageViewer {
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -128,5 +129,6 @@ fun MitzvahInfoDialog(
                 Icon(Icons.Default.Close, "Close", tint = TzaddikColors.GoldBright)
             }
         }
+    }
     }
 }

@@ -38,8 +38,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.beardytop.mitzmode.ui.components.*
 import com.beardytop.mitzmode.util.MitzvahLevels
+import com.beardytop.mitzmode.util.VideoManager
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import kotlinx.coroutines.delay
+import androidx.compose.runtime.withFrameNanos
 
 @Composable
 fun MitzModeApp(
@@ -51,6 +53,8 @@ fun MitzModeApp(
     val showMusicReward by viewModel.showMusicReward.collectAsStateWithLifecycle()
     val completedMitzvot by viewModel.completedMitzvot.collectAsStateWithLifecycle()
     val showTour by viewModel.showTour.collectAsStateWithLifecycle()
+    var pastFirstFrame by remember { mutableStateOf(false) }
+    val tourActive = showTour && pastFirstFrame
     var showMitzvahInfo by remember { mutableStateOf(false) }
     var showAbout by remember { mutableStateOf(false) }
     var showMenu by remember { mutableStateOf(false) }
@@ -71,10 +75,10 @@ fun MitzModeApp(
     val tourSteps = remember {
         listOf(
             TourStep(
-                "Tap the Mitzvah Me button any time for a fresh mitzvah and some instant inspiration."
+                "Welcome to Mitz Mode! Tap the Mitzvah Me button any time for a fresh mitzvah and some instant inspiration."
             ),
             TourStep(
-                "New to Judaism—or ready to level up your day? 'Check' out the Daily Mitzvot Checklist! " +
+                "New to Judaism—or ready to level up your day? 'Check' out the Holy Light Checklist! " +
                     "It's your smart Torah companion: GPS powers live zmanim so you know when to daven, observe holidays, light candles, and more! " +
                     "See the daily mitzvot available to you, tap any item for clear explanations on how to follow the Torah, and ride with Heavenly vibes!"
             ),
@@ -93,9 +97,26 @@ fun MitzModeApp(
             showMenu = false
         }
     }
+
+    LaunchedEffect(Unit) {
+        withFrameNanos { }
+        pastFirstFrame = true
+        viewModel.onMainScreenReady()
+    }
     
     val context = LocalContext.current
-    // Video completely disabled to prevent flickering issues
+
+    DisposableEffect(showDailyMitzvot) {
+        if (!showDailyMitzvot) {
+            return@DisposableEffect onDispose { }
+        }
+        val videoManager = VideoManager.getInstance(context)
+        viewModel.cancelRewardPrewarm()
+        videoManager.setChecklistOpen(true)
+        onDispose {
+            videoManager.setChecklistOpen(false)
+        }
+    }
 
     LaunchedEffect(showThankYou) {
         if (showThankYou) {
@@ -103,7 +124,7 @@ fun MitzModeApp(
             showThankYou = false
         }
     }
-    
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -172,7 +193,7 @@ fun MitzModeApp(
                         // Align vertically with the top-right counter pill.
                         .padding(top = topPadding + 8.dp, start = 14.dp)
                         .then(
-                            if (showTour) Modifier.onGloballyPositioned { coords ->
+                            if (tourActive) Modifier.onGloballyPositioned { coords ->
                                 rootLayoutCoords?.let { root ->
                                     val pos = root.localPositionOf(coords, Offset.Zero)
                                     val sz = coords.size
@@ -207,14 +228,14 @@ fun MitzModeApp(
                                     style = Stroke(width = menuBorderPx)
                                 )
                             }
-                            .clickable { if (!showTour) showMenu = true },
+                            .clickable { if (!tourActive) showMenu = true },
                         contentAlignment = Alignment.Center
                     ) {
                         MenuDotsIcon(tint = Color(0xFFFFE082))
                     }
                     DropdownMenu(
                         expanded = showMenu,
-                        onDismissRequest = { if (!showTour) showMenu = false },
+                        onDismissRequest = { if (!tourActive) showMenu = false },
                         offset = DpOffset(menuDropdownOffsetX, 6.dp),
                         modifier = Modifier
                             .width(menuDropdownWidth)
@@ -231,53 +252,53 @@ fun MitzModeApp(
                         DropdownMenuItem(
                             text = { TranslatableText("About", enableHalachicTerms = false) },
                             onClick = {
-                                if (!showTour) {
+                                if (!tourActive) {
                                     showMenu = false
                                     showAbout = true
                                 }
                             },
-                            enabled = !showTour
+                            enabled = !tourActive
                         )
                         DropdownMenuItem(
                             text = { TranslatableText("Birkat HaMazon", enableHalachicTerms = false) },
                             onClick = {
-                                if (!showTour) {
+                                if (!tourActive) {
                                     showMenu = false
                                     showBirkatHamazon = true
                                 }
                             },
-                            enabled = !showTour
+                            enabled = !tourActive
                         )
                         DropdownMenuItem(
                             text = { TranslatableText("Traveler's Prayer", enableHalachicTerms = false) },
                             onClick = {
-                                if (!showTour) {
+                                if (!tourActive) {
                                     showMenu = false
                                     showTefilat = true
                                 }
                             },
-                            enabled = !showTour
+                            enabled = !tourActive
                         )
                         DropdownMenuItem(
                             text = { TranslatableText("Blessings", enableHalachicTerms = false) },
                             onClick = {
-                                if (!showTour) {
+                                if (!tourActive) {
                                     showMenu = false
                                     showBrachot = true
                                 }
                             },
-                            enabled = !showTour
+                            enabled = !tourActive
                         )
 
                         DropdownMenuItem(
                             text = { TranslatableText("🎵 Official App Song", enableHalachicTerms = false) },
                             onClick = {
-                                if (!showTour) {
+                                if (!tourActive) {
                                     showMenu = false
                                     showMusicPlayer = true
                                 }
                             },
-                            enabled = !showTour
+                            enabled = !tourActive
                         )
                     }
                 }
@@ -292,7 +313,7 @@ fun MitzModeApp(
                         .align(Alignment.TopEnd)
                         .padding(top = topPadding + 8.dp, end = 14.dp)
                         .then(
-                            if (showTour) Modifier.onGloballyPositioned { coords ->
+                            if (tourActive) Modifier.onGloballyPositioned { coords ->
                                 rootLayoutCoords?.let { root ->
                                     val pos = root.localPositionOf(coords, Offset.Zero)
                                     val sz = coords.size
@@ -357,12 +378,12 @@ fun MitzModeApp(
                 val buttonModifier = Modifier
                     .padding(16.dp)
                     .align(Alignment.Center)
-                    .padding(bottom = 72.dp)
+                    .padding(bottom = 52.dp)
 
                 Box(
                     modifier = buttonModifier
                         .then(
-                            if (showTour) Modifier.onGloballyPositioned { coords ->
+                            if (tourActive) Modifier.onGloballyPositioned { coords ->
                                 rootLayoutCoords?.let { root ->
                                     val pos = root.localPositionOf(coords, Offset.Zero)
                                     val sz = coords.size
@@ -389,68 +410,29 @@ fun MitzModeApp(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .offset(y = (-20).dp)
-                            .then(
-                                if (showTour) Modifier.onGloballyPositioned { coords ->
-                                    rootLayoutCoords?.let { root ->
-                                        val pos = root.localPositionOf(coords, Offset.Zero)
-                                        val sz = coords.size
-                                        tourStepBounds = tourStepBounds + (
-                                            1 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height)
-                                        )
-                                    }
-                                } else Modifier
-                            )
-                            .shadow(
-                                elevation = 16.dp,
-                                shape = RoundedCornerShape(50),
-                                spotColor = Color(0xFFFFD56B)
-                            )
-                            .clip(RoundedCornerShape(50))
-                            .background(
-                                brush = Brush.horizontalGradient(
-                                    colors = listOf(
-                                        Color(0xFFFFF3B5),
-                                        Color(0xFFFFE082),
-                                        Color(0xFFFFD56B),
-                                        Color(0xFFE0AB2F)
+                    HolyLightChecklistHomeButton(
+                        onClick = {
+                            VideoManager.getInstance(context).cancelIdlePrewarm()
+                            showDailyMitzvot = true
+                        },
+                        modifier = Modifier.then(
+                            if (tourActive) Modifier.onGloballyPositioned { coords ->
+                                rootLayoutCoords?.let { root ->
+                                    val pos = root.localPositionOf(coords, Offset.Zero)
+                                    val sz = coords.size
+                                    tourStepBounds = tourStepBounds + (
+                                        1 to Rect(pos.x, pos.y, pos.x + sz.width, pos.y + sz.height)
                                     )
-                                )
-                            )
-                            .border(
-                                width = 1.6.dp,
-                                color = Color(0xFFFFF8D6),
-                                shape = RoundedCornerShape(50)
-                            )
-                            .clickable { showDailyMitzvot = true }
-                            .padding(horizontal = 24.dp, vertical = 15.dp),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        TranslatableText(
-                            "Daily Mitzvot Checklist",
-                            enableHalachicTerms = false,
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontWeight = FontWeight.Bold,
-                                letterSpacing = 0.55.sp,
-                                textAlign = TextAlign.Center,
-                                shadow = Shadow(
-                                    color = Color.Black.copy(alpha = 0.32f),
-                                    offset = Offset(0f, 1.8f),
-                                    blurRadius = 2.8f
-                                )
-                            ),
-                            color = Color(0xFF1A3D72)
-                        )
-                    }
+                                }
+                            } else Modifier
+                        ),
+                    )
 
                     // Add a Mitzvah (tour step 3)
                     Box(
                         modifier = Modifier
                             .then(
-                                if (showTour) Modifier.onGloballyPositioned { coords ->
+                                if (tourActive) Modifier.onGloballyPositioned { coords ->
                                     rootLayoutCoords?.let { root ->
                                         val pos = root.localPositionOf(coords, Offset.Zero)
                                         val sz = coords.size
@@ -595,6 +577,7 @@ fun MitzModeApp(
             val activity = LocalContext.current as ComponentActivity
             EmbeddedTzaddikChecklist(
                 activity = activity,
+                viewModel = viewModel,
                 onDismiss = { showDailyMitzvot = false }
             )
         }
@@ -634,8 +617,8 @@ fun MitzModeApp(
             )
         }
 
-        // Tour: 0 = Mitzvah Me, 1 = Daily Mitzvot Checklist, 2 = ⋮ menu, 3 = Add a Mitzvah, 4 = level
-        if (showTour) {
+        // Tour: 0 = Mitzvah Me, 1 = Holy Light Checklist, 2 = ⋮ menu, 3 = Add a Mitzvah, 4 = level
+        if (tourActive) {
             AppTourOverlay(
                 currentStep = currentTourStep,
                 steps = tourSteps,

@@ -8301,7 +8301,7 @@
     },
     {
       "id": "gaza_city",
-      "label": "Gaza City, Palestine",
+      "label": "Gaza City, Gaza Strip",
       "latitude": 31.5017,
       "longitude": 34.4668,
       "timezoneId": "Asia/Gaza",
@@ -17029,7 +17029,7 @@
     },
     {
       "id": "nablus_ps",
-      "label": "Nablus, Palestinian Territory",
+      "label": "Nablus, West Bank",
       "latitude": 32.2211,
       "longitude": 35.2544,
       "timezoneId": "Asia/Hebron",
@@ -20706,7 +20706,7 @@
     },
     {
       "id": "rafah_ps",
-      "label": "Rafah, Palestinian Territory",
+      "label": "Rafah, Gaza Strip",
       "latitude": 31.2972,
       "longitude": 34.2436,
       "timezoneId": "Asia/Gaza"
@@ -20791,7 +20791,7 @@
     },
     {
       "id": "ramallah",
-      "label": "Ramallah, Palestine",
+      "label": "Ramallah, West Bank",
       "latitude": 31.9038,
       "longitude": 35.2034,
       "timezoneId": "Asia/Hebron",
@@ -28317,7 +28317,7 @@
     },
     {
       "id": "hebron_il",
-      "label": "Hebron, Israel",
+      "label": "Hebron, West Bank",
       "latitude": 31.5326,
       "longitude": 35.0998,
       "timezoneId": "Asia/Jerusalem",
@@ -28333,7 +28333,7 @@
     },
     {
       "id": "jericho_il",
-      "label": "Jericho (Yericho), Israel",
+      "label": "Jericho (Yericho), West Bank",
       "latitude": 31.8611,
       "longitude": 35.4614,
       "timezoneId": "Asia/Jerusalem",
@@ -28357,7 +28357,7 @@
     },
     {
       "id": "shechem_il",
-      "label": "Shechem (Nablus), Israel",
+      "label": "Shechem (Nablus), West Bank",
       "latitude": 32.2211,
       "longitude": 35.2544,
       "timezoneId": "Asia/Jerusalem",

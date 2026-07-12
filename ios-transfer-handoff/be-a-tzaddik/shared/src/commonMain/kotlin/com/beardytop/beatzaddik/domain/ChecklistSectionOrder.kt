@@ -14,12 +14,15 @@ object ChecklistSectionOrder {
     }
 
     private val prepSectionSortPriority = mapOf(
+        "Motzei Yom Kippur" to -70,
         "Motzei Shabbat" to -60,
+        "Hoshana Rabbah" to -65,
         "Chol HaMoed" to -55,
         "Seasonal" to -50,
         "Pesach prep" to -40,
         "Prepare for the festival" to -30,
         "Fasts" to -45,
+        "Sefirat HaOmer" to -48,
         "Chanukah" to -25,
     )
 
@@ -31,6 +34,7 @@ object ChecklistSectionOrder {
     ): Set<String> = buildSet {
         if (BirkatHachamahRules.visibleOccurrence(cal.date) != null) add("Seasonal")
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
+        if (SeasonalChecklistItems.isNightAfterYomKippur(cal)) add("Motzei Yom Kippur")
         if (
             "erev_chag" in cal.activeSeasons ||
             cal.festivalWeekPrep() != null ||
@@ -46,7 +50,10 @@ object ChecklistSectionOrder {
         ) {
             add("Purim")
         }
-        if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
+        // Chanukah: during afternoon/night (until alot), promote the Chanukah section so
+        // the lighting mitzvah is easy to find. In the morning, keep normal ordering/collapse.
+        if (cal.isChanukah && cal.activeTimeOfDay != TimeOfDay.DAY) add("Chanukah")
+        else if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
         if ("fast_day" in cal.activeSeasons ||
             "erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||
             "erev_tisha_beav" in cal.activeSeasons
@@ -58,6 +65,16 @@ object ChecklistSectionOrder {
         }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
             add("Chol HaMoed")
+        }
+        if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+            add("Hoshana Rabbah")
+        }
+        if (OmerCountText.isOmerCountPriority(nowMillis, cal)) {
+            add("Sefirat HaOmer")
+        }
+        // Erev Shabbat: after midday, surface Shabbat prep near the top.
+        if (cal.isErevShabbat && cal.activeTimeOfDay != TimeOfDay.DAY) {
+            add("Prepare for Shabbat")
         }
     }
 
@@ -76,6 +93,28 @@ object ChecklistSectionOrder {
     ): Int {
         val base = baseName(section)
         if (base in prioritizePrepSections) {
+            // Chanukah should sit right under the current prayer block (not above it).
+            if (base == "Chanukah") {
+                return when (activePeriod) {
+                    TimeOfDay.AFTERNOON -> 1 // right below Mincha section
+                    TimeOfDay.NIGHT -> 1 // right below Maariv section
+                    else -> prepSectionSortPriority[base] ?: -20
+                }
+            }
+            // Erev Shabbat: keep prep directly under the current prayer block.
+            if (base == "Prepare for Shabbat") {
+                return when (activePeriod) {
+                    TimeOfDay.AFTERNOON -> -1 // very top on Friday afternoon
+                    TimeOfDay.NIGHT -> 1 // right below Maariv section
+                    else -> prepSectionSortPriority[base] ?: -20
+                }
+            }
+            if (base == "Sefirat HaOmer") {
+                return when (activePeriod) {
+                    TimeOfDay.NIGHT -> 1 // right below Maariv section
+                    else -> prepSectionSortPriority[base] ?: -20
+                }
+            }
             return prepSectionSortPriority[base] ?: -20
         }
         val defaultIndex = ChecklistEngine.sectionOrder.indexOf(base).takeIf { it >= 0 } ?: 200
@@ -95,19 +134,22 @@ object ChecklistSectionOrder {
         return when (activePeriod) {
             TimeOfDay.DAY -> when (base) {
                 "Upon waking" -> 0
-                "Morning Prayer (Shacharit)" -> 1
+                "Selichot" -> 1
+                "Morning Prayer (Shacharit)" -> 2
                 else -> rest
             }
             TimeOfDay.AFTERNOON -> when (base) {
                 "Afternoon Prayer" -> 0
                 "Upon waking" -> 1
-                "Morning Prayer (Shacharit)" -> 2
+                "Selichot" -> 2
+                "Morning Prayer (Shacharit)" -> 3
                 else -> rest
             }
             TimeOfDay.NIGHT -> when (base) {
                 "Evening Prayer" -> 0
                 "Upon waking" -> 1
-                "Monthly" -> 2
+                "Selichot" -> 2
+                "Monthly" -> 3
                 else -> rest
             }
             TimeOfDay.ANY -> defaultIndex

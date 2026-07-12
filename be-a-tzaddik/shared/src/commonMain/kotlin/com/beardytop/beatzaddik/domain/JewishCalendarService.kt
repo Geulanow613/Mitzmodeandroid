@@ -48,6 +48,7 @@ class JewishCalendarService(
         }
         return (fromPlanner + fromOverlay)
             .distinctBy { it.name }
+            .filter { it.daysAway <= UpcomingHolidayPlanner.HORIZON_DAYS }
             .sortedBy { it.daysAway }
             .take(8)
     }

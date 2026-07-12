@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.compose.ui.window.SecureFlagPolicy
 import androidx.media3.exoplayer.ExoPlayer
+import com.beardytop.mitzmode.util.RewardVideoAssets
 import com.beardytop.mitzmode.util.VideoManager
 import com.beardytop.mitzmode.viewmodel.MitzModeViewModel
 import kotlinx.coroutines.delay
@@ -32,28 +33,35 @@ fun RewardVideoDialog(
 ) {
     val context = LocalContext.current
     val videoManager = remember { VideoManager.getInstance(context) }
-    var exoPlayer by remember { mutableStateOf<ExoPlayer?>(null) }
+    val textureView = remember(videoNumber) { videoManager.createTextureView(context) }
+    var exoPlayer by remember(videoNumber) { mutableStateOf<ExoPlayer?>(null) }
     var muted by remember(videoNumber) { mutableStateOf(false) }
     val isFinalReward = videoNumber == MitzModeViewModel.FINAL_REWARD_VIDEO_ID
     val normalVolume = remember { 1f }
 
     LaunchedEffect(videoNumber) {
-        val asset = if (isFinalReward) "finalreward.mp4" else "mitzmodenew$videoNumber.mp4"
+        val asset = RewardVideoAssets.assetForVideoId(videoNumber) ?: run {
+            onDismiss()
+            return@LaunchedEffect
+        }
         val player = videoManager.createRewardPlayer(
             videoAsset = asset,
             onComplete = onDismiss,
-            onError = {
-                onDismiss()
-            },
-            volume = if (isFinalReward) MitzModeViewModel.FINAL_REWARD_PLAYER_VOLUME_UNMUTED else null
+            onError = { onDismiss() },
+            volume = if (isFinalReward) MitzModeViewModel.FINAL_REWARD_PLAYER_VOLUME_UNMUTED else null,
         )
         if (player == null) {
             onDismiss()
             return@LaunchedEffect
         }
         exoPlayer = player
-        // Surface attach + prepare happen in [VideoManager.attachRewardSurface]; play starts when ready.
+        videoManager.bindRewardTextureView(textureView)
         videoManager.startRewardPlayback()
+    }
+
+    LaunchedEffect(exoPlayer) {
+        exoPlayer ?: return@LaunchedEffect
+        videoManager.bindRewardTextureView(textureView)
     }
 
     LaunchedEffect(exoPlayer, muted, normalVolume) {
@@ -83,17 +91,18 @@ fun RewardVideoDialog(
                 .fillMaxSize()
                 .background(Color.Black)
         ) {
-            exoPlayer?.let {
-                AndroidView(
-                    factory = { ctx ->
-                        videoManager.createTextureView(ctx)
-                    },
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .fillMaxWidth()
-                        .aspectRatio(9f / 16f)
-                )
-            }
+            AndroidView(
+                factory = { textureView },
+                update = { view ->
+                    if (exoPlayer != null) {
+                        videoManager.bindRewardTextureView(view)
+                    }
+                },
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .aspectRatio(9f / 16f)
+            )
 
             levelName?.let { level ->
                 if (!isFinalReward) {
@@ -153,7 +162,7 @@ private fun LevelUpOverlay(level: String) {
     
     LaunchedEffect(Unit) {
         while (true) {
-            delay(100) // Change color every 100ms
+            delay(400)
             currentColorIndex = (currentColorIndex + 1) % rainbowColors.size
         }
     }
