@@ -795,6 +795,10 @@ Why:
     private val SELICHOT_EXPLANATION = """
 Selichot (literally "Forgivenesses") is a formal order of liturgical prayer — penitential piyutim and biblical verses — recited in the lead-up to Rosh Hashana and Yom Kippur. It is not merely informal preparation before the High Holidays: it is a distinct service built around pleas for forgiveness and the Thirteen Attributes of Mercy (Shlosh-Esrei Midot Harachamim).
 
+What you need:
+• A special Selichot prayerbook (machzor / kuntres of Selichot) matched to your nusach — a regular weekday siddur usually does not include the full order.
+• Bring your own, borrow from shul, or use a free online edition (many nuschaos are available digitally). Match Ashkenaz, Sephard, Edot HaMizrach, or Nusach Ari (Chabad) to your community.
+
 The Core: The 13 Attributes of Mercy
 
 The absolute centerpiece of every Selichot service is the repeated recitation of the Thirteen Attributes of Divine Mercy (Shlosh-Esrei Midot Harachamim).
@@ -822,7 +826,7 @@ During Elul before Selichot begin:
 
 When Selichot begin:
 • Follow your local Chabad minyan — often late night or before Shacharit.
-• Use Nusach Ari for Selichot.
+• Use a Nusach Ari Selichot book (or a free online Nusach Ari edition) — not a generic Ashkenaz Selichot booklet.
 • Increase in Torah, teshuvah, and tzedakah through the month of Elul.
     """.trim()
 
@@ -983,6 +987,7 @@ Erev Tisha B'Av (8 Av afternoon): stop learning Torah except sad topics; eat the
 
 Tisha B'Av (9 Av) — the fast and the day:
 • Full 25-hour fast from sunset to nightfall; kinot at Shacharit without tallit and tefillin (Ashkenazi/Chabad omit morning tefillin; Sephardi custom varies).
+• To follow along with the kinot (elegies), you need a Kinnot / Kinot prayerbook (or a free online Kinnot edition for your nusach) — a regular siddur does not include them.
 • ${TishaBeavTefillinRules.fastDayTefillinNote(nusach)}
 • Until chatzos on 9 Av: maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm).
 • After chatzos on 9 Av: the five afflictions still apply until nightfall when the fast ends — but do not greet others during the fast day (until nightfall when the fast ends).

@@ -74,7 +74,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import beatzaddik.shared.generated.resources.Res
 import beatzaddik.shared.generated.resources.ic_torah_scroll
-import com.beardytop.beatzaddik.domain.ChecklistLink
 import com.beardytop.beatzaddik.domain.GeneratorMitzvah
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -296,10 +295,6 @@ fun MitzvahGeneratorDialog(
                                 )
                                 Spacer(Modifier.height(8.dp))
 
-                                val knownLinks = mitzvah.links.map {
-                                    ChecklistLink(it.displayText, it.url)
-                                }
-
                                 Column(
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -308,6 +303,7 @@ fun MitzvahGeneratorDialog(
                                         .padding(horizontal = 28.dp, vertical = 6.dp),
                                     verticalArrangement = Arrangement.spacedBy(10.dp),
                                 ) {
+                                    // Body: glossary underlines only. Resource URLs stay in the rows below.
                                     AppText(
                                         text = mitzvah.text,
                                         style = MaterialTheme.typography.bodyLarge.copy(
@@ -317,7 +313,6 @@ fun MitzvahGeneratorDialog(
                                         color = TextBrown,
                                         textAlign = TextAlign.Center,
                                         modifier = Modifier.fillMaxWidth(),
-                                        knownLinks = knownLinks,
                                     )
 
                                     mitzvah.links.forEach { link ->
@@ -494,13 +489,14 @@ private fun GeneratorLinkText(
     modifier: Modifier = Modifier,
 ) {
     val uriHandler = LocalUriHandler.current
+    val openAppImage = LocalOpenAppImage.current
     AppText(
         text = displayText,
         style = style,
         textAlign = TextAlign.Center,
         enableTerms = false,
         modifier = modifier.clickable {
-            runCatching { uriHandler.openUri(url) }
+            openChecklistUri(url, uriHandler, openAppImage)
         },
     )
 }

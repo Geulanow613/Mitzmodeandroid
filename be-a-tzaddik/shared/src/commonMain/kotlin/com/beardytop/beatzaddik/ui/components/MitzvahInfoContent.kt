@@ -18,6 +18,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -170,55 +172,59 @@ private fun RichExplanationText(
     text: String,
     knownLinks: List<ChecklistLink> = emptyList(),
 ) {
-    val paragraphs = text.split("\n\n")
-    paragraphs.forEachIndexed { pIdx, para ->
-        if (pIdx > 0) Spacer(Modifier.height(10.dp))
-        val lines = para.split("\n")
-        lines.forEachIndexed { lIdx, rawLine ->
-            val line = rawLine.trim()
-            if (line.isEmpty()) {
-                Spacer(Modifier.height(4.dp))
-                return@forEachIndexed
-            }
-            when {
-                isHeading(line) -> {
-                    if (lIdx > 0) Spacer(Modifier.height(6.dp))
-                    SectionHeading(line.trimEnd(':'))
+    // One glossary underline per term across the whole explainer (not once per line).
+    val usedOnPage = remember(text) { mutableSetOf<String>() }
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedOnPage) {
+        val paragraphs = text.split("\n\n")
+        paragraphs.forEachIndexed { pIdx, para ->
+            if (pIdx > 0) Spacer(Modifier.height(10.dp))
+            val lines = para.split("\n")
+            lines.forEachIndexed { lIdx, rawLine ->
+                val line = rawLine.trim()
+                if (line.isEmpty()) {
                     Spacer(Modifier.height(4.dp))
+                    return@forEachIndexed
                 }
-                line.startsWith("• ") -> {
-                    GoldBulletRow(line.removePrefix("• ").trim(), knownLinks)
-                }
-                lIdx == 0 && lines.size > 1 && !line.startsWith("\"") && !isBulletOrNumber(line) -> {
-                    // First line of multi-line paragraph — slight emphasis
-                    LinkableBodyText(
-                        text = line,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            lineHeight = 22.sp,
-                            fontWeight = FontWeight.Medium
-                        ),
-                        knownLinks = knownLinks,
-                    )
-                }
-                isNumberedItem(line) -> {
-                    NumberedRow(line)
-                }
-                line.startsWith("\"") -> {
-                    Text(
-                        text = line.trim('"'),
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontStyle = FontStyle.Italic,
-                            lineHeight = 22.sp
-                        ),
-                        color = TzaddikColors.TextMuted,
-                    )
-                }
-                else -> {
-                    LinkableBodyText(
-                        text = line,
-                        style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
-                        knownLinks = knownLinks,
-                    )
+                when {
+                    isHeading(line) -> {
+                        if (lIdx > 0) Spacer(Modifier.height(6.dp))
+                        SectionHeading(line.trimEnd(':'))
+                        Spacer(Modifier.height(4.dp))
+                    }
+                    line.startsWith("• ") -> {
+                        GoldBulletRow(line.removePrefix("• ").trim(), knownLinks)
+                    }
+                    lIdx == 0 && lines.size > 1 && !line.startsWith("\"") && !isBulletOrNumber(line) -> {
+                        // First line of multi-line paragraph — slight emphasis
+                        LinkableBodyText(
+                            text = line,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                lineHeight = 22.sp,
+                                fontWeight = FontWeight.Medium
+                            ),
+                            knownLinks = knownLinks,
+                        )
+                    }
+                    isNumberedItem(line) -> {
+                        NumberedRow(line)
+                    }
+                    line.startsWith("\"") -> {
+                        Text(
+                            text = line.trim('"'),
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontStyle = FontStyle.Italic,
+                                lineHeight = 22.sp
+                            ),
+                            color = TzaddikColors.TextMuted,
+                        )
+                    }
+                    else -> {
+                        LinkableBodyText(
+                            text = line,
+                            style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 22.sp),
+                            knownLinks = knownLinks,
+                        )
+                    }
                 }
             }
         }

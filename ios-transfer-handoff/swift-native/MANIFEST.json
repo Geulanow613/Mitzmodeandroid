@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-12T01:16:21Z",
+  "generated_at": "2026-07-12T22:45:59Z",
   "source_repo": "be-a-tzaddik",
   "bundled_languages": [
     "he",
@@ -12,51 +12,51 @@
   "bundle_stats": {
     "he": {
       "catalog_keys": 2752,
-      "bundle_entries": 2929,
-      "untranslated_non_passthrough": 1665
+      "bundle_entries": 0,
+      "untranslated_non_passthrough": 2700
     },
     "es": {
       "catalog_keys": 2752,
-      "bundle_entries": 2929,
-      "untranslated_non_passthrough": 1665
+      "bundle_entries": 0,
+      "untranslated_non_passthrough": 2700
     },
     "fr": {
       "catalog_keys": 2752,
-      "bundle_entries": 2929,
-      "untranslated_non_passthrough": 1665
+      "bundle_entries": 0,
+      "untranslated_non_passthrough": 2700
     },
     "ru": {
       "catalog_keys": 2752,
-      "bundle_entries": 2929,
-      "untranslated_non_passthrough": 1665
+      "bundle_entries": 0,
+      "untranslated_non_passthrough": 2700
     }
   },
   "mitzvot_stats": {
     "unique_mitzvot_texts": 323,
-    "mitzvot_he_missing": 308,
-    "mitzvot_es_missing": 308,
-    "mitzvot_fr_missing": 308,
-    "mitzvot_ru_missing": 308
+    "mitzvot_he_missing": 323,
+    "mitzvot_es_missing": 323,
+    "mitzvot_fr_missing": 323,
+    "mitzvot_ru_missing": 323
   },
   "files": {
-    "BundledTranslations/he.json": "3a35f526fc6e65836d698b6505de4c52d7205c994c6e34fa0172d3d7c9b91962",
-    "BundledTranslations/es.json": "68585ff3631e18b1d5f309c9e3bb26d6c271d2ff6a62a23f6973bb7d91f38eb5",
-    "BundledTranslations/fr.json": "afa3b707d38707b4ac8e27eadc409cd7ecdfe2cefa49ad2da2b35b32c15afe69",
-    "BundledTranslations/ru.json": "c886cab5309fa654861cbe0653aee4bdd923392583c83d8656a92f1ded6a98c6",
+    "BundledTranslations/he.json": "6fa7fae735767248f6f805ada8004350daafc44d937c5f375fb95e4685d995e4",
+    "BundledTranslations/es.json": "7e47287211905fd6d930fdbe46e85b90ed1b3cc23b3f71daa1e9312792fa15ec",
+    "BundledTranslations/fr.json": "63701e984ab41e67ccc427572954412d779a64784e009746fe7de4fbd6edaa8c",
+    "BundledTranslations/ru.json": "90265f8fd2dad1b4a92768e1107bcc38d26a0822d78dee9509342713dc62da1f",
     "Mitzvot/mitzvotcloud.json": "78e54e50720243b75f414c6906a230b542503ae17ec1b3bd2eab9787220bc9fc",
     "Mitzvot/mitzvotlistfull.json": "37375b74070025b0082647d26f519b35c8d9200c7346e9fa34efc6a3d85aa886",
-    "Checklist/checklist-items.json": "7798556c0988f5564bd78dcd8a5663eadb94e74dbaccf76852ad72b79a4e4e76",
+    "Checklist/checklist-items.json": "a790400cb75a37a9a8d687d5fdf0434b2ee91455014cc0156520895d3d005b6c",
     "Checklist/nusach-extras.json": "a4d1dc48eb7a4368cfc4c4aabf067314d0b152c2dbc6d97a29583cee2d744e9d",
     "Checklist/holidays-overlay.json": "1ded5d7a445aaf9f41e5d6992c0ab3c2fa5e200d94aa40337f7423bb499fdd57",
-    "Checklist/manual-cities.json": "9abf71d0684ae916c2e65921cacc8abc2d3535f25b94f85c69edebf44e9bf587",
-    "Cities/city-geography.json": "8ddbe5c1b946c1fc977433a20c42f11a8e9ab880e1fe5e6ad97259eeba00ac66",
+    "Checklist/manual-cities.json": "19d36b7807ab93a80b4e1f8d20fa7c6f18ea5c27ccbb258a1fde498f24bec7d2",
+    "Cities/city-geography.json": "0606f338189d9d7e56601a63e0d5a38448a3be0dc26f43961ab2b593af0fc072",
     "Explainers/explainer_template_args.json": "c374827eeb8cb89d84f356a3c4c9448a13cc99529cafbbeb95fb3a997870b7db",
     "Explainers/seasonal_explainer_fragments.json": "effb95e281db04c6c00b81103834d5788697bee2298623511736b4d4a6c2a421",
     "Explainers/checklist_explainers.json": "5fcf6a34e7af814531a8b19b36879745a4bca22724c42b3e8a975e28904242d9",
     "Explainers/public_fast_explainers.json": "6677ffebc55ee2d33051f51fa01c6407c8869119fe5ce61299b75376d26e09a6",
     "Explainers/erev_chag_explainers.json": "95d4c6433c7b94473cf49e4fec583aa786bea2c0bff1105a010eceaff3d51965",
     "Explainers/zman_and_upcoming_strings.json": "2d20e8a3ac97735cbbcc7921bb853ec2f1e7f582ff670e74bed0b6e57ed4f651",
-    "Catalog/strings.json": "ded58e08f403faa60b462f4244373953b03d56adce5831bff92d731b242ca15d",
+    "Catalog/strings.json": "20ee9afe83ec90fc26b6518d6dcaba0576517a94cb42d355301b46f55c77685b",
     "Rewards/reward_levels.json": "c8ebd72890a1df98d565389b4978373fcd05914410250ad8feeb89feb1eebbb9",
     "Rewards/mitzvah_level_thresholds.json": "a3830dbd469742610c7734620e2da1bf861e0fd8391c9a664bfbcd64e308e764"
   }

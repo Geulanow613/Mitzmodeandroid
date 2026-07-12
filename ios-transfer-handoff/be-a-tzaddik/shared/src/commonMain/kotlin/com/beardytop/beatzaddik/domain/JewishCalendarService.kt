@@ -47,10 +47,28 @@ class JewishCalendarService(
             overlayToHoliday(entry, from, profile)
         }
         return (fromPlanner + fromOverlay)
-            .distinctBy { it.name }
+            .distinctBy { canonicalizeUpcomingName(it.name) }
             .filter { it.daysAway <= UpcomingHolidayPlanner.HORIZON_DAYS }
-            .sortedBy { it.daysAway }
+            .sortedWith(
+                compareBy<UpcomingHoliday> { it.daysAway }
+                    .thenBy { withinDaySortRank(it) }
+                    .thenBy { it.name },
+            )
             .take(8)
+    }
+
+    /** Collapse synonymous upcoming labels so planner + overlay do not double-list. */
+    private fun canonicalizeUpcomingName(name: String): String = when {
+        name.startsWith("Fast of Esther") -> PublicFastDayRules.displayName(HebrewCalendarEngine.FAST_OF_ESTHER)
+        else -> name
+    }
+
+    private fun withinDaySortRank(holiday: UpcomingHoliday): Int = when {
+        holiday.name.startsWith("Fast of") || holiday.name == "Tisha B'Av" -> 0
+        holiday.beginsTonightWhenImminent -> 2
+        holiday.name.contains("Purim", ignoreCase = true) -> 2
+        holiday.name == "Shabbat" || holiday.name == "Chanukah" || holiday.name == "Rosh Chodesh" -> 2
+        else -> 1
     }
 
     private fun overlayToHoliday(entry: HolidayOverlayEntry, from: LocalDate, profile: UserProfile): UpcomingHoliday? {

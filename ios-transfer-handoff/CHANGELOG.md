@@ -2,6 +2,14 @@
 
 What the mirrored `be-a-tzaddik/` files and `docs/` contain.
 
+## 2026-07-13 — Tachanun Mincha erevs, glossary links, store trim (v5.6.0)
+
+- **`TachanunRules.kt`** — omit Mincha Tachanun on erev Shabbat, erev chagim, Purim, Chanukah, Tisha B’Av, Rosh Chodesh, and minor festive eves; Erev RH / Erev YK still say Mincha (Shacharit-only omission)
+- Glossary / mitzvah-card term linking: first-occurrence only; resource `knownLinks` no longer inlined into body
+- Upcoming holidays: Fast of Esther / Purim naming + within-day sort
+- Store assets: unused promo videos / song moved off release packaging (`src/debug` / UnusedMedia); version **56 / 5.6.0**
+- Offline bundled translations disabled for shipping English-first build
+
 ## 2026-07-06 (b) — GPS timezone fix + world city catalog (~3,900 cities)
 
 ### GPS clock / zmanim timezone (Android + iOS KMP)

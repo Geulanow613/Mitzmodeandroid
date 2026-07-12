@@ -9,7 +9,8 @@ class BundledTranslationsCatalogTest {
 
   @Test
   fun bundledLanguagesAreOfflineSet() {
-    assertEquals(setOf("he", "es", "fr", "ru"), BundledTranslationLanguages.codes)
+    // Store builds ship stubs; offline catalog is gated by MitzModeFeatures.bundledOfflineTranslationsEnabled.
+    assertEquals(emptySet(), BundledTranslationLanguages.codes)
   }
 
   @Test

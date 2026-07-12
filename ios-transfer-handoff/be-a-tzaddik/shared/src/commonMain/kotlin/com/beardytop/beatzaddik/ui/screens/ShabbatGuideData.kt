@@ -679,7 +679,7 @@ Notes:
 
 It is a full 25-hour fast (sundown to nightfall), with the same five afflictions as Yom Kippur: no eating, drinking, bathing, anointing, leather shoes, or marital relations.
 
-Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning.
+Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning. To follow the Kinot, bring a Kinnot / Kinot prayerbook for your nusach, or use a free online edition — a regular siddur usually does not include them.
 
 The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"

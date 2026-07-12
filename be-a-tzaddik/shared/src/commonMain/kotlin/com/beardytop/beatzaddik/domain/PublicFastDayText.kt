@@ -143,6 +143,10 @@ Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
             "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.552",
         ),
         ChecklistLink(
+            "Sefaria — Kinnot for Tisha B'Av",
+            "https://www.sefaria.org/Kinnot_for_Tisha_B%27Av_(Ashkenaz)",
+        ),
+        ChecklistLink(
             "Peninei Halacha — Erev Tisha B'Av",
             "https://ph.yhb.org.il/en/09-08-01/",
         ),
@@ -156,12 +160,20 @@ Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
             )
         )
         when (fastIdx) {
-            HebrewCalendarEngine.TISHA_BEAV -> add(
-                ChecklistLink(
-                    "Peninei Halacha — Tisha B'Av",
-                    "https://ph.yhb.org.il/en/09-09-01/",
+            HebrewCalendarEngine.TISHA_BEAV -> {
+                add(
+                    ChecklistLink(
+                        "Peninei Halacha — Tisha B'Av",
+                        "https://ph.yhb.org.il/en/09-09-01/",
+                    )
                 )
-            )
+                add(
+                    ChecklistLink(
+                        "Sefaria — Kinnot for Tisha B'Av",
+                        "https://www.sefaria.org/Kinnot_for_Tisha_B%27Av_(Ashkenaz)",
+                    )
+                )
+            }
             HebrewCalendarEngine.YOM_KIPPUR -> if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
                 add(
                     ChecklistLink(
@@ -303,7 +315,8 @@ Seudah hamafseket — the final meal before the fast:
 
 After sunset tonight until nightfall tomorrow:
 • Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
-• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.${'$'}shabbatNote
+• Additionally: no Torah study except sad topics (Eichah, Job, mourning laws); many sit on the floor until chatzos tomorrow; kinot are recited.
+• Bring a Kinnot / Kinot prayerbook if you want to follow the elegies (or use a free online Kinnot edition for your nusach) — a regular siddur usually does not include them.${'$'}shabbatNote
 
 Ask your rav for details if you are ill, pregnant, or nursing.
     """.trimIndent()
@@ -381,6 +394,7 @@ Minor fast rules:
 • No eating or drinking from dawn until nightfall.
 • Washing, music, and showering are generally permitted (unlike Tisha B'Av and Yom Kippur).
 • Special selichot and prayers may be recited in synagogue — check your community schedule.
+• Those selichot usually need a special Selichot booklet for your nusach (not a regular weekday siddur); some editions are available free online.
 
 ${'$'}common
     """.trimIndent()
@@ -423,6 +437,7 @@ What is forbidden today (in addition to eating and drinking):
 • Idle conversation; work is discouraged (follow your community).
 • ${'$'}tefillinNote
 • Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
+• To follow along with the kinot, you need a Kinnot / Kinot prayerbook (or a free online edition for your nusach) — a regular siddur does not include them.
 • Hand washing: only to remove ritual impurity — wash only to the knuckle where fingers join the hand; or to remove actual dirt on the hand.
 • Do not brush teeth with water; a dry toothbrush is permitted. Flossing is permitted.
 • ${'$'}travelNote

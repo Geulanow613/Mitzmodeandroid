@@ -276,8 +276,24 @@ internal object UpcomingHolidayPlanner {
             nextRoshChodesh,
         ) + minorHolidays.values + listOfNotNull(birkatHachamah))
             .filter { it.daysAway <= HORIZON_DAYS }
-            .sortedBy { it.daysAway }
+            .sortedWith(
+                compareBy<UpcomingHoliday> { it.daysAway }
+                    .thenBy { withinDaySortRank(it) }
+                    .thenBy { it.name },
+            )
             .take(8)
+    }
+
+    /**
+     * Same [UpcomingHoliday.daysAway] can mean a dawn fast and an evening start (e.g. Fast of
+     * Esther daytime + Purim at nightfall on 13 Adar). Lower rank = earlier in the civil day.
+     */
+    private fun withinDaySortRank(holiday: UpcomingHoliday): Int = when {
+        holiday.name.startsWith("Fast of") || holiday.name == "Tisha B'Av" -> 0
+        holiday.beginsTonightWhenImminent -> 2
+        holiday.name.contains("Purim", ignoreCase = true) -> 2
+        holiday.name == "Shabbat" || holiday.name == "Chanukah" || holiday.name == "Rosh Chodesh" -> 2
+        else -> 1
     }
 
     private fun activeRoshChodeshHoliday(
@@ -556,15 +572,15 @@ internal object UpcomingHolidayPlanner {
         HebrewCalendarEngine.SHUSHAN_PURIM_KATAN ->
             "Shushan Purim Katan" to "Walled-city Purim Katan — Tachanun omitted"
         HebrewCalendarEngine.TISHA_BEAV ->
-            "Tisha B'Av" to "Fast day — mourning the Temple"
+            PublicFastDayRules.displayName(HebrewCalendarEngine.TISHA_BEAV) to "Fast day — mourning the Temple"
         HebrewCalendarEngine.FAST_OF_GEDALYAH ->
-            "Fast of Gedaliah" to "Fast day"
+            PublicFastDayRules.displayName(HebrewCalendarEngine.FAST_OF_GEDALYAH) to "Fast day"
         HebrewCalendarEngine.TENTH_OF_TEVES ->
-            "Fast of 10 Tevet" to "Fast day"
+            PublicFastDayRules.displayName(HebrewCalendarEngine.TENTH_OF_TEVES) to "Fast day"
         HebrewCalendarEngine.FAST_OF_ESTHER ->
-            "Fast of Esther" to "Fast day — before Purim"
+            PublicFastDayRules.displayName(HebrewCalendarEngine.FAST_OF_ESTHER) to "Fast day — before Purim"
         HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ ->
-            "Fast of 17 Tammuz" to "Fast day"
+            PublicFastDayRules.displayName(HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ) to "Fast day"
         HebrewCalendarEngine.YOM_HASHOAH ->
             "Yom HaShoah" to "Holocaust Remembrance Day"
         HebrewCalendarEngine.YOM_HAZIKARON ->

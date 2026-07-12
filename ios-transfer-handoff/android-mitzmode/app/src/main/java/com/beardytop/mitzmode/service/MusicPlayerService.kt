@@ -125,7 +125,13 @@ class MusicPlayerService : Service() {
             }
             releasePrevious()
             
-            val assetFileDescriptor = assets.openFd(SONG_ASSET)
+            // song.mp3 is debug-only (not in release / store builds).
+            val assetFileDescriptor = try {
+                assets.openFd(SONG_ASSET)
+            } catch (e: java.io.IOException) {
+                Log.w(TAG, "Song asset missing (expected in release builds): $SONG_ASSET")
+                return
+            }
             mediaPlayer = MediaPlayer().apply {
                 setDataSource(
                     assetFileDescriptor.fileDescriptor,

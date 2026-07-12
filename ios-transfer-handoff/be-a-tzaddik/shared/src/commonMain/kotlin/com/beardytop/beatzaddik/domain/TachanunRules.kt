@@ -22,7 +22,7 @@ object TachanunRules {
     enum class PrayerSlot { SHACHARIT, MINCHA }
 
     fun prayerSlotForItem(itemId: String): PrayerSlot = when {
-        itemId.contains("mincha") -> PrayerSlot.MINCHA
+        itemId.contains("mincha") || itemId == "ashkenaz_musaf_tachanun" -> PrayerSlot.MINCHA
         else -> PrayerSlot.SHACHARIT
     }
 
@@ -53,20 +53,14 @@ object TachanunRules {
             if (month == HebrewCalendarEngine.TISHREI && day == 9) return false
         }
 
+        // Erev Shabbat / chagim / Purim / festive days: omit at Mincha (not Erev RH / Erev YK).
+        if (slot == PrayerSlot.MINCHA && omitsMinchaTachanunOnErev(cal, tomorrowCal)) {
+            return false
+        }
+
         if (isInIsrael && (cal.isYomHaAtzmaut || cal.isYomYerushalayim)) return false
 
         if (isMinorCommemorativeHoliday(month, day, year)) return false
-
-        if (tomorrowCal != null &&
-            slot == PrayerSlot.MINCHA &&
-            isMinorCommemorativeHoliday(
-                tomorrowCal.hebrewMonth,
-                tomorrowCal.hebrewDay,
-                tomorrowCal.hebrewYear,
-            )
-        ) {
-            return false
-        }
 
         if (month == HebrewCalendarEngine.TISHREI && day in 11..14) return false
 
@@ -85,6 +79,56 @@ object TachanunRules {
             HebrewCalendarEngine.AV -> day != 15
             else -> true
         }
+    }
+
+    /**
+     * Mincha Tachanun is omitted on erev Shabbat, erev most chagim and festive days
+     * (Purim, Chanukah, Tisha B'Av, Rosh Chodesh, Tu B'Shvat, Pesach Sheini, Lag BaOmer,
+     * Tu B'Av, Purim Katan, etc.).
+     *
+     * Exceptions: Erev Rosh Hashana and Erev Yom Kippur — Tachanun is said at Mincha
+     * (those days omit Tachanun at Shacharit only), even if they fall on Friday.
+     */
+    private fun omitsMinchaTachanunOnErev(cal: DayInfo, tomorrowCal: DayInfo?): Boolean {
+        if (isErevRoshHashanaOrYomKippur(cal)) return false
+
+        if (cal.isErevShabbat) return true
+
+        if ("erev_tisha_beav" in cal.activeSeasons) return true
+        if ("erev_purim" in cal.activeSeasons) return true
+        if ("erev_chanukah" in cal.activeSeasons) return true
+
+        // Classic 8 Av when seasons are not set (e.g. unit tests).
+        if (cal.hebrewMonth == HebrewCalendarEngine.AV && cal.hebrewDay == 8) return true
+
+        if (tomorrowCal != null) {
+            if (tomorrowCal.isYomTovAssurBemelacha || tomorrowCal.isYomTov) return true
+            if (tomorrowCal.isPurim) return true
+            if (tomorrowCal.isChanukah) return true
+            if (tomorrowCal.isRoshChodesh) return true
+            if (tomorrowCal.isLagBaomer) return true
+            if (tomorrowCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return true
+            if (isMinorCommemorativeHoliday(
+                    tomorrowCal.hebrewMonth,
+                    tomorrowCal.hebrewDay,
+                    tomorrowCal.hebrewYear,
+                )
+            ) {
+                return true
+            }
+        } else if (cal.upcomingChagName != null || cal.upcomingChagYomTovIndex != null) {
+            // Backend marked erev chag without a tomorrow snapshot.
+            return true
+        }
+
+        return false
+    }
+
+    private fun isErevRoshHashanaOrYomKippur(cal: DayInfo): Boolean {
+        val month = cal.hebrewMonth ?: return false
+        val day = cal.hebrewDay ?: return false
+        return (month == HebrewCalendarEngine.ELUL && day == 29) ||
+            (month == HebrewCalendarEngine.TISHREI && day == 9)
     }
 
     /** Minor holidays whose Hebrew day begins at nightfall (eve shows in Upcoming). */

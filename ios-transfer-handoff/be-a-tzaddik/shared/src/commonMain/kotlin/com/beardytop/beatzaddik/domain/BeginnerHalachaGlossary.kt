@@ -103,7 +103,7 @@ object BeginnerHalachaGlossary {
     const val OMER =
         "Sefirat HaOmer — counting 49 days from Pesach to Shavuot"
     const val SELICHOT =
-        "Selichot — extra penitential prayers before Rosh Hashana (timing varies by nusach)"
+        "Selichot — extra penitential prayers before Rosh Hashana (timing varies by nusach). You need a special Selichot prayerbook for your nusach — some editions are free online"
     const val PIRSUMEI_NISA =
         "Pirsumei nisa — publicizing the miracle (why the menorah is placed visibly)"
 

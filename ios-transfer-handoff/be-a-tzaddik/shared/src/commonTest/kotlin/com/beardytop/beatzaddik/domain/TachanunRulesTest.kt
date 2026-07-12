@@ -2,6 +2,7 @@ package com.beardytop.beatzaddik.domain
 
 import kotlinx.datetime.LocalDate
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -81,9 +82,127 @@ class TachanunRulesTest {
     }
 
     @Test
+    fun erevTishaBeav_omitsMinchaOnly() {
+        val eve = weekday(AV, 8).copy(activeSeasons = setOf("erev_tisha_beav"))
+        val fastDay = weekday(AV, 9).copy(fastDayIndex = HebrewCalendarEngine.TISHA_BEAV)
+        assertTrue(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.SHACHARIT,
+                tomorrowCal = fastDay,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.MINCHA,
+                tomorrowCal = fastDay,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                UserProfile(),
+                "chabad_mincha_tachanun",
+                tomorrowCal = fastDay,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                UserProfile(),
+                "ashkenaz_musaf_tachanun",
+                tomorrowCal = fastDay,
+            ),
+        )
+    }
+
+    @Test
+    fun ashkenazMusafTachanun_isMinchaSlot() {
+        assertEquals(
+            TachanunRules.PrayerSlot.MINCHA,
+            TachanunRules.prayerSlotForItem("ashkenaz_musaf_tachanun"),
+        )
+    }
+
+    @Test
+    fun erevPurim_omitsMinchaOnly() {
+        val eve = weekday(ADAR, 13).copy(activeSeasons = setOf("erev_purim"))
+        val purim = weekday(ADAR, 14).copy(isPurim = true)
+        assertTrue(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.SHACHARIT,
+                tomorrowCal = purim,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.MINCHA,
+                tomorrowCal = purim,
+            ),
+        )
+    }
+
+    @Test
+    fun erevShabbat_omitsMincha() {
+        val friday = weekday(AV, 3).copy(isErevShabbat = true)
+        assertTrue(
+            TachanunRules.isRecited(friday, isInIsrael = true, TachanunRules.PrayerSlot.SHACHARIT),
+        )
+        assertFalse(
+            TachanunRules.isRecited(friday, isInIsrael = true, TachanunRules.PrayerSlot.MINCHA),
+        )
+    }
+
+    @Test
+    fun erevRoshHashana_onFriday_stillSaysMinchaTachanun() {
+        val cal = weekday(ELUL, 29).copy(isErevShabbat = true)
+        assertFalse(
+            TachanunRules.isRecited(cal, isInIsrael = true, TachanunRules.PrayerSlot.SHACHARIT),
+        )
+        assertTrue(
+            TachanunRules.isRecited(cal, isInIsrael = true, TachanunRules.PrayerSlot.MINCHA),
+        )
+    }
+
+    @Test
+    fun erevChag_omitsMincha() {
+        val eve = weekday(TISHREI, 14).copy(upcomingChagName = "Sukkot")
+        val chag = weekday(TISHREI, 15).copy(isYomTov = true, isYomTovAssurBemelacha = true)
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.MINCHA,
+                tomorrowCal = chag,
+            ),
+        )
+    }
+
+    @Test
     fun eveOfTuBshvat_omitsMincha() {
         val eve = weekday(SHEVAT, 14)
         val holiday = weekday(SHEVAT, 15)
+        assertFalse(
+            TachanunRules.isRecited(
+                eve,
+                isInIsrael = true,
+                TachanunRules.PrayerSlot.MINCHA,
+                tomorrowCal = holiday,
+            ),
+        )
+    }
+
+    @Test
+    fun eveOfPesachSheini_omitsMincha() {
+        val eve = weekday(IYAR, 13)
+        val holiday = weekday(IYAR, 14)
         assertFalse(
             TachanunRules.isRecited(
                 eve,
@@ -131,5 +250,6 @@ class TachanunRulesTest {
         val IYAR = HebrewCalendarEngine.IYAR
         val SHEVAT = HebrewCalendarEngine.SHEVAT
         val ADAR = HebrewCalendarEngine.ADAR
+        val AV = HebrewCalendarEngine.AV
     }
 }

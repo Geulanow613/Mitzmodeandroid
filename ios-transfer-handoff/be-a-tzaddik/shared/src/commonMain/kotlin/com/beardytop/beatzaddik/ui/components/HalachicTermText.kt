@@ -440,9 +440,12 @@ fun HalachicClickableText(
     }
 
     LaunchedEffect(text, knownLinks, termsEnabled, extras, color, usedOnPage) {
-        HalachicAnnotationCache.get(text, knownLinks, termsEnabled, extras, color)?.let {
-            annotated = it
-            return@LaunchedEffect
+        // Page-scoped first-occurrence tracking must not reuse the global cache.
+        if (usedOnPage == null) {
+            HalachicAnnotationCache.get(text, knownLinks, termsEnabled, extras, color)?.let {
+                annotated = it
+                return@LaunchedEffect
+            }
         }
         val localUsed = usedOnPage?.toMutableSet()
         val built = withContext(Dispatchers.Default) {
@@ -455,8 +458,9 @@ fun HalachicClickableText(
                 usedOnPage = localUsed,
             )
         }
-        HalachicAnnotationCache.put(text, knownLinks, termsEnabled, extras, color, built)
-        if (usedOnPage != null && localUsed != null) {
+        if (usedOnPage == null) {
+            HalachicAnnotationCache.put(text, knownLinks, termsEnabled, extras, color, built)
+        } else if (localUsed != null) {
             usedOnPage.addAll(localUsed)
         }
         annotated = built
@@ -616,6 +620,8 @@ private fun buildPlainBodyAnnotatedString(
     bodyColor: Color,
     usedOnPage: MutableSet<String>?,
 ): AnnotatedString {
+    // Resource links: first occurrence of each label only. Glossary match-labels are left
+    // for gold glossary underlines (popup), not blue URL inlining — bottom link rows still open URLs.
     val patterns = knownLinks
         .flatMap { link ->
             val label = link.displayText.trim()
@@ -624,7 +630,14 @@ private fun buildPlainBodyAnnotatedString(
                 withoutScheme.substringBefore('/').removePrefix("www.")
             }.getOrNull()
             buildList {
-                if (label.isNotEmpty()) add(label to link.url)
+                if (label.isNotEmpty()) {
+                    val leaveForGlossary = enableTerms &&
+                        (HalachicTermsDictionary.isMatchLabel(label) ||
+                            additionalTerms.any { term ->
+                                term.matchLabels.any { it.equals(label, ignoreCase = true) }
+                            })
+                    if (!leaveForGlossary) add(label to link.url)
+                }
                 if (!host.isNullOrBlank()) {
                     add(host to link.url)
                     add("www.$host" to link.url)
@@ -639,26 +652,28 @@ private fun buildPlainBodyAnnotatedString(
             appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage)
         }
     }
+
+    val linkHits = firstKnownLinkHits(text, patterns)
+    if (linkHits.isEmpty()) {
+        return buildAnnotatedString {
+            appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage)
+        }
+    }
+
     return buildAnnotatedString {
         var cursor = 0
         val protected = mutableListOf<IntRange>()
-        while (cursor < text.length) {
-            val match = patterns
-                .asSequence()
-                .mapNotNull { (label, url) ->
-                    val idx = text.indexOf(label, cursor, ignoreCase = true)
-                    if (idx < 0) null else Triple(idx, label, url)
-                }
-                .minByOrNull { it.first }
-            if (match == null) {
-                appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
-                break
-            }
-            val (start, label, url) = match
+        for ((start, end, url) in linkHits) {
             if (start > cursor) {
-                appendPlainWithTerms(text.substring(cursor, start), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
+                appendPlainWithTerms(
+                    text.substring(cursor, start),
+                    enableTerms,
+                    additionalTerms,
+                    protected,
+                    bodyColor,
+                    usedOnPage,
+                )
             }
-            val end = start + label.length
             protected.add(start until end)
             pushStringAnnotation(tag = "URL", annotation = url)
             withStyle(linkSpanStyle(bodyColor)) {
@@ -667,7 +682,73 @@ private fun buildPlainBodyAnnotatedString(
             pop()
             cursor = end
         }
+        if (cursor < text.length) {
+            appendPlainWithTerms(
+                text.substring(cursor),
+                enableTerms,
+                additionalTerms,
+                protected,
+                bodyColor,
+                usedOnPage,
+            )
+        }
     }
+}
+
+/** First whole-word hit per known-link label, then non-overlapping in reading order. */
+private fun firstKnownLinkHits(
+    text: String,
+    patterns: List<Pair<String, String>>,
+): List<Triple<Int, Int, String>> {
+    val candidates = mutableListOf<Triple<Int, Int, String>>()
+    val usedLabels = mutableSetOf<String>()
+    for ((label, url) in patterns) {
+        val key = label.lowercase()
+        if (!usedLabels.add(key)) continue
+        var searchFrom = 0
+        while (searchFrom < text.length) {
+            val idx = text.indexOf(label, searchFrom, ignoreCase = true)
+            if (idx < 0) break
+            val end = idx + label.length
+            if (isKnownLinkWordBoundary(text, idx, end)) {
+                candidates.add(Triple(idx, end, url))
+                break
+            }
+            searchFrom = idx + 1
+        }
+    }
+    val sorted = candidates.sortedWith(
+        compareByDescending<Triple<Int, Int, String>> { it.second - it.first }.thenBy { it.first },
+    )
+    val picked = mutableListOf<Triple<Int, Int, String>>()
+    for (candidate in sorted) {
+        val range = candidate.first until candidate.second
+        if (picked.none { overlapsRange(it.first until it.second, range) }) {
+            picked.add(candidate)
+        }
+    }
+    return picked.sortedBy { it.first }
+}
+
+private fun overlapsRange(a: IntRange, b: IntRange): Boolean =
+    a.first <= b.last && b.first <= a.last
+
+private fun isKnownLinkWordBoundary(text: String, start: Int, end: Int): Boolean {
+    val before = text.getOrNull(start - 1)
+    val after = text.getOrNull(end)
+    return !before.isKnownLinkInteriorChar(text, start - 1) &&
+        !after.isKnownLinkInteriorChar(text, end)
+}
+
+private fun Char?.isKnownLinkInteriorChar(text: String, index: Int): Boolean {
+    if (this == null) return false
+    if (isLetterOrDigit()) return true
+    if (this == '\'') {
+        val prev = text.getOrNull(index - 1)
+        val next = text.getOrNull(index + 1)
+        return prev?.isLetterOrDigit() == true && next?.isLetterOrDigit() == true
+    }
+    return false
 }
 
 private fun AnnotatedString.Builder.appendPlainWithTerms(

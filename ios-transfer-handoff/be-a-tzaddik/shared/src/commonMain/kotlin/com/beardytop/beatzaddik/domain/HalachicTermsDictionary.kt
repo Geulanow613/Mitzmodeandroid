@@ -86,7 +86,7 @@ object HalachicTermsDictionary {
         line("Shemini Atzeret — eighth day festival after Sukkot; Simchat Torah celebrations fold into it in Israel"),
         line("melachot — the 39 categories of transformative labor forbidden on Shabbat"),
         line("tefillah — prayer; from a root meaning to judge oneself"),
-        line("Kinot — elegies read on Tisha B'Av mourning the Temple"),
+        line("Kinot — elegies read on Tisha B'Av mourning the Temple; follow along with a Kinnot / Kinot prayerbook (or a free online edition) — a regular siddur usually does not include them"),
         line("Tisha B'Av — fast mourning the destruction of the Temple"),
         line("Lag BaOmer — 33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut"),
         line("Hoshana Raba — seventh day of Sukkot; climax of Hoshanot; many communities beat aravot on the ground"),
@@ -731,12 +731,12 @@ object HalachicTermsDictionary {
             "Neilah",
         ),
         line(
-            "Selichot — Selichot are a formal order of penitential liturgy recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). The service centers on poetic pleas and the repeated Thirteen Attributes of Mercy. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
+            "Selichot — Selichot are a formal order of penitential liturgy recited before Rosh Hashana (Ashkenazim often from the Saturday night before, Sephardim from Elul). The service centers on poetic pleas and the repeated Thirteen Attributes of Mercy. You need a special Selichot prayerbook matched to your nusach — a regular siddur usually does not include the full order; many editions are available free online. Waking early or staying late for Selichot sets a tone of seriousness before the Days of Awe. Nusach and schedule vary — check your shul.",
             "Selichot",
             "selichot",
         ),
         line(
-            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, Chanukah, Purim, all of Nisan, and many other days (Erev Yom Kippur at Shacharit only; 11–14 Tishrei; after Simchat Torah through month-end; minor holidays; 5 & 28 Iyar in Israel). From Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
+            "Tachanun — Tachanun are supplication prayers after the Amidah on weekdays — omitted on Shabbat, Yom Tov, Rosh Chodesh, Chanukah, Purim, all of Nisan, and many other days. At Mincha, Tachanun is also omitted on erev Shabbat, erev most chagim and festive days (Purim, Chanukah, Tisha B'Av, Rosh Chodesh, Tu B'Shvat, Pesach Sheini, Lag BaOmer, Tu B'Av, etc.). Exceptions: Erev Rosh Hashana and Erev Yom Kippur omit Tachanun at Shacharit only (Mincha is said). From Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag. If you are unsure whether tachanun is said, follow the shul or siddur headings.",
             "Tachanun",
             "tachanun",
         ),
@@ -1689,6 +1689,12 @@ object HalachicTermsDictionary {
 
     fun termById(id: String): HalachicTerm? = byIdMap[id]
 
+    /** True when [label] is a glossary match label (case-insensitive). */
+    fun isMatchLabel(label: String): Boolean {
+        if (label.isBlank()) return false
+        return baseMatchers.any { it.first.equals(label, ignoreCase = true) }
+    }
+
     fun findMatches(
         text: String,
         excludeRanges: List<IntRange> = emptyList(),
@@ -1704,22 +1710,27 @@ object HalachicTermsDictionary {
         val longerPhraseRanges = longerPhraseRangesFor(text, multiWordLabels)
         val candidates = mutableListOf<HalachicTermMatch>()
         for ((label, term) in matchers) {
-            val idx = text.indexOf(label, startIndex = 0, ignoreCase = true)
-            if (idx < 0) continue
-            val end = idx + label.length
-            if (
-                isWordBoundary(text, idx, end) &&
-                !overlapsAny(idx until end, excludeRanges) &&
-                !isInsideLongerPhrase(idx until end, label, longerPhraseRanges)
-            ) {
-                candidates.add(
-                    HalachicTermMatch(
-                        start = idx,
-                        end = end,
-                        term = term,
-                        matchedText = text.substring(idx, end),
+            var searchFrom = 0
+            while (searchFrom < text.length) {
+                val idx = text.indexOf(label, startIndex = searchFrom, ignoreCase = true)
+                if (idx < 0) break
+                val end = idx + label.length
+                if (
+                    isWordBoundary(text, idx, end) &&
+                    !overlapsAny(idx until end, excludeRanges) &&
+                    !isInsideLongerPhrase(idx until end, label, longerPhraseRanges)
+                ) {
+                    candidates.add(
+                        HalachicTermMatch(
+                            start = idx,
+                            end = end,
+                            term = term,
+                            matchedText = text.substring(idx, end),
+                        )
                     )
-                )
+                    break // first valid occurrence of this label for this term
+                }
+                searchFrom = idx + 1
             }
         }
         return firstOccurrencePerTerm(selectNonOverlapping(candidates))
@@ -1741,11 +1752,15 @@ object HalachicTermsDictionary {
     private fun longerPhraseRangesIn(text: String, multiWordLabels: List<String>): List<IntRange> {
         val ranges = mutableListOf<IntRange>()
         for (longer in multiWordLabels) {
-            val idx = text.indexOf(longer, startIndex = 0, ignoreCase = true)
-            if (idx < 0) continue
-            val end = idx + longer.length
-            if (isWordBoundary(text, idx, end)) {
-                ranges.add(idx until end)
+            var searchFrom = 0
+            while (searchFrom < text.length) {
+                val idx = text.indexOf(longer, startIndex = searchFrom, ignoreCase = true)
+                if (idx < 0) break
+                val end = idx + longer.length
+                if (isWordBoundary(text, idx, end)) {
+                    ranges.add(idx until end)
+                }
+                searchFrom = idx + 1
             }
         }
         return ranges

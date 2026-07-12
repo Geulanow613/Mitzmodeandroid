@@ -24,4 +24,11 @@ object MitzModeFeatures {
 
     /** Old Mitz Mode Compose home (floating Mitzvah Me). Keep false. */
     const val legacyHomeEnabled: Boolean = false
+
+    /**
+     * Ship full offline he/es/fr/ru translation JSON (~9MB). Keep false for store builds;
+     * full catalogs remain under `data/bundled-translations/` to re-enable later.
+     * Online Google Translate in Settings still works when this is false.
+     */
+    const val bundledOfflineTranslationsEnabled: Boolean = false
 }

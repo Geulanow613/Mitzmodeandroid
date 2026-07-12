@@ -1248,6 +1248,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
 
     private fun selichotLinks(profile: UserProfile) = listOf(
         ChecklistLink("Chabad — Selichot", "https://www.chabad.org/library/article_cdo/aid/4744/jewish/Selichot.htm", "chabad"),
+        ChecklistLink("Sefaria — Selichot texts", "https://www.sefaria.org/topics/selichot", "default"),
         ChecklistLink("Aish — Selichot overview", "https://aish.com/slichot_and_the_13_attributes/", "default"),
         ChecklistLink("Peninei Halacha — Selichot customs", "https://ph.yhb.org.il/en/category/15/15-01/", "default")
     )

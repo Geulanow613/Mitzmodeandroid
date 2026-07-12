@@ -22,8 +22,8 @@ android {
         applicationId "com.beardytop.mitzmode"
         minSdk 24
         targetSdk 36
-        versionCode 55
-        versionName "5.5.0"
+        versionCode 56
+        versionName "5.6.0"
 
         testInstrumentationRunner "com.beardytop.mitzmode.HiltTestRunner"
         vectorDrawables {
@@ -86,6 +86,11 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+    }
+    // Store builds: keep finalreward.mp4 only. Unused milestone/bg/song/tzaddik media
+    // live under src/debug/assets (debug installs only).
+    androidResources {
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:!finalreward.mp4:mitzmodenew*:background.mp4:tzaddik.mp4:song.mp3'
     }
 }
 

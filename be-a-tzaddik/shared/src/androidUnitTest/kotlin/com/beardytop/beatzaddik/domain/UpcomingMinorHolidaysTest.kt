@@ -46,6 +46,28 @@ class UpcomingMinorHolidaysTest {
     }
 
     @Test
+    fun erevPurimWeek_fastOfEstherOnceAndBeforePurim() {
+        // Friday 27 Feb 2026 = 10 Adar 5786 (Day of Esther scenario / erev Shabbat morning).
+        val date = LocalDate(2026, 2, 27)
+        val holidays = JewishCalendarService(backend).upcomingHolidays(
+            nowEpochMillis = millis(date, 9),
+            profile = mountainView,
+        )
+        val names = holidays.map { it.name }
+        val fastNames = names.filter { it.startsWith("Fast of Esther") }
+        assertEquals(1, fastNames.size, "expected one Fast of Esther, got $names")
+
+        val fastIdx = names.indexOfFirst { it.startsWith("Fast of Esther") }
+        val purimIdx = names.indexOfFirst { it.contains("Purim") && !it.contains("Katan") }
+        assertTrue(fastIdx >= 0 && purimIdx >= 0, "expected fast and Purim in $names")
+        assertTrue(
+            fastIdx < purimIdx,
+            "Fast of Esther should list before Purim when both are imminent; got $names",
+        )
+        assertEquals(holidays[fastIdx].daysAway, holidays[purimIdx].daysAway)
+    }
+
+    @Test
     fun commemoractiveMinors_mapToLongGuideExplainers() {
         val expected = mapOf(
             "Tu B'Shvat" to "tu_bshvat",
