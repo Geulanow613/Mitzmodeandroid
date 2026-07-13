@@ -34,10 +34,11 @@ class ZecherMachatzitHaShekelTest {
             dayAfterTomorrowCal = tomorrow,
             nowMillis = 0L,
         )
-        val item = items.single { it.id == "zecher_machatzit_hashekel" }
+        val item = items.single { it.id.startsWith("zecher_machatzit_hashekel") }
         assertTrue(item.title.contains("(custom)"))
         assertFalse(item.title.contains("if not given already"))
         assertFalse(item.required)
+        assertTrue(item.persistChecked)
         assertTrue(item.section == "Seasonal")
         assertTrue(item.sortOrder < 0)
     }
@@ -53,8 +54,33 @@ class ZecherMachatzitHaShekelTest {
             dayAfterTomorrowCal = tomorrow,
             nowMillis = 0L,
         )
-        val item = items.single { it.id == "zecher_machatzit_hashekel" }
+        val item = items.single { it.id.startsWith("zecher_machatzit_hashekel") }
         assertTrue(item.title.contains("if not given already on Fast of Esther"))
+        assertTrue(item.persistChecked)
+    }
+
+    @Test
+    fun sameHebrewYear_sharesPersistedIdAcrossFastAndPurim() {
+        val fast = day().copy(
+            fastDayIndex = HebrewCalendarEngine.FAST_OF_ESTHER,
+            activeSeasons = setOf("fast_day"),
+            hebrewYear = 5786,
+        )
+        val purim = day().copy(
+            isPurim = true,
+            activeSeasons = setOf("purim"),
+            hebrewYear = 5786,
+            hebrewDay = 14,
+        )
+        val tomorrow = day()
+        val fastItem = SeasonalChecklistItems.forDay(
+            fast, UserProfile(), tomorrow, tomorrow, 0L,
+        ).single { it.id.startsWith("zecher_machatzit_hashekel") }
+        val purimItem = SeasonalChecklistItems.forDay(
+            purim, UserProfile(), tomorrow, tomorrow, 0L,
+        ).single { it.id.startsWith("zecher_machatzit_hashekel") }
+        assertTrue(fastItem.id == purimItem.id)
+        assertTrue(fastItem.id == "zecher_machatzit_hashekel_5786")
     }
 
     private fun day() = DayInfo(

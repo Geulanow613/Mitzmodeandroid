@@ -319,8 +319,11 @@ Ask your Chabad rabbi for details on your community.""",
 
     private fun zecherMachatzitHaShekelItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
         val onFast = cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER
+        // Year-keyed id + persistChecked: check on Fast of Esther stays checked on Purim;
+        // next Hebrew year gets a fresh unchecked item.
+        val year = cal.hebrewYear ?: 0
         return ChecklistItemDef(
-            id = "zecher_machatzit_hashekel",
+            id = "zecher_machatzit_hashekel_$year",
             title = if (onFast) {
                 "Zecher LeMachatzit HaShekel (custom)"
             } else {
@@ -331,6 +334,7 @@ Ask your Chabad rabbi for details on your community.""",
             timeOfDay = TimeOfDay.DAY,
             required = false,
             situational = false,
+            persistChecked = true,
             seasons = buildList {
                 if (onFast) add("fast_day")
                 if (cal.isPurim) add("purim")

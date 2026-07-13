@@ -2,6 +2,10 @@
 
 What the mirrored `be-a-tzaddik/` files and `docs/` contain.
 
+## 2026-07-13 (c) — Machatzit check persists Fast → Purim
+
+- Zecher LeMachatzit HaShekel uses `persistChecked` with a Hebrew-year id so a check on Fast of Esther stays checked on Purim (resets next year)
+
 ## 2026-07-13 (b) — Zecher LeMachatzit HaShekel custom
 
 - New Seasonal checklist item **Zecher LeMachatzit HaShekel (custom)** on Fast of Esther (Mincha) and Purim / Meshulash Friday (with note if not given on the fast)
