@@ -1002,9 +1002,10 @@ object HalachicTermsDictionary {
             "Shaddai",
         ),
         line(
-            "Kashrut — Kashrut is the Torah system of permitted food, shechita, separating meat and dairy, and supervising production. It sanctifies eating — turning meals into service of G-d. Learning labels (OU, OK, etc.), hechsherim, and kitchen setup takes time; ask your rav when starting.",
+            "Kashrut — Kashrut is the Torah system of permitted food: shechita, separating meat and dairy (basar bechalav), checking produce for insects, and — in Israel — agricultural tithes (terumot and ma'asrot). It sanctifies eating. Prefer reliable hechsherim; follow your rav for waiting times and kitchen setup.",
             "Kashrut",
             "kashrut",
+            "Keep Kosher",
         ),
         line(
             "kosher — Kosher means fit for use per halacha — especially food, but also valid scrolls and acceptable conduct (e.g. kosher money for mitzvot). Kosher is not a health label; it is spiritual fitness. When in doubt on a product, call the hechsher company or your rav.",

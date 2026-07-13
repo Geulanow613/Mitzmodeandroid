@@ -6,6 +6,9 @@ package com.beardytop.beatzaddik.domain
  *
  * Checklist titles also normalize fancy dashes to ASCII '-' so they cannot resurface
  * as garbage in the UI if a file is re-corrupted.
+ *
+ * Also attempts to recover Hebrew that was double-encoded (UTF-8 bytes read as
+ * Latin-1/Windows-1252, then re-saved), which otherwise shows as "×›Ö¸…" garbage.
  */
 object TextEncodingFixes {
 
@@ -25,11 +28,34 @@ object TextEncodingFixes {
 
     fun repairMojibake(text: String): String {
         if (text.isEmpty()) return text
-        var out = text
+        var out = repairDoubleEncodedUtf8(text)
         for ((bad, good) in REPLACEMENTS) {
             if (out.contains(bad)) out = out.replace(bad, good)
         }
         return out
+    }
+
+    /**
+     * If [text] looks like UTF-8 misread as Latin-1/CP1252 (lots of × / Ö), try
+     * encoding those code units back to bytes and decoding as UTF-8.
+     */
+    private fun repairDoubleEncodedUtf8(text: String): String {
+        val looksBroken =
+            text.contains('\u00D7') && (text.contains('\u00D6') || text.any { it.code in 0x80..0x9F })
+        if (!looksBroken) return text
+        val asBytes = ByteArray(text.length) { i ->
+            val c = text[i].code
+            if (c > 0xFF) return text // cannot round-trip high code points this way
+            c.toByte()
+        }
+        return try {
+            val recovered = asBytes.toString(Charsets.UTF_8)
+            val recoveredHebrew = recovered.count { it in '\u0590'..'\u05FF' }
+            val originalHebrew = text.count { it in '\u0590'..'\u05FF' }
+            if (recoveredHebrew > originalHebrew) recovered else text
+        } catch (_: Exception) {
+            text
+        }
     }
 
     /** Repair mojibake, then force em/en dashes to ASCII hyphen (safe for titles). */

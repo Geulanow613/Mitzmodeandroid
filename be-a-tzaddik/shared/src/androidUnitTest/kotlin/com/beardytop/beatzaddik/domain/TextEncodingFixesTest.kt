@@ -16,6 +16,17 @@ class TextEncodingFixesTest {
     }
 
     @Test
+    fun repairMojibake_recoversDoubleEncodedHebrew() {
+        // "כשר" UTF-8 bytes misread as Latin-1: ×›×©×¨
+        val broken = "Kosher (\u00D7\u203A\u00D7\u0161\u00D7\u00A8)"
+        // Prefer a realistic sequence from Latin-1 mapping of D7 9B D7 A9 D7 A8:
+        val latin1Broken = "Kosher (\u00D7\u009B\u00D7\u00A9\u00D7\u00A8)"
+        val fixed = TextEncodingFixes.repairMojibake(latin1Broken)
+        assertTrue(fixed.contains("\u05DB") || fixed.contains("\u05E9") || fixed.contains("\u05E8"), fixed)
+        assertFalse(fixed.contains("\u00D7\u009B"))
+    }
+
+    @Test
     fun checklistLoader_sanitizesTitlesEvenIfJsonHasMojibake() {
         val mojiEm = "\u00E2\u20AC\u201D"
         val json = """
