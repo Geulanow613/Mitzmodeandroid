@@ -64,8 +64,54 @@ val LocalOpenShabbatGuide = compositionLocalOf<((String?) -> Unit)?> { null }
 /** Child screens register a handler so the Shabbat guide can toggle the checklist debug menu. */
 val LocalRegisterChecklistDebugToggle = compositionLocalOf<(((() -> Unit)?) -> Unit)?> { null }
 
-/** Tracks term ids already underlined on the current page; first occurrence only. */
-val LocalHalachicTermsUsedOnPage = compositionLocalOf<MutableSet<String>?> { null }
+/**
+ * Tracks which glossary terms already received an underline on the current page.
+ * First visual occurrence wins; later repeats (even in other text blocks) stay plain.
+ */
+class HalachicTermUsageTracker {
+    private val ownerByTermId = mutableMapOf<String, Any>()
+    var generation: Int = 0
+        private set
+
+    fun reset() {
+        ownerByTermId.clear()
+        generation++
+    }
+
+    /** True when [ownerKey] owns the first underline for [termId] on this page. */
+    fun claim(termId: String, ownerKey: Any): Boolean {
+        val existing = ownerByTermId[termId]
+        return when {
+            existing == null -> {
+                ownerByTermId[termId] = ownerKey
+                true
+            }
+            existing == ownerKey -> true
+            else -> false
+        }
+    }
+}
+
+val LocalHalachicTermsUsedOnPage = compositionLocalOf<HalachicTermUsageTracker?> { null }
+
+/**
+ * Scope for first-glossary-underline-only across every [HalachicClickableText] / [AppText]
+ * composed inside [content]. Reset when [key] changes (dialog text, screen day, etc.).
+ */
+@Composable
+fun HalachicTermsPage(
+    key: Any? = Unit,
+    content: @Composable () -> Unit,
+) {
+    val tracker = remember { HalachicTermUsageTracker() }
+    remember(key) {
+        tracker.reset()
+        true
+    }
+    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides tracker) {
+        content()
+    }
+}
 
 /** Term text keeps body color; gold underline is drawn separately in [drawHalachicTermUnderlines]. */
 private fun halachicTermSpanStyle(bodyColor: Color): SpanStyle = SpanStyle(
@@ -435,19 +481,34 @@ fun HalachicClickableText(
     }
 
     var displayText by remember(text) { mutableStateOf(text) }
-    var annotated by remember(text, knownLinks, termsEnabled, extras, color) {
+    val pageGeneration = usedOnPage?.generation
+    // Page-scoped path must build synchronously in composition order so the first
+    // visual occurrence wins (parallel LaunchedEffects raced and re-underlined).
+    val syncedAnnotated = if (usedOnPage != null) {
+        remember(text, knownLinks, termsEnabled, extras, color, pageGeneration) {
+            buildBodyAnnotatedString(
+                text = text,
+                knownLinks = knownLinks,
+                enableTerms = termsEnabled,
+                additionalTerms = extras,
+                bodyColor = color,
+                usedOnPage = usedOnPage,
+                ownerKey = text,
+            )
+        }
+    } else {
+        null
+    }
+    var asyncAnnotated by remember(text, knownLinks, termsEnabled, extras, color) {
         mutableStateOf<AnnotatedString?>(null)
     }
 
     LaunchedEffect(text, knownLinks, termsEnabled, extras, color, usedOnPage) {
-        // Page-scoped first-occurrence tracking must not reuse the global cache.
-        if (usedOnPage == null) {
-            HalachicAnnotationCache.get(text, knownLinks, termsEnabled, extras, color)?.let {
-                annotated = it
-                return@LaunchedEffect
-            }
+        if (usedOnPage != null) return@LaunchedEffect
+        HalachicAnnotationCache.get(text, knownLinks, termsEnabled, extras, color)?.let {
+            asyncAnnotated = it
+            return@LaunchedEffect
         }
-        val localUsed = usedOnPage?.toMutableSet()
         val built = withContext(Dispatchers.Default) {
             buildBodyAnnotatedString(
                 text = text,
@@ -455,16 +516,13 @@ fun HalachicClickableText(
                 enableTerms = termsEnabled,
                 additionalTerms = extras,
                 bodyColor = color,
-                usedOnPage = localUsed,
             )
         }
-        if (usedOnPage == null) {
-            HalachicAnnotationCache.put(text, knownLinks, termsEnabled, extras, color, built)
-        } else if (localUsed != null) {
-            usedOnPage.addAll(localUsed)
-        }
-        annotated = built
+        HalachicAnnotationCache.put(text, knownLinks, termsEnabled, extras, color, built)
+        asyncAnnotated = built
     }
+
+    val annotated = syncedAnnotated ?: asyncAnnotated
 
     LaunchedEffect(text, appTranslation.enabled, appTranslation.languageCode) {
         displayText = when {
@@ -570,12 +628,17 @@ internal fun buildBodyAnnotatedString(
     enableTerms: Boolean = true,
     additionalTerms: List<HalachicTerm> = emptyList(),
     bodyColor: Color = TzaddikColors.TextBrown,
-    usedOnPage: MutableSet<String>? = null,
+    usedOnPage: HalachicTermUsageTracker? = null,
+    ownerKey: Any = text,
 ): AnnotatedString {
     if (text.contains("](")) {
-        return buildMarkdownWithTerms(text, enableTerms, additionalTerms, bodyColor, usedOnPage)
+        return buildMarkdownWithTerms(
+            text, enableTerms, additionalTerms, bodyColor, usedOnPage, ownerKey,
+        )
     }
-    return buildPlainBodyAnnotatedString(text, knownLinks, enableTerms, additionalTerms, bodyColor, usedOnPage)
+    return buildPlainBodyAnnotatedString(
+        text, knownLinks, enableTerms, additionalTerms, bodyColor, usedOnPage, ownerKey,
+    )
 }
 
 private fun buildMarkdownWithTerms(
@@ -583,7 +646,8 @@ private fun buildMarkdownWithTerms(
     enableTerms: Boolean,
     additionalTerms: List<HalachicTerm>,
     bodyColor: Color,
-    usedOnPage: MutableSet<String>?,
+    usedOnPage: HalachicTermUsageTracker?,
+    ownerKey: Any,
 ): AnnotatedString {
     val markdownLinkRegex = Regex("""\[([^\]]+)\]\(([^)]+)\)""")
     val protected = mutableListOf<IntRange>()
@@ -591,7 +655,9 @@ private fun buildMarkdownWithTerms(
         var cursor = 0
         markdownLinkRegex.findAll(text).forEach { match ->
             val plain = text.substring(cursor, match.range.first)
-            appendPlainWithTerms(plain, enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
+            appendPlainWithTerms(
+                plain, enableTerms, additionalTerms, protected, bodyColor, usedOnPage, ownerKey,
+            )
             protected.add(match.range)
             pushStringAnnotation(tag = "URL", annotation = match.groupValues[2].trim())
             withStyle(linkSpanStyle(bodyColor)) {
@@ -601,7 +667,15 @@ private fun buildMarkdownWithTerms(
             cursor = match.range.last + 1
         }
         if (cursor < text.length) {
-            appendPlainWithTerms(text.substring(cursor), enableTerms, additionalTerms, protected, bodyColor, usedOnPage)
+            appendPlainWithTerms(
+                text.substring(cursor),
+                enableTerms,
+                additionalTerms,
+                protected,
+                bodyColor,
+                usedOnPage,
+                ownerKey,
+            )
         }
     }
 }
@@ -618,7 +692,8 @@ private fun buildPlainBodyAnnotatedString(
     enableTerms: Boolean,
     additionalTerms: List<HalachicTerm>,
     bodyColor: Color,
-    usedOnPage: MutableSet<String>?,
+    usedOnPage: HalachicTermUsageTracker?,
+    ownerKey: Any,
 ): AnnotatedString {
     // Resource links: first occurrence of each label only. Glossary match-labels are left
     // for gold glossary underlines (popup), not blue URL inlining — bottom link rows still open URLs.
@@ -649,14 +724,18 @@ private fun buildPlainBodyAnnotatedString(
 
     if (patterns.isEmpty()) {
         return buildAnnotatedString {
-            appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage)
+            appendPlainWithTerms(
+                text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage, ownerKey,
+            )
         }
     }
 
     val linkHits = firstKnownLinkHits(text, patterns)
     if (linkHits.isEmpty()) {
         return buildAnnotatedString {
-            appendPlainWithTerms(text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage)
+            appendPlainWithTerms(
+                text, enableTerms, additionalTerms, emptyList(), bodyColor, usedOnPage, ownerKey,
+            )
         }
     }
 
@@ -672,6 +751,7 @@ private fun buildPlainBodyAnnotatedString(
                     protected,
                     bodyColor,
                     usedOnPage,
+                    ownerKey,
                 )
             }
             protected.add(start until end)
@@ -690,6 +770,7 @@ private fun buildPlainBodyAnnotatedString(
                 protected,
                 bodyColor,
                 usedOnPage,
+                ownerKey,
             )
         }
     }
@@ -757,7 +838,8 @@ private fun AnnotatedString.Builder.appendPlainWithTerms(
     additionalTerms: List<HalachicTerm>,
     protected: List<IntRange>,
     bodyColor: Color,
-    usedOnPage: MutableSet<String>? = null,
+    usedOnPage: HalachicTermUsageTracker? = null,
+    ownerKey: Any = plain,
 ) {
     if (plain.isEmpty()) return
     if (!enableTerms) {
@@ -766,13 +848,7 @@ private fun AnnotatedString.Builder.appendPlainWithTerms(
     }
     var matches = HalachicTermsDictionary.findMatches(plain, protected, additionalTerms)
     if (usedOnPage != null) {
-        matches = matches.filter { match ->
-            if (match.term.id in usedOnPage) false
-            else {
-                usedOnPage.add(match.term.id)
-                true
-            }
-        }
+        matches = matches.filter { match -> usedOnPage.claim(match.term.id, ownerKey) }
     }
     var pos = 0
     for (match in matches) {

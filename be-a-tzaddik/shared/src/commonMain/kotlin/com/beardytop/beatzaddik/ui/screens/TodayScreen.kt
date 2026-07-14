@@ -80,7 +80,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.beardytop.beatzaddik.ui.components.GUIDE_TERM_TAG
-import com.beardytop.beatzaddik.ui.components.LocalHalachicTermsUsedOnPage
+import com.beardytop.beatzaddik.ui.components.HalachicTermsPage
 import com.beardytop.beatzaddik.ui.components.LocalOpenShabbatGuide
 import com.beardytop.beatzaddik.ui.components.drawHalachicTermUnderlines
 import com.beardytop.beatzaddik.ui.components.halachicTermUnderlineColor
@@ -176,13 +176,12 @@ fun TodayScreen(
     val pageKey = remember(day?.header?.civilDateLabel, day?.items?.size) {
         "${day?.header?.civilDateLabel.orEmpty()}|${day?.items?.size ?: 0}"
     }
-    val usedTermsOnPage = remember(pageKey) { mutableSetOf<String>() }
     val appTranslation = LocalAppTranslation.current
     val displayLang = appTranslation.displayLanguageCode
     val tourReporter = LocalTourTargetReporter.current
 
     AppDirectionalLayout(displayLang) {
-    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedTermsOnPage) {
+    HalachicTermsPage(key = pageKey) {
     Column(
         modifier = Modifier
             .fillMaxSize()

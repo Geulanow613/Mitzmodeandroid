@@ -32,6 +32,7 @@ fun AboutContent(
     val align = if (centered) Alignment.CenterHorizontally else Alignment.Start
     val textAlign = if (centered) TextAlign.Center else TextAlign.Start
 
+    HalachicTermsPage(key = "about") {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = align
@@ -138,6 +139,7 @@ fun AboutContent(
                     .clickable(onClick = onWhatsAMitzvah),
             )
         }
+    }
     }
 }
 

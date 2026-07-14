@@ -63,6 +63,7 @@ import com.beardytop.beatzaddik.domain.displayLabel
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.ui.components.ChecklistSectionHeader
 import com.beardytop.beatzaddik.ui.components.HalachicClickableText
+import com.beardytop.beatzaddik.ui.components.HalachicTermsPage
 import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.ParchmentContentCard
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
@@ -98,6 +99,7 @@ fun OnboardingScreen(
         if (step > 0) step--
     }
 
+    HalachicTermsPage(key = step) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -211,6 +213,7 @@ fun OnboardingScreen(
                 )
             }
         }
+    }
     }
 }
 

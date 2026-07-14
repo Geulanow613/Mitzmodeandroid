@@ -35,9 +35,10 @@ fun RewardVideoDialog(
     val videoManager = remember { VideoManager.getInstance(context) }
     val textureView = remember(videoNumber) { videoManager.createTextureView(context) }
     var exoPlayer by remember(videoNumber) { mutableStateOf<ExoPlayer?>(null) }
-    var muted by remember(videoNumber) { mutableStateOf(false) }
     val isFinalReward = videoNumber == MitzModeViewModel.FINAL_REWARD_VIDEO_ID
-    val normalVolume = remember { 1f }
+    // 1800 final reward starts muted; tap the speaker-off control to unmute.
+    var muted by remember(videoNumber) { mutableStateOf(isFinalReward) }
+    val normalVolume = remember { MitzModeViewModel.FINAL_REWARD_PLAYER_VOLUME_UNMUTED }
 
     LaunchedEffect(videoNumber) {
         val asset = RewardVideoAssets.assetForVideoId(videoNumber) ?: run {
@@ -48,7 +49,7 @@ fun RewardVideoDialog(
             videoAsset = asset,
             onComplete = onDismiss,
             onError = { onDismiss() },
-            volume = if (isFinalReward) MitzModeViewModel.FINAL_REWARD_PLAYER_VOLUME_UNMUTED else null,
+            volume = if (isFinalReward) 0f else null,
         )
         if (player == null) {
             onDismiss()

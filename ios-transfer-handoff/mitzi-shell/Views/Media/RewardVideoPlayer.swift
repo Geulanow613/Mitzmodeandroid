@@ -50,7 +50,7 @@ struct RewardVideoPlayer: View {
     @Binding var isPresented: Bool
     @State private var player: AVPlayer?
     @State private var endObserver: NSObjectProtocol?
-    @State private var isMuted = false
+    @State private var isMuted = true
 
     var body: some View {
         ZStack {

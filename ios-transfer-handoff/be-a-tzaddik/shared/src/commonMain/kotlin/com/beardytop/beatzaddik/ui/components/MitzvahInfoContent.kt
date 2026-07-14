@@ -18,8 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -173,8 +171,7 @@ private fun RichExplanationText(
     knownLinks: List<ChecklistLink> = emptyList(),
 ) {
     // One glossary underline per term across the whole explainer (not once per line).
-    val usedOnPage = remember(text) { mutableSetOf<String>() }
-    CompositionLocalProvider(LocalHalachicTermsUsedOnPage provides usedOnPage) {
+    HalachicTermsPage(key = text) {
         val paragraphs = text.split("\n\n")
         paragraphs.forEachIndexed { pIdx, para ->
             if (pIdx > 0) Spacer(Modifier.height(10.dp))

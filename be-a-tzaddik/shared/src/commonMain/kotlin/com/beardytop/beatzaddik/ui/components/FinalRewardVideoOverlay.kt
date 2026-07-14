@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 
 /**
  * Full-screen final reward video (`finalreward.mp4`).
- * Android plays from assets; iOS is a no-op stub until AVPlayer is wired.
+ * Starts muted; tap the bottom-corner speaker control to unmute.
  */
 @Composable
 expect fun FinalRewardVideoOverlay(

@@ -63,6 +63,57 @@ class HalachicTermLinkingTest {
         assertEquals("Psalm 1", annotated.text.substring(urls.first().start, urls.first().end))
     }
 
+    @Test
+    fun pageTracker_underlinesGlossaryTermOnlyOnFirstTextBlock() {
+        val tracker = HalachicTermUsageTracker()
+        val first = buildBodyAnnotatedString(
+            text = "Doing a mitzvah connects you to Hashem.",
+            enableTerms = true,
+            bodyColor = Color.Black,
+            usedOnPage = tracker,
+            ownerKey = "block-1",
+        )
+        val second = buildBodyAnnotatedString(
+            text = "Another mitzvah later today still counts.",
+            enableTerms = true,
+            bodyColor = Color.Black,
+            usedOnPage = tracker,
+            ownerKey = "block-2",
+        )
+        val tag = HalachicTermsDictionary.annotationTag()
+        fun mitzvahCount(annotated: AnnotatedString) =
+            annotated.getStringAnnotations(tag, 0, annotated.length)
+                .count { annotated.text.substring(it.start, it.end).equals("mitzvah", ignoreCase = true) }
+        assertEquals(1, mitzvahCount(first))
+        assertEquals(0, mitzvahCount(second))
+    }
+
+    @Test
+    fun pageTracker_sameOwnerKeepsUnderlineOnRebuild() {
+        val tracker = HalachicTermUsageTracker()
+        val text = "A mitzvah is a command from Hashem."
+        val first = buildBodyAnnotatedString(
+            text = text,
+            enableTerms = true,
+            bodyColor = Color.Black,
+            usedOnPage = tracker,
+            ownerKey = text,
+        )
+        val rebuilt = buildBodyAnnotatedString(
+            text = text,
+            enableTerms = true,
+            bodyColor = Color.Red,
+            usedOnPage = tracker,
+            ownerKey = text,
+        )
+        val tag = HalachicTermsDictionary.annotationTag()
+        fun mitzvahCount(annotated: AnnotatedString) =
+            annotated.getStringAnnotations(tag, 0, annotated.length)
+                .count { annotated.text.substring(it.start, it.end).equals("mitzvah", ignoreCase = true) }
+        assertEquals(1, mitzvahCount(first))
+        assertEquals(1, mitzvahCount(rebuilt))
+    }
+
     private fun annotationCovers(
         annotated: AnnotatedString,
         range: AnnotatedString.Range<String>,
