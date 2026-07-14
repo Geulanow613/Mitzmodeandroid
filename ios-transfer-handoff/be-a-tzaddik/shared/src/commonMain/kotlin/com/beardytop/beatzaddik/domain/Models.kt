@@ -142,6 +142,15 @@ data class UserProfile(
     val dailyOngoingCollapsedDate: String? = null,
     /** Easter-egg checklist debug menu — persists until toggled off via the same gesture. */
     val checklistDebugMenuVisible: Boolean = false,
+
+    /** Soft in-app rating prompt — user already reviewed or sent feedback. */
+    val ratingPromptCompleted: Boolean = false,
+    /** First recorded app open used for the rating eligibility clock. */
+    val ratingPromptFirstLaunchEpochMillis: Long? = null,
+    /** Successful cold-start count for rating eligibility. */
+    val ratingPromptLaunchCount: Int = 0,
+    /** Don't ask again until this time (after "Not now"). */
+    val ratingPromptSnoozeUntilEpochMillis: Long? = null,
 ) {
     fun effectiveNusach(): EffectiveNusach = nusachSelection.toEffective()
 

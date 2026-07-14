@@ -49,7 +49,7 @@ object TextEncodingFixes {
             c.toByte()
         }
         return try {
-            val recovered = asBytes.toString(Charsets.UTF_8)
+            val recovered = asBytes.decodeToString()
             val recoveredHebrew = recovered.count { it in '\u0590'..'\u05FF' }
             val originalHebrew = text.count { it in '\u0590'..'\u05FF' }
             if (recoveredHebrew > originalHebrew) recovered else text

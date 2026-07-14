@@ -865,10 +865,8 @@ private fun AnnotatedString.Builder.appendPlainWithTerms(
 
 private object HalachicAnnotationCache {
     private const val MAX_ENTRIES = 64
-    private val cache = object : LinkedHashMap<String, AnnotatedString>(MAX_ENTRIES, 0.75f, true) {
-        override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, AnnotatedString>?) =
-            size > MAX_ENTRIES
-    }
+    // linkedMapOf insertion order — avoid JVM-only LinkedHashMap.removeEldestEntry override.
+    private val cache = linkedMapOf<String, AnnotatedString>()
 
     private fun key(
         text: String,
@@ -894,7 +892,12 @@ private object HalachicAnnotationCache {
         enableTerms: Boolean,
         extras: List<HalachicTerm>,
         bodyColor: Color,
-    ): AnnotatedString? = cache[key(text, knownLinks, enableTerms, extras, bodyColor)]
+    ): AnnotatedString? {
+        val k = key(text, knownLinks, enableTerms, extras, bodyColor)
+        val value = cache.remove(k) ?: return null
+        cache[k] = value
+        return value
+    }
 
     fun put(
         text: String,
@@ -904,6 +907,11 @@ private object HalachicAnnotationCache {
         bodyColor: Color,
         annotated: AnnotatedString,
     ) {
-        cache[key(text, knownLinks, enableTerms, extras, bodyColor)] = annotated
+        val k = key(text, knownLinks, enableTerms, extras, bodyColor)
+        cache.remove(k)
+        cache[k] = annotated
+        while (cache.size > MAX_ENTRIES) {
+            cache.remove(cache.keys.first())
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.beardytop.beatzaddik.platform.PlatformLocationService
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.platform.flushPendingLauncherAliasDisable
 import com.beardytop.beatzaddik.platform.handleAppNavigationIntent
+import com.beardytop.beatzaddik.platform.initAppRatingPlatform
 import com.beardytop.beatzaddik.platform.initKashrutNotifications
 import com.beardytop.beatzaddik.platform.recordLauncherEntryIntent
 import androidx.core.app.NotificationManagerCompat
@@ -51,6 +52,7 @@ class MainActivity : ComponentActivity() {
         recordLauncherEntryIntent(this)
         PlatformActivityHolder.bind(this)
         enableEdgeToEdge()
+        initAppRatingPlatform(applicationContext)
         initKashrutNotifications(applicationContext)
         handleAppNavigationIntent(intent)
         val locationService = PlatformLocationService(applicationContext)

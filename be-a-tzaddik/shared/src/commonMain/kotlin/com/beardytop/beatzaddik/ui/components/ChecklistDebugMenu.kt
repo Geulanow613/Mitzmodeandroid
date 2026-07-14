@@ -63,6 +63,7 @@ fun ChecklistDebugMenu(
     modifier: Modifier = Modifier,
     mitzvotCount: Int? = null,
     onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
+    onDebugShowRatingPrompt: (() -> Unit)? = null,
 ) {
     var expanded by rememberSaveable { mutableStateOf(false) }
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -185,6 +186,25 @@ fun ChecklistDebugMenu(
                             )
                         }
                     }
+                }
+
+                if (onDebugShowRatingPrompt != null) {
+                    Text(
+                        "In-app rating prompt",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = TzaddikColors.NavyMid,
+                        modifier = Modifier.padding(bottom = 4.dp),
+                    )
+                    AssistChip(
+                        onClick = onDebugShowRatingPrompt,
+                        label = {
+                            Text("Simulate rating ask", color = TzaddikColors.NavyDeep)
+                        },
+                        colors = AssistChipDefaults.assistChipColors(
+                            containerColor = Color.White.copy(alpha = 0.7f),
+                        ),
+                        modifier = Modifier.padding(bottom = 12.dp),
+                    )
                 }
 
                 Text(

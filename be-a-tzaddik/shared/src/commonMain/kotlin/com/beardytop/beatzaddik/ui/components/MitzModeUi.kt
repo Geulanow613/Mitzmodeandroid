@@ -379,6 +379,7 @@ fun ParchmentDialog(
     onDismiss: () -> Unit,
     title: String? = null,
     showCloseIcon: Boolean = true,
+    centerButtons: Boolean = false,
     confirmButton: (@Composable () -> Unit)? = null,
     dismissButton: (@Composable () -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit
@@ -446,7 +447,12 @@ fun ParchmentDialog(
                     HorizontalDivider(color = TzaddikColors.GoldBorder.copy(alpha = 0.25f))
                     Row(
                         Modifier.fillMaxWidth().padding(top = 10.dp),
-                        horizontalArrangement = Arrangement.End
+                        horizontalArrangement = if (centerButtons) {
+                            Arrangement.Center
+                        } else {
+                            Arrangement.End
+                        },
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         dismissButton?.invoke()
                         if (dismissButton != null && confirmButton != null) Spacer(Modifier.width(8.dp))

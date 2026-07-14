@@ -3,6 +3,7 @@ package com.beardytop.beatzaddik.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beardytop.beatzaddik.AppDependencies
+import com.beardytop.beatzaddik.domain.AppRatingPromptPolicy
 import com.beardytop.beatzaddik.domain.CustomChecklistItem
 import com.beardytop.beatzaddik.domain.DayChecklists
 import com.beardytop.beatzaddik.domain.Gender
@@ -139,6 +140,44 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     /** Fired once per day when all required mitzvot are complete. */
     private val _candlelightReward = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
     val candlelightReward = _candlelightReward.asSharedFlow()
+
+    private val _showRatingPrompt = MutableStateFlow(false)
+    val showRatingPrompt: StateFlow<Boolean> = _showRatingPrompt
+
+    /** Force the soft rating dialog (debug menu). Does not skip "completed" permanently until they finish. */
+    fun debugShowRatingPrompt() {
+        _showRatingPrompt.value = true
+    }
+
+    fun dismissRatingPromptForLater() {
+        _showRatingPrompt.value = false
+        viewModelScope.launch {
+            val now = Clock.System.now().toEpochMilliseconds()
+            val current = deps.repository.profile.first()
+            deps.repository.saveProfile(
+                current.copy(ratingPromptSnoozeUntilEpochMillis = AppRatingPromptPolicy.snoozeUntil(now))
+            )
+        }
+    }
+
+    fun markRatingPromptCompleted() {
+        _showRatingPrompt.value = false
+        viewModelScope.launch {
+            val current = deps.repository.profile.first()
+            deps.repository.saveProfile(
+                current.copy(
+                    ratingPromptCompleted = true,
+                    ratingPromptSnoozeUntilEpochMillis = null,
+                )
+            )
+        }
+    }
+
+    private fun maybeShowRatingPrompt(profile: UserProfile, nowEpochMillis: Long) {
+        if (_showRatingPrompt.value) return
+        if (!AppRatingPromptPolicy.isEligible(profile, nowEpochMillis)) return
+        _showRatingPrompt.value = true
+    }
 
     private val clockTick = flow {
         emit(Clock.System.now().toEpochMilliseconds())
@@ -331,6 +370,21 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             deps.repository.profile.first()
             deps.repository.disclaimerAcknowledged.first()
             _prefsLoaded.value = true
+            // Count this cold start toward soft-rating eligibility (once prefs are readable).
+            val now = Clock.System.now().toEpochMilliseconds()
+            val current = deps.repository.profile.first()
+            deps.repository.saveProfile(
+                current.copy(
+                    ratingPromptFirstLaunchEpochMillis =
+                        current.ratingPromptFirstLaunchEpochMillis ?: now,
+                    ratingPromptLaunchCount = current.ratingPromptLaunchCount + 1,
+                )
+            )
+            delay(2_500)
+            val prof = deps.repository.profile.first()
+            if (prof.onboardingComplete) {
+                maybeShowRatingPrompt(prof, Clock.System.now().toEpochMilliseconds())
+            }
         }
         // Ensure daily checklist items reset at tzeit (halachic day boundary), not midnight.
         viewModelScope.launch(Dispatchers.Default) {

@@ -132,6 +132,7 @@ fun TodayScreen(
     onChecklistItemChecked: ((itemId: String, title: String) -> Unit)? = null,
     mitzvotCount: Int? = null,
     onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
+    onDebugShowRatingPrompt: (() -> Unit)? = null,
 ) {
     val day by viewModel.dayChecklists.collectAsState()
     val profile by viewModel.profile.collectAsState()
@@ -197,6 +198,7 @@ fun TodayScreen(
                     timezoneId = displayTimezone,
                     mitzvotCount = mitzvotCount,
                     onDebugSetMitzvotCount = onDebugSetMitzvotCount,
+                    onDebugShowRatingPrompt = onDebugShowRatingPrompt,
                 )
             }
             Column(

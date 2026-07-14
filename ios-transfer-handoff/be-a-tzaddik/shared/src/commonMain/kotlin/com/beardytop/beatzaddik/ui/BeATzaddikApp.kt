@@ -67,6 +67,7 @@ import com.beardytop.beatzaddik.navigation.AppNavigation
 import com.beardytop.beatzaddik.ui.theme.TzaddikColors
 import com.beardytop.beatzaddik.platform.PlatformBackHandler
 import com.beardytop.beatzaddik.platform.exitApplication
+import com.beardytop.beatzaddik.ui.components.AppRatingPromptDialog
 import com.beardytop.beatzaddik.ui.components.AppText
 import com.beardytop.beatzaddik.ui.components.FinalRewardVideoOverlay
 import com.beardytop.beatzaddik.ui.components.GoldButton
@@ -383,6 +384,7 @@ private fun MainShell(
     val sessionCount by countFlow.collectAsState()
     val currentMitzvah by currentFlow.collectAsState()
     val showFinalReward by finalRewardFlow.collectAsState()
+    val showRatingPrompt by viewModel.showRatingPrompt.collectAsState()
 
     val mitzvotCount = when {
         unifiedMode -> sessionCount
@@ -552,6 +554,7 @@ private fun MainShell(
                     } else {
                         null
                     },
+                    onDebugShowRatingPrompt = { viewModel.debugShowRatingPrompt() },
                 )
                 1 -> TimerScreen(
                     viewModel = viewModel,
@@ -628,6 +631,13 @@ private fun MainShell(
             visible = unifiedMode && showFinalReward,
             onComplete = { mitzSession?.onFinalRewardComplete() },
         )
+
+        if (showRatingPrompt && !showAppTour && !showExitConfirm && !showWhatsAMitzvah) {
+            AppRatingPromptDialog(
+                onDismissForLater = { viewModel.dismissRatingPromptForLater() },
+                onCompleted = { viewModel.markRatingPromptCompleted() },
+            )
+        }
 
         if (showAppTour) {
             MitzModeAppTourOverlay(

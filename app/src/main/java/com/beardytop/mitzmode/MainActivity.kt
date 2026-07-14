@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import com.beardytop.mitzmode.tzaddik.TzaddikBridge
 import com.beardytop.mitzmode.tzaddik.TzaddikPermissionHost
 import com.beardytop.beatzaddik.platform.handleAppNavigationIntent
+import com.beardytop.beatzaddik.platform.initAppRatingPlatform
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.mitzmode.ui.AfterFirstFrame
 import com.beardytop.mitzmode.ui.MitzModeRoot
@@ -25,6 +26,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        initAppRatingPlatform(applicationContext)
         handleAppNavigationIntent(intent)
 
         // Must register before STARTED; keep lightweight.
