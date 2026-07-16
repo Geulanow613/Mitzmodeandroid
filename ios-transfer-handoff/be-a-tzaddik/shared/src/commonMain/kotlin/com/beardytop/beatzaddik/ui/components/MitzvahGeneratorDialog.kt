@@ -490,13 +490,14 @@ private fun GeneratorLinkText(
 ) {
     val uriHandler = LocalUriHandler.current
     val openAppImage = LocalOpenAppImage.current
+    val openInAppBrowser = LocalOpenInAppBrowser.current
     AppText(
         text = displayText,
         style = style,
         textAlign = TextAlign.Center,
         enableTerms = false,
         modifier = modifier.clickable {
-            openChecklistUri(url, uriHandler, openAppImage)
+            openChecklistUri(url, uriHandler, openAppImage, openInAppBrowser)
         },
     )
 }

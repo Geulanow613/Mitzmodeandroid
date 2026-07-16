@@ -29,8 +29,17 @@ fun AboutContent(
     onWhatsAMitzvah: (() -> Unit)? = null,
 ) {
     val uriHandler = LocalUriHandler.current
+    val openInAppBrowser = LocalOpenInAppBrowser.current
     val align = if (centered) Alignment.CenterHorizontally else Alignment.Start
     val textAlign = if (centered) TextAlign.Center else TextAlign.Start
+
+    fun openAboutUri(uri: String) {
+        if (openInAppBrowser != null && shouldOpenInAppBrowser(uri)) {
+            openInAppBrowser(uri)
+        } else {
+            runCatching { uriHandler.openUri(uri) }
+        }
+    }
 
     HalachicTermsPage(key = "about") {
     Column(
@@ -84,7 +93,7 @@ fun AboutContent(
             modifier = Modifier.fillMaxWidth(),
             onClick = { offset ->
                 linkText.getStringAnnotations("URL", offset, offset).firstOrNull()?.let {
-                    uriHandler.openUri(it.item)
+                    openAboutUri(it.item)
                 }
             }
         )
@@ -117,7 +126,7 @@ fun AboutContent(
             modifier = Modifier.fillMaxWidth(),
             onClick = { offset ->
                 emailLink.getStringAnnotations("URL", offset, offset).firstOrNull()?.let {
-                    uriHandler.openUri(it.item)
+                    openAboutUri(it.item)
                 }
             }
         )

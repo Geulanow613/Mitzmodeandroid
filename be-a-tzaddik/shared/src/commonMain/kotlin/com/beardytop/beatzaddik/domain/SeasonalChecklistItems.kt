@@ -1369,7 +1369,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.roshChodeshLinks(profile),
     )
 
-    /** Days 1–15 of the Hebrew month — zman evaluator marks too-early nights as UPCOMING. */
+    /** Days 1–15 of the Hebrew month — zman evaluator marks nights before molad+72h/7d as UPCOMING. */
     private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
         val day = cal.hebrewDay ?: return false
         return day in 1..15

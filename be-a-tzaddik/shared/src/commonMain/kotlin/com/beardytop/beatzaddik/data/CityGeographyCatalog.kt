@@ -49,7 +49,7 @@ object CityGeographyCatalog {
             for ((cityId, aliases) in searchAliasesByCityId) {
                 for (alias in aliases) {
                     val key = alias.trim().lowercase()
-                    if (key.isNotBlank()) putIfAbsent(key, cityId)
+                    if (key.isNotBlank() && !containsKey(key)) put(key, cityId)
                 }
             }
         }

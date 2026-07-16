@@ -17,14 +17,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.MenuBook
+import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Icon
@@ -74,6 +75,7 @@ import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.ui.components.LocalRegisterChecklistDebugToggle
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
+import com.beardytop.beatzaddik.ui.components.LearnWebScreen
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.NotificationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.MitzModeBottomNav
@@ -81,6 +83,7 @@ import com.beardytop.beatzaddik.ui.components.MitzModeCountPillOverlay
 import com.beardytop.beatzaddik.ui.components.MitzvahGeneratorDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentDialog
 import com.beardytop.beatzaddik.ui.components.ParchmentTextButton
+import com.beardytop.beatzaddik.ui.components.ProvideInAppBrowser
 import com.beardytop.beatzaddik.ui.components.StarryScaffold
 import com.beardytop.beatzaddik.ui.components.rememberCandlelightRewardController
 import com.beardytop.beatzaddik.ui.components.rememberHolyFlashController
@@ -128,6 +131,7 @@ fun BeATzaddikApp(
     }
 
     TzaddikTheme(textScale = profile.textScale) {
+        ProvideInAppBrowser {
         HalachicTermOverlay {
         val registerChecklistDebugToggle = LocalRegisterChecklistDebugToggle.current
         DisposableEffect(viewModel, registerChecklistDebugToggle) {
@@ -250,6 +254,7 @@ fun BeATzaddikApp(
                 },
                 onDismiss = { viewModel.dismissNotificationPermissionDialog() },
             )
+        }
         }
         }
     }
@@ -391,7 +396,7 @@ private fun MainShell(
         else -> externalMitzvotCount
     }
 
-    // Unified: 0 Today, 1 Timer, 2 Blessings, 3 MitzMode(action), 4 Settings, 5 Status, 6 About
+    // Unified: 0 Today, 1 Timer, 2 Blessings, 3 MitzMode(action), 4 Settings, 5 Learn, 6 About
     // Embedded: 0 Today, 1 Timer, 2 Return, 3 Settings, 4 About
     // Standalone: 0 Today, 1 Timer, 2 Settings, 3 About
     val settingsTabIndex = when (appMode) {
@@ -406,8 +411,9 @@ private fun MainShell(
     }
     val blessingsTabIndex = if (unifiedMode) 2 else -1
     val mitzModeActionIndex = if (unifiedMode) 3 else -1
-    val statusTabIndex = if (unifiedMode) 5 else -1
+    val learnTabIndex = if (unifiedMode) 5 else -1
     val returnMainTabIndex = if (embeddedMode) 2 else -1
+    var showCertificate by remember { mutableStateOf(false) }
 
     val appTitle = when (appMode) {
         AppMode.Unified -> "Mitz Mode"
@@ -420,10 +426,10 @@ private fun MainShell(
     }
 
     PlatformBackHandler(enabled = !showExitConfirm && !showAppTour) {
-        if (tab != 0) {
-            tab = 0
-        } else {
-            showExitConfirm = true
+        when {
+            showCertificate -> showCertificate = false
+            tab != 0 -> tab = 0
+            else -> showExitConfirm = true
         }
     }
     if (showAppTour) {
@@ -528,7 +534,7 @@ private fun MainShell(
                         }
                         add("Settings" to { Icon(Icons.Default.Settings, null) })
                         if (unifiedMode) {
-                            add("Status" to { Icon(Icons.Default.EmojiEvents, null) })
+                            add("Learn" to { Icon(Icons.Default.School, null) })
                         }
                         add("About" to { Icon(Icons.Default.Info, null) })
                     }
@@ -564,10 +570,7 @@ private fun MainShell(
                     }
                 )
                 blessingsTabIndex -> BlessingsScreen()
-                statusTabIndex -> StatusScreen(
-                    mitzvotCount = mitzvotCount,
-                    onReplayFinalReward = { mitzSession?.requestFinalRewardReplay() },
-                )
+                learnTabIndex -> LearnWebScreen()
                 settingsTabIndex -> SettingsScreen(
                     viewModel = viewModel,
                     scrollToKashrut = scrollSettingsToKashrut,
@@ -587,10 +590,51 @@ private fun MainShell(
         if (showPill) {
             MitzModeCountPillOverlay(
                 mitzvotCount = mitzvotCount,
+                alwaysVisible = unifiedMode && tab == aboutTabIndex,
+                onClick = if (unifiedMode && !showAppTour) {
+                    { showCertificate = true }
+                } else {
+                    null
+                },
                 modifier = Modifier
                     .align(Alignment.TopEnd)
                     .padding(top = 8.dp, end = 14.dp),
             )
+        }
+
+        if (showCertificate && unifiedMode) {
+            PlatformBackHandler { showCertificate = false }
+            androidx.compose.ui.window.Dialog(
+                onDismissRequest = { showCertificate = false },
+                properties = androidx.compose.ui.window.DialogProperties(
+                    usePlatformDefaultWidth = false,
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = true,
+                ),
+            ) {
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .background(TzaddikColors.ParchBase)
+                        .statusBarsPadding(),
+                ) {
+                    StatusScreen(
+                        mitzvotCount = mitzvotCount,
+                        onReplayFinalReward = {
+                            showCertificate = false
+                            mitzSession?.requestFinalRewardReplay()
+                        },
+                    )
+                    TextButton(
+                        onClick = { showCertificate = false },
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .padding(8.dp),
+                    ) {
+                        Text("Close", color = TzaddikColors.GoldBright)
+                    }
+                }
+            }
         }
 
         val mitzvah = currentMitzvah

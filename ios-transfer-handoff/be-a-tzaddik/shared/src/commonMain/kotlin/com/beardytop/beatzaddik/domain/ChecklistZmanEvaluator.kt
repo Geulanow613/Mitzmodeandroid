@@ -40,6 +40,7 @@ object ChecklistZmanEvaluator {
         "birkat_hachamah",
         "birkat_hailanot",
         "melave_malkah",
+        "shabbat_candles",
         "public_fast_day",
         "tefillin_tisha_beav_mincha",
         "motzei_yom_kippur_meal",
@@ -205,10 +206,11 @@ object ChecklistZmanEvaluator {
             "hamapil_blessing_according_to_many_opinions" ->
                 bedtimeWindow(nowMillis, z, tz, "Hamapil blessing")
             "at_least_one_prayer_daily_typically_morning" -> womenDailyPrayerWindow()
-            "kiddush_levana" -> kiddushLevanaWindow(prayerDay)
+            "kiddush_levana" -> kiddushLevanaWindow(nowMillis, tz, prayerDay)
             "birkat_hachamah" -> birkatHachamahWindow(nowMillis, z, tz)
             "birkat_hailanot" -> birkatHaIlanotHint(prayerDay)
             "melave_malkah" -> melaveMalkaWindow(nowMillis, z, tz, prayerDay)
+            "shabbat_candles" -> shabbatCandlesWindow(nowMillis, z, tz, prayerDay)
             "public_fast_day" -> publicFastWindow(nowMillis, z, tz, prayerDay.fastDayIndex)
             "motzei_yom_kippur_meal" -> motzeiYomKippurMealWindow(nowMillis, z, tz)
             "purim_meshulash_erev_megillah" -> purimMegillahNightWindow(nowMillis, z, tz)
@@ -667,6 +669,44 @@ object ChecklistZmanEvaluator {
         )
     }
 
+    /**
+     * Hadlakat Nerot — light by candle-lighting time (18 / Jerusalem 40 min before sunset).
+     * Available from Plag HaMincha; ideal deadline is candle lighting; expires at sunset.
+     */
+    private fun shabbatCandlesWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        day: PrayerDayContext,
+    ): ItemZmanStatus {
+        val sunset = z.sunsetMillis
+            ?: return ItemZmanStatus(hint = "Set location in Settings for candle-lighting times.")
+        val candles = sunset - day.candleLeadMinutes * 60_000L
+        val start = z.plagHaminchaMillis ?: (candles - 90 * 60_000L)
+        val candlesClock = ZmanimFormatter.formatTime(candles, tz) ?: "candle lighting"
+        val lead = day.candleLeadMinutes
+        return windowStatus(
+            now = now,
+            start = start,
+            end = sunset,
+            upcoming = "Light Shabbat candles by $candlesClock ($lead min before sunset).",
+            upcomingTemplate = "Light Shabbat candles by {time} ({lead} min before sunset).",
+            upcomingArgs = mapOf(
+                "time" to candlesClock,
+                "lead" to lead.toString(),
+            ),
+            expired = "Candle-lighting time has passed (after sunset).",
+            makeup = null,
+            availableAtLabel = "Plag HaMincha",
+            activeHint = "Light by $candlesClock ($lead min before sunset).",
+            activeHintTemplate = "Light by {time} ({lead} min before sunset).",
+            activeHintArgs = mapOf(
+                "time" to candlesClock,
+                "lead" to lead.toString(),
+            ),
+        )
+    }
+
     private fun publicFastWindow(
         now: Long,
         z: ZmanimSnapshot,
@@ -865,15 +905,6 @@ object ChecklistZmanEvaluator {
         )
     }
 
-    /**
-     * Kiddush Levana — Sanctification of the New Moon.
-     *
-     * Window opens: Ashkenaz/Chabad from day 3, Sephardi from day 7 (days after the molad).
-     * Window closes: at or before the full moon (~14.75 days from the molad — approximately; opinions vary).
-     * This evaluator uses Hebrew calendar day as a coarse proxy; check Sof Zman Kiddush Levana for your location.
-     *
-     * Source: Shulchan Aruch OC 426:3–4; Rama ibid.; Mishnah Berurah 426:20.
-     */
     private fun birkatHaIlanotHint(prayerDay: PrayerDayContext): ItemZmanStatus =
         ItemZmanStatus(hint = BirkatHaIlanotRules.listSubtextHint(prayerDay.latitude))
 
@@ -922,12 +953,28 @@ object ChecklistZmanEvaluator {
         )
     }
 
-    private fun kiddushLevanaWindow(prayerDay: PrayerDayContext): ItemZmanStatus {
+    /**
+     * Kiddush Levana — Sanctification of the New Moon.
+     *
+     * Window opens: Ashkenaz/Chabad 72 hours after the molad; Sephardi (Mechaber) 7 days after
+     * the molad. Window closes at or before the full moon (~14.75 days from the molad —
+     * approximately; opinions vary). Uses molad-based open times and the Hebrew day as a coarse
+     * close proxy; check Sof Zman Kiddush Levana for your location.
+     *
+     * Source: Shulchan Aruch OC 426:3–4; Rama ibid.; Mishnah Berurah 426:20.
+     */
+    private fun kiddushLevanaWindow(
+        now: Long,
+        tz: String,
+        prayerDay: PrayerDayContext,
+    ): ItemZmanStatus {
         val day = prayerDay.hebrewDay
             ?: return ItemZmanStatus(
                 availability = ItemZmanAvailability.UPCOMING,
                 hint = "Set location for Hebrew date and timing this month.",
             )
+        val year = prayerDay.hebrewYear
+        val month = prayerDay.hebrewMonth
 
         if (day > 15) {
             return ItemZmanStatus(
@@ -937,26 +984,55 @@ object ChecklistZmanEvaluator {
             )
         }
 
-        if (day == 15) {
+        val openMillis = if (year != null && month != null) {
+            when (prayerDay.nusach) {
+                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                    HebrewCalendarEngine.tchilasZmanKidushLevana7DaysMillis(year, month)
+                else ->
+                    HebrewCalendarEngine.tchilasZmanKidushLevana3DaysMillis(year, month)
+            }
+        } else null
+
+        if (openMillis != null && now < openMillis) {
+            val waitLabel = when (prayerDay.nusach) {
+                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "7 days after the molad"
+                else -> "72 hours after the molad"
+            }
+            val whenLabel = ZmanimFormatter.formatTimeWithDate(openMillis, tz)
+                ?: waitLabel
             return ItemZmanStatus(
-                availability = ItemZmanAvailability.ACTIVE,
-                hint = "Last chance may be tonight — say if the moon is clear and still within Sof Zman.",
+                availability = ItemZmanAvailability.UPCOMING,
+                windowStartMillis = openMillis,
+                hint = "Opens $whenLabel ($waitLabel). Say outdoors after nightfall when the moon is visible.",
+                hintTemplate = "Opens {when} ({wait}). Say outdoors after nightfall when the moon is visible.",
+                hintArgs = mapOf("when" to whenLabel, "wait" to waitLabel),
+                availableAtLabel = whenLabel,
             )
         }
 
-        val minDay = when (prayerDay.nusach) {
-            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
-            else -> 3
-        }
-        if (day < minDay) {
-            val opens = if (minDay == 7) "the 7th" else "the 3rd"
+        if (day == 15) {
             return ItemZmanStatus(
-                availability = ItemZmanAvailability.UPCOMING,
-                hint = "Opens around $opens this month.",
-                hintTemplate = "Opens around {day} this month.",
-                hintArgs = mapOf("day" to opens),
-                availableAtLabel = if (minDay == 7) "7th of the month" else "3rd of the month",
+                availability = ItemZmanAvailability.ACTIVE,
+                hint = "Last chance may be tonight — say if the moon is visible and still within Sof Zman.",
             )
+        }
+
+        // Fallback when year/month unavailable: Hebrew-day proxy (3rd / 7th).
+        if (openMillis == null) {
+            val minDay = when (prayerDay.nusach) {
+                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
+                else -> 3
+            }
+            if (day < minDay) {
+                val opens = if (minDay == 7) "the 7th" else "the 3rd"
+                return ItemZmanStatus(
+                    availability = ItemZmanAvailability.UPCOMING,
+                    hint = "Opens around $opens this month.",
+                    hintTemplate = "Opens around {day} this month.",
+                    hintArgs = mapOf("day" to opens),
+                    availableAtLabel = if (minDay == 7) "7th of the month" else "3rd of the month",
+                )
+            }
         }
 
         val preferred = kiddushLevanaPreferredTiming(prayerDay)
@@ -985,16 +1061,16 @@ object ChecklistZmanEvaluator {
         val day = prayerDay.hebrewDay
         when (month) {
             HebrewCalendarEngine.AV -> if (day != null && day < 10) {
-                return "Many wait until after Tisha B'Av; Motzei Shabbat sooner if the moon is clear."
+                return "Most wait until after Tisha B'Av."
             }
             HebrewCalendarEngine.TISHREI -> if (day != null && day < 11) {
-                return "Many wait until after Yom Kippur; Motzei Shabbat sooner if the moon is clear."
+                return "Many wait until after Yom Kippur."
             }
         }
         if (prayerDay.isErevShabbat) {
             return "Tonight after Shabbat — ideally still in Shabbat clothes."
         }
-        return "Ideally Motzei Shabbat in nice clothes; say when the moon is clear."
+        return "Ideally Motzei Shabbat in nice clothes; say when the moon is visible."
     }
 
     private fun dayOrdinal(day: Int): String = when (day) {

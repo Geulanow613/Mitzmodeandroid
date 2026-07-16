@@ -5,14 +5,14 @@ object AppDisclaimer {
     const val TITLE = "Disclaimer"
 
     /** Embedded Mitz Mode checklist title (splash, onboarding, About). */
-    const val EMBEDDED_APP_TITLE = "the Holy Light Checklist"
+    const val EMBEDDED_APP_TITLE = "the Mitz Mode Checklist"
 
     /** Headline shown above the disclaimer body. */
     const val WELCOME_HEADLINE = "A companion for your day"
 
     fun welcomeIntro(embeddedMode: Boolean): String =
         if (embeddedMode) {
-            "The Holy Light Checklist helps you track standard daily mitzvot in a Torah-observant routine."
+            "The Mitz Mode Checklist helps you track standard daily mitzvot in a Torah-observant routine."
         } else {
             "Be a Tzaddik helps you track standard daily mitzvot in a Torah-observant routine."
         }

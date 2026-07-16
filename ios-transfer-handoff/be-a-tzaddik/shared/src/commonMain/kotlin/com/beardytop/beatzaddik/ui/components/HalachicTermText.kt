@@ -415,6 +415,7 @@ fun HalachicClickableText(
     val appTranslation = LocalAppTranslation.current
     val uriHandler = LocalUriHandler.current
     val openAppImage = LocalOpenAppImage.current
+    val openInAppBrowser = LocalOpenInAppBrowser.current
     val termsEnabled = enableTerms && LocalHalachicTermsEnabled.current
     val resolvedStyle = if (textAlign != null) style.copy(textAlign = textAlign) else style
 
@@ -474,7 +475,7 @@ fun HalachicClickableText(
                 annotated.getStringAnnotations("URL", offset, offset)
                     .firstOrNull()
                     ?.item
-                    ?.let { openChecklistUri(it, uriHandler, openAppImage) }
+                    ?.let { openChecklistUri(it, uriHandler, openAppImage, openInAppBrowser) }
             },
         )
         return
@@ -594,7 +595,7 @@ fun HalachicClickableText(
         resolvedAnnotated.getStringAnnotations("URL", offset, offset)
             .firstOrNull()
             ?.item
-            ?.let { openChecklistUri(it, uriHandler, openAppImage) }
+            ?.let { openChecklistUri(it, uriHandler, openAppImage, openInAppBrowser) }
     }
 
     // ClickableText handles taps reliably inside vertically scrolling parents (e.g. mitzvah info).

@@ -44,14 +44,19 @@ fun appImageDrawable(key: String): DrawableResource? = when (key) {
     else -> null
 }
 
-/** Opens http(s) links via [uriHandler]; `app-image:` keys via [openAppImage]. */
+/** Opens http(s) links in the in-app browser when available; `app-image:` via [openAppImage]. */
 fun openChecklistUri(
     uri: String,
     uriHandler: UriHandler,
     openAppImage: ((String) -> Unit)?,
+    openInAppBrowser: ((String) -> Unit)? = null,
 ) {
     if (uri.startsWith(APP_IMAGE_URI_PREFIX)) {
         openAppImage?.invoke(uri.removePrefix(APP_IMAGE_URI_PREFIX).trim())
+        return
+    }
+    if (openInAppBrowser != null && shouldOpenInAppBrowser(uri)) {
+        openInAppBrowser(uri)
         return
     }
     runCatching { uriHandler.openUri(uri) }

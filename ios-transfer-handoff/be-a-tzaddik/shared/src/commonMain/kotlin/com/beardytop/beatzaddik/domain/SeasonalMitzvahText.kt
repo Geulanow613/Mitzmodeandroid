@@ -861,25 +861,25 @@ When Selichot begin:
     }
 
     private val KIDDUSH_LEVANA_WAIT_SEFARD =
-        "Recited once a month when the moon is visible, usually beginning on the 7th night of the Hebrew month (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
+        "Recited once a month when the moon is visible, usually beginning 7 days after the molad (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
 
     private val KIDDUSH_LEVANA_WAIT_EDOT =
-        "Recited once a month when the moon is visible. The majority of Sefardim wait until the 7th of the month (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days (Peninei Halakha 05-01-18) — follow your community."
+        "Recited once a month when the moon is visible. The majority of Sefardim wait until 7 days after the molad (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days / 72 hours (Peninei Halakha 05-01-18) — follow your community."
 
     private val KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD =
-        "Recited once a month when the moon is visible, usually beginning on the 3rd night of the Hebrew month (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
+        "Recited once a month when the moon is visible, usually beginning 72 hours (3 days) after the molad (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
 
     private val KIDDUSH_LEVANA_EXPLANATION_TEMPLATE = """
 Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obligated in this time-bound positive mitzvah; women are exempt and the widespread custom is that women do not recite it at all (see Deracheha link below).
 
 ${'$'}waitLine
 
-Deadline: The window ends at or before the full moon. Many authorities calculate this as approximately half the mean lunar month from the molad — often cited as roughly 14 days, 18 hours, and 22 minutes (~14.75 days) — though poskim disagree whether the cutoff follows that calculation or when the moon is visibly waning. Saying it on the night of the 15th may already be too late depending on the month and opinion. This app uses the Hebrew calendar day as a rough guide only — always check Sof Zman Kiddush Levana for your location before the month ends.
+Deadline: The window ends at or before the full moon. Many authorities calculate this as approximately half the mean lunar month from the molad — often cited as roughly 14 days, 18 hours, and 22 minutes (~14.75 days) — though poskim disagree whether the cutoff follows that calculation or when the moon is visibly waning. Saying it on the night of the 15th may already be too late depending on the month and opinion. Always check Sof Zman Kiddush Levana for your location before the month ends.
 
 When:
 • After nightfall (tzeit), standing outdoors under the open sky.
 • Ideally on Motzei Shabbat while still in nice clothes — a widespread custom because you are already dressed up.
-• In Av, many wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur — but say sooner on Motzei Shabbat if waiting risks cloudy nights.
+• In Av, most wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur.
 • Not on Shabbat or Yom Tov itself.
 
 How:

@@ -1,5 +1,11 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+
 /**
  * Pure Kotlin port of critical algorithms from KosherJava 2.5.0 (JewishDate + JewishCalendar).
  *
@@ -61,9 +67,13 @@ internal object HebrewCalendarEngine {
     const val SATURDAY  = 7
 
     // ── Molad constants ───────────────────────────────────────────────────────
+    private const val CHALAKIM_PER_MINUTE = 18
+    private const val CHALAKIM_PER_HOUR = 1080
     private const val CHALAKIM_PER_DAY   = 25920L          // 24 * 1080
     private const val CHALAKIM_PER_MONTH = 765433L         // 29d 12h 793p
     private const val CHALAKIM_MOLAD_TOHU = 31524L         // 1d 5h 204p
+    /** Har HaBayis LMT → Jerusalem STD (GMT+2): 20m 56.496s (KosherJava). */
+    private const val JERUSALEM_LMT_OFFSET_MS = 20L * 60_000 + 56_000 + 496
 
     // ── Core calendar math ────────────────────────────────────────────────────
 
@@ -125,6 +135,108 @@ internal object HebrewCalendarEngine {
         }
         return elapsed
     }
+
+    // ── Gregorian ↔ Jewish absolute-date conversion (KosherJava JewishDate) ───
+
+    /**
+     * Jewish civil date fields using Nissan-based months (same as KosherJava).
+     * [weekday] uses Java Calendar convention: 1=Sunday … 7=Saturday.
+     */
+    data class JewishCivilDate(val year: Int, val month: Int, val day: Int, val weekday: Int)
+
+    /** Days before absolute year 1 of the Gregorian calendar (KosherJava / RD epoch). */
+    private const val JEWISH_EPOCH = -1_373_429
+
+    /**
+     * Converts a Gregorian civil date (month 1=January) to the corresponding Jewish date.
+     * Matches KosherJava [JewishDate] / Android calendar backend.
+     */
+    fun fromGregorian(year: Int, month: Int, dayOfMonth: Int): JewishCivilDate {
+        require(year > 0) { "BC Gregorian dates are not supported" }
+        return absDateToJewish(gregorianDateToAbsDate(year, month, dayOfMonth))
+    }
+
+    fun jewishDateToAbsDate(year: Int, month: Int, dayOfMonth: Int): Int {
+        val elapsed = getDaysSinceStartOfJewishYear(year, month, dayOfMonth)
+        return elapsed + getJewishCalendarElapsedDays(year) + JEWISH_EPOCH
+    }
+
+    fun gregorianDateToAbsDate(year: Int, month: Int, dayOfMonth: Int): Int {
+        var absDate = dayOfMonth
+        for (m in (month - 1) downTo 1) {
+            absDate += lastDayOfGregorianMonth(year, m)
+        }
+        val y = year - 1
+        return absDate + 365 * y + y / 4 - y / 100 + y / 400
+    }
+
+    /**
+     * Molad of [jewishMonth] in [jewishYear] as epoch millis in absolute time
+     * (Jerusalem standard GMT+2 after LMT adjustment). Matches KosherJava
+     * [JewishCalendar.getMoladAsInstant].
+     */
+    fun moladAsEpochMillis(jewishYear: Int, jewishMonth: Int): Long {
+        val chalakim = getChalakimSinceMoladTohu(jewishYear, jewishMonth)
+        var absDate = (chalakim / CHALAKIM_PER_DAY).toInt() + JEWISH_EPOCH
+        var rem = (chalakim - (chalakim / CHALAKIM_PER_DAY) * CHALAKIM_PER_DAY).toInt()
+        var hours = rem / CHALAKIM_PER_HOUR
+        rem -= hours * CHALAKIM_PER_HOUR
+        val minutes = rem / CHALAKIM_PER_MINUTE
+        val parts = rem - minutes * CHALAKIM_PER_MINUTE
+        // Midnight-based rollover used by JewishDate.getMolad()
+        if (hours >= 6) absDate += 1
+        hours = (hours + 18) % 24
+        val (gy, gm, gd) = absDateToGregorian(absDate)
+        val moladSeconds = parts * 10.0 / 3.0
+        val seconds = moladSeconds.toInt()
+        val nanos = ((moladSeconds - seconds) * 1_000_000_000.0).toInt().coerceIn(0, 999_999_999)
+        val ldt = LocalDateTime(LocalDate(gy, gm, gd), LocalTime(hours, minutes, seconds, nanos))
+        return ldt.toInstant(TimeZone.of("GMT+2")).toEpochMilliseconds() - JERUSALEM_LMT_OFFSET_MS
+    }
+
+    /** Earliest Kiddush Levana — 72 hours after the molad (Ashkenaz / Chabad). */
+    fun tchilasZmanKidushLevana3DaysMillis(jewishYear: Int, jewishMonth: Int): Long =
+        moladAsEpochMillis(jewishYear, jewishMonth) + 72L * 60 * 60 * 1000
+
+    /** Earliest Kiddush Levana — 7 days after the molad (Mechaber / many Sefardim). */
+    fun tchilasZmanKidushLevana7DaysMillis(jewishYear: Int, jewishMonth: Int): Long =
+        moladAsEpochMillis(jewishYear, jewishMonth) + 168L * 60 * 60 * 1000
+
+    private fun absDateToGregorian(absDate: Int): Triple<Int, Int, Int> {
+        var year = absDate / 366
+        while (absDate >= gregorianDateToAbsDate(year + 1, 1, 1)) year++
+        var month = 1
+        while (absDate > gregorianDateToAbsDate(year, month, lastDayOfGregorianMonth(year, month))) {
+            month++
+        }
+        val day = absDate - gregorianDateToAbsDate(year, month, 1) + 1
+        return Triple(year, month, day)
+    }
+
+    private fun absDateToJewish(gregorianAbsDate: Int): JewishCivilDate {
+        require(gregorianAbsDate > 0) { "Dates in the BC era are not supported" }
+        var jewishYear = (gregorianAbsDate - JEWISH_EPOCH) / 366
+        while (gregorianAbsDate >= jewishDateToAbsDate(jewishYear + 1, TISHREI, 1)) {
+            jewishYear++
+        }
+        var jewishMonth =
+            if (gregorianAbsDate < jewishDateToAbsDate(jewishYear, NISSAN, 1)) TISHREI else NISSAN
+        while (gregorianAbsDate > jewishDateToAbsDate(jewishYear, jewishMonth, getDaysInJewishMonth(jewishYear, jewishMonth))) {
+            jewishMonth++
+        }
+        val jewishDay = gregorianAbsDate - jewishDateToAbsDate(jewishYear, jewishMonth, 1) + 1
+        val weekday = kotlin.math.abs(gregorianAbsDate % 7) + 1
+        return JewishCivilDate(jewishYear, jewishMonth, jewishDay, weekday)
+    }
+
+    private fun lastDayOfGregorianMonth(year: Int, month: Int): Int = when (month) {
+        2 -> if (isGregorianLeapYear(year)) 29 else 28
+        4, 6, 9, 11 -> 30
+        else -> 31
+    }
+
+    private fun isGregorianLeapYear(year: Int): Boolean =
+        (year % 4 == 0 && year % 100 != 0) || year % 400 == 0
 
     // ── Omer day ──────────────────────────────────────────────────────────────
 
