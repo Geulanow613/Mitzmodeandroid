@@ -184,32 +184,15 @@ fun BirkatHamazonDialog(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                                 ) {
-                                    Column(
+                                    Text(
+                                        text = summary,
+                                        style = MaterialTheme.typography.bodyLarge.copy(
+                                            fontSize = scaledFontSize
+                                        ),
+                                        textAlign = TextAlign.Start,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier.weight(1f)
-                                    ) {
-                                        Text(
-                                            text = summary,
-                                            style = MaterialTheme.typography.bodyLarge.copy(
-                                                fontSize = scaledFontSize
-                                            ),
-                                            textAlign = TextAlign.End,
-                                            modifier = Modifier.fillMaxWidth()
-                                        )
-                                        val summaryEn = section.collapsibleSummaryEnglish
-                                        if (showEnglish && showLiturgyTranslation && summaryEn != null) {
-                                            LiturgyTranslationText(
-                                                text = summaryEn,
-                                                style = MaterialTheme.typography.bodyMedium.copy(
-                                                    fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
-                                                ),
-                                                textAlign = TextAlign.Start,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(top = 4.dp),
-                                            )
-                                        }
-                                    }
+                                    )
                                     Icon(
                                         imageVector = if (expanded) {
                                             Icons.Default.KeyboardArrowUp
@@ -229,6 +212,19 @@ fun BirkatHamazonDialog(
                                     exit = fadeOut() + shrinkVertically()
                                 ) {
                                     Column(modifier = Modifier.fillMaxWidth()) {
+                                        section.instruction?.let { note ->
+                                            Text(
+                                                text = note,
+                                                style = MaterialTheme.typography.bodyMedium.copy(
+                                                    fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
+                                                ),
+                                                textAlign = TextAlign.Start,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier
+                                                    .fillMaxWidth()
+                                                    .padding(bottom = 8.dp),
+                                            )
+                                        }
                                         Text(
                                             text = section.hebrew,
                                             style = MaterialTheme.typography.bodyLarge.copy(
@@ -250,6 +246,19 @@ fun BirkatHamazonDialog(
                                     }
                                 }
                             } else {
+                                section.instruction?.let { note ->
+                                    Text(
+                                        text = note,
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
+                                        ),
+                                        textAlign = TextAlign.Start,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(bottom = 8.dp),
+                                    )
+                                }
                                 Text(
                                     text = section.hebrew,
                                     style = MaterialTheme.typography.bodyLarge.copy(

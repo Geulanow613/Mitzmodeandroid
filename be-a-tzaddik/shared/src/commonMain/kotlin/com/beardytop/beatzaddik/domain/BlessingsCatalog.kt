@@ -21,6 +21,10 @@ object BlessingsCatalog {
                 buildString {
                     append(section.title)
                     append("\n\n")
+                    section.instruction?.let {
+                        append(it.trim())
+                        append("\n\n")
+                    }
                     append(section.hebrew.trim())
                     section.english?.let {
                         append("\n\n")

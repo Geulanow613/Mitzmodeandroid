@@ -76,9 +76,6 @@ fun AlHaMichyaBlessingCard(
             MeinShaloshTextEngine.build(selection, translationLanguage)
         }
     }
-    val emptyHebrewPrompt = remember {
-        MeinShaloshTextEngine.build(MeinShaloshSelection(), MeinShaloshLanguage.HEBREW)
-    }
 
     val baseFontSize = 23.sp
     val scaledSize = (baseFontSize.value * fontScale).sp
@@ -107,9 +104,9 @@ fun AlHaMichyaBlessingCard(
 
         if (!selection.hasAnyFood) {
             Text(
-                text = emptyHebrewPrompt,
+                text = MeinShaloshTextEngine.EMPTY_PROMPT_ENGLISH,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    textDirection = TextDirection.Rtl,
+                    textDirection = TextDirection.Ltr,
                     color = TzaddikColors.TextMuted
                 ),
                 textAlign = TextAlign.Center,
@@ -117,22 +114,6 @@ fun AlHaMichyaBlessingCard(
                     .fillMaxWidth()
                     .padding(bottom = 4.dp)
             )
-            if (showTranslation && translationLanguage != null) {
-                Text(
-                    text = MeinShaloshTextEngine.build(
-                        MeinShaloshSelection(),
-                        translationLanguage,
-                    ),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        textDirection = TextDirection.Ltr,
-                        color = TzaddikColors.TextMuted
-                    ),
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 4.dp)
-                )
-            }
         }
 
         AppText(
