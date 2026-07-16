@@ -190,7 +190,7 @@ fun BirkatHamazonDialog(
                                             fontSize = scaledFontSize
                                         ),
                                         textAlign = TextAlign.Start,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        color = TzaddikColors.TextBrown,
                                         modifier = Modifier.weight(1f)
                                     )
                                     Icon(
@@ -219,7 +219,7 @@ fun BirkatHamazonDialog(
                                                     fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
                                                 ),
                                                 textAlign = TextAlign.Start,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                color = TzaddikColors.TextBrown,
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                                     .padding(bottom = 8.dp),
@@ -231,6 +231,7 @@ fun BirkatHamazonDialog(
                                                 fontSize = scaledFontSize
                                             ),
                                             textAlign = TextAlign.End,
+                                            color = TzaddikColors.TextBrown,
                                             modifier = Modifier.fillMaxWidth()
                                         )
                                         if (showEnglish && showLiturgyTranslation && section.english != null) {
@@ -240,6 +241,7 @@ fun BirkatHamazonDialog(
                                                     fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
                                                 ),
                                                 textAlign = TextAlign.Start,
+                                                color = TzaddikColors.TextMuted,
                                                 modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
                                             )
                                         }
@@ -253,7 +255,7 @@ fun BirkatHamazonDialog(
                                             fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
                                         ),
                                         textAlign = TextAlign.Start,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        color = TzaddikColors.TextBrown,
                                         modifier = Modifier
                                             .fillMaxWidth()
                                             .padding(bottom = 8.dp),
@@ -265,6 +267,7 @@ fun BirkatHamazonDialog(
                                         fontSize = scaledFontSize
                                     ),
                                     textAlign = TextAlign.End,
+                                    color = TzaddikColors.TextBrown,
                                     modifier = Modifier.fillMaxWidth()
                                 )
 
@@ -275,6 +278,7 @@ fun BirkatHamazonDialog(
                                             fontSize = (MaterialTheme.typography.bodyMedium.fontSize.value * fontScale).sp
                                         ),
                                         textAlign = TextAlign.Start,
+                                        color = TzaddikColors.TextMuted,
                                         modifier = Modifier.padding(top = 8.dp, bottom = 16.dp),
                                     )
                                 }
