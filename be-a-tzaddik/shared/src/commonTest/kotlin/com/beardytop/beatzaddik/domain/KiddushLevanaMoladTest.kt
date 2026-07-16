@@ -75,6 +75,7 @@ class KiddushLevanaMoladTest {
         )
         assertEquals(ItemZmanAvailability.ACTIVE, status.availability)
         assertTrue(status.hint?.contains("Tisha B'Av") == true)
+        assertTrue(status.hint?.contains("unless concerned") == true)
         assertTrue(status.hint?.contains("moon is clear") != true)
     }
 

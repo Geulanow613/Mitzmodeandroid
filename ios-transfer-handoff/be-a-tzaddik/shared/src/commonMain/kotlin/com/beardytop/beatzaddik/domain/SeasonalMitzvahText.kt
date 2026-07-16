@@ -879,7 +879,7 @@ Deadline: The window ends at or before the full moon. Many authorities calculate
 When:
 • After nightfall (tzeit), standing outdoors under the open sky.
 • Ideally on Motzei Shabbat while still in nice clothes — a widespread custom because you are already dressed up.
-• In Av, most wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur.
+• In Av, most wait until after Tisha B'Av; in Tishrei, many wait until after Yom Kippur — unless concerned the moon may not be visible later.
 • Not on Shabbat or Yom Tov itself.
 
 How:

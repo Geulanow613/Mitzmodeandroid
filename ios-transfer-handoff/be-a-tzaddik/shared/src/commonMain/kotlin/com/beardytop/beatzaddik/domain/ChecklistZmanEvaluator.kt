@@ -1061,10 +1061,10 @@ object ChecklistZmanEvaluator {
         val day = prayerDay.hebrewDay
         when (month) {
             HebrewCalendarEngine.AV -> if (day != null && day < 10) {
-                return "Most wait until after Tisha B'Av."
+                return "Most wait until after Tisha B'Av, unless concerned the moon may not be visible later."
             }
             HebrewCalendarEngine.TISHREI -> if (day != null && day < 11) {
-                return "Many wait until after Yom Kippur."
+                return "Many wait until after Yom Kippur, unless concerned the moon may not be visible later."
             }
         }
         if (prayerDay.isErevShabbat) {

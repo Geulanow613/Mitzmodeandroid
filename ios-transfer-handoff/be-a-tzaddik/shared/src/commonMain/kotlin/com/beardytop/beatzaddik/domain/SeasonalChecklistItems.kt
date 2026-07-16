@@ -177,7 +177,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
                 RoshChodeshRules.HallelKind.NONE -> Unit
             }
         }
-        if (isKiddushLevanaWindow(cal, profile) && profile.gender.usesMaleChecklistItems()) {
+        if (isKiddushLevanaWindow(cal, profile, nowMillis) && profile.gender.usesMaleChecklistItems()) {
             add(kiddushLevanaItem(profile))
         }
         if (isTuBshvat(cal)) {
@@ -1369,10 +1369,26 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.roshChodeshLinks(profile),
     )
 
-    /** Days 1–15 of the Hebrew month — zman evaluator marks nights before molad+72h/7d as UPCOMING. */
-    private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile): Boolean {
+    /** Visible only after molad+72h (Ashkenaz/Chabad) or +7 days (Sefard), through day 15. */
+    private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile, nowMillis: Long): Boolean {
         val day = cal.hebrewDay ?: return false
-        return day in 1..15
+        if (day !in 1..15) return false
+        val year = cal.hebrewYear
+        val month = cal.hebrewMonth
+        if (year != null && month != null) {
+            val openMillis = when (profile.effectiveNusach()) {
+                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                    HebrewCalendarEngine.tchilasZmanKidushLevana7DaysMillis(year, month)
+                else ->
+                    HebrewCalendarEngine.tchilasZmanKidushLevana3DaysMillis(year, month)
+            }
+            return nowMillis >= openMillis
+        }
+        val minDay = when (profile.effectiveNusach()) {
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
+            else -> 3
+        }
+        return day >= minDay
     }
 
     private fun roshChodeshMonthlyItem(profile: UserProfile) = ChecklistItemDef(
