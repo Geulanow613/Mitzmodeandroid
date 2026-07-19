@@ -43,6 +43,7 @@ import com.beardytop.beatzaddik.ui.translation.rememberAppTranslatedText
  *   "\"quoted text\""   — rendered in italic style
  *   blank line (\n\n)   — paragraph break with vertical space
  *   [label](https://…)  — tappable link (verified URLs in JSON)
+ *   [Shabbat Guide](app-guide:melachot) — opens the in-app Shabbat Guide
  *   normal text         — regular body text
  *
  * A Hebrew/Aramaic glossary is checked for any terms in parentheses
