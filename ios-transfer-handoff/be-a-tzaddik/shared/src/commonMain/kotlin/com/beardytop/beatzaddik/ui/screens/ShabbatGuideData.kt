@@ -369,10 +369,10 @@ Additional notes:
             id = "rosh_hashana",
             title = "Rosh Hashana",
             hebrewTitle = "רֹאשׁ הַשָּׁנָה",
-            body = """Rosh Hashana (the Jewish New Year) falls on 1–2 Tishrei and is observed for two days in the Diaspora (one day in Israel). It is the anniversary of the creation of Adam and Eve and the Day of Judgment — when G-d reviews the deeds of all people and inscribes their fate for the coming year.
+            body = """Rosh Hashana (the Jewish New Year) falls on 1–2 Tishrei and is observed for two days everywhere — including in Israel (unlike most other festivals, which are one day in Israel and two in the Diaspora). It is the anniversary of the creation of Adam and Eve and the Day of Judgment — when G-d reviews the deeds of all people and inscribes their fate for the coming year.
 
 Key observances:
-• Hearing the shofar (ram's horn) blown in synagogue — the Ashkenazi custom is approximately 100 blasts per day (200 total over the two days in the Diaspora)
+• Hearing the shofar (ram's horn) blown in synagogue — the Ashkenazi custom is approximately 100 blasts per day (200 total over the two days)
 • Special prayers and liturgy including the Unetaneh Tokef
 • Eating symbolic foods: apples and honey for a sweet new year, pomegranate, fish head, dates, and other simanim (signs)
 • Tashlich — a custom to go to a body of water on the afternoon of the first day of Rosh Hashana and recite verses from Micah (7:18–20) symbolizing casting away sins. The custom involves the prayers at the water, not throwing bread crumbs (many authorities including the Vilna Gaon and Chabad discourage or omit the bread crumb practice entirely)
@@ -470,7 +470,7 @@ Chametz (leavened grain products) must be completely removed from one's home bef
 
 The Seder is held on the first two nights (in the Diaspora). The Haggadah is read, telling the story of the Exodus. Four cups of wine are drunk; matzah, maror (bitter herbs), and other symbolic foods are eaten.
 
-The first two and last two days are full Yom Tov; the middle days (Chol HaMoed) have lighter restrictions. Full Hallel is recited on the first two days of Pesach (Yom Tov); Half Hallel is recited from Chol HaMoed onward and on the final Yom Tov days. In Israel, Half Hallel begins from the second day.""",
+In the Diaspora, the first two and last two days are full Yom Tov; in Israel, the first and last days are Yom Tov. The middle days (Chol HaMoed) have lighter restrictions. Full Hallel is recited on the first two days of Pesach in the Diaspora (and on the first day in Israel); Half Hallel is recited from Chol HaMoed onward and on the final Yom Tov days. In Israel, Half Hallel begins from the second day.""",
             learnMoreUrl = "https://www.chabad.org/holidays/passover/default_cdo/jewish/Passover.htm"
         ),
         GuideTopic(
@@ -481,7 +481,7 @@ The first two and last two days are full Yom Tov; the middle days (Chol HaMoed) 
 
 It is customary to:
 • Study Torah through the night (Tikkun Leil Shavuot)
-• Eat dairy foods — various reasons are given, including that the Jewish people had not yet received the Torah's laws of meat preparation
+• Eat dairy foods — various reasons are given, including that the Jewish people had just received the Torah's laws of meat preparation, and since they didn't have the tools or time to properly prepare kosher meat according to those brand-new rules right away, dairy was the quickest way to keep it kosher. 
 • Read Megillat Ruth, whose themes of Torah commitment echo the acceptance of the Torah
 • Hear the Ten Commandments read in synagogue
 
@@ -497,9 +497,9 @@ Shavuot comes exactly 50 days after the second night of Pesach, at the end of th
             body = """Hoshana Raba is the 21st of Tishrei — the seventh and final day of Sukkot. While it is technically Chol HaMoed (an intermediate day), it carries special significance as the final "sealing" of the divine judgment begun on Rosh Hashana.
 
 Synagogue service — customs vary by nusach:
-• Ashkenaz: extended service with seven hakafot (circuits) with the lulav and aravot; willow branches (hoshanot) beaten on the ground after the circuits; lulav taken for the last time
+• Ashkenaz: extended service with seven hakafot (circuits) with the lulav and aravot; willow branches (aravot) beaten on the ground after the circuits; lulav and etrog taken for the last time
 • Sefard: similar hoshanot circuits in many communities; willow-beating customs vary — follow your siddur
-• Chabad: hakafot with hoshanot; aravot may be beaten five times on the ground (not the lulav itself) — see your Chabad machzor
+• Chabad: hakafot with hoshanot; aravot are beaten five times on the ground — see your Chabad machzor
 • Yemenite: distinct hoshanot liturgy and customs
 
 Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz custom, referring to the final sealing of one's decree for the year.""",
@@ -513,12 +513,14 @@ Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz cus
 
 Tu B'Shvat is the holiday of environmental mindfulness and deep-rooted potential. It marks the exact cosmic and agricultural turning point when the deepest winter chill begins to break, and the sap starts rising within the trees to form the fruit of the coming year.
 
-1. The tax day origin (the Mishnah)
-Tu B'Shvat does not appear in the Bible. It begins as a legal tax deadline in the Mishnah (Rosh Hashanah 1:1).
+1. The agricultural "New Year" (the Mishnah)
+Tu B'Shvat does not appear in the Bible. It originates in the Mishnah (Rosh Hashanah 1:1) as the cutoff date for separating one year's fruit tithes from the next.
 
-In ancient Israel, farmers were obligated to tithe (give a percentage of) their crops to the Priests, the Levites, and the poor. However, biblical law forbids tithing fruit grown in one year to fulfill the tax obligation of a different year. The Rabbis needed a hard cutoff date to calculate a tree's "age" and separate the old crop from the new crop.
+In ancient Israel, farmers were obligated to tithe—give a specific percentage of their crops—to the Priests, the Levites, and the poor. However, biblical law forbids tithing fruit from one year to fulfill the tax obligation of a different year. Because the specific tithe changes depending on the year of the seven-year Shmita cycle, the Rabbis needed a hard cutoff date to separate the old crop from the new crop.
 
-They chose the 15th of Shvat because, by mid-winter, most of the winter rains have already fallen in Israel, the soil is saturated, and the trees are officially starting their new growth cycle.
+They chose the 15th of Shvat (Tu BiShvat) because, by mid-winter, most of the annual rains have already fallen in Israel. With the soil saturated, the trees begin their new sap-rising cycle, causing new fruit to bud. Tu B'Shvat serves as the legal boundary line for the fruit itself: any fruit that buds before this date belongs to the previous agricultural tax year, while fruit that buds after belongs to the new one.
+
+Furthermore, this fruit-based cutoff applies to the laws of Orlah (the prohibition on eating a tree's fruit during its first three years). While a tree's physical age increments on Rosh Hashanah, the fruit it produces in its fourth year is only legally considered "fourth-year fruit" (Neta Reva'i) if it buds after Tu B'Shvat. Any fruit budding before Tu BiShvat in that fourth year is still legally considered third-year fruit and remains forbidden.
 
 2. The mystical renaissance (the Kabbalistic seder)
 For centuries after the destruction of the Temple, Tu B'Shvat was a minor day where fasting was forbidden and people ate a little extra fruit. But in the 16th century, the Kabbalists (mystics) of Safed transformed it into a more spiritual semi-festival.
@@ -541,7 +543,7 @@ The central culinary custom of the day is eating fruits native to the Land of Is
 • Dates (honey) — representing peace, tranquility, and long-term growth.
 
 4. Modern ecology and connection to the Land
-With the return of the Jewish people to Israel in the late 19th and 20th centuries, Tu B'Shvat took on a powerful Zionist and ecological meaning. Schoolchildren across Israel traditionally go out to plant trees, a practice that helped reforest a landscape that had been stripped bare over centuries of neglect. Today, it functions globally as a Jewish Earth Day, focusing on environmental conservation, sustainability, and our responsibility to protect the planet.
+With the return of the Jewish people to Israel in the late 19th and 20th centuries, Tu B'Shvat took on a powerful Zionist and ecological meaning. Schoolchildren across Israel traditionally go out to plant trees, a practice that helped reforest a landscape that had been stripped bare over centuries of neglect. Today, it functions globally as a kind of Jewish Earth Day, focusing on environmental conservation, sustainability, and our responsibility to protect the planet.
 
 The psychological lesson: Jewish philosophy frequently compares a human being to a "tree of the field" (Deuteronomy 20:19). Tu B'Shvat teaches that real growth starts completely out of sight. When you look at a tree in mid-Shvat, it looks completely dead, frozen, and bare. Yet the sap is moving hidden underground. The holiday is a reminder that our most profound personal breakthroughs often happen quietly in the dark long before anyone else can see the fruit.
 
