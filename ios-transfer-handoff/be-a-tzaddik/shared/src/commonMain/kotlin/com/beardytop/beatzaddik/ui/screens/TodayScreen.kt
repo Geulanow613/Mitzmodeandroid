@@ -508,8 +508,7 @@ private fun sectionSortKey(
 private val defaultCollapsedSectionNames = setOf(
     "Important Lifestyle Mitzvot",
     // "Married women's mitzvot" is intentionally expanded by default when present.
-    "Prepare for Shabbat",
-    "Pesach prep",
+    // Prepare for Shabbat / Prepare for the festival / Pesach prep stay expanded when prioritized.
     // Sefirat HaOmer stays expanded by default so a missed nighttime count is visible during the day.
     "Chanukah",
     "Purim"

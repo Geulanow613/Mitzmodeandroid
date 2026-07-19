@@ -1109,19 +1109,52 @@ Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives 
             BeginnerHalachaGlossary.RAV,
         ),
         """
-Tu B'Shvat (15 Shevat) — New Year for Trees — is a day to appreciate Hashem's fruit and Land of Israel.
+Tu B'Shvat (the 15th day of the Hebrew month of Shvat) is the New Year for Trees (Rosh Hashanah La'Ilanot). It usually falls in late January or early February.
 
-Liturgical note:
-• Tachanun is completely omitted from standard weekday prayers today — as well as during yesterday afternoon's Mincha service (14 Shevat).
+Tu B'Shvat is the holiday of environmental mindfulness and deep-rooted potential. It marks the exact cosmic and agricultural turning point when the deepest winter chill begins to break, and the sap starts rising within the trees to form the fruit of the coming year.
 
-Customs:
-• Eat fruit — especially tree fruit from the seven species: grapes, figs, pomegranates, olives, and dates. Wheat and barley are grains in the Shivat Haminim — honor them with bread or grain dishes separately, not under the tree-fruit bracha (Borei Pri Ha'etz).
-• Say brachot and after-brachot carefully.
-• Shehecheyanu on fruit: You may say Shehecheyanu only on a seasonal fruit that is genuinely new to the market this season (like fresh pomegranates or figs). Do not say this blessing on fruits grown and sold year-round (like bananas, pineapples, or apples), even if you personally have not eaten one recently.
-• Some hold a Tu B'Shvat Seder with four cups of wine (white to red) and themed fruit — follow a guide if hosting.
-• No fasting; work is permitted; it is not Yom Tov.
+1. The agricultural "New Year" (the Mishnah)
+Tu B'Shvat does not appear in the Bible. It originates in the Mishnah (Rosh Hashanah 1:1) as the cutoff date for separating one year's fruit tithes from the next.
 
-Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth (trees blossom in Israel around this season).
+In ancient Israel, farmers were obligated to tithe—give a specific percentage of their crops—to the Priests, the Levites, and the poor. However, biblical law forbids tithing fruit from one year to fulfill the tax obligation of a different year. Because the specific tithe changes depending on the year of the seven-year Shmita cycle, the Rabbis needed a hard cutoff date to separate the old crop from the new crop.
+
+They chose the 15th of Shvat (Tu BiShvat) because, by mid-winter, most of the annual rains have already fallen in Israel. With the soil saturated, the trees begin their new sap-rising cycle, causing new fruit to bud. Tu B'Shvat serves as the legal boundary line for the fruit itself: any fruit that buds before this date belongs to the previous agricultural tax year, while fruit that buds after belongs to the new one.
+
+Furthermore, this fruit-based cutoff applies to the laws of Orlah (the prohibition on eating a tree's fruit during its first three years). While a tree's physical age increments on Rosh Hashanah, the fruit it produces in its fourth year is only legally considered "fourth-year fruit" (Neta Reva'i) if it buds after Tu B'Shvat. Any fruit budding before Tu BiShvat in that fourth year is still legally considered third-year fruit and remains forbidden.
+
+2. The mystical renaissance (the Kabbalistic seder)
+For centuries after the destruction of the Temple, Tu B'Shvat was a minor day where fasting was forbidden and people ate a little extra fruit. But in the 16th century, the Kabbalists (mystics) of Safed transformed it into a more spiritual semi-festival.
+
+Led by Rabbi Isaac Luria (the Ari), they created the Tu B'Shvat Seder, modeled loosely on the Passover Seder. They viewed eating fruit not just as a physical act, but as a way to release holy "sparks" trapped in the physical world. The seder revolves around drinking four cups of wine — gradually transitioning from pure white wine to dark red wine to mimic the changing of the seasons — and eating specific fruits categorized by how they are peeled and structured.
+
+3. The Seven Species (Shivat HaMinim)
+The central culinary custom of the day is eating fruits native to the Land of Israel, specifically the Seven Species praised in the Book of Deuteronomy (Deuteronomy 8:8):
+
+• Wheat and barley — representing physical nourishment and foundational sustenance.
+
+• Grapes — representing joy and transformation (as wine).
+
+• Figs — representing the sweetness of continuous Torah study (fig trees yield fruit over a long period rather than all at once).
+
+• Pomegranates — representing action and mitzvot (traditionally said to contain 613 seeds, matching the biblical commandments).
+
+• Olives — representing resilience under pressure (olives must be crushed to produce oil) and light.
+
+• Dates (honey) — representing peace, tranquility, and long-term growth.
+
+4. Modern ecology and connection to the Land
+With the return of the Jewish people to Israel in the late 19th and 20th centuries, Tu B'Shvat took on a powerful Zionist and ecological meaning. Schoolchildren across Israel traditionally go out to plant trees, a practice that helped reforest a landscape that had been stripped bare over centuries of neglect. Today, it functions globally as a kind of Jewish Earth Day, focusing on environmental conservation, sustainability, and our responsibility to protect the planet.
+
+The psychological lesson: Jewish philosophy frequently compares a human being to a "tree of the field" (Deuteronomy 20:19). Tu B'Shvat teaches that real growth starts completely out of sight. When you look at a tree in mid-Shvat, it looks completely dead, frozen, and bare. Yet the sap is moving hidden underground. The holiday is a reminder that our most profound personal breakthroughs often happen quietly in the dark long before anyone else can see the fruit.
+
+Tu B'Shvat seder (optional)
+The Tu B'Shvat Seder is a mystical, multi-sensory feast created by the 16th-century Kabbalists of Safed to celebrate the "New Year for Trees." Modeled loosely after the Passover Seder, this evening ritual transitions participants through four worlds of spiritual consciousness.
+
+The experience revolves around drinking four cups of wine — gradually shifting from pure white to deep red to mirror the changing seasons — and eating at least 15 different fruits and nuts, with a special focus on the Seven Species of Israel. Each fruit is categorized by its physical structure (such as those with hard shells, those with internal pits, or those eaten whole), serving as a tangible meditation on human character, environmental stewardship, and the hidden potential waiting to bloom within us all.
+
+If you want the text of a Tu B'Shvat seder, [here](https://aish.com/48965616/) is a good one (Aish.com).
+
+Liturgical note: Tachanun is omitted at Shacharit and Mincha on Tu B'Shvat, and at Mincha on the preceding afternoon (14 Shevat). Work is permitted; it is not Yom Tov.
     """.trim(),
     )
 

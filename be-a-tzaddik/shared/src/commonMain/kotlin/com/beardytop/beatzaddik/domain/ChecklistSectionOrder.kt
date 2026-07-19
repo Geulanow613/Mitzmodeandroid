@@ -77,8 +77,8 @@ object ChecklistSectionOrder {
         if (OmerCountText.isOmerCountPriority(nowMillis, cal)) {
             add("Sefirat HaOmer")
         }
-        // Erev Shabbat: after midday, surface Shabbat prep near the top.
-        if (cal.isErevShabbat && cal.activeTimeOfDay != TimeOfDay.DAY) {
+        // Erev Shabbat: from dawn Friday, pin Shabbat prep to the top.
+        if (cal.isErevShabbat) {
             add("Prepare for Shabbat")
         }
     }
@@ -106,13 +106,12 @@ object ChecklistSectionOrder {
                     else -> prepSectionSortPriority[base] ?: -20
                 }
             }
-            // Erev Shabbat: keep prep directly under the current prayer block.
-            if (base == "Prepare for Shabbat") {
-                return when (activePeriod) {
-                    TimeOfDay.AFTERNOON -> -1 // very top on Friday afternoon
-                    TimeOfDay.NIGHT -> 1 // right below Maariv section
-                    else -> prepSectionSortPriority[base] ?: -20
-                }
+            // Erev Shabbat / erev chag prep: absolute top of the checklist.
+            if (base == "Prepare for Shabbat" ||
+                base == "Prepare for the festival" ||
+                base == "Pesach prep"
+            ) {
+                return -200
             }
             if (base == "Sefirat HaOmer") {
                 return when (activePeriod) {

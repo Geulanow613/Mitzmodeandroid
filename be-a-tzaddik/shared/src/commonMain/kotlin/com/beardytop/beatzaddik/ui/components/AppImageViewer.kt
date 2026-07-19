@@ -37,6 +37,13 @@ import org.jetbrains.compose.resources.painterResource
 /** Custom scheme for in-app guide images: `app-image:kosherhaircut`. */
 const val APP_IMAGE_URI_PREFIX = "app-image:"
 
+/**
+ * Custom scheme for opening the in-app Shabbat Guide (same surface as
+ * “Shabbat guide ›” on the checklist Upcoming & seasonal header).
+ * Examples: `app-guide:` (hub), `app-guide:melachot`, `app-guide:shabbat_overview`.
+ */
+const val APP_GUIDE_URI_PREFIX = "app-guide:"
+
 val LocalOpenAppImage = staticCompositionLocalOf<((String) -> Unit)?> { null }
 
 fun appImageDrawable(key: String): DrawableResource? = when (key) {
@@ -44,15 +51,24 @@ fun appImageDrawable(key: String): DrawableResource? = when (key) {
     else -> null
 }
 
-/** Opens http(s) links in the in-app browser when available; `app-image:` via [openAppImage]. */
+/**
+ * Opens http(s) links in the in-app browser when available;
+ * `app-image:` via [openAppImage]; `app-guide:` via [openShabbatGuide].
+ */
 fun openChecklistUri(
     uri: String,
     uriHandler: UriHandler,
     openAppImage: ((String) -> Unit)?,
     openInAppBrowser: ((String) -> Unit)? = null,
+    openShabbatGuide: ((String?) -> Unit)? = null,
 ) {
     if (uri.startsWith(APP_IMAGE_URI_PREFIX)) {
         openAppImage?.invoke(uri.removePrefix(APP_IMAGE_URI_PREFIX).trim())
+        return
+    }
+    if (uri.startsWith(APP_GUIDE_URI_PREFIX)) {
+        val anchor = uri.removePrefix(APP_GUIDE_URI_PREFIX).trim().ifBlank { null }
+        openShabbatGuide?.invoke(anchor)
         return
     }
     if (openInAppBrowser != null && shouldOpenInAppBrowser(uri)) {

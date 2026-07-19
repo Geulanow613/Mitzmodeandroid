@@ -86,6 +86,8 @@ fun ShabbatGuideScreen(
     LaunchedEffect(initialAnchor) {
         if (initialAnchor == null) return@LaunchedEffect
         val page: ShabbatPage? = when {
+            initialAnchor == "melachot" || initialAnchor == "melachot_list" ->
+                ShabbatPage.MelachotList
             initialAnchor == "shabbat_overview" || initialAnchor == "yom_tov" ->
                 ShabbatPage.ShabbatYomTovPage
             ShabbatGuideData.glossary.any { it.id == initialAnchor } ->
