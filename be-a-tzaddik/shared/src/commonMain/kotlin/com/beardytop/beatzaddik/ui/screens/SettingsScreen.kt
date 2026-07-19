@@ -211,7 +211,10 @@ fun SettingsScreen(
                     }
                 }
             }
-            val effectiveName = profile.effectiveNusach().displayLabel()
+            val effectiveName = when (profile.nusachSelection) {
+                NusachSelection.OTHER -> "Other — general customs only (no specific nusach rule-set)"
+                else -> profile.effectiveNusach().displayLabel()
+            }
             Spacer(Modifier.height(6.dp))
             CurrentlyUsingLine(nusachLabel = effectiveName)
         }

@@ -161,7 +161,7 @@ class ChecklistEngine(
 
         val occasion = TodayOccasionLabels.primary(cal, nowMillis, tomorrowCal)
         val omerLabel = TodayOccasionLabels.omerTodayLabel(cal, profile.effectiveNusach())
-        val omerDay = cal.omerDay?.takeIf { cal.isSefiratHaomer && !cal.isLagBaomer }
+        val omerDay = cal.omerDay?.takeIf { cal.isSefiratHaomer }
         val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
 
         val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile)
@@ -314,6 +314,8 @@ class ChecklistEngine(
 
     private fun matchesNusach(item: ChecklistItemDef, profile: UserProfile): Boolean {
         val allowed = item.nusach ?: return true
+        // "Other" keeps only general (unrestricted) items — not rite-specific lists.
+        if (profile.effectiveNusach().usesGenericCustoms()) return false
         val eff = profile.effectiveNusach().jsonTag()
         return allowed.any { tag -> tag.equals(eff, ignoreCase = true) }
     }

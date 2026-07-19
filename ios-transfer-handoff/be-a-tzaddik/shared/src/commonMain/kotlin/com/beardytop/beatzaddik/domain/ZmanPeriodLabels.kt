@@ -65,7 +65,8 @@ object ZmanPeriodLabels {
                     ?: ZmanimFormatter.formatTime(z.sunsetMillis, tz)
                 if (time != null) "Until nightfall: $time" else "Until nightfall"
             }
-            EffectiveNusach.ASHKENAZ, EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> {
+            EffectiveNusach.ASHKENAZ, EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH,
+            EffectiveNusach.OTHER -> {
                 val time = ZmanimFormatter.formatTime(z.sunsetMillis, tz)
                 if (time != null) "Until shortly after sunset: $time"
                 else "Until shortly after sunset"

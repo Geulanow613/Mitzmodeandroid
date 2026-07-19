@@ -12,7 +12,7 @@ object TishaBeavTefillinRules {
     /** Ashkenazi and Chabad omit tallit and tefillin at Shacharit on Tisha B'Av. */
     fun omitsMorningTefillin(nusach: EffectiveNusach): Boolean = when (nusach) {
         EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD -> true
-        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> false
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH, EffectiveNusach.OTHER -> false
     }
 
     fun morningOmittedHint(): String =
@@ -45,10 +45,12 @@ Sephardi and Edot HaMizrach morning customs vary (many omit tefillin at Shachari
         "Today's Tisha B'Av Mincha tefillin window ended at nightfall."
 
     /** Bullet for fast-day explainers (public_fast_day, Nine Days). */
-    fun fastDayTefillinNote(nusach: EffectiveNusach): String = when {
-        omitsMorningTefillin(nusach) ->
+    fun fastDayTefillinNote(nusach: EffectiveNusach): String = when (nusach) {
+        EffectiveNusach.OTHER ->
+            "Morning tallit/tefillin on Tisha B'Av varies by community; wearing them at Mincha after chatzos is widespread. Follow your kehilla."
+        EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
             "Ashkenazi/Chabad: tallit and tefillin are not worn at Shacharit (like the day of burial); wear them at Mincha after halachic chatzos."
-        else ->
+        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
             "Morning tefillin: Sephardi custom varies (many omit at Shacharit; some Jerusalem communities wear them). All communities wear tallit and tefillin at Mincha after chatzos."
     }
 

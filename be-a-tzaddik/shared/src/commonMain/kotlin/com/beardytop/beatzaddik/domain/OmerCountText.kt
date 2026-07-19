@@ -13,7 +13,7 @@ object OmerCountText {
 
     fun isActiveOmerCountSeason(cal: DayInfo): Boolean {
         val day = cal.omerDay ?: return false
-        return cal.isSefiratHaomer && day in 1..49 && !cal.isLagBaomer
+        return cal.isSefiratHaomer && day in 1..49
     }
 
     /**
@@ -39,6 +39,8 @@ object OmerCountText {
         EffectiveNusach.CHABAD,
         EffectiveNusach.SEFARD,
         EffectiveNusach.EDOT_HAMIZRACH -> "לעומר"
+        // Neutral English uses "of the Omer"; Hebrew defaults to ba'omer wording — follow your siddur.
+        EffectiveNusach.OTHER -> "בעומר"
     }
 
     fun buildTitle(day: Int, nusach: EffectiveNusach): String =
@@ -156,6 +158,7 @@ object OmerCountText {
             EffectiveNusach.SEFARD -> "Many Sephardim count after Maariv."
             EffectiveNusach.EDOT_HAMIZRACH -> "Many Edot HaMizrach kehillot count after Maariv."
             EffectiveNusach.ASHKENAZ -> "Many Ashkenazim count after Maariv."
+            EffectiveNusach.OTHER -> "Count after nightfall per your community's custom (often after Maariv)."
         }
         return mapOf(
             "day" to day.toString(),

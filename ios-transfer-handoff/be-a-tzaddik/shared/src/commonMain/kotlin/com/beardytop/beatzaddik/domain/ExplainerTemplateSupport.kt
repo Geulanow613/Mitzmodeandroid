@@ -103,6 +103,8 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
                 "Sephardi / Edot HaMizrach women: Generally wave the lulav without reciting the bracha (still a meaningful mitzvah)."
             EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
                 "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave in the same directions as men."
+            EffectiveNusach.OTHER ->
+                "Women's bracha practice for lulav varies by community — follow your minhag and rav."
         }
         val waveLine = when (nusach) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
@@ -111,6 +113,8 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
                 "Chabad women: Wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
             EffectiveNusach.ASHKENAZ ->
                 "Ashkenazi women: Wave east, south, west, north, up, down — the same as men."
+            EffectiveNusach.OTHER ->
+                "Wave directions and style vary by community — follow your siddur and minhag."
         }
         return mapOf(
             "daysNote" to daysNote,
@@ -126,6 +130,8 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
             "Hold lulav and etrog together with pitom down for the bracha. After the bracha, invert the etrog (pitom up), then wave right (south), left (north), forward (east), up, down, back (west) — the Arizal sequence when facing east. Hoshanot on Hoshana Raba in many kehillot."
         EffectiveNusach.ASHKENAZ ->
             "Hold lulav in right, etrog in left with pitom down for the bracha. After the bracha, turn the etrog pitom-up, then wave east, south, west, north, up, down (often two waves per direction)."
+        EffectiveNusach.OTHER ->
+            "Hold the lulav and etrog for the bracha per your siddur, then wave in the directions your community uses. Wave order and details vary — follow your minhag."
     }
 
     // ── Chol HaMoed ────────────────────────────────────────────────────────────
@@ -137,7 +143,7 @@ ${'$'}hoshanaRabaBlock
 Spirit of the day:
 • Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
 • Melacha — many labors are restricted (not as strict as Yom Tov). What is permitted depends on your situation — ask your rav.
-• Ochel nefesh — food preparation is permitted.
+• Food preparation for the day's meals is generally permitted (this is not the Yom Tov category of ochel nefesh — Chol HaMoed has its own, lighter rules).
 
 What to do:
 ${'$'}hallelBlock
@@ -266,6 +272,8 @@ How to observe:
             "Sephardic women generally eat bread and mezonot meals in the sukkah without reciting leishev baSukkah."
         EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
             "Ashkenazi women who eat bread in the sukkah say leishev baSukkah."
+        EffectiveNusach.OTHER ->
+            "Whether women recite leishev baSukkah varies by community — follow your minhag."
     }
 
     private fun womenFirstNightLeishevNote(profile: UserProfile): String = when (profile.effectiveNusach()) {
@@ -273,6 +281,8 @@ How to observe:
             "Sephardic women generally do not recite leishev baSukkah."
         EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
             "Ashkenazi women who eat bread in the sukkah say leishev baSukkah."
+        EffectiveNusach.OTHER ->
+            "Whether women recite leishev baSukkah varies by community — follow your minhag."
     }
 
     // ── Festival week prep ───────────────────────────────────────────────────────

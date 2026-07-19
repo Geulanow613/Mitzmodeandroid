@@ -91,9 +91,10 @@ object ChecklistItemResolver {
             EffectiveNusach.CHABAD -> "chabad"
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "sefard"
             EffectiveNusach.ASHKENAZ -> "ashkenaz"
+            EffectiveNusach.OTHER -> null
         }
         return item.links.filter { link ->
-            link.nusach == null || link.nusach == "default" || link.nusach == key
+            link.nusach == null || link.nusach == "default" || (key != null && link.nusach == key)
         }
     }
 
@@ -119,6 +120,7 @@ object ChecklistItemResolver {
                 item.explanationSefard
             }
             EffectiveNusach.CHABAD -> item.explanationChabad
+            EffectiveNusach.OTHER -> ""
         }
 
     private fun joinExplanation(base: String, nusachSpecific: String): String {

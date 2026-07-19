@@ -215,11 +215,11 @@ Evening: Candle lighting and Yom Tov; morning services are long — plan accordi
             """.trim()
         } else {
             """
-Shemini Atzeret (22 Tishrei in the Diaspora) — eighth day of Sukkot.
+Shemini Atzeret (22 Tishrei in the Diaspora) — an independent Yom Tov immediately after the seven days of Sukkot.
 
 Yom Tov:
 • Full Yom Tov — no melacha; Kiddush and festive meals.
-• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
+• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim and Chabad eat major meals in the sukkah on Shemini Atzeret but omit leishev basukkah. Sephardim generally eat indoors (no sukkah) on Shemini Atzeret — follow your rav.
 
 Davening:
 • Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
@@ -246,7 +246,7 @@ Simchat Torah (23 Tishrei in the Diaspora) — rejoicing with the Torah.
 
 Yom Tov:
 • Full Yom Tov — no melacha; Kiddush, festive meals, joy.
-• Sukkah: Most Ashkenazim do not eat in the sukkah on Simchat Torah (it is no longer Sukkot) — Sefardic practice varies; follow your rav.
+• Sukkah: On Diaspora Simchat Torah (23 Tishrei — the day after Shemini Atzeret), Sukkot is over — do not eat in the sukkah.
 • Davening: Full Hallel and Musaf (like other Yom Tov days).
 
 The mitzvah of the day — simcha and Torah:
@@ -309,7 +309,8 @@ Eating matzah on Pesach after the Seder night(s) is a mitzvah many observe, thou
 
 Levels:
 • First Seder night: Torah obligation (k'zayit) for men and women.
-• Rest of Pesach including Chol HaMoed: Rabbinic command (if you have a second seder) and optional mitzvah to eat matzah every day of Pesach. Most will eat matzah at all Yom Tov and Shabbat meals.
+• Second Seder night (Diaspora): rabbinic obligation, like other Yom Tov Sheni mitzvot.
+• Rest of Pesach including Chol HaMoed: many communities treat eating matzah as a cherished custom or optional mitzvah each day — not the same strict obligation as the Seder night(s). Most still eat matzah at Yom Tov and Shabbat meals.
 
 How:
 • Use shmurah matzah for the seder if available.
@@ -608,7 +609,7 @@ When:
 • Ideal: after tzeit (nightfall).
 • Earliest time (when necessary): from Plag HaMincha (1¼ halachic hours before sunset — often ~60–75 minutes before sunset, season-dependent).
 • Friday: light Chanukah before Shabbat candles; use enough oil/large enough candles to last 30 minutes after nightfall.
-• Motzei Shabbat: light before or after Havdalah per minhag (but do not do melacha before Shabbat ends).
+• Motzei Shabbat: light before or after Havdalah per minhag. If you light before full Havdalah, first recite Baruch ha'mavdil (or complete Havdalah) — do not light or do other melacha while Shabbat is still in effect.
 
 Late lighting (bedieved):
 If you were unable to light at the ideal time (around sunset or nightfall), the absolute final cutoff is dawn (alot hashachar).
@@ -758,7 +759,7 @@ Baruch Atah Ado-nai Eloheinu Melech ha'olam oseh ma'aseh bereishit.
 "Blessed are You, L-rd our G-d, King of the universe, Who makes the works of creation."
 
 How to fulfill it:
-• Go outdoors where the sun is visible — not through a window, per most poskim.
+• Preferably go outdoors where the sun is visible. Many allow viewing through clear glass if needed — follow your rav.
 • Recite at sunrise on the morning of the occurrence, when you can see the sun. Many communities gather for a public recitation with additional Tehillim and passages — follow your kehilla.
 • Ideal time: from sunrise through the third halachic hour of the day (sof zman tefillah). According to some opinions, you may still recite it until chatzos (halachic midday).
 • If the sky is completely overcast and the sun cannot be seen, many hold the blessing is not recited without visible sunlight; some communities still gather when clouds hide the sun.
@@ -781,7 +782,7 @@ Why:
     """.trim()
 
     fun ldovidAshkenazNote(): String =
-        "Ashkenaz minhag: from 2 Elul through Shemini Atzeret (22 Tishrei). Some communities end on Hoshana Rabbah (21 Tishrei) — follow your kehilla (Mishna Berurah 581:2; Rama)."
+        "Ashkenaz minhag: from the second day of Rosh Chodesh Elul (1 Elul) through Shemini Atzeret (22 Tishrei). Some communities end on Hoshana Rabbah (21 Tishrei) — follow your kehilla."
 
     fun ldovidSephardNote(): String =
         "Sephardi minhag: from Rosh Chodesh Elul through Yom Kippur (10 Tishrei) — prevalent custom (Ben Ish Chai). Some kehillot continue through Sukkot or Shemini Atzeret; ask your rav."
@@ -790,7 +791,7 @@ Why:
         "Edot HaMizrach minhag: from Rosh Chodesh Elul through Shemini Atzeret (22 Tishrei) in many communities; some end on Yom Kippur or Hoshana Rabbah — follow your kehilla."
 
     fun ldovidChabadNote(): String =
-        "Chabad minhag: from 2 Elul through Hoshana Rabbah (21 Tishrei). Some continue through Shemini Atzeret — follow your Chabad rabbi."
+        "Chabad minhag: from the first day of Rosh Chodesh Elul (30 Av) through Hoshana Rabbah (21 Tishrei). Some continue through Shemini Atzeret — follow your Chabad rabbi."
 
     private val SELICHOT_EXPLANATION = """
 Selichot (literally "Forgivenesses") is a formal order of liturgical prayer — penitential piyutim and biblical verses — recited in the lead-up to Rosh Hashana and Yom Kippur. It is not merely informal preparation before the High Holidays: it is a distinct service built around pleas for forgiveness and the Thirteen Attributes of Mercy (Shlosh-Esrei Midot Harachamim).
@@ -809,7 +810,7 @@ The Great Timing Divide: Sephardic vs. Ashkenazic
 
 While the emotional intent is identical, the Jewish world splits significantly on when the Selichot prayers begin, rooted in different legal and cultural traditions:
 
-• The Sephardic Custom (An Entire Month): Sephardic communities begin reciting Selichot on the second day of the Hebrew month of Elul and continue every single day until Yom Kippur—a full 40-day marathon. This timeline directly mirrors the 40 days Moses spent on Mount Sinai pleading for forgiveness after the Golden Calf incident, ending on Yom Kippur.
+• The Sephardic Custom (An Entire Month): Sephardic communities begin Selichot from Rosh Chodesh Elul (many start on 1 or 2 Elul — follow your kehilla) and continue through Yom Kippur — about forty days on the calendar, mirroring Moses' time on Sinai after the Golden Calf. Selichot are generally weekday services; they are not recited on Shabbat.
 
 • The Ashkenazic Custom (The Final Countdown): Ashkenazic communities begin reciting Selichot much later—traditionally on the Saturday night/Sunday morning before Rosh Hashana (ensuring a minimum of four days of prayers before the New Year hits). The first night of Ashkenazic Selichot is a major communal event, packed with high-attendance services that often begin at midnight or pre-dawn hours, but can occur throughout the day.
 
@@ -821,13 +822,20 @@ Mystical and psychological texts note that these hours carry a unique quality of
 Chabad follows the Ashkenazic Selichot calendar described above (not from Rosh Chodesh Elul).
 
 During Elul before Selichot begin:
-• Blow the shofar daily after Shacharit (except Erev Rosh Hashana and when Rosh Hashana is Shabbat).
+• Blow the shofar daily after Shacharit (except Erev Rosh Hashana and every Shabbat).
 • Recite three extra chapters of Tehillim after Shacharit (Baal Shem Tov custom).
 
 When Selichot begin:
 • Follow your local Chabad minyan — often late night or before Shacharit.
 • Use a Nusach Ari Selichot book (or a free online Nusach Ari edition) — not a generic Ashkenaz Selichot booklet.
 • Increase in Torah, teshuvah, and tzedakah through the month of Elul.
+    """.trim()
+
+    private val SELICHOT_OTHER_ADDENDUM = """
+
+Your setting is "Other" — this app does not apply Ashkenaz, Sephardi, Edot HaMizrach, or Chabad Selichot calendars for you.
+• Start date, text, and time of day vary widely (early Elul vs. Motzei Shabbat before Rosh Hashana, and more).
+• Use the Selichot book and schedule of your kehilla; ask your rav if unsure.
     """.trim()
 
     fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
@@ -841,6 +849,10 @@ When Selichot begin:
             BeginnerHalachaGlossary.selichotBasics(),
             SELICHOT_EXPLANATION,
         )
+        EffectiveNusach.OTHER -> BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.selichotBasics(),
+            "$SELICHOT_EXPLANATION\n\n$SELICHOT_OTHER_ADDENDUM",
+        )
     }
 
     fun kiddushLevanaExplanationTemplate(): String = KIDDUSH_LEVANA_EXPLANATION_TEMPLATE
@@ -851,6 +863,7 @@ When Selichot begin:
     private fun kiddushLevanaWaitLine(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.SEFARD -> KIDDUSH_LEVANA_WAIT_SEFARD
         EffectiveNusach.EDOT_HAMIZRACH -> KIDDUSH_LEVANA_WAIT_EDOT
+        EffectiveNusach.OTHER -> KIDDUSH_LEVANA_WAIT_OTHER
         else -> KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD
     }
 
@@ -868,6 +881,9 @@ When Selichot begin:
 
     private val KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD =
         "Recited once a month when the moon is visible, usually beginning 72 hours (3 days) after the molad (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
+
+    private val KIDDUSH_LEVANA_WAIT_OTHER =
+        "Recited once a month when the moon is visible. Communities differ: many wait 72 hours (3 days) after the molad; others wait 7 days. Follow your minhag (Peninei Halakha 05-01-18)."
 
     private val KIDDUSH_LEVANA_EXPLANATION_TEMPLATE = """
 Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are obligated in this time-bound positive mitzvah; women are exempt and the widespread custom is that women do not recite it at all (see Deracheha link below).
@@ -951,11 +967,19 @@ From 17 Tammuz (general Three Weeks):
 From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days checklist item for meat, wine, laundry, bathing, and home practices.
 """).trim()
 
+    private val THREE_WEEKS_OTHER_EXPLANATION = (THREE_WEEKS_INTRO + """
+
+Your setting is "Other" — specific Three Weeks restrictions (haircuts from 17 Tammuz vs. only the week of Tisha B'Av, music, weddings, Shehecheyanu) vary by community.
+• Follow your kehilla and rav for what applies to you.
+• See the Nine Days checklist item for the stricter period near Tisha B'Av; details also vary by minhag.
+""").trim()
+
     fun threeWeeksExplanationTemplate(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.ASHKENAZ -> THREE_WEEKS_ASHKENAZ_EXPLANATION
         EffectiveNusach.SEFARD -> THREE_WEEKS_SEPHARDIC_EXPLANATION
         EffectiveNusach.EDOT_HAMIZRACH -> THREE_WEEKS_SEPHARDIC_EXPLANATION
         EffectiveNusach.CHABAD -> THREE_WEEKS_CHABAD_EXPLANATION
+        EffectiveNusach.OTHER -> THREE_WEEKS_OTHER_EXPLANATION
     }
 
     fun threeWeeksAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -975,11 +999,17 @@ From Rosh Chodesh Av (Nine Days): restrictions intensify — see the Nine Days c
         THREE_WEEKS_CHABAD_EXPLANATION,
     )
 
+    fun threeWeeksOtherExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        THREE_WEEKS_OTHER_EXPLANATION,
+    )
+
     fun threeWeeksExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.ASHKENAZ -> threeWeeksAshkenazExplanation()
         EffectiveNusach.SEFARD -> threeWeeksSephardicExplanation()
         EffectiveNusach.EDOT_HAMIZRACH -> threeWeeksEdotHamizrachExplanation()
         EffectiveNusach.CHABAD -> threeWeeksChabadExplanation()
+        EffectiveNusach.OTHER -> threeWeeksOtherExplanation()
     }
 
     private fun nineDaysSharedHalacha(nusach: EffectiveNusach) = """
@@ -1017,7 +1047,7 @@ When the fast falls on Thursday and 10 Av is Friday (Shabbat prep — kvod Shabb
 The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
 
 From 1 Av:
-• Meat & wine: forbidden, except on Shabbat (not on Rosh Chodesh Av or erev Shabbat), at a brit milah, siyum, or pidyon ha'ben, or wine for Havdalah (ideally a child ages 6–10 drinks the cup).
+• Meat & wine: forbidden on weekdays of the Nine Days — including Rosh Chodesh Av and Friday before Shabbat (except tasting Shabbat food being cooked, per your minhag). Meat and wine are permitted on Shabbat itself, and at a brit milah, siyum, or pidyon ha'ben; wine for Havdalah is allowed (ideally a child ages 6–10 drinks the cup).
 • Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited. Clean socks and underwear are permitted (ideally toss them on the floor first).
 • Bathing: bathing or showering for pleasure is prohibited; washing a dirty, sweaty, or smelly body is permitted (except on Tisha B'Av).
 • Clothing & shopping: do not buy new clothes even without Shehecheyanu, even if you will wear them only after the fast (Rama O.C. 551:7). Major home improvements, painting, and renovations are avoided.
@@ -1071,11 +1101,25 @@ After the fast day is over, after nightfall when the fast ends: follow accepted 
 Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives the cup to a child (ages 6–9) when possible.
 """).trim()
 
+    private val NINE_DAYS_OTHER_EXPLANATION = ("""
+The days leading into Tisha B'Av intensify mourning for the Temple — exact start dates and restrictions vary by community.
+
+General themes (confirm with your rav what applies to you):
+• Meat, wine, laundry, bathing for pleasure, music, and new clothing are restricted in many communities for some or all of this period.
+• Ashkenazim often intensify from 1 Av; many Sephardim intensify mainly in the week of Tisha B'Av (shavuah she'chal bo).
+• Your "Other" setting does not apply one of those rule-sets automatically — follow your kehilla.
+
+""" + nineDaysSharedHalacha(EffectiveNusach.OTHER) + """
+
+After the fast: when meat, wine, laundry, and bathing resume also varies — ask your rav before resuming.
+""").trim()
+
     fun nineDaysExplanationTemplate(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.ASHKENAZ -> NINE_DAYS_ASHKENAZ_EXPLANATION
         EffectiveNusach.SEFARD -> NINE_DAYS_SEPHARDIC_EXPLANATION
         EffectiveNusach.EDOT_HAMIZRACH -> NINE_DAYS_SEPHARDIC_EXPLANATION
         EffectiveNusach.CHABAD -> NINE_DAYS_CHABAD_EXPLANATION
+        EffectiveNusach.OTHER -> NINE_DAYS_OTHER_EXPLANATION
     }
 
     fun nineDaysAshkenazExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -1095,11 +1139,17 @@ Nine Days Havdalah: use wine or grape juice; Ashkenazi-style custom often gives 
         NINE_DAYS_CHABAD_EXPLANATION,
     )
 
+    fun nineDaysOtherExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.mourningBasics(),
+        NINE_DAYS_OTHER_EXPLANATION,
+    )
+
     fun nineDaysExplanation(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.ASHKENAZ -> nineDaysAshkenazExplanation()
         EffectiveNusach.SEFARD -> nineDaysSephardicExplanation()
         EffectiveNusach.EDOT_HAMIZRACH -> nineDaysEdotHamizrachExplanation()
         EffectiveNusach.CHABAD -> nineDaysChabadExplanation()
+        EffectiveNusach.OTHER -> nineDaysOtherExplanation()
     }
 
     fun tuBshvatExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
@@ -1118,7 +1168,7 @@ Tu B'Shvat does not appear in the Bible. It originates in the Mishnah (Rosh Hash
 
 In ancient Israel, farmers were obligated to tithe—give a specific percentage of their crops—to the Priests, the Levites, and the poor. However, biblical law forbids tithing fruit from one year to fulfill the tax obligation of a different year. Because the specific tithe changes depending on the year of the seven-year Shmita cycle, the Rabbis needed a hard cutoff date to separate the old crop from the new crop.
 
-They chose the 15th of Shvat (Tu BiShvat) because, by mid-winter, most of the annual rains have already fallen in Israel. With the soil saturated, the trees begin their new sap-rising cycle, causing new fruit to bud. Tu B'Shvat serves as the legal boundary line for the fruit itself: any fruit that buds before this date belongs to the previous agricultural tax year, while fruit that buds after belongs to the new one.
+They chose the 15th of Shvat (Tu BiShvat) because, by mid-winter, most of the annual rains have already fallen in Israel. With the soil saturated, the trees begin their new sap-rising cycle, causing new fruit to bud. Tu B'Shvat serves as the legal boundary line for the fruit itself: any fruit that buds before this date belongs to the previous agricultural tithe year, while fruit that buds after belongs to the new one.
 
 Furthermore, this fruit-based cutoff applies to the laws of Orlah (the prohibition on eating a tree's fruit during its first three years). While a tree's physical age increments on Rosh Hashanah, the fruit it produces in its fourth year is only legally considered "fourth-year fruit" (Neta Reva'i) if it buds after Tu B'Shvat. Any fruit budding before Tu BiShvat in that fourth year is still legally considered third-year fruit and remains forbidden.
 
@@ -1136,7 +1186,7 @@ The central culinary custom of the day is eating fruits native to the Land of Is
 
 • Figs — representing the sweetness of continuous Torah study (fig trees yield fruit over a long period rather than all at once).
 
-• Pomegranates — representing action and mitzvot (traditionally said to contain 613 seeds, matching the biblical commandments).
+• Pomegranates — representing action and mitzvot (a popular tradition associates them with 613 seeds, matching the biblical commandments — symbolic, not a botanical count).
 
 • Olives — representing resilience under pressure (olives must be crushed to produce oil) and light.
 

@@ -18,15 +18,16 @@ object PublicFastDayText {
     private const val TZET_LINE_TEMPLATE = " (approx. ${'$'}time tonight)"
 
     private const val TENTH_OF_TEVES_FRIDAY_NOTE =
-        "\n\n10 Tevet on Friday: This is the only public fast that is never postponed. If it falls on Friday, you still fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
+        "\n\n10 Tevet on Friday: The fast is not moved earlier. Fast until nightfall, then break the fast with Shabbat Kiddush and your Friday night meal (Shulchan Arukh O.C. 249:4; Mishnah Berurah)."
     private const val FAST_OF_ESTHER_FRIDAY_NOTE =
         "\n\nFast of Esther note: Under the fixed Hebrew calendar, Taanit Esther does not occur on Friday. When 13 Adar is Shabbat, the fast is moved back to Thursday (Shulchan Arukh O.C. 686)."
     private const val SHABBAT_EREV_TISHA_BEAV_NOTE = """
 
 Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
 • Shabbat is celebrated fully until sunset — no mourning restrictions on Shabbat itself.
-• After Shabbat ends (Havdalah), change into non-leather shoes and begin the fast and mourning practices.
-• The seudah hamafseket is not eaten on Shabbat — it is observed after Shabbat ends, before the fast begins."""
+• When Shabbat ends, recite Baruch ha'mavdil (do not make full Havdalah over wine that night), change into non-leather shoes, and begin the fast and mourning practices. Many say the candle blessing after Maariv.
+• There is no classic seudah hamafseket after Shabbat — you go from Shabbat meals into the fast.
+• After the fast ends Sunday night, recite Havdalah over wine with the hamavdil paragraph (no spices that week)."""
 
     /** Raw, unfilled `" (approx. $time)"` template — caller must add `"time" to actualTime` to its args map. */
     private fun approxTimeSuffixTemplate(): String = APPROX_TIME_SUFFIX
@@ -265,13 +266,13 @@ Today is Erev Yom Kippur — a unique day of eating before the holiest fast of t
 
 Mitzvah to eat today:
 • It is a mitzvah to eat and drink generously all day Erev Yom Kippur (Shulchan Arukh O.C. 604:1; Mishnah Berurah).
-• Have a festive Yom Tov-style meal — many begin with candle lighting and Kiddush as for Yom Tov (ask your rav for your minhag).
+• Have a festive, generous meal (and wine per your minhag). This daytime meal is not the same as lighting Yom Tov candles with Kiddush — Yom Kippur candles are lit separately near sunset before the fast begins.
 • The Talmud compares eating on Erev Yom Kippur to fasting on Yom Kippur itself for merit (Rosh Hashana 9a).
 
 Before the fast begins:
 • Halachic fast time: Yom Kippur runs from sunset tonight${'$'}sunsetLine until nightfall tomorrow (${'$'}tzeitTomorrow).
 • Tosefet (adding from the weekday): Many communities begin abstaining from food and drink somewhat before sunset — accepting the fast early, as we "add from the weekday onto the holy day" (Yoma 81b; Shulchan Arukh O.C. 608:1). How many minutes early varies by community; ask your rav. The sunset time in this app is when the fast is definitely in effect, not necessarily when your synagogue begins Kol Nidrei.
-• Kol Nidrei before sunset: Kol Nidrei is the annulment of vows (hatarat nedarim) before the Day of Atonement. A beit din cannot convene on Yom Kippur itself, so Kol Nidrei must be completed before sunset while it is still weekday (Rosh Hashana 9b; Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.
+• Kol Nidrei before sunset: Kol Nidrei (the formula of vow release for Yom Kippur eve) must be completed before sunset while it is still weekday (Shulchan Arukh O.C. 619:1). That is why services often start well before sunset — so the congregation can finish Kol Nidrei and begin the fast with tosefet while it is still erev.
 • Ask forgiveness from those you may have hurt; give tzedakah; immerse in a mikveh if that is your custom.
 • Light Yom Kippur candles before sunset (married women traditionally light; others follow community — ask your rav).
 
@@ -400,12 +401,16 @@ ${'$'}common
     """.trimIndent()
 
     private val ESTHER_FAST_DAY_TEMPLATE = """
-Today is the Fast of Esther (Taanit Esther) — commemorating the fasting Esther called before approaching the king (Esther 4:16).
+Today is the Fast of Esther (Taanit Esther) — the minor fast on 13 Adar (or Thursday when Purim is Sunday), the day before Purim.
+
+Why we fast:
+• It recalls Esther and the Jews' fasting and teshuvah in the Purim story, and prepares us spiritually for Purim's joy.
+• Note: Esther's famous three-day fast before approaching Achashverosh (Esther 4:16) was in Nisan, not on 13 Adar. Tradition places this Adar fast as a memorial of that spirit of fasting, and of the Jews' gathering/fighting on 13 Adar — not as a literal anniversary of that Nisan fast.
 
 Minor fast rules with Purim context:
 • No eating or drinking from dawn until nightfall.
 • Music, showering for pleasure, and leather shoes are permitted — this is a minor fast, not like Tisha B'Av.
-• Purim mitzvot begin tonight/tomorrow per your calendar (14 Adar, or 15 in walled cities). This fast is the spiritual preparation before the joy of Purim.
+• Purim mitzvot begin tonight/tomorrow per your calendar (14 Adar, or 15 in walled cities).
 
 ${'$'}common
     """.trimIndent()
@@ -417,7 +422,7 @@ The fast:
 • Began at sunset last night (many communities accepted it earlier with tosefet — adding time from erev onto Yom Kippur) and ends at nightfall tonight${'$'}tzeitSuffix.
 • Five afflictions: no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.
 • Many wear white; married men who normally wear a kittel do so; tallit is worn all day.
-• The day is spent in prayer — Kol Nidrei was last night before sunset (hatarat nedarim cannot be done on Yom Kippur itself), then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.
+• The day is spent in prayer — Kol Nidrei was last night before sunset, then Shacharit, Musaf, Mincha, Neilah, then Maariv and Havdalah after nightfall.
 
 After nightfall: eat the Motzei Yom Kippur meal (see your checklist). Chabad tradition connects this meal to parnassa for the year.
 
@@ -433,7 +438,7 @@ The fast:
 What is forbidden today (in addition to eating and drinking):
 • Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.
 • Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
-• Greeting people with "hello" during the fast day — even after chatzos, do not greet or reply to greetings until nightfall when the fast ends.
+• Do not initiate greetings (\"hello\") during the fast day. If someone greets you, answer briefly and quietly in a low tone so it does not feel festive or rude — many are more lenient about a short reply after chatzos.
 • Idle conversation; work is discouraged (follow your community).
 • ${'$'}tefillinNote
 • Until chatzos (halachic midday): maintain a mournful mindset; sit on the floor or a low stool (no seat higher than about 12 inches / 30 cm); kinot (elegies) are recited at Shacharit.
@@ -454,7 +459,7 @@ ${'$'}common
 After Yom Kippur ends at nightfall${'$'}tzeitLine, it is a mitzvah to eat a proper meal — not only a quick bite.
 
 What to do:
-• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur, wine, and no spices).
+• Complete Maariv and Havdalah (Havdalah includes a candle that was lit throughout Yom Kippur and wine; ordinarily no spices — but when Yom Kippur falls on Shabbat, include besamim as on a regular Motzei Shabbat).
 • Eat a festive break-fast — many prepare food in advance because cooking restrictions on Yom Kippur end at nightfall.
 • Chabad tradition (Baal HaTanya) teaches that one's livelihood (parnassa) for the year is especially connected to this meal — eat with joy and spiritual intention.
 

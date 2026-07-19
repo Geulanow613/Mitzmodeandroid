@@ -28,24 +28,27 @@ enum class NusachSelection {
     /** Middle Eastern & North African communities (Nusach Edot HaMizrach). */
     EDOT_HAMIZRACH,
     CHABAD,
+    /** Yemenite Baladi, Italian, and other rites not covered by the four options above. */
+    OTHER,
     NOT_SURE;
 
     companion object {
         /** Choices shown in onboarding and settings (excludes removed legacy values). */
         val selectable: List<NusachSelection> = listOf(
-            ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD, NOT_SURE,
+            ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD, OTHER, NOT_SURE,
         )
     }
 }
 
 @Serializable
-enum class EffectiveNusach { ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD }
+enum class EffectiveNusach { ASHKENAZ, SEFARD, EDOT_HAMIZRACH, CHABAD, OTHER }
 
 fun NusachSelection.toEffective(): EffectiveNusach = when (this) {
     NusachSelection.ASHKENAZ -> EffectiveNusach.ASHKENAZ
     NusachSelection.SEFARD -> EffectiveNusach.SEFARD
     NusachSelection.EDOT_HAMIZRACH -> EffectiveNusach.EDOT_HAMIZRACH
     NusachSelection.CHABAD, NusachSelection.NOT_SURE -> EffectiveNusach.CHABAD
+    NusachSelection.OTHER -> EffectiveNusach.OTHER
 }
 
 fun NusachSelection.displayLabel(): String = when (this) {
@@ -53,6 +56,7 @@ fun NusachSelection.displayLabel(): String = when (this) {
     NusachSelection.SEFARD -> "Sephardi"
     NusachSelection.EDOT_HAMIZRACH -> "Edot HaMizrach"
     NusachSelection.CHABAD -> "Chabad (Nusach Ari)"
+    NusachSelection.OTHER -> "Other"
     NusachSelection.NOT_SURE -> "I'm not sure"
 }
 
@@ -61,6 +65,7 @@ fun EffectiveNusach.displayLabel(): String = when (this) {
     EffectiveNusach.SEFARD -> "Sephardi"
     EffectiveNusach.EDOT_HAMIZRACH -> "Edot HaMizrach"
     EffectiveNusach.CHABAD -> "Nusach Ari / Chabad"
+    EffectiveNusach.OTHER -> "Other (general customs)"
 }
 
 /** Lowercase tag used in checklist JSON [ChecklistItemDef.nusach] lists. */
@@ -69,7 +74,11 @@ fun EffectiveNusach.jsonTag(): String = when (this) {
     EffectiveNusach.SEFARD -> "sefard"
     EffectiveNusach.EDOT_HAMIZRACH -> "edot_hamizrach"
     EffectiveNusach.CHABAD -> "chabad"
+    EffectiveNusach.OTHER -> "other"
 }
+
+/** True when the user opted out of the four specific nusach rule-sets. */
+fun EffectiveNusach.usesGenericCustoms(): Boolean = this == EffectiveNusach.OTHER
 
 /** Sephardi and Edot HaMizrach both follow Shulchan Aruch on many lifecycle rules. */
 fun EffectiveNusach.followsShulchanAruchMizrachi(): Boolean =

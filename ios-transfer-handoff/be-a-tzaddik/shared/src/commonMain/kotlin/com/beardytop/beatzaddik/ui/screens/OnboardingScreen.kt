@@ -342,7 +342,7 @@ private fun PrayerTraditionStep(
         )
         NusachOption(
             label = "Edot HaMizrach",
-            description = "Prayer tradition of Middle Eastern and North African kehillot (Iraqi, Syrian, Moroccan, Persian, Yemenite, and related communities), usually Nusach Edot HaMizrach. Customs vary by community — follow your kehilla and rav.",
+            description = "Prayer tradition of many Middle Eastern and North African kehillot (e.g. Iraqi, Syrian, Moroccan, Persian), usually Nusach Edot HaMizrach. If your rite is not this (for example Yemenite Baladi), choose Other. Customs vary — follow your kehilla and rav.",
             selected = nusach == NusachSelection.EDOT_HAMIZRACH,
             onClick = { onNusach(NusachSelection.EDOT_HAMIZRACH) }
         )
@@ -351,6 +351,12 @@ private fun PrayerTraditionStep(
             description = "Used by Chabad-Lubavitch. Siddur: Tehillat Hashem. Not the same as Sephardi or Edot HaMizrach.",
             selected = nusach == NusachSelection.CHABAD,
             onClick = { onNusach(NusachSelection.CHABAD) }
+        )
+        NusachOption(
+            label = "Other",
+            description = "For Yemenite Baladi, Italian, Romaniote, or any other rite not listed above. The app shows general shared laws only — it will not apply Ashkenaz, Sephardi, Edot HaMizrach, or Chabad-specific custom sets. Follow your kehilla for prayer text and minhag.",
+            selected = nusach == NusachSelection.OTHER,
+            onClick = { onNusach(NusachSelection.OTHER) }
         )
         NusachOption(
             label = "I'm not sure",

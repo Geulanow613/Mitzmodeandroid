@@ -76,16 +76,21 @@ object ChecklistLoader {
             EffectiveNusach.SEFARD -> "sefard"
             EffectiveNusach.EDOT_HAMIZRACH -> "sefard"
             EffectiveNusach.ASHKENAZ -> "ashkenaz"
+            EffectiveNusach.OTHER -> null
         }
-        item.links.firstOrNull { it.nusach == key }?.let { return it }
+        if (key != null) {
+            item.links.firstOrNull { it.nusach == key }?.let { return it }
+        }
         return item.links.firstOrNull { it.nusach == null || it.nusach == "default" }
             ?: item.links.first()
     }
 
     fun defaultUrl(profile: UserProfile): String = when (profile.effectiveNusach()) {
         EffectiveNusach.CHABAD -> "https://www.chabad.org"
-        EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> "https://www.sefaria.org"
-        EffectiveNusach.ASHKENAZ -> "https://www.sefaria.org"
+        EffectiveNusach.SEFARD,
+        EffectiveNusach.EDOT_HAMIZRACH,
+        EffectiveNusach.ASHKENAZ,
+        EffectiveNusach.OTHER -> "https://www.sefaria.org"
     }
 
     private fun ChecklistItemJson.toDef() = ChecklistItemDef(

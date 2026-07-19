@@ -11,9 +11,9 @@ object NusachExplainers {
 Characteristics: It relies heavily on early European rabbinic traditions and medieval liturgical poems (piyyutim). It generally has distinct variations between Western German (Frankfurt) and Eastern European (Polin) traditions."""
 
         NusachSelection.SEFARD ->
-            """Origin: Historically, "Sephardi" refers to the liturgy of Iberian (Spanish and Portuguese) Jews. However, in many modern prayer apps and contexts, Nusach Sefard (with a "d") specifically refers to a hybrid liturgy adopted by Eastern European Hasidim.
+            """Origin: The liturgy and customs of Iberian (Spanish and Portuguese) Jewry and related Mediterranean communities, often called Sephardi / Bet Yosef.
 
-Characteristics: It blends the basic structure of Nusach Ashkenaz with the mystical, Kabbalistic concepts of the Arizal (Rabbi Isaac Luria)."""
+Characteristics: Halachic guidance in this app for this setting follows the Shulchan Aruch and common Sephardi poskim (such as Rav Ovadia Yosef) where noted — not Chassidic "Nusach Sefard," which is a different Eastern European Hasidic rite."""
 
         NusachSelection.EDOT_HAMIZRACH ->
             """Origin: The Middle East and North Africa (e.g., Iraq, Yemen, Morocco, Syria, Iran).
@@ -24,6 +24,11 @@ Characteristics: Meaning "Communities of the East," this nusach is deeply rooted
             """Origin: Formalized by Rabbi Shneur Zalman of Liadi (the Alter Rebbe), the founder of the Chabad-Lubavitch Hasidic movement.
 
 Characteristics: He meticulously reviewed dozens of different prayer book manuscripts to arrange a liturgy that perfectly aligns with both revealed Torah law (Halakha) and the precise Kabbalistic intentions of the Arizal."""
+
+        NusachSelection.OTHER ->
+            """Use this if your rite is not Ashkenaz, Sephardi, Edot HaMizrach, or Chabad — for example Yemenite Baladi, Italian, Romaniote, or another local minhag.
+
+The app will show general, widely shared laws and practices, and will not apply the specific custom sets of those four options. Follow your kehilla and rav for prayer text and minhag details."""
 
         NusachSelection.NOT_SURE -> null
     }

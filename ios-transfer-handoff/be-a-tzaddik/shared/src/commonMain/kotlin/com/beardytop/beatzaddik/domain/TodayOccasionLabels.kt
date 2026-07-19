@@ -77,7 +77,7 @@ object TodayOccasionLabels {
 
     fun omerTodayLabel(cal: DayInfo, nusach: EffectiveNusach): String? {
         val day = cal.omerDay ?: return null
-        if (!cal.isSefiratHaomer || cal.isLagBaomer) return null
+        if (!cal.isSefiratHaomer) return null
         return OmerCountText.headerLabel(day, nusach)
     }
 

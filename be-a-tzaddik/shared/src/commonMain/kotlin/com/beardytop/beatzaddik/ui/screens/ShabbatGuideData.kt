@@ -33,9 +33,9 @@ These meals are meant to be a grand celebration of the day's royalty, and the re
             // Source: Peninei Halakha ph.yhb.org.il/en/01-04-04, OU Torah outorah.org/p/35448
             body = """Candles are lit before sunset on Friday to usher in Shabbat and bring peace and warmth into the home. This is performed by the woman of the household (or a man if no woman is present).
 
-There are two customs regarding the blessing:
+There are two main approaches regarding the blessing:
 • Ashkenazi custom: Light the candles first, then cover the eyes, recite the blessing, and uncover. This is done because reciting the blessing is considered accepting Shabbat — after which lighting would be forbidden. Covering the eyes allows the blessing to precede benefiting from the light.
-• Sephardi custom: Recite the blessing first, then light the candles.
+• Sephardi customs vary: many follow Shulchan Aruch / Rav Ovadia Yosef and recite the blessing first, then light; other Sephardi communities light first and then bless (covering the eyes), similar to Ashkenaz.
 
 Every woman should follow the custom of her family. When in doubt, ask your rabbi.
 
@@ -60,9 +60,8 @@ Key rules:
 • The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 60ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
 • Women are equally obligated in Kiddush.
 • Grape juice is a fully valid substitute for wine.
-• On Friday night, if wine is unavailable, challah (bread) may substitute.
-• On Shabbat morning, if wine is unavailable, beer or whiskey (chamar medinah — a locally significant beverage) may be used. Wine is always preferred. Consult your rabbi for specifics.
-• Unlike Friday night, bread can never substitute for Kiddush on Shabbat morning — saying Hamotzi without wine or chamar medina means you have skipped daytime Kiddush entirely.""",
+• On Friday night, if wine or grape juice is unavailable, challah (bread) may substitute.
+• On Shabbat morning, wine or grape juice is preferred. If neither is available, use chamar medinah (a locally significant beverage such as beer or whiskey — ask your rav). Only if none of those appropriate drinks are available may you make daytime Kiddush on bread.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/610626/jewish/Kiddush.htm"
         ),
         GuideTopic(
@@ -90,7 +89,7 @@ Important: you may not perform any melachah (Shabbat-forbidden labor) after Shab
 Full Hallel is recited on Shavuot, all seven days of Sukkot (including Chol HaMoed Sukkot), Shemini Atzeret, Simchat Torah, and all eight days of Chanukah.
 
 Pesach — Full vs. Half Hallel:
-• Outside Israel (Diaspora): Full Hallel on the first two nights/days of Pesach (Yom Tov); Half Hallel from Chol HaMoed onward through the last days.
+• Outside Israel (Diaspora): Full Hallel on the first two days of Pesach (Yom Tov); Half Hallel from Chol HaMoed onward through the last days. (Seder nights also include Hallel in the Haggadah.)
 • In Israel: Full Hallel only on the first day of Pesach; Half Hallel from the second day onward.
 The reason for Half Hallel from Chol HaMoed: we do not fully celebrate while the Egyptians drowned in the sea.
 
@@ -250,7 +249,7 @@ Additional notes:
             "Taking scattered items that grew from the ground and collecting them into a single pile or unit. If apples fall from your tree, you may not gather them into a basket. However, the prohibition of gathering applies strictly to the place where the items naturally grow (like a field or orchard). Gathering items that spill on a kitchen floor does not violate Me'ameir under any circumstances.",
             "https://www.chabad.org/library/article_cdo/aid/4740248/jewish/Meamer-Gathering.htm"),
         GuideTopic("dosh", "Dosh — Threshing", "דָּשׁ",
-            "Separating a food product from its outer shell or casing. This applies today primarily to squeezing: squeezing grapes or olives for juice is a direct Torah-level violation. The Sages extended this to other fruits — freshly squeezing oranges or grapefruits is forbidden.",
+            "Separating a food product from its outer shell or casing. Today this mainly shows up as sechitah (squeezing). Squeezing grapes or olives for juice is a Torah-level violation. Freshly squeezing oranges or grapefruits into an empty cup (or for a standalone drink) is forbidden for Ashkenazim and Sephardim alike — these are juicing fruits. Lemons are different: Shulchan Aruch / many Sephardi poskim (including Rav Ovadia Yosef) permit squeezing lemon into a cup or water because lemon juice is not normally drunk alone; Ashkenazim (e.g. Mishnah Berurah) generally forbid that and instead squeeze lemon onto solid food first (commonly a sugar cube, then into tea), or onto fish/salad. Juice absorbed into real solid food is treated as food (\"mashkeh haba l'ochel, ochel hu\") — so squeezing orange onto fruit salad can be permitted, but not as a way to make orange juice (and granulated sugar that instantly melts into liquid is often not enough of a \"solid\"). Sucking juice from a wedge with your mouth is generally considered eating, not extracting a beverage. For orange juice on Shabbat, use pre-squeezed juice prepared before Shabbat, or eat the fruit. \"Immediate use\" leniencies of Borer do not permit squeezing juice into a cup.",
             "https://www.chabad.org/library/article_cdo/aid/4786919/jewish/Dosh-Threshing.htm"),
         GuideTopic("zoreh", "Zoreh — Winnowing", "זוֹרֶה",
             "Separating food from non-food using the wind or your breath. Shaking a tablecloth outdoors when the wind will scatter the crumbs, or blowing dust off a book cover, may fall under this prohibition according to the Jerusalem Talmud's broader understanding.",
@@ -277,7 +276,7 @@ Additional notes:
             "Whitening, cleaning, or refreshing fabric. This goes well beyond the washing machine — even spot-cleaning a fresh spill by dabbing with water or rubbing a stain with cleaning intent can violate Melaben. Even wetting a dirty garment may be considered the beginning of the laundering process.",
             "https://www.chabad.org/library/article_cdo/aid/4853580/jewish/Melaben-Bleaching-Laundering.htm"),
         GuideTopic("menapetz", "Menapetz — Combing Fibers", "מְנַפֵּץ",
-            "Aggressively brushing or combing raw, tangled material to separate and align fibers. For hair, this means a hard-bristled brush that forcefully separates and tears strands falls under this or Gozez. On Shabbat, use a soft brush or wide-toothed comb gently on dry hair.",
+            "Aggressively brushing or combing raw, tangled material to separate and align fibers. For hair on Shabbat, the concern is Gozez (shearing) — you must not intentionally or inevitably pull hair out. Standard hairbrushes and fine-toothed combs are forbidden because they almost always pluck hair. A light touch-up is permitted only if all of these apply at once: a soft-bristled or wide-spaced brush (ideally a dedicated Shabbat brush), brush lightly on the surface only (not digging to the scalp or working out deep knots), touch up rather than thoroughly styling the whole head, and hair that does not always shed when brushed (if shedding is inevitable for you, do not brush). Alternatives: gently smooth with your fingers; sheitels/wigs may be brushed normally (braiding is still forbidden as Boneh).",
             "https://www.chabad.org/library/article_cdo/aid/4861029/jewish/Menapetz-Combing.htm"),
         GuideTopic("tzoveya", "Tzoveya — Dyeing", "צוֹבֵעַ",
             "Permanently coloring or enhancing the appearance of a material using pigment. This affects cosmetics: using makeup that stains the skin is a concern on Shabbat. The deeper principle is not permanently altering the appearance of your surroundings to match your desires on the day of rest.",
@@ -298,7 +297,7 @@ Additional notes:
             "Deliberately unraveling or separating woven or braided material with the goal of re-using or re-weaving the strands. Pulling a loose thread from a sweater that unravels a row of stitches is a practical example. Shabbat forbids both constructing and deconstructing the material world.",
             "https://www.halachipedia.com/index.php?title=Potzeya"),
         GuideTopic("koshair", "Koshair — Tying", "קוֹשֵׁר",
-            "Creating a permanent, professional-grade knot intended to remain long-term. A knot that is both professionally crafted and permanent is forbidden by the Torah. A simple temporary knot meant to be undone within 24 hours is permitted. A standard bow on a sneaker is fine; a tight double-knot meant to stay tied for weeks is not.",
+            "Creating a permanent or professional-grade knot. A double knot or a professional knot is a problem even if you plan to untie it minutes later. Only a simple temporary knot that is meant to be undone within about 24 hours is generally permitted (a standard single bow on a sneaker is the usual example). When in doubt, ask your rav.",
             "https://www.chabad.org/library/article_cdo/aid/4937160/jewish/Koshair-Tying.htm"),
         GuideTopic("matir", "Matir — Untying", "מַתִּיר",
             "Deliberately untying a knot. Any knot that is forbidden to tie is forbidden to untie. If a tight professional knot was intended to be permanent, it cannot be untied on Shabbat. An accidental knot — one never intended to be tied — may generally be untied leniently.",
@@ -307,7 +306,7 @@ Additional notes:
             "Joining two separate pieces of flexible material into a unified entity using a connecting element (thread, glue, staples). Using liquid glue to paste pages together or applying duct tape to bind two surfaces falls under this category. In a fashion emergency, a temporary safety pin used casually is permitted.",
             "https://www.halachipedia.com/index.php?title=Tofer"),
         GuideTopic("koreah", "Koreah — Tearing", "קוֹרֵעַ",
-            "Tearing or ripping any unified object with the intent to improve it or prepare it for future creative use. Tearing toilet paper from a roll creates a separate, usable sheet — this is why observant homes use pre-cut tissues. Opening sealed packaging destructively to access food (ruining the packaging) is generally permitted.",
+            "Tearing or ripping any unified object with the intent to improve it or prepare it for future creative use. Tearing toilet paper from a roll creates a separate, usable sheet — this is why observant homes use pre-cut tissues. Opening sealed food packaging is debated (koreah / mechateich concerns) — many open carefully or open packages before Shabbat; ask your rav for your situation.",
             "https://www.halachipedia.com/index.php?title=Koreah"),
         GuideTopic("tzad", "Tzad — Trapping", "צָד",
             "Restricting the freedom of a wild, un-domesticated creature by placing it in an enclosure from which it cannot easily escape. This applies to insects: covering a fly with a cup traps it. Even closing a door can be an issue if a wild bird wandered in. Exception: if a creature poses a genuine danger to life, Pikuach Nefesh overrides.",
@@ -352,7 +351,7 @@ Additional notes:
             "Any final action that takes an incomplete or broken object and renders it fully functional. Snipping a loose thread from a freshly tailored shirt, snapping a detached zipper back onto its track, or removing a protruding nail to make a surface safe — all are finishing acts of creation. Leave all repairs and assembly until after Havdalah.",
             "https://www.chabad.org/library/article_cdo/aid/5358316/jewish/Makeh-Bepatish-Completing.htm"),
         GuideTopic("hotza_ah", "Hotza'ah — Carrying", "הוֹצָאָה",
-            "Moving an object from a private domain to a public domain, or vice versa, or carrying an object four cubits (~6 feet) within a public domain. Most modern streets are rabbinically classified as a semi-public area (karmelit), where carrying is still restricted. Communities establish an eruv — a symbolic enclosure — to permit carrying within a shared area. Without an eruv, a house key can only be worn outdoors if it is structurally integrated by a specialist into a functional piece of clothing or jewelry (such as a belt clasp or decorative pin). Simply hanging a loose key on a string around your neck is a direct violation of carrying.",
+            "Moving an object from a private domain to a public domain, or vice versa, or carrying an object four cubits (~6 feet) within a public domain. Many modern streets are treated as a semi-public area (karmelit), where carrying is still restricted; some places may be a true public domain (reshut harabbim) — ask your rav about your area. Communities often establish an eruv — a symbolic enclosure — to permit carrying within a shared area. Without an eruv, a house key can only be worn outdoors if it is structurally integrated by a specialist into a functional piece of clothing or jewelry (such as a belt clasp or decorative pin). Simply hanging a loose key on a string around your neck is a direct violation of carrying.",
             "https://www.chabad.org/library/article_cdo/aid/6897566/jewish/Hotzaah-Transferring.htm")
     )
 
@@ -396,14 +395,14 @@ Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restric
             id = "sukkot",
             title = "Sukkot",
             hebrewTitle = "סֻכּוֹת",
-            body = """Sukkot begins on 15 Tishrei and lasts seven days (in the Diaspora, the first two days are full Yom Tov, followed by five days of Chol HaMoed). It commemorates the 40 years the Jewish people dwelt in the desert under G-d's protection.
+            body = """Sukkot begins on 15 Tishrei and lasts seven days. In Israel, the first day is full Yom Tov followed by six days of Chol HaMoed; in the Diaspora, the first two days are full Yom Tov followed by five days of Chol HaMoed. It commemorates the 40 years the Jewish people dwelt in the desert under G-d's protection.
 
 Key observances:
 • Dwelling in a sukkah (a temporary outdoor booth with a roof of natural plant material) — at minimum, eating meals there
 • Taking the Arba Minim (Four Species): lulav (palm branch), etrog (citron), hadassim (myrtle), aravot (willow)
 
 Arba Minim — by nusach:
-• Ashkenaz / most Sefard: waved in six directions (east, south, west, north, up, down) during Hallel; bracha on the first day (and in Chutz LaAretz, also on the second day of Yom Tov)
+• Ashkenaz / most Sefard: waved in six directions (east, south, west, north, up, down) during Hallel; recite al netilat lulav each day the species are taken (not on Shabbat); Shehecheyanu only on the first day (and in Chutz LaAretz, also on the second day of Yom Tov)
 • Chabad: hold lulav in right hand, etrog in left; wave in the same six directions plus some add an extra motion; follow your Chabad siddur
 • Yemenite (Baladi): may bind aravot differently and follow distinct waving customs — ask your community
 • Not taken on Shabbat; in Israel, the first day is the primary Torah obligation; in Chutz LaAretz, the first two Yom Tov days
@@ -477,7 +476,7 @@ In the Diaspora, the first two and last two days are full Yom Tov; in Israel, th
             id = "shavuot",
             title = "Shavuot",
             hebrewTitle = "שָׁבוּעוֹת",
-            body = """Shavuot is observed on 6 Sivan (two days in the Diaspora). It celebrates the giving of the Torah at Mount Sinai, which took place seven weeks after the Exodus.
+            body = """Shavuot is observed on 6 Sivan — one day in Israel, two days in the Diaspora (6–7 Sivan). It celebrates the giving of the Torah at Mount Sinai, which took place seven weeks after the Exodus.
 
 It is customary to:
 • Study Torah through the night (Tikkun Leil Shavuot)
@@ -485,7 +484,7 @@ It is customary to:
 • Read Megillat Ruth, whose themes of Torah commitment echo the acceptance of the Torah
 • Hear the Ten Commandments read in synagogue
 
-Shavuot comes exactly 50 days after the second night of Pesach, at the end of the Sefirat HaOmer (Counting of the Omer). It is a full Yom Tov.""",
+Shavuot is the 50th day of the Omer period that begins on the second night of Pesach. We verbally count only 49 days; we do not count a 50th — our job is to prepare through those 49, and Hashem elevates us to the sanctity of the 50th day (Shavuot / Kabbalat HaTorah). It is a full Yom Tov.""",
             learnMoreUrl = "https://www.chabad.org/holidays/shavuot/default_cdo/jewish/Shavuot.htm"
         ),
 
@@ -536,7 +535,7 @@ The central culinary custom of the day is eating fruits native to the Land of Is
 
 • Figs — representing the sweetness of continuous Torah study (fig trees yield fruit over a long period rather than all at once).
 
-• Pomegranates — representing action and mitzvot (traditionally said to contain 613 seeds, matching the biblical commandments).
+• Pomegranates — representing action and mitzvot (a popular tradition associates them with 613 seeds, matching the biblical commandments — symbolic, not a botanical count).
 
 • Olives — representing resilience under pressure (olives must be crushed to produce oil) and light.
 
@@ -563,7 +562,7 @@ Liturgical note: Tachanun is omitted at Shacharit and Mincha on Tu B'Shvat, and 
             hebrewTitle = "פֶּסַח שֵׁנִי",
             body = """Pesach Sheni (the "Second Passover") falls on the 14th day of the Hebrew month of Iyar — exactly one month after the eve of Passover (Pesach).
 
-While it is not a traditional rest day (Yom Tov) where work is forbidden, it holds a deeply unique, empowering status in Jewish tradition. If Tu B'Av is the holiday of transformation, Pesach Sheni is the ultimate holiday of the second chance. It stands as the only biblical commandment that offers a built-in makeup date for those who missed it the first time around.
+While it is not a traditional rest day (Yom Tov) where work is forbidden, it holds a deeply unique, empowering status in Jewish tradition. If Tu B'Av is the holiday of transformation, Pesach Sheni is the ultimate holiday of the second chance. It is famous as a biblical mitzvah with a built-in makeup date for those who missed the first Passover offering.
 
 The origin story: the power of protesting
 The origin of Pesach Sheni, recorded in the Book of Numbers (Numbers 9:1–14), is one of the few instances in the Torah where a major law was initiated not from the top down by God or Moses, but from the bottom up by regular people.
@@ -577,7 +576,7 @@ Moses did not have an immediate answer. He told them to wait while he consulted 
 How it differed from the first Passover
 Pesach Sheni was a streamlined version of the holiday, offering a fascinating legal compromise between the strict rules of the original Passover and the practicalities of daily life:
 
-• No chametz ban — Unlike the main Passover festival, where owning or seeing leavened bread (chametz) is strictly forbidden for seven days, on Pesach Sheni you could have chametz and matzah in your house at the exact same time.
+• No chametz ban — Unlike the main Passover festival, where owning or possessing chametz is strictly forbidden (bal yera'eh / bal yimatzei — chametz may not be found in your domain), on Pesach Sheni you could have chametz and matzah in your house at the exact same time.
 
 • The menu — The individual celebrating would simply eat the meat of the late sacrifice along with matzah and bitter herbs (maror) on the evening of the 14th of Iyar.
 
@@ -606,7 +605,7 @@ While Passover and Shavuot are highly structured biblical festivals, Lag BaOmer 
 The two historic pillars of the day
 Lag BaOmer is anchored by two entirely different historical events that occurred centuries apart, combining a devastating tragedy with profound spiritual revelation.
 
-• The pause of the plague (Rabbi Akiva's students) — The weeks counting the Omer are traditionally a solemn time. The Talmud records that during the 2nd century CE, a catastrophic plague swept through the 24,000 students of the great sage Rabbi Akiva, killing them all. The sages teach that this tragedy occurred because "they did not show proper respect to one another." On the 33rd day of the count, the plague miraculously stopped. Because the dying ceased, Lag BaOmer became a celebration of survival and a reminder of the vital importance of radical interpersonal respect.
+• The pause of the plague (Rabbi Akiva's students) — The weeks counting the Omer are traditionally a solemn time. The Talmud records that during the 2nd century CE, a catastrophic plague swept through the 24,000 students of the great sage Rabbi Akiva, and nearly all of them died. A small remnant survived — including five disciples who rebuilt Torah for the next generation (among them Rabbi Shimon bar Yochai). The sages teach that this tragedy occurred because "they did not show proper respect to one another." On the 33rd day of the count, the plague miraculously stopped. Because the dying ceased, Lag BaOmer became a celebration of survival and a reminder of the vital importance of radical interpersonal respect.
 
 • The passing of Rabbi Shimon bar Yochai — The second pillar centers on Rabbi Akiva's greatest surviving student: Rabbi Shimon bar Yochai (known as the Rashbi), who went on to become the premier master of Jewish mysticism and the traditional author of the Zohar (the foundational text of Kabbalah). Rabbi Shimon passed away on the 33rd day of the Omer. Before his death, he explicitly commanded his students to celebrate his passing not with weeping, but as a day of joy (Yom Hillula), because his death marked the moment his soul achieved perfect unity with God and his hidden spiritual teachings were fully revealed to the world.
 
@@ -661,7 +660,7 @@ The cycle:
 Jewish tradition calculates the solar year as 365¼ days (Samuel; Eruvin 56a). Each year the vernal equinox shifts forward six hours; after 28 years it returns to the same day of the week and time — Tuesday at nightfall, when the sun was created (Bereishit 1:14–19). Because the blessing requires seeing the sun, recite it on Wednesday morning at sunrise.
 
 When:
-• Recite outdoors at sunrise on the morning of the occurrence, while viewing the sun (not through a window, per most poskim).
+• Recite at sunrise on the morning of the occurrence, preferably outdoors while viewing the sun; many allow clear glass if needed — follow your rav.
 • Ideal time: from sunrise through the third halachic hour of the day (sof zman tefillah). According to some opinions, you may still recite it until chatzos (halachic midday).
 
 The blessing:
@@ -681,7 +680,7 @@ Notes:
 
 It is a full 25-hour fast (sundown to nightfall), with the same five afflictions as Yom Kippur: no eating, drinking, bathing, anointing, leather shoes, or marital relations.
 
-Melachah (work) is permitted but mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning. To follow the Kinot, bring a Kinnot / Kinot prayerbook for your nusach, or use a free online edition — a regular siddur usually does not include them.
+Melachah (work) is permitted in principle, but many avoid work until after chatzot (halachic midday) — follow your minhag. Mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning. To follow the Kinot, bring a Kinnot / Kinot prayerbook for your nusach, or use a free online edition — a regular siddur usually does not include them.
 
 The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"
@@ -705,14 +704,14 @@ It is a minor fast — from dawn until nightfall (not a full 25-hour fast like Y
 
 It is a minor fast from dawn until nightfall. It is also observed as a general Kaddish day for Holocaust victims whose date of death is unknown.
 
-Note: This is the only fast in the calendar that is never postponed if it falls on a Friday (because the biblical verse requires observing it "on this very day"). When it lands on a Friday, continue fasting directly into Friday night — welcome Shabbat while fasting — and break the fast only after nightfall following the recitation of Friday night Kiddush.""",
+Note: When 10 Tevet falls on a Friday, the fast is not moved earlier. Continue fasting into Friday night — welcome Shabbat while fasting — and break the fast only after nightfall following the recitation of Friday night Kiddush. (Under the fixed Hebrew calendar, 10 Tevet does not fall on Shabbat.)""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/3170662/jewish/What-Is-Asarah-BTevet-Tevet-10.htm"
         ),
         GuideTopic(
             id = "fast_17_tammuz",
             title = "Fast of 17 Tammuz",
             hebrewTitle = "שִׁבְעָה עָשָׂר בְּתַמּוּז",
-            body = """The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks the day the walls of Jerusalem were breached by the Romans in the first century CE. It begins the "Three Weeks" — a period of mourning culminating in Tisha B'Av.
+            body = """The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks tragedies including the breaching of Jerusalem's walls — associated with the Roman siege before the Second Temple's destruction, and in some traditions also with the First Temple era. It begins the "Three Weeks" — a period of mourning culminating in Tisha B'Av.
 
 It is a minor fast from dawn until nightfall. During the Three Weeks, weddings are not held and music is generally avoided. During the final nine days of this period (1–9 Av), additional mourning customs apply.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/479885/jewish/The-17th-of-Tammuz.htm"
@@ -721,9 +720,11 @@ It is a minor fast from dawn until nightfall. During the Three Weeks, weddings a
             id = "fast_esther",
             title = "Fast of Esther",
             hebrewTitle = "תַּעֲנִית אֶסְתֵּר",
-            body = """The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim. It commemorates the three-day fast of Esther and the Jewish people before she approached King Achashverosh to plead on behalf of her people.
+            body = """The Fast of Esther (Ta'anit Esther) is observed on 13 Adar, the day before Purim (moved to Thursday when 13 Adar is Shabbat).
 
-It is a minor fast from dawn until nightfall. If 13 Adar falls on Shabbat, the fast is moved to Thursday. Zecher LeMachatzit HaShekel (the half-shekel remembrance custom) is traditionally given at Mincha on the Fast of Esther, or on Purim morning before Megillah.""",
+It recalls Esther and the Jews' fasting and teshuvah in the Purim story and prepares us for Purim. Esther's well-known three-day fast before she approached Achashverosh (Esther 4:16) took place in Nisan, not on 13 Adar — so this Adar fast is a memorial of that spirit of fasting (and of the events of 13 Adar), not a literal anniversary of that Nisan fast.
+
+It is a minor fast from dawn until nightfall. Zecher LeMachatzit HaShekel (the half-shekel remembrance custom) is traditionally given at Mincha on the Fast of Esther, or on Purim morning before Megillah.""",
             learnMoreUrl = "https://www.chabad.org/holidays/purim/article_cdo/aid/1473/jewish/Fast-of-Esther.htm"
         ),
         GuideTopic(
@@ -737,8 +738,7 @@ When to count:
 • Many Ashkenazim count after Maariv; many Sephardim and Chabad also count after Maariv. Follow your community.
 
 The blessing:
-• Before counting on the first night, recite the blessing "…al sefirat ha'omer."
-• Then say the count for that night (e.g. "Today is one day of the Omer").
+• Each night you count with a bracha, first recite "…al sefirat ha'omer," then say that night's count (e.g. "Today is one day of the Omer").
 
 If you forgot at night:
 • Count the next day during the daytime without a bracha.
@@ -760,7 +760,7 @@ In Israel, a siren brings the country to a standstill. Many communities hold mem
             id = "yom_hazikaron",
             title = "Yom HaZikaron",
             hebrewTitle = "יוֹם הַזִּכָּרוֹן",
-            body = """Yom HaZikaron (Memorial Day) falls on 4 Iyar in Israel, immediately before Yom Ha'atzmaut. It honors fallen soldiers and victims of terror.
+            body = """Yom HaZikaron (Memorial Day) is observed in Israel on 4 Iyar in most years, immediately before Yom Ha'atzmaut — though both days are postponed when the calendar would clash with Shabbat. It honors fallen soldiers and victims of terror.
 
 The day is marked by memorial ceremonies and sirens. Many observe it as a solemn day before the celebration of independence.""",
         ),
@@ -768,7 +768,7 @@ The day is marked by memorial ceremonies and sirens. Many observe it as a solemn
             id = "yom_haatzmaut",
             title = "Yom Ha'atzmaut",
             hebrewTitle = "יוֹם הָעַצְמָאוּת",
-            body = """Yom Ha'atzmaut (Israeli Independence Day) is observed on 5 Iyar, celebrating the establishment of the State of Israel in 1948.
+            body = """Yom Ha'atzmaut (Israeli Independence Day) commemorates the establishment of the State of Israel in 1948. Its usual date is 5 Iyar; when that would conflict with Shabbat, Israel postpones Yom Ha'atzmaut (and Yom HaZikaron moves with it).
 
 In Israel and many diaspora communities, it is marked with Hallel (per local custom), festive meals, and programs.""",
         ),

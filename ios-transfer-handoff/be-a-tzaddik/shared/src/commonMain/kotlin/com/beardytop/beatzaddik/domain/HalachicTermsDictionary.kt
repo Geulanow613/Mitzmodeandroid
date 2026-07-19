@@ -109,7 +109,7 @@ object HalachicTermsDictionary {
         line("Purim day — 14 Adar (15 in walled cities); Megillah, gifts to friends/poor, and feast"),
         line("Megillah reading — hearing the Book of Esther read on Purim"),
         line("Fast of Gedaliah — fast day after Rosh Hashana"),
-        line("Asara B'Tevet — minor fast on 10 Tevet from dawn until nightfall; the only fast never postponed when it falls on Friday before Shabbat — in which case we break it with Friday night Kiddush"),
+        line("Asara B'Tevet — minor fast on 10 Tevet from dawn until nightfall; when it falls on Friday the fast continues into Friday night and is broken with Shabbat Kiddush"),
         line("Ta'anit — a public or personal fast day", "Taanit"),
         line("Shemoneh Esrei — the eighteen (now nineteen) blessings of the Amidah"),
         line("Sefirah — counting period between 2nd day of Pesach and Shavuot; mourning customs and when they end vary by minhag (Ashkenaz, Sephard, Chabad, etc.)", "the Omer"),
@@ -171,7 +171,7 @@ object HalachicTermsDictionary {
         line("yirat Shamayim — fearing of Heaven; living with awareness that G-d is present"),
         line("kippah — skullcap worn as a sign of G-d's presence above", "yarmulke"),
         line("tallit katan — small four-cornered garment with tzitzit, worn generally over or under a shirt per community custom"),
-        line("tallit gadol — large prayer shawl with tzitzit worn during Shacharit/Musaf and all day on Yom Kippur"),
+        line("tallit gadol — large prayer shawl with tzitzit worn at Shacharit/Musaf (and all day on Yom Kippur); many Ashkenazim begin at marriage, while Sephardi and Chabad often from bar mitzvah"),
         line("Al Netilat Yadayim — blessing on ritual handwashing"),
         line("shmirat halashon — guarding one's speech from lashon hara and harmful words"),
         line(
@@ -228,7 +228,7 @@ object HalachicTermsDictionary {
             "minhagim",
         ),
         line(
-            "nusach — Nusach is the prayer \"style\" of a community: which words are said, in what order, and often which melodies are used. Common examples include Nusach Ashkenaz, Nusach Sefard (Sephardi / Iberian diaspora), Nusach Edot HaMizrach (Middle Eastern and North African kehillot), Nusach Sefard on a Chasidic siddur (Ashkenazi-Chasidic — not Sephardi), and Nusach Ari (Chabad).",
+            "nusach — Nusach is the prayer \"style\" of a community: which words are said, in what order, and often which melodies are used. Common examples include Nusach Ashkenaz; Sephardi / Bet Yosef liturgy; Nusach Edot HaMizrach (Middle Eastern and North African kehillot); Nusach Sefard (Ashkenazi-Chasidic — not Sephardi); and Nusach Ari (Chabad).",
             "Nusach",
         ),
         line(
@@ -287,7 +287,7 @@ object HalachicTermsDictionary {
             "CHAZAL",
         ),
         line(
-            "challah — Challah is the bread often prepared for Shabbat and festival meals — often braided and covered until Kiddush. Two loaves (lechem mishneh) recall the double portion in the desert. On Friday night, if wine or grape juice is completely unavailable, Kiddush can be recited over the challah loaves, provided one washes hands for bread immediately before reciting Kiddush and replaces the wine blessing with Hamotzi. Bread can never substitute for daytime Shabbat Kiddush on Saturday morning.",
+            "challah — Challah is the bread often prepared for Shabbat and festival meals — often braided and covered until Kiddush. Two loaves (lechem mishneh) recall the double portion in the desert. On Friday night, if wine or grape juice is completely unavailable, Kiddush can be recited over the challah loaves, provided one washes hands for bread immediately before reciting Kiddush and replaces the wine blessing with Hamotzi. On Shabbat morning, make Kiddush on bread only if no wine, grape juice, or other appropriate drink (chamar medinah) is available.",
             "Challah",
             "challah",
         ),
@@ -369,7 +369,7 @@ object HalachicTermsDictionary {
             "Kiddush",
         ),
         line(
-            "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a multi-wick candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. After Yom Tov there's usually no spices or candle. After Yom Kippur we do use a candle which was lit throughout Yom Kippur.",
+            "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a multi-wick candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. After Yom Tov there's usually no spices or candle. After Yom Kippur we use a candle that burned throughout the fast; spices are ordinarily omitted — but when Yom Kippur falls on Shabbat, include besamim as on a regular Motzei Shabbat.",
             "havdalah",
             "Havdalah",
         ),
@@ -712,7 +712,7 @@ object HalachicTermsDictionary {
             "shofar",
         ),
         line(
-            "tashlich — Tashlich is a Rosh Hashana custom of reciting Micah 7:19 at flowing water, symbolically casting away sins. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat: Ashkenazim postpone to Sunday — a universal Rabbinic gezeirah against carrying in public, even with an eruv; many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day where carrying a machzor is permitted. Throwing breadcrumbs to fish is forbidden on Shabbat and Yom Tov — the custom is the prayers at the water, not feeding wildlife.",
+            "tashlich — Tashlich is a Rosh Hashana custom of reciting Micah 7:19 at flowing water, symbolically casting away sins. It is not in the Talmud like shofar, but is widespread. When the first day of Rosh Hashana falls on Shabbat: Ashkenazim customarily postpone to Sunday; many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day where a kosher eruv permits carrying a machzor. Throwing breadcrumbs to fish is forbidden on Shabbat and Yom Tov — the custom is the prayers at the water, not feeding wildlife.",
             "Tashlich",
             "tashlich",
         ),
@@ -785,7 +785,7 @@ object HalachicTermsDictionary {
             "Mikveh",
         ),
         line(
-            "tzitzit — Tzitzit are fringes on four-cornered garments reminding us of all 613 mitzvot. The tallit katan is worn daily — generally over or under the shirt, depending on community custom (many Chassidim, Sephardim, and followers of the Arizal wear it over the shirt, under a vest or jacket); the tallit gadol at Shacharit. Strings must be kosher and tied correctly. Looking at tzitzit during Shema fulfills \"you shall see them.\" Women in some communities wear tzitzit; ask your rav.",
+            "tzitzit — Tzitzit are fringes on four-cornered garments reminding us of all 613 mitzvot. The tallit katan is worn daily — generally over or under the shirt, depending on community custom (many Chassidim, Sephardim, and followers of the Arizal wear it over the shirt, under a vest or jacket). The tallit gadol is worn at Shacharit by custom that varies: many Ashkenazim from marriage; Sephardi and Chabad often from bar mitzvah. Strings must be kosher and tied correctly. Looking at tzitzit during Shema fulfills \"you shall see them.\" Women in some communities wear tzitzit; ask your rav.",
             "tzitzit",
             "Tzitzit",
         ),
@@ -879,12 +879,12 @@ object HalachicTermsDictionary {
             "shloshim",
         ),
         line(
-            "yahrzeit — Yahrzeit is the annual Hebrew-calendar date of a relative's death. Many light a 24-hour candle, visit the grave, give charity, and lead services if they are a kohen or know the customs. Parents' yahrzeits are especially observed. The name means \"time of year\" in Yiddish — a day to remember and elevate the soul.",
+            "yahrzeit — Yahrzeit is the annual Hebrew-calendar date of a relative's death. Many light a 24-hour candle, visit the grave, give charity, and lead services if able and if the shul's minhag allows. Parents' yahrzeits are especially observed. The name means \"time of year\" in Yiddish — a day to remember and elevate the soul.",
             "Yahrzeit",
             "yahrzeit",
         ),
         line(
-            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardim may bless first. Shabbat candles must be lit before sunset (not before Plag HaMincha). Weekday Erev Yom Tov candles are also lit before sunset. When Yom Tov begins on Motzei Shabbat, Yom Tov candles are lit only after tzeit, from a pre-existing flame. On other Yom Tov nights, before the holiday begins you may strike a new match; once Yom Tov has started, light only from a pre-existing flame.",
+            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardi customs vary (many bless then light; others light then bless). Shabbat candles must be lit after Plag HaMincha and before sunset. Weekday Erev Yom Tov candles are also lit before sunset. When Yom Tov begins on Motzei Shabbat, Yom Tov candles are lit only after tzeit, from a pre-existing flame. On other Yom Tov nights, before the holiday begins you may strike a new match; once Yom Tov has started, light only from a pre-existing flame.",
             "Hadlakat Nerot",
             "Light Yom Tov candles",
         ),
@@ -1213,7 +1213,7 @@ object HalachicTermsDictionary {
             "pikuach nefesh",
         ),
         line(
-            "eruv — An eruv (especially eruv chatzerot or city eruv) is a halachic enclosure letting Jews carry within a defined area on Shabbat. It requires kosher boundaries and community upkeep. When the eruv is down, carrying keys and pushing strollers outdoors may be forbidden — shuls often text status Friday. It does not permit driving or phones.",
+            "eruv — \"Eruv\" can mean several related things. A city / neighborhood eruv uses symbolic doorways (tzurot hapetach) and other boundaries so carrying is permitted outdoors on Shabbat within that area. Eruv chatzerot is the communal food-merge that partners courtyards/apartments for carrying between shared domains. Eruv techumin extends how far you may walk. When \"the eruv is down,\" people usually mean the city enclosure — carrying keys and pushing strollers outdoors may then be forbidden; shuls often text status Friday. It does not permit driving or phones.",
             "Eruv",
             "eruv",
         ),
@@ -1401,14 +1401,14 @@ object HalachicTermsDictionary {
             "Ashkenaz",
         ),
         line(
-            "Sephardi — Sephardi Jews trace roots to the Iberian diaspora and related Mediterranean communities. Prayer is usually Nusach Sefard (Bet Yosef). Halacha generally follows the Shulchan Aruch and poskim such as Rav Ovadia Yosef zt\"l. Rice and kitniyot are halachically permitted on Pesach where Ashkenazim follow the kitniyot custom. Do not confuse with \"Nusach Sefard\" on a Chasidic siddur (an Ashkenazi rite) or with Edot HaMizrach (Middle Eastern / North African nusach).",
+            "Sephardi — Sephardi Jews trace roots to the Iberian diaspora and related Mediterranean communities. Prayer is usually Sephardi / Bet Yosef liturgy (sometimes labeled Sefaradi — not the same as Chasidic \"Nusach Sefard\"). Halacha generally follows the Shulchan Aruch and poskim such as Rav Ovadia Yosef zt\"l. Rice and kitniyot are halachically permitted on Pesach where Ashkenazim follow the kitniyot custom. Do not confuse with \"Nusach Sefard\" on a Chasidic siddur (an Ashkenazi rite) or with Edot HaMizrach (Middle Eastern / North African nusach).",
             "Sephardi",
             "Sephardic",
             "Sefard",
             "Sefardim",
         ),
         line(
-            "Edot HaMizrach — Edot HaMizrach (communities of the East) refers to Middle Eastern and North African Jewish kehillot — Iraqi, Syrian, Moroccan, Persian, Yemenite, and related traditions — usually praying Nusach Edot HaMizrach. Halacha generally follows Shulchan Aruch, but customs vary by kehilla. Not the same as Sephardi (Iberian diaspora / Nusach Sefard), though both differ from Ashkenaz.",
+            "Edot HaMizrach — Edot HaMizrach (communities of the East) refers to Middle Eastern and North African Jewish kehillot — Iraqi, Syrian, Moroccan, Persian, Yemenite, and related traditions — usually praying Nusach Edot HaMizrach. Halacha generally follows Shulchan Aruch, but customs vary by kehilla. Not the same as Sephardi (Iberian diaspora / Bet Yosef liturgy), though both differ from Ashkenaz.",
             "Edot HaMizrach",
             "Edot Hamizrach",
             "Mizrachi",
@@ -1486,7 +1486,7 @@ object HalachicTermsDictionary {
             "plag",
         ),
         line(
-            "halachic chatzos — Chatzos is halachic midnight or midday — the midpoint of the night or day. Chatzos halayla matters for saying Modeh Ani, starting morning blessings, and some fast practices. Chatzos hayom is the midpoint of daylight. It moves with sunrise and sunset, not with 12:00 on the clock.",
+            "halachic chatzos — Chatzos is halachic midnight or midday — the midpoint of the night or day. Chatzos hayom (midday) matters for some mourning and fast practices (e.g. after chatzos on Tisha B'Av). Chatzos halayla (midnight) is used for some nighttime practices and learning customs. Modeh Ani is said upon waking, not at a fixed chatzos time. It moves with sunrise and sunset, not with 12:00 on the clock.",
             "halachic chatzos",
             "chatzos",
             "chatzos halayla",

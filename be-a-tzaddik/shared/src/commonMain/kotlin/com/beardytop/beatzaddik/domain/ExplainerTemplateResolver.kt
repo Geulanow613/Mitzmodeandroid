@@ -166,7 +166,8 @@ object ExplainerTemplateResolver {
             item.id == "selichot_elul_chabad" ||
                 item.id == "selichot_elul_ashkenaz" ||
                 item.id == "selichot_elul_sefard" ||
-                item.id == "selichot_elul_edot_hamizrach" ->
+                item.id == "selichot_elul_edot_hamizrach" ||
+                item.id == "selichot_elul_other" ->
                 staticBundle(SeasonalMitzvahText.selichotExplanation(profile.effectiveNusach()))
 
             item.id == "tu_bshvat_seder_optional" ->
@@ -291,7 +292,7 @@ object ExplainerTemplateResolver {
     }
 
     fun omerHeaderBundle(cal: DayInfo, profile: UserProfile): Bundle? {
-        if (cal.omerDay == null || !cal.isSefiratHaomer || cal.isLagBaomer) return null
+        if (cal.omerDay == null || !cal.isSefiratHaomer) return null
         return Bundle(
             OmerCountText.explanationTemplate(),
             OmerCountText.explanationArgs(cal, profile),
@@ -309,6 +310,7 @@ object ExplainerTemplateResolver {
             EffectiveNusach.SEFARD -> item.explanationSefard
             EffectiveNusach.EDOT_HAMIZRACH -> item.explanationEdotHamizrach.ifBlank { item.explanationSefard }
             EffectiveNusach.CHABAD -> item.explanationChabad
+            EffectiveNusach.OTHER -> ""
         }
 
     private fun staticBundle(template: String): Bundle =

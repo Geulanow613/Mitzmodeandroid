@@ -44,14 +44,18 @@ object YomTovShabbatPrepText {
             HebrewCalendarEngine.isYomTovAssurBemelacha(cal.upcomingChagYomTovIndex!!)
     }
 
-    /** Diaspora: two days of Yom Tov starting tomorrow, then Shabbat (erev is Wed or Thu). */
+    /**
+     * Two days of Yom Tov starting tomorrow, then Shabbat (erev is Wed).
+     * Diaspora: any two-day Yom Tov. Israel: Rosh Hashana only (still two days in Israel).
+     */
     fun isErevChagTwoDayYomTovBeforeShabbat(cal: DayInfo, profile: UserProfile): Boolean {
-        if (profile.isInIsrael) return false
         if (!EruvTavshilinRules.isFestivalEve(cal)) return false
         if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
-        return shabbatDaysAfterErevChag(cal) == 3 &&
-            cal.upcomingChagYomTovIndex != null &&
-            HebrewCalendarEngine.isYomTovAssurBemelacha(cal.upcomingChagYomTovIndex!!)
+        val chagIdx = cal.upcomingChagYomTovIndex ?: return false
+        if (!HebrewCalendarEngine.isYomTovAssurBemelacha(chagIdx)) return false
+        // Israel observes only one day of most festivals; Rosh Hashana is two days everywhere.
+        if (profile.isInIsrael && chagIdx != HebrewCalendarEngine.ROSH_HASHANA) return false
+        return shabbatDaysAfterErevChag(cal) == 3
     }
 
     fun isYomTovFridayLeadsIntoShabbat(cal: DayInfo): Boolean =
@@ -248,7 +252,7 @@ Before or at Maariv:
 $prepLead:
 • Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag).
 • Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.
-• Tashlich when the first day is Shabbat: Ashkenazim postpone to Sunday — a universal Rabbinic gezeirah against carrying in public, even where there is an eruv. Many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day when Shabbat is Rosh Hashana, where carrying a machzor is permitted. Tashlich is prayers at the water — not feeding fish (throwing breadcrumbs is forbidden on Shabbat and Yom Tov).
+• Tashlich when the first day is Shabbat: Ashkenazim customarily postpone to Sunday. Many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day when Shabbat is Rosh Hashana (where a kosher eruv permits carrying a machzor). Tashlich is prayers at the water — not feeding fish (throwing breadcrumbs is forbidden on Shabbat and Yom Tov).
 
 Candles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (pre-existing flame).
     """.trim(),
@@ -303,7 +307,7 @@ Limits:
 This year, Rosh Hashana leads into Shabbat on the calendar — you need eruv tavshilin. This doesn't happen every year.
 
 Why (Peninei Halakha 12:8):
-• When Rosh Hashana (or its second day in the Diaspora) falls on Friday, Shabbat follows immediately. Without an eruv, you may not cook on Yom Tov for Shabbat.
+• When Rosh Hashana (or its second day — Rosh Hashana is two days in Israel and the Diaspora) falls on Friday, Shabbat follows immediately. Without an eruv, you may not cook on Yom Tov for Shabbat.
 • The eruv reminds the household to prepare for Shabbat, not only for the Days of Awe.
 
 $whenLine
@@ -317,7 +321,7 @@ How to make eruv tavshilin (Peninei Halakha 12:8:2):
 
 Rosh Hashana notes:
 • Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.
-• If the first day(s) were Thursday–Friday in the Diaspora, only **Friday** Yom Tov cooking for Shabbat uses this eruv — the eruv does not permit Thursday cooking for Friday Yom Tov.
+• If Rosh Hashana was Thursday–Friday, only **Friday** Yom Tov cooking for Shabbat uses this eruv — the eruv does not permit Thursday cooking for Friday Yom Tov.
 • Confirm communal eruv from your rabbi does not replace your household eruv for personal cooking — many poskim require each home to make its own (ask your rav).
 
 Shofar & davening: eruv does not change shofar rules — shofar is blown on Yom Tov days of Rosh Hashana when not Shabbat, per your minhag and calendar.
@@ -327,7 +331,7 @@ Shofar & davening: eruv does not change shofar rules — shofar is blown on Yom 
 
     private fun eruvWhenLine(cal: DayInfo, profile: UserProfile, chagName: String): String = when {
         isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ->
-            "When: Today, before the first day of $chagName tomorrow — in the Diaspora the next two days are Yom Tov, then Shabbat (set eruv on the day before the festival begins)."
+            "When: Today, before the first day of $chagName tomorrow — the next two days are Yom Tov, then Shabbat (set eruv on the day before the festival begins)."
         isErevChagYomTovStartsBeforeShabbat(cal) ->
             "When: Today (Friday) before Yom Tov candle lighting — $chagName begins tonight and Shabbat is tomorrow."
         else ->

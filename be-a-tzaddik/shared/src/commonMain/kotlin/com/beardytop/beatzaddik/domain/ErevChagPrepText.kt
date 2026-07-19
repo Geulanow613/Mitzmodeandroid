@@ -157,7 +157,7 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)
 Customs:
 • Greet others with wishes for a good year (L'shanah tovah).
 • Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
-• Tashlich: on the first afternoon when Rosh Hashana is not Shabbat. When the first day is Shabbat: Ashkenazim postpone to Sunday (a universal Rabbinic gezeirah against carrying in public, even with an eruv); many Sephardic communities recite Tashlich on the first day where carrying a machzor is permitted. Tashlich is prayers at the water — not feeding fish (breadcrumbs are forbidden on Shabbat and Yom Tov). If you missed it, many communities do it later — commonly any day until Hoshana Rabbah; follow your minhag.
+• Tashlich: on the first afternoon when Rosh Hashana is not Shabbat. When the first day is Shabbat: Ashkenazim customarily postpone to Sunday; many Sephardic communities recite Tashlich on the first day (where a kosher eruv permits carrying a machzor). Tashlich is prayers at the water — not feeding fish (breadcrumbs are forbidden on Shabbat and Yom Tov). If you missed it, many communities do it later — commonly any day until Hoshana Rabbah; follow your minhag.
 
 • A second day of Rosh Hashana follows tomorrow night — in Israel and the Diaspora — so prepare candles and meals for two days of Yom Tov.""",
             ),
@@ -226,6 +226,8 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
                     "• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom)."
                 EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
                     "• Yom Tov davening with Full Hallel and Musaf; no chametz."
+                EffectiveNusach.OTHER ->
+                    "• Yom Tov davening with Full Hallel and Musaf; no chametz. Kitniyot customs vary — follow your minhag."
             }
             Triple(
                 "Erev Pesach prep — Yom Tov & seder",
@@ -264,6 +266,8 @@ ${diasporaSecondDayNote(profile, "Pesach")}$shabbatBlock""",
                     "• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom)."
                 EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
                     "• Yom Tov davening with Half Hallel and Musaf; no chametz."
+                EffectiveNusach.OTHER ->
+                    "• Yom Tov davening with Half Hallel and Musaf; no chametz. Kitniyot customs vary — follow your minhag."
             }
             Triple(
                 if (isFinal) "Erev final Pesach Yom Tov prep" else "Erev Pesach Yom Tov prep",
@@ -337,11 +341,11 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SHEMINI_ATZERES, tomorrowCal, profi
 ${if (profile.isInIsrael) """
 • Sukkot has ended — do not eat or sleep in the sukkah; festive meals are indoors.
 • Simchat Torah in Israel: hakafot, finishing and restarting the Torah cycle, joyous dancing with the Torah.
-• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in Musaf; Full Hallel.
+• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in that Musaf; Full Hallel.
 """ else """
 • Shemini Atzeret in the Diaspora: Yizkor is often recited; still a full Yom Tov with no melacha. (Simchat Torah is tomorrow in the Diaspora.)
-• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
-• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
+• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim and Chabad eat major meals in the sukkah on Shemini Atzeret but omit leishev basukkah. Sephardim generally eat indoors (no sukkah) on Shemini Atzeret — follow your rav.
+• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in that Musaf.
 """}
 • Festive Yom Tov meals.""",
             ),

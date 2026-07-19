@@ -101,8 +101,9 @@ object PublicFastDayRules {
     }
 
     /**
-     * True when tonight's nightfall ends the fast into Shabbat or Yom Tov (e.g. Taanit Esther on
-     * Friday, 10 Tevet on Friday). Those days keep the fast row visible with local break-fast copy.
+     * True when tonight's nightfall ends the fast into Shabbat or Yom Tov (e.g. 10 Tevet on
+     * Friday). Those days keep the fast row visible with local break-fast copy.
+     * (Under the fixed calendar, Taanit Esther does not fall on Friday.)
      */
     fun fastEndsIntoShabbatOrYomTov(cal: DayInfo, tomorrowCal: DayInfo?): Boolean {
         if (cal.fastDayIndex == null) return false

@@ -75,7 +75,6 @@ import com.beardytop.beatzaddik.ui.components.GoldButton
 import com.beardytop.beatzaddik.ui.components.HalachicTermOverlay
 import com.beardytop.beatzaddik.ui.components.LocalRegisterChecklistDebugToggle
 import com.beardytop.beatzaddik.ui.components.HolyLightBackground
-import com.beardytop.beatzaddik.ui.components.LearnWebScreen
 import com.beardytop.beatzaddik.ui.components.LocationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.NotificationPermissionDialog
 import com.beardytop.beatzaddik.ui.components.MitzModeBottomNav
@@ -89,6 +88,7 @@ import com.beardytop.beatzaddik.ui.components.rememberCandlelightRewardControlle
 import com.beardytop.beatzaddik.ui.components.rememberHolyFlashController
 import com.beardytop.beatzaddik.ui.screens.AboutScreen
 import com.beardytop.beatzaddik.ui.screens.BlessingsScreen
+import com.beardytop.beatzaddik.ui.screens.LearnScreen
 import com.beardytop.beatzaddik.ui.screens.OnboardingScreen
 import com.beardytop.beatzaddik.ui.screens.SettingsScreen
 import com.beardytop.beatzaddik.ui.screens.ShabbatRestScreen
@@ -570,7 +570,7 @@ private fun MainShell(
                     }
                 )
                 blessingsTabIndex -> BlessingsScreen()
-                learnTabIndex -> LearnWebScreen()
+                learnTabIndex -> LearnScreen(viewModel = viewModel)
                 settingsTabIndex -> SettingsScreen(
                     viewModel = viewModel,
                     scrollToKashrut = scrollSettingsToKashrut,

@@ -174,6 +174,17 @@ object ChecklistZmanEvaluator {
                         !prayerDay.isInIsrael &&
                         base.availability == ItemZmanAvailability.ACTIVE ->
                         base.copy(hint = TefillinSeasonalRules.cholHamoedAshkenazActiveHint())
+                    prayerDay.isCholHamoed &&
+                        prayerDay.nusach == EffectiveNusach.OTHER &&
+                        !prayerDay.isInIsrael &&
+                        base.availability == ItemZmanAvailability.ACTIVE ->
+                        base.copy(hint = TefillinSeasonalRules.cholHamoedOtherActiveHint())
+                    TishaBeavTefillinRules.isTishaBeav(prayerDay.fastDayIndex) &&
+                        prayerDay.nusach == EffectiveNusach.OTHER &&
+                        base.availability == ItemZmanAvailability.ACTIVE ->
+                        base.copy(
+                            hint = "Tisha B'Av: morning tallit/tefillin customs vary — follow your kehilla. Mincha donning after chatzos is widespread.",
+                        )
                     TishaBeavTefillinRules.isTishaBeav(prayerDay.fastDayIndex) &&
                         !TishaBeavTefillinRules.omitsMorningTefillin(prayerDay.nusach) &&
                         base.availability == ItemZmanAvailability.ACTIVE ->

@@ -357,6 +357,13 @@ object ParshaData {
         if (kosherJavaName == null || kosherJavaName == "NONE") null
         else map[kosherJavaName]
 
+    /** Lookup by English display name (e.g. from calendar header). */
+    fun forDisplayName(displayName: String?): ParshaInfo? {
+        if (displayName.isNullOrBlank()) return null
+        val trimmed = displayName.trim()
+        return map.values.firstOrNull { it.displayName.equals(trimmed, ignoreCase = true) }
+    }
+
     fun displayLabel(kosherJavaName: String?): String? =
         forKey(kosherJavaName)?.displayName
             ?: kosherJavaName?.takeIf { it.isNotBlank() && it != "NONE" }
