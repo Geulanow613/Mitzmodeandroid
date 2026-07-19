@@ -23,7 +23,7 @@ object ShabbatGuideData {
 
 The bare minimum to fulfill the mitzvah and tap into this elevated state requires a combination of resting from prohibited creative activities (see the full list in the Shabbat guide) and actively celebrating the day at home through meaningful rituals. The core obligations center on declaring the holiness of the day and enjoying lavish, festive meals. Specifically, you recite or hear Kiddush—the prayer of sanctification over a cup of wine or grape juice—twice: once on Friday night to usher the special day in, and once during the daytime on Saturday.
 
-These meals are meant to be a grand celebration of the day's royalty, and the requirement is to enjoy three distinct, festive meals, each beginning with two loaves of bread. The first feast takes place on Friday night, and the second occurs on Saturday following the daytime Kiddush. Because we are meant to honor the day generously, our tradition teaches that Hashem completely pays you back for whatever money you spend on Shabbat and the festivals, meaning we shouldn't need to worry about the cost of making these meals special (within reason!). The third meal is eaten Saturday afternoon, often later in the day. While three meals are required to fully honor the day's holiness, traditional opinions can be quite lenient regarding what actually constitutes that third meal if you are still too full to eat bread, often allowing for smaller portions of cake, fruit, or light foods (in some opinions, even just studying Torah) to fulfill the obligation and complete the holy day in an enjoyable manner.""",
+These meals are meant to be a grand celebration of the day's royalty, and the requirement is to enjoy three distinct, festive meals. The first feast takes place on Friday night, and the second occurs on Saturday following the daytime Kiddush — both ideally begin with two whole loaves (lechem mishneh). Because we are meant to honor the day generously, our tradition teaches that Hashem completely pays you back for whatever money you spend on Shabbat and the festivals, meaning we shouldn't need to worry about the cost of making these meals special (within reason!). The third meal (seudah shlishit) is eaten Saturday afternoon, often later in the day. Mainstream practice highly prefers washing for bread (challah) for this meal — lechem mishneh when possible. If you are too full for bread, many authorities allow a smaller amount of cake (mezonot), fruit, or a light snack. Chabad custom traditionally does not wash for bread at seudah shlishit; instead they taste something physical (usually cake, fruit, or a small snack) and dedicate the time between Mincha and Maariv to Torah, niggunim, and Chassidus — based on Zohar/Arizal teachings about the late-afternoon spiritual intensity (Ra'ava d'Ra'avan). Torah study alone is not the Chabad fulfillment; tasting food still matters.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4687/jewish/Shabbat.htm"
         ),
         GuideTopic(
@@ -68,11 +68,22 @@ Key rules:
             id = "havdalah",
             title = "Havdalah",
             hebrewTitle = "הַבְדָּלָה",
-            body = """Havdalah (separation) is the ceremony performed after Shabbat ends — Saturday night when three stars appear — marking the transition back to the weekdays.
+            body = """Havdalah (הַבְדָּלָה — "separation") marks the end of holy time and the return to the weekday. Men and women are equally obligated (hear or recite). Do not do melacha until you have heard Havdalah or said "Baruch HaMavdil bein Kodesh l'chol."
 
-The ceremony has four blessings: wine, fragrant spices (besamim), fire, and the Havdalah blessing (Hamavdil). The spices comfort the soul for the departure of the extra Shabbat soul (neshama yeteira).
+Motzei Shabbat (full ceremony):
+Wine (Borei pri hagafen), besamim / spices (Borei minei besamim), fire (Borei me'orei ha'esh), then Hamavdil.
+• Spices comfort the soul as the neshama yeteira (extra Shabbat soul) departs.
+• The candle recalls that Hashem gave Adam HaRishon the wisdom to make fire on the first Motzei Shabbat. Looking at the fingernails in the light is a widespread custom: it tests that the flame is useful enough to distinguish nail from skin; reminds us of continuous growth; recalls mystical "garments of light"; and illustrates separating light from darkness (many fold fingers over the thumbs — some prefer not to look at the thumbs; follow your minhag).
+If you missed Saturday night: wine + Hamavdil through Tuesday — omit spices and fire.
 
-Important: you may not perform any melachah (Shabbat-forbidden labor) after Shabbat ends until you have heard Havdalah or said the phrase "Baruch HaMavdil bein Kodesh l'chol" (Blessed is He Who separates the holy from the mundane).""",
+Motzei Yom Tov (weekday end of a festival):
+Wine + Hamavdil only — no spices and no fire blessing. Israel vs Diaspora length (one day vs two) follows your Israel-customs setting. If Yom Tov ends into Shabbat, there is no Havdalah then; make full Motzei Shabbat Havdalah Saturday night. When Shabbat flows into Yom Tov, Havdalah is inside Kiddush (Yaknehaz) — no separate spice Havdalah.
+
+Motzei Yom Kippur:
+Wine, fire over a ner she-shavat (a flame that burned throughout the fast), and Hamavdil. Ordinarily no spices — this is not the Adam HaRishon / nail Motzei Shabbat framing in the same way. When Yom Kippur falls on Shabbat, include besamim and the Motzei Shabbat nail customs as on a regular Motzei Shabbat.
+
+Motzei Shabbat into Tisha B'Av:
+Saturday night: Baruch ha'mavdil and the candle blessing after Maariv; delay wine + Hamavdil until Sunday night after the fast (no spices or fire then).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4198870/jewish/Havdalah.htm"
         ),
         GuideTopic(
@@ -128,11 +139,11 @@ Rosh Chodesh is a semi-holiday — certain fasting and eulogizing are restricted
             title = "Yom Tov — Jewish Festivals",
             hebrewTitle = "יוֹם טוֹב",
             // Source: chabad.org/library/article_cdo/aid/708510/jewish/Laws-of-Yom-Tov.htm
-            body = """Yom Tov (literally "good day") refers to the major Jewish festivals: Pesach, Shavuot, Rosh Hashana, Sukkot, and Shemini Atzeret/Simchat Torah. Yom Kippur has its own distinct laws closer to Shabbat.
+            body = """Yom Tov (literally "good day") refers to the major Jewish festivals: Pesach, Shavuot, Rosh Hashana, Sukkot, and Shemini Atzeret/Simchat Torah. Yom Kippur has its own distinct laws closer to Shabbat (Shabbat Shabbaton — no ochel-nefesh cooking).
 
-Yom Tov shares most of Shabbat's restrictions, but three key differences are permitted: cooking and baking for that day's needs, kindling a flame from a pre-existing flame (not striking a new one), and carrying between domains for the sake of Yom Tov needs.
+The core upgrade vs Shabbat is ochel nefesh: cooking and baking for that day's meals from a pre-existing flame, and carrying for holiday needs even without an eruv. You may not create a new fire. Meechin forbids cooking or washing on Day 1 solely for Day 2. When Yom Tov falls on Friday before Shabbat, eruv tavshilin is required before the festival begins. When Yom Tov falls on Saturday, Shabbat laws override the Yom Tov leniencies.
 
-All other creative labors forbidden on Shabbat remain forbidden on Yom Tov. The many details of Yom Tov law are complex and vary by situation. Always consult your rabbi."""
+See the Shabbat vs Yom Tov comparison table in this guide for a side-by-side summary. Always consult your rabbi for details."""
         ),
         GuideTopic(
             id = "muktzeh",
@@ -213,7 +224,22 @@ Additional notes:
         ComparisonRow(
             "Carrying between domains",
             "Forbidden (without eruv)",
-            "Permitted for the sake of Yom Tov needs"
+            "Permitted for the sake of Yom Tov needs (siddur, keys, stroller, food to a meal, etc.)"
+        ),
+        ComparisonRow(
+            "Cooking for the next day (meechin)",
+            "N/A — no cooking at all",
+            "Forbidden — cook only for that Yom Tov day (leftovers from a pot cooked for today are OK)"
+        ),
+        ComparisonRow(
+            "Yom Tov → Shabbat (Friday YT)",
+            "N/A",
+            "Needs eruv tavshilin before Yom Tov begins — then finish Shabbat food prep on Friday YT"
+        ),
+        ComparisonRow(
+            "Yom Tov on Saturday",
+            "Full Shabbat laws",
+            "Shabbat overrides Yom Tov cooking/carrying leniencies — festival prayers added"
         ),
         ComparisonRow(
             "Electricity / driving / writing",
@@ -228,7 +254,12 @@ Additional notes:
         ComparisonRow(
             "Candle lighting",
             "Required before sunset",
-            "Unlike Shabbat, not required before the day begins. Second Diaspora night or Motzei Shabbat: light after nightfall only, from a pre-existing flame — never early. Other nights: may light before sunset from pre-existing flame per custom"
+            """First night of a weekday Yom Tov: light before sunset (same timing idea as Shabbat). You may strike a new match.
+
+If holy time has already begun, you may only transfer from a flame lit earlier — not create a new fire:
+• Second night of Yom Tov (including Rosh Hashana night 2, even in Israel) — after nightfall
+• Motzei Shabbat into Yom Tov — after nightfall
+• Yom Tov into Shabbat — before sunset (light Shabbat candles from that transfer flame)"""
         )
     )
 
@@ -371,11 +402,11 @@ Additional notes:
             body = """Rosh Hashana (the Jewish New Year) falls on 1–2 Tishrei and is observed for two days everywhere — including in Israel (unlike most other festivals, which are one day in Israel and two in the Diaspora). It is the anniversary of the creation of Adam and Eve and the Day of Judgment — when G-d reviews the deeds of all people and inscribes their fate for the coming year.
 
 Key observances:
-• Hearing the shofar (ram's horn) blown in synagogue — the Ashkenazi custom is approximately 100 blasts per day (200 total over the two days)
+• Hearing the shofar (ram's horn) blown in synagogue — blast counts vary by minhag (Ashkenaz often ~100 per day / ~200 over both days; Sephardi and other communities often use different totals — follow your shul)
 • Special prayers and liturgy including the Unetaneh Tokef
 • Eating symbolic foods: apples and honey for a sweet new year, pomegranate, fish head, dates, and other simanim (signs)
 • Tashlich — a custom to go to a body of water on the afternoon of the first day of Rosh Hashana and recite verses from Micah (7:18–20) symbolizing casting away sins. The custom involves the prayers at the water, not throwing bread crumbs (many authorities including the Vilna Gaon and Chabad discourage or omit the bread crumb practice entirely)
-• Rosh Hashana is a full Yom Tov — all Shabbat-like restrictions apply, with the exception of cooking and carrying""",
+• Rosh Hashana is a full Yom Tov — all Shabbat-like restrictions apply, with the usual Yom Tov allowances: cooking for that day's needs, kindling from a pre-existing flame, and carrying for Yom Tov needs""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm"
         ),
         GuideTopic(
@@ -386,7 +417,7 @@ Key observances:
 
 Five forms of affliction (inuyim) are observed: no eating or drinking, no bathing, no applying oils/creams, no leather shoes, no marital relations.
 
-Key prayers: Kol Nidrei (the night before), Yizkor (Ashkenaz custom on Yom Kippur morning — many Sefard communities omit or observe different memorial customs), the Neilah closing prayer, and the final single shofar blast at the conclusion of the fast.
+Key prayers: Kol Nidrei (the night before), Yizkor (Ashkenaz custom on Yom Kippur morning — many Sephardi communities omit or observe different memorial customs), the Neilah closing prayer, and the final single shofar blast at the conclusion of the fast.
 
 Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restrictions — including a strict prohibition on carrying outdoors (unless inside a kosher eruv), exactly like Shabbat. Melachah (labor) is fully forbidden.""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4688/jewish/What-Is-Yom-Kippur.htm"
@@ -402,7 +433,7 @@ Key observances:
 • Taking the Arba Minim (Four Species): lulav (palm branch), etrog (citron), hadassim (myrtle), aravot (willow)
 
 Arba Minim — by nusach:
-• Ashkenaz / most Sefard: waved in six directions (east, south, west, north, up, down) during Hallel; recite al netilat lulav each day the species are taken (not on Shabbat); Shehecheyanu only on the first day (and in Chutz LaAretz, also on the second day of Yom Tov)
+• Ashkenaz / most Sephardi: waved in six directions (east, south, west, north, up, down) during Hallel; recite al netilat lulav each day the species are taken (not on Shabbat); Shehecheyanu on the first day you take the lulav — if Day 1 is Shabbat (no lulav), say it when you first take (often Day 2); do not repeat it on Day 2 if you already said it on Day 1
 • Chabad: hold lulav in right hand, etrog in left; wave in the same six directions plus some add an extra motion; follow your Chabad siddur
 • Yemenite (Baladi): may bind aravot differently and follow distinct waving customs — ask your community
 • Not taken on Shabbat; in Israel, the first day is the primary Torah obligation; in Chutz LaAretz, the first two Yom Tov days
@@ -419,12 +450,12 @@ Hallel:
             body = """Shemini Atzeret is an independent Yom Tov immediately following Sukkot (22 Tishrei). In the Diaspora, Simchat Torah is observed on 23 Tishrei. In Israel, both are observed on 22 Tishrei.
 
 Shemini Atzeret:
-• Tefillat Geshem (prayer for rain) — inserted in Musaf in most Ashkenaz and Sefard communities; some say it at different points — follow your siddur
-• Yizkor — memorial prayers; widely observed in Ashkenaz synagogues on Shemini Atzeret (and on Yom Kippur). Many Sefard communities do not recite Yizkor on this day, or observe different memorial customs
+• Tefillat Geshem (prayer for rain) — inserted in Musaf in most Ashkenaz and Sephardi communities; some say it at different points — follow your siddur
+• Yizkor — memorial prayers; widely observed in Ashkenaz synagogues on Shemini Atzeret (and on Yom Kippur). Many Sephardi communities do not recite Yizkor on this day, or observe different memorial customs
 
 Simchat Torah:
 • Celebrates the completion and immediate restart of the annual Torah reading cycle
-• Ashkenaz / most Sefard: seven hakafot (processional circuits) with the Torah scrolls, singing and dancing; final portion (V'Zot HaBeracha) read, then Bereishit restarted
+• Ashkenaz / most Sephardi: seven hakafot (processional circuits) with the Torah scrolls, singing and dancing; final portion (V'Zot HaBeracha) read, then Bereishit restarted
 • Chabad: hakafot with singing; often one aliyah per scroll taken out
 • Yemenite and other communities may have distinct hakafah and reading customs — follow your synagogue""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/4464/jewish/What-Is-Shemini-Atzeret-Simchat-Torah.htm"
@@ -478,6 +509,8 @@ In the Diaspora, the first two and last two days are full Yom Tov; in Israel, th
             hebrewTitle = "שָׁבוּעוֹת",
             body = """Shavuot is observed on 6 Sivan — one day in Israel, two days in the Diaspora (6–7 Sivan). It celebrates the giving of the Torah at Mount Sinai, which took place seven weeks after the Exodus.
 
+Timing note: Light Yom Tov candles before sunset as usual (new match OK). Delay Maariv and Kiddush until after nightfall (tzeit) so the full 49 days of the Omer are complete. When Shavuot begins Motzei Shabbat, light only from a pre-existing flame after Shabbat ends.
+
 It is customary to:
 • Study Torah through the night (Tikkun Leil Shavuot)
 • Eat dairy foods — various reasons are given, including that the Jewish people had just received the Torah's laws of meat preparation, and since they didn't have the tools or time to properly prepare kosher meat according to those brand-new rules right away, dairy was the quickest way to keep it kosher. 
@@ -497,7 +530,7 @@ Shavuot is the 50th day of the Omer period that begins on the second night of Pe
 
 Synagogue service — customs vary by nusach:
 • Ashkenaz: extended service with seven hakafot (circuits) with the lulav and aravot; willow branches (aravot) beaten on the ground after the circuits; lulav and etrog taken for the last time
-• Sefard: similar hoshanot circuits in many communities; willow-beating customs vary — follow your siddur
+• Sephardi: similar hoshanot circuits in many communities; willow-beating customs vary — follow your siddur
 • Chabad: hakafot with hoshanot; aravot are beaten five times on the ground — see your Chabad machzor
 • Yemenite: distinct hoshanot liturgy and customs
 
@@ -614,9 +647,9 @@ Lag BaOmer is famous for its distinct, high-energy customs, each deeply tied to 
 
 • Bonfires — Massive fires are lit all over Israel and Jewish communities worldwide. The fire serves a dual purpose: it symbolizes the immense "spiritual light" that Rabbi Shimon brought into the world through the Zohar, and it recalls the light of a miraculous fire that columned over his bed on the day he passed.
 
-• Lifting the mourning restrictions — Because the plague paused, all the traditional mourning practices observed during the Omer are suspended for the day. People blast music, dance around the bonfires, and schedule weddings that were delayed for weeks. (Whether your community ends all Omer mourning at Lag BaOmer or only on Shavuot varies by minhag — follow your community.)
+• Easing mourning restrictions — Because the plague paused, many communities ease Omer mourning for the day: music, dancing around bonfires, and weddings that were delayed. Others (including Chabad) keep haircut restrictions until Shavuot even on Lag BaOmer. Whether mourning ends at Lag BaOmer or continues until Shavuot varies by minhag — follow your community.
 
-• The first haircut (upsherin) — It is a widespread tradition to hold off on cutting a boy's hair until he turns three years old. On Lag BaOmer, thousands of families travel to Meron (the burial site of Rabbi Shimon in northern Israel) to give their three-year-old boys their very first haircuts, a ceremony called an upsherin.
+• Upsherin (first haircut) — A widespread custom is to wait until a boy turns three for his first haircut. Lag BaOmer is a common day for that ceremony (upsherin), and many families travel to Meron (Rabbi Shimon's burial site in northern Israel) for it.
 
 • Bows and arrows — Children traditionally play with toy bows and arrows on this day. This recalls the midrashic tradition that no rainbow appeared in the sky during Rabbi Shimon's entire lifetime; his personal spiritual merit was so immense that the world never required a physical reminder of God's covenant not to destroy the earth.
 
@@ -682,7 +715,7 @@ It is a full 25-hour fast (sundown to nightfall), with the same five afflictions
 
 Melachah (work) is permitted in principle, but many avoid work until after chatzot (halachic midday) — follow your minhag. Mourning customs apply: no Torah study (except on sad topics like Lamentations and Job), no greeting others, no music. Megillat Eichah (the Book of Lamentations) is read at night; Kinot (dirges) are recited in the morning. To follow the Kinot, bring a Kinnot / Kinot prayerbook for your nusach, or use a free online edition — a regular siddur usually does not include them.
 
-The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephard, Chabad, and others).""",
+The three weeks from 17 Tammuz until Tisha B'Av are called the Three Weeks — a period of mourning. Mourning intensifies during the Nine Days leading up to Tisha B'Av; customs differ by nusach (Ashkenaz, Sephardi, Chabad, and others).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/144575/jewish/What-Is-Tisha-BAv.htm"
         ),
         GuideTopic(
@@ -713,7 +746,7 @@ Note: When 10 Tevet falls on a Friday, the fast is not moved earlier. Continue f
             hebrewTitle = "שִׁבְעָה עָשָׂר בְּתַמּוּז",
             body = """The Fast of 17 Tammuz (Shiva Asar B'Tammuz) marks tragedies including the breaching of Jerusalem's walls — associated with the Roman siege before the Second Temple's destruction, and in some traditions also with the First Temple era. It begins the "Three Weeks" — a period of mourning culminating in Tisha B'Av.
 
-It is a minor fast from dawn until nightfall. During the Three Weeks, weddings are not held and music is generally avoided. During the final nine days of this period (1–9 Av), additional mourning customs apply.""",
+It is a minor fast from dawn until nightfall. During the Three Weeks, Ashkenazim and Chabad generally do not hold weddings and avoid music; many Sephardim are more lenient until Rosh Chodesh Av or the week of Tisha B'Av — follow your minhag. Additional mourning customs intensify closer to Tisha B'Av (from 1 Av for Ashkenazim; often mainly the week of Tisha B'Av for many Sephardim).""",
             learnMoreUrl = "https://www.chabad.org/library/article_cdo/aid/479885/jewish/The-17th-of-Tammuz.htm"
         ),
         GuideTopic(

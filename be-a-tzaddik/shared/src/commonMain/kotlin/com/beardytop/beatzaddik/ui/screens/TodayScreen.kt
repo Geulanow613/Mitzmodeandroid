@@ -304,6 +304,10 @@ fun TodayScreen(
                     Spacer(Modifier.height(12.dp))
                     return@let
                 }
+                if (d.holyDayPhoneWarning != null) {
+                    HolyDayPhoneWarningBanner(d.holyDayPhoneWarning)
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
                 Column(
                     modifier = Modifier.reportTourTarget(TourTarget.Checklist, tourReporter),
                 ) {
@@ -483,6 +487,52 @@ private fun HolyDayPhoneNoticeCard(notice: HolyDayPhoneNotice) {
             style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Medium),
             color = TzaddikColors.GoldBorder,
             textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun HolyDayPhoneWarningBanner(notice: HolyDayPhoneNotice) {
+    val resolvedMessage = if (notice.messageArgs.isNotEmpty()) {
+        rememberAppTranslatedTemplate(notice.message, notice.messageArgs)
+    } else {
+        rememberAppTranslatedText(notice.message)
+    }
+    val sunsetMins = notice.messageArgs["minutesUntilSunset"]
+    val hideMins = notice.messageArgs["minutesUntilHide"]
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(TzaddikColors.GoldBright.copy(alpha = 0.28f), RoundedCornerShape(12.dp))
+            .padding(14.dp),
+    ) {
+        if (sunsetMins != null && hideMins != null) {
+            AppText(
+                "$sunsetMins",
+                enableTerms = false,
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.NavyDeep,
+            )
+            AppText(
+                "minutes until sunset · checklist disables in $hideMins min",
+                enableTerms = false,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
+                color = TzaddikColors.NavyDeep,
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        } else {
+            AppText(
+                notice.title,
+                enableTerms = false,
+                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                color = TzaddikColors.NavyDeep,
+            )
+            Spacer(modifier = Modifier.height(6.dp))
+        }
+        AppText(
+            resolvedMessage,
+            style = MaterialTheme.typography.bodySmall,
+            color = TzaddikColors.NavyMid,
         )
     }
 }

@@ -14,9 +14,12 @@ object ChecklistSectionOrder {
     }
 
     private val prepSectionSortPriority = mapOf(
-        "Motzei Yom Kippur" to -70,
-        "Motzei Shabbat" to -60,
-        "Hoshana Rabbah" to -65,
+        // Motzei windows sit at the very top with Havdalah / Melave Malka.
+        "Motzei Shabbat" to -180,
+        "Motzei Yom Tov" to -175,
+        "Motzei Yom Kippur" to -170,
+        "Motzei Tisha B'Av" to -165,
+        "Hoshana Rabbah" to -62,
         "Chol HaMoed" to -55,
         // High so Zecher Machatzit / Birkat Hachamah pin near the top of Today.
         "Seasonal" to -85,
@@ -32,6 +35,7 @@ object ChecklistSectionOrder {
         tomorrowCal: DayInfo,
         profile: UserProfile,
         nowMillis: Long,
+        yesterdayCal: DayInfo? = null,
     ): Set<String> = buildSet {
         if (BirkatHachamahRules.visibleOccurrence(cal.date) != null ||
             SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(cal)
@@ -65,6 +69,16 @@ object ChecklistSectionOrder {
         ) {
             add("Fasts")
         }
+        if (yesterdayCal != null) {
+            when (HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)) {
+                HavdalahRules.Kind.MOTZEI_SHABBAT -> add("Motzei Shabbat")
+                HavdalahRules.Kind.MOTZEI_YOM_TOV -> add("Motzei Yom Tov")
+                HavdalahRules.Kind.MOTZEI_YOM_KIPPUR -> add("Motzei Yom Kippur")
+                HavdalahRules.Kind.DELAYED_AFTER_TISHA_BEAV -> add("Motzei Tisha B'Av")
+                null -> Unit
+            }
+        }
+        // Melave Malka / other Motzei Shabbat rows even if Havdalah was delayed (Tisha B'Av).
         if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
             add("Motzei Shabbat")
         }
@@ -112,6 +126,14 @@ object ChecklistSectionOrder {
                 base == "Pesach prep"
             ) {
                 return -200
+            }
+            // Motzei Havdalah (+ Melave Malka) pin above Maariv / Seasonal for tonight.
+            if (base == "Motzei Shabbat" ||
+                base == "Motzei Yom Tov" ||
+                base == "Motzei Yom Kippur" ||
+                base == "Motzei Tisha B'Av"
+            ) {
+                return prepSectionSortPriority[base] ?: -180
             }
             if (base == "Sefirat HaOmer") {
                 return when (activePeriod) {

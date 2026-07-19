@@ -132,8 +132,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
     ): List<ChecklistItemDef> = buildList {
         if (cal.isSefiratHaomer && cal.omerDay != null && cal.omerDay in 1..49) {
             add(omerItem(cal, profile))
-            // Lag BaOmer: still count the Omer (day 33); mourning customs pause for the day.
-            if (!cal.isLagBaomer) {
+            if (SefirahMourningRules.isMourningDay(cal, profile.effectiveNusach(), nowMillis)) {
                 add(sefirahMourningMusicItem(profile))
             }
         }
@@ -154,6 +153,12 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         }
         if ("erev_chag" in cal.activeSeasons && !HolyDayPhoneRules.isShabbatMelachaDay(cal)) {
             add(erevChagPrepItem(cal, profile, tomorrowCal))
+            // Timed hadlakat nerot for weekday erev YT (Friday uses Shabbat candles).
+            // Motzei Shabbat→YT lighting is after tzeit when the checklist is already hidden —
+            // that case stays in Friday advance / erev-chag prep prose.
+            if (!cal.isErevShabbat) {
+                add(yomTovCandlesItem(cal, profile, tomorrowCal))
+            }
         }
         if (YomTovShabbatPrepText.shouldShowAdvancePrepDay(cal, tomorrowCal, profile)) {
             add(yomTovShabbatAdvancePrepItem(cal, tomorrowCal, profile))
@@ -227,27 +232,32 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         if ("erev_yom_kippur" in cal.activeSeasons) {
             add(erevYomKippurEatItem(cal, profile))
         }
-        if ("erev_tisha_beav" in cal.activeSeasons) {
-            add(erevTishaBeavPrepItem(cal, profile))
+        val deferredTbaFriday = PublicFastDayRules.isFridayBeforeDeferredTishaBeav(
+            cal, tomorrowCal, dayAfterTomorrowCal,
+        )
+        if ("erev_tisha_beav" in cal.activeSeasons || deferredTbaFriday) {
+            add(erevTishaBeavPrepItem(cal, profile, deferredToSunday = deferredTbaFriday))
         }
         if ("fast_day" in cal.activeSeasons && cal.fastDayIndex != null) {
             add(publicFastDayItem(cal, profile))
-            if (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR) {
-                add(motzeiYomKippurMealItem(cal, profile))
-            }
             if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
                 TishaBeavTefillinRules.omitsMorningTefillin(profile.effectiveNusach())
             ) {
                 add(tefillinTishaBeavMinchaItem())
             }
         }
+        // After tzeit, Hebrew day is 11 Tishrei (fast_day is off) — still show the break-fast meal.
+        if (isNightAfterYomKippur(cal) ||
+            (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR && "fast_day" in cal.activeSeasons)
+        ) {
+            add(motzeiYomKippurMealItem(cal, profile))
+        }
     }
 
     private fun omerItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
-        val day = cal.omerDay!!
         return ChecklistItemDef(
             id = OmerCountText.CHECKLIST_ITEM_ID,
-            title = OmerCountText.buildTitle(day, profile.effectiveNusach()),
+            title = OmerCountText.buildTitle(cal, profile.effectiveNusach()),
             section = "Sefirat HaOmer",
             timeOfDay = TimeOfDay.ANY,
             required = true,
@@ -271,34 +281,32 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             seasons = listOf("sefirah"),
             explanation = BeginnerHalachaGlossary.withKeyTerms(
                 BeginnerHalachaGlossary.mourningBasics(),
-                """During Sefirat HaOmer we keep customs of mourning (aveilut) because Rabbi Akiva's 24,000 students died in a plague during this period between Pesach and Shavuot (Talmud, Yevamot 62b). Their deaths ceased on Lag BaOmer — which is why many communities ease some restrictions then, while others continue until Shavuot or the morning of the 33rd day of the Omer.
+                """During Sefirat HaOmer we keep customs of mourning (aveilut) because Rabbi Akiva's 24,000 students died in a plague between Pesach and Shavuot (Talmud, Yevamot 62b).
 
-Why we mourn: The Omer is the path from physical freedom (Pesach) to spiritual receiving of Torah (Shavuot). The plague cut short Torah transmission — so we temper joy with restraint until we reach Matan Torah.
+The exact mourning window varies drastically by nusach — start date, end date, and whether Lag BaOmer (day 33) ends the period or only suspends it for one day.
 
-Common customs (timing varies — ask your rav):
-• No live music (recordings and a cappella rules vary by posek)
-• No weddings
-• No haircuts for part or all of the Omer
+Checklist visibility follows your selected nusach (see below). A personal rav is final.
 
-Follow your community's start and end dates for these practices.""",
+Common practices during your window: no live music (recordings/a cappella rules vary), no weddings, no haircuts.""",
             ),
-            explanationAshkenaz = """Ashkenaz custom: mourning from after Pesach until Lag BaOmer (33rd day of the Omer, 18 Iyar) or until the morning of Lag BaOmer (per your shul). Some continue haircuts/music restrictions until Shavuot or the Three Weeks.
+            explanationAshkenaz = """Ashkenaz — two widespread customs:
 
-No weddings, no live music, and no haircuts during your community's Sefirah period. Lag BaOmer is a break for many Ashkenazim; ask your rabbi about music and haircuts after that date.""",
-            explanationSefard = """Sephardi custom (Shulchan Arukh O.C. 493:1-2; Peninei Halakha 05-03-03): mourning from Pesach until the morning of the 34th day of the Omer (Lamed-Dalet). Music on Lag BaOmer in honor of R. Shimon bar Yochai is permitted, but weddings and haircuts remain restricted until the 34th morning per prevalent Sephardi psak (Rav Ovadia Yosef, Yechaveh Daat 3:31). Some communities (e.g. Turkey, Egypt) end mourning on Lag BaOmer — follow your kehilla.
+1) First 33 days (most common): mourning on Omer days 1–32. On Lag BaOmer (day 33) the period permanently ends in the morning (miktzat hayom k'kulo — a small part of the day counts as the whole). Days 34–49 have no mourning restrictions.
 
-Ask your rav which tradition you follow and when restrictions begin and end.""",
-            explanationEdotHamizrach = """Edot HaMizrach communities follow different Omer traditions (Peninei Halakha 05-03-03):
-• Many follow Shulchan Arukh O.C. 493:1-2 — mourning until the morning of the 34th day of the Omer.
-• Many who follow the Ari act strictly and refrain from haircuts until the day before Shavuot (Kaf HaChaim 493:13, cited in Peninei Halakha 05-03-03).
-• Some North African kehillot end mourning on Lag BaOmer.
+2) Later 33 / Rema: mourning from 1 Iyar (about day 16) through Erev Shavuot. Lag BaOmer is only a one-day break (weddings, music, haircuts permitted that day); mourning returns on day 34 until about 3 Sivan / Erev Shavuot.
 
-Music, weddings, and haircuts follow your kehilla's psak — ask your rav.""",
-            explanationChabad = """Chabad (Alter Rebbe / Arizal): haircut and shaving restrictions continue the entire 49 days through Erev Shavuot — adults do not take haircuts on Lag BaOmer (the sole exception is upsherin for a 3-year-old boy). Lag BaOmer is a day of intense joy with music, bonfires, and celebration, but haircut restrictions remain until Shavuot.
+This checklist follows the first-33 window (shows days 1–32). If your family keeps the Rema later custom, resume restrictions after Lag until Erev Shavuot even when this item is hidden — ask your rav.""",
+            explanationSefard = """Sephardi / Shulchan Arukh: mourning on Omer days 1–33 inclusive for weddings and haircuts — Lag BaOmer itself remains restricted for those.
 
-Music is generally avoided through Shavuot per Chabad practice, with Lag BaOmer as a day without music restrictions. Weddings follow your Chabad rabbi's guidance.
+Music / joy exception: many contemporary Sephardic poskim permit listening to music and dancing on Lag BaOmer itself out of respect for the Hillula of Rabbi Shimon bar Yochai. As soon as Lag ends and the night of day 34 begins, mourning restrictions snap back until the morning of day 34 (miktzat hayom), when the period permanently ends.
 
-Ask your Chabad rabbi for details on your community.""",
+Follow your kehilla (Rav Ovadia Yosef, Yechaveh Daat 3:31; Peninei Halakha).""",
+            explanationEdotHamizrach = """Edot HaMizrach often follow Shulchan Arukh: mourning days 1–33 inclusive (Lag still restricted for weddings/haircuts). Many permit music/dancing on Lag for the Hillula of R. Shimon bar Yochai; after Lag ends, night of day 34 snaps restrictions back until morning of day 34, when mourning ends permanently.
+
+Some kehillot follow the Ari through Erev Shavuot (with Lag as a one-day break), and some North African communities end on Lag — ask your rav.""",
+            explanationChabad = """Chabad / Arizal: mourning restraint through the Omer (days 1–49) until Erev Shavuot. Lag BaOmer (day 33) is a one-day suspension — celebration and music are permitted; mourning returns on day 34.
+
+Some families ease wedding restrictions during Shloshet Yemei Hagbalah (about days 46–48). Adult haircut practice can be stricter than the general Lag break (upsherin is a common exception) — ask your Chabad rav.""",
             links = sefirahMourningLinks(profile)
         )
 
@@ -456,7 +464,7 @@ When:
 How:
 • A festive meal with bread (hamotzi — many use two rolls), meat, wine, and joy.
 • Include words of Torah or thanks to Hashem — the meal is a mitzvah, not only a party.
-• Drinking wine is a widespread custom but not required to excess; celebrate responsibly.
+• Ad d’lo yada (“until he does not know”) is the Purim drinking custom: drink wine toward joyful inebriation until one cannot distinguish “cursed is Haman” from “blessed is Mordechai.” Rema’s common practice is to drink a bit more than usual until drowsy, then sleep; some require actual intoxication; Rambam also favors drink-then-sleep. Do not drink so much that you miss Megillah or tefillah. Exempt if drinking would make you sick, depressed, or lead to sin. Women join the seudah; most hold they should not drink to inebriation.
 
 Plan the menu and timing so matanot la'evyonim and mishloach manot are handled earlier in the day when possible.""",
             ),
@@ -508,6 +516,42 @@ Plan the menu and timing so matanot la'evyonim and mishloach manot are handled e
             ),
             explanation = YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrowCal),
             links = YomTovShabbatPrepText.links(cal, profile, chagName),
+        )
+    }
+
+    private fun yomTovCandlesItem(
+        cal: DayInfo,
+        profile: UserProfile,
+        tomorrowCal: DayInfo,
+    ): ChecklistItemDef {
+        val name = cal.upcomingChagName
+            ?: tomorrowCal.yomTovHolidayName
+            ?: "Yom Tov"
+        val lead = CandleLightingRules.leadMinutesBeforeSunset(profile)
+        return ChecklistItemDef(
+            id = "yom_tov_candles",
+            title = "Light $name candles",
+            section = "Prepare for the festival",
+            sortOrder = 15,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            situational = false,
+            seasons = listOf("erev_chag"),
+            explanation = BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.erevChagCommon(),
+                """Light Yom Tov candles before sunset (about $lead minutes before — Jerusalem custom is often 40). On a weekday first night you may strike a new match.
+
+Once Yom Tov has begun, light only from a pre-existing flame (second night of Yom Tov, including Rosh Hashana night 2 in Israel; Motzei Shabbat→Yom Tov after tzeit).
+
+Women traditionally light; a man lights if no woman is present. Ask your rav for bracha wording (neirot shel Yom Tov / Shehecheyanu when applicable).""",
+            ),
+            links = listOf(
+                ChecklistLink(
+                    "Chabad — Yom Tov candle lighting",
+                    "https://www.chabad.org/library/article_cdo/aid/4689/jewish/Candle-Lighting.htm",
+                    if (profile.effectiveNusach() == EffectiveNusach.CHABAD) "chabad" else "default",
+                ),
+            ),
         )
     }
 
@@ -727,7 +771,7 @@ Quick reference: https://ohr.edu/1304
         return ChecklistItemDef(
             id = "sukkot_arba_minim",
             title = if (isFemale) {
-                "Wave Arba Minim — recommended mitzvah (women)"
+                "Wave Arba Minim — optional for women"
             } else {
                 "Wave Arba Minim (lulav, etrog, hadassim, aravot)"
             },
@@ -889,9 +933,11 @@ Quick reference: https://ohr.edu/1304
     private fun selichotItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val month = cal.hebrewMonth ?: return null
         val day = cal.hebrewDay ?: return null
+        // Selichot are weekday services — not on Shabbat.
+        if (HolyDayPhoneRules.isShabbatMelachaDay(cal)) return null
         // Show Selichot:
         // - Sefard/Edot: from Elul 2 through Erev Yom Kippur (9 Tishrei)
-        // - Ashkenaz/Chabad: from their start date through Erev Yom Kippur
+        // - Ashkenaz/Chabad: Motzei Shabbat before RH (min. 4 days) through Erev YK
         val inSelichotWindow = when (month) {
             HebrewCalendarEngine.ELUL -> day >= 2
             HebrewCalendarEngine.TISHREI -> day in 2..9 // through Erev Yom Kippur (9 Tishrei)
@@ -916,31 +962,33 @@ Quick reference: https://ohr.edu/1304
                 links = selichotLinks(profile)
                 )
             }
-            EffectiveNusach.CHABAD -> ChecklistItemDef(
-                id = "selichot_elul_chabad",
-                title = "Say Selichot today",
-                section = "Selichot",
-                timeOfDay = TimeOfDay.ANY,
-                required = false,
-                situational = false,
-                tzeitMitzvah = true,
-                explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.CHABAD),
-                links = selichotLinks(profile)
-            )
+            EffectiveNusach.CHABAD -> {
+                if (!isAshkenazStyleSelichotDay(cal)) return null
+                ChecklistItemDef(
+                    id = "selichot_elul_chabad",
+                    title = "Say Selichot today",
+                    section = "Selichot",
+                    timeOfDay = TimeOfDay.ANY,
+                    required = false,
+                    situational = false,
+                    tzeitMitzvah = true,
+                    explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.CHABAD),
+                    links = selichotLinks(profile)
+                )
+            }
             EffectiveNusach.ASHKENAZ -> {
-                if (month == HebrewCalendarEngine.TISHREI || cal.date >= ashkenazSelichotStartDate(cal)) {
-                    ChecklistItemDef(
-                        id = "selichot_elul_ashkenaz",
-                        title = "Say Selichot today",
-                        section = "Selichot",
-                        timeOfDay = TimeOfDay.ANY,
-                        required = false,
-                        situational = false,
-                        tzeitMitzvah = true,
-                        explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.ASHKENAZ),
-                        links = selichotLinks(profile)
-                    )
-                } else null
+                if (!isAshkenazStyleSelichotDay(cal)) return null
+                ChecklistItemDef(
+                    id = "selichot_elul_ashkenaz",
+                    title = "Say Selichot today",
+                    section = "Selichot",
+                    timeOfDay = TimeOfDay.ANY,
+                    required = false,
+                    situational = false,
+                    tzeitMitzvah = true,
+                    explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.ASHKENAZ),
+                    links = selichotLinks(profile)
+                )
             }
             EffectiveNusach.OTHER -> ChecklistItemDef(
                 id = "selichot_elul_other",
@@ -953,6 +1001,18 @@ Quick reference: https://ohr.edu/1304
                 explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.OTHER),
                 links = selichotLinks(profile)
             )
+        }
+    }
+
+    /** Ashkenaz / Chabad: from Motzei of the start Saturday through Erev Yom Kippur. */
+    private fun isAshkenazStyleSelichotDay(cal: DayInfo): Boolean {
+        val month = cal.hebrewMonth ?: return false
+        if (month == HebrewCalendarEngine.TISHREI) return true
+        val startSat = ashkenazSelichotStartDate(cal)
+        return when {
+            cal.date > startSat -> true
+            cal.date == startSat -> cal.startedTonightAtTzeit
+            else -> false
         }
     }
 
@@ -1439,15 +1499,19 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = PublicFastDayText.erevYomKippurLinks(profile),
     )
 
-    private fun erevTishaBeavPrepItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+    private fun erevTishaBeavPrepItem(
+        cal: DayInfo,
+        profile: UserProfile,
+        deferredToSunday: Boolean = false,
+    ) = ChecklistItemDef(
         id = "erev_tisha_beav_prep",
-        title = PublicFastDayText.erevTishaBeavTitle(),
+        title = PublicFastDayText.erevTishaBeavTitle(deferredToSunday),
         section = "Fasts",
         sortOrder = 5,
         timeOfDay = TimeOfDay.DAY,
         required = true,
-        seasons = listOf("erev_tisha_beav"),
-        explanation = PublicFastDayText.erevTishaBeavExplanation(cal, profile),
+        seasons = if (deferredToSunday) emptyList() else listOf("erev_tisha_beav"),
+        explanation = PublicFastDayText.erevTishaBeavExplanation(cal, profile, deferredToSunday),
         links = PublicFastDayText.erevTishaBeavLinks(),
     )
 
@@ -1491,11 +1555,12 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
     private fun motzeiYomKippurMealItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
         id = "motzei_yom_kippur_meal",
         title = PublicFastDayText.motzeiYomKippurMealTitle(),
-        section = "Fasts",
+        section = "Motzei Yom Kippur",
         sortOrder = 20,
         timeOfDay = TimeOfDay.NIGHT,
         required = true,
-        seasons = listOf("fast_day"),
+        // Visible Motzei even after Hebrew rollover to 11 Tishrei (no "fast_day" season then).
+        seasons = null,
         explanation = PublicFastDayText.motzeiYomKippurMealExplanation(cal, profile),
         links = PublicFastDayText.erevYomKippurLinks(profile),
     )

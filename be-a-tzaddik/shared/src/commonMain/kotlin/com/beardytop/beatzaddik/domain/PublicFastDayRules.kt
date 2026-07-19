@@ -56,6 +56,24 @@ object PublicFastDayRules {
         return isShabbat && hebrewMonth == HebrewCalendarEngine.AV && hebrewDay == 9
     }
 
+    /**
+     * Friday 8 Av when 9 Av is Shabbat and the fast is Sunday 10 Av — checklist is usable today
+     * (hidden on Shabbat), so surface Motzei-into-fast prep here.
+     */
+    fun isFridayBeforeDeferredTishaBeav(
+        cal: DayInfo,
+        tomorrowCal: DayInfo,
+        dayAfterTomorrowCal: DayInfo,
+    ): Boolean {
+        if (!cal.isErevShabbat) return false
+        if (cal.hebrewMonth != HebrewCalendarEngine.AV || cal.hebrewDay != 8) return false
+        if (!tomorrowCal.isShabbat) return false
+        if (tomorrowCal.hebrewMonth != HebrewCalendarEngine.AV || tomorrowCal.hebrewDay != 9) return false
+        return dayAfterTomorrowCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV ||
+            (dayAfterTomorrowCal.hebrewMonth == HebrewCalendarEngine.AV &&
+                dayAfterTomorrowCal.hebrewDay == 10)
+    }
+
     fun fastTimingLabel(idx: Int): String = when {
         fastStartsAtSunset(idx) -> "from sunset until nightfall the following night"
         else -> "from dawn (alot hashachar) until nightfall (tzeit)"
@@ -86,6 +104,10 @@ object PublicFastDayRules {
                 month == HebrewCalendarEngine.AV && day == 10
             HebrewCalendarEngine.FAST_OF_GEDALYAH ->
                 month == HebrewCalendarEngine.TISHREI && day == 4
+            // When 13 Adar is Shabbat, Taanit Esther moves to Thursday (11 or 12 Adar).
+            HebrewCalendarEngine.FAST_OF_ESTHER ->
+                (month == HebrewCalendarEngine.ADAR || month == HebrewCalendarEngine.ADAR_II) &&
+                    day in 11..12
             else -> false
         }
     }
@@ -96,6 +118,7 @@ object PublicFastDayRules {
             HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ -> "Deferred from 17 Tammuz"
             HebrewCalendarEngine.TISHA_BEAV -> "Deferred from 9 Av"
             HebrewCalendarEngine.FAST_OF_GEDALYAH -> "Deferred from 3 Tishrei"
+            HebrewCalendarEngine.FAST_OF_ESTHER -> "Deferred from 13 Adar"
             else -> "Deferred from Shabbat"
         }
     }

@@ -4,7 +4,7 @@ package com.beardytop.beatzaddik.domain
 object RoshChodeshRules {
 
     enum class HallelKind {
-        /** Rosh Chodesh Tishrei (Rosh Hashanah) — Hallel is not said. */
+        /** Rosh Hashana (1–2 Tishrei) — Hallel is not said. */
         NONE,
         /** Typical Rosh Chodesh — Partial (Half) Hallel. */
         HALF,
@@ -14,7 +14,11 @@ object RoshChodeshRules {
 
     fun hallelKind(cal: DayInfo): HallelKind {
         if (!cal.isRoshChodesh) return HallelKind.NONE
-        if (cal.hebrewMonth == HebrewCalendarEngine.TISHREI) return HallelKind.NONE
+        // Rosh Hashana only — not 30 Tishrei (first day of Rosh Chodesh Cheshvan), which has Half Hallel.
+        val day = cal.hebrewDay
+        if (cal.hebrewMonth == HebrewCalendarEngine.TISHREI && day != null && day in 1..2) {
+            return HallelKind.NONE
+        }
         if (cal.isChanukah) return HallelKind.FULL_DURING_CHANUKAH
         return HallelKind.HALF
     }

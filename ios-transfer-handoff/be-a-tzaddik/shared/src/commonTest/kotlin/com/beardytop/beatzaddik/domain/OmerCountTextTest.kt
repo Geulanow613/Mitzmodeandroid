@@ -27,9 +27,17 @@ class OmerCountTextTest {
         )
         val filled = ExplainerTemplateFill.fill(OmerCountText.explanationTemplate(), args)
         assertTrue(filled.contains("count ${OmerCountText.omerDaySummary(4, nusach)} after nightfall"))
-        assertTrue(!filled.contains("count ${OmerCountText.omerDaySummary(3, nusach)} after nightfall"))
+        assertTrue(filled.contains("you should have counted ${OmerCountText.omerDaySummary(3, nusach)}"))
         assertTrue(filled.contains("If you forgot at night:"))
         assertTrue(filled.contains("without the blessing (no bracha)"))
+    }
+
+    @Test
+    fun checklistTitleMentionsLastNightAndTonight() {
+        val cal = sampleCal(omerDay = 5) // daytime: last night was 5, tonight counts 6
+        val title = OmerCountText.buildTitle(cal, EffectiveNusach.ASHKENAZ)
+        assertTrue(title.contains("was day 5"), title)
+        assertTrue(title.contains("count day 6"), title)
     }
 
     @Test

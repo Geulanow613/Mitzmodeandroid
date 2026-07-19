@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -39,8 +40,10 @@ object ChecklistZmanEvaluator {
         "ldovid_hashem_ori",
         "birkat_hachamah",
         "birkat_hailanot",
+        "havdalah",
         "melave_malkah",
         "shabbat_candles",
+        "yom_tov_candles",
         "public_fast_day",
         "tefillin_tisha_beav_mincha",
         "motzei_yom_kippur_meal",
@@ -56,7 +59,10 @@ object ChecklistZmanEvaluator {
         itemId: String,
         nowMillis: Long,
         zmanim: ZmanimSnapshot?,
-        prayerDay: PrayerDayContext
+        prayerDay: PrayerDayContext,
+        cal: DayInfo? = null,
+        yesterdayCal: DayInfo? = null,
+        tomorrowCal: DayInfo? = null,
     ): ItemZmanStatus {
         if (!appliesTo(itemId)) return ItemZmanStatus()
         if (zmanim == null) return ItemZmanStatus()
@@ -67,10 +73,11 @@ object ChecklistZmanEvaluator {
         val tz = z.timezoneId
         // Chanukah candles: earliest plag hamincha; ideal after tzeit.
         // We treat it as available from plag so it doesn't look "unavailable" all afternoon.
+        // Friday: must light before Shabbat candles — window ends at candle-lighting time.
         if (itemId.startsWith("chanukah_lighting_day_")) {
             val rawPlag = z.plagHaminchaMillis
                 ?: return ItemZmanStatus(hint = "Set location in Settings for Plag HaMincha times.")
-            val end = ZmanPeriodLogic.nightObligationWindowEnd(z) ?: return ItemZmanStatus()
+            val nightEnd = ZmanPeriodLogic.nightObligationWindowEnd(z) ?: return ItemZmanStatus()
 
             // Chanukah lighting "belongs" to the night that began after sunset.
             // Some backends attach night zmanim to the next civil date; in that case, a 10pm
@@ -88,25 +95,62 @@ object ChecklistZmanEvaluator {
             val burnNoteWithTime = burnUntilTime?.let {
                 "If lighting early, ensure enough oil/candles to burn until $it (30 min after nightfall)."
             } ?: burnNoteAlways
+            val fridayCandleEnd = if (prayerDay.isErevShabbat) {
+                z.sunsetMillis?.let { it - prayerDay.candleLeadMinutes * 60_000L }
+                    ?.let { raw -> if (shiftBack) raw - 24 * 60 * 60 * 1000L else raw }
+            } else {
+                null
+            }
+            // After tzeit rollover, nightObligationWindowEnd is the *next* dawn — use this night's alot.
+            val end = when {
+                fridayCandleEnd != null -> fridayCandleEnd
+                shiftBack && dawn != null -> dawn
+                else -> nightEnd
+            }
+            val motzeiShabbatLighting = cal?.startedTonightAtTzeit == true &&
+                cal.date.dayOfWeek == DayOfWeek.SATURDAY
+            val start = if (motzeiShabbatLighting && tzeitForThisNight != null) {
+                tzeitForThisNight
+            } else {
+                plag
+            }
+            val startClock = if (motzeiShabbatLighting) {
+                ZmanimFormatter.formatAfter(start, tz) ?: "nightfall"
+            } else {
+                plagClock
+            }
+            val fridayHint = fridayCandleEnd?.let {
+                val clock = ZmanimFormatter.formatTime(it, tz) ?: "Shabbat candle lighting"
+                "On Friday light Chanukah candles before Shabbat candles ($clock)."
+            }
+            val motzeiHint = if (motzeiShabbatLighting) {
+                "Motzei Shabbat: light after Shabbat ends (tzeit) — many light after Havdalah / Baruch ha'mavdil; only from a pre-existing flame."
+            } else {
+                null
+            }
+            val startLabel = if (motzeiShabbatLighting) "tzeit hakochavim" else "Plag HaMincha"
             return when {
-                nowMillis < plag -> ItemZmanStatus(
+                nowMillis < start -> ItemZmanStatus(
                     availability = ItemZmanAvailability.UPCOMING,
-                    windowStartMillis = plag,
+                    windowStartMillis = start,
                     windowEndMillis = end,
-                    hintTemplate = "Available in {time} · at Plag HaMincha",
-                    hintArgs = mapOf("time" to plagClock),
-                    makeupNote = burnNoteWithTime,
-                    availableAtLabel = "Plag HaMincha",
+                    hintTemplate = "Available in {time} · at $startLabel",
+                    hintArgs = mapOf("time" to startClock),
+                    makeupNote = listOfNotNull(burnNoteWithTime, fridayHint, motzeiHint).joinToString(" "),
+                    availableAtLabel = startLabel,
                 )
                 nowMillis >= end -> ItemZmanStatus(
                     availability = ItemZmanAvailability.EXPIRED,
+                    makeupNote = fridayHint
+                        ?: motzeiHint
+                        ?: "If you missed lighting after nightfall, ask your rav about lighting later tonight.",
                 )
                 else -> ItemZmanStatus(
                     availability = ItemZmanAvailability.ACTIVE,
-                    windowStartMillis = plag,
+                    windowStartMillis = start,
                     windowEndMillis = end,
-                    hint = burnNoteAlways,
-                    availableAtLabel = "Plag HaMincha",
+                    hint = listOfNotNull(burnNoteAlways, fridayHint, motzeiHint).joinToString(" "),
+                    availableAtLabel = startLabel,
                 )
             }
         }
@@ -220,10 +264,14 @@ object ChecklistZmanEvaluator {
             "kiddush_levana" -> kiddushLevanaWindow(nowMillis, tz, prayerDay)
             "birkat_hachamah" -> birkatHachamahWindow(nowMillis, z, tz)
             "birkat_hailanot" -> birkatHaIlanotHint(prayerDay)
+            "havdalah" -> havdalahWindow(
+                nowMillis, z, tz, prayerDay, cal, yesterdayCal, tomorrowCal,
+            )
             "melave_malkah" -> melaveMalkaWindow(nowMillis, z, tz, prayerDay)
             "shabbat_candles" -> shabbatCandlesWindow(nowMillis, z, tz, prayerDay)
+            "yom_tov_candles" -> yomTovCandlesWindow(nowMillis, z, tz, prayerDay)
             "public_fast_day" -> publicFastWindow(nowMillis, z, tz, prayerDay.fastDayIndex)
-            "motzei_yom_kippur_meal" -> motzeiYomKippurMealWindow(nowMillis, z, tz)
+            "motzei_yom_kippur_meal" -> motzeiYomKippurMealWindow(nowMillis, z, tz, cal)
             "purim_meshulash_erev_megillah" -> purimMegillahNightWindow(nowMillis, z, tz)
             "purim_meshulash_friday_megillah" -> purimMegillahDayWindow(nowMillis, z, tz, "Friday daytime Megillah")
             "purim_meshulash_friday_matanot" -> purimMatanotDayWindow(nowMillis, z, tz)
@@ -618,6 +666,62 @@ object ChecklistZmanEvaluator {
         )
     }
 
+    private fun havdalahWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        prayerDay: PrayerDayContext,
+        cal: DayInfo?,
+        yesterdayCal: DayInfo?,
+        tomorrowCal: DayInfo?,
+    ): ItemZmanStatus {
+        val tzeit = z.tzeitMillis
+            ?: return ItemZmanStatus(hint = "Set location in Settings for tzeit hakochavim times.")
+        val kind = if (cal != null && yesterdayCal != null && tomorrowCal != null) {
+            HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, now)
+        } else {
+            null
+        }
+        val end = when {
+            kind == HavdalahRules.Kind.MOTZEI_SHABBAT ->
+                MotzeiShabbatWindow.melaveMalkaEndMillis(z, !prayerDay.isShabbat)
+            else ->
+                HavdalahRules.windowEndMillis(z)
+                    ?: MotzeiShabbatWindow.melaveMalkaEndMillis(z, !prayerDay.isShabbat)
+        } ?: return ItemZmanStatus(hint = "Set location in Settings for dawn (alot hashachar) times.")
+        val start = when {
+            cal != null -> HavdalahRules.windowStartMillis(cal) ?: tzeit
+            prayerDay.isShabbat -> tzeit
+            else -> tzeit - 24 * 60 * 60 * 1000L
+        }
+        val tzeitLabel = ZmanimFormatter.formatAfter(tzeit, tz) ?: "tzeit hakochavim"
+        val (expired, makeup) = when (kind) {
+            HavdalahRules.Kind.MOTZEI_YOM_TOV ->
+                "Tonight's Motzei Yom Tov Havdalah window ended at dawn." to
+                    "If you missed Motzei Yom Tov Havdalah, ask your rav; many allow wine + Hamavdil into the following days (no spices or fire)."
+            HavdalahRules.Kind.MOTZEI_YOM_KIPPUR ->
+                "Tonight's Motzei Yom Kippur Havdalah window ended at dawn." to
+                    "Make Havdalah as soon as you can after the fast — wine, fire (ner she-shavat), and Hamavdil."
+            HavdalahRules.Kind.DELAYED_AFTER_TISHA_BEAV ->
+                "Tonight's post-fast Havdalah window ended at dawn." to
+                    "Recite wine + Hamavdil as soon as possible after the fast (no spices or fire)."
+            else ->
+                "Tonight's primary Havdalah window ended at dawn — if you still have not said it, you may recite wine + Hamavdil through Tuesday (no spices or fire)." to
+                    "Missed Saturday night? Say Havdalah over wine through Tuesday without besamim or the fire blessing."
+        }
+        return windowStatus(
+            now = now,
+            start = start,
+            end = end,
+            upcoming = "Havdalah — after nightfall (tzeit hakochavim).",
+            upcomingTemplate = "Havdalah — after nightfall ({time}).",
+            upcomingArgs = mapOf("time" to tzeitLabel),
+            expired = expired,
+            makeup = makeup,
+            availableAtLabel = "tzeit hakochavim"
+        )
+    }
+
     private fun melaveMalkaWindow(
         now: Long,
         z: ZmanimSnapshot,
@@ -689,6 +793,34 @@ object ChecklistZmanEvaluator {
         z: ZmanimSnapshot,
         tz: String,
         day: PrayerDayContext,
+    ): ItemZmanStatus = hadlakatNerotWindow(
+        now = now,
+        z = z,
+        tz = tz,
+        day = day,
+        label = "Shabbat candles",
+    )
+
+    /** Weekday erev Yom Tov — same plag→sunset window as Shabbat candles. */
+    private fun yomTovCandlesWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        day: PrayerDayContext,
+    ): ItemZmanStatus = hadlakatNerotWindow(
+        now = now,
+        z = z,
+        tz = tz,
+        day = day,
+        label = "Yom Tov candles",
+    )
+
+    private fun hadlakatNerotWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        day: PrayerDayContext,
+        label: String,
     ): ItemZmanStatus {
         val sunset = z.sunsetMillis
             ?: return ItemZmanStatus(hint = "Set location in Settings for candle-lighting times.")
@@ -700,8 +832,8 @@ object ChecklistZmanEvaluator {
             now = now,
             start = start,
             end = sunset,
-            upcoming = "Light Shabbat candles by $candlesClock ($lead min before sunset).",
-            upcomingTemplate = "Light Shabbat candles by {time} ({lead} min before sunset).",
+            upcoming = "Light $label by $candlesClock ($lead min before sunset).",
+            upcomingTemplate = "Light $label by {time} ({lead} min before sunset).",
             upcomingArgs = mapOf(
                 "time" to candlesClock,
                 "lead" to lead.toString(),
@@ -840,18 +972,28 @@ object ChecklistZmanEvaluator {
         )
     }
 
-    private fun motzeiYomKippurMealWindow(now: Long, z: ZmanimSnapshot, tz: String): ItemZmanStatus {
-        val start = z.tzeitMillis
+    private fun motzeiYomKippurMealWindow(
+        now: Long,
+        z: ZmanimSnapshot,
+        tz: String,
+        cal: DayInfo?,
+    ): ItemZmanStatus {
+        val tzeit = z.tzeitMillis
             ?: return ItemZmanStatus(hint = "Break-fast meal — available after nightfall when Yom Kippur ends.")
+        val end = HavdalahRules.windowEndMillis(z)
+        val start = when {
+            cal != null -> HavdalahRules.windowStartMillis(cal) ?: (tzeit - 24 * 60 * 60 * 1000L)
+            else -> tzeit - 24 * 60 * 60 * 1000L
+        }
         return windowStatus(
             now = now,
             start = start,
-            end = null,
+            end = end,
             upcoming = "Motzei Yom Kippur meal — after nightfall (tzeit).",
             upcomingTemplate = "Motzei Yom Kippur meal — after nightfall ({time}).",
             upcomingArgs = mapOf("time" to (ZmanimFormatter.formatAfter(start, tz) ?: "tzeit")),
             expired = "Tonight's break-fast window has passed.",
-            makeup = null,
+            makeup = "Eat as soon as you can after the fast if you have not broken it yet.",
             availableAtLabel = "nightfall",
             activeHint = "Eat a proper meal after Maariv and Havdalah.",
         )

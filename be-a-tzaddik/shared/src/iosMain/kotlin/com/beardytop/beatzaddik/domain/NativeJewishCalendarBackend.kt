@@ -209,7 +209,8 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         )
         val omerDay       = HebrewCalendarEngine.getOmerDay(hd.month, hd.day)
         val isLagBaomer   = idx == HebrewCalendarEngine.LAG_BAOMER
-        val isSefirah     = omerDay != null && omerDay in 1..49 && !isLagBaomer
+        // Lag BaOmer (day 33) is still in the Omer — mourning pauses, but counting continues.
+        val isSefirah     = omerDay != null && omerDay in 1..49
         val isRoshChodesh = (hd.day == 1 && hd.month != HebrewCalendarEngine.TISHREI) || hd.day == 30
         val isTaanis      = isTaanisIndex(idx)
         val fastDayIndex = PublicFastDayRules.resolveFastDayIndex(

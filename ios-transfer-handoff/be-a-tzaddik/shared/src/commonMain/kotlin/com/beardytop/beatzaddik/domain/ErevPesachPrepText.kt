@@ -39,6 +39,26 @@ object ErevPesachPrepText {
         else -> 14
     }
 
+    /**
+     * Bedikat night spans tzeit rollover: show on the search day's evening, and keep showing
+     * after nightfall when the Hebrew day has already advanced to the next date.
+     */
+    fun isBedikatNight(cal: DayInfo, dow: PesachErevDow): Boolean {
+        val day = cal.hebrewDay ?: return false
+        val target = bedikatNissanDay(dow)
+        return when {
+            !cal.startedTonightAtTzeit && day == target -> true
+            cal.startedTonightAtTzeit && day == target + 1 -> true
+            else -> false
+        }
+    }
+
+    /** Biur is a morning mitzvah — never show on the night the Hebrew day rolls onto biur day. */
+    fun isBiurMorning(cal: DayInfo, dow: PesachErevDow): Boolean {
+        val day = cal.hebrewDay ?: return false
+        return !cal.startedTonightAtTzeit && day == biurNissanDay(dow)
+    }
+
     /** Hebrew date (Nissan) for Taanit Bechorot (moved earlier when Erev Pesach is Shabbat). */
     private fun taanitNissanDay(dow: PesachErevDow): Int = when (dow) {
         PesachErevDow.SHABBAT -> 12
@@ -59,13 +79,14 @@ object ErevPesachPrepText {
             if (nissanDay in 8..mechiratAuthorizeThroughNissanDay(dow)) {
                 add(mechiratItem(cal, profile, nissanDay, dow))
             }
-            if (nissanDay == bedikatNissanDay(dow)) {
+            if (isBedikatNight(cal, dow)) {
                 add(bedikatItem(cal, profile))
             }
-            if (nissanDay == biurNissanDay(dow)) {
+            if (isBiurMorning(cal, dow)) {
                 add(biurItem(cal, profile))
             }
-            if (nissanDay == taanitNissanDay(dow)) {
+            // Taanit is daytime — hide after tzeit rollover onto the fast's Hebrew date.
+            if (!cal.startedTonightAtTzeit && nissanDay == taanitNissanDay(dow)) {
                 add(taanitItem(cal, profile))
             }
             // The general "Erev Pesach prep — Yom Tov & seder" item (from the erev-chag system)
@@ -149,7 +170,7 @@ object ErevPesachPrepText {
             nissanDay < last ->
                 "Mechirat chametz — authorize sale with your rabbi"
             dow == PesachErevDow.FRIDAY ->
-                "Mechirat chametz — complete before Shabbat candles tonight"
+                "Mechirat chametz — complete by the 5th-hour morning deadline"
             dow == PesachErevDow.SHABBAT ->
                 "Mechirat chametz — complete before Shabbat begins tonight"
             else ->

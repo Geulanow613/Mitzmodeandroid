@@ -63,27 +63,29 @@ object ErevChagPrepText {
                 "• After Shabbat tonight: light $chagName candles from a pre-existing flame; Kiddush includes havdalah (Yaknehaz) — you should have prepared on Friday."
             YomTovShabbatPrepText.isErevChagBeforeShabbatErevChag(cal, tomorrowCal) ->
                 "• $chagName begins tomorrow night after Shabbat (Motzei Shabbat), not at tonight's sunset — use the Friday “Tomorrow: Shabbat & erev $chagName” item for full prep."
-            isShavuos -> ZmanimFormatter.formatTime(tzeit, tz)?.let {
-                "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit — approx. $it today)."
-            } ?: "• Crucial timing note for Shavuot: Unlike other festivals, you cannot light candles, start prayers, or make Kiddush until full nightfall (tzeit)."
+            isShavuos -> ZmanimFormatter.formatTime(sunset, tz)?.let { sunsetTime ->
+                val tzeitNote = ZmanimFormatter.formatTime(tzeit, tz)?.let { " (approx. $it today)" } ?: ""
+                "• Shavuot candles: light before sunset today ($sunsetTime) like other Yom Tov — strike a new match while it is still weekday. After sunset you may not create a new flame. Crucial Omer note: delay Maariv and Kiddush until full nightfall (tzeit$tzeitNote) so all 49 days of the Omer are complete before the festive meal. (When Shavuot begins Motzei Shabbat instead, light only from a pre-existing flame after Shabbat ends — see that prep item.)"
+            } ?: "• Shavuot candles: light before sunset like other Yom Tov (new match OK while still weekday). Delay Maariv and Kiddush until full nightfall (tzeit) so all 49 days of the Omer are complete. When Shavuot begins Motzei Shabbat, light only from a pre-existing flame after Shabbat ends."
             else -> ZmanimFormatter.formatTime(sunset, tz)?.let {
                 "• Candle lighting & Yom Tov begin at sunset today ($it) — before sunset you may strike a new match normally to light Yom Tov candles and to kindle a 24- or 48-hour transfer candle for use after the holiday begins. Once Yom Tov has started, light candles only from a pre-existing flame (not a new match or lighter)."
             } ?: "• Candle lighting & Yom Tov begin at sunset — enable location for your local time."
         }
 
         val cookingLine = if (isShavuos) {
-            "• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed."
+            "• Finish weekday cooking/setup before sunset; after sunset, festival ochel-nefesh cooking rules apply (pre-existing flame). Hold the night meal / Kiddush until after tzeit for the Omer reason above."
         } else {
-            "• Finish cooking and reheating food before sunset; set up a blech or hot plate if needed for Yom Tov meals."
+            "• Finish weekday cooking/setup before sunset; after Yom Tov begins, see ochel-nefesh rules below."
         }
 
+        val isYomKippur = cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
+        val lawsBlock = if (isYomKippur) "" else "\n\n${festivalYomTovLawsBlock()}"
         val simchasBlock = if (HebrewCalendarEngine.isShaloshRegalim(cal.upcomingChagYomTovIndex)) {
             "\n\n${SeasonalMitzvahText.simchasYomTovPrepBlock()}"
         } else {
             ""
         }
 
-        val isYomKippur = cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
         val shulServicesLine = if (isYomKippur) {
             "• Confirm shul times for tonight and tomorrow (Kol Nidre / Maariv / Shacharit / Musaf)."
         } else {
@@ -94,7 +96,54 @@ object ErevChagPrepText {
 $sunsetLine
 $cookingLine
 • Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
-$shulServicesLine$simchasBlock"""
+$shulServicesLine$lawsBlock$simchasBlock"""
+    }
+
+    /**
+     * Core festival Yom Tov vs Shabbat laws for erev explainers.
+     * Skips eruv how-to (see [YomTovShabbatPrepText] when the calendar requires it),
+     * simchas gifts/meat/wine ([SeasonalMitzvahText.simchasYomTovPrepBlock]), and
+     * Shehecheyanu (holiday-specific lines above).
+     */
+    private fun festivalYomTovLawsBlock(): String = """
+Yom Tov vs Shabbat — ochel nefesh:
+Preparing for a biblical festival (Pesach, Shavuot, Sukkot, Rosh Hashana, and similar) is similar to preparing for Shabbat, but with critical differences. Shabbat is absolute rest; Yom Tov is physical, communal celebration. The Torah therefore permits certain food-related melacha on Yom Tov — ochel nefesh ("food for sustenance") — that Shabbat forbids (Exodus 12:16).
+
+Fire and cooking:
+• Shabbat: no cooking, baking, boiling, or transferring fire — food must be fully cooked before Friday sunset.
+• Yom Tov: you may cook, bake, and boil fresh food for that day's meals from a pre-existing flame only. Do not create a new fire (match, lighter, electric stove igniter) once Yom Tov has begun.
+• Before Yom Tov begins: light a 24- or 48-hour transfer candle (often called a yahrzeit / holiday candle). On the festival, transfer flame with a splint or toothpick to light a stove burner or second-night candles.
+• You may raise an existing gas flame to cook; lowering or extinguishing a flame is generally forbidden (narrow grama / indirect methods only per your rav).
+
+Kitchen / plata on Yom Tov:
+• You may reheat fully cooked cold liquids (soup, etc.) and dry food on a plata for that day's meals — the common Ashkenazi Shabbat restriction against warming cold liquids does not apply the same way, because reheating is part of simchat Yom Tov.
+• Meechin (preparing for the next day): cook and wash only for that Yom Tov day — not for Day 2 of Yom Tov or for the weekday after. If you cook a large pot intending to eat some of it today and leftovers remain, that is fine; do not cook on Day 1 solely for Day 2.
+
+Carrying:
+• Shabbat: no carrying between private and public domains without a kosher eruv.
+• Yom Tov: carrying is permitted even without an eruv when the item is useful for the holiday (siddur, keys, stroller, food to a friend's meal, etc.).
+
+When Yom Tov meets Shabbat:
+• Yom Tov on Friday leading into Shabbat: make eruv tavshilin before Yom Tov begins (blessing + declaration over cooked food and a baked item — see the Eruv Tavshilin checklist item / section when this year requires it). That lets you finish Shabbat food prep on Friday Yom Tov.
+• Yom Tov on Saturday: Shabbat laws fully override Yom Tov cooking and carrying leniencies — treat the day as Shabbat, with festival prayers and Torah readings added.
+""".trim()
+
+    private fun shofarErevLine(tomorrowCal: DayInfo): String =
+        if (tomorrowCal.isShabbat) {
+            "Hear the shofar on Sunday (the second day) — shofar is not blown when the first day of Rosh Hashana is Shabbat."
+        } else {
+            "Hear the shofar blown during daytime services tomorrow (not tonight)."
+        }
+
+    private fun lulavErevLine(profile: UserProfile, tomorrowCal: DayInfo): String = when {
+        tomorrowCal.isShabbat && profile.isInIsrael ->
+            "No lulav on Shabbat — first taking with bracha (and Shehecheyanu if you deferred it) is Sunday."
+        tomorrowCal.isShabbat && !profile.isInIsrael ->
+            "No lulav on Shabbat (first day). Shake with bracha on Sunday (second day of Yom Tov in the Diaspora); continue on Chol HaMoed per custom."
+        profile.isInIsrael ->
+            "Shake lulav and etrog with bracha tomorrow (first day of Sukkot)."
+        else ->
+            "Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom."
     }
 
     private fun shehecheyanuErevLines(idx: Int?, tomorrowCal: DayInfo, profile: UserProfile): String =
@@ -106,7 +155,14 @@ $shulServicesLine$simchasBlock"""
                         profile.isInIsrael,
                     )
                 ) {
-                    "• Recite Shehecheyanu on the first night."
+                    when {
+                        profile.isInIsrael ->
+                            "• Recite Shehecheyanu tonight (the opening night)."
+                        tomorrowCal.hebrewDay == 15 ->
+                            "• Recite Shehecheyanu at Kiddush on both opening nights (tonight and tomorrow night)."
+                        else ->
+                            "• Recite Shehecheyanu tonight (the second opening night in the Diaspora)."
+                    }
                 } else {
                     val reason = if (HebrewCalendarEngine.isFinalYomTovDayOfPesach(
                             tomorrowCal.hebrewMonth,
@@ -123,7 +179,13 @@ $shulServicesLine$simchasBlock"""
             }
             HebrewCalendarEngine.ROSH_HASHANA ->
                 "• Recite Shehecheyanu at Kiddush on both nights."
-            else -> "• Recite Shehecheyanu on the first night."
+            HebrewCalendarEngine.SUCCOS, HebrewCalendarEngine.SHAVUOS ->
+                if (profile.isInIsrael) {
+                    "• Recite Shehecheyanu tonight (the first night)."
+                } else {
+                    "• Recite Shehecheyanu at Kiddush on both nights of Yom Tov."
+                }
+            else -> "• Recite Shehecheyanu tonight."
         }
 
     private fun diasporaFinalPesachAdvanceNote(tomorrowCal: DayInfo, profile: UserProfile): String {
@@ -151,7 +213,7 @@ Tonight & tomorrow:
 • Light Yom Tov candles before sunset.
 ${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}
 • Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).
-• Hear the shofar blown during daytime services tomorrow (not tonight).
+• ${shofarErevLine(tomorrowCal)}
 • Daven from a Machzor: Rosh Hashana uses a special festival Amidah (and a unique Musaf) — not the regular prayer with a small insert. Tachanun is omitted.
 
 Customs:
@@ -203,7 +265,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
             }
             val pesachBegins = when {
                 ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal) ->
-                    "Pesach begins tonight at nightfall. Torah-level Yom Tov — no melacha from then. Tomorrow (15 Nisan) is Shabbat, the first day of Pesach."
+                    "Pesach begins tonight at sunset — light Yom Tov/Shabbat candles before sunset (new match OK). Tonight begins 15 Nisan (first Seder); tomorrow daytime is still the first day of Pesach and is Shabbat. Torah-level Yom Tov — no melacha from sunset."
                 ErevPesachPrepText.isErevPesachOnShabbat(cal) ->
                     "Pesach begins tomorrow night after Shabbat ends (Saturday night). Today is Shabbat — no bedikat or biur today."
                 else -> "Pesach begins tonight. Torah-level Yom Tov — no melacha."
@@ -223,7 +285,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
                 EffectiveNusach.ASHKENAZ ->
                     "• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot."
                 EffectiveNusach.CHABAD ->
-                    "• Yom Tov davening with Full Hallel and Musaf; no chametz or kitniyot (per your custom)."
+                    "• Yom Tov davening with Full Hallel and Musaf; no chametz (and no kitniyot if that is your custom)."
                 EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
                     "• Yom Tov davening with Full Hallel and Musaf; no chametz."
                 EffectiveNusach.OTHER ->
@@ -241,7 +303,7 @@ Seder (first night):
 • $sederWhen
 • Matzah, maror, four cups of wine, reading the Haggadah, afikoman.
 • Seder plate setup: zeroa (shankbone), beitzah (egg), maror, chazeret (per custom), charoset, karpas, salt water.
-• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
+• Reclining (hasebha): Men recline to the left when drinking the four cups and eating matzah, korech, and afikoman — not while eating maror or chazeret (they symbolize slavery). Ashkenaz women often do not recline; many Sephardi women do — follow your minhag.
 • Kiddush, festive meal, Hallel, Nirtzah.
 • Follow your Haggadah step by step for the exact order and details.
 
@@ -263,7 +325,7 @@ ${diasporaSecondDayNote(profile, "Pesach")}$shabbatBlock""",
                 EffectiveNusach.ASHKENAZ ->
                     "• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot."
                 EffectiveNusach.CHABAD ->
-                    "• Yom Tov davening with Half Hallel and Musaf; no chametz or kitniyot (per your custom)."
+                    "• Yom Tov davening with Half Hallel and Musaf; no chametz (and no kitniyot if that is your custom)."
                 EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
                     "• Yom Tov davening with Half Hallel and Musaf; no chametz."
                 EffectiveNusach.OTHER ->
@@ -292,8 +354,9 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.PESACH, tomorrowCal, profile)}${dia
                 """Shavuot — receiving the Torah at Sinai. Yom Tov from tonight.
 
 Tonight & tomorrow:
-• Do not light candles, begin Maariv, or make Kiddush until full nightfall (tzeit) — see the timing note above.
-• Light Yom Tov candles at tzeit.
+• Light Yom Tov candles before sunset (new match OK) — see the timing note above. After sunset you cannot create a new flame.
+• Delay Maariv and Kiddush until after nightfall (tzeit) so the full 49 days of the Omer are complete before the festive meal.
+• If tonight is Motzei Shabbat into Shavuot: do not strike a new match — light candles only from a pre-existing flame after Shabbat ends, then Kiddush with Yaknehaz.
 ${shehecheyanuErevLines(HebrewCalendarEngine.SHAVUOS, tomorrowCal, profile)}
 • Dairy is a cherished Shavuot minhag (cheesecake, blintzes). A festive meat meal with wine fulfills the primary mitzvah of Simchat Yom Tov (O.C. 529:2); many families have dairy first, then a full meat Yom Tov meal.
 • All-night Torah learning (Tikkun Leil Shavuot) is a widespread custom tonight.
@@ -319,7 +382,7 @@ Before sunset:
 Tonight & tomorrow:
 • Light Yom Tov candles in the sukkah (per custom) or home.
 ${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}
-• ${if (profile.isInIsrael) "Shake lulav and etrog with bracha tomorrow (first day of Sukkot)." else "Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom."}
+• ${lulavErevLine(profile, tomorrowCal)}
 • Festive meals in the sukkah; Ushpizin welcome guests.
 • No melacha; Full Hallel and Musaf in davening.
 
@@ -341,11 +404,11 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SHEMINI_ATZERES, tomorrowCal, profi
 ${if (profile.isInIsrael) """
 • Sukkot has ended — do not eat or sleep in the sukkah; festive meals are indoors.
 • Simchat Torah in Israel: hakafot, finishing and restarting the Torah cycle, joyous dancing with the Torah.
-• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem (the formal prayer for rain) is recited in that Musaf; Full Hallel.
+• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), communities begin the winter rain liturgy in the second blessing of the Amidah — Ashkenaz often inserts "Mashiv HaRuach U'Morid HaGeshem"; many Sephardim say "Morid HaGeshem" (exact wording follows your siddur). Tefillat Geshem (the formal prayer for rain) is recited in that Musaf; Full Hallel.
 """ else """
 • Shemini Atzeret in the Diaspora: Yizkor is often recited; still a full Yom Tov with no melacha. (Simchat Torah is tomorrow in the Diaspora.)
 • Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim and Chabad eat major meals in the sukkah on Shemini Atzeret but omit leishev basukkah. Sephardim generally eat indoors (no sukkah) on Shemini Atzeret — follow your rav.
-• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in that Musaf.
+• Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), communities begin the winter rain liturgy in the second blessing of the Amidah — Ashkenaz often inserts "Mashiv HaRuach U'Morid HaGeshem"; many Sephardim say "Morid HaGeshem" (exact wording follows your siddur). Tefillat Geshem is recited in that Musaf.
 """}
 • Festive Yom Tov meals.""",
             ),

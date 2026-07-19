@@ -25,9 +25,31 @@ object PublicFastDayText {
 
 Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
 • Shabbat is celebrated fully until sunset — no mourning restrictions on Shabbat itself.
-• When Shabbat ends, recite Baruch ha'mavdil (do not make full Havdalah over wine that night), change into non-leather shoes, and begin the fast and mourning practices. Many say the candle blessing after Maariv.
+• When Shabbat ends, recite Baruch ha'mavdil (do not make full Havdalah over wine that night), change into non-leather shoes, and begin the fast and mourning practices. Say the candle blessing (Borei me'orei ha'esh) after Maariv.
 • There is no classic seudah hamafseket after Shabbat — you go from Shabbat meals into the fast.
-• After the fast ends Sunday night, recite Havdalah over wine with the hamavdil paragraph (no spices that week)."""
+• Ashkenazim: marital relations are forbidden once the fast begins Motzei Shabbat (same as other years from sunset of erev Tisha B'Av) — this applies Motzei Shabbat into the deferred Sunday fast.
+• After the fast ends Sunday night, recite Havdalah over wine with the hamavdil paragraph only — no besamim and no fire blessing (the fire blessing was already said Motzei Shabbat)."""
+
+    private val FRIDAY_BEFORE_DEFERRED_TISHA_BEAV_TEMPLATE = """
+This year 9 Av is Shabbat and Tisha B'Av is observed on Sunday (10 Av).
+
+Prepare today (Friday) so Motzei Shabbat into the fast is smooth:
+
+Tomorrow — Shabbat Chazon / 9 Av on Shabbat:
+• Celebrate Shabbat fully — meat, wine, and joy as usual. Mourning restrictions do not apply on Shabbat itself.
+
+Motzei Shabbat (Saturday night — when the fast begins):
+• Recite Baruch ha'mavdil when Shabbat ends; do not make full Havdalah over wine that night.
+• Change into non-leather shoes and begin the five afflictions of the fast.
+• Say Borei me'orei ha'esh after Maariv (candle blessing only).
+• There is no classic seudah hamafseket after Shabbat — you go from Shabbat meals into the fast at nightfall.
+• Ashkenazim: marital relations are forbidden from Motzei Shabbat when the fast begins (same prohibition as from sunset on a weekday erev Tisha B'Av).
+• Kinot / Eichah and other mourning practices begin with the fast that night.
+
+Sunday (10 Av — the fast day): full Tisha B'Av until nightfall. After the fast ends Sunday night, recite Havdalah over wine with the hamavdil paragraph only — no besamim and no fire blessing (the fire blessing was already said Motzei Shabbat).
+
+Ask your rav for details if you are ill, pregnant, or nursing.
+""".trimIndent()
 
     /** Raw, unfilled `" (approx. $time)"` template — caller must add `"time" to actualTime` to its args map. */
     private fun approxTimeSuffixTemplate(): String = APPROX_TIME_SUFFIX
@@ -65,10 +87,25 @@ Shabbat Erev Tisha B'Av (when 9 Av is Shabbat and the fast is moved to Sunday):
     fun erevYomKippurExplanation(cal: DayInfo, profile: UserProfile): String =
         ExplainerTemplateFill.fill(erevYomKippurTemplate(), erevYomKippurArgs(cal, profile))
 
-    fun erevTishaBeavTitle(): String = "Erev Tisha B'Av — restrictions and seudah hamafseket"
+    fun erevTishaBeavTitle(deferredToSunday: Boolean = false): String =
+        if (deferredToSunday) {
+            "Tisha B'Av is Sunday — prepare for Motzei Shabbat into the fast"
+        } else {
+            "Erev Tisha B'Av — restrictions and seudah hamafseket"
+        }
 
-    fun erevTishaBeavExplanation(cal: DayInfo, profile: UserProfile): String =
-        ExplainerTemplateFill.fill(erevTishaBeavTemplate(), erevTishaBeavArgs(cal, profile))
+    fun fridayBeforeDeferredTishaBeavTemplate(): String = FRIDAY_BEFORE_DEFERRED_TISHA_BEAV_TEMPLATE
+
+    fun erevTishaBeavExplanation(
+        cal: DayInfo,
+        profile: UserProfile,
+        deferredToSunday: Boolean = false,
+    ): String =
+        if (deferredToSunday) {
+            fridayBeforeDeferredTishaBeavTemplate()
+        } else {
+            ExplainerTemplateFill.fill(erevTishaBeavTemplate(), erevTishaBeavArgs(cal, profile))
+        }
 
     private const val FAST_DAY_TITLE_TEMPLATE = "Fast — ${'$'}name"
 
@@ -309,10 +346,9 @@ Restrictions from chatzos (halachic midday) today:
 • Reduce pleasurable activities; avoid laundry, haircuts, and swimming per mourning customs.
 
 Seudah hamafseket — the final meal before the fast:
-• Eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water).
-• Do not eat two cooked dishes together; do not recline; do not greet others with "hello."
-• Finish before sunset; afterward, only water is permitted until the fast begins.
-• Many recite Birkat HaMazon and then change into non-leather shoes before sunset.
+• Ashkenaz: eat a simple meal alone, sitting on the floor or a low stool, with only one cooked dish (e.g. a hard-boiled egg dipped in ashes, or bread with cold water). Do not eat two cooked dishes together; do not recline; do not greet others with "hello." After finishing this meal, many only drink water until the fast begins.
+• Sephardi / Edot HaMizrach: the final meal is often simpler mourning practice than the classic Ashkenazi egg-and-ashes meal — follow your kehilla for how austere it should be.
+• Finish eating before sunset. Many recite Birkat HaMazon and then change into non-leather shoes before sunset.
 
 After sunset tonight until nightfall tomorrow:
 • Five afflictions apply (like Yom Kippur): no eating/drinking, no leather shoes, no bathing for pleasure, no anointing, no marital relations.

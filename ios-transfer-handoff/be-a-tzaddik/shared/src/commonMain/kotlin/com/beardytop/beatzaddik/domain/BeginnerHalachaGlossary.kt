@@ -25,7 +25,7 @@ object BeginnerHalachaGlossary {
     const val CHAG =
         "Chag — festival (same idea as Yom Tov in everyday speech)"
     const val TZEIT =
-        "Tzeit — halachic nightfall (when three medium stars appear). Standard time for many night mitzvot — Omer count, Purim Megillah, Motzei Shabbat. Bedikat chametz is the night before Pesach begins. Chanukah candles are ideally after tzeit, though many allow from sunset when needed. Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame"
+        "Tzeit — halachic nightfall (when three medium stars appear). Standard time for many night mitzvot — Omer count, Purim Megillah, Motzei Shabbat. Bedikat chametz is the night before Pesach begins. Chanukah candles are ideally after tzeit, though many allow from sunset when needed. Note: Shabbat and weekday first-night Yom Tov candles are before sunset (new match OK). Once holy time has begun — second Yom Tov night (incl. Rosh Hashana night 2 in Israel), Motzei Shabbat→Yom Tov after tzeit, Yom Tov→Shabbat before sunset — light only from a pre-existing flame"
     const val RAV =
         "Rav — Hebrew title for a senior Torah scholar who rules on halacha (your community's decisor)"
     const val RABBI =
@@ -37,7 +37,7 @@ object BeginnerHalachaGlossary {
     const val KIDDUSH =
         "Kiddush — blessing over wine that sanctifies Shabbat or Yom Tov at the meal"
     const val HAVDALAH =
-        "Havdalah — ceremony separating holy time from weekday (wine, candle, and spices on a normal Motzei Shabbat; spices omitted on Motzei Yom Kippur unless Yom Kippur fell on Shabbat; spices also omitted when Shabbat leads directly into Yom Tov — Yaknehaz — because the joy of the festival replaces the extra soul of Shabbat)"
+        "Havdalah — ceremony separating holy time from weekday; men and women obligated. Motzei Shabbat: wine, spices (neshama yeteira), fire (Adam HaRishon / looking at nails). Motzei Yom Tov: wine + Hamavdil only. Motzei Yom Kippur: wine + ner she-shavat; spices only if YK was Shabbat. After Tisha B'Av that began Motzei Shabbat: wine+Hamavdil Sunday night. Missed Saturday night: wine + Hamavdil through Tuesday (no spices or fire). Yaknehaz omits spices when Shabbat leads into Yom Tov"
     const val YAKNEHAZ =
         "Yaknehaz — order when Shabbat leads into Yom Tov: Wine → Kiddush → candle (Ner) → Havdalah text → Shehecheyanu (Zeman); spices are omitted"
     const val ERUV_TAVSHILIN =
@@ -124,6 +124,8 @@ object BeginnerHalachaGlossary {
     fun erevChagCommon(): String = block(
         MELACHA,
         YOM_TOV,
+        OCHEL_NEFESH,
+        ERUV_TAVSHILIN,
         TZEIT,
         KIDDUSH,
         BLECH,

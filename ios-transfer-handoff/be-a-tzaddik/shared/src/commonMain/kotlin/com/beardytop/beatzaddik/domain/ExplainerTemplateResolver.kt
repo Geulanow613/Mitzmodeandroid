@@ -11,12 +11,31 @@ object ExplainerTemplateResolver {
         val args: Map<String, String> = emptyMap(),
     )
 
-    fun resolve(item: ChecklistItemDef, profile: UserProfile, cal: DayInfo?): Bundle {
+    fun resolve(
+        item: ChecklistItemDef,
+        profile: UserProfile,
+        cal: DayInfo?,
+        yesterdayCal: DayInfo? = null,
+        tomorrowCal: DayInfo? = null,
+        nowMillis: Long = 0L,
+    ): Bundle {
         if (cal == null) return Bundle()
         val female = prefersFemaleExplanation(item, profile)
         val nusachNote = nusachNote(item, profile)
 
         return when {
+            item.id == HavdalahRules.CHECKLIST_ITEM_ID &&
+                yesterdayCal != null && tomorrowCal != null -> {
+                val kind = HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
+                    ?: return Bundle()
+                staticBundle(
+                    HavdalahRules.explanationTemplate(
+                        kind,
+                        HavdalahRules.yomKippurWasShabbat(cal, yesterdayCal),
+                    )
+                )
+            }
+
             item.id == OmerCountText.CHECKLIST_ITEM_ID || item.id.startsWith("sefirat_haomer_day_") ->
                 Bundle(
                     OmerCountText.explanationTemplate(),
@@ -220,11 +239,22 @@ object ExplainerTemplateResolver {
                     PublicFastDayText.erevYomKippurArgs(cal, profile),
                 )
 
-            item.id == "erev_tisha_beav_prep" ->
-                Bundle(
-                    PublicFastDayText.erevTishaBeavTemplate(),
-                    PublicFastDayText.erevTishaBeavArgs(cal, profile),
-                )
+            item.id == "erev_tisha_beav_prep" -> {
+                val deferredFriday = cal.isErevShabbat &&
+                    cal.hebrewMonth == HebrewCalendarEngine.AV &&
+                    cal.hebrewDay == 8 &&
+                    tomorrowCal?.isShabbat == true &&
+                    tomorrowCal.hebrewMonth == HebrewCalendarEngine.AV &&
+                    tomorrowCal.hebrewDay == 9
+                if (deferredFriday) {
+                    staticBundle(PublicFastDayText.fridayBeforeDeferredTishaBeavTemplate())
+                } else {
+                    Bundle(
+                        PublicFastDayText.erevTishaBeavTemplate(),
+                        PublicFastDayText.erevTishaBeavArgs(cal, profile),
+                    )
+                }
+            }
 
             item.id == "public_fast_day" -> {
                 val idx = cal.fastDayIndex ?: return Bundle()

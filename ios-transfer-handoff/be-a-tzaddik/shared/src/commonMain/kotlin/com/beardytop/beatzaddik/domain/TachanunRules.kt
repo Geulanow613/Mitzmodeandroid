@@ -71,6 +71,8 @@ object TachanunRules {
 
         if (month == HebrewCalendarEngine.SIVAN && day in 1..12) return false
 
+        // Observed Tisha B'Av (9 Av, or deferred Sunday 10 Av).
+        if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return false
         if (month == HebrewCalendarEngine.AV && day == 9) return false
 
         return when (month) {

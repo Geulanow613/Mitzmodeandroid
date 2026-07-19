@@ -500,11 +500,24 @@ private fun rememberTranslatedChecklistTitle(
 ): String {
     val appTranslation = LocalAppTranslation.current
     val bundledKey = rememberAppTranslatedText(translationKey)
-    val omerDay = OmerCountText.dayFromCountTitle(translationKey)
-    val translatedKey = if (omerDay != null && appTranslation.languageCode in setOf("he", "yi")) {
-        OmerCountText.localizedBuildTitle(omerDay, appTranslation.languageCode, effectiveNusach)
-    } else {
-        bundledKey
+    val dualOmer = Regex(
+        """last night \(\w+\) was day (\d+); tonight \(\w+\) count day (\d+)""",
+        RegexOption.IGNORE_CASE,
+    ).find(translationKey)
+    val translatedKey = when {
+        dualOmer != null && appTranslation.languageCode in setOf("he", "yi") -> {
+            val last = dualOmer.groupValues[1]
+            val tonight = dualOmer.groupValues[2]
+            "ספירת העומר — אמש יום $last; הלילה סופרים יום $tonight"
+        }
+        else -> {
+            val omerDay = OmerCountText.dayFromCountTitle(translationKey)
+            if (omerDay != null && appTranslation.languageCode in setOf("he", "yi")) {
+                OmerCountText.localizedBuildTitle(omerDay, appTranslation.languageCode, effectiveNusach)
+            } else {
+                bundledKey
+            }
+        }
     }
     val dynamicSuffix = if (rawTitle.startsWith(translationKey)) {
         rawTitle.substring(translationKey.length)

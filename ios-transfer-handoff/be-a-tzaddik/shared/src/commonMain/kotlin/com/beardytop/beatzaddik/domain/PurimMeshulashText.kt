@@ -47,7 +47,7 @@ Day 2 — Shabbat (15 Adar) — second day:
 Day 3 — Sunday (16 Adar) — third day:
 • Mishloach manot: Send at least two ready-to-eat foods to one friend before sunset.
 • Do not say Al HaNissim in Sunday's Shacharit or Mincha prayers.
-• Purim seudah: Hold the main festive Purim meal today — joy, wine, and words of Torah. Regarding Al HaNissim in Birkat Hamazon for this meal, there is a major halachic dispute: some rule it is omitted entirely, while others rule it is included because the meal is an official extension of Purim. Consult your rav for your family custom. Some have the custom for men to drink wine until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
+• Purim seudah: Hold the main festive Purim meal today — joy, wine, and words of Torah. Regarding Al HaNissim in Birkat Hamazon for this meal, there is a major halachic dispute: some rule it is omitted entirely, while others rule it is included because the meal is an official extension of Purim. Consult your rav for your family custom. Ad d’lo yada (“until he does not know”) is the Purim drinking custom: drink wine toward joyful inebriation until one cannot distinguish “cursed is Haman” from “blessed is Mordechai.” Rema’s common practice is to drink a bit more than usual until drowsy, then sleep (while asleep one naturally “does not know”); some (Rif/Tur) require actual intoxication; Rambam also favors drink-then-sleep. Do not drink so much that you miss Megillah or tefillah — that is a sin, not a mitzvah. Exempt if drinking would make you sick, depressed, or lead to sin. Women join the seudah; most hold they should not drink to inebriation.
 
 Before Shabbat candles (Friday):
 • Complete Megillah (night + morning) and matanot la'evyonim on Friday.
@@ -194,7 +194,8 @@ When:
 
 How:
 • Festive meal with bread, meat, wine, and joy; include words of Torah or thanks to Hashem.
-• Drinking wine is a widespread custom. Some have the custom for men to drink until they cannot distinguish “cursed is Haman” from “blessed is Mordechai”; follow your community’s guidance and celebrate safely and with dignity.
+• Ad d’lo yada (“until he does not know”) is a unique Purim custom of drinking wine toward joyful inebriation — the classic goal is that one cannot distinguish between “cursed is Haman” (the villain) and “blessed is Mordechai” (the hero). Because the Torah generally frowns on drunkenness, authorities differ on how far to go: Rif and Tur take it literally (actual intoxication that blurs the mind); Rambam holds you need not lose control — drink more than usual until drowsy, then sleep (while asleep you naturally “do not know”); Rema’s accepted custom combines these — drink a bit more wine than usual, become tired, and go to sleep.
+• Even where intoxication is required, drinking must not interfere with other responsibilities. Missing Megillah, tefillah, or other mitzvot because of drink is a sin, not a mitzvah. Exempt if drinking would make you sick, depressed, or lead to sin. Women are obligated in the seudah; authorities differ on ad d’lo yada for women, and most hold they should not drink heavily.
 • Regarding Al HaNissim in Birkat Hamazon for this meal, there is a major halachic dispute: some rule it is omitted entirely, while others rule it is included because the meal is an official extension of Purim. Consult your rav for your family custom.
 
 This completes the four Purim mitzvot for Purim Meshulash.

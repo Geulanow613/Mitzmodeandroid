@@ -3,8 +3,9 @@ package com.beardytop.beatzaddik.domain
 import kotlinx.datetime.DayOfWeek
 
 /**
- * Melave Malka and similar Motzei Shabbat mitzvot: from tzeit hakochavim Saturday
- * until alot hashachar Sunday. Excludes Motzei Shabbat into Yom Tov.
+ * Havdalah, Melave Malka, and similar Motzei Shabbat mitzvot: from tzeit hakochavim Saturday
+ * until alot hashachar Sunday. Excludes Motzei Shabbat into Yom Tov, and Motzei Shabbat into
+ * Tisha B'Av (fasting — no Melave Malka meal that night).
  */
 object MotzeiShabbatWindow {
 
@@ -29,6 +30,7 @@ object MotzeiShabbatWindow {
         if (cal.isShabbat && !cal.isErevShabbat) {
             if (nowMillis < tzeit) return false
             if (tomorrowCal.isYomTovAssurBemelacha) return false
+            if (isMotzeiIntoTishaBeav(cal, tomorrowCal)) return false
             return nowMillis < dawn
         }
 
@@ -36,20 +38,34 @@ object MotzeiShabbatWindow {
         // civil date is still Saturday — Melave Malka continues until Sunday dawn.
         if (cal.startedTonightAtTzeit && cal.date.dayOfWeek == DayOfWeek.SATURDAY) {
             if (tomorrowCal.isYomTovAssurBemelacha) return false
+            if (isMotzeiIntoTishaBeav(cal, tomorrowCal)) return false
             val sundayDawn = z.alotHaShacharMillis ?: z.sunriseMillis ?: return false
             return nowMillis < sundayDawn
         }
 
         // Sunday morning before dawn: still Motzei. After Sunday tzeit, DayInfo keeps the
         // civil Sunday date but attaches Monday's zmanim — that is NOT Motzei Shabbat.
+        // (Tisha B'Av on Sunday: fasting — not Melave Malka.)
         if (cal.date.dayOfWeek == DayOfWeek.SUNDAY &&
             !cal.startedTonightAtTzeit &&
             nowMillis < dawn
         ) {
             if (cal.isYomTovAssurBemelacha) return false
+            if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return false
             return true
         }
 
+        return false
+    }
+
+    /** Motzei Shabbat when Tisha B'Av begins that night — meal / full Motzei rows do not apply. */
+    private fun isMotzeiIntoTishaBeav(cal: DayInfo, tomorrowCal: DayInfo): Boolean {
+        if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return true
+        if (tomorrowCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
+            (cal.isShabbat || cal.date.dayOfWeek == DayOfWeek.SATURDAY)
+        ) {
+            return true
+        }
         return false
     }
 

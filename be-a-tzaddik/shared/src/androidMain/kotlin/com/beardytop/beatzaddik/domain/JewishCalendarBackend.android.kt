@@ -136,7 +136,8 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
         val isYomHaZikaron = jc.yomTovIndex == JewishCalendar.YOM_HAZIKARON
         val isYomHaAtzmaut = jc.yomTovIndex == JewishCalendar.YOM_HAATZMAUT
         val isYomYerushalayim = jc.yomTovIndex == JewishCalendar.YOM_YERUSHALAYIM
-        val isSefirah = omerDay != null && omerDay in 1..49 && !isLagBaomer
+        // Lag BaOmer (day 33) is still in the Omer — mourning pauses, but counting continues.
+        val isSefirah = omerDay != null && omerDay in 1..49
         val isErevChag = !isYomTovAssurBemelacha &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(jcTomorrow.yomTovIndex)
         val upcomingChagName = if (isErevChag) {

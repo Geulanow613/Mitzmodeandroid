@@ -220,12 +220,13 @@ fun ChecklistDebugMenu(
                 ) {
                     ChecklistDebugTimeSlot.entries.forEach { slot ->
                         val selected = (activeOverride?.timeSlot ?: pendingTimeSlot) == slot
-                        val motzeiActive = activeOverride?.scenarioId?.let {
-                            ChecklistDebugScenarios.byId(it)?.phase == ChecklistDebugPhase.MOTZEI
+                        val slotLocked = activeOverride?.scenarioId?.let { id ->
+                            val s = ChecklistDebugScenarios.byId(id)
+                            s?.phase == ChecklistDebugPhase.MOTZEI || s?.sunsetOffsetMinutes != null
                         } == true
                         AssistChip(
                             onClick = { viewModel.setChecklistDebugTimeSlot(slot) },
-                            enabled = !motzeiActive,
+                            enabled = !slotLocked,
                             label = { Text(slot.label, color = TzaddikColors.NavyDeep) },
                             colors = AssistChipDefaults.assistChipColors(
                                 containerColor = if (selected) {
@@ -241,6 +242,14 @@ fun ChecklistDebugMenu(
                     if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
                         Text(
                             "Motzei uses tzeit + 2 hours for your simulated location (time-of-day chips apply to erev/day only).",
+                            style = MaterialTheme.typography.labelSmall,
+                            color = TzaddikColors.TextMuted,
+                            modifier = Modifier.padding(bottom = 8.dp),
+                        )
+                    }
+                    if (scenario.sunsetOffsetMinutes != null) {
+                        Text(
+                            "Pinned to sunset ${scenario.sunsetOffsetMinutes} min (phone-hide warning). Time chips ignored.",
                             style = MaterialTheme.typography.labelSmall,
                             color = TzaddikColors.TextMuted,
                             modifier = Modifier.padding(bottom = 8.dp),

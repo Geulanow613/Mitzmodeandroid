@@ -1,7 +1,7 @@
 package com.beardytop.beatzaddik.domain
 
 /**
- * Tisha B'Av tefillin customs — morning omission (Ashkenaz/Chabad) and universal Mincha donning.
+ * Tisha B'Av tefillin customs — morning omission for Ashkenaz/Chabad; many Sephardim wear in the morning; Mincha donning widespread.
  * Applies whenever the fast is observed (9 Av or deferred 10 Av when 9 Av is Shabbat).
  */
 object TishaBeavTefillinRules {
@@ -19,23 +19,24 @@ object TishaBeavTefillinRules {
         "Tisha B'Av: tallit and tefillin are not worn at Shacharit — they are a sign of glory, omitted in deep mourning. Put them on at Mincha after halachic chatzos (see the afternoon item below)."
 
     fun sephardiMorningHint(): String =
-        "Tisha B'Av: Sephardi morning custom varies — many omit tefillin at Shacharit; Jerusalem custom often wears them. All communities wear tallit and tefillin at Mincha after chatzos. If your minyan's custom differs from yours, ask your rav (lo titgodedu)."
+        "Tisha B'Av: many Sephardim wear tallit and tefillin at Shacharit; some communities omit them in the morning. All communities wear them at Mincha after chatzos. If your minyan's custom differs from yours, ask your rav (lo titgodedu)."
 
     fun minchaItemTitle(): String =
         "Tefillin & tallit at Mincha (Tisha B'Av)"
 
     fun minchaItemExplanation(): String = """
-Today is Tisha B'Av — on this day Ashkenazi and Chabad custom does not wear tallit or tefillin at Shacharit.
+Today is Tisha B'Av — tallit and tefillin at Mincha after chatzos.
 
-Why:
-Tefillin are called an עֵדוּת (testimony / glory). On the day we mourn the Temple's destruction, morning tefillin are omitted — like the day of burial — to express deepest aveilut. After halachic chatzos (midday), we don tallit and tefillin at Mincha as a sign that consolation will eventually come.
+By minhag:
+• Ashkenaz / Chabad: do not wear tallit or tefillin at Shacharit (like the day of burial — they are a sign of glory, omitted in deepest mourning). Put them on at Mincha after halachic chatzos.
+• Sephardi / Edot HaMizrach: many wear tallit and tefillin at Shacharit as usual; some communities omit them in the morning. Afternoon donning at Mincha after chatzos is still the widespread practice.
 
-What to do:
-• Do not put on tallit or tefillin at Shacharit today — even if you daven at home before a later minyan.
-• After chatzos, at Mincha, recite the brachos on tallit and tefillin and pray Mincha while wearing them.
+Why Mincha:
+After midday, putting on tallit and tefillin expresses that consolation will eventually come.
 
-Community note:
-Sephardi and Edot HaMizrach morning customs vary (many omit tefillin at Shacharit; some Jerusalem communities wear them in the morning). Afternoon donning at Mincha is universal. If you pray where the congregation's custom differs from yours, avoid public division — ask your rav.
+What to do at Mincha:
+• After chatzos, recite the brachos on tallit and tefillin and pray Mincha while wearing them.
+• If you pray where the congregation's custom differs from yours, avoid public division — ask your rav.
     """.trimIndent()
 
     fun minchaUpcomingHint(timeLabel: String): String =
@@ -51,7 +52,7 @@ Sephardi and Edot HaMizrach morning customs vary (many omit tefillin at Shachari
         EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
             "Ashkenazi/Chabad: tallit and tefillin are not worn at Shacharit (like the day of burial); wear them at Mincha after halachic chatzos."
         EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-            "Morning tefillin: Sephardi custom varies (many omit at Shacharit; some Jerusalem communities wear them). All communities wear tallit and tefillin at Mincha after chatzos."
+            "Morning tefillin: many Sephardim wear tallit and tefillin at Shacharit; some communities omit them. All communities wear them at Mincha after chatzos."
     }
 
     const val FAST_DAY_TRAVEL_NOTE =

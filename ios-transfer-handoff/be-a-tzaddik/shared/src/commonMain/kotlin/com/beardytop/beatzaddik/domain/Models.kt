@@ -252,7 +252,7 @@ data class ChecklistItemDef(
     val shabbatOnly: Boolean = false,
     /** Candles, etc. — show on Erev Shabbat / prep, not on Shabbat day itself */
     val shabbatEveOnly: Boolean = false,
-    /** Melave Malka, etc. — show from tzeit Saturday until dawn Sunday */
+    /** Havdalah, Melave Malka, etc. — show from tzeit Saturday until dawn Sunday */
     val motzeiShabbatOnly: Boolean = false,
     /** Lower = earlier within the same [section]. */
     val sortOrder: Int = 0,
@@ -336,6 +336,8 @@ data class DayChecklists(
     val nusachLabel: String,
     /** Shabbat or (chutz) 2nd-day Yom Tov: show holy-day notice instead of checklist. */
     val holyDayPhoneNotice: HolyDayPhoneNotice? = null,
+    /** Last ~10 minutes before sunset on erev Shabbat / Yom Tov / YK — banner only. */
+    val holyDayPhoneWarning: HolyDayPhoneNotice? = null,
     /** Prep sections pinned to the top of the Today checklist (erev chag, festival week, etc.). */
     val prioritizePrepSections: Set<String> = emptySet(),
     /** After chatzos until chatzos halayla — Morning Prayer section moves to the bottom. */

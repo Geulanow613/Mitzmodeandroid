@@ -46,11 +46,44 @@ object OmerCountText {
     fun buildTitle(day: Int, nusach: EffectiveNusach): String =
         "Count the Omer — ${omerDaySummary(day, nusach)}"
 
+    /**
+     * Checklist title naming both last night's count and tonight's upcoming count
+     * (e.g. last night Wed was day 5; tonight Thu count day 6).
+     */
+    fun buildTitle(cal: DayInfo, nusach: EffectiveNusach): String {
+        val day = cal.omerDay ?: return "Count the Omer"
+        val rolled = cal.startedTonightAtTzeit
+        val tonightEveningDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
+        val tonightDow = tonightEveningDate.dayOfWeek.shortDisplayName()
+        val lastNightDow = tonightEveningDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.shortDisplayName()
+        val tonightCount = if (rolled) day else day + 1
+        val lastNightCount = if (rolled) day - 1 else day
+        if (tonightCount !in 1..49) {
+            return buildTitle(day, nusach)
+        }
+        if (lastNightCount < 1) {
+            return "Count the Omer — tonight ($tonightDow): day $tonightCount"
+        }
+        return "Count the Omer — last night ($lastNightDow) was day $lastNightCount; " +
+            "tonight ($tonightDow) count day $tonightCount"
+    }
+
     fun localizedBuildTitle(day: Int, languageCode: String, nusach: EffectiveNusach): String =
         when (languageCode) {
             "he", "yi" -> "ספירת העומר — ${omerDaySummaryHe(day, nusach)}"
             else -> buildTitle(day, nusach)
         }
+
+    fun localizedBuildTitle(cal: DayInfo, languageCode: String, nusach: EffectiveNusach): String {
+        if (languageCode !in setOf("he", "yi")) return buildTitle(cal, nusach)
+        val day = cal.omerDay ?: return "ספירת העומר"
+        val rolled = cal.startedTonightAtTzeit
+        val tonightCount = if (rolled) day else day + 1
+        val lastNightCount = if (rolled) day - 1 else day
+        if (tonightCount !in 1..49) return localizedBuildTitle(day, languageCode, nusach)
+        if (lastNightCount < 1) return "ספירת העומר — הלילה: יום $tonightCount"
+        return "ספירת העומר — אמש יום $lastNightCount; הלילה סופרים יום $tonightCount"
+    }
 
     fun headerLabel(day: Int, nusach: EffectiveNusach): String =
         omerCountSpeechPhrase(day, nusach).removeSuffix(".")
@@ -71,9 +104,12 @@ object OmerCountText {
         return "$day ימים, שהם ${weeksAndDaysHe(day)} $suffix"
     }
 
-    /** Parse day 1–49 from checklist title keys like "Count the Omer — 8 days…". */
+    /** Parse day 1–49 from checklist title keys like "Count the Omer — 8 days…" or "…count day 6". */
     fun dayFromCountTitle(titleKey: String): Int? =
-        Regex("""Count the Omer — (\d+)""").find(titleKey)?.groupValues?.getOrNull(1)?.toIntOrNull()
+        Regex("""count day (\d+)""", RegexOption.IGNORE_CASE)
+            .find(titleKey)?.groupValues?.getOrNull(1)?.toIntOrNull()
+            ?: Regex("""Count the Omer — (\d+)""")
+                .find(titleKey)?.groupValues?.getOrNull(1)?.toIntOrNull()
 
     private fun weeksAndDaysHe(day: Int): String {
         val weeks = day / 7
@@ -142,9 +178,11 @@ object OmerCountText {
         val rolled = cal.startedTonightAtTzeit
         val tonightDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
         val tonight = tonightDate.dayOfWeek.displayName()
+        val lastNight = tonightDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.displayName()
         val tomorrowNight = tonightDate.plus(1, DateTimeUnit.DAY).dayOfWeek.displayName()
-        val todaySummary = omerDaySummary(day, nusach)
+        val lastNightCount = if (rolled) day - 1 else day
         val tonightCountDay = if (rolled) day else day + 1
+        val todaySummary = if (lastNightCount in 1..49) omerDaySummary(lastNightCount, nusach) else ""
         val tonightSummary = if (tonightCountDay <= 49) omerDaySummary(tonightCountDay, nusach) else ""
         val nextDaySummary = if (tonightCountDay < 49) omerDaySummary(tonightCountDay + 1, nusach) else ""
         val nextNightLine = if (tonightCountDay < 49) OMER_NEXT_NIGHT_LINE else ""
@@ -152,6 +190,13 @@ object OmerCountText {
             "Today is ${omerDaySummary(tonightCountDay, nusach)}."
         } else {
             ""
+        }
+        val lastNightBlock = when {
+            lastNightCount in 1..49 ->
+                "Last night ($lastNight): you should have counted $todaySummary (day $lastNightCount of 49).\n"
+            tonightCountDay in 1..49 ->
+                "Tonight is the first night of the Omer.\n"
+            else -> ""
         }
         val nusachWhen = when (nusach) {
             EffectiveNusach.CHABAD -> "Many in Chabad count after Maariv (Tehillat Hashem)."
@@ -161,10 +206,12 @@ object OmerCountText {
             EffectiveNusach.OTHER -> "Count after nightfall per your community's custom (often after Maariv)."
         }
         return mapOf(
-            "day" to day.toString(),
+            "day" to lastNightCount.coerceAtLeast(0).toString(),
             "nusach" to nusach.name,
             "todaySummary" to todaySummary,
             "tonightSummary" to tonightSummary,
+            "lastNight" to lastNight,
+            "lastNightBlock" to lastNightBlock,
             "tonight" to tonight,
             "tomorrowNight" to tomorrowNight,
             "timePart" to timePart,
@@ -202,10 +249,8 @@ object OmerCountText {
     private val OMER_EXPLANATION_TEMPLATE = """
 Sefirat HaOmer links Pesach to Shavuot — counting each day from the Exodus toward receiving the Torah.
 
-Today in the Omer: ${'$'}todaySummary (day ${'$'}day of 49).
-
-Tonight's count:
-• ${'$'}tonight night — count ${'$'}tonightSummary after nightfall${'$'}timePart.
+${'$'}lastNightBlock
+Tonight (${'$'}tonight): count ${'$'}tonightSummary after nightfall${'$'}timePart.
 ${'$'}nextNightLine
 
 If you forgot at night:
@@ -213,7 +258,7 @@ If you forgot at night:
 • If you do this before sunset, you can continue counting on subsequent nights with a bracha. You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
 
 How to count:
-• Stand and recite the blessing before counting if you are still saying it with a blessing (if you missed a day, ask your rabbi before continuing with a bracha).
+• Stand and recite the blessing before counting when you are still saying it with a bracha. If you missed only the night count but made it up by day without a bracha before sunset, continue later nights with a bracha. If you missed a full night and the following day, ask your rav before continuing with a bracha.
 • Say: "${'$'}speechPhrase"
 • Count after nightfall (tzeit); complete before dawn.
 
@@ -222,4 +267,14 @@ ${'$'}nusachWhen
 
     private fun DayOfWeek.displayName(): String =
         name.lowercase().replaceFirstChar { it.uppercase() }
+
+    private fun DayOfWeek.shortDisplayName(): String = when (this) {
+        DayOfWeek.MONDAY -> "Mon"
+        DayOfWeek.TUESDAY -> "Tue"
+        DayOfWeek.WEDNESDAY -> "Wed"
+        DayOfWeek.THURSDAY -> "Thu"
+        DayOfWeek.FRIDAY -> "Fri"
+        DayOfWeek.SATURDAY -> "Sat"
+        DayOfWeek.SUNDAY -> "Sun"
+    }
 }

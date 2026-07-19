@@ -33,6 +33,11 @@ data class ChecklistDebugScenario(
     val matcher: (DayInfo, DayInfo) -> Boolean,
     /** Diaspora Simchat Torah prep falls on Shemini Atzeret (Yom Tov) — allow that debug window. */
     val relaxErevWindowCheck: Boolean = false,
+    /**
+     * When set, simulated clock is sunset + this many minutes (e.g. −21 = 21 min before sunset)
+     * for phone-hide warning tests. Time-of-day chips are ignored.
+     */
+    val sunsetOffsetMinutes: Int? = null,
 )
 
 data class ChecklistDebugOverride(
@@ -360,8 +365,41 @@ object ChecklistDebugScenarios {
         dayOf(seasonal, "Birkat Hachamah (day)", "birkat_hachamah") { cal, _ ->
             BirkatHachamahRules.isRecitationDay(cal.date)
         }
+
+        // Phone checklist warning — pin clock to 21 minutes before sunset.
+        val phoneWarn = "Phone hide warning"
+        fun phoneWarnErev(name: String, id: String, match: (DayInfo, DayInfo) -> Boolean) {
+            add(
+                ChecklistDebugScenario(
+                    id = "phone_warn_$id",
+                    group = phoneWarn,
+                    label = "$name (21 min before sunset)",
+                    phase = ChecklistDebugPhase.EREV,
+                    matcher = match,
+                    sunsetOffsetMinutes = HolyDayPhoneRules.DEBUG_WARN_OFFSET_MINUTES,
+                ),
+            )
+        }
+        phoneWarnErev("Shabbat", "shabbat") { cal, _ -> cal.isErevShabbat }
+        phoneWarnErev("Pesach", "pesach") { cal, _ ->
+            cal.upcomingChagYomTovIndex == HebrewCalendarEngine.PESACH ||
+                "erev_pesach" in cal.activeSeasons
+        }
+        phoneWarnErev("Shavuot", "shavuot") { cal, _ ->
+            cal.upcomingChagYomTovIndex == HebrewCalendarEngine.SHAVUOS
+        }
+        phoneWarnErev("Rosh Hashana", "rosh_hashana") { cal, _ ->
+            cal.upcomingChagYomTovIndex == HebrewCalendarEngine.ROSH_HASHANA
+        }
+        phoneWarnErev("Yom Kippur", "yom_kippur") { cal, _ ->
+            "erev_yom_kippur" in cal.activeSeasons ||
+                cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
+        }
+        phoneWarnErev("Sukkot", "sukkot") { cal, _ ->
+            cal.upcomingChagYomTovIndex == HebrewCalendarEngine.SUCCOS
+        }
     }.let { base ->
-        val twoDaysBefore = base.map { s ->
+        val twoDaysBefore = base.filter { it.sunsetOffsetMinutes == null }.map { s ->
             s.copy(
                 id = s.id + TWO_DAYS_BEFORE_SUFFIX,
                 label = "${s.label} (2 days before)",
@@ -381,6 +419,9 @@ object ChecklistDebugScenarios {
     fun byId(id: String): ChecklistDebugScenario? = all.firstOrNull { it.id == id }
 
     fun displayLabel(scenario: ChecklistDebugScenario): String {
+        if (scenario.sunsetOffsetMinutes != null) {
+            return "Warn — ${scenario.label}"
+        }
         val phase = when (scenario.phase) {
             ChecklistDebugPhase.EREV -> "Erev"
             ChecklistDebugPhase.DAY_OF -> "Day of"
@@ -454,7 +495,7 @@ fun UserProfile.forDebugCalendar(scenario: ChecklistDebugScenario?): UserProfile
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 10
+    private const val CACHE_VERSION = 11
 
     private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
@@ -615,6 +656,11 @@ object ChecklistDebugDateFinder {
         simulatedDate: LocalDate,
         timeSlot: ChecklistDebugTimeSlot,
     ): Long {
+        scenario.sunsetOffsetMinutes?.let { offsetMin ->
+            val noon = simulatedDate.atLocalTime(12, profile.timezoneId)
+            val sunset = calendar.dayInfoAt(noon, profile).zmanim?.sunsetMillis
+            if (sunset != null) return sunset + offsetMin * 60_000L
+        }
         if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
             return motzeiEpochMillis(calendar, profile, simulatedDate, timeSlot)
         }
@@ -658,15 +704,15 @@ object ChecklistDebugDateFinder {
         profile: UserProfile,
     ): CanonicalHebrewDate? =
         when (scenario.id) {
-            "pesach_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 14)
+            "pesach_erev", "phone_warn_pesach" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 14)
             "pesach_day", "pesach_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 15)
             "ch_pesach_day" -> CanonicalHebrewDate(HebrewCalendarEngine.NISSAN, 18)
-            "shavuot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 5)
+            "shavuot_erev", "phone_warn_shavuot" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 5)
             "shavuot_day", "shavuot_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.SIVAN, 6)
-            "rosh_hashana_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ELUL, 29)
+            "rosh_hashana_erev", "phone_warn_rosh_hashana" -> CanonicalHebrewDate(HebrewCalendarEngine.ELUL, 29)
             "rosh_hashana_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 1)
             "rosh_hashana_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 2)
-            "sukkot_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 14)
+            "sukkot_erev", "phone_warn_sukkot" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 14)
             "sukkot_day", "sukkot_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 15)
             "shemini_atzeret_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 21)
             "shemini_atzeret_day", "shemini_atzeret_motzei" ->
@@ -693,7 +739,7 @@ object ChecklistDebugDateFinder {
             "fast_17tam_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TAMMUZ, 17)
             "tisha_beav_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 8)
             "tisha_beav_day" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 9)
-            "yom_kippur_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 9)
+            "yom_kippur_erev", "phone_warn_yom_kippur" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 9)
             "yom_kippur_day", "yom_kippur_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 10)
             "chanukah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 24)
             "chanukah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)

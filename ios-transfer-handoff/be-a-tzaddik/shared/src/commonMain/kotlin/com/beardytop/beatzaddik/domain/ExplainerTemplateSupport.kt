@@ -25,10 +25,10 @@ object ExplainerTemplateSupport {
 Arba Minim (ארבעה מינים) — the Four Species — are taken each day of Sukkot (except Shabbat).
 
 The four:
-• Lulav — closed palm branch (at least 3 tefachim)
+• Lulav — closed palm branch (at least 4 tefachim; Shulchan Arukh O.C. 650:1)
 • Etrog — citron, beautiful and mostly intact (pitom if present should be intact)
-• Hadasim — three myrtle branches
-• Aravot — two willow branches
+• Hadasim — three myrtle branches (each at least 3 tefachim)
+• Aravot — two willow branches (each at least 3 tefachim)
 
 How to observe (everyone):
 • Assemble the lulav: Bind the lulav, hadassim, and aravot together (per your hoshanah holder / koisan). Ensure the central spine of the lulav extends upward at least one handbreadth (tefach — around 4 inches) higher than the tops of the myrtle and willow branches (Shulchan Arukh O.C. 650:1).
@@ -54,10 +54,10 @@ The ownership rule (lakhem — u'lekachtem lakhem):
 Arba Minim (ארבעה מינים) — the Four Species — are taken each day of Sukkot (except Shabbat).
 
 The four:
-• Lulav — closed palm branch (at least 3 tefachim)
+• Lulav — closed palm branch (at least 4 tefachim; Shulchan Arukh O.C. 650:1)
 • Etrog — citron, beautiful and mostly intact (pitom if present should be intact)
-• Hadasim — three myrtle branches
-• Aravot — two willow branches
+• Hadasim — three myrtle branches (each at least 3 tefachim)
+• Aravot — two willow branches (each at least 3 tefachim)
 
 How to observe (everyone):
 • Assemble the lulav: Bind the lulav, hadassim, and aravot together (per your hoshanah holder / koisan). Ensure the central spine of the lulav extends upward at least one handbreadth (tefach — around 4 inches) higher than the tops of the myrtle and willow branches (Shulchan Arukh O.C. 650:1).
@@ -68,7 +68,7 @@ How to observe (everyone):
 If a species is missing or invalid, ask your rabbi — there are limited substitutions in pressing cases.
 
 Women — recommended mitzvah (not obligatory):
-• Women are exempt from this time-bound commandment, but participating is highly popular in both Ashkenazi and Sephardi communities. This checklist marks it as recommended — not a strict daily obligation like men's first-day mitzvah.
+• Women are exempt from this time-bound commandment. Taking the lulav is widely practiced among Ashkenazi women; among many Sephardi communities it is less common (optional — follow your minhag). This checklist marks it as recommended — not a strict daily obligation like men's first-day mitzvah.
 
 Do women need their own set?
 • No. Most women use a shared family set (usually owned by a husband or father) or a synagogue set.
@@ -100,21 +100,21 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
         val nusach = profile.effectiveNusach()
         val brachaLine = when (nusach) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: Generally wave the lulav without reciting the bracha (still a meaningful mitzvah)."
+                "Sephardi / Edot HaMizrach women: Taking the lulav is optional — many do not take it (exempt). Those who do often wave without the bracha."
             EffectiveNusach.ASHKENAZ, EffectiveNusach.CHABAD ->
-                "Ashkenazi women (and many Chabad women who follow this custom): Say Al netilat lulav, then wave in the same directions as men."
+                "Ashkenazi women (and many Chabad women who follow this custom): Taking the lulav is optional but widely practiced. Those who take it usually say Al netilat lulav, then wave in the same directions as men."
             EffectiveNusach.OTHER ->
-                "Women's bracha practice for lulav varies by community — follow your minhag and rav."
+                "Women's practice for lulav is optional and varies by community — follow your minhag and rav."
         }
         val waveLine = when (nusach) {
             EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                "Sephardi / Edot HaMizrach women: A simple shake of the lulav is sufficient — not required to wave in all six directions."
+                "If you take the lulav: a simple shake is sufficient — not required to wave in all six directions."
             EffectiveNusach.CHABAD ->
-                "Chabad women: Wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
+                "If you take the lulav: wave right (south), left (north), forward (east), up, down, back (west) — the same Arizal sequence as men."
             EffectiveNusach.ASHKENAZ ->
-                "Ashkenazi women: Wave east, south, west, north, up, down — the same as men."
+                "If you take the lulav: wave east, south, west, north, up, down — the same as men."
             EffectiveNusach.OTHER ->
-                "Wave directions and style vary by community — follow your siddur and minhag."
+                "If you take the lulav: wave directions and style vary by community — follow your siddur and minhag."
         }
         return mapOf(
             "daysNote" to daysNote,
@@ -305,7 +305,7 @@ Joy & family (simchat Yom Tov):
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
 
 Practical:
-• On Erev Shavuot: daytime preparations can continue up until nightfall (tzeit), as the holiday begins later than usual. Reheating and cooking for the night meal may also be done on the holiday itself after tzeit, strictly from a pre-existing flame. Set up a blech or hot plate if needed. You cannot light candles or make Kiddush until tzeit.
+• On Erev Shavuot: light Yom Tov candles before sunset (new match OK) like other festivals — after sunset you cannot create a new flame. Finish cooking before sunset; afterward cook only from a pre-existing flame. Delay Maariv and Kiddush until after tzeit so all 49 days of the Omer are complete. When Shavuot begins Motzei Shabbat, light only from a pre-existing flame after Shabbat ends.
 • Turn off devices before Yom Tov — this app is for prep, not use on chag.
     """.trimIndent()
 

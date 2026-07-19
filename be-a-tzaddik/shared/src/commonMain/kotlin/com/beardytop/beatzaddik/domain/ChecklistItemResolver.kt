@@ -11,6 +11,8 @@ object ChecklistItemResolver {
         prayerDay: PrayerDayContext,
         upcomingShabbatParsha: String? = null,
         cal: DayInfo? = null,
+        yesterdayCal: DayInfo? = null,
+        tomorrowCal: DayInfo? = null,
     ): ResolvedChecklistItem {
         val nusach = profile.effectiveNusach()
         val nusachTag = item.nusachTag ?: nusach.displayName()
@@ -20,11 +22,27 @@ object ChecklistItemResolver {
         val parshaInfo = if (item.weeklyMitzvah) ParshaData.forKey(upcomingShabbatParsha) else null
         val parshaTitle = parshaInfo?.let { " — Parshat ${it.displayName}" } ?: ""
 
-        val explanation = pickExplanation(item, profile).ifBlank {
-            if (item.id.startsWith("custom_")) {
-                "This is a personal goal or reminder you added. Check it off when you've done it."
-            } else {
-                "Confirm details with your rabbi."
+        val havdalahKind = if (
+            item.id == HavdalahRules.CHECKLIST_ITEM_ID &&
+            cal != null && yesterdayCal != null && tomorrowCal != null
+        ) {
+            HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
+        } else {
+            null
+        }
+
+        val explanation = when {
+            havdalahKind != null && cal != null && yesterdayCal != null ->
+                HavdalahRules.explanationTemplate(
+                    havdalahKind,
+                    HavdalahRules.yomKippurWasShabbat(cal, yesterdayCal),
+                )
+            else -> pickExplanation(item, profile).ifBlank {
+                if (item.id.startsWith("custom_")) {
+                    "This is a personal goal or reminder you added. Check it off when you've done it."
+                } else {
+                    "Confirm details with your rabbi."
+                }
             }
         }
         // Prepend parsha name to the explanation for weekly items.
@@ -34,7 +52,12 @@ object ChecklistItemResolver {
 
         val zman = when {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
-                ChecklistZmanEvaluator.evaluate(item.id, nowMillis, zmanim, prayerDay)
+                ChecklistZmanEvaluator.evaluate(
+                    item.id, nowMillis, zmanim, prayerDay,
+                    cal = cal,
+                    yesterdayCal = yesterdayCal,
+                    tomorrowCal = tomorrowCal,
+                )
             isFestivalPrepItem(item) -> when (item.id) {
                 "yom_tov_shabbat_advance_prep" -> ItemZmanStatus(hint = "Eruv Tavshilin")
                 else -> ItemZmanStatus()
@@ -50,14 +73,16 @@ object ChecklistItemResolver {
         }
 
         val optionalSuffix = ChecklistGenderRules.optionalTitleSuffix(item, profile)
-        val baseTitle = if (profile.gender == Gender.FEMALE) {
+        val catalogTitle = if (profile.gender == Gender.FEMALE) {
             ChecklistGenderRules.displayTitleForWomen(item) ?: item.title
         } else {
             item.title
         }
+        val baseTitle = havdalahKind?.let { HavdalahRules.title(it) } ?: catalogTitle
+        val section = havdalahKind?.let { HavdalahRules.section(it) } ?: item.section
 
         val (explanationTemplate, explanationArgs) = ExplainerTemplateResolver
-            .resolve(item, profile, cal)
+            .resolve(item, profile, cal, yesterdayCal, tomorrowCal, nowMillis)
             .let { it.template to it.args }
 
         return ResolvedChecklistItem(
@@ -66,7 +91,7 @@ object ChecklistItemResolver {
             displayTitle = baseTitle + optionalSuffix + titleSuffix + parshaTitle,
             titleTranslationKey = baseTitle + optionalSuffix,
             displayExplanation = displayExplanation,
-            sectionLabel = sectionWithNusach(item.section, item, profile),
+            sectionLabel = sectionWithNusach(section, item, profile),
             zmanAvailability = zman.availability,
             zmanHint = zman.hint,
             zmanHintTemplate = zman.hintTemplate,

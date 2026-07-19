@@ -235,8 +235,21 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
 
     private var checklistDebugResolveJob: Job? = null
 
+    /** Wall-clock anchor so sunset-offset warn sims advance and the countdown ticks. */
+    private val _debugSimWallAnchor = MutableStateFlow<Long?>(null)
+
     private val effectiveNowMillis = combine(_checklistDebugOverride, clockTick) { debug, tick ->
-        debug?.epochMillis ?: tick
+        if (debug == null) {
+            tick
+        } else {
+            val scenario = ChecklistDebugScenarios.byId(debug.scenarioId)
+            val anchor = _debugSimWallAnchor.value
+            if (scenario?.sunsetOffsetMinutes != null && anchor != null) {
+                debug.epochMillis + (tick - anchor)
+            } else {
+                debug.epochMillis
+            }
+        }
     }
 
     fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
@@ -261,6 +274,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                     "No calendar date found for ${ChecklistDebugScenarios.displayLabel(scenario)}"
                 return@launch
             }
+            _debugSimWallAnchor.value = Clock.System.now().toEpochMilliseconds()
             _checklistDebugOverride.value = override
         }
     }
@@ -270,10 +284,17 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         val current = _checklistDebugOverride.value ?: return
         val scenario = ChecklistDebugScenarios.byId(current.scenarioId) ?: return
         val prof = profile.value.forDebugCalendar(scenario)
-        val millis = if (scenario.phase == ChecklistDebugPhase.MOTZEI) {
-            current.epochMillis
-        } else {
-            ChecklistDebugDateFinder.epochMillisAt(
+        val millis = when {
+            scenario.sunsetOffsetMinutes != null ||
+                scenario.phase == ChecklistDebugPhase.MOTZEI ->
+                ChecklistDebugDateFinder.overrideEpochMillis(
+                    calendar = deps.calendar,
+                    profile = prof,
+                    scenario = scenario,
+                    simulatedDate = current.simulatedDate,
+                    timeSlot = timeSlot,
+                )
+            else -> ChecklistDebugDateFinder.epochMillisAt(
                 current.simulatedDate,
                 timeSlot,
                 prof.timezoneId,
@@ -288,6 +309,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     fun clearChecklistDebug() {
         _checklistDebugOverride.value = null
         _checklistDebugError.value = null
+        _debugSimWallAnchor.value = null
     }
 
     val checklistDebugMenuVisible: StateFlow<Boolean> = profile

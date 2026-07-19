@@ -27,6 +27,9 @@ class ChecklistEngine(
             "Important Lifestyle Mitzvot",
             "Prepare for Shabbat",
             "Motzei Shabbat",
+            "Motzei Yom Tov",
+            "Motzei Yom Kippur",
+            "Motzei Tisha B'Av",
             "Hoshana Rabbah",
             "Chol HaMoed",
             "Mourning customs",
@@ -101,9 +104,9 @@ class ChecklistEngine(
             )
         }
 
-        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis)
+        val hideChecklist = HolyDayPhoneRules.shouldHideChecklist(profile, cal, nowMillis, tomorrowCal)
         val prioritizePrepSections = ChecklistSectionOrder.prioritizedPrepSections(
-            cal, tomorrowCal, profile, nowMillis,
+            cal, tomorrowCal, profile, nowMillis, yesterdayCal,
         )
         val activePeriod = forcedActivePeriod ?: cal.activeTimeOfDay
         val sinkMorningPrayerSection = cal.zmanim?.let { z ->
@@ -114,7 +117,22 @@ class ChecklistEngine(
         } else {
             sortDefs(
                 (catalog + seasonal + customDefs).filter {
-                    matches(it, profile, cal, nowMillis, tomorrowCal)
+                    matches(it, profile, cal, yesterdayCal, nowMillis, tomorrowCal)
+                }.map { def ->
+                    if (def.id != HavdalahRules.CHECKLIST_ITEM_ID) def
+                    else {
+                        val kind = HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
+                            ?: return@map def
+                        def.copy(
+                            title = HavdalahRules.title(kind),
+                            section = HavdalahRules.section(kind),
+                            explanation = HavdalahRules.explanationTemplate(
+                                kind,
+                                HavdalahRules.yomKippurWasShabbat(cal, yesterdayCal),
+                            ),
+                            motzeiShabbatOnly = false,
+                        )
+                    }
                 },
                 activePeriod,
                 prioritizePrepSections,
@@ -156,6 +174,8 @@ class ChecklistEngine(
                     isInIsrael = profile.isInIsrael,
                 ),
                 cal = cal,
+                yesterdayCal = yesterdayCal,
+                tomorrowCal = tomorrowCal,
             )
         }
 
@@ -163,6 +183,7 @@ class ChecklistEngine(
         val omerLabel = TodayOccasionLabels.omerTodayLabel(cal, profile.effectiveNusach())
         val omerDay = cal.omerDay?.takeIf { cal.isSefiratHaomer }
         val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
+        val havdalahKind = HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
 
         val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile)
         val periodLabels = if (forcedActivePeriod != null) {
@@ -208,9 +229,20 @@ class ChecklistEngine(
                     chip.startsWith("Omer day") ||
                         (chip.startsWith("Today is") && chip.contains("Omer", ignoreCase = true))
                 }.let { chips ->
-                    if (!motzeiShabbatActive) chips
-                    else chips.filterNot { it == "Shabbat" }.let { filtered ->
-                        if ("Motzei Shabbat" in filtered) filtered else filtered + "Motzei Shabbat"
+                    var next = chips
+                    if (motzeiShabbatActive) {
+                        next = next.filterNot { it == "Shabbat" }.let { filtered ->
+                            if ("Motzei Shabbat" in filtered) filtered else filtered + "Motzei Shabbat"
+                        }
+                    }
+                    when (havdalahKind) {
+                        HavdalahRules.Kind.MOTZEI_YOM_TOV ->
+                            if ("Motzei Yom Tov" in next) next else next + "Motzei Yom Tov"
+                        HavdalahRules.Kind.MOTZEI_YOM_KIPPUR ->
+                            if ("Motzei Yom Kippur" in next) next else next + "Motzei Yom Kippur"
+                        HavdalahRules.Kind.DELAYED_AFTER_TISHA_BEAV ->
+                            if ("Motzei Tisha B'Av" in next) next else next + "Motzei Tisha B'Av"
+                        else -> next
                     }
                 },
                 timeLabel = if (profile.hasZmanimLocation()) periodLabels.activeTitle else null,
@@ -228,7 +260,8 @@ class ChecklistEngine(
                 omerExplainerArgs = omerBundle?.args ?: emptyMap(),
             ),
             nusachLabel = profile.effectiveNusach().displayLabel(),
-            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis),
+            holyDayPhoneNotice = HolyDayPhoneRules.phoneNotice(profile, cal, nowMillis, tomorrowCal),
+            holyDayPhoneWarning = HolyDayPhoneRules.impendingHideWarning(cal, nowMillis, tomorrowCal),
             prioritizePrepSections = prioritizePrepSections,
             sinkMorningPrayerSection = sinkMorningPrayerSection,
         )
@@ -260,6 +293,7 @@ class ChecklistEngine(
         item: ChecklistItemDef,
         profile: UserProfile,
         cal: DayInfo,
+        yesterdayCal: DayInfo,
         nowMillis: Long,
         tomorrowCal: DayInfo,
     ): Boolean {
@@ -270,7 +304,9 @@ class ChecklistEngine(
         if (!matchesShabbatAppUse(item, cal)) return false
         if (item.hideOnShabbat && cal.isShabbatOrYomTov) return false
         if (item.shabbatEveOnly && !cal.isErevShabbat) return false
-        if (item.motzeiShabbatOnly &&
+        if (item.id == HavdalahRules.CHECKLIST_ITEM_ID) {
+            if (!HavdalahRules.isActive(cal, yesterdayCal, tomorrowCal, nowMillis)) return false
+        } else if (item.motzeiShabbatOnly &&
             !MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
         ) {
             return false
@@ -302,7 +338,7 @@ class ChecklistEngine(
      * Erev Shabbat (Friday): preparation items only.
      */
     private fun matchesShabbatAppUse(item: ChecklistItemDef, cal: DayInfo): Boolean {
-        if (item.motzeiShabbatOnly) return true
+        if (item.motzeiShabbatOnly || item.id == HavdalahRules.CHECKLIST_ITEM_ID) return true
         if (item.section !in shabbatRelatedSections) return true
         if (cal.isShabbat && !cal.isErevShabbat) return false
         if (cal.isErevShabbat && !cal.isShabbat) {

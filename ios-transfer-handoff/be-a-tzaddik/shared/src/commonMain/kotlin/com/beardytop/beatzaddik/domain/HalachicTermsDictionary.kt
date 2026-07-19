@@ -112,14 +112,14 @@ object HalachicTermsDictionary {
         line("Asara B'Tevet — minor fast on 10 Tevet from dawn until nightfall; when it falls on Friday the fast continues into Friday night and is broken with Shabbat Kiddush"),
         line("Ta'anit — a public or personal fast day", "Taanit"),
         line("Shemoneh Esrei — the eighteen (now nineteen) blessings of the Amidah"),
-        line("Sefirah — counting period between 2nd day of Pesach and Shavuot; mourning customs and when they end vary by minhag (Ashkenaz, Sephard, Chabad, etc.)", "the Omer"),
+        line("Sefirah — counting period between 2nd day of Pesach and Shavuot; mourning customs and when they end vary by minhag (Ashkenaz, Sephardi, Chabad, etc.)", "the Omer"),
         line("Chol HaMoed Sukkot — intermediate Sukkot days between the Festival days"),
         line("Chol HaMoed Pesach — intermediate days of Pesach between the festival days"),
         line("Eruv chatzerot — symbolic merging of courtyards allowing carrying on Shabbat"),
         line("Eruv techumin — extends the Shabbat walking boundary in special cases"),
         line("Pesachdik — kosher for Passover standards"),
         line("chametz she'avar — chametz that was in your possession over Pesach (forbidden to benefit from after)"),
-        line("matana al menat lehachzir — gift on condition it is returned; commonly used for borrowing a lulav on the first day of Sukkot"),
+        line("matana al menat lehachzir — gift on condition it is returned; commonly used for borrowing a lulav on Day 1 of Sukkot (and Day 2 in the Diaspora)"),
         line("Gemara — Talmudic commentary and discussion on the Mishnah"),
         line("Shabbat candles — candles lit before sunset to welcome Shabbat"),
         line("nusach Ashkenaz — Ashkenazi prayer wording"),
@@ -158,7 +158,7 @@ object HalachicTermsDictionary {
         line("hakarat hatov — recognizing the good; thanking someone for a kindness"),
         line("mesorah — tradition faithfully transmitted generation to generation"),
         line("chatzos — halachic midnight or midday depending on context"),
-        line("candle lighting — Shabbat candles before sunset; weekday Erev Yom Tov before sunset; Motzei Shabbat going into a Yom Tov at tzeit from a pre-existing flame"),
+        line("candle lighting — Shabbat / weekday first-night Yom Tov before sunset (new match OK); once holy time has begun — second Yom Tov night (incl. Rosh Hashana night 2 in Israel), Motzei Shabbat→Yom Tov at tzeit, and Yom Tov→Shabbat before sunset — only from a pre-existing flame"),
         line("borei me'orei ha'eish — blessing over fire in Yaknehaz and regular Havdalah"),
         line("Zachor — \"remember\" from the Exodus version of the Ten Commandments telling the Jews to remember Shabbat"),
         line("Shamor — \"guard (Shabbat)\" from the Deuteronomy version of the Ten Commandments"),
@@ -369,7 +369,7 @@ object HalachicTermsDictionary {
             "Kiddush",
         ),
         line(
-            "Havdalah — Havdalah separates holy time from weekday. On a normal Motzei Shabbat it uses wine, a multi-wick candle, and besamim (spices) — comforting the soul as the extra neshama yeteira departs. After Yom Tov there's usually no spices or candle. After Yom Kippur we use a candle that burned throughout the fast; spices are ordinarily omitted — but when Yom Kippur falls on Shabbat, include besamim as on a regular Motzei Shabbat.",
+            "Havdalah — Havdalah separates holy time from weekday. Men and women are equally obligated (hear or recite). Motzei Shabbat: wine, besamim (comforting the departing neshama yeteira), and fire recalling Adam HaRishon’s first Motzei Shabbat flame — many look at their nails in the light (useful flame, growth, garments of light, light vs darkness; some omit thumbs). Motzei Yom Tov: wine + Hamavdil only (no spices/fire; Israel one day vs Diaspora two follows your calendar). Motzei Yom Kippur: wine + fire from a ner she-shavat; ordinarily no spices or the Motzei Shabbat nail framing — but when YK is Shabbat, include besamim and those customs. Motzei Shabbat into Tisha B’Av: candle Motzei Shabbat; wine+Hamavdil Sunday night after the fast. Missed Saturday night: wine+Hamavdil through Tuesday without spices or fire.",
             "havdalah",
             "Havdalah",
         ),
@@ -450,7 +450,7 @@ object HalachicTermsDictionary {
             "mechirat",
         ),
         line(
-            "matana al menat lehachzir — Matana al menat lehachzir (מַתָּנָה עַל מְנָת לְהַחְזִיר) is a \"gift on condition it is returned.\" The recipient legally owns the item for the moment it is in their hands, then returns it afterward. On the first day of Sukkot, if you do not own a lulav and etrog, someone may gift you their set conditionally so you fulfill the Torah obligation of ownership for the mitzvah, then you return it. This is not used for mechirat chametz — selling chametz requires an absolute sale.",
+            "matana al menat lehachzir — Matana al menat lehachzir (מַתָּנָה עַל מְנָת לְהַחְזִיר) is a \"gift on condition it is returned.\" The recipient legally owns the item for the moment it is in their hands, then returns it afterward. On the first day of Sukkot (and on Day 2 in the Diaspora, where lakhem still applies), if you do not own a lulav and etrog, someone may gift you their set conditionally so you fulfill the ownership requirement for the mitzvah, then you return it. This is not used for mechirat chametz — selling chametz requires an absolute sale.",
             "matana al menat lehachzir",
             "matana al menat lehachzir",
         ),
@@ -521,7 +521,7 @@ object HalachicTermsDictionary {
             "Al Netilat Yadayim",
         ),
         line(
-            "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Species on Sukkot — \"Who sanctified us with His mitzvot and commanded us to take the lulav.\" Men say it every day of the festival when taking the lulav (except Shabbat); women follow community custom — Ashkenazi women say the bracha and wave; Sephardic women generally wave without the bracha. Say Shehecheyanu on the first day you take the lulav; if you missed the first day, say it on the first day you take (Mishnah Berurah 651:12). Then wave the lulav in the directions your siddur prescribes.",
+            "Al netilat lulav — Al netilat lulav is the blessing before taking the Four Species on Sukkot — \"Who sanctified us with His mitzvot and commanded us to take the lulav.\" Men say it every day of the festival when taking the lulav (except Shabbat). Women: Ashkenazi women who take the lulav usually say the bracha and wave; many Sephardi women do not take the lulav (exempt), and those who do often wave without the bracha — follow your minhag. Say Shehecheyanu on the first day you take the lulav; if you missed the first day, say it on the first day you take (Mishnah Berurah 651:12). Then wave in the directions your siddur prescribes.",
             "Al netilat lulav",
             "Al Netilat Lulav",
         ),
@@ -660,7 +660,7 @@ object HalachicTermsDictionary {
             "Shabbat",
         ),
         line(
-            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: When a festival begins on a Saturday night (Motzei Shabbat), Yom Tov candles are lit only after Shabbat ends (after tzeit), from a pre-existing flame. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
+            "Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the halachic day ends. It is the standard time for many night mitzvot: counting the Omer, Megillah on Purim night, and Motzei Shabbat. Bedikat chametz is done the night before Pesach begins (after tzeit that evening). Chanukah candles are ideally lit after tzeit, though many authorities allow lighting from sunset when needed. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note on candles once holy time has begun — light only from a pre-existing flame: Motzei Shabbat→Yom Tov after tzeit; second night of Yom Tov (including Rosh Hashana night 2, even in Israel) after nightfall; Yom Tov→Shabbat before sunset. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.",
             "tzeit",
             "Tzeit",
             "three stars",
@@ -686,7 +686,7 @@ object HalachicTermsDictionary {
             "gebrochts",
         ),
         line(
-            "Seder — The Seder is the ordered Pesach night meal — four cups of wine, matzah, maror, and reading the Haggadah so children ask questions. Recline to the left for the four cups, matzah, korech, and afikoman — not during maror or chazeret. It reenacts leaving Egypt. Timing matters: matzah afikoman before halachic midnight per many poskim. Prepare the plate, Hagaddah, and guests' needs before Yom Tov begins so the night runs with joy, not panic.",
+            "Seder — The Seder is the ordered Pesach night meal — four cups of wine, matzah, maror, and reading the Haggadah so children ask questions. Men recline to the left for the four cups, matzah, korech, and afikoman — not during maror or chazeret. Ashkenaz women often do not recline; many Sephardi women do — follow your minhag. It reenacts leaving Egypt. Timing matters: matzah afikoman before halachic midnight per many poskim. Prepare the plate, Hagaddah, and guests' needs before Yom Tov begins so the night runs with joy, not panic.",
             "seder",
             "Seder",
             "First Seder",
@@ -752,7 +752,7 @@ object HalachicTermsDictionary {
             "mincha",
         ),
         line(
-            "Maariv — Maariv is the evening service after nightfall — Shema, Amidah, and on Motzei Shabbat Havdalah or festival inserts. Saturday night Maariv may include Vatodi'enu when Yom Tov begins. Weekday Maariv is when many working Jews connect with community after the day. Consistency at Maariv builds a rhythm of ending the day with G-d.",
+            "Maariv — Maariv is the evening service. Earliest time is often sunset (shkiyah); many communities ideally daven after nightfall (tzeit hakochavim). It includes Shema, Amidah, and on Motzei Shabbat Havdalah or festival inserts. Saturday night Maariv may include Vatodi'enu when Yom Tov begins. If you daven before tzeit, repeat the Shema (without its blessings) once it is fully dark. Weekday Maariv is when many working Jews connect with community after the day.",
             "Maariv",
             "maariv",
         ),
@@ -819,7 +819,7 @@ object HalachicTermsDictionary {
             "Lechem mishneh",
         ),
         line(
-            "seudah shlishit — Seudah shlishit is the third Shabbat meal, usually late afternoon before sunset. It is lighter than the first two meals — often fish, salad, and songs (zemiroth). Some insert special Torah ideas. Do not skip it — three meals are a key Shabbat mitzvah. Bentching includes Retzei and may extend toward Havdalah time.",
+            "seudah shlishit — Seudah shlishit is the third Shabbat meal, usually late afternoon before sunset. Mainstream practice highly prefers washing for bread (challah). If you are too full, many allow cake (mezonot), fruit, or a light snack. Chabad custom traditionally does not wash for bread; they taste something physical (cake, fruit, or a small snack) and focus the Mincha–Maariv window on Torah, niggunim, and Chassidus — Torah study alone is not the fulfillment. Bentching includes Retzei and may extend toward Havdalah time.",
             "Seudah Shlishit",
             "seudah shlishit",
         ),
@@ -854,7 +854,7 @@ object HalachicTermsDictionary {
             "Kezayit",
         ),
         line(
-            "Machatzit HaShekel — Zecher LeMachatzit HaShekel recalls the half-shekel each Jew gave for Temple upkeep in Adar. Today many give charity — ideally at Mincha on the Fast of Esther, or on Purim morning before Megillah — often three coins that are half of a local unit. It is a widespread custom, not one of the four Purim mitzvot. Give through your shul or reputable charity.",
+            "Machatzit HaShekel — Zecher LeMachatzit HaShekel recalls the half-shekel each Jew gave for Temple upkeep in Adar. The Temple-era obligation was on adult men, so today's custom centers there; many women give too. Ideally at Mincha on the Fast of Esther, or on Purim morning before Megillah — often three coins that are half of a local unit. It is a widespread custom, not one of the four Purim mitzvot. Give through your shul or reputable charity.",
             "Machatzit HaShekel",
             "Machatzit haShekel",
             "Zecher LeMachatzit HaShekel",
@@ -884,7 +884,7 @@ object HalachicTermsDictionary {
             "yahrzeit",
         ),
         line(
-            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardi customs vary (many bless then light; others light then bless). Shabbat candles must be lit after Plag HaMincha and before sunset. Weekday Erev Yom Tov candles are also lit before sunset. When Yom Tov begins on Motzei Shabbat, Yom Tov candles are lit only after tzeit, from a pre-existing flame. On other Yom Tov nights, before the holiday begins you may strike a new match; once Yom Tov has started, light only from a pre-existing flame.",
+            "Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardi customs vary (many bless then light; others light then bless). Shabbat candles must be lit after Plag HaMincha and before sunset. Weekday first night of Yom Tov: light before sunset — you may strike a new match. Once holy time has begun, light only from a pre-existing flame: second night of Yom Tov (including Rosh Hashana night 2 in Israel and the Diaspora), Motzei Shabbat→Yom Tov after tzeit, and Yom Tov→Shabbat before sunset (transfer flame; do not wait until nightfall).",
             "Hadlakat Nerot",
             "Light Yom Tov candles",
         ),
@@ -1059,7 +1059,7 @@ object HalachicTermsDictionary {
             "Simchas Torah",
         ),
         line(
-            "Shavuot — Shavuot marks Matan Torah — receiving the Torah at Sinai, seven weeks after Pesach. Unlike other festivals, candles and Kiddush may not begin until full nightfall (tzeit). Dairy meals, all-night learning, and reading Ruth are customs. It is one day in Israel, two in the Diaspora.",
+            "Shavuot — Shavuot marks Matan Torah — receiving the Torah at Sinai, seven weeks after Pesach. Light Yom Tov candles before sunset as usual (new match OK). Delay Maariv and Kiddush until after nightfall (tzeit) so the full 49 days of the Omer are complete. When Shavuot begins Motzei Shabbat, light only from a pre-existing flame after Shabbat ends. Dairy meals, all-night learning, and reading Ruth are customs. It is one day in Israel, two in the Diaspora.",
             "Shavuot",
         ),
         line(
@@ -1155,7 +1155,7 @@ object HalachicTermsDictionary {
             "Levi",
         ),
         line(
-            "tekiah — Tekiah is a long straight shofar blast. The Rosh Hashana sequence combines tekiah with shevarim (broken) and teruah (trembling) sounds per minhag. One hundred blasts are customary Ashkenaz. Practice in shul beforehand so the day is not your first time hearing shofar.",
+            "tekiah — Tekiah is a long straight shofar blast. The Rosh Hashana sequence combines tekiah with shevarim (broken) and teruah (trembling) sounds per minhag. Blast totals vary: Ashkenaz often aims for about 100 per day; Sephardi and other communities often use different counts — follow your shul. Practice in shul beforehand so the day is not your first time hearing shofar.",
             "Tekiah",
             "tekiah",
             "shevarim",

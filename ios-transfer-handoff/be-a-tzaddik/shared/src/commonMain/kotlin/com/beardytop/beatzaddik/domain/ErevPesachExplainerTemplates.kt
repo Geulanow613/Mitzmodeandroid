@@ -39,7 +39,7 @@ Set up before Yom Tov:
 • Haggadah for each person (or shared)
 • Seder plate: zeroa (shankbone), beitzah (egg), karpas, charoset, maror, chazeret
 • Seder plate prep: You should ideally roast your zeroa (shankbone) on Erev Pesach day before sunset. Because the shankbone is not eaten on Seder night, roasting it after the holiday begins violates Yom Tov cooking laws. The egg (beitzah), however, is traditionally eaten during the meal, so it may legally be boiled or roasted on Yom Tov night if needed.
-• Reclining (hasebha): Recline to the left when drinking the four cups and eating matzah, korech, and afikoman — do not recline while eating maror or chazeret (they symbolize slavery).
+• Reclining (hasebha): Men recline to the left when drinking the four cups and eating matzah, korech, and afikoman — not while eating maror or chazeret (they symbolize slavery). Ashkenaz women often do not recline; many Sephardi women do — follow your minhag.
 • Festive table; candles for Yom Tov
 
 Kitchen:
@@ -105,7 +105,7 @@ This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabb
 • Shabbat (14 Nisan) — eating deadline: finish eating chametz by the end of the 4th halachic hour on Shabbat morning.
 • Shabbat (14 Nisan) — disposal: flush leftover crumbs down the toilet or nullify them chemically (e.g. pour liquid soap over them) before the 5th hour. Do not burn on Shabbat.
 • Shabbat (14 Nisan) — final nullification: recite the final Kol Chamira before the end of the 5th halachic hour on Shabbat morning.
-• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim do not eat egg matzah on Pesach (Rema O.C. 462:4); use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
+• Shabbat meals — lechem mishneh: Sephardim may use egg matzah (matzah ashira). Ashkenazim generally do not eat egg matzah on Pesach (Rema O.C. 462:4), except for the sick, elderly, or young children when needed; otherwise use small challah rolls with extreme caution over disposable plates, shake out garments completely, and flush all crumbs before the 4th-hour deadline. Seudah shlishit: meat, fish, or fruit — not regular matzah on Erev Pesach.
 • First Seder: Saturday night after Shabbat fully ends (tzeit). Kiddush includes the full Yaknehaz sequence (Wine, Yom Tov Kiddush, Ner/candle, Havdalah text, and Shehecheyanu — no spices/besamim).
 
 Plan with your rav and local zmanim — many communities publish a Pesach-on-Shabbat timetable.
@@ -118,7 +118,7 @@ This year, Erev Pesach is on Friday (14 Nisan) and the first day of Pesach is Sh
 • Bedikat chametz: Thursday night (night of 14 Nisan, after tzeit) — not Friday night. Recite the first bitul (Kol Chamira).
 • Taanit Bechorot: Friday daytime (14 Nisan) — fast or attend a siyum.
 • Biur chametz: Friday morning (14 Nisan) by the 5th halachic hour deadline. Both physical destruction and the final Kol Chamira nullification must be finished before this time.
-• Mechirat chametz: must be entirely completed before Shabbat/Yom Tov candle lighting on Friday evening.
+• Mechirat chametz: must be entirely completed before the end of the 5th halachic hour Friday morning (same deadline as biur) — not later at candle lighting, when owning chametz is already forbidden.
 • First Seder: Friday night (commencing 15 Nisan).
 • Second Seder (Diaspora only): Saturday night — transitioning directly from Shabbat into the second day of Yom Tov (not a regular weekend Motzei Shabbat). Kiddush includes Yaknehaz (integrated Havdalah: wine, Kiddush, candle, Havdalah text — no spices/besamim).
 • Preparation warning: you may NOT do any prep work (chopping, cooking, table setting) on Shabbat day for the second Seder. All preparations must wait until Shabbat ends at nightfall. Eruv tavshilin does not apply when Yom Tov falls on Shabbat — it is only for when Yom Tov immediately precedes Shabbat.
@@ -340,7 +340,7 @@ Second Seder prep (Diaspora this year):
                         EREV_PESACH_FRIDAY_BEFORE_SHABBAT_SCHEDULE_BODY,
                     )
                     13 -> PesachScheduleParts(
-                        "Read this before bedikat chametz — tonight (Thursday night after tzeit) is bedikat. Tomorrow is Erev Pesach (Friday): Taanit Bechorot, biur, and mechirat before Shabbat.",
+                        "Read this before bedikat chametz — tonight (Thursday night after tzeit) is bedikat. Tomorrow is Erev Pesach (Friday): Taanit Bechorot, biur, and mechirat by the 5th-hour morning deadline.",
                         EREV_PESACH_FRIDAY_BEFORE_SHABBAT_SCHEDULE_BODY,
                     )
                     else -> null
