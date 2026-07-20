@@ -9,14 +9,23 @@ object LDovidRules {
         val month = cal.hebrewMonth ?: return false
         val day = cal.hebrewDay ?: return false
         return when (month) {
-            // Chabad commonly begins on the first day of Rosh Chodesh Elul (30 Av).
+            // First day of Rosh Chodesh Elul (30 Av): Chabad, Sephardi, Edot — not classic Ashkenaz.
             HebrewCalendarEngine.AV ->
-                nusach == EffectiveNusach.CHABAD && day == 30
+                day == 30 && beginsOnFirstDayOfRoshChodeshElul(nusach)
             // Ashkenaz commonly begins on the second day of Rosh Chodesh Elul (1 Elul).
             HebrewCalendarEngine.ELUL -> day >= startDay(nusach)
             HebrewCalendarEngine.TISHREI -> day <= endDay(nusach)
             else -> false
         }
+    }
+
+    /** True when minhag includes 30 Av (first day of two-day Rosh Chodesh Elul). */
+    fun beginsOnFirstDayOfRoshChodeshElul(nusach: EffectiveNusach): Boolean = when (nusach) {
+        EffectiveNusach.CHABAD,
+        EffectiveNusach.SEFARD,
+        EffectiveNusach.EDOT_HAMIZRACH -> true
+        EffectiveNusach.ASHKENAZ,
+        EffectiveNusach.OTHER -> false
     }
 
     /** First day of Elul on which L'Dovid is said. */

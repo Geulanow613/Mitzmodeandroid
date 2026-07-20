@@ -30,6 +30,9 @@ Characteristics: He meticulously reviewed dozens of different prayer book manusc
 
 The app will show general, widely shared laws and practices, and will not apply the specific custom sets of those four options. Follow your kehilla and rav for prayer text and minhag details."""
 
-        NusachSelection.NOT_SURE -> null
+        NusachSelection.NOT_SURE ->
+            """Choose this if you do not yet know your family's prayer tradition.
+
+The app will show general, widely shared laws and practices — the same approach as "Other" — and will not apply Ashkenaz, Sephardi, Edot HaMizrach, or Chabad-specific custom sets. Update your nusach in Settings when you know which minhag to follow."""
     }
 }

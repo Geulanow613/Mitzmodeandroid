@@ -7,8 +7,9 @@ object CandleLightingRules {
     const val LEAD_MINUTES_JERUSALEM = 40
 
     fun isJerusalem(profile: UserProfile): Boolean {
+        // Align with JerusalemPurimRules: do not infer from freeform GPS labels
+        // (false positives outside Jerusalem). Explicit city id or lat/lon box only.
         if (profile.manualCityId in setOf("jlm", "jerusalem")) return true
-        if (profile.locationLabel?.contains("jerusalem", ignoreCase = true) == true) return true
         val lat = profile.latitude ?: return false
         val lon = profile.longitude ?: return false
         return lat in 31.7..31.85 && lon in 35.15..35.3

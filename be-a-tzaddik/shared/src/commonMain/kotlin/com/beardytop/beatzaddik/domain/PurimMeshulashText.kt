@@ -21,6 +21,13 @@ object PurimMeshulashText {
     fun isErevBeforeMeshulashFriday(cal: DayInfo, tomorrow: DayInfo): Boolean =
         "erev_purim" in cal.activeSeasons && isMeshulashFridayDay(tomorrow)
 
+    /**
+     * Night Megillah after Thursday tzeit through Friday dawn
+     * (covers civil midnight via [HalachicNightWindow.isOpen]).
+     */
+    fun isMeshulashFridayNightMegillahWindow(cal: DayInfo, nowMillis: Long): Boolean =
+        isMeshulashFridayDay(cal) && HalachicNightWindow.isOpen(cal, nowMillis)
+
     fun fullScheduleBlock(): String = FULL_SCHEDULE_BLOCK
 
     private val FULL_SCHEDULE_BLOCK = """
@@ -58,7 +65,7 @@ Ask your rav about edge cases (travel, illness, minhag).
     """.trimIndent()
 
     private val ADVANCE_PREP_TEMPLATE = """
-Tomorrow is erev Purim — and this year is Purim Meshulash for Jerusalem (and those observing walled‑city Purim). Shabbat is in the middle, so you need the full plan now (not only tomorrow).
+Tomorrow is erev of Purim Meshulash for Jerusalem (and those observing walled‑city Purim) — Thursday night Megillah begins the schedule. Shabbat is in the middle, so you need the full plan now (not only tomorrow).
 
 ${'$'}scheduleBlock
     """.trimIndent()
@@ -111,9 +118,9 @@ ${'$'}scheduleBlock
     fun shabbatTorahExplanation(): String = SHABBAT_TORAH_BODY
 
     private val EREV_MEGILLAH_BODY = """
-Purim Meshulash — Thursday night (13 Adar): first Megillah reading
+Purim Meshulash — Thursday night (night of 14 Adar): first Megillah reading
 
-Tonight after nightfall (tzeit) is the first of two required Megillah readings this year. Friday morning is the second reading.
+Tonight after nightfall (tzeit) begins 14 Adar — the first of two required Megillah readings this year. Friday daytime is the second reading.
 
 How:
 • Hear every word from a kosher megillah scroll; men and women are equally obligated.

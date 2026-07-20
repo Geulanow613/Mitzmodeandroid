@@ -50,6 +50,8 @@ object ChecklistItemResolver {
             "This week's parsha: Parshat ${parshaInfo.displayName}\n\n$explanation"
         } else explanation
 
+        // Zman evaluator must run before festival-prep / section bypasses — otherwise
+        // deadline items in "Pesach prep" (e.g. mechirat 5th-hour) stay ACTIVE forever.
         val zman = when {
             ChecklistZmanEvaluator.appliesTo(item.id) ->
                 ChecklistZmanEvaluator.evaluate(
@@ -58,10 +60,8 @@ object ChecklistItemResolver {
                     yesterdayCal = yesterdayCal,
                     tomorrowCal = tomorrowCal,
                 )
-            isFestivalPrepItem(item) -> when (item.id) {
-                "yom_tov_shabbat_advance_prep" -> ItemZmanStatus(hint = "Eruv Tavshilin")
-                else -> ItemZmanStatus()
-            }
+            isFestivalPrepItem(item) -> ItemZmanStatus()
+
             isMourningPeriodItem(item) -> ItemZmanStatus()
             isCholHamoedItem(item) -> ItemZmanStatus()
             !item.persistChecked && item.timeOfDay != TimeOfDay.ANY ->
@@ -145,8 +145,21 @@ object ChecklistItemResolver {
                 item.explanationSefard
             }
             EffectiveNusach.CHABAD -> item.explanationChabad
-            EffectiveNusach.OTHER -> ""
+            // Show both Ashkenaz and Sephardi notes when they differ (e.g. Purim Shehecheyanu).
+            EffectiveNusach.OTHER -> otherNusachExplanation(item)
         }
+
+    private fun otherNusachExplanation(item: ChecklistItemDef): String {
+        val ash = item.explanationAshkenaz.trim()
+        val sef = item.explanationSefard.trim()
+        return when {
+            ash.isNotBlank() && sef.isNotBlank() && ash != sef ->
+                "$ash\n\n$sef\n\nYour nusach is Other — follow your kehilla for which practice applies."
+            ash.isNotBlank() -> ash
+            sef.isNotBlank() -> sef
+            else -> item.explanationChabad.trim()
+        }
+    }
 
     private fun joinExplanation(base: String, nusachSpecific: String): String {
         if (nusachSpecific.isBlank()) return base
@@ -158,11 +171,21 @@ object ChecklistItemResolver {
     private fun isMourningPeriodItem(item: ChecklistItemDef): Boolean =
         item.id in MourningPeriodRules.mourningChecklistItemIds
 
-    /** Chol HaMoed observances apply all day and night — not tied to prayer zmanim. */
+    /**
+     * Chol HaMoed / Hoshana Rabbah observances that are not in [ChecklistZmanEvaluator]
+     * stay active past Mincha Gedola. Timed mitzvot (arba minim, aravot) must be in
+     * appliesTo so they get a real sunset/chatzos end instead of this bypass.
+     */
     private fun isCholHamoedItem(item: ChecklistItemDef): Boolean =
-        item.section == "Chol HaMoed" || item.id.startsWith("chol_hamoed_")
+        item.section == "Chol HaMoed" ||
+            item.section == "Hoshana Rabbah" ||
+            item.id.startsWith("chol_hamoed_")
 
-    /** Festival prep items stay active for the whole civil day they appear (including afternoon/evening). */
+    /**
+     * Soft festival-prep rows without a hard zman stay active for the civil day.
+     * Deadline rows (mechirat, seder prep, erev meals, eruv, etc.) must be in
+     * [ChecklistZmanEvaluator.appliesTo] so they expire correctly.
+     */
     private fun isFestivalPrepItem(item: ChecklistItemDef): Boolean {
         if (item.section in setOf("Prepare for the festival", "Pesach prep")) return true
         if (item.id.startsWith("prepare_for_festival_")) return true

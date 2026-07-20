@@ -274,19 +274,6 @@ Practical tips:
             ),
         )
 
-    fun cholHamoedClothesExplanation(): String = BeginnerHalachaGlossary.withKeyTerms(
-        BeginnerHalachaGlossary.cholHamoedBasics(),
-        """
-Wearing nicer clothing on Chol HaMoed honors the festival (kavod ha'moed).
-
-Practice:
-• Wear clothes you would not wear for dirty chores — clean, pressed, or festive attire.
-• Men: many wear a hat and jacket for shul even if weekday dress is casual.
-
-This applies each day of Chol HaMoed — it is a simple daily way to mark the moed apart from ordinary weekdays.
-    """.trim(),
-    )
-
     fun cholHamoedWineReviitExplanation(cal: DayInfo): String =
         BeginnerHalachaGlossary.withKeyTerms(
             BeginnerHalachaGlossary.cholHamoedBasics(),
@@ -449,6 +436,86 @@ If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there to
     fun yaalehVyavoMaarivExplanationFemale(): String =
         ExplainerTemplateFill.fill(yaalehVyavoMaarivTemplate(female = true), yaalehVyavoMaarivArgs())
 
+    fun yaalehVyavoCholHamoedShacharitExplanation(): String = """
+Add Yaaleh V'yavo in the Shacharit Amidah on Chol HaMoed — in the blessing Retzei (Avodah).
+
+$YAALEH_FORGOT_AMIDAH_SHACHARIT
+
+Also add Yaaleh V'yavo in bentching if you eat bread today.
+    """.trim()
+
+    fun yaalehVyavoCholHamoedShacharitExplanationFemale(): String = """
+If you recite the Shacharit Amidah on Chol HaMoed, add Yaaleh V'yavo in the blessing Retzei (Avodah).
+
+$YAALEH_FORGOT_AMIDAH_SHACHARIT
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
+    """.trim()
+
+    fun yaalehVyavoCholHamoedMinchaExplanation(): String = """
+Add Yaaleh V'yavo in the Mincha Amidah on Chol HaMoed — in the blessing Retzei (Avodah).
+
+$YAALEH_FORGOT_AMIDAH_MINCHA
+
+Also add Yaaleh V'yavo in bentching if you eat bread today.
+    """.trim()
+
+    fun yaalehVyavoCholHamoedMinchaExplanationFemale(): String = """
+If you recite the Mincha Amidah on Chol HaMoed, add Yaaleh V'yavo in the blessing Retzei (Avodah).
+
+$YAALEH_FORGOT_AMIDAH_MINCHA
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
+    """.trim()
+
+    fun yaalehVyavoCholHamoedMaarivExplanation(): String = """
+Add Yaaleh V'yavo in the Maariv Amidah on Chol HaMoed — in the blessing Retzei (Avodah).
+
+If you forgot: still in Retzei before God's name — insert and continue. After finishing Retzei or the Amidah on Chol HaMoed / Yom Tov — many authorities require repeating the Amidah (unlike Rosh Chodesh Maariv) — ask your rav.
+
+Also add Yaaleh V'yavo in bentching if you eat bread tonight.
+    """.trim()
+
+    fun yaalehVyavoCholHamoedMaarivExplanationFemale(): String = """
+If you recite the Maariv Amidah on Chol HaMoed, add Yaaleh V'yavo in the blessing Retzei (Avodah).
+
+If you forgot: still in Retzei before God's name — insert and continue. After finishing Retzei or the Amidah — ask your rav whether to repeat (Chol HaMoed / Yom Tov rules differ from Rosh Chodesh Maariv).
+
+If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
+    """.trim()
+
+    fun chanukahFullHallelExplanation(): String = """
+Recite Full Hallel at Shacharit every day of Chanukah (all eight days), with the blessings (Peninei Halakha 12-02-07).
+
+Tachanun is omitted throughout Chanukah.
+    """.trim()
+
+    fun chanukahFullHallelExplanationFemale(): String = """
+If you recite Hallel on Chanukah, say Full Hallel at Shacharit every day of the eight days, with the blessings (Peninei Halakha 12-02-07). Optional for women — follow your minhag.
+
+Tachanun is omitted throughout Chanukah.
+    """.trim()
+
+    fun cholHamoedFullHallelExplanation(): String = """
+Recite Full Hallel at Shacharit every day of Sukkot, including Chol HaMoed (and Hoshana Rabbah).
+
+Before Musaf: remove tefillin before Musaf if you wear them on Chol HaMoed (minhag-dependent).
+    """.trim()
+
+    fun cholHamoedFullHallelExplanationFemale(): String = """
+If you recite Hallel on Chol HaMoed Sukkot, say Full Hallel at Shacharit. Optional for women — follow your minhag.
+    """.trim()
+
+    fun cholHamoedHalfHallelExplanation(): String = """
+Recite Half (Partial) Hallel at Shacharit on Chol HaMoed Pesach. Full Hallel is only on the opening Yom Tov day(s) of Pesach (one day in Israel; the first two Diaspora Yom Tov days outside Israel).
+
+Hallel blessings: Ashkenazic custom permits a blessing over Partial Hallel; Sephardic custom strictly prohibits it (Shulchan Arukh O.C. 422:2) — follow your minhag.
+    """.trim()
+
+    fun cholHamoedHalfHallelExplanationFemale(): String = """
+If you recite Hallel on Chol HaMoed Pesach, say Half (Partial) Hallel at Shacharit. Optional for women — follow your minhag. Ashkenaz often blesses over Partial Hallel; Sephardim generally do not (Shulchan Arukh O.C. 422:2).
+    """.trim()
+
     fun roshChodeshHalfHallelExplanation(): String = """
 Recite Half Hallel after the Shacharit Amidah on Rosh Chodesh (a cherished custom; not a Torah obligation — Peninei Halakha 05-01-12).
 
@@ -512,45 +579,33 @@ Follow Ashkenazic custom — recite the blessings before Full Hallel (Alter Rebb
     fun roshChodeshObservancesExplanation(): String = """
 Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.
 
-Festive meal (mitzvah):
-• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
-• Have the meal during the day. Poskim write this commemorates the lavish feast the Sanhedrin held in the courtyard of Beit Ya'azek (בֵּית יַעְזֵק) in Jerusalem for witnesses who came to testify that they had seen the new moon — so they would be incentivized to make the trip in the future (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
-• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
+When it runs:
+• Rosh Chodesh begins at nightfall (tzeit) and ends at the next nightfall after its last day.
+• One-day Rosh Chodesh (only the 1st): from tzeit into the 1st until the following tzeit.
+• Two-day Rosh Chodesh (when the previous month has 30 days): from tzeit into the 30th through the daytime of the 1st until the tzeit after the 1st — about two full days. Observances apply on both days.
 
-Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
-• Yaaleh V'yavo in Shacharit, Mincha, and Maariv Amidah — and in bentching when you eat bread
-• Half Hallel at Shacharit (Full Hallel if Rosh Chodesh falls during Chanukah; no Hallel on Rosh Chodesh Tishrei / Rosh Hashanah)
-• Musaf after Shacharit — remove tefillin before Musaf
-• Tachanun is omitted all day
-
-Other customs:
-• Fasting and eulogies are generally not done on Rosh Chodesh
-• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details
-
-When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
+What to do:
+• Festive meal (mitzvah): increase your meal — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1). Have it during the daytime. Poskim write this commemorates the feast for new-moon witnesses at Beit Ya'azek in Jerusalem (Mishnah Rosh Hashanah 2:5; Orchos Chaim / Kol Bo on O.C. 419).
+• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted on Rosh Hashanah (Pesikta de-Rav Kahana; Tur / Magen Avraham O.C. 419:1).
+• Davening (see your Morning / Afternoon / Evening sections): Yaaleh V'yavo in Amidah and in bentching when you eat bread; Half Hallel at Shacharit (Full Hallel if Rosh Chodesh falls during Chanukah; no Hallel on Rosh Hashanah); Musaf after Shacharit (remove tefillin before Musaf); Tachanun omitted all day.
+• Fasting and eulogies are generally not done; many married women refrain from certain melacha (needlework, laundry, etc.) — ask your rav.
     """.trim()
 
     fun roshChodeshObservancesExplanationFemale(): String = """
 Rosh Chodesh (ראש חודש) — the New Month — is a semi-holiday with extra prayer and customs.
 
-Festive meal (mitzvah):
-• It is a mitzvah to increase your meal on Rosh Chodesh — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1).
-• Have the meal during the day. Poskim write this commemorates the lavish feast the Sanhedrin held in the courtyard of Beit Ya'azek (בֵּית יַעְזֵק) in Jerusalem for witnesses who came to testify that they had seen the new moon — so they would be incentivized to make the trip in the future (Mishnah Rosh Hashanah 2:5; Orchos Chaim and Kol Bo, cited on O.C. 419).
-• Money spent on Rosh Chodesh meals — like Shabbat and Yom Tov — is not deducted from the income allotted to you on Rosh Hashanah; if you spend more for these mitzvos, Heaven adds to your allotment (Pesikta de-Rav Kahana, cited in Tur O.C. 419 and Magen Avraham 419:1).
+When it runs:
+• Rosh Chodesh begins at nightfall (tzeit) and ends at the next nightfall after its last day.
+• One-day Rosh Chodesh (only the 1st): from tzeit into the 1st until the following tzeit.
+• Two-day Rosh Chodesh (when the previous month has 30 days): from tzeit into the 30th through the daytime of the 1st until the tzeit after the 1st — about two full days. Observances apply on both days.
 
-Davening today (listed in your Morning, Afternoon, and Evening Prayer sections):
-• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei. Shacharit/Mincha: correct per timing (insert in Retzei, return to the beginning of Retzei if already concluded, or repeat only that Amidah if finished). Maariv on Rosh Chodesh only: do not repeat if forgotten after Retzei (Berachot 30b; SA O.C. 422:1)
-• If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too
-• Ashkenazi custom — most authorities obligate Shacharit and Mincha Amidah on these days
-• Sephardic custom — many women fulfill the daily obligation with one prayer; if you daven an extra Amidah and forget Yaaleh V'yavo, ask your rabbi about a voluntary (nedavah) stipulation
-• Half Hallel at Shacharit if you say Hallel (optional — follow your minhag; Full Hallel if Rosh Chodesh falls during Chanukah)
-• Tachanun is omitted all day
-
-Other customs:
-• Fasting and eulogies are generally not done on Rosh Chodesh
-• Widespread custom: married women refrain from certain melacha (needlework, laundry, etc.) as an extra mark of honor — ask your rav for details
-
-When Rosh Chodesh spans two days (30th of the previous month and 1st), observances apply to both days.
+What to do:
+• Festive meal (mitzvah): increase your meal — at minimum add an extra dish or special food in honor of the day (Shulchan Arukh O.C. 419:1). Have it during the daytime.
+• If you recite Shacharit, Mincha, or Maariv Amidah — add Yaaleh V'yavo in Retzei (Shacharit/Mincha correction rules apply; on Maariv of Rosh Chodesh do not repeat if forgotten after Retzei — Berachot 30b; SA O.C. 422:1).
+• If you say Birkat Hamazon when you eat bread — add Yaaleh V'yavo there too.
+• Amidah: checklist marks weekday Amidah optional for women. Some Ashkenazi authorities treat Shacharit and Mincha more strongly on Rosh Chodesh; many Sephardic women fulfill the daily obligation with one prayer — follow your minhag and rav.
+• Half Hallel at Shacharit if you say Hallel (optional — follow your minhag; Full Hallel if during Chanukah); Tachanun omitted all day.
+• Fasting and eulogies are generally not done; widespread custom for married women to refrain from certain melacha (needlework, laundry, etc.) — ask your rav.
     """.trim()
 
     /** @deprecated Replaced by [roshChodeshObservancesExplanation]. */
@@ -770,10 +825,11 @@ Notes:
     """.trimIndent()
 
     fun ldovidExplanation(nusach: EffectiveNusach): String = """
-Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is added to Shacharit during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
+Psalm 27 (לְדָוִד ה' אוֹרִי וְיִשְׁעִי) is recited during Elul and Tishrei — a season of drawing close to G-d before and through the Days of Awe.
 
 When:
-• Said at the end of Shacharit — after Musaf on days when Musaf is recited; otherwise after the main morning service (follow your siddur).
+• Widespread custom: at the end of Shacharit — after Musaf on days when Musaf is recited; otherwise after the main morning service (follow your siddur).
+• Many communities (especially Ashkenaz) also recite it at Maariv during this season — follow your siddur and kehilla.
 • Start and end dates vary by minhag — this item follows your nusach setting.
 
 Why:
@@ -785,13 +841,17 @@ Why:
         "Ashkenaz minhag: from the second day of Rosh Chodesh Elul (1 Elul) through Shemini Atzeret (22 Tishrei). Some communities end on Hoshana Rabbah (21 Tishrei) — follow your kehilla."
 
     fun ldovidSephardNote(): String =
-        "Sephardi minhag: from Rosh Chodesh Elul through Yom Kippur (10 Tishrei) — prevalent custom (Ben Ish Chai). Some kehillot continue through Sukkot or Shemini Atzeret; ask your rav."
+        "Sephardi minhag: from 1 Elul (the second day of Rosh Chodesh Elul — not 30 Av) through Yom Kippur (10 Tishrei) — prevalent custom (Ben Ish Chai). Some kehillot continue through Sukkot or Shemini Atzeret; ask your rav."
 
     fun ldovidEdotHamizrachNote(): String =
-        "Edot HaMizrach minhag: from Rosh Chodesh Elul through Shemini Atzeret (22 Tishrei) in many communities; some end on Yom Kippur or Hoshana Rabbah — follow your kehilla."
+        "Edot HaMizrach minhag: from 1 Elul (the second day of Rosh Chodesh Elul — not 30 Av) through Shemini Atzeret (22 Tishrei) in many communities; some end on Yom Kippur or Hoshana Rabbah — follow your kehilla."
 
     fun ldovidChabadNote(): String =
         "Chabad minhag: from the first day of Rosh Chodesh Elul (30 Av) through Hoshana Rabbah (21 Tishrei). Some continue through Shemini Atzeret — follow your Chabad rabbi."
+
+    /** Single note for nusach Other — checklist visibility follows Ashkenaz end (22 Tishrei). */
+    fun ldovidOtherNote(): String =
+        "Your nusach is Other — this checklist shows L'Dovid through Shemini Atzeret (22 Tishrei), like many Ashkenaz communities. Sephardi custom often ends on Yom Kippur (10 Tishrei); Chabad often ends on Hoshana Rabbah (21 Tishrei). Follow your kehilla for the end date."
 
     private val SELICHOT_EXPLANATION = """
 Selichot (literally "Forgivenesses") is a formal order of liturgical prayer — penitential piyutim and biblical verses — recited in the lead-up to Rosh Hashana and Yom Kippur. It is not merely informal preparation before the High Holidays: it is a distinct service built around pleas for forgiveness and the Thirteen Attributes of Mercy (Shlosh-Esrei Midot Harachamim).
@@ -833,9 +893,9 @@ When Selichot begin:
 
     private val SELICHOT_OTHER_ADDENDUM = """
 
-Your setting is "Other" — this app does not apply Ashkenaz, Sephardi, Edot HaMizrach, or Chabad Selichot calendars for you.
-• Start date, text, and time of day vary widely (early Elul vs. Motzei Shabbat before Rosh Hashana, and more).
-• Use the Selichot book and schedule of your kehilla; ask your rav if unsure.
+Your setting is "Other" — checklist timing uses the common Ashkenaz Motzei-Shabbat-before-Rosh-Hashana start as a conservative default (not from Rosh Chodesh Elul).
+• Your kehilla may start earlier (e.g. from Elul) or use different text / times of day.
+• Use the Selichot book and schedule of your community; ask your rav if unsure.
     """.trim()
 
     fun selichotExplanation(nusach: EffectiveNusach): String = when (nusach) {
@@ -877,7 +937,7 @@ Your setting is "Other" — this app does not apply Ashkenaz, Sephardi, Edot HaM
         "Recited once a month when the moon is visible, usually beginning 7 days after the molad (Shulchan Arukh O.C. 426:4; Peninei Halakha 05-01-18)."
 
     private val KIDDUSH_LEVANA_WAIT_EDOT =
-        "Recited once a month when the moon is visible. The majority of Sephardim wait until 7 days after the molad (Shulchan Arukh O.C. 426:4). Moroccan and some other North African kehillot begin after 3 days / 72 hours (Peninei Halakha 05-01-18) — follow your community."
+        "Recited once a month when the moon is visible. This app opens the window 7 days after the molad (majority Sephardi / Shulchan Arukh O.C. 426:4). Moroccan and some North African kehillot begin after 3 days / 72 hours — if that is your minhag, you may say it earlier once the moon is visible; the in-app open time stays at 7 days."
 
     private val KIDDUSH_LEVANA_WAIT_ASHKENAZ_CHABAD =
         "Recited once a month when the moon is visible, usually beginning 72 hours (3 days) after the molad (Ashkenaz / Chabad custom; Peninei Halakha 05-01-18)."
@@ -890,8 +950,6 @@ Kiddush Levana (Sanctification of the New Moon) — Birkat HaLevanah. Men are ob
 
 ${'$'}waitLine
 
-Deadline: The window ends at or before the full moon. Many authorities calculate this as approximately half the mean lunar month from the molad — often cited as roughly 14 days, 18 hours, and 22 minutes (~14.75 days) — though poskim disagree whether the cutoff follows that calculation or when the moon is visibly waning. Saying it on the night of the 15th may already be too late depending on the month and opinion. Always check Sof Zman Kiddush Levana for your location before the month ends.
-
 When:
 • After nightfall (tzeit), standing outdoors under the open sky.
 • Ideally on Motzei Shabbat while still in nice clothes — a widespread custom because you are already dressed up.
@@ -902,11 +960,11 @@ How:
 • The moon must be clearly visible — if clouds block it, wait for a clear night within the window.
 • Use your siddur; it praises G-d for creation — not worship of the moon.
 
-Window closes at or before the full moon (approximately — opinions vary; often ~14.75 days from the molad). Check Sof Zman Kiddush Levana for your location.
+Window closes at Sof Zman Kiddush Levana: 14 days, 18 hours, and 22 minutes after the molad (Shulchan Arukh O.C. 426:3). This app uses that molad-based deadline; say only while the moon is still clearly visible.
     """.trimIndent()
 
     private val THREE_WEEKS_INTRO = """
-The Three Weeks (בין המצרים) from 17 Tammuz until Tisha B'Av commemorate the destruction of the Temple and Jewish tragedies.
+The Three Weeks (בין המצרים) from 17 Tammuz through the mourning that continues into 10 Av (until chatzos on an ordinary year, or through Motzei deferred Tisha B'Av / Monday morning for meat and wine when the fast is Sunday) commemorate the destruction of the Temple and Jewish tragedies.
 
 Why we mourn:
 • On 17 Tammuz the walls of Jerusalem were breached; on 9 Av both Temples were destroyed, among other national calamities.
@@ -1038,7 +1096,7 @@ When 9 Av falls on Shabbat and the fast is observed Sunday (10 Av):
 When the fast falls on Thursday and 10 Av is Friday (Shabbat prep — kvod Shabbat):
 • Haircuts, shaving, laundry, and bathing are permitted Friday morning right away so you can prepare for Shabbat — you do not wait until Friday chatzos for these.
 • Ashkenazim still refrain from meat and wine until chatzos (midday) Friday, unless tasting food being cooked specifically for Shabbat.
-• Sephardim generally permit bathing and laundry immediately Thursday night after the fast, but keep the meat restriction until Friday sunset.
+• Sephardim generally permit bathing and laundry immediately Thursday night after the fast; meat and wine often resume then as well (more lenient than Ashkenaz Friday-chatzos practice) — follow your rav.
 • After the fast ends Thursday night, some melacha related to personal pleasure may resume in specific cases — ask your rav before resuming music, laundry, or bathing for pleasure.
     """.trimIndent()
 
@@ -1046,7 +1104,7 @@ When the fast falls on Thursday and 10 Av is Friday (Shabbat prep — kvod Shabb
 The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
 
 From 1 Av:
-• Meat & wine: forbidden on weekdays of the Nine Days — including Rosh Chodesh Av and Friday before Shabbat (except tasting Shabbat food being cooked, per your minhag). Meat and wine are permitted on Shabbat itself, and at a brit milah, siyum, or pidyon ha'ben; wine for Havdalah is allowed (ideally a child ages 6–10 drinks the cup).
+• Meat & wine: forbidden on weekdays of the Nine Days — including Rosh Chodesh Av and Friday before Shabbat (except tasting Shabbat food being cooked, per your minhag). Meat and wine are permitted on Shabbat itself, and at a brit milah, siyum, or pidyon ha'ben; wine for Havdalah is allowed (ideally a child ages 6–9 drinks the cup).
 • Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited. Clean socks and underwear are permitted (ideally toss them on the floor first).
 • Bathing: bathing or showering for pleasure is prohibited; washing a dirty, sweaty, or smelly body is permitted (except on Tisha B'Av).
 • Clothing & shopping: do not buy new clothes even without Shehecheyanu, even if you will wear them only after the fast (Rama O.C. 551:7). Major home improvements, painting, and renovations are avoided.
@@ -1064,16 +1122,16 @@ Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape ju
 """).trim()
 
     private val NINE_DAYS_SEPHARDIC_EXPLANATION = ("""
-The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
+This checklist item appears for Sephardi / Edot HaMizrach from the week of Tisha B'Av (shavuah she'chal bo) — Motzei Shabbat preceding the fast — not from 1 Av. That matches common Shulchan Arukh practice for the stricter meat/wine week (some kehillot, e.g. Syrian / Mashadi, begin earlier — ask your rav).
 
-From Rosh Chodesh Av (1 Av):
-• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
-• Weddings & music: many communities stop weddings and avoid music from Rosh Chodesh Av; some are lenient until the week of Tisha B'Av.
-• Meat & wine: some kehillot already avoid them from Rosh Chodesh Av, while others wait for shavuah she'chal bo.
-• Clothing: from Rosh Chodesh Av, do not buy new clothes even without Shehecheyanu, even if you will wear them only after Tisha B'Av (common Sephardi practice; Shulchan Arukh O.C. 551 — ask your rav).
+From Rosh Chodesh Av (1 Av) — many communities already begin some restrictions (this row may still be hidden until shavuah she'chal bo):
+• Haircuts: often from Rosh Chodesh Av, or only in the week of Tisha B'Av — follow your rav.
+• Weddings & music: many stop from Rosh Chodesh Av; some wait until the week of Tisha B'Av.
+• Meat & wine: some kehillot avoid them from Rosh Chodesh Av; others wait for shavuah she'chal bo.
+• Clothing: many do not buy new clothes from Rosh Chodesh Av even without Shehecheyanu (Shulchan Arukh O.C. 551 — ask your rav).
 
-From the week in which Tisha B'Av falls (shavuah she'chal bo):
-• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av. Wine on Shabbat and at seudot mitzvah (brit, siyum, pidyon ha'ben) is permitted.
+From the week in which Tisha B'Av falls (shavuah she'chal bo) — this checklist window:
+• Meat & wine: prohibited from the start of that week for most Sephardi communities. Wine on Shabbat and at seudot mitzvah (brit, siyum, pidyon ha'ben) is permitted.
 • Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av; washing a dirty body is permitted (except on Tisha B'Av).
 • Fresh clothing & home projects: many avoid freshly laundered garments, renovations, painting, and major purchases during that stricter week.
 • Shehecheyanu: do not recite on new clothes or fruits on weekdays. On Shabbat, if you eat a new fruit, recite Shehecheyanu as usual. Do not buy new clothes during this period.
@@ -1322,7 +1380,7 @@ When and how is it performed?
 
 The timing: The custom is traditionally performed on the Fast of Esther, during the afternoon Mincha service. Giving charity on a fast day is considered especially auspicious.
 
-If someone is unable to give it during Mincha, or if the fast falls early (like on a Thursday before a Sunday Purim), it can be given on Purim morning before the reading of the Megillah.
+If someone is unable to give it during Mincha, or if the fast falls early (like on a Thursday before a Sunday Purim), it can be given on Purim morning before the reading of the Megillah. On Purim Meshulash (Jerusalem when 15 Adar is Shabbat), if you missed Mincha on the Fast of Esther, give it Friday morning before Megillah.
 
 The practice: It is customary to give three coins that represent the "half" unit of the local currency (for example, three half-dollar coins in the US, or three half-shekel coins in Israel). Three coins are used because the word terumah (contribution) is mentioned three times in the Torah portion discussing the commandment.
 

@@ -8,38 +8,45 @@ object TachanunRules {
         "sefard_shacharit_tachanun",
         "edot_hamizrach_shacharit_tachanun",
         "chabad_shacharit_tachanun",
-        "ashkenaz_musaf_tachanun",
+        "ashkenaz_mincha_tachanun",
         "sefard_mincha_tachanun",
         "edot_hamizrach_mincha_tachanun",
         "chabad_mincha_tachanun",
     )
 
     /** @deprecated use [tachanunItemIds] */
-    val minchaItemIds = tachanunItemIds.filter { it.contains("mincha") || it == "ashkenaz_musaf_tachanun" }.toSet()
+    val minchaItemIds = tachanunItemIds.filter { it.contains("mincha") }.toSet()
 
     fun isTachanunOnlyItem(itemId: String): Boolean = itemId in tachanunItemIds
 
     enum class PrayerSlot { SHACHARIT, MINCHA }
 
     fun prayerSlotForItem(itemId: String): PrayerSlot = when {
-        itemId.contains("mincha") || itemId == "ashkenaz_musaf_tachanun" -> PrayerSlot.MINCHA
+        itemId.contains("mincha") -> PrayerSlot.MINCHA
         else -> PrayerSlot.SHACHARIT
     }
 
     /** True on ordinary weekdays when Tachanun follows the Amidah for this prayer slot. */
     fun isRecited(cal: DayInfo, profile: UserProfile, itemId: String, tomorrowCal: DayInfo): Boolean =
-        isRecited(cal, profile.isInIsrael, prayerSlotForItem(itemId), tomorrowCal)
+        isRecited(
+            cal,
+            profile.isInIsrael,
+            prayerSlotForItem(itemId),
+            tomorrowCal,
+            profile.effectiveNusach(),
+        )
 
     fun isRecited(
         cal: DayInfo,
         isInIsrael: Boolean,
         slot: PrayerSlot = PrayerSlot.SHACHARIT,
         tomorrowCal: DayInfo? = null,
+        nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
     ): Boolean {
         if (cal.isShabbat) return false
         if (cal.isYomTov) return false
         if (cal.isRoshChodesh) return false
-        if (cal.isChanukah || cal.isPurim) return false
+        if (cal.isChanukah || cal.isPurim || JerusalemPurimRules.isMeshulashSeason(cal)) return false
         if (cal.isLagBaomer) return false
         if (cal.hebrewMonth == HebrewCalendarEngine.NISSAN) return false
 
@@ -59,6 +66,8 @@ object TachanunRules {
         }
 
         if (isInIsrael && (cal.isYomHaAtzmaut || cal.isYomYerushalayim)) return false
+        // Yom HaZikaron (Israel): many omit Tachanun at Mincha before Yom Ha'atzmaut; Shacharit as usual.
+        if (isInIsrael && cal.isYomHaZikaron && slot == PrayerSlot.MINCHA) return false
 
         if (isMinorCommemorativeHoliday(month, day, year)) return false
 
@@ -69,7 +78,13 @@ object TachanunRules {
             if (day in afterSimchatTorahStart..30) return false
         }
 
-        if (month == HebrewCalendarEngine.SIVAN && day in 1..12) return false
+        // Post-Shavuot: Ashkenaz commonly through 12 Sivan (MB 494:11). Sephardi/Edot often
+        // resume after Isru Chag — some still omit until the later Ashkenaz date.
+        if (month == HebrewCalendarEngine.SIVAN &&
+            isInPostShavuotOmissionWindow(month, day, isInIsrael, nusach)
+        ) {
+            return false
+        }
 
         // Observed Tisha B'Av (9 Av, or deferred Sunday 10 Av).
         if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return false
@@ -94,13 +109,14 @@ object TachanunRules {
     private fun omitsMinchaTachanunOnErev(cal: DayInfo, tomorrowCal: DayInfo?): Boolean {
         if (isErevRoshHashanaOrYomKippur(cal)) return false
 
-        if (cal.isErevShabbat) return true
+        if (TonightHolyDayRules.tonightBeginsShabbat(cal)) return true
 
         if ("erev_tisha_beav" in cal.activeSeasons) return true
         if ("erev_purim" in cal.activeSeasons) return true
         if ("erev_chanukah" in cal.activeSeasons) return true
 
-        // Classic 8 Av when seasons are not set (e.g. unit tests).
+        // Classic 8 Av when seasons are not set (e.g. unit tests) — includes Friday before
+        // deferred Sunday Tisha B'Av (9 Av on Shabbat), which is also covered by erev Shabbat.
         if (cal.hebrewMonth == HebrewCalendarEngine.AV && cal.hebrewDay == 8) return true
 
         if (tomorrowCal != null) {
@@ -110,6 +126,13 @@ object TachanunRules {
             if (tomorrowCal.isRoshChodesh) return true
             if (tomorrowCal.isLagBaomer) return true
             if (tomorrowCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) return true
+            // Deferred TBA: tomorrow is Shabbat 9 Av (fast Sunday) — omit Mincha Tachanun Friday.
+            if (tomorrowCal.isShabbat &&
+                tomorrowCal.hebrewMonth == HebrewCalendarEngine.AV &&
+                tomorrowCal.hebrewDay == 9
+            ) {
+                return true
+            }
             if (isMinorCommemorativeHoliday(
                     tomorrowCal.hebrewMonth,
                     tomorrowCal.hebrewDay,
@@ -178,27 +201,40 @@ object TachanunRules {
     fun isRecited(cal: DayInfo, isInIsrael: Boolean): Boolean =
         isRecited(cal, isInIsrael, PrayerSlot.SHACHARIT, tomorrowCal = null)
 
-    /** From Rosh Chodesh Sivan until 12 Sivan many communities omit Tachanun (Ashkenaz through 12th per MB 494:11). */
+    /**
+     * Post-Shavuot Tachanun omission.
+     * Ashkenaz / Chabad / Other: through 12 Sivan (MB 494:11).
+     * Sephardi / Edot: through Isru Chag (7 Sivan Israel / 8 diaspora); some communities
+     * continue omitting until 12 Sivan — follow your minhag.
+     */
     fun isInPostShavuotOmissionWindow(
         hebrewMonth: Int,
         hebrewDay: Int,
         isInIsrael: Boolean,
+        nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
     ): Boolean {
         if (hebrewMonth != HebrewCalendarEngine.SIVAN) return false
-        if (hebrewDay in 1..4) return true
-        if (hebrewDay == 5) return true
         val isruChagDay = if (isInIsrael) 7 else 8
-        return hebrewDay in isruChagDay..12
+        val throughDay = when (nusach) {
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> isruChagDay
+            else -> 12
+        }
+        return hebrewDay in 1..throughDay
     }
 
-    fun isInPostShavuotOmissionWindow(cal: DayInfo, isInIsrael: Boolean): Boolean {
+    fun isInPostShavuotOmissionWindow(
+        cal: DayInfo,
+        isInIsrael: Boolean,
+        nusach: EffectiveNusach = EffectiveNusach.ASHKENAZ,
+    ): Boolean {
         val month = cal.hebrewMonth ?: return false
         val day = cal.hebrewDay ?: return false
-        return isInPostShavuotOmissionWindow(month, day, isInIsrael)
+        return isInPostShavuotOmissionWindow(month, day, isInIsrael, nusach)
     }
 
     const val POST_SHAVUOT_OMISSION_NOTE =
-        "From Rosh Chodesh Sivan, many communities omit Tachanun until 12 Sivan — but some do say it; follow your minhag."
+        "From Rosh Chodesh Sivan, Ashkenaz communities commonly omit Tachanun through 12 Sivan. " +
+            "Many Sephardi communities resume after Isru Chag, though some continue omitting until the later date — follow your minhag."
 }
 
 private fun kotlinx.datetime.DayOfWeek.toHebrewEngineDay(): Int = when (this) {

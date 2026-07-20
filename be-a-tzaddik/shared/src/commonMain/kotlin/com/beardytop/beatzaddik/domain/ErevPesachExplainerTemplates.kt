@@ -51,7 +51,7 @@ ${'$'}scheduleLeadIn${'$'}scheduleBody${'$'}scheduleYomTov
     """.trimIndent()
 
     private val BEDIKAT_TEMPLATE = """
-Bedikat chametz (בְּדִיקַת חָמֵץ) — the formal search for chametz — is a rabbinic mitzvah on the night **before** Erev Pesach day (after tzeit when the Hebrew date becomes 14 Nisan).
+Bedikat chametz (בְּדִיקַת חָמֵץ) — the formal search for chametz — is a rabbinic mitzvah on the night Erev Pesach begins (after tzeit when the Hebrew date becomes 14 Nisan).
 
 ${'$'}whenLine
 
@@ -87,7 +87,7 @@ Mechirat chametz:
 • Any chametz included in the rabbi's sale should already be sealed and not eaten — only unsold chametz is burned.
 
 After biur:
-• Eat only kosher-for-Passover food until Pesach ends.
+• ${'$'}afterBiurDietNote
 • Firstborns: Taanit Bechorot earlier per schedule; Seder ${'$'}sederTiming.
 ${'$'}scheduleLeadIn${'$'}scheduleBody${'$'}scheduleYomTov
     """.trimIndent()
@@ -255,23 +255,40 @@ Second Seder prep (Diaspora this year):
         val end4th = zmanim?.let { ZmanimHelpers.endOfHalachicHourMillis(it, 4) }
             ?: zmanim?.sofZmanTefillaMillis
         val end5th = zmanim?.let { ZmanimHelpers.endOfHalachicHourMillis(it, 5) }
+        // When Erev Pesach is Shabbat, biur is Friday 13 Nisan — keep chametz for Shabbat meals;
+        // sof zman achilah / final bitul are Shabbat morning, not Friday.
         val zmanNote = buildString {
-            if (end4th != null) {
-                append("Finish eating chametz by end of the 4th halachic hour (approx. ")
-                append(ZmanimFormatter.formatTime(end4th, tz) ?: "see zmanim app")
-                append(" today). ")
-            }
-            if (end5th != null && dow != ErevPesachPrepText.PesachErevDow.SHABBAT) {
-                append("Both biur (destruction) and the final Kol Chamira must be completed before end of the 5th halachic hour (approx. ")
-                append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
-                append(" — earlier than solar chatzos midday). ")
-            } else if (end5th != null && dow == ErevPesachPrepText.PesachErevDow.SHABBAT) {
-                append("Destroy chametz by the end of the 5th halachic hour (approx. ")
-                append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
-                append(") — but do not recite the final Kol Chamira here; that is on Shabbat morning. ")
-            }
-            if (isEmpty()) {
-                append("Use a zmanim app for Erev Pesach: end of 4th halachic hour (stop eating chametz) and end of 5th halachic hour (biur and Kol Chamira deadline). ")
+            when (dow) {
+                ErevPesachPrepText.PesachErevDow.SHABBAT -> {
+                    if (end5th != null) {
+                        append("Burn leftover chametz by the end of the 5th halachic hour today (approx. ")
+                        append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
+                        append("). ")
+                    }
+                    append(
+                        "Do not stop eating chametz today — keep what you need for Shabbat meals. " +
+                            "Finish eating chametz by the end of the 4th halachic hour on Shabbat morning; " +
+                            "final Kol Chamira by the end of the 5th hour on Shabbat.",
+                    )
+                }
+                else -> {
+                    if (end4th != null) {
+                        append("Finish eating chametz by end of the 4th halachic hour (approx. ")
+                        append(ZmanimFormatter.formatTime(end4th, tz) ?: "see zmanim app")
+                        append(" today). ")
+                    }
+                    if (end5th != null) {
+                        append("Both biur (destruction) and the final Kol Chamira must be completed before end of the 5th halachic hour (approx. ")
+                        append(ZmanimFormatter.formatTime(end5th, tz) ?: "see zmanim app")
+                        append(" — earlier than solar chatzos midday). ")
+                    }
+                    if (isEmpty()) {
+                        append(
+                            "Use a zmanim app for Erev Pesach: end of 4th halachic hour (stop eating chametz) " +
+                                "and end of 5th halachic hour (biur and Kol Chamira deadline). ",
+                        )
+                    }
+                }
             }
         }
         val morningNote = when (dow) {
@@ -292,6 +309,12 @@ Second Seder prep (Diaspora this year):
         } else {
             ""
         }
+        val afterBiurDietNote = when (dow) {
+            ErevPesachPrepText.PesachErevDow.SHABBAT ->
+                "Keep chametz set aside for Shabbat meals; seal sold chametz. After sof zman achilah on Shabbat morning, eat only kosher-for-Passover food until Pesach ends."
+            else ->
+                "Eat only kosher-for-Passover food until Pesach ends."
+        }
         val sederTiming = when (dow) {
             ErevPesachPrepText.PesachErevDow.SHABBAT -> "after Shabbat (Motzei Shabbat)"
             ErevPesachPrepText.PesachErevDow.FRIDAY ->
@@ -303,6 +326,7 @@ Second Seder prep (Diaspora this year):
             "zmanNote" to zmanNote,
             "timelineGuardrail" to timelineGuardrail,
             "kolChamiraShabbatNote" to kolChamiraShabbatNote,
+            "afterBiurDietNote" to afterBiurDietNote,
             "sederTiming" to sederTiming,
         ) + scheduleArgs(cal, profile)
     }

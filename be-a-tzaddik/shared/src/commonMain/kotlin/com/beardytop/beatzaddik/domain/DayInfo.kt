@@ -64,7 +64,13 @@ data class DayInfo(
      * True from tzeit until civil midnight: this DayInfo describes the Hebrew day that began
      * tonight at nightfall, while the civil (Gregorian) date is still the previous day.
      * [date] and [zmanim] refer to this Hebrew day's upcoming civil daytime;
-     * [civilLabel] keeps the real civil date for display. See [HalachicDayRollover].
+     * [civilLabel] keeps the real civil date for display.
+     *
+     * After rollover, [HalachicDayRollover.sanitizeAfterTzeitRollover] clears next-sunset
+     * erev markers (`isErevShabbat`, `erev_chag`) so Motzei is not treated as erev night.
+     *
+     * **Do not use this alone for "still tonight until dawn."** After civil midnight the flag
+     * is false while the night window continues — use [HalachicNightWindow.isOpen] instead.
      */
     val startedTonightAtTzeit: Boolean = false,
 )

@@ -37,6 +37,31 @@ object PublicFastDayRules {
     fun isErevMinorFast(todayIdx: Int, tomorrowIdx: Int): Boolean =
         isMinorFast(tomorrowIdx) && !isPublicFast(todayIdx)
 
+    /**
+     * Motzei Shabbat when a minor fast was postponed from Shabbat to Sunday (17 Tammuz /
+     * Fast of Gedaliah). The checklist is hidden on Shabbat, so surface prep after tzeit —
+     * the fast only starts at dawn, so there is time to hydrate / set a tanai Motzei.
+     */
+    fun deferredSundayMinorFastIndexForMotzeiPrep(cal: DayInfo, tomorrowCal: DayInfo): Int? {
+        fun deferredMinor(idx: Int?, day: DayInfo): Int? =
+            idx?.takeIf { isMinorFast(it) && isDeferredFromShabbat(day) }
+
+        deferredMinor(cal.fastDayIndex, cal)?.let { return it }
+        // Still tagged as Shabbat before Hebrew rollover quirks — tomorrow is Sunday's fast.
+        if (cal.isShabbat || cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.SATURDAY) {
+            deferredMinor(tomorrowCal.fastDayIndex, tomorrowCal)?.let { return it }
+        }
+        return null
+    }
+
+    fun shouldShowMotzeiShabbatDeferredMinorFastPrep(
+        cal: DayInfo,
+        tomorrowCal: DayInfo,
+        nowMillis: Long,
+    ): Boolean =
+        MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis) &&
+            deferredSundayMinorFastIndexForMotzeiPrep(cal, tomorrowCal) != null
+
     fun isErevYomKippur(idx: Int): Boolean = idx == HebrewCalendarEngine.EREV_YOM_KIPPUR
 
     /**
@@ -104,10 +129,10 @@ object PublicFastDayRules {
                 month == HebrewCalendarEngine.AV && day == 10
             HebrewCalendarEngine.FAST_OF_GEDALYAH ->
                 month == HebrewCalendarEngine.TISHREI && day == 4
-            // When 13 Adar is Shabbat, Taanit Esther moves to Thursday (11 or 12 Adar).
+            // When 13 Adar is Shabbat, Taanit Esther moves to the preceding Thursday (11 Adar).
             HebrewCalendarEngine.FAST_OF_ESTHER ->
                 (month == HebrewCalendarEngine.ADAR || month == HebrewCalendarEngine.ADAR_II) &&
-                    day in 11..12
+                    day == 11
             else -> false
         }
     }

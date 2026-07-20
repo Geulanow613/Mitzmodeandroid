@@ -36,7 +36,18 @@ object EruvTavshilinRules {
                 "erev_pesach" in cal.activeSeasons &&
                     HebrewCalendarEngine.isErevFirstPesachSeder(cal.hebrewMonth, cal.hebrewDay)
             }
-            ?: tomorrowCal.yomTovHolidayName?.let { null } // index unavailable without backend field
+            ?: holidayNameToYomTovIndex(tomorrowCal.yomTovHolidayName)
+
+    private fun holidayNameToYomTovIndex(name: String?): Int? = when (name?.trim()?.lowercase()) {
+        "pesach", "passover" -> HebrewCalendarEngine.PESACH
+        "shavuot", "shavuos" -> HebrewCalendarEngine.SHAVUOS
+        "sukkot", "succos", "sukkos" -> HebrewCalendarEngine.SUCCOS
+        "rosh hashana", "rosh hashanah" -> HebrewCalendarEngine.ROSH_HASHANA
+        "shemini atzeret", "shemini atzeres" -> HebrewCalendarEngine.SHEMINI_ATZERES
+        "simchat torah", "simchas torah" -> HebrewCalendarEngine.SIMCHAS_TORAH
+        "yom kippur" -> HebrewCalendarEngine.YOM_KIPPUR
+        else -> null
+    }
 
     /** Civil Yom Tov days starting tomorrow (first YT civil day = tomorrow on festival eve). */
     fun yomTovCivilDays(profile: UserProfile, chagIdx: Int): Int =

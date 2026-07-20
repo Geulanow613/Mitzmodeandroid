@@ -53,15 +53,15 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
                 if (civilIsErevShabbat) add("Erev Shabbat")
                 if (civilIsShabbat) add("Shabbat")
             }
-            return rolled.copy(
-                date = date,
+            return HalachicDayRollover.sanitizeAfterTzeitRollover(
+                rolled = rolled,
+                civilDate = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
                 statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,
                 inactivePeriodHint = period.laterSummary,
-                startedTonightAtTzeit = true,
             )
         }
         val jc = JewishCalendar(now.time).apply {
@@ -237,7 +237,16 @@ private class ZmanimJewishCalendarBackend : JewishCalendarBackend {
                 add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
             }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
-            if (isPurim) add(JerusalemPurimRules.statusChipLabel(isJerusalemPurim))
+            if (isPurimMeshulashFriday || isPurimMeshulashSunday || isShushanPurimOnMeshulashShabbat || isPurim) {
+                add(
+                    JerusalemPurimRules.statusChipLabel(
+                        isJerusalem = isJerusalemPurim,
+                        meshulashFriday = isPurimMeshulashFriday,
+                        meshulashSunday = isPurimMeshulashSunday,
+                        meshulashShabbat = isShushanPurimOnMeshulashShabbat,
+                    ),
+                )
+            }
             if (isYomHaShoah) add("Yom HaShoah")
             if (isYomHaZikaron) add("Yom HaZikaron")
             if (isYomHaAtzmaut) add("Yom Ha'atzmaut")

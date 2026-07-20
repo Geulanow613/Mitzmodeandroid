@@ -202,6 +202,14 @@ internal object HebrewCalendarEngine {
     fun tchilasZmanKidushLevana7DaysMillis(jewishYear: Int, jewishMonth: Int): Long =
         moladAsEpochMillis(jewishYear, jewishMonth) + 168L * 60 * 60 * 1000
 
+    /**
+     * Sof Zman Kiddush Levana — 14 days, 18 hours, and 22 minutes after the molad
+     * (Shulchan Arukh O.C. 426:3; classic “until the moon is full” / KosherJava 15-day sof zman).
+     */
+    fun sofZmanKidushLevanaMillis(jewishYear: Int, jewishMonth: Int): Long =
+        moladAsEpochMillis(jewishYear, jewishMonth) +
+            ((((14L * 24 + 18) * 60) + 22) * 60 * 1000)
+
     private fun absDateToGregorian(absDate: Int): Triple<Int, Int, Int> {
         var year = absDate / 366
         while (absDate >= gregorianDateToAbsDate(year + 1, 1, 1)) year++

@@ -38,11 +38,32 @@ class MaarivInAppRulesTest {
     }
 
     @Test
+    fun motzeiIntoFridayAfterThursdayEndingYomTovDoesNotBlockAsShabbat() {
+        // After tzeit rollover, Friday's isErevShabbat can stick while tonight is Motzei → Friday.
+        val cal = day(isErevShabbat = true).copy(startedTonightAtTzeit = true)
+        assertNull(MaarivInAppRules.blockedTonightLabel(cal, null, false))
+    }
+
+    @Test
     fun erevChagBlocksMaariv() {
         assertEquals(
             "Yom Tov",
             MaarivInAppRules.blockedTonightLabel(day(activeSeasons = setOf("erev_chag")), null, false),
         )
+    }
+
+    @Test
+    fun motzeiIntoErevChagDayDoesNotBlockAsYomTov() {
+        // After tzeit onto Friday erev (Sat YT): Yom Tov starts tomorrow night, not tonight.
+        val cal = day(activeSeasons = setOf("erev_chag")).copy(startedTonightAtTzeit = true)
+        assertNull(MaarivInAppRules.blockedTonightLabel(cal, null, false))
+    }
+
+    @Test
+    fun motzeiRolloverIgnoresTomorrowCivilYomTovFlag() {
+        val cal = day().copy(startedTonightAtTzeit = true)
+        val tomorrow = day(isYomTovAssurBemelacha = true)
+        assertNull(MaarivInAppRules.blockedTonightLabel(cal, tomorrow, false))
     }
 
     @Test

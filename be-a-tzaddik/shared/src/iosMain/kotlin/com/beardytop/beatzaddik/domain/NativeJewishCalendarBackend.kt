@@ -96,15 +96,15 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
                 if (civilIsErevShabbat) add("Erev Shabbat")
                 if (civilIsShabbat) add("Shabbat")
             }
-            return rolled.copy(
-                date = date,
+            return HalachicDayRollover.sanitizeAfterTzeitRollover(
+                rolled = rolled,
+                civilDate = date,
                 civilLabel = ZmanimFormatter.formatCivilDate(date),
                 statusChips = civilChips + rolledChipsWithoutCivil,
                 activeTimeOfDay = period.timeOfDay,
                 activePeriodLabel = period.activeTitle,
                 activePeriodHint = period.activeSummary,
                 inactivePeriodHint = period.laterSummary,
-                startedTonightAtTzeit = true,
             )
         }
 
@@ -231,8 +231,9 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
         val isYomHaZikaron     = idx == HebrewCalendarEngine.YOM_HAZIKARON
         val isYomHaAtzmaut     = idx == HebrewCalendarEngine.YOM_HAATZMAUT
         val isYomYerushalayim  = idx == HebrewCalendarEngine.YOM_YERUSHALAYIM
-        val isErevChag = !isYomTov &&
-            HebrewCalendarEngine.isYomTov(tomorrowIdx) &&
+        // Match Android: Chol HaMoed / Hoshana Rabbah (isYomTov but not assur bemelacha)
+        // can still be erev of the next melacha-day Yom Tov.
+        val isErevChag = !isYomTovAssurBemelacha &&
             HebrewCalendarEngine.isYomTovAssurBemelacha(tomorrowIdx)
         val upcomingChagName = if (isErevChag) {
             UpcomingHolidayNames.erevUpcomingDisplayName(
@@ -308,7 +309,16 @@ internal class NativeJewishCalendarBackend : JewishCalendarBackend {
                 add(OmerCountText.statusChipLabel(omerDay, profile.effectiveNusach()))
             }
             if (isChanukah && chanukahDay != null) add("Chanukah day $chanukahDay")
-            if (isPurim) add(JerusalemPurimRules.statusChipLabel(isJerusalemPurim))
+            if (isPurimMeshulashFriday || isPurimMeshulashSunday || isShushanPurimOnMeshulashShabbat || isPurim) {
+                add(
+                    JerusalemPurimRules.statusChipLabel(
+                        isJerusalem = isJerusalemPurim,
+                        meshulashFriday = isPurimMeshulashFriday,
+                        meshulashSunday = isPurimMeshulashSunday,
+                        meshulashShabbat = isShushanPurimOnMeshulashShabbat,
+                    ),
+                )
+            }
             if (isYomHaShoah) add("Yom HaShoah")
             if (isYomHaZikaron) add("Yom HaZikaron")
             if (isYomHaAtzmaut) add("Yom Ha'atzmaut")

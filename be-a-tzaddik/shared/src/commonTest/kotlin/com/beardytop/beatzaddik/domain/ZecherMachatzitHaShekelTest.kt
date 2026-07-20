@@ -12,11 +12,15 @@ class ZecherMachatzitHaShekelTest {
         val fast = day().copy(fastDayIndex = HebrewCalendarEngine.FAST_OF_ESTHER, activeSeasons = setOf("fast_day"))
         val purim = day().copy(isPurim = true, activeSeasons = setOf("purim"))
         val meshulashFriday = day().copy(activeSeasons = setOf("purim_meshulash_friday"))
+        val meshulashShabbat = day().copy(activeSeasons = setOf("purim_meshulash_shabbat"), isShabbat = true)
+        val meshulashSunday = day().copy(activeSeasons = setOf("purim_meshulash_sunday"))
         val ordinary = day()
 
         assertTrue(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(fast))
         assertTrue(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(purim))
         assertTrue(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(meshulashFriday))
+        assertFalse(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(meshulashShabbat))
+        assertFalse(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(meshulashSunday))
         assertFalse(SeasonalChecklistItems.shouldShowZecherMachatzitHaShekel(ordinary))
     }
 

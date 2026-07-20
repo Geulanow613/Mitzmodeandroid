@@ -91,7 +91,7 @@ Chabad: No official communal observance is instituted, though the memory of the 
 
 In Israel: Memorial sirens sound at 8:00 PM (start of the day, at nightfall) and again at 11:00 AM the following morning. Ceremonies are held at military cemeteries across the country. Flags fly at half-mast.
 
-Prayers: Standard weekday davening for most communities. Some Religious Zionist shuls omit Tachanun at Mincha before the transition into Yom Ha'atzmaut; many Charedi and Chabad communities treat the day as an ordinary weekday throughout.
+Prayers: Standard weekday davening for most communities. In Israel this app omits Tachanun at Mincha (common Religious Zionist practice before the transition into Yom Ha'atzmaut); Shacharit Tachanun remains. Many Charedi and Chabad communities treat the day as an ordinary weekday throughout — follow your kehilla.
 
 The day ends at nightfall with the transition into Yom Ha'atzmaut celebrations."""
 
@@ -131,13 +131,25 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         nowMillis: Long,
     ): List<ChecklistItemDef> = buildList {
         if (cal.isSefiratHaomer && cal.omerDay != null && cal.omerDay in 1..49) {
-            add(omerItem(cal, profile))
+            add(omerItem(cal, profile, nowMillis))
             if (SefirahMourningRules.isMourningDay(cal, profile.effectiveNusach(), nowMillis)) {
-                add(sefirahMourningMusicItem(profile))
+                add(sefirahMourningMusicItem(profile, cal))
             }
         }
         if (cal.isChanukah && cal.chanukahDay != null) {
-            add(chanukahItem(cal.chanukahDay, profile))
+            // Daytime day N → tonight is Night N+1; after tzeit day N → Night N;
+            // daytime day 8 → no more lighting (Night 8 was last night).
+            chanukahLightingNight(cal, nowMillis)?.let { add(chanukahItem(it, profile)) }
+            // Full Hallel every Chanukah day; RC overlap uses the RC Full Hallel row instead.
+            if (!cal.isRoshChodesh) {
+                add(chanukahFullHallelItem(profile))
+            }
+        } else if ("erev_chanukah" in cal.activeSeasons &&
+            TonightHolyDayRules.tonightBeginsShabbat(cal)
+        ) {
+            // 24 Kislev on Friday: Night 1 must be lit before Shabbat candles.
+            // Tag erev_chanukah so matchesSeason keeps the row (chanukah season starts at tzeit).
+            add(chanukahItem(1, profile).copy(seasons = listOf("erev_chanukah", "chanukah")))
         }
         if ("purim_meshulash_friday" in cal.activeSeasons) {
             addAll(purimMeshulashFridayItems(profile))
@@ -151,12 +163,15 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         if (shouldShowZecherMachatzitHaShekel(cal)) {
             add(zecherMachatzitHaShekelItem(cal, profile))
         }
-        if ("erev_chag" in cal.activeSeasons && !HolyDayPhoneRules.isShabbatMelachaDay(cal)) {
+        if ("erev_chag" in cal.activeSeasons &&
+            !cal.startedTonightAtTzeit &&
+            !HolyDayPhoneRules.isShabbatMelachaDay(cal)
+        ) {
             add(erevChagPrepItem(cal, profile, tomorrowCal))
             // Timed hadlakat nerot for weekday erev YT (Friday uses Shabbat candles).
             // Motzei Shabbat→YT lighting is after tzeit when the checklist is already hidden —
             // that case stays in Friday advance / erev-chag prep prose.
-            if (!cal.isErevShabbat) {
+            if (!TonightHolyDayRules.tonightBeginsShabbat(cal)) {
                 add(yomTovCandlesItem(cal, profile, tomorrowCal))
             }
         }
@@ -169,21 +184,28 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         if ("erev_purim" in cal.activeSeasons) {
             add(erevPurimPrepItem(cal, tomorrowCal))
         }
-        if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal)) {
+        if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrowCal) ||
+            PurimMeshulashText.isMeshulashFridayNightMegillahWindow(cal, nowMillis)
+        ) {
+            // Thursday daytime (erev) UPCOMING, and after tzeit through Friday dawn ACTIVE.
             add(purimMeshulashErevMegillahItem(profile))
         }
         if ("erev_chanukah" in cal.activeSeasons) {
-            add(erevChanukahPrepItem(profile))
+            add(erevChanukahPrepItem(cal, profile))
         }
         if (cal.isRoshChodesh) {
             add(roshChodeshMonthlyItem(profile))
-            addAll(yaalehVyavoRoshChodeshItems(profile))
+            addAll(yaalehVyavoRoshChodeshDaytimeItems(profile))
             when (RoshChodeshRules.hallelKind(cal)) {
                 RoshChodeshRules.HallelKind.HALF -> add(roshChodeshHalfHallelItem(profile))
                 RoshChodeshRules.HallelKind.FULL_DURING_CHANUKAH ->
                     add(roshChodeshFullHallelDuringChanukahItem(profile))
                 RoshChodeshRules.HallelKind.NONE -> Unit
             }
+        }
+        // Maariv Yaaleh: night RC begins / continues — not the last RC day's outgoing night.
+        if (shouldShowYaalehMaarivRoshChodesh(cal, tomorrowCal, nowMillis)) {
+            add(yaalehVyavoRoshChodeshMaarivItem(profile))
         }
         if (isKiddushLevanaWindow(cal, profile, nowMillis) && profile.gender.usesMaleChecklistItems()) {
             add(kiddushLevanaItem(profile))
@@ -195,16 +217,19 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         // are intentionally not listed as "mitzvot" in the daily checklist. They still appear in the
         // "Upcoming & seasonal" header block, and their full explainers remain accessible there.
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) {
-            addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile))
+            addAll(ErevPesachPrepText.pesachPrepItemsForDay(cal, profile, nowMillis))
         }
         if (EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)) {
             add(eruvTavshilinItem(cal, profile, tomorrowCal))
         }
         festivalWeekPrepItem(cal, profile)?.let { add(it) }
         if ("chol_hamoed_pesach" in cal.activeSeasons || "chol_hamoed_sukkot" in cal.activeSeasons) {
-            addAll(cholHamoedItems(cal, profile))
+            addAll(cholHamoedItems(cal, profile, tomorrowCal, nowMillis))
         }
-        if ("sukkot" in cal.activeSeasons && "chol_hamoed_sukkot" !in cal.activeSeasons) {
+        if ("sukkot" in cal.activeSeasons &&
+            "chol_hamoed_sukkot" !in cal.activeSeasons &&
+            !HolyDayPhoneRules.isShabbatMelachaDay(cal)
+        ) {
             add(arbaMinimItem(profile))
         }
         if ("shemini_atzeret" in cal.activeSeasons) {
@@ -213,21 +238,27 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         if ("simchat_torah" in cal.activeSeasons && !profile.isInIsrael) {
             add(simchatTorahItem(profile))
         }
-        if (isNightAfterYomKippur(cal)) {
+        // Motzei YK only (tzeit→dawn) — same night gate as the break-fast meal.
+        if (isMotzeiYomKippurWindow(cal, nowMillis)) {
             add(buildSukkahAfterYomKippurItem(profile))
         }
-        if (MourningPeriodRules.isInNineDaysPeriod(cal, nowMillis)) {
+        if (MourningPeriodRules.isInNineDaysPeriod(cal, nowMillis, profile.effectiveNusach())) {
             add(nineDaysMourningItem(profile))
         }
         if (MourningPeriodRules.isInThreeWeeksPeriod(cal, nowMillis)) {
             add(threeWeeksMourningItem(profile))
         }
         selichotItemForDay(cal, profile)?.let { add(it) }
-        ldovidItemForDay(cal, profile)?.let { add(it) }
+        addAll(ldovidItemsForDay(cal, profile))
         birkatHachamahItemForDay(cal)?.let { add(it) }
         birkatHaIlanotItemForDay(cal, profile)?.let { add(it) }
-        if ("erev_minor_fast" in cal.activeSeasons && cal.upcomingFastDayIndex != null) {
-            add(erevMinorFastPrepItem(cal, profile))
+        val motzeiDeferredMinorFast = PublicFastDayRules.shouldShowMotzeiShabbatDeferredMinorFastPrep(
+            cal, tomorrowCal, nowMillis,
+        )
+        if (("erev_minor_fast" in cal.activeSeasons && cal.upcomingFastDayIndex != null) ||
+            motzeiDeferredMinorFast
+        ) {
+            add(erevMinorFastPrepItem(cal, profile, tomorrowCal, motzeiDeferredMinorFast))
         }
         if ("erev_yom_kippur" in cal.activeSeasons) {
             add(erevYomKippurEatItem(cal, profile))
@@ -240,24 +271,23 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         }
         if ("fast_day" in cal.activeSeasons && cal.fastDayIndex != null) {
             add(publicFastDayItem(cal, profile))
-            if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
-                TishaBeavTefillinRules.omitsMorningTefillin(profile.effectiveNusach())
-            ) {
+            // Mincha tallit/tefillin is widespread on Tisha B'Av for all minhagim (including OTHER).
+            if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV) {
                 add(tefillinTishaBeavMinchaItem())
             }
         }
-        // After tzeit, Hebrew day is 11 Tishrei (fast_day is off) — still show the break-fast meal.
-        if (isNightAfterYomKippur(cal) ||
+        // After tzeit, Hebrew day is 11 Tishrei (fast_day is off) — show break-fast through dawn.
+        if (isMotzeiYomKippurWindow(cal, nowMillis) ||
             (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR && "fast_day" in cal.activeSeasons)
         ) {
             add(motzeiYomKippurMealItem(cal, profile))
         }
     }
 
-    private fun omerItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
+    private fun omerItem(cal: DayInfo, profile: UserProfile, nowMillis: Long): ChecklistItemDef {
         return ChecklistItemDef(
             id = OmerCountText.CHECKLIST_ITEM_ID,
-            title = OmerCountText.buildTitle(cal, profile.effectiveNusach()),
+            title = OmerCountText.buildTitle(cal, profile.effectiveNusach(), nowMillis),
             section = "Sefirat HaOmer",
             timeOfDay = TimeOfDay.ANY,
             required = true,
@@ -270,12 +300,18 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         )
     }
 
-    private fun sefirahMourningMusicItem(profile: UserProfile): ChecklistItemDef =
-        ChecklistItemDef(
+    private fun sefirahMourningMusicItem(profile: UserProfile, cal: DayInfo): ChecklistItemDef {
+        val lagMusicOk = cal.omerDay == 33 &&
+            profile.effectiveNusach() in setOf(EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH)
+        return ChecklistItemDef(
             id = "sefirah_mourning_music",
-            title = "Sefirah: mourning customs (music, weddings, haircuts)",
+            title = if (lagMusicOk) {
+                "Sefirah: mourning customs (weddings, haircuts) — music often permitted on Lag"
+            } else {
+                "Sefirah: mourning customs (music, weddings, haircuts)"
+            },
             section = "Mourning customs",
-            timeOfDay = TimeOfDay.DAY,
+            timeOfDay = TimeOfDay.ANY,
             required = false,
             situational = false,
             seasons = listOf("sefirah"),
@@ -287,11 +323,11 @@ The exact mourning window varies drastically by nusach — start date, end date,
 
 Checklist visibility follows your selected nusach (see below). A personal rav is final.
 
-Common practices during your window: no live music (recordings/a cappella rules vary), no weddings, no haircuts.""",
+Common practices during your window: no live music (recordings/a cappella rules vary; many Sephardim permit music on Lag itself), no weddings, no haircuts.""",
             ),
             explanationAshkenaz = """Ashkenaz — two widespread customs:
 
-1) First 33 days (most common): mourning on Omer days 1–32. On Lag BaOmer (day 33) the period permanently ends in the morning (miktzat hayom k'kulo — a small part of the day counts as the whole). Days 34–49 have no mourning restrictions.
+1) First 33 days (most common): mourning on Omer days 1–32. When Lag BaOmer begins at nightfall (tzeit after day 32 — the night of day 33), the period permanently ends. Days 33–49 have no mourning restrictions for this custom.
 
 2) Later 33 / Rema: mourning from 1 Iyar (about day 16) through Erev Shavuot. Lag BaOmer is only a one-day break (weddings, music, haircuts permitted that day); mourning returns on day 34 until about 3 Sivan / Erev Shavuot.
 
@@ -304,11 +340,28 @@ Follow your kehilla (Rav Ovadia Yosef, Yechaveh Daat 3:31; Peninei Halakha).""",
             explanationEdotHamizrach = """Edot HaMizrach often follow Shulchan Arukh: mourning days 1–33 inclusive (Lag still restricted for weddings/haircuts). Many permit music/dancing on Lag for the Hillula of R. Shimon bar Yochai; after Lag ends, night of day 34 snaps restrictions back until morning of day 34, when mourning ends permanently.
 
 Some kehillot follow the Ari through Erev Shavuot (with Lag as a one-day break), and some North African communities end on Lag — ask your rav.""",
-            explanationChabad = """Chabad / Arizal: mourning restraint through the Omer (days 1–49) until Erev Shavuot. Lag BaOmer (day 33) is a one-day suspension — celebration and music are permitted; mourning returns on day 34.
+            explanationChabad = """Chabad / Arizal: mourning restraint through the Omer until Erev Shavuot. Lag BaOmer (day 33) is a one-day suspension — celebration and music are permitted; mourning returns on day 34. On Erev Shavuot (day 49) mourning is lifted (haircuts etc. permitted) — this item is hidden that day.
 
 Some families ease wedding restrictions during Shloshet Yemei Hagbalah (about days 46–48). Adult haircut practice can be stricter than the general Lag break (upsherin is a common exception) — ask your Chabad rav.""",
             links = sefirahMourningLinks(profile)
         )
+    }
+
+    /**
+     * Maps calendar Chanukah day → lighting night number.
+     *
+     * After tzeit (through dawn, including after civil midnight) the Hebrew day has already
+     * rolled, so [DayInfo.chanukahDay] equals tonight's night (Night N on day N). Before tzeit,
+     * tonight's candles are Night N+1. Daytime day 8 has no lighting left.
+     */
+    internal fun chanukahLightingNight(cal: DayInfo, nowMillis: Long): Int? {
+        val day = cal.chanukahDay ?: return null
+        return if (HalachicNightWindow.isOpen(cal, nowMillis)) {
+            day.takeIf { it in 1..8 }
+        } else {
+            (day + 1).takeIf { it in 1..8 }
+        }
+    }
 
     private fun chanukahItem(day: Int, profile: UserProfile): ChecklistItemDef =
         ChecklistItemDef(
@@ -322,11 +375,14 @@ Some families ease wedding restrictions during Shloshet Yemei Hagbalah (about da
             links = SeasonalMitzvahText.chanukahDayLinks(profile)
         )
 
-    /** Fast of Esther (Mincha), Purim morning, or Purim Meshulash Friday (Megillah day). */
-    fun shouldShowZecherMachatzitHaShekel(cal: DayInfo): Boolean =
-        cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER ||
-            cal.isPurim ||
-            "purim_meshulash_friday" in cal.activeSeasons
+    /** Fast of Esther, ordinary Purim, or Meshulash Friday — not Meshulash Shabbat/Sunday. */
+    fun shouldShowZecherMachatzitHaShekel(cal: DayInfo): Boolean {
+        if (cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER) return true
+        if ("purim_meshulash_friday" in cal.activeSeasons) return true
+        if ("purim_meshulash_sunday" in cal.activeSeasons) return false
+        if ("purim_meshulash_shabbat" in cal.activeSeasons) return false
+        return cal.isPurim
+    }
 
     private fun zecherMachatzitHaShekelItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
         val onFast = cal.fastDayIndex == HebrewCalendarEngine.FAST_OF_ESTHER
@@ -608,7 +664,7 @@ Women traditionally light; a man lights if no woman is present. Ask your rav for
         timeOfDay = TimeOfDay.DAY,
         required = false,
         situational = false,
-        seasons = emptyList(),
+        seasons = null, // visibility gated by forDay() Meshulash advance-prep check
         explanation = PurimMeshulashText.advancePrepExplanation(),
         links = purimPrepLinks(),
     )
@@ -619,16 +675,23 @@ Women traditionally light; a man lights if no woman is present. Ask your rav for
         ChecklistLink("Ohr Somayach — Purim", "https://ohr.edu/1508", "default"),
     )
 
-    private fun erevChanukahPrepItem(profile: UserProfile) = ChecklistItemDef(
-        id = "erev_chanukah_prep",
-        title = "Erev Chanukah prep — set up menorah, candles, etc.",
-        section = "Chanukah",
-        timeOfDay = TimeOfDay.DAY,
-        required = false,
-        situational = false,
-        seasons = listOf("erev_chanukah"),
-        explanation = """
-Chanukah starts tomorrow night. Set up now so lighting is calm and on time.
+    private fun erevChanukahPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
+        val fridayErev = cal.isErevShabbat
+        val opener = if (fridayErev) {
+            "Chanukah begins tonight — light Night 1 before Shabbat candles (from plag when needed). Set up now so lighting is calm and on time."
+        } else {
+            "Chanukah begins tonight — light Night 1 after nightfall (tzeit). Set up now so lighting is calm and on time."
+        }
+        return ChecklistItemDef(
+            id = "erev_chanukah_prep",
+            title = "Erev Chanukah prep — set up menorah, candles, etc.",
+            section = "Chanukah",
+            timeOfDay = TimeOfDay.DAY,
+            required = false,
+            situational = false,
+            seasons = listOf("erev_chanukah"),
+            explanation = """
+$opener
 
 Before the first night:
 • Place the menorah where it will be safe and visible (common: by a window/doorway for pirsumei nisa; avoid drafts and fire hazards).
@@ -639,13 +702,14 @@ Before the first night:
 
 Timing notes:
 • Ideally light after tzeit (nightfall).
-• Friday: light Chanukah before Shabbat candles; use enough oil/large enough candles to last 30 minutes after nightfall.
+• Friday: light Chanukah before Shabbat candles (earliest from plag); use enough oil/large enough candles to last 30 minutes after nightfall.
 • Motzei Shabbat: light before or after Havdalah per minhag.
 
 Quick reference: https://ohr.edu/1304
         """.trimIndent(),
-        links = erevChanukahPrepLinks()
-    )
+            links = erevChanukahPrepLinks(),
+        )
+    }
 
     private fun festivalWeekPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val prep = cal.festivalWeekPrep() ?: return null
@@ -662,18 +726,40 @@ Quick reference: https://ohr.edu/1304
         )
     }
 
-    private fun cholHamoedItems(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
+    private fun cholHamoedItems(
+        cal: DayInfo,
+        profile: UserProfile,
+        tomorrowCal: DayInfo,
+        nowMillis: Long,
+    ): List<ChecklistItemDef> {
         val list = mutableListOf<ChecklistItemDef>()
+        // Yaaleh — RC days already get Yaaleh from the RC path (skip CHM Yaaleh duplicate).
+        // Hallel — always from CHM rows on CHM (Full Sukkot / Half Pesach), including RC overlap
+        // (RoshChodeshRules.hallelKind returns NONE on CHM so RC Half is not also added).
+        if (!cal.isRoshChodesh) {
+            list += yaalehVyavoCholHamoedDaytimeItems(profile)
+            if (shouldShowYaalehMaarivCholHamoed(cal, tomorrowCal, nowMillis)) {
+                list += yaalehVyavoCholHamoedMaarivItem(profile)
+            }
+        }
         if ("chol_hamoed_sukkot" in cal.activeSeasons) {
-            list += arbaMinimItem(profile).copy(
-                section = if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
-                    "Hoshana Rabbah"
-                } else {
-                    "Chol HaMoed"
-                },
-                sortOrder = -30,
-                seasons = listOf("chol_hamoed_sukkot", "sukkot"),
-            )
+            list += cholHamoedFullHallelItem(cal, profile)
+        }
+        if ("chol_hamoed_pesach" in cal.activeSeasons) {
+            list += cholHamoedHalfHallelItem(cal, profile)
+        }
+        if ("chol_hamoed_sukkot" in cal.activeSeasons) {
+            if (!HolyDayPhoneRules.isShabbatMelachaDay(cal)) {
+                list += arbaMinimItem(profile).copy(
+                    section = if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
+                        "Hoshana Rabbah"
+                    } else {
+                        "Chol HaMoed"
+                    },
+                    sortOrder = -30,
+                    seasons = listOf("chol_hamoed_sukkot", "sukkot"),
+                )
+            }
             if (HebrewCalendarEngine.isHoshanaRabbah(cal.hebrewMonth, cal.hebrewDay)) {
                 list += hoshanaRabbahAravotItem(profile)
             }
@@ -701,17 +787,6 @@ Quick reference: https://ohr.edu/1304
                 situational = false,
                 seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
                 explanation = SeasonalMitzvahText.cholHamoedHonorExplanation(cal, profile),
-                links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
-            ),
-            ChecklistItemDef(
-                id = "chol_hamoed_nicer_clothes",
-                title = "Wear Nicer Clothes in Honor of the Moed",
-                section = "Chol HaMoed",
-                timeOfDay = TimeOfDay.ANY,
-                required = false,
-                situational = false,
-                seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
-                explanation = SeasonalMitzvahText.cholHamoedClothesExplanation(),
                 links = SeasonalMitzvahText.cholHamoedLinks(cal, profile)
             ),
         )
@@ -794,7 +869,8 @@ Quick reference: https://ohr.edu/1304
             "Shemini Atzeret — Geshem, Yizkor, Yom Tov"
         },
         section = "Seasonal",
-        timeOfDay = TimeOfDay.DAY,
+        // ANY: all-day Yom Tov focus (not cut off at Mincha Gedola). Usually hidden by phone rules.
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         seasons = listOf("shemini_atzeret"),
@@ -806,7 +882,8 @@ Quick reference: https://ohr.edu/1304
         id = "simchat_torah_focus",
         title = "Simchat Torah — hakafot & Torah joy",
         section = "Seasonal",
-        timeOfDay = TimeOfDay.DAY,
+        // ANY: all-day / night hakafot focus (not cut off at Mincha Gedola). Usually phone-hidden.
+        timeOfDay = TimeOfDay.ANY,
         required = false,
         situational = false,
         seasons = listOf("simchat_torah"),
@@ -843,7 +920,11 @@ Quick reference: https://ohr.edu/1304
 
     private fun nineDaysMourningItem(profile: UserProfile) = ChecklistItemDef(
         id = "nine_days_mourning_customs",
-        title = "Nine Days: observe stricter mourning customs",
+        title = when (profile.effectiveNusach()) {
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                "Week of Tisha B'Av: observe stricter mourning customs"
+            else -> "Nine Days: observe stricter mourning customs"
+        },
         section = "Mourning customs",
         timeOfDay = TimeOfDay.ANY,
         required = false,
@@ -866,7 +947,7 @@ Quick reference: https://ohr.edu/1304
             required = false,
             situational = false,
             persistChecked = true,
-            hideOnShabbat = false,
+            hideOnShabbat = true,
             sortOrder = 8,
             explanation = SeasonalMitzvahText.birkatHaIlanotExplanationTemplate(),
             explanationChabad = SeasonalMitzvahText.birkatHaIlanotChabadNote(profile),
@@ -905,27 +986,64 @@ Quick reference: https://ohr.edu/1304
         )
     }
 
-    private fun ldovidItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
+    /**
+     * L'Dovid sits at the end of Shacharit and (for communities that say it) Maariv —
+     * not in a separate prayer section.
+     */
+    private fun ldovidItemsForDay(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
         val nusach = profile.effectiveNusach()
-        if (!LDovidRules.isRecited(cal, nusach)) return null
-        return ChecklistItemDef(
-            id = "ldovid_hashem_ori",
-            title = "Psalm 27 — L'Dovid Hashem Ori",
-            section = "Morning Prayer (Shacharit)",
-            timeOfDay = TimeOfDay.DAY,
-            required = false,
-            situational = false,
-            sortOrder = 65,
-            explanation = SeasonalMitzvahText.ldovidExplanation(nusach),
-            explanationAshkenaz = SeasonalMitzvahText.ldovidAshkenazNote(),
-            explanationSefard = SeasonalMitzvahText.ldovidSephardNote(),
-            explanationEdotHamizrach = SeasonalMitzvahText.ldovidEdotHamizrachNote(),
-            explanationChabad = SeasonalMitzvahText.ldovidChabadNote(),
-            links = listOf(
-                ChecklistLink(
-                    displayText = "Psalm 27 (Sefaria)",
-                    url = "https://www.sefaria.org/Psalms.27",
-                ),
+        if (!LDovidRules.isRecited(cal, nusach)) return emptyList()
+        // OTHER: one unified note (Ashkenaz+Sephardi append would contradict end dates).
+        val otherNote = SeasonalMitzvahText.ldovidOtherNote()
+        val explanationAshkenaz = if (nusach == EffectiveNusach.OTHER) {
+            otherNote
+        } else {
+            SeasonalMitzvahText.ldovidAshkenazNote()
+        }
+        val explanationSefard = if (nusach == EffectiveNusach.OTHER) {
+            otherNote
+        } else {
+            SeasonalMitzvahText.ldovidSephardNote()
+        }
+        val links = listOf(
+            ChecklistLink(
+                displayText = "Psalm 27 (Sefaria)",
+                url = "https://www.sefaria.org/Psalms.27",
+            ),
+        )
+        val sharedExplanation = SeasonalMitzvahText.ldovidExplanation(nusach)
+        return listOf(
+            ChecklistItemDef(
+                id = "ldovid_hashem_ori_shacharit",
+                title = "Psalm 27 — L'Dovid Hashem Ori",
+                section = "Morning Prayer (Shacharit)",
+                timeOfDay = TimeOfDay.DAY,
+                required = false,
+                situational = false,
+                // After Musaf (60) — end of the morning service.
+                sortOrder = 70,
+                explanation = sharedExplanation,
+                explanationAshkenaz = explanationAshkenaz,
+                explanationSefard = explanationSefard,
+                explanationEdotHamizrach = SeasonalMitzvahText.ldovidEdotHamizrachNote(),
+                explanationChabad = SeasonalMitzvahText.ldovidChabadNote(),
+                links = links,
+            ),
+            ChecklistItemDef(
+                id = "ldovid_hashem_ori_maariv",
+                title = "Psalm 27 — L'Dovid Hashem Ori",
+                section = "Evening Prayer",
+                timeOfDay = TimeOfDay.NIGHT,
+                required = false,
+                situational = false,
+                // After Maariv Amidah (20) / Yaaleh (25), before Bedtime Shema (40).
+                sortOrder = 30,
+                explanation = sharedExplanation,
+                explanationAshkenaz = explanationAshkenaz,
+                explanationSefard = explanationSefard,
+                explanationEdotHamizrach = SeasonalMitzvahText.ldovidEdotHamizrachNote(),
+                explanationChabad = SeasonalMitzvahText.ldovidChabadNote(),
+                links = links,
             ),
         )
     }
@@ -933,13 +1051,15 @@ Quick reference: https://ohr.edu/1304
     private fun selichotItemForDay(cal: DayInfo, profile: UserProfile): ChecklistItemDef? {
         val month = cal.hebrewMonth ?: return null
         val day = cal.hebrewDay ?: return null
-        // Selichot are weekday services — not on Shabbat.
+        // Selichot are weekday services — not on Shabbat or Yom Tov (e.g. 2 Tishrei in chutz la'aretz).
         if (HolyDayPhoneRules.isShabbatMelachaDay(cal)) return null
+        if (cal.isYomTovAssurBemelacha || cal.isYomTov) return null
         // Show Selichot:
-        // - Sefard/Edot: from Elul 2 through Erev Yom Kippur (9 Tishrei)
+        // - Sefard/Edot: from Rosh Chodesh Elul (30 Av / 1 Elul) through Erev Yom Kippur
         // - Ashkenaz/Chabad: Motzei Shabbat before RH (min. 4 days) through Erev YK
         val inSelichotWindow = when (month) {
-            HebrewCalendarEngine.ELUL -> day >= 2
+            HebrewCalendarEngine.AV -> day == 30
+            HebrewCalendarEngine.ELUL -> day >= 1
             HebrewCalendarEngine.TISHREI -> day in 2..9 // through Erev Yom Kippur (9 Tishrei)
             else -> false
         }
@@ -990,24 +1110,34 @@ Quick reference: https://ohr.edu/1304
                     links = selichotLinks(profile)
                 )
             }
-            EffectiveNusach.OTHER -> ChecklistItemDef(
-                id = "selichot_elul_other",
-                title = "Say Selichot today (per your custom)",
-                section = "Selichot",
-                timeOfDay = TimeOfDay.ANY,
-                required = false,
-                situational = false,
-                tzeitMitzvah = true,
-                explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.OTHER),
-                links = selichotLinks(profile)
-            )
+            EffectiveNusach.OTHER -> {
+                // No fixed OTHER calendar — use Ashkenaz Motzei-start window as a conservative default.
+                if (!isAshkenazStyleSelichotDay(cal)) return null
+                ChecklistItemDef(
+                    id = "selichot_elul_other",
+                    title = "Say Selichot today (per your custom)",
+                    section = "Selichot",
+                    timeOfDay = TimeOfDay.ANY,
+                    required = false,
+                    situational = false,
+                    tzeitMitzvah = true,
+                    explanation = SeasonalMitzvahText.selichotExplanation(EffectiveNusach.OTHER),
+                    links = selichotLinks(profile)
+                )
+            }
         }
     }
 
-    /** Ashkenaz / Chabad: from Motzei of the start Saturday through Erev Yom Kippur. */
+    /**
+     * Ashkenaz / Chabad / OTHER default: from Motzei of the start Saturday through Erev Yom Kippur.
+     * Never on 30 Av (Rosh Chodesh Elul) — that early start is Sephardi / Edot only.
+     */
     private fun isAshkenazStyleSelichotDay(cal: DayInfo): Boolean {
         val month = cal.hebrewMonth ?: return false
+        // 30 Av is in the Sephardi window only; Motzei-start math must not run on Av.
+        if (month == HebrewCalendarEngine.AV) return false
         if (month == HebrewCalendarEngine.TISHREI) return true
+        if (month != HebrewCalendarEngine.ELUL) return false
         val startSat = ashkenazSelichotStartDate(cal)
         return when {
             cal.date > startSat -> true
@@ -1016,21 +1146,34 @@ Quick reference: https://ohr.edu/1304
         }
     }
 
+    /**
+     * Motzei-Shabbat Selichot start Saturday before Rosh Hashana (min. 4 days of Selichot).
+     * Caller must pass an Elul [DayInfo] — Elul always has 29 days, so
+     * `date + (30 - hebrewDay)` lands on 1 Tishrei.
+     */
     private fun ashkenazSelichotStartDate(cal: DayInfo) =
-        ((cal.date.plus((30 - (cal.hebrewDay ?: 29)), DateTimeUnit.DAY)).let { rhDate ->
+        (cal.date.plus((30 - (cal.hebrewDay ?: 1)), DateTimeUnit.DAY)).let { rhDate ->
             var candidate = rhDate
             while (candidate.dayOfWeek != DayOfWeek.SATURDAY) {
                 candidate = candidate.plus(-1, DateTimeUnit.DAY)
             }
             val diff = rhDate.toEpochDays() - candidate.toEpochDays()
             if (diff < 4) candidate.plus(-7, DateTimeUnit.DAY) else candidate
-        })
+        }
 
-    fun isNightAfterYomKippur(cal: DayInfo): Boolean {
+    /** Civil/Hebrew day after Yom Kippur (11 Tishrei) — for Motzei YK sukkah-building, etc. */
+    fun isDayAfterYomKippur(cal: DayInfo): Boolean {
         val month = cal.hebrewMonth ?: return false
         val day = cal.hebrewDay ?: return false
         return month == HebrewCalendarEngine.TISHREI && day == 11
     }
+
+    /** Motzei YK break-fast window: after tzeit into 11 Tishrei through dawn. */
+    fun isMotzeiYomKippurWindow(cal: DayInfo, nowMillis: Long): Boolean =
+        isDayAfterYomKippur(cal) && HalachicNightWindow.isOpen(cal, nowMillis)
+
+    /** @deprecated use [isDayAfterYomKippur] / [isMotzeiYomKippurWindow] */
+    fun isNightAfterYomKippur(cal: DayInfo): Boolean = isDayAfterYomKippur(cal)
 
     private fun isTuBshvat(cal: DayInfo): Boolean {
         val month = cal.hebrewMonth ?: return false
@@ -1218,7 +1361,7 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         timeOfDay = TimeOfDay.NIGHT,
         required = true,
         situational = false,
-        seasons = emptyList(),
+        seasons = null, // visibility gated by forDay() Meshulash Thursday-night check
         explanation = PurimMeshulashText.erevMegillahExplanation(),
         explanationAshkenaz = PurimBrachotText.SHEHECHEYANU_ASHKENAZ,
         explanationSefard = PurimBrachotText.SHEHECHEYANU_SEPHARDIC,
@@ -1272,7 +1415,8 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             id = "purim_meshulash_shabbat_torah",
             title = "Purim Meshulash (Shabbat): Vayavo Amalek at shul",
             section = "Purim",
-            timeOfDay = TimeOfDay.DAY,
+            // ANY: Shabbat-day focus (not cut off at Mincha Gedola). Usually phone-hidden on Shabbat.
+            timeOfDay = TimeOfDay.ANY,
             required = false,
             situational = false,
             seasons = listOf("purim_meshulash_shabbat"),
@@ -1355,7 +1499,19 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.tuBshvatLinks()
     )
 
-    private fun yaalehVyavoRoshChodeshItems(profile: UserProfile) = listOf(
+    /**
+     * Maariv Yaaleh belongs to the **night** that is Rosh Chodesh:
+     * after tzeit through dawn on a RC night (incl. after midnight), or before tzeit when
+     * tomorrow is RC (eve). Not on the last RC day's afternoon for a night that left RC.
+     */
+    private fun shouldShowYaalehMaarivRoshChodesh(
+        cal: DayInfo,
+        tomorrowCal: DayInfo,
+        nowMillis: Long,
+    ): Boolean =
+        if (HalachicNightWindow.isOpen(cal, nowMillis)) cal.isRoshChodesh else tomorrowCal.isRoshChodesh
+
+    private fun yaalehVyavoRoshChodeshDaytimeItems(profile: UserProfile) = listOf(
         ChecklistItemDef(
             id = "yaaleh_vyavo_rosh_chodesh_shacharit",
             title = "Yaaleh V'yavo — Rosh Chodesh (in Shacharit Amidah)",
@@ -1378,17 +1534,120 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
             explanationFemale = SeasonalMitzvahText.yaalehVyavoMinchaExplanationFemale(),
             links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
         ),
+    )
+
+    private fun yaalehVyavoRoshChodeshMaarivItem(profile: UserProfile) = ChecklistItemDef(
+        id = "yaaleh_vyavo_rosh_chodesh",
+        title = "Yaaleh V'yavo — Rosh Chodesh (in Maariv Amidah)",
+        section = "Evening Prayer",
+        sortOrder = 25,
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        explanation = SeasonalMitzvahText.yaalehVyavoMaarivExplanation(),
+        explanationFemale = SeasonalMitzvahText.yaalehVyavoMaarivExplanationFemale(),
+        links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+    )
+
+    /** Maariv Yaaleh for the night that is still Chol HaMoed (same tzeit-roll logic as RC). */
+    private fun shouldShowYaalehMaarivCholHamoed(
+        cal: DayInfo,
+        tomorrowCal: DayInfo,
+        nowMillis: Long,
+    ): Boolean {
+        val seasons =
+            if (HalachicNightWindow.isOpen(cal, nowMillis)) cal.activeSeasons else tomorrowCal.activeSeasons
+        return "chol_hamoed_pesach" in seasons || "chol_hamoed_sukkot" in seasons
+    }
+
+    private fun yaalehVyavoCholHamoedDaytimeItems(profile: UserProfile) = listOf(
         ChecklistItemDef(
-            id = "yaaleh_vyavo_rosh_chodesh",
-            title = "Yaaleh V'yavo — Rosh Chodesh (in Maariv Amidah)",
-            section = "Evening Prayer",
-            sortOrder = 25,
-            timeOfDay = TimeOfDay.NIGHT,
+            id = "yaaleh_vyavo_chol_hamoed_shacharit",
+            title = "Yaaleh V'yavo — Chol HaMoed (in Shacharit Amidah)",
+            section = "Morning Prayer (Shacharit)",
+            sortOrder = 52,
+            timeOfDay = TimeOfDay.ANY,
             required = true,
-            explanation = SeasonalMitzvahText.yaalehVyavoMaarivExplanation(),
-            explanationFemale = SeasonalMitzvahText.yaalehVyavoMaarivExplanationFemale(),
+            seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
+            explanation = SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanation(),
+            explanationFemale = SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanationFemale(),
             links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
         ),
+        ChecklistItemDef(
+            id = "yaaleh_vyavo_chol_hamoed_mincha",
+            title = "Yaaleh V'yavo — Chol HaMoed (in Mincha Amidah)",
+            section = "Afternoon Prayer",
+            sortOrder = 15,
+            timeOfDay = TimeOfDay.DAY,
+            required = true,
+            seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
+            explanation = SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanation(),
+            explanationFemale = SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanationFemale(),
+            links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+        ),
+    )
+
+    private fun yaalehVyavoCholHamoedMaarivItem(profile: UserProfile) = ChecklistItemDef(
+        id = "yaaleh_vyavo_chol_hamoed_maariv",
+        title = "Yaaleh V'yavo — Chol HaMoed (in Maariv Amidah)",
+        section = "Evening Prayer",
+        sortOrder = 25,
+        timeOfDay = TimeOfDay.NIGHT,
+        required = true,
+        seasons = listOf("chol_hamoed_pesach", "chol_hamoed_sukkot"),
+        explanation = SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanation(),
+        explanationFemale = SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanationFemale(),
+        links = SeasonalMitzvahText.yaalehVyavoLinks(profile),
+    )
+
+    private fun chanukahFullHallelItem(profile: UserProfile) = ChecklistItemDef(
+        id = "chanukah_full_hallel",
+        title = "Full Hallel — Chanukah",
+        section = "Morning Prayer (Shacharit)",
+        sortOrder = 54,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        seasons = listOf("chanukah"),
+        explanation = SeasonalMitzvahText.chanukahFullHallelExplanation(),
+        explanationFemale = SeasonalMitzvahText.chanukahFullHallelExplanationFemale(),
+        explanationAshkenaz = SeasonalMitzvahText.roshChodeshFullHallelAshkenazNote(),
+        explanationSefard = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationChabad = SeasonalMitzvahText.roshChodeshFullHallelChabadNote(),
+        links = SeasonalMitzvahText.chanukahDayLinks(profile),
+    )
+
+    private fun cholHamoedFullHallelItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "chol_hamoed_full_hallel",
+        title = "Full Hallel — Chol HaMoed Sukkot",
+        section = "Morning Prayer (Shacharit)",
+        sortOrder = 54,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        seasons = listOf("chol_hamoed_sukkot"),
+        explanation = SeasonalMitzvahText.cholHamoedFullHallelExplanation(),
+        explanationFemale = SeasonalMitzvahText.cholHamoedFullHallelExplanationFemale(),
+        explanationAshkenaz = SeasonalMitzvahText.roshChodeshFullHallelAshkenazNote(),
+        explanationSefard = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshFullHallelSephardNote(),
+        explanationChabad = SeasonalMitzvahText.roshChodeshFullHallelChabadNote(),
+        links = SeasonalMitzvahText.cholHamoedLinks(cal, profile),
+    )
+
+    private fun cholHamoedHalfHallelItem(cal: DayInfo, profile: UserProfile) = ChecklistItemDef(
+        id = "chol_hamoed_half_hallel",
+        title = "Half Hallel — Chol HaMoed Pesach",
+        section = "Morning Prayer (Shacharit)",
+        sortOrder = 54,
+        timeOfDay = TimeOfDay.DAY,
+        required = true,
+        seasons = listOf("chol_hamoed_pesach"),
+        explanation = SeasonalMitzvahText.cholHamoedHalfHallelExplanation(),
+        explanationFemale = SeasonalMitzvahText.cholHamoedHalfHallelExplanationFemale(),
+        explanationAshkenaz = SeasonalMitzvahText.roshChodeshHalfHallelAshkenazNote(),
+        explanationSefard = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
+        explanationEdotHamizrach = SeasonalMitzvahText.roshChodeshHalfHallelSephardNote(),
+        explanationChabad = SeasonalMitzvahText.roshChodeshHalfHallelChabadNote(),
+        links = SeasonalMitzvahText.cholHamoedLinks(cal, profile),
     )
 
     private fun roshChodeshHalfHallelItem(profile: UserProfile) = ChecklistItemDef(
@@ -1423,26 +1682,18 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.roshChodeshLinks(profile),
     )
 
-    /** Visible only after molad+72h (Ashkenaz/Chabad) or +7 days (Sefard), through day 15. */
+    /** Visible after molad open (3d/7d) until sof zman (molad + 14d 18h 22m). */
     private fun isKiddushLevanaWindow(cal: DayInfo, profile: UserProfile, nowMillis: Long): Boolean {
-        val day = cal.hebrewDay ?: return false
-        if (day !in 1..15) return false
-        val year = cal.hebrewYear
-        val month = cal.hebrewMonth
-        if (year != null && month != null) {
-            val openMillis = when (profile.effectiveNusach()) {
-                EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
-                    HebrewCalendarEngine.tchilasZmanKidushLevana7DaysMillis(year, month)
-                else ->
-                    HebrewCalendarEngine.tchilasZmanKidushLevana3DaysMillis(year, month)
-            }
-            return nowMillis >= openMillis
+        val year = cal.hebrewYear ?: return false
+        val month = cal.hebrewMonth ?: return false
+        val openMillis = when (profile.effectiveNusach()) {
+            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH ->
+                HebrewCalendarEngine.tchilasZmanKidushLevana7DaysMillis(year, month)
+            else ->
+                HebrewCalendarEngine.tchilasZmanKidushLevana3DaysMillis(year, month)
         }
-        val minDay = when (profile.effectiveNusach()) {
-            EffectiveNusach.SEFARD, EffectiveNusach.EDOT_HAMIZRACH -> 7
-            else -> 3
-        }
-        return day >= minDay
+        val closeMillis = HebrewCalendarEngine.sofZmanKidushLevanaMillis(year, month)
+        return nowMillis >= openMillis && nowMillis < closeMillis
     }
 
     private fun roshChodeshMonthlyItem(profile: UserProfile) = ChecklistItemDef(
@@ -1472,17 +1723,34 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         links = SeasonalMitzvahText.kiddushLevanaLinks(profile)
     )
 
-    private fun erevMinorFastPrepItem(cal: DayInfo, profile: UserProfile): ChecklistItemDef {
-        val idx = cal.upcomingFastDayIndex!!
+    private fun erevMinorFastPrepItem(
+        cal: DayInfo,
+        profile: UserProfile,
+        tomorrowCal: DayInfo,
+        motzeiShabbatIntoDeferredSunday: Boolean,
+    ): ChecklistItemDef {
+        val idx = if (motzeiShabbatIntoDeferredSunday) {
+            PublicFastDayRules.deferredSundayMinorFastIndexForMotzeiPrep(cal, tomorrowCal)!!
+        } else {
+            cal.upcomingFastDayIndex!!
+        }
+        val name = PublicFastDayRules.displayName(idx)
         return ChecklistItemDef(
             id = "erev_public_fast_prep",
-            title = PublicFastDayText.erevMinorFastPrepTitle(PublicFastDayRules.displayName(idx)),
+            title = if (motzeiShabbatIntoDeferredSunday) {
+                PublicFastDayText.motzeiDeferredMinorFastPrepTitle(name)
+            } else {
+                PublicFastDayText.erevMinorFastPrepTitle(name)
+            },
             section = "Fasts",
             sortOrder = 5,
-            timeOfDay = TimeOfDay.DAY,
+            timeOfDay = if (motzeiShabbatIntoDeferredSunday) TimeOfDay.NIGHT else TimeOfDay.DAY,
             required = true,
-            seasons = listOf("erev_minor_fast"),
-            explanation = PublicFastDayText.erevMinorFastPrepExplanation(cal, idx, profile),
+            // Motzei into Sunday deferred fast has no erev_minor_fast season (already fast_day).
+            seasons = if (motzeiShabbatIntoDeferredSunday) null else listOf("erev_minor_fast"),
+            explanation = PublicFastDayText.erevMinorFastPrepExplanation(
+                cal, idx, profile, motzeiShabbatIntoDeferredSunday,
+            ),
             links = PublicFastDayText.erevMinorFastLinks(),
         )
     }
@@ -1510,7 +1778,9 @@ Yom Yerushalayim is observed by fewer communities than Yom Ha'atzmaut, and there
         sortOrder = 5,
         timeOfDay = TimeOfDay.DAY,
         required = true,
-        seasons = if (deferredToSunday) emptyList() else listOf("erev_tisha_beav"),
+        // Deferred Friday (9 Av = Shabbat) has no erev_tisha_beav season — null so matchesSeason
+        // does not treat emptyList as "never match."
+        seasons = if (deferredToSunday) null else listOf("erev_tisha_beav"),
         explanation = PublicFastDayText.erevTishaBeavExplanation(cal, profile, deferredToSunday),
         links = PublicFastDayText.erevTishaBeavLinks(),
     )

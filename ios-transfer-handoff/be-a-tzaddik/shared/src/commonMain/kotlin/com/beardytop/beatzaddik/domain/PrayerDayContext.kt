@@ -4,8 +4,20 @@ package com.beardytop.beatzaddik.domain
 data class PrayerDayContext(
     val isShabbat: Boolean,
     val isYomTov: Boolean,
+    /** Full Yom Tov with melacha restrictions (not Chol HaMoed, Chanukah, Purim, etc.). */
+    val isYomTovAssurBemelacha: Boolean = false,
     val isRoshChodesh: Boolean,
     val isErevShabbat: Boolean,
+    /**
+     * True after tzeit until civil midnight — Hebrew day already rolled (see [DayInfo.startedTonightAtTzeit]).
+     * For "still tonight until dawn," use [HalachicNightWindow.isOpen] instead.
+     */
+    val startedTonightAtTzeit: Boolean = false,
+    /**
+     * Tonight's nightfall begins Shabbat (Friday before tzeit) — not Motzei into Friday.
+     * Prefer this over [isErevShabbat] for "not tonight" / deferral logic.
+     */
+    val tonightBeginsShabbat: Boolean = false,
     /** Current day of the Hebrew month (1–30). Null when no calendar library is available. */
     val hebrewDay: Int? = null,
     /** Current Hebrew month number (1 = Nissan … 7 = Tishrei, etc., per KosherJava convention). */
@@ -25,14 +37,23 @@ data class PrayerDayContext(
 ) {
     val isShabbatOrYomTov: Boolean = isShabbat || isYomTov
 
-    /** Musaf is said on Shabbat, Yom Tov, and Rosh Chodesh (not plain Erev Shabbat). */
-    val isMusafDay: Boolean = isShabbat || isYomTov || isRoshChodesh
+    /** Days when tefillin are not worn (Shabbat / Yom Tov assur bemelacha — not CHM/Chanukah/Purim). */
+    val isTefillinOmittedCalendarDay: Boolean = isShabbat || isYomTovAssurBemelacha
+
+    /**
+     * Musaf only on Shabbat, Rosh Chodesh, Yom Tov *assur bemelacha*, or Chol HaMoed —
+     * never Purim, Chanukah, Lag BaOmer, or other minor “isYomTov” indices.
+     */
+    val isMusafDay: Boolean =
+        isShabbat || isRoshChodesh || isYomTovAssurBemelacha || isCholHamoed
 
     fun musafDayLabel(): String = when {
         isShabbat && isRoshChodesh -> "Shabbat & Rosh Chodesh"
         isShabbat -> "Shabbat"
-        isYomTov && isRoshChodesh -> "Festival & Rosh Chodesh"
-        isYomTov -> "Festival"
+        isYomTovAssurBemelacha && isRoshChodesh -> "Festival & Rosh Chodesh"
+        isYomTovAssurBemelacha -> "Festival"
+        isCholHamoed && isRoshChodesh -> "Chol HaMoed & Rosh Chodesh"
+        isCholHamoed -> "Chol HaMoed"
         isRoshChodesh -> "Rosh Chodesh"
         else -> "today"
     }
@@ -48,8 +69,11 @@ data class PrayerDayContext(
         ) = PrayerDayContext(
             isShabbat = cal.isShabbat,
             isYomTov = cal.isYomTov,
+            isYomTovAssurBemelacha = cal.isYomTovAssurBemelacha,
             isRoshChodesh = cal.isRoshChodesh,
             isErevShabbat = cal.isErevShabbat,
+            startedTonightAtTzeit = cal.startedTonightAtTzeit,
+            tonightBeginsShabbat = TonightHolyDayRules.tonightBeginsShabbat(cal),
             hebrewDay = cal.hebrewDay,
             hebrewMonth = cal.hebrewMonth,
             hebrewYear = cal.hebrewYear,

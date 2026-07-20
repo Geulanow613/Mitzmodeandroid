@@ -261,20 +261,31 @@ object ChecklistDebugScenarios {
         erev(seasonal, "Rosh Chodesh (2 days)", "rosh_chodesh_2day") { cal, tomorrow ->
             !cal.isRoshChodesh && tomorrow.isRoshChodesh && tomorrow.hebrewDay == 30
         }
-        // Chanukah
-        erev(seasonal, "Chanukah (night 1 begins)", "chanukah", match = season("erev_chanukah"))
-        dayOf(seasonal, "Chanukah (night 1 / day 1)", "chanukah") { cal, _ ->
-            cal.isChanukah && cal.hebrewMonth == HebrewCalendarEngine.KISLEV && cal.hebrewDay == 25
-        }
-        dayOf(seasonal, "Chanukah (during)", "chanukah_mid") { cal, _ ->
-            cal.isChanukah && cal.chanukahDay != null && cal.chanukahDay in 2..7
+        // Chanukah — one row per day with Erev / Day / Motzei so time-slot chips work.
+        // Erev + Motzei land on the eve that begins Night N; Day is daytime of Chanukah day N
+        // (afternoon → tonight Night N+1 except day 8; after tzeit via Motzei → Night N).
+        val chanukah = "Chanukah"
+        for (n in 1..8) {
+            val label = "Chanukah day $n (Night $n)"
+            val id = "chanukah_d$n"
+            erev(chanukah, label, id) { cal, _ ->
+                if (n == 1) "erev_chanukah" in cal.activeSeasons
+                else cal.isChanukah && cal.chanukahDay == n - 1
+            }
+            dayOf(chanukah, label, id) { cal, _ ->
+                cal.isChanukah && cal.chanukahDay == n
+            }
+            motzei(chanukah, label, id) { cal, _ ->
+                if (n == 1) "erev_chanukah" in cal.activeSeasons
+                else cal.isChanukah && cal.chanukahDay == n - 1
+            }
         }
         // Friday daytime during Chanukah: helpful for "light before Shabbat candles".
-        erev(seasonal, "Erev Shabbat during Chanukah", "chanukah_erev_shabbat") { cal, _ ->
+        erev(chanukah, "Erev Shabbat during Chanukah", "chanukah_erev_shabbat") { cal, _ ->
             cal.isChanukah && cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.FRIDAY
         }
         // Motzei Shabbat during Chanukah: helpful for "light after havdalah" customs.
-        motzei(seasonal, "Motzei Shabbat during Chanukah", "chanukah_motzei_shabbat") { cal, _ ->
+        motzei(chanukah, "Motzei Shabbat during Chanukah", "chanukah_motzei_shabbat") { cal, _ ->
             cal.isChanukah && cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.SATURDAY
         }
         erev(seasonal, "Purim", "purim", match = season("erev_purim"))
@@ -495,7 +506,7 @@ fun UserProfile.forDebugCalendar(scenario: ChecklistDebugScenario?): UserProfile
 
 object ChecklistDebugDateFinder {
 
-    private const val CACHE_VERSION = 11
+    private const val CACHE_VERSION = 12
 
     private val CHOL_HAMOED_WEEKDAY_SCENARIOS = setOf("ch_pesach_day", "ch_sukkot_day")
 
@@ -503,7 +514,17 @@ object ChecklistDebugDateFinder {
     private val SEARCH_END = LocalDate(2042, 12, 31)
     private const val MAX_SPIRAL_DAYS = 1100
 
-    private data class CanonicalHebrewDate(val month: Int, val day: Int)
+    /**
+     * Debug pin: either a fixed Hebrew month/day (with optional deferred alternates),
+     * or a Chanukah day number (1–8) that works for both short and long Kislev years.
+     */
+    private data class CanonicalHebrewDate(
+        val options: List<Pair<Int, Int>> = emptyList(),
+        val chanukahDay: Int? = null,
+    ) {
+        constructor(month: Int, day: Int) : this(options = listOf(month to day))
+        constructor(vararg monthDays: Pair<Int, Int>) : this(options = monthDays.toList())
+    }
 
     private val cache = mutableMapOf<String, ChecklistDebugOverride?>()
 
@@ -729,21 +750,67 @@ object ChecklistDebugDateFinder {
                 CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 23)
             }
             "ch_sukkot_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 18)
-            "fast_gedaliah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 2)
-            "fast_gedaliah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 3)
+            "fast_gedaliah_erev" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.TISHREI to 2,
+                HebrewCalendarEngine.TISHREI to 3, // erev of deferred Sunday 4 Tishrei
+            )
+            "fast_gedaliah_day" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.TISHREI to 3,
+                HebrewCalendarEngine.TISHREI to 4, // deferred from Shabbat
+            )
             "fast_10tev_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TEVET, 9)
             "fast_10tev_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TEVET, 10)
-            "fast_esther_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 12)
-            "fast_esther_day" -> CanonicalHebrewDate(HebrewCalendarEngine.ADAR, 13)
-            "fast_17tam_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.TAMMUZ, 16)
-            "fast_17tam_day" -> CanonicalHebrewDate(HebrewCalendarEngine.TAMMUZ, 17)
+            "fast_esther_erev" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.ADAR to 12,
+                HebrewCalendarEngine.ADAR to 10, // erev of deferred Thursday 11 Adar
+                HebrewCalendarEngine.ADAR to 11, // erev of deferred Thursday 12 Adar
+            )
+            "fast_esther_day" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.ADAR to 13,
+                HebrewCalendarEngine.ADAR to 11, // deferred Thursday
+                HebrewCalendarEngine.ADAR to 12,
+            )
+            "fast_17tam_erev" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.TAMMUZ to 16,
+                HebrewCalendarEngine.TAMMUZ to 17, // erev of deferred Sunday 18
+            )
+            "fast_17tam_day" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.TAMMUZ to 17,
+                HebrewCalendarEngine.TAMMUZ to 18, // deferred from Shabbat
+            )
+            // Classic erev and Friday-before-deferred-Sunday are both 8 Av (9 Av = Shabbat that year).
             "tisha_beav_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 8)
-            "tisha_beav_day" -> CanonicalHebrewDate(HebrewCalendarEngine.AV, 9)
+            "tisha_beav_day" -> CanonicalHebrewDate(
+                HebrewCalendarEngine.AV to 9,
+                HebrewCalendarEngine.AV to 10, // deferred Sunday
+            )
             "yom_kippur_erev", "phone_warn_yom_kippur" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 9)
             "yom_kippur_day", "yom_kippur_motzei" -> CanonicalHebrewDate(HebrewCalendarEngine.TISHREI, 10)
-            "chanukah_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 24)
-            "chanukah_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)
-            "chanukah_mid_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 27)
+            // Chanukah days 1–5 are always Kislev 25–29; days 6–8 depend on Kislev length.
+            "chanukah_d1_erev", "chanukah_d1_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 24)
+            "chanukah_d1_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)
+            "chanukah_d2_erev", "chanukah_d2_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 25)
+            "chanukah_d2_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 26)
+            "chanukah_d3_erev", "chanukah_d3_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 26)
+            "chanukah_d3_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 27)
+            "chanukah_d4_erev", "chanukah_d4_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 27)
+            "chanukah_d4_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 28)
+            "chanukah_d5_erev", "chanukah_d5_motzei" ->
+                CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 28)
+            "chanukah_d5_day" -> CanonicalHebrewDate(HebrewCalendarEngine.KISLEV, 29)
+            "chanukah_d6_erev", "chanukah_d6_motzei" ->
+                CanonicalHebrewDate(chanukahDay = 5)
+            "chanukah_d6_day" -> CanonicalHebrewDate(chanukahDay = 6)
+            "chanukah_d7_erev", "chanukah_d7_motzei" ->
+                CanonicalHebrewDate(chanukahDay = 6)
+            "chanukah_d7_day" -> CanonicalHebrewDate(chanukahDay = 7)
+            "chanukah_d8_erev", "chanukah_d8_motzei" ->
+                CanonicalHebrewDate(chanukahDay = 7)
+            "chanukah_d8_day" -> CanonicalHebrewDate(chanukahDay = 8)
             // Rosh Chodesh debug: force stable "erev" dates.
             // 1-day Rosh Chodesh (month with 29 days): 29 Iyar (erev) → 1 Sivan.
             "rosh_chodesh_erev" -> CanonicalHebrewDate(HebrewCalendarEngine.IYAR, 29)
@@ -776,11 +843,18 @@ object ChecklistDebugDateFinder {
         }
 
     private fun matchesCanonicalHebrew(cal: DayInfo, canonical: CanonicalHebrewDate): Boolean {
-        if (cal.hebrewDay != canonical.day) return false
-        if (cal.hebrewMonth == canonical.month) return true
-        // Leap-year Adar: canonical "Adar" dates match Adar II when that is the active festival month.
-        return canonical.month == HebrewCalendarEngine.ADAR &&
-            cal.hebrewMonth == HebrewCalendarEngine.ADAR_II
+        canonical.chanukahDay?.let { night ->
+            return cal.isChanukah && cal.chanukahDay == night
+        }
+        val month = cal.hebrewMonth ?: return false
+        val day = cal.hebrewDay ?: return false
+        return canonical.options.any { (pinMonth, pinDay) ->
+            day == pinDay && (
+                month == pinMonth ||
+                    // Leap-year Adar: canonical "Adar" dates match Adar II.
+                    (pinMonth == HebrewCalendarEngine.ADAR && month == HebrewCalendarEngine.ADAR_II)
+                )
+        }
     }
 
     /** Erev scenarios skip Shabbat (checklist is off). Debug preview ignores electronics-rest windows. */

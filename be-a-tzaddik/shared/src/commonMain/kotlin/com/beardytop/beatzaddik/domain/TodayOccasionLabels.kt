@@ -24,20 +24,25 @@ object TodayOccasionLabels {
         pesachLabel(cal)?.let { return it }
         sukkotLabel(cal)?.let { return it }
         if (cal.isChanukah && cal.chanukahDay != null) {
+            val lightingNight = SeasonalChecklistItems.chanukahLightingNight(cal, nowMillis)
+            val label = if (lightingNight != null) {
+                "Chanukah — day ${cal.chanukahDay} (Night $lightingNight tonight)"
+            } else {
+                "Chanukah — day ${cal.chanukahDay}"
+            }
             return Occasion(
-                label = "Chanukah — day ${cal.chanukahDay}",
+                label = label,
                 guideAnchor = "chanukah",
             )
         }
-        if (cal.isPurim) {
-            return Occasion(label = "Purim", guideAnchor = "purim")
-        }
+        purimOccasion(cal)?.let { return it }
         minorCommemorativeOccasion(cal)?.let { return it }
         if (cal.isLagBaomer) {
             return Occasion(label = "Lag BaOmer", guideAnchor = "lag_baomer")
         }
         if (cal.isYomTovAssurBemelacha && cal.yomTovHolidayName != null) {
             roshHashanaLabel(cal)?.let { return it }
+            sheminiAtzeretIsraelLabel(cal, tomorrowCal)?.let { return it }
             val name = cal.yomTovHolidayName
             return Occasion(label = name, guideAnchor = guideAnchorFor(name))
         }
@@ -65,6 +70,18 @@ object TodayOccasionLabels {
     }
 
     private fun erevChagLabel(cal: DayInfo): Occasion? {
+        if ("erev_yom_kippur" in cal.activeSeasons ||
+            cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
+        ) {
+            val erev = "Erev Yom Kippur"
+            val label = if (cal.isErevShabbat) "$erev · Erev Shabbat" else erev
+            return Occasion(label = label, guideAnchor = "yom_kippur")
+        }
+        if ("erev_tisha_beav" in cal.activeSeasons) {
+            val erev = "Erev Tisha B'Av"
+            val label = if (cal.isErevShabbat) "$erev · Erev Shabbat" else erev
+            return Occasion(label = label, guideAnchor = "tisha_beav")
+        }
         if ("erev_chag" !in cal.activeSeasons) return null
         val chagName = cal.upcomingChagName ?: return null
         val erevChag = "Erev $chagName"
@@ -144,6 +161,27 @@ object TodayOccasionLabels {
         )
     }
 
+    /**
+     * In Israel, 22 Tishrei is both Shemini Atzeret and Simchat Torah.
+     * Diaspora keeps separate labels (Shemini today, Simchat Torah tomorrow).
+     */
+    private fun sheminiAtzeretIsraelLabel(cal: DayInfo, tomorrowCal: DayInfo): Occasion? {
+        val isShemini = cal.yomTovHolidayName == "Shemini Atzeret" ||
+            "shemini_atzeret" in cal.activeSeasons
+        if (!isShemini) return null
+        // Diaspora: tomorrow is Simchat Torah — leave the plain Shemini label.
+        if (tomorrowCal.yomTovHolidayName == "Simchat Torah" ||
+            "simchat_torah" in tomorrowCal.activeSeasons
+        ) {
+            return null
+        }
+        if (cal.hebrewMonth != HebrewCalendarEngine.TISHREI || cal.hebrewDay != 22) return null
+        return Occasion(
+            label = "Shemini Atzeret / Simchat Torah",
+            guideAnchor = "shemini_atzeret",
+        )
+    }
+
     private fun festivalDayNumber(cal: DayInfo, month: Int, range: IntRange): Int? {
         if (cal.hebrewMonth != month) return null
         val day = cal.hebrewDay ?: return null
@@ -157,6 +195,21 @@ object TodayOccasionLabels {
         n % 10 == 2 -> "${n}nd"
         n % 10 == 3 -> "${n}rd"
         else -> "${n}th"
+    }
+
+    private fun purimOccasion(cal: DayInfo): Occasion? {
+        val meshulashFriday = "purim_meshulash_friday" in cal.activeSeasons
+        val meshulashSunday = "purim_meshulash_sunday" in cal.activeSeasons
+        val meshulashShabbat = "purim_meshulash_shabbat" in cal.activeSeasons
+        if (!cal.isPurim && !JerusalemPurimRules.isMeshulashSeason(cal)) return null
+        val isJerusalemShushan = !JerusalemPurimRules.isMeshulashSeason(cal) && cal.hebrewDay == 15
+        val label = JerusalemPurimRules.occasionLabel(
+            isJerusalem = isJerusalemShushan,
+            meshulashFriday = meshulashFriday,
+            meshulashSunday = meshulashSunday,
+            meshulashShabbat = meshulashShabbat,
+        )
+        return Occasion(label = label, guideAnchor = "purim")
     }
 
     private fun minorCommemorativeOccasion(cal: DayInfo): Occasion? {

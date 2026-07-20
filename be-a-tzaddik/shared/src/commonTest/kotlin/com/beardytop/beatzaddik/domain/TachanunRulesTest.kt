@@ -28,9 +28,35 @@ class TachanunRulesTest {
     }
 
     @Test
-    fun sivan_diaspora_isruChagStartsOn8() {
-        assertFalse(TachanunRules.isInPostShavuotOmissionWindow(HebrewCalendarEngine.SIVAN, 7, isInIsrael = false))
+    fun sivan_ashkenaz_omitsThrough12_includingDiasporaDay7() {
+        assertTrue(TachanunRules.isInPostShavuotOmissionWindow(HebrewCalendarEngine.SIVAN, 7, isInIsrael = false))
         assertTrue(TachanunRules.isInPostShavuotOmissionWindow(HebrewCalendarEngine.SIVAN, 8, isInIsrael = false))
+        assertTrue(TachanunRules.isInPostShavuotOmissionWindow(HebrewCalendarEngine.SIVAN, 12, isInIsrael = false))
+        assertFalse(TachanunRules.isInPostShavuotOmissionWindow(HebrewCalendarEngine.SIVAN, 13, isInIsrael = false))
+    }
+
+    @Test
+    fun sivan_sefard_omitsThroughIsruChag_notThrough12() {
+        assertTrue(
+            TachanunRules.isInPostShavuotOmissionWindow(
+                HebrewCalendarEngine.SIVAN, 7, isInIsrael = true, EffectiveNusach.SEFARD,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isInPostShavuotOmissionWindow(
+                HebrewCalendarEngine.SIVAN, 8, isInIsrael = true, EffectiveNusach.SEFARD,
+            ),
+        )
+        assertTrue(
+            TachanunRules.isInPostShavuotOmissionWindow(
+                HebrewCalendarEngine.SIVAN, 8, isInIsrael = false, EffectiveNusach.SEFARD,
+            ),
+        )
+        assertFalse(
+            TachanunRules.isInPostShavuotOmissionWindow(
+                HebrewCalendarEngine.SIVAN, 9, isInIsrael = false, EffectiveNusach.SEFARD,
+            ),
+        )
     }
 
     @Test
@@ -113,17 +139,17 @@ class TachanunRulesTest {
             TachanunRules.isRecited(
                 eve,
                 UserProfile(),
-                "ashkenaz_musaf_tachanun",
+                "ashkenaz_mincha_tachanun",
                 tomorrowCal = fastDay,
             ),
         )
     }
 
     @Test
-    fun ashkenazMusafTachanun_isMinchaSlot() {
+    fun ashkenazMinchaTachanun_isMinchaSlot() {
         assertEquals(
             TachanunRules.PrayerSlot.MINCHA,
-            TachanunRules.prayerSlotForItem("ashkenaz_musaf_tachanun"),
+            TachanunRules.prayerSlotForItem("ashkenaz_mincha_tachanun"),
         )
     }
 

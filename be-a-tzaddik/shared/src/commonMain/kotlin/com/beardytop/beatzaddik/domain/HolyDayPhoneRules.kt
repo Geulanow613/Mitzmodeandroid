@@ -25,8 +25,14 @@ object HolyDayPhoneRules {
     /** Warning banner appears this many ms before sunset. */
     const val WARN_BEFORE_SUNSET_MS = 20 * 60_000L
 
-    /** Debug sims pin to this many minutes before sunset. */
+    /** Debug sims pin to this many minutes before sunset (before the 20‑min warning). */
     const val DEBUG_WARN_OFFSET_MINUTES = -21
+
+    /**
+     * Phone-warn debug sim speed: 1 real second advances this many simulated seconds.
+     * 60 → one sim minute per real second, so the warning appears after ~1s and hide after ~16s.
+     */
+    const val DEBUG_WARN_SIM_SPEED = 60
 
     /** Civil Saturday (not erev) — for prep/seasonal logic, not phone-blocking windows. */
     fun isShabbatMelachaDay(cal: DayInfo): Boolean =
@@ -45,7 +51,8 @@ object HolyDayPhoneRules {
         if (isShabbatMelachaDay(cal)) {
             return !isPastTzeit(cal, nowMillis)
         }
-        if (cal.isErevShabbat) {
+        // tonightBeginsShabbat: real Friday before tzeit — not Motzei into Friday after rollover.
+        if (TonightHolyDayRules.tonightBeginsShabbat(cal)) {
             val sunset = cal.zmanim?.sunsetMillis ?: return false
             return nowMillis >= hideStartMillis(sunset)
         }
@@ -121,10 +128,11 @@ object HolyDayPhoneRules {
         val label = impendingLabel(cal, tomorrowCal) ?: return null
         val minutesUntilSunset = ceilMinutes(sunset - nowMillis).coerceIn(1, 20)
         val minutesUntilHide = ceilMinutes(hideAt - nowMillis).coerceIn(1, 15)
+        val erevShabbatTonight = TonightHolyDayRules.tonightBeginsShabbat(cal)
         val candlesLine = when {
-            cal.isErevShabbat && isErevYomTovOrYomKippur(cal, tomorrowCal) ->
+            erevShabbatTonight && isErevYomTovOrYomKippur(cal, tomorrowCal) ->
                 "Light Shabbat / Yom Tov candles now if you have not already."
-            cal.isErevShabbat ->
+            erevShabbatTonight ->
                 "Light Shabbat candles now if you have not already."
             "erev_yom_kippur" in cal.activeSeasons ||
                 cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR ->
@@ -148,6 +156,8 @@ object HolyDayPhoneRules {
     }
 
     private fun isErevYomTovOrYomKippur(cal: DayInfo, tomorrowCal: DayInfo?): Boolean {
+        // Motzei into an erev Hebrew day is not erev-night for phone hide (YT starts next sunset).
+        if (cal.startedTonightAtTzeit) return false
         if ("erev_yom_kippur" in cal.activeSeasons ||
             cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR
         ) {
@@ -158,14 +168,16 @@ object HolyDayPhoneRules {
     }
 
     private fun impendingLabel(cal: DayInfo, tomorrowCal: DayInfo?): String? = when {
-        cal.isErevShabbat && isErevYomTovOrYomKippur(cal, tomorrowCal) ->
+        TonightHolyDayRules.tonightBeginsShabbat(cal) && isErevYomTovOrYomKippur(cal, tomorrowCal) ->
             cal.upcomingChagName?.let { "Shabbat & $it" } ?: "Shabbat"
-        cal.isErevShabbat -> "Shabbat"
+        TonightHolyDayRules.tonightBeginsShabbat(cal) -> "Shabbat"
         "erev_yom_kippur" in cal.activeSeasons ||
             cal.upcomingChagYomTovIndex == HebrewCalendarEngine.YOM_KIPPUR -> "Yom Kippur"
-        tomorrowCal?.isYomTovAssurBemelacha == true ||
-            cal.upcomingChagName != null ||
-            "erev_chag" in cal.activeSeasons ->
+        !cal.startedTonightAtTzeit && (
+            tomorrowCal?.isYomTovAssurBemelacha == true ||
+                cal.upcomingChagName != null ||
+                "erev_chag" in cal.activeSeasons
+            ) ->
             cal.upcomingChagName ?: tomorrowCal?.yomTovHolidayName ?: "Yom Tov"
         else -> null
     }

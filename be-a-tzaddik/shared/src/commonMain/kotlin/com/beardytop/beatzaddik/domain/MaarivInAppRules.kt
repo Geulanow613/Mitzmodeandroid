@@ -9,6 +9,9 @@ import kotlinx.datetime.toLocalDateTime
  * the checklist is for weekdays and erev preparation, not holy-day evenings.
  *
  * Blocking starts at dawn (alot hashachar) on the erev day, not at civil midnight.
+ *
+ * After tzeit rollover, [HalachicDayRollover.sanitizeAfterTzeitRollover] clears
+ * next-sunset erev markers; guards below remain as defense in depth.
  */
 object MaarivInAppRules {
 
@@ -21,12 +24,23 @@ object MaarivInAppRules {
         tomorrowCal: DayInfo?,
         inIsrael: Boolean,
     ): String? {
-        if (cal.isErevShabbat) return "Shabbat"
-        if ("erev_chag" in cal.activeSeasons) return "Yom Tov"
+        // Motzei into Friday: isErevShabbat must not block (Shabbat starts tomorrow night).
+        if (TonightHolyDayRules.tonightBeginsShabbat(cal)) return "Shabbat"
+
+        // Motzei into an erev_chag Hebrew day: Yom Tov starts at the *next* sunset, not tonight.
+        if ("erev_chag" in cal.activeSeasons && !cal.startedTonightAtTzeit) return "Yom Tov"
+
         val tomorrow = tomorrowCal ?: return null
-        if (!cal.isYomTovAssurBemelacha && tomorrow.isYomTovAssurBemelacha) {
+        // After tzeit rollover, [cal.date] is still civil today while Hebrew flags are tomorrow's —
+        // [tomorrowCal] is civil+1, not "tonight's destination". Skip this check when rolled.
+        if (!cal.startedTonightAtTzeit &&
+            !cal.isYomTovAssurBemelacha &&
+            tomorrow.isYomTovAssurBemelacha
+        ) {
             return "Yom Tov"
         }
+        if (cal.startedTonightAtTzeit) return null
+
         if (HebrewCalendarEngine.isFinalYomTovDayOfPesach(
                 tomorrow.hebrewMonth,
                 tomorrow.hebrewDay,

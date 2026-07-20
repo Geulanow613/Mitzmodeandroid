@@ -360,7 +360,7 @@ private fun PrayerTraditionStep(
         )
         NusachOption(
             label = "I'm not sure",
-            description = "The holy Ari (Rabbi Isaac Luria) taught that someone who does not know their family's prayer tradition should follow Nusach Ari. This app uses that for your checklist until you choose otherwise.",
+            description = "Shows general, widely shared laws and practices — not Ashkenaz, Sephardi, Edot HaMizrach, or Chabad-specific custom sets. You can change this anytime in Settings once you know your minhag.",
             selected = nusach == NusachSelection.NOT_SURE,
             onClick = { onNusach(NusachSelection.NOT_SURE) }
         )

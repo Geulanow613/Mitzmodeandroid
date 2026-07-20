@@ -16,6 +16,7 @@ object ChecklistSectionOrder {
     private val prepSectionSortPriority = mapOf(
         // Motzei windows sit at the very top with Havdalah / Melave Malka.
         "Motzei Shabbat" to -180,
+        "Motzei Shabbat / Tisha B'Av" to -178,
         "Motzei Yom Tov" to -175,
         "Motzei Yom Kippur" to -170,
         "Motzei Tisha B'Av" to -165,
@@ -27,7 +28,10 @@ object ChecklistSectionOrder {
         "Prepare for the festival" to -30,
         "Fasts" to -45,
         "Sefirat HaOmer" to -48,
+        "Purim" to -28,
         "Chanukah" to -25,
+        // Not absolute top — pinned just under the current prayer block in sortIndex.
+        "Mourning customs" to -15,
     )
 
     fun prioritizedPrepSections(
@@ -43,7 +47,9 @@ object ChecklistSectionOrder {
             add("Seasonal")
         }
         if (ErevPesachPrepText.isPesachPrepWindow(cal)) add("Pesach prep")
-        if (SeasonalChecklistItems.isNightAfterYomKippur(cal)) add("Motzei Yom Kippur")
+        if (SeasonalChecklistItems.isMotzeiYomKippurWindow(cal, nowMillis)) {
+            add("Motzei Yom Kippur")
+        }
         if (
             "erev_chag" in cal.activeSeasons ||
             cal.festivalWeekPrep() != null ||
@@ -52,6 +58,7 @@ object ChecklistSectionOrder {
             add("Prepare for the festival")
         }
         if (
+            cal.isPurim ||
             "erev_purim" in cal.activeSeasons ||
             "purim_meshulash_friday" in cal.activeSeasons ||
             "purim_meshulash_shabbat" in cal.activeSeasons ||
@@ -65,13 +72,18 @@ object ChecklistSectionOrder {
         else if ("erev_chanukah" in cal.activeSeasons) add("Chanukah")
         if ("fast_day" in cal.activeSeasons ||
             "erev_minor_fast" in cal.activeSeasons || "erev_yom_kippur" in cal.activeSeasons ||
-            "erev_tisha_beav" in cal.activeSeasons
+            "erev_tisha_beav" in cal.activeSeasons ||
+            PublicFastDayRules.shouldShowMotzeiShabbatDeferredMinorFastPrep(
+                cal, tomorrowCal, nowMillis,
+            )
         ) {
             add("Fasts")
         }
         if (yesterdayCal != null) {
             when (HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)) {
                 HavdalahRules.Kind.MOTZEI_SHABBAT -> add("Motzei Shabbat")
+                HavdalahRules.Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV ->
+                    add("Motzei Shabbat / Tisha B'Av")
                 HavdalahRules.Kind.MOTZEI_YOM_TOV -> add("Motzei Yom Tov")
                 HavdalahRules.Kind.MOTZEI_YOM_KIPPUR -> add("Motzei Yom Kippur")
                 HavdalahRules.Kind.DELAYED_AFTER_TISHA_BEAV -> add("Motzei Tisha B'Av")
@@ -90,6 +102,13 @@ object ChecklistSectionOrder {
         }
         if (OmerCountText.isOmerCountPriority(nowMillis, cal)) {
             add("Sefirat HaOmer")
+        }
+        if (
+            MourningPeriodRules.isInNineDaysPeriod(cal, nowMillis, profile.effectiveNusach()) ||
+            MourningPeriodRules.isInThreeWeeksPeriod(cal, nowMillis) ||
+            SefirahMourningRules.isMourningDay(cal, profile.effectiveNusach(), nowMillis)
+        ) {
+            add("Mourning customs")
         }
         // Erev Shabbat: from dawn Friday, pin Shabbat prep to the top.
         if (cal.isErevShabbat) {
@@ -129,6 +148,7 @@ object ChecklistSectionOrder {
             }
             // Motzei Havdalah (+ Melave Malka) pin above Maariv / Seasonal for tonight.
             if (base == "Motzei Shabbat" ||
+                base == "Motzei Shabbat / Tisha B'Av" ||
                 base == "Motzei Yom Tov" ||
                 base == "Motzei Yom Kippur" ||
                 base == "Motzei Tisha B'Av"
@@ -139,6 +159,16 @@ object ChecklistSectionOrder {
                 return when (activePeriod) {
                     TimeOfDay.NIGHT -> 1 // right below Maariv section
                     else -> prepSectionSortPriority[base] ?: -20
+                }
+            }
+            // Mourning: just under the current prayer service (not absolute top).
+            if (base == "Mourning customs") {
+                return when (activePeriod) {
+                    // After Upon waking (0) / Selichot (1) / Shacharit (2).
+                    TimeOfDay.DAY -> 3
+                    // After Mincha (0) or Maariv (0).
+                    TimeOfDay.AFTERNOON, TimeOfDay.NIGHT -> 1
+                    else -> 3
                 }
             }
             return prepSectionSortPriority[base] ?: -20

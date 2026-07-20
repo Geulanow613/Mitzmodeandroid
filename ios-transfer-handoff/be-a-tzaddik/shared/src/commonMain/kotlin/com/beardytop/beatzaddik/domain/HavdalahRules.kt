@@ -13,6 +13,8 @@ object HavdalahRules {
 
     enum class Kind {
         MOTZEI_SHABBAT,
+        /** Motzei Shabbat into Tisha B'Av — Baruch ha'mavdil + fire only; wine waits until Sunday. */
+        MOTZEI_SHABBAT_INTO_TISHA_BEAV,
         MOTZEI_YOM_TOV,
         MOTZEI_YOM_KIPPUR,
         DELAYED_AFTER_TISHA_BEAV,
@@ -40,13 +42,17 @@ object HavdalahRules {
         // Chag ending Saturday night → full Motzei Shabbat Havdalah (spices + fire),
         // never the short weekday Motzei Yom Tov form.
         if (isYomTovEndingMotzeiShabbat(cal, yesterdayCal, tomorrowCal, nowMillis)) {
-            if (isMotzeiShabbatIntoTishaBeav(cal, tomorrowCal)) return null
+            if (isMotzeiShabbatIntoTishaBeav(cal, tomorrowCal)) {
+                return Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV
+            }
             return Kind.MOTZEI_SHABBAT
         }
         if (MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)) {
             // Motzei Shabbat into Tisha B'Av: candle + Baruch ha'mavdil only that night;
             // wine + Hamavdil wait until Sunday night after the fast.
-            if (isMotzeiShabbatIntoTishaBeav(cal, tomorrowCal)) return null
+            if (isMotzeiShabbatIntoTishaBeav(cal, tomorrowCal)) {
+                return Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV
+            }
             return Kind.MOTZEI_SHABBAT
         }
         if (isMotzeiYomTov(cal, yesterdayCal, tomorrowCal, nowMillis)) {
@@ -129,6 +135,7 @@ object HavdalahRules {
 
     fun title(kind: Kind): String = when (kind) {
         Kind.MOTZEI_SHABBAT -> "Havdalah (Motzei Shabbat)"
+        Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV -> "Baruch ha'mavdil & candle (Motzei Shabbat → Tisha B'Av)"
         Kind.MOTZEI_YOM_TOV -> "Havdalah (Motzei Yom Tov)"
         Kind.MOTZEI_YOM_KIPPUR -> "Havdalah (Motzei Yom Kippur)"
         Kind.DELAYED_AFTER_TISHA_BEAV -> "Havdalah (after Tisha B'Av)"
@@ -136,6 +143,7 @@ object HavdalahRules {
 
     fun section(kind: Kind): String = when (kind) {
         Kind.MOTZEI_SHABBAT -> "Motzei Shabbat"
+        Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV -> "Motzei Shabbat / Tisha B'Av"
         Kind.MOTZEI_YOM_TOV -> "Motzei Yom Tov"
         Kind.MOTZEI_YOM_KIPPUR -> "Motzei Yom Kippur"
         Kind.DELAYED_AFTER_TISHA_BEAV -> "Motzei Tisha B'Av"
@@ -143,6 +151,7 @@ object HavdalahRules {
 
     fun explanationTemplate(kind: Kind, yomKippurWasShabbat: Boolean): String = when (kind) {
         Kind.MOTZEI_SHABBAT -> MOTZEI_SHABBAT_BODY
+        Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV -> MOTZEI_SHABBAT_INTO_TISHA_BEAV_BODY
         Kind.MOTZEI_YOM_TOV -> MOTZEI_YOM_TOV_BODY
         Kind.MOTZEI_YOM_KIPPUR -> if (yomKippurWasShabbat) {
             MOTZEI_YOM_KIPPUR_ON_SHABBAT_BODY
@@ -153,12 +162,25 @@ object HavdalahRules {
     }
 
     fun yomKippurWasShabbat(cal: DayInfo, yesterdayCal: DayInfo): Boolean {
-        // Motzei: civil Saturday night after YK-on-Shabbat, or Sunday morning before dawn.
-        if (cal.date.dayOfWeek == DayOfWeek.SATURDAY) return true
-        if (cal.date.dayOfWeek == DayOfWeek.SUNDAY &&
-            yesterdayCal.date.dayOfWeek == DayOfWeek.SATURDAY
+        // Must detect that *Yom Kippur itself* was Shabbat — not merely that Motzei falls on
+        // Saturday (Friday YK → Saturday morning Motzei must use weekday Motzei YK text).
+        if (cal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR) {
+            return cal.date.dayOfWeek == DayOfWeek.SATURDAY
+        }
+        val yesterdayWasYomKippur =
+            yesterdayCal.fastDayIndex == HebrewCalendarEngine.YOM_KIPPUR ||
+                (yesterdayCal.hebrewMonth == HebrewCalendarEngine.TISHREI &&
+                    yesterdayCal.hebrewDay == 10)
+        if (yesterdayWasYomKippur) {
+            return yesterdayCal.date.dayOfWeek == DayOfWeek.SATURDAY
+        }
+        // After tzeit rollover Motzei night: Hebrew day is 11 Tishrei; civil day is still the
+        // weekday YK ended (Saturday when YK was Shabbat).
+        if (cal.startedTonightAtTzeit &&
+            cal.hebrewMonth == HebrewCalendarEngine.TISHREI &&
+            cal.hebrewDay == 11
         ) {
-            return true
+            return cal.date.dayOfWeek == DayOfWeek.SATURDAY
         }
         return false
     }
@@ -246,22 +268,25 @@ object HavdalahRules {
         val tzeit = z.tzeitMillis ?: return false
         val dawn = windowEndMillis(z) ?: return false
 
-        // Sunday Tisha B'Av (9 Av was Shabbat) — Havdalah after the fast ends at tzeit.
+        // Sunday Tisha B'Av — before Hebrew rollover, after the fast ends at tzeit.
         if (cal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
             cal.date.dayOfWeek == DayOfWeek.SUNDAY &&
             nowMillis >= tzeit
         ) {
             return true
         }
-        // After rollover Sunday night → until dawn Monday.
+        // After tzeit rollover Sunday night: fast flag clears and yesterdayCal is Saturday
+        // (civil date − 1), so detect Motzei TBA by Hebrew day (10 Av after Sunday 9 Av;
+        // 11 Av after deferred Sunday 10 Av).
         if (cal.startedTonightAtTzeit &&
             cal.date.dayOfWeek == DayOfWeek.SUNDAY &&
-            yesterdayCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
-            yesterdayCal.date.dayOfWeek == DayOfWeek.SUNDAY &&
+            cal.hebrewMonth == HebrewCalendarEngine.AV &&
+            cal.hebrewDay in 10..11 &&
             nowMillis < dawn
         ) {
             return true
         }
+        // Monday before dawn — yesterday (Sunday) was the observed fast.
         if (!cal.startedTonightAtTzeit &&
             cal.date.dayOfWeek == DayOfWeek.MONDAY &&
             yesterdayCal.fastDayIndex == HebrewCalendarEngine.TISHA_BEAV &&
@@ -368,6 +393,18 @@ Order (full Motzei Shabbat style, with a Yom Kippur flame):
 • Hamavdil
 
 Then eat a proper Motzei Yom Kippur meal (see your checklist).
+    """.trimIndent()
+
+    private val MOTZEI_SHABBAT_INTO_TISHA_BEAV_BODY = """
+Tisha B'Av begins tonight (Motzei Shabbat). Men and women are equally obligated in the Motzei separation — but full Havdalah over wine waits until after the fast.
+
+Tonight after Maariv (after nightfall):
+• Say Baruch ha'mavdil bein kodesh l'chol (or the short separation formula in your siddur) so weekday melacha for the fast night is permitted where needed
+• Recite Borei me'orei ha'esh over a multi-wick candle or two flames — look at the light / nails per your minhag
+• Do NOT drink wine or recite Hamavdil tonight — the fast has begun (no eating or drinking)
+• No besamim (spices) tonight
+
+Sunday night after the fast ends: make delayed Havdalah — wine + Hamavdil only (no fire blessing again; see that checklist item).
     """.trimIndent()
 
     private val DELAYED_TISHA_BEAV_BODY = """

@@ -141,6 +141,7 @@ fun TodayScreen(
     val upcoming by viewModel.upcomingHolidays.collectAsState()
     val debugOverride by viewModel.checklistDebugOverride.collectAsState()
     val debugMenuVisible by viewModel.checklistDebugMenuVisible.collectAsState()
+    val displayNowMillis by viewModel.displayNowMillis.collectAsState()
     val displayTimezone = remember(debugOverride, profile.timezoneId) {
         val scenario = debugOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
         profile.forDebugCalendar(scenario).timezoneId
@@ -196,6 +197,7 @@ fun TodayScreen(
                     viewModel = viewModel,
                     activeOverride = debugOverride,
                     timezoneId = displayTimezone,
+                    displayNowEpochMillis = displayNowMillis,
                     mitzvotCount = mitzvotCount,
                     onDebugSetMitzvotCount = onDebugSetMitzvotCount,
                     onDebugShowRatingPrompt = onDebugShowRatingPrompt,
@@ -211,7 +213,7 @@ fun TodayScreen(
                     manualCityId = profile.manualCityId,
                     effectiveNusach = profile.effectiveNusach(),
                     upcoming = upcoming,
-                    nowEpochMillis = debugOverride?.epochMillis,
+                    nowEpochMillis = if (debugOverride != null) displayNowMillis else null,
                     onNusachClick = onOpenSettings,
                     onPeriodClick = { day?.let { scrollToChecklistPeriod(it.activePeriod) } },
                     onOpenShabbatGuide = openShabbatGuide,
@@ -377,7 +379,7 @@ fun TodayScreen(
                     onPeriodAnchorPosition = { period, y ->
                         periodScrollOffsets = periodScrollOffsets + (period to y)
                     },
-                    clockNowEpochMillis = debugOverride?.epochMillis,
+                    clockNowEpochMillis = if (debugOverride != null) displayNowMillis else null,
                     onChecklistItemChecked = onChecklistItemChecked,
                 )
                 } // checklist tour target

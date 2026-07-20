@@ -39,7 +39,7 @@ object ExplainerTemplateResolver {
             item.id == OmerCountText.CHECKLIST_ITEM_ID || item.id.startsWith("sefirat_haomer_day_") ->
                 Bundle(
                     OmerCountText.explanationTemplate(),
-                    OmerCountText.explanationArgs(cal, profile),
+                    OmerCountText.explanationArgs(cal, profile, nowMillis),
                 )
 
             item.id.startsWith("chanukah_lighting_day_") -> {
@@ -108,9 +108,6 @@ object ExplainerTemplateResolver {
                     ),
                 )
 
-            item.id == "chol_hamoed_nicer_clothes" ->
-                staticBundle(SeasonalMitzvahText.cholHamoedClothesExplanation())
-
             item.id == "chol_hamoed_pesach_matzah" ->
                 staticBundle(SeasonalMitzvahText.cholHamoedMatzahExplanation())
 
@@ -156,6 +153,33 @@ object ExplainerTemplateResolver {
                     SeasonalMitzvahText.yaalehVyavoMaarivArgs(),
                 )
 
+            item.id == "yaaleh_vyavo_chol_hamoed_shacharit" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanation()
+                    },
+                )
+
+            item.id == "yaaleh_vyavo_chol_hamoed_mincha" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanation()
+                    },
+                )
+
+            item.id == "yaaleh_vyavo_chol_hamoed_maariv" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanation()
+                    },
+                )
+
             item.id == "rosh_chodesh_half_hallel" ->
                 nusachBundle(
                     if (female) {
@@ -176,10 +200,47 @@ object ExplainerTemplateResolver {
                     nusachNote,
                 )
 
-            item.id == "rosh_chodesh_observances" ->
-                staticBundle(SeasonalMitzvahText.roshChodeshObservancesExplanation())
+            item.id == "chanukah_full_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.chanukahFullHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.chanukahFullHallelExplanation()
+                    },
+                    nusachNote,
+                )
 
-            item.id == "ldovid_hashem_ori" ->
+            item.id == "chol_hamoed_full_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.cholHamoedFullHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.cholHamoedFullHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "chol_hamoed_half_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.cholHamoedHalfHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.cholHamoedHalfHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "rosh_chodesh_observances" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.roshChodeshObservancesExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.roshChodeshObservancesExplanation()
+                    },
+                )
+
+            item.id == "ldovid_hashem_ori_shacharit" ||
+                item.id == "ldovid_hashem_ori_maariv" ->
                 nusachBundle(SeasonalMitzvahText.ldovidExplanation(profile.effectiveNusach()), nusachNote)
 
             item.id == "selichot_elul_chabad" ||
@@ -226,10 +287,20 @@ object ExplainerTemplateResolver {
                 staticBundle(PurimMeshulashText.sundaySeudahTemplate())
 
             item.id == "erev_public_fast_prep" -> {
-                val idx = cal.upcomingFastDayIndex ?: return Bundle()
+                val motzei = tomorrowCal != null &&
+                    PublicFastDayRules.shouldShowMotzeiShabbatDeferredMinorFastPrep(
+                        cal, tomorrowCal, nowMillis,
+                    )
+                val idx = if (motzei && tomorrowCal != null) {
+                    PublicFastDayRules.deferredSundayMinorFastIndexForMotzeiPrep(cal, tomorrowCal)
+                } else {
+                    cal.upcomingFastDayIndex
+                } ?: return Bundle()
                 Bundle(
                     PublicFastDayText.erevMinorFastPrepTemplate(),
-                    PublicFastDayText.erevMinorFastPrepArgs(cal, idx, profile),
+                    PublicFastDayText.erevMinorFastPrepArgs(
+                        cal, idx, profile, motzeiShabbatIntoDeferredSunday = motzei,
+                    ),
                 )
             }
 
@@ -321,11 +392,11 @@ object ExplainerTemplateResolver {
         }
     }
 
-    fun omerHeaderBundle(cal: DayInfo, profile: UserProfile): Bundle? {
+    fun omerHeaderBundle(cal: DayInfo, profile: UserProfile, nowMillis: Long): Bundle? {
         if (cal.omerDay == null || !cal.isSefiratHaomer) return null
         return Bundle(
             OmerCountText.explanationTemplate(),
-            OmerCountText.explanationArgs(cal, profile),
+            OmerCountText.explanationArgs(cal, profile, nowMillis),
         )
     }
 

@@ -89,6 +89,18 @@ class HebrewDateTzeitRolloverTest {
         val info = dayInfo(LocalDate(2026, 7, 3), hour = 22)
         assertTrue(info.isShabbat)
         assertTrue(info.startedTonightAtTzeit)
+        assertFalse(info.isErevShabbat)
+    }
+
+    @Test
+    fun thursdayNight_afterTzeit_isNotErevShabbat() {
+        // Thursday July 2, 2026 after tzeit — Hebrew Friday has begun, but tonight is Motzei→Friday,
+        // not erev Shabbat night (Shabbat starts Friday night).
+        val info = dayInfo(LocalDate(2026, 7, 2), hour = 22)
+        assertTrue(info.startedTonightAtTzeit)
+        assertFalse(info.isErevShabbat)
+        assertFalse(TonightHolyDayRules.tonightBeginsShabbat(info))
+        assertNull(MaarivInAppRules.blockedTonightLabel(info, null, inIsrael = true))
     }
 
     @Test

@@ -47,8 +47,9 @@ fun NusachSelection.toEffective(): EffectiveNusach = when (this) {
     NusachSelection.ASHKENAZ -> EffectiveNusach.ASHKENAZ
     NusachSelection.SEFARD -> EffectiveNusach.SEFARD
     NusachSelection.EDOT_HAMIZRACH -> EffectiveNusach.EDOT_HAMIZRACH
-    NusachSelection.CHABAD, NusachSelection.NOT_SURE -> EffectiveNusach.CHABAD
-    NusachSelection.OTHER -> EffectiveNusach.OTHER
+    NusachSelection.CHABAD -> EffectiveNusach.CHABAD
+    // Undecided users get generic shared laws — not a full Chabad / Ari custom set.
+    NusachSelection.OTHER, NusachSelection.NOT_SURE -> EffectiveNusach.OTHER
 }
 
 fun NusachSelection.displayLabel(): String = when (this) {

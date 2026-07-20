@@ -1,5 +1,9 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.plus
+
 object PublicFastDayText {
 
     // ── Catalog template keys for bundled translation ────────────────────────────
@@ -68,18 +72,28 @@ Ask your rav for details if you are ill, pregnant, or nursing.
     private const val EREV_MINOR_FAST_PREP_TITLE_TEMPLATE =
         "Prepare for tomorrow's fast — ${'$'}fastName"
 
+    private const val MOTZEI_DEFERRED_MINOR_FAST_PREP_TITLE_TEMPLATE =
+        "Prepare for dawn's fast — ${'$'}fastName (Motzei Shabbat)"
+
     fun erevMinorFastPrepTitleTemplate(): String = EREV_MINOR_FAST_PREP_TITLE_TEMPLATE
 
     fun erevMinorFastPrepTitle(fastName: String): String =
         ExplainerTemplateFill.fill(erevMinorFastPrepTitleTemplate(), mapOf("fastName" to fastName))
 
+    fun motzeiDeferredMinorFastPrepTitle(fastName: String): String =
+        ExplainerTemplateFill.fill(
+            MOTZEI_DEFERRED_MINOR_FAST_PREP_TITLE_TEMPLATE,
+            mapOf("fastName" to fastName),
+        )
+
     fun erevMinorFastPrepExplanation(
         cal: DayInfo,
         tomorrowFastIdx: Int,
         profile: UserProfile,
+        motzeiShabbatIntoDeferredSunday: Boolean = false,
     ): String = ExplainerTemplateFill.fill(
         erevMinorFastPrepTemplate(),
-        erevMinorFastPrepArgs(cal, tomorrowFastIdx, profile),
+        erevMinorFastPrepArgs(cal, tomorrowFastIdx, profile, motzeiShabbatIntoDeferredSunday),
     )
 
     fun erevYomKippurTitle(): String = "Erev Yom Kippur — eat and prepare"
@@ -253,17 +267,14 @@ Do not endanger your health. Ask a rav about shiurim (small amounts at intervals
     // ── Template keys for bundled translation ────────────────────────────────────
 
     private val EREV_MINOR_FAST_TEMPLATE = """
-Tomorrow is ${'$'}fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).
+${'$'}whenLine ${'$'}fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).
 
 If you plan to eat before the fast begins:
 • Set a mental condition (tanai) the night before: "If I wake up hungry before dawn, I will eat." Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).
 • If you wake before dawn and want to eat before the fast begins, stick to water, coffee, fruit, or a very small snack. Establishing a formal meal or eating a significant amount of baked goods or bread is restricted if you wake up early to eat.
 • Stop all eating and drinking at alot hashachar${'$'}alotLine.
 
-Practical prep tonight:
-• Hydrate well and eat a balanced dinner.
-• Plan a lighter morning if you will not eat before dawn.
-• Know your synagogue schedule if you plan to attend special prayers.
+${'$'}practicalPrep
 
 Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.${'$'}fridayNote
     """.trimIndent()
@@ -274,27 +285,56 @@ Who must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Chi
         cal: DayInfo,
         tomorrowFastIdx: Int,
         profile: UserProfile,
+        motzeiShabbatIntoDeferredSunday: Boolean = false,
     ): Map<String, String> {
         val fastName = PublicFastDayRules.displayName(tomorrowFastIdx)
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        // The fast starts at TOMORROW's dawn — nightObligationsEndMillis is tomorrow's alot.
-        val alotTomorrow = cal.zmanim?.let { z ->
-            ZmanimFormatter.formatTime(
-                z.nightObligationsEndMillis ?: z.alotHaShacharMillis,
-                tz,
-            )
+        // Ordinary erev: fast starts at tomorrow's dawn (nightObligationsEnd on today's snapshot).
+        // Motzei Shabbat into Sunday deferred fast: DayInfo is already Sunday — use today's alot.
+        val alotMillis = cal.zmanim?.let { z ->
+            if (motzeiShabbatIntoDeferredSunday) {
+                z.alotHaShacharMillis ?: z.sunriseMillis
+            } else {
+                z.nightObligationsEndMillis ?: z.alotHaShacharMillis
+            }
         }
+        val alotTomorrow = ZmanimFormatter.formatTime(alotMillis, tz)
         val alotLine = alotLine(alotTomorrow)
-        val fridayNote = when (tomorrowFastIdx) {
-            HebrewCalendarEngine.TENTH_OF_TEVES -> TENTH_OF_TEVES_FRIDAY_NOTE
-            HebrewCalendarEngine.FAST_OF_ESTHER -> FAST_OF_ESTHER_FRIDAY_NOTE
+        val tomorrowIsFriday =
+            cal.date.plus(1, DateTimeUnit.DAY).dayOfWeek == DayOfWeek.FRIDAY
+        val fridayNote = when {
+            !motzeiShabbatIntoDeferredSunday &&
+                tomorrowFastIdx == HebrewCalendarEngine.TENTH_OF_TEVES && tomorrowIsFriday ->
+                TENTH_OF_TEVES_FRIDAY_NOTE
+            !motzeiShabbatIntoDeferredSunday &&
+                tomorrowFastIdx == HebrewCalendarEngine.FAST_OF_ESTHER ->
+                FAST_OF_ESTHER_FRIDAY_NOTE
             else -> ""
+        }
+        val whenLine = if (motzeiShabbatIntoDeferredSunday) {
+            "Sunday (deferred from Shabbat) is"
+        } else {
+            "Tomorrow is"
+        }
+        val practicalPrep = if (motzeiShabbatIntoDeferredSunday) {
+            """Practical prep Motzei Shabbat (fast starts only at dawn — you have time tonight):
+• After Havdalah, hydrate well and eat if you need to.
+• Set the tanai above if you may wake before dawn.
+• Plan a lighter morning if you will not eat before dawn.
+• Know your synagogue schedule if you plan to attend special prayers."""
+        } else {
+            """Practical prep tonight:
+• Hydrate well and eat a balanced dinner.
+• Plan a lighter morning if you will not eat before dawn.
+• Know your synagogue schedule if you plan to attend special prayers."""
         }
         return mapOf(
             "fastName" to fastName,
             "alotLine" to alotLine,
             "time" to (alotTomorrow ?: ""),
             "fridayNote" to fridayNote,
+            "whenLine" to whenLine,
+            "practicalPrep" to practicalPrep,
         )
     }
 
@@ -325,7 +365,9 @@ Who fasts tomorrow: Healthy Jewish adults from bar/bat mitzvah age. Those who ar
     fun erevYomKippurArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
         val sunset = ZmanimFormatter.formatTime(cal.zmanim?.sunsetMillis, tz)
-        val tzeitTime = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
+        // End of fast = tomorrow night's tzeit (~24h after tonight's tzeit on erev).
+        val tzeitTomorrowMillis = cal.zmanim?.tzeitMillis?.plus(24L * 60 * 60 * 1000)
+        val tzeitTime = ZmanimFormatter.formatTime(tzeitTomorrowMillis, tz)
         val tzeitTomorrow = if (tzeitTime != null) TZET_TOMORROW_TIME_TEMPLATE else TZET_TOMORROW_FALLBACK
         return mapOf(
             "sunsetLine" to (sunset?.let { approxTimeSuffixTemplate() } ?: ""),
@@ -402,7 +444,11 @@ Ask your rav for details if you are ill, pregnant, or nursing.
                 "meaning" to FAST_TENTH_TEVES_MEANING,
                 "common" to common,
             )
-            HebrewCalendarEngine.FAST_OF_ESTHER -> mapOf("common" to common)
+            HebrewCalendarEngine.FAST_OF_ESTHER -> mapOf(
+                "calendarLine" to estherCalendarLine(cal, profile),
+                "mitzvotLine" to estherMitzvotBeginLine(cal, profile),
+                "common" to common,
+            )
             HebrewCalendarEngine.SEVENTEEN_OF_TAMMUZ -> mapOf(
                 "name" to PublicFastDayRules.displayName(fastIdx),
                 "meaning" to FAST_SEVENTEEN_TAMMUZ_MEANING,
@@ -437,7 +483,7 @@ ${'$'}common
     """.trimIndent()
 
     private val ESTHER_FAST_DAY_TEMPLATE = """
-Today is the Fast of Esther (Taanit Esther) — the minor fast on 13 Adar (or Thursday when Purim is Sunday), the day before Purim.
+${'$'}calendarLine
 
 Why we fast:
 • It recalls Esther and the Jews' fasting and teshuvah in the Purim story, and prepares us spiritually for Purim's joy.
@@ -446,10 +492,52 @@ Why we fast:
 Minor fast rules with Purim context:
 • No eating or drinking from dawn until nightfall.
 • Music, showering for pleasure, and leather shoes are permitted — this is a minor fast, not like Tisha B'Av.
-• Purim mitzvot begin tonight/tomorrow per your calendar (14 Adar, or 15 in walled cities).
+• ${'$'}mitzvotLine
 
 ${'$'}common
     """.trimIndent()
+
+    private fun estherCalendarLine(cal: DayInfo, profile: UserProfile): String =
+        if (PublicFastDayRules.isDeferredFromShabbat(cal)) {
+            val purimWhen = if (JerusalemPurimRules.isJerusalemProfile(profile)) {
+                "Shushan Purim is Monday (15 Adar)"
+            } else {
+                "Purim is Sunday (14 Adar)"
+            }
+            // Under the fixed calendar, deferred Taanit Esther is always the preceding Thursday
+            // (11 Adar when 13 Adar is Shabbat) — use the actual weekday + Hebrew day from [cal].
+            val weekday = cal.date.dayOfWeek.name.lowercase().replaceFirstChar { it.uppercase() }
+            val hebrewDay = cal.hebrewDay ?: 11
+            "Today is the Fast of Esther (Taanit Esther) — deferred to $weekday " +
+                "($hebrewDay Adar) because 13 Adar falls on Shabbat this year " +
+                "($purimWhen)."
+        } else {
+            "Today is the Fast of Esther (Taanit Esther) — the minor fast on 13 Adar."
+        }
+
+    private fun estherMitzvotBeginLine(cal: DayInfo, profile: UserProfile): String {
+        if (PublicFastDayRules.isDeferredFromShabbat(cal)) {
+            return if (JerusalemPurimRules.isJerusalemProfile(profile)) {
+                "Shushan Purim is Monday (15 Adar) — mitzvot begin Sunday night, not tonight."
+            } else {
+                "Purim is Sunday (14 Adar) — mitzvot begin Motzei Shabbat this week, not tonight."
+            }
+        }
+        val jerusalem = JerusalemPurimRules.isJerusalemProfile(profile)
+        val day = cal.hebrewDay
+        val thursday = cal.date.dayOfWeek == kotlinx.datetime.DayOfWeek.THURSDAY
+        // Meshulash year: 15 Adar is Shabbat → 13 Adar is Thursday; Megillah starts tonight.
+        if (jerusalem && thursday && day == 13) {
+            return "Purim Meshulash: Megillah begins tonight (Thursday night). " +
+                "Matanot continue Friday; mishloach manot and the seudah are Sunday. " +
+                "Al HaNissim is recited on Shabbat only."
+        }
+        return if (jerusalem) {
+            "Shushan Purim mitzvot begin tomorrow night (15 Adar)."
+        } else {
+            "Purim mitzvot begin tonight into tomorrow (14 Adar)."
+        }
+    }
 
     private val YOM_KIPPUR_FAST_DAY_TEMPLATE = """
 Today is Yom Kippur — the Day of Atonement.
@@ -506,7 +594,9 @@ This item becomes available at nightfall after the fast ends.
 
     fun motzeiYomKippurMealArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
-        val tzeit = ZmanimFormatter.formatTime(cal.zmanim?.tzeitMillis, tz)
+        // After tzeit rollover, snapshot tzeit is *next* nightfall — use outgoing Motzei tzeit.
+        val endOfFastMillis = HavdalahRules.windowStartMillis(cal) ?: cal.zmanim?.tzeitMillis
+        val tzeit = ZmanimFormatter.formatTime(endOfFastMillis, tz)
         return mapOf(
             "tzeitLine" to (tzeit?.let { TZET_LINE_TEMPLATE } ?: ""),
             "time" to (tzeit ?: ""),

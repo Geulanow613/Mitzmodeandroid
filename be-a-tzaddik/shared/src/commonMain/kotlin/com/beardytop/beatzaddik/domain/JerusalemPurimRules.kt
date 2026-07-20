@@ -9,10 +9,9 @@ import kotlinx.datetime.DayOfWeek
 object JerusalemPurimRules {
 
     fun isJerusalemProfile(profile: UserProfile): Boolean {
-        if (profile.manualCityId in setOf("jlm", "jerusalem")) return true
+        // Same city-id / lat-lon box as CandleLightingRules (40-min candles) — not freeform labels.
+        if (CandleLightingRules.isJerusalem(profile)) return true
         if (profile.manualCityId in doubtfulWalledCityIds) return profile.observeWalledCityPurim
-        // Do not infer Jerusalem from freeform GPS labels; it causes false positives and
-        // incorrectly enables walled-city Purim / Meshulash outside Jerusalem.
         return false
     }
 
@@ -101,13 +100,23 @@ object JerusalemPurimRules {
                 dayOfWeek,
             )
         ) {
+            // Communal Shabbat only — Tachanun already off for Shabbat; not a home Purim day.
             return false
         }
         if (isPurimMeshulashFriday(isJerusalem, todayYomTovIndex, tomorrowYomTovIndex, dayOfWeek)) {
             return true
         }
+        // Sunday mishloach / seudah — omit Tachanun; checklist uses meshulash_sunday season.
+        if (isPurimMeshulashSunday(isJerusalem, dayOfWeek, yesterdayYomTovIndex)) {
+            return true
+        }
         return todayYomTovIndex == HebrewCalendarEngine.SHUSHAN_PURIM
     }
+
+    fun isMeshulashSeason(cal: DayInfo): Boolean =
+        "purim_meshulash_friday" in cal.activeSeasons ||
+            "purim_meshulash_sunday" in cal.activeSeasons ||
+            "purim_meshulash_shabbat" in cal.activeSeasons
 
     fun isErevPurimDay(
         isJerusalem: Boolean,
@@ -171,6 +180,26 @@ object JerusalemPurimRules {
         else -> "Shushan Purim"
     }
 
-    fun statusChipLabel(isJerusalem: Boolean): String =
-        if (isJerusalem) "Shushan Purim" else "Purim"
+    fun statusChipLabel(
+        isJerusalem: Boolean,
+        meshulashFriday: Boolean = false,
+        meshulashSunday: Boolean = false,
+        meshulashShabbat: Boolean = false,
+    ): String = when {
+        meshulashFriday || meshulashSunday || meshulashShabbat -> "Purim Meshulash"
+        isJerusalem -> "Shushan Purim"
+        else -> "Purim"
+    }
+
+    fun occasionLabel(
+        isJerusalem: Boolean,
+        meshulashFriday: Boolean = false,
+        meshulashSunday: Boolean = false,
+        meshulashShabbat: Boolean = false,
+    ): String = statusChipLabel(
+        isJerusalem = isJerusalem,
+        meshulashFriday = meshulashFriday,
+        meshulashSunday = meshulashSunday,
+        meshulashShabbat = meshulashShabbat,
+    )
 }

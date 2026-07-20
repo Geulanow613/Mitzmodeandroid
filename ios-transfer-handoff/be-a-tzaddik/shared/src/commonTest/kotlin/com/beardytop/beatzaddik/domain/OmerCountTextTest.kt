@@ -18,11 +18,15 @@ class OmerCountTextTest {
     @Test
     fun tonightCountUsesNextDayNotCurrentDay() {
         val nusach = EffectiveNusach.ASHKENAZ
-        val args = OmerCountText.explanationArgs(sampleCal(omerDay = 3), sampleProfile())
+        val cal = sampleCal(omerDay = 3)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0)
+            .toInstant(TimeZone.of("America/New_York")).toEpochMilliseconds()
+        val args = OmerCountText.explanationArgs(cal, sampleProfile(), noon)
         assertEquals(OmerCountText.omerDaySummary(3, nusach), args["todaySummary"])
         assertEquals(OmerCountText.omerDaySummary(4, nusach), args["tonightSummary"])
+        // Daytime: speech line is the day it currently is (last night's count), not tonight's.
         assertEquals(
-            "Today is ${OmerCountText.omerDaySummary(4, nusach)}.",
+            "Today is ${OmerCountText.omerDaySummary(3, nusach)}.",
             args["speechPhrase"],
         )
         val filled = ExplainerTemplateFill.fill(OmerCountText.explanationTemplate(), args)
@@ -33,11 +37,39 @@ class OmerCountTextTest {
     }
 
     @Test
+    fun afterTzeitSpeechPhraseIsTonightCount() {
+        val nusach = EffectiveNusach.ASHKENAZ
+        val cal = sampleCal(omerDay = 4, startedTonightAtTzeit = true)
+        val tenPm = LocalDateTime(2026, 6, 14, 22, 0)
+            .toInstant(TimeZone.of("America/New_York")).toEpochMilliseconds()
+        val args = OmerCountText.explanationArgs(cal, sampleProfile(), tenPm)
+        assertEquals(OmerCountText.omerDaySummary(3, nusach), args["todaySummary"])
+        assertEquals(OmerCountText.omerDaySummary(4, nusach), args["tonightSummary"])
+        assertEquals(
+            "Today is ${OmerCountText.omerDaySummary(4, nusach)}.",
+            args["speechPhrase"],
+        )
+    }
+
+    @Test
     fun checklistTitleMentionsLastNightAndTonight() {
         val cal = sampleCal(omerDay = 5) // daytime: last night was 5, tonight counts 6
-        val title = OmerCountText.buildTitle(cal, EffectiveNusach.ASHKENAZ)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0)
+            .toInstant(TimeZone.of("America/New_York")).toEpochMilliseconds()
+        val title = OmerCountText.buildTitle(cal, EffectiveNusach.ASHKENAZ, noon)
         assertTrue(title.contains("was day 5"), title)
         assertTrue(title.contains("count day 6"), title)
+    }
+
+    @Test
+    fun checklistTitleDay49DaytimeSaysCountingComplete() {
+        val cal = sampleCal(omerDay = 49, startedTonightAtTzeit = false)
+        val noon = LocalDateTime(2026, 6, 15, 12, 0)
+            .toInstant(TimeZone.of("America/New_York")).toEpochMilliseconds()
+        val title = OmerCountText.buildTitle(cal, EffectiveNusach.ASHKENAZ, noon)
+        assertTrue(title.contains("complete"), title)
+        assertTrue(title.contains("day 49"), title)
+        assertFalse(title.contains("count day 50"), title)
     }
 
     @Test
@@ -155,7 +187,7 @@ class OmerCountTextTest {
         locationLabel = "New York",
     )
 
-    private fun sampleCal(omerDay: Int): DayInfo {
+    private fun sampleCal(omerDay: Int, startedTonightAtTzeit: Boolean = false): DayInfo {
         val tz = "America/New_York"
         val date = LocalDate(2026, 6, 15)
         val noon = LocalDateTime(2026, 6, 15, 12, 0).toInstant(TimeZone.of(tz)).toEpochMilliseconds()
@@ -175,6 +207,7 @@ class OmerCountTextTest {
             inactivePeriodHint = null,
             omerDay = omerDay,
             isSefiratHaomer = true,
+            startedTonightAtTzeit = startedTonightAtTzeit,
             zmanim = zmanim,
         )
     }

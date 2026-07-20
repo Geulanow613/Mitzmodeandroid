@@ -45,6 +45,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -179,14 +180,6 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         _showRatingPrompt.value = true
     }
 
-    private val clockTick = flow {
-        emit(Clock.System.now().toEpochMilliseconds())
-        while (true) {
-            delay(60_000)
-            emit(Clock.System.now().toEpochMilliseconds())
-        }
-    }
-
     // Nested combine: first pack the 5 checklist data sources together, then tick with the clock.
     private data class ChecklistInput(
         val profile: UserProfile,
@@ -238,19 +231,44 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
     /** Wall-clock anchor so sunset-offset warn sims advance and the countdown ticks. */
     private val _debugSimWallAnchor = MutableStateFlow<Long?>(null)
 
-    private val effectiveNowMillis = combine(_checklistDebugOverride, clockTick) { debug, tick ->
+    /** 60s normally; 1s while a phone-warn sunset-offset sim is running. */
+    private val clockTick = _checklistDebugOverride.flatMapLatest { debug ->
+        val scenario = debug?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
+        val intervalMs = if (scenario?.sunsetOffsetMinutes != null) 1_000L else 60_000L
+        flow {
+            emit(Clock.System.now().toEpochMilliseconds())
+            while (true) {
+                delay(intervalMs)
+                emit(Clock.System.now().toEpochMilliseconds())
+            }
+        }
+    }
+
+    private val effectiveNowMillis = combine(
+        _checklistDebugOverride,
+        _debugSimWallAnchor,
+        clockTick,
+    ) { debug, anchor, tick ->
         if (debug == null) {
             tick
         } else {
             val scenario = ChecklistDebugScenarios.byId(debug.scenarioId)
-            val anchor = _debugSimWallAnchor.value
             if (scenario?.sunsetOffsetMinutes != null && anchor != null) {
-                debug.epochMillis + (tick - anchor)
+                val wallElapsed = (tick - anchor).coerceAtLeast(0L)
+                val simElapsed = wallElapsed * HolyDayPhoneRules.DEBUG_WARN_SIM_SPEED
+                debug.epochMillis + simElapsed
             } else {
                 debug.epochMillis
             }
         }
     }
+
+    /** Wall / simulated "now" for clocks and debug labels (advances during phone-warn sims). */
+    val displayNowMillis: StateFlow<Long> = effectiveNowMillis.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5000),
+        Clock.System.now().toEpochMilliseconds(),
+    )
 
     fun applyChecklistDebugScenario(scenario: ChecklistDebugScenario, timeSlot: ChecklistDebugTimeSlot) {
         _pendingDebugTimeSlot.value = timeSlot
@@ -300,6 +318,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                 prof.timezoneId,
             )
         }
+        _debugSimWallAnchor.value = Clock.System.now().toEpochMilliseconds()
         _checklistDebugOverride.value = current.copy(
             timeSlot = timeSlot,
             epochMillis = millis,

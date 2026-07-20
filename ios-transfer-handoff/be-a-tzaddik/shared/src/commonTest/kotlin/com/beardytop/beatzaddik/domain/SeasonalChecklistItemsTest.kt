@@ -4,11 +4,67 @@ import kotlinx.datetime.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class SeasonalChecklistItemsTest {
 
     private val morningMillis = 9L * 60 * 60 * 1000
+
+    @Test
+    fun chanukahLightingNight_daytimeUsesTonightNextNight() {
+        val day5 = sampleDayInfo(
+            date = LocalDate(2025, 12, 20),
+            activeTimeOfDay = TimeOfDay.DAY,
+            hebrewMonth = HebrewCalendarEngine.KISLEV,
+            hebrewDay = 29,
+        ).copy(isChanukah = true, chanukahDay = 5, startedTonightAtTzeit = false)
+        assertEquals(6, SeasonalChecklistItems.chanukahLightingNight(day5, morningMillis))
+    }
+
+    @Test
+    fun chanukahLightingNight_afterTzeitUsesCurrentNight() {
+        val night6 = sampleDayInfo(
+            date = LocalDate(2025, 12, 21),
+            activeTimeOfDay = TimeOfDay.NIGHT,
+            hebrewMonth = HebrewCalendarEngine.KISLEV,
+            hebrewDay = 30,
+        ).copy(isChanukah = true, chanukahDay = 6, startedTonightAtTzeit = true)
+        assertEquals(6, SeasonalChecklistItems.chanukahLightingNight(night6, 22L * 60 * 60 * 1000))
+    }
+
+    @Test
+    fun chanukahLightingNight_daytimeDay8HasNoLighting() {
+        val day8 = sampleDayInfo(
+            date = LocalDate(2025, 12, 23),
+            activeTimeOfDay = TimeOfDay.DAY,
+            hebrewMonth = HebrewCalendarEngine.TEVET,
+            hebrewDay = 2,
+        ).copy(isChanukah = true, chanukahDay = 8, startedTonightAtTzeit = false)
+        assertNull(SeasonalChecklistItems.chanukahLightingNight(day8, morningMillis))
+    }
+
+    @Test
+    fun chanukahLightingNight_afterMidnightKeepsSameNight() {
+        val dawn = 5L * 60 * 60 * 1000
+        val oneAm = 1L * 60 * 60 * 1000
+        val night5 = sampleDayInfo(
+            date = LocalDate(2025, 12, 21),
+            activeTimeOfDay = TimeOfDay.NIGHT,
+            hebrewMonth = HebrewCalendarEngine.KISLEV,
+            hebrewDay = 29,
+        ).copy(
+            isChanukah = true,
+            chanukahDay = 5,
+            startedTonightAtTzeit = false,
+            zmanim = ZmanimSnapshot(
+                timezoneId = "UTC",
+                alotHaShacharMillis = dawn,
+                sunriseMillis = dawn + 3_600_000,
+            ),
+        )
+        assertEquals(5, SeasonalChecklistItems.chanukahLightingNight(night5, oneAm))
+    }
 
     @Test
     fun threeWeeksItemStaysActiveAtNight() {

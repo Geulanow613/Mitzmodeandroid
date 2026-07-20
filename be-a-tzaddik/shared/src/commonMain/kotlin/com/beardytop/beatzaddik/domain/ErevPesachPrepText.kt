@@ -40,23 +40,24 @@ object ErevPesachPrepText {
     }
 
     /**
-     * Bedikat night spans tzeit rollover: show on the search day's evening, and keep showing
-     * after nightfall when the Hebrew day has already advanced to the next date.
+     * Bedikat night spans tzeit→dawn: show on the search day's evening, and keep showing
+     * after nightfall (including after civil midnight) when the Hebrew day has advanced.
      */
-    fun isBedikatNight(cal: DayInfo, dow: PesachErevDow): Boolean {
+    fun isBedikatNight(cal: DayInfo, dow: PesachErevDow, nowMillis: Long): Boolean {
         val day = cal.hebrewDay ?: return false
         val target = bedikatNissanDay(dow)
+        val nightOpen = HalachicNightWindow.isOpen(cal, nowMillis)
         return when {
-            !cal.startedTonightAtTzeit && day == target -> true
-            cal.startedTonightAtTzeit && day == target + 1 -> true
+            !nightOpen && day == target -> true
+            nightOpen && day == target + 1 -> true
             else -> false
         }
     }
 
-    /** Biur is a morning mitzvah — never show on the night the Hebrew day rolls onto biur day. */
-    fun isBiurMorning(cal: DayInfo, dow: PesachErevDow): Boolean {
+    /** Biur is a morning mitzvah — never show during the night before dawn on biur day. */
+    fun isBiurMorning(cal: DayInfo, dow: PesachErevDow, nowMillis: Long): Boolean {
         val day = cal.hebrewDay ?: return false
-        return !cal.startedTonightAtTzeit && day == biurNissanDay(dow)
+        return !HalachicNightWindow.isOpen(cal, nowMillis) && day == biurNissanDay(dow)
     }
 
     /** Hebrew date (Nissan) for Taanit Bechorot (moved earlier when Erev Pesach is Shabbat). */
@@ -71,7 +72,11 @@ object ErevPesachPrepText {
         else -> 13
     }
 
-    fun pesachPrepItemsForDay(cal: DayInfo, profile: UserProfile): List<ChecklistItemDef> {
+    fun pesachPrepItemsForDay(
+        cal: DayInfo,
+        profile: UserProfile,
+        nowMillis: Long,
+    ): List<ChecklistItemDef> {
         if (!isPesachPrepWindow(cal)) return emptyList()
         val nissanDay = cal.hebrewDay ?: return emptyList()
         val dow = pesachErevDow(cal) ?: return emptyList()
@@ -79,14 +84,14 @@ object ErevPesachPrepText {
             if (nissanDay in 8..mechiratAuthorizeThroughNissanDay(dow)) {
                 add(mechiratItem(cal, profile, nissanDay, dow))
             }
-            if (isBedikatNight(cal, dow)) {
+            if (isBedikatNight(cal, dow, nowMillis)) {
                 add(bedikatItem(cal, profile))
             }
-            if (isBiurMorning(cal, dow)) {
+            if (isBiurMorning(cal, dow, nowMillis)) {
                 add(biurItem(cal, profile))
             }
-            // Taanit is daytime — hide after tzeit rollover onto the fast's Hebrew date.
-            if (!cal.startedTonightAtTzeit && nissanDay == taanitNissanDay(dow)) {
+            // Taanit is daytime — hide while the night window is still open.
+            if (!HalachicNightWindow.isOpen(cal, nowMillis) && nissanDay == taanitNissanDay(dow)) {
                 add(taanitItem(cal, profile))
             }
             // The general "Erev Pesach prep — Yom Tov & seder" item (from the erev-chag system)

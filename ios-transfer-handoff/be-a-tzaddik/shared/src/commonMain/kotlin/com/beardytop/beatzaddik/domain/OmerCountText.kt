@@ -19,16 +19,18 @@ object OmerCountText {
     /**
      * True from tonight's tzeit until dawn — when the nightly count should be prominent on the checklist.
      * Before tzeit (even after sunset), returns false so the item stays in normal order until nightfall.
+     * Uses [HalachicNightWindow] so priority survives civil midnight.
      */
     fun isOmerCountPriority(nowMillis: Long, cal: DayInfo): Boolean {
         if (!isActiveOmerCountSeason(cal)) return false
         val z = cal.zmanim
-        if (z == null) return cal.activeTimeOfDay == TimeOfDay.NIGHT
-        val tzeitTonight = omerNightfallMillis(z) ?: return cal.activeTimeOfDay == TimeOfDay.NIGHT
-        val dawn = z.alotHaShacharMillis ?: z.sunriseMillis
+        // Without zmanim, only prioritize after the tzeit day-roll — never from sunset alone.
+        if (z == null) return cal.startedTonightAtTzeit
+        val tzeitTonight = omerNightfallMillis(z) ?: return HalachicNightWindow.isOpen(cal, nowMillis)
         return when {
             nowMillis >= tzeitTonight -> true
-            dawn != null && nowMillis < dawn -> cal.activeTimeOfDay == TimeOfDay.NIGHT
+            // Still last night's count window (incl. after civil midnight).
+            HalachicNightWindow.isOpen(cal, nowMillis) -> true
             else -> false
         }
     }
@@ -50,16 +52,21 @@ object OmerCountText {
      * Checklist title naming both last night's count and tonight's upcoming count
      * (e.g. last night Wed was day 5; tonight Thu count day 6).
      */
-    fun buildTitle(cal: DayInfo, nusach: EffectiveNusach): String {
+    fun buildTitle(cal: DayInfo, nusach: EffectiveNusach, nowMillis: Long): String {
         val day = cal.omerDay ?: return "Count the Omer"
-        val rolled = cal.startedTonightAtTzeit
+        val rolled = HalachicNightWindow.isOpen(cal, nowMillis)
         val tonightEveningDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
         val tonightDow = tonightEveningDate.dayOfWeek.shortDisplayName()
         val lastNightDow = tonightEveningDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.shortDisplayName()
         val tonightCount = if (rolled) day else day + 1
         val lastNightCount = if (rolled) day - 1 else day
         if (tonightCount !in 1..49) {
-            return buildTitle(day, nusach)
+            // Daytime day 49: Night 49 was last night — counting is complete.
+            return if (lastNightCount in 1..49) {
+                "Count the Omer — complete (last night ($lastNightDow) was day $lastNightCount)"
+            } else {
+                "Count the Omer — counting complete"
+            }
         }
         if (lastNightCount < 1) {
             return "Count the Omer — tonight ($tonightDow): day $tonightCount"
@@ -74,13 +81,24 @@ object OmerCountText {
             else -> buildTitle(day, nusach)
         }
 
-    fun localizedBuildTitle(cal: DayInfo, languageCode: String, nusach: EffectiveNusach): String {
-        if (languageCode !in setOf("he", "yi")) return buildTitle(cal, nusach)
+    fun localizedBuildTitle(
+        cal: DayInfo,
+        languageCode: String,
+        nusach: EffectiveNusach,
+        nowMillis: Long,
+    ): String {
+        if (languageCode !in setOf("he", "yi")) return buildTitle(cal, nusach, nowMillis)
         val day = cal.omerDay ?: return "ספירת העומר"
-        val rolled = cal.startedTonightAtTzeit
+        val rolled = HalachicNightWindow.isOpen(cal, nowMillis)
         val tonightCount = if (rolled) day else day + 1
         val lastNightCount = if (rolled) day - 1 else day
-        if (tonightCount !in 1..49) return localizedBuildTitle(day, languageCode, nusach)
+        if (tonightCount !in 1..49) {
+            return if (lastNightCount in 1..49) {
+                "ספירת העומר — הספירה הסתיימה (אמש יום $lastNightCount)"
+            } else {
+                "ספירת העומר — הספירה הסתיימה"
+            }
+        }
         if (lastNightCount < 1) return "ספירת העומר — הלילה: יום $tonightCount"
         return "ספירת העומר — אמש יום $lastNightCount; הלילה סופרים יום $tonightCount"
     }
@@ -158,14 +176,14 @@ object OmerCountText {
     fun omerCountSpeechPhrase(day: Int, nusach: EffectiveNusach): String =
         "Today is ${omerDaySummary(day, nusach)}."
 
-    fun buildExplanation(cal: DayInfo, profile: UserProfile): String {
-        val args = explanationArgs(cal, profile)
+    fun buildExplanation(cal: DayInfo, profile: UserProfile, nowMillis: Long): String {
+        val args = explanationArgs(cal, profile, nowMillis)
         return ExplainerTemplateFill.fill(explanationTemplate(), args)
     }
 
     fun explanationTemplate(): String = OMER_EXPLANATION_TEMPLATE
 
-    fun explanationArgs(cal: DayInfo, profile: UserProfile): Map<String, String> {
+    fun explanationArgs(cal: DayInfo, profile: UserProfile, nowMillis: Long): Map<String, String> {
         val day = cal.omerDay ?: return emptyMap()
         val nusach = profile.effectiveNusach()
         val tz = cal.zmanim?.timezoneId ?: profile.timezoneId
@@ -173,9 +191,9 @@ object OmerCountText {
         val timePart = ZmanimFormatter.formatTime(tzeit, tz)?.let {
             ExplainerTemplateFill.fill(OMER_TIME_PART, mapOf("time" to it))
         } ?: ""
-        // After the tzeit rollover the DayInfo already describes the new Hebrew day:
+        // After the tzeit rollover (through dawn) the DayInfo already describes the new Hebrew day:
         // tonight's (ongoing) count is `day` itself and the real civil evening is date - 1.
-        val rolled = cal.startedTonightAtTzeit
+        val rolled = HalachicNightWindow.isOpen(cal, nowMillis)
         val tonightDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
         val tonight = tonightDate.dayOfWeek.displayName()
         val lastNight = tonightDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.displayName()
@@ -186,11 +204,15 @@ object OmerCountText {
         val tonightSummary = if (tonightCountDay <= 49) omerDaySummary(tonightCountDay, nusach) else ""
         val nextDaySummary = if (tonightCountDay < 49) omerDaySummary(tonightCountDay + 1, nusach) else ""
         val nextNightLine = if (tonightCountDay < 49) OMER_NEXT_NIGHT_LINE else ""
-        val speechPhrase = if (tonightCountDay <= 49) {
-            "Today is ${omerDaySummary(tonightCountDay, nusach)}."
-        } else {
-            ""
+        // Daytime: "Today is…" means the day it currently is (last night's count).
+        // After tzeit: "Today is…" is the liturgical formula for tonight's count.
+        val speechCountDay = when {
+            rolled && tonightCountDay in 1..49 -> tonightCountDay
+            lastNightCount in 1..49 -> lastNightCount
+            tonightCountDay in 1..49 -> tonightCountDay // first night, before any prior count
+            else -> null
         }
+        val speechPhrase = speechCountDay?.let { "Today is ${omerDaySummary(it, nusach)}." }.orEmpty()
         val lastNightBlock = when {
             lastNightCount in 1..49 ->
                 "Last night ($lastNight): you should have counted $todaySummary (day $lastNightCount of 49).\n"

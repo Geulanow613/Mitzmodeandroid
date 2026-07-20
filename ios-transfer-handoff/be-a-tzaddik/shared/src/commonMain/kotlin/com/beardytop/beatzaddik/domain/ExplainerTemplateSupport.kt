@@ -137,24 +137,35 @@ Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah aga
     // ── Chol HaMoed ────────────────────────────────────────────────────────────
 
     private val CHOL_HAMOED_HONOR_TEMPLATE = """
-Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.
+Chol HaMoed (חול המועד) — the intermediate, semi-festive days of Pesach and Sukkot. These days have a holy status: Jewish law requires honoring them by dressing nicely, eating special meals, studying Torah, and refraining from ordinary weekday work. They are not full Yom Tov, but they are not ordinary weekdays either.
 ${'$'}hoshanaRabaBlock
 
-Spirit of the day:
-• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
-• Melacha — many labors are restricted (not as strict as Yom Tov). What is permitted depends on your situation — ask your rav.
-• Food preparation for the day's meals is generally permitted (this is not the Yom Tov category of ochel nefesh — Chol HaMoed has its own, lighter rules).
-
-What to do:
+What to do today:
 ${'$'}hallelBlock
-• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
 ${'$'}festivalLines
+• Treat the day as festival time — outings, family, learning, and visits that fit the moed — not a regular workday.
 
-Work and restrictions:
-• Avoid unnecessary work and home projects — many melachot are restricted on Chol HaMoed. Ask your rav what is permitted.
-• Laundry: you are generally permitted only spot cleaning; ask your rav if you run out of clean clothes.
+1. Work restrictions (melacha)
+Major labor is restricted so the days do not feel like ordinary weekdays. Common exceptions (ask your rav for your situation):
+• Festival needs — work required for enjoyment of the holiday (e.g. cooking; fixing something that broke for the moed).
+• Preventing loss — work to avoid a significant financial loss that cannot wait until after the holiday.
+• Public needs — services essential to the community.
+• Laundry: generally only spot cleaning; ask your rav if you run out of clean clothes.
 • Earning for the festival: if you lack money for the holiday, work to earn what you need may be permitted — ask your rav.
-• Grooming: Shaving and haircuts are prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — except under very specific circumstances, such as one leaving prison (ask your rav).
+
+2. Clothing and appearance
+• Festive dress: wear clothing nicer than standard weekday attire — many families wear Shabbat clothes on Chol HaMoed.
+• Grooming: haircuts, shaving, and laundry are generally forbidden on Chol HaMoed (Shulchan Arukh O.C. 531) — a reminder to prepare appearance before the holiday begins (narrow exceptions exist — ask your rav).
+
+3. Food and celebration
+• Dining: honor the days with nicer meals than during the rest of the year — meat, fish, and wine are a good practice; eat at least some bread at your primary meals when you can.
+• Rejoicing: it is customary to buy treats and gifts for family to increase simchat ha'moed.
+• Weddings are not performed on Chol HaMoed — so wedding joy is not mixed with the joy of the festival.
+
+4. Daily activities and greetings
+• Tefillin: not worn on Chol HaMoed — the days themselves act as the "sign" of the holiday (customs can vary slightly — follow your kehilla).
+• Greetings: use a holiday greeting such as "Moadim L'simcha" or "Chag Sameach" rather than a regular weekday greeting.
+• Torah study: dedicate a substantial part of Chol HaMoed to learning Torah.
     """.trimIndent()
 
     fun cholHamoedHonorTemplate(): String = CHOL_HAMOED_HONOR_TEMPLATE
@@ -164,8 +175,12 @@ Work and restrictions:
         val isSukkot = "chol_hamoed_sukkot" in cal.activeSeasons
         val hallelBlock = buildString {
             appendLine("Davening — Yaaleh V'yavo and Hallel:")
+            appendLine(
+                "• Yaaleh V'yavo: insert in every Amidah (Shacharit, Mincha, Maariv, Musaf) in Retzei (Avodah), " +
+                    "and in Birkat Hamazon when you eat bread. See the dedicated Chol HaMoed Yaaleh checklist rows.",
+            )
             if (isSukkot) {
-                appendLine("• Sukkot (every day of the festival, including Chol HaMoed): Full Hallel.")
+                appendLine("• Sukkot (every day of the festival, including Chol HaMoed): Full Hallel at Shacharit.")
             }
             if (isPesach) {
                 if (profile.isInIsrael) {
@@ -174,7 +189,7 @@ Work and restrictions:
                     )
                 } else {
                     appendLine(
-                        "• Pesach Chol HaMoed: Half Hallel only (Full Hallel on the first two days of Yom Tov; Half Hallel from Chol HaMoed onward, including the final Yom Tov days). Hallel blessings: Ashkenazic custom permits a blessing over Partial Hallel; Sephardic custom strictly prohibits it (Shulchan Arukh O.C. 422:2).",
+                        "• Pesach Chol HaMoed: Half Hallel only (Full Hallel on the first two Diaspora Yom Tov days of Pesach; Half Hallel from Chol HaMoed onward, including the final Yom Tov days). Hallel blessings: Ashkenazic custom permits a blessing over Partial Hallel; Sephardic custom strictly prohibits it (Shulchan Arukh O.C. 422:2).",
                     )
                 }
             }
@@ -255,7 +270,7 @@ For women: eating meals in the sukkah is a recommended mitzvah but not obligator
 ${'$'}leishevLine
 
 How to observe:
-• Meals involving bread or significant baked goods (mezonot) should be eaten in the sukkah when you can. The blessing leishev baSukkah applies when eating a kebeitzah (approx. 2 fl oz / the volume of an egg) or more of bread or cake.
+• Meals involving bread or significant baked goods (mezonot) should be eaten in the sukkah when you can (kebeitzah / about an egg's volume of bread or cake is the classic measure).
 • Spend time learning, singing, and resting there, not only a quick bite.
 • Help decorate the sukkah and welcome guests; many families invite the Ushpizin — mystical "guests" (Abraham, Isaac, Jacob, and others) — each night.
 • Rain or heavy discomfort may exempt you — follow halacha for your situation.
@@ -298,8 +313,7 @@ Food & home:
 Torah & tefillah:
 • Confirm shul times for Maariv, Shacharit, and Musaf; many communities have all-night learning (Tikkun Leil Shavuot) — find a program or plan a home study session.
 • Choose texts to learn: Ruth (read on Shavuot), Megillat Rut customs, Pirkei Avot, or a topic your family enjoys.
-• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).
-
+${'$'}yizkorAkdamutNote
 Joy & family (simchat Yom Tov):
 • Plan festive meat meals with wine — the core Simchat Yom Tov obligation — alongside any dairy minhag.
 • Gifts for wife and children (clothes, treats) l'fi mamono — associate the day with joy.
@@ -379,6 +393,11 @@ ${'$'}shabbatSchedule
             " — in the Diaspora, prepare for two days of Yom Tov"
         } else {
             ""
+        },
+        "yizkorAkdamutNote" to if (!profile.isInIsrael) {
+            "• Review Akdamut / Yizkor customs if your community observes them on the second day (Diaspora).\n\n"
+        } else {
+            "• Review Akdamut / Yizkor customs if your community observes them on Shavuot.\n\n"
         },
     )
 

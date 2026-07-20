@@ -11,8 +11,8 @@ import kotlinx.datetime.toLocalDateTime
 
 /**
  * Compact inline zman labels for Upcoming & seasonal.
- * Shabbat / weekday Yom Tov: "Candles 7:35pm Fri" (18 or 40 min before sunset; tzeit when Motzei Shabbat / Shavuot).
- * Everything else: relevant zman at "7:36pm Wed" (sunset, tzeit, or dawn for minor fasts only).
+ * Shabbat / weekday Yom Tov: "Candles 7:35pm Fri" (18 or 40 min before sunset).
+ * Shabbat→Yom Tov: "Nightfall …" at tzeit (Yaknehaz). Everything else: zman at "7:36pm Wed".
  */
 internal object UpcomingHolidayTiming {
 
@@ -56,10 +56,12 @@ internal object UpcomingHolidayTiming {
         profile: UserProfile,
     ): String? {
         val z = erevInfo.zmanim ?: return null
-        val epochMillis = when {
-            chagIdx == HebrewCalendarEngine.SHAVUOS -> z.tzeitMillis
-            erevInfo.isShabbat && tomorrowInfo.isYomTovAssurBemelacha -> z.tzeitMillis
-            else -> z.sunsetMillis?.let { CandleLightingRules.candleLightingMillis(it, profile) }
+        // Shabbat→YT: festival begins at tzeit (Yaknehaz) — label as nightfall, not candles.
+        if (erevInfo.isShabbat && tomorrowInfo.isYomTovAssurBemelacha) {
+            return zmanInlineLabel(z.tzeitMillis, erevInfo, profile)?.let { "Nightfall $it" }
+        }
+        val epochMillis = z.sunsetMillis?.let {
+            CandleLightingRules.candleLightingMillis(it, profile)
         } ?: return null
         return candlesInlineLabel(epochMillis, erevInfo, profile)
     }
@@ -67,8 +69,15 @@ internal object UpcomingHolidayTiming {
     fun yomKippurErevStartsLabel(erevInfo: DayInfo, profile: UserProfile): String? =
         zmanInlineLabel(erevInfo.zmanim?.sunsetMillis, erevInfo, profile)
 
-    fun chanukahStartsLabel(erevChanukahInfo: DayInfo, profile: UserProfile): String? =
-        zmanInlineLabel(erevChanukahInfo.zmanim?.tzeitMillis, erevChanukahInfo, profile)
+    fun chanukahStartsLabel(erevChanukahInfo: DayInfo, profile: UserProfile): String? {
+        val z = erevChanukahInfo.zmanim ?: return null
+        // Friday erev: first lighting is from plag (before Shabbat candles), not tzeit.
+        if (erevChanukahInfo.isErevShabbat) {
+            return zmanInlineLabel(z.plagHaminchaMillis, erevChanukahInfo, profile)
+                ?.let { "From plag $it" }
+        }
+        return zmanInlineLabel(z.tzeitMillis, erevChanukahInfo, profile)
+    }
 
     fun purimStartsLabel(erevPurimInfo: DayInfo, profile: UserProfile): String? =
         zmanInlineLabel(erevPurimInfo.zmanim?.tzeitMillis, erevPurimInfo, profile)

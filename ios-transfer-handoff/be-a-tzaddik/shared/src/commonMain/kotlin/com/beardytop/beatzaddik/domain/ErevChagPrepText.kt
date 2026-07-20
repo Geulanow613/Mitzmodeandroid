@@ -279,7 +279,7 @@ On Yom Kippur (no eating, drinking, washing for pleasure, anointing, leather sho
 • Biur was Friday morning (13 Nisan). On Shabbat morning, finish eating chametz by the end of the 4th halachic hour and recite the final Kol Chamira before the end of the 5th halachic hour — do not burn on Shabbat. Bedikat was Thursday night; mechirat chametz should already be authorized."""
                 else ->
                     """Chametz:
-• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (midday threshold) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Bedikat chametz was last night; mechirat chametz should already be authorized with your rabbi — use today's biur chametz checklist item if still on your list."""
+• All chametz must be completely gone, destroyed, or sold, and the final Kol Chamira recited, before the end of the 5th halachic hour this morning (sof zman biur — well before solar midday/chatzos) — NOT sunset. Stop eating chametz by the end of the 4th halachic hour. Bedikat chametz was last night; mechirat chametz should already be authorized with your rabbi — use today's biur chametz checklist item if still on your list."""
             }
             val pesachChametzKitniyotLine = when (profile.effectiveNusach()) {
                 EffectiveNusach.ASHKENAZ ->
@@ -364,7 +364,8 @@ ${shehecheyanuErevLines(HebrewCalendarEngine.SHAVUOS, tomorrowCal, profile)}
 • Read Megillat Rut in many communities (tomorrow).
 • Full Yom Tov davening with Full Hallel and Musaf; Akdamut/Megillat Rut per minhag.
 
-No melacha; treat meals and prayer with joy and Torah focus.""",
+No melacha; treat meals and prayer with joy and Torah focus.
+${diasporaSecondDayNote(profile, "Shavuot")}""",
             ),
             shavuotLinks(profile)
         )
@@ -409,8 +410,10 @@ ${if (profile.isInIsrael) """
 • Shemini Atzeret in the Diaspora: Yizkor is often recited; still a full Yom Tov with no melacha. (Simchat Torah is tomorrow in the Diaspora.)
 • Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim and Chabad eat major meals in the sukkah on Shemini Atzeret but omit leishev basukkah. Sephardim generally eat indoors (no sukkah) on Shemini Atzeret — follow your rav.
 • Liturgical shift: During Musaf tomorrow (on Shemini Atzeret), communities begin the winter rain liturgy in the second blessing of the Amidah — Ashkenaz often inserts "Mashiv HaRuach U'Morid HaGeshem"; many Sephardim say "Morid HaGeshem" (exact wording follows your siddur). Tefillat Geshem is recited in that Musaf.
+• Simchat Torah is tomorrow night in the Diaspora (hakafot, finishing and restarting the Torah cycle). Prepare candles and festive meals for both days before phones go off for Yom Tov — there is no separate in-app erev prep on Shemini Atzeret itself.
 """}
-• Festive Yom Tov meals.""",
+• Festive Yom Tov meals.
+${diasporaSecondDayNote(profile, "Yom Tov (Shemini Atzeret, then Simchat Torah)")}""",
             ),
             sheminiAtzeretLinks(profile)
         )

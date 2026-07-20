@@ -15,8 +15,8 @@ object SefirahMourningRules {
         val day = cal.omerDay ?: return false
         if (day !in 1..49) return false
         return when (nusach) {
-            // Standard Ashkenaz "first 33": days 1–32. Ends morning of Lag (day 33) —
-            // Miktzat hayom k'kulo. Days 34–49: no mourning for this custom.
+            // Standard Ashkenaz "first 33": days 1–32. Ends at nightfall when Lag begins
+            // (tzeit after day 32 = night of day 33). Days 33–49: no mourning for this custom.
             // Rema "later 33" (from Rosh Chodesh Iyar / day 16 through Erev Shavuot,
             // with Lag as a one-day break) is described in the explainer — checklist
             // follows the more common first-33 window for Ashkenaz.
@@ -34,8 +34,8 @@ object SefirahMourningRules {
             }
 
             // Arizal / Chabad: restraint through the Omer until Erev Shavuot;
-            // Lag BaOmer is a one-day suspension only.
-            EffectiveNusach.CHABAD -> day != 33
+            // Lag BaOmer (33) is a one-day suspension; day 49 (Erev Shavuot) is already lifted.
+            EffectiveNusach.CHABAD -> day != 33 && day != 49
         }
     }
 

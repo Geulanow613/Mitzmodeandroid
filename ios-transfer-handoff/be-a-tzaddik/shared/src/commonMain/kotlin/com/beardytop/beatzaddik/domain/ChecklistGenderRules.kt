@@ -13,9 +13,22 @@ object ChecklistGenderRules {
     private val womenOptionalHallelIds = setOf(
         "rosh_chodesh_half_hallel",
         "rosh_chodesh_full_hallel_chanukah",
+        "chanukah_full_hallel",
+        "chol_hamoed_full_hallel",
+        "chol_hamoed_half_hallel",
     )
 
-    val womenOptionalPrayerIds: Set<String> = womenOptionalAmidahIds + womenOptionalHallelIds
+    private val womenOptionalYaalehIds = setOf(
+        "yaaleh_vyavo_rosh_chodesh_shacharit",
+        "yaaleh_vyavo_rosh_chodesh_mincha",
+        "yaaleh_vyavo_rosh_chodesh",
+        "yaaleh_vyavo_chol_hamoed_shacharit",
+        "yaaleh_vyavo_chol_hamoed_mincha",
+        "yaaleh_vyavo_chol_hamoed_maariv",
+    )
+
+    val womenOptionalPrayerIds: Set<String> =
+        womenOptionalAmidahIds + womenOptionalHallelIds + womenOptionalYaalehIds
 
     fun isEffectivelyRequired(item: ChecklistItemDef, profile: UserProfile): Boolean {
         if (!item.required) return false
@@ -39,6 +52,9 @@ object ChecklistGenderRules {
         else -> null
     }
 
-    fun usesMaleExplanationForWomen(item: ChecklistItemDef, profile: UserProfile): Boolean =
-        profile.gender == Gender.FEMALE && item.id in womenOptionalPrayerIds
+    /**
+     * Formerly forced male Amidah copy (with Tachanun) for women. Women now use
+     * [ChecklistItemDef.explanationFemale] when present — do not force male text.
+     */
+    fun usesMaleExplanationForWomen(item: ChecklistItemDef, profile: UserProfile): Boolean = false
 }

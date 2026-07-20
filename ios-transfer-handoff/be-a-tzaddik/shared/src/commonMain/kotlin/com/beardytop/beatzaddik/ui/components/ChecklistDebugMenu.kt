@@ -61,6 +61,7 @@ fun ChecklistDebugMenu(
     activeOverride: ChecklistDebugOverride?,
     timezoneId: String,
     modifier: Modifier = Modifier,
+    displayNowEpochMillis: Long? = null,
     mitzvotCount: Int? = null,
     onDebugSetMitzvotCount: ((Int) -> Unit)? = null,
     onDebugShowRatingPrompt: (() -> Unit)? = null,
@@ -97,12 +98,13 @@ fun ChecklistDebugMenu(
                     color = DebugAccent,
                 )
                 activeOverride?.let { o ->
-                    val timeLabel = ZmanimFormatter.formatTime(o.epochMillis, timezoneId)
+                    val clockMillis = displayNowEpochMillis ?: o.epochMillis
+                    val timeLabel = ZmanimFormatter.formatTime(clockMillis, timezoneId)
                     val scenario = ChecklistDebugScenarios.byId(o.scenarioId)
-                    val slotLabel = if (scenario?.phase == ChecklistDebugPhase.MOTZEI) {
-                        "Motzei (~2h after tzeit)"
-                    } else {
-                        o.timeSlot.label
+                    val slotLabel = when {
+                        scenario?.sunsetOffsetMinutes != null -> "live countdown"
+                        scenario?.phase == ChecklistDebugPhase.MOTZEI -> "Motzei (~2h after tzeit)"
+                        else -> o.timeSlot.label
                     }
                     Text(
                         "Simulating: ${o.label} · ${ZmanimFormatter.formatCivilDate(o.simulatedDate)} · $slotLabel" +
@@ -249,7 +251,8 @@ fun ChecklistDebugMenu(
                     }
                     if (scenario.sunsetOffsetMinutes != null) {
                         Text(
-                            "Pinned to sunset ${scenario.sunsetOffsetMinutes} min (phone-hide warning). Time chips ignored.",
+                            "Starts at sunset ${scenario.sunsetOffsetMinutes} min. Sim clock runs ~1 min/sec " +
+                                "(warning at −20, hide at −5). Time chips ignored.",
                             style = MaterialTheme.typography.labelSmall,
                             color = TzaddikColors.TextMuted,
                             modifier = Modifier.padding(bottom = 8.dp),

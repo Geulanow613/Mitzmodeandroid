@@ -146,6 +146,7 @@ class ChecklistEngine(
             profile.latitude,
             profile.isInIsrael,
             tomorrowCal,
+            candleLeadMinutes = CandleLightingRules.leadMinutesBeforeSunset(profile),
         )
         fun resolveList(defs: List<ChecklistItemDef>) = defs.map { def ->
             val checked = when {
@@ -185,7 +186,7 @@ class ChecklistEngine(
         val motzeiShabbatActive = MotzeiShabbatWindow.isActive(cal, tomorrowCal, nowMillis)
         val havdalahKind = HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
 
-        val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile)
+        val omerBundle = ExplainerTemplateResolver.omerHeaderBundle(cal, profile, nowMillis)
         val periodLabels = if (forcedActivePeriod != null) {
             cal.zmanim?.let {
                 ZmanPeriodLabels.forPeriod(forcedActivePeriod, it, profile.effectiveNusach())
@@ -242,6 +243,12 @@ class ChecklistEngine(
                             if ("Motzei Yom Kippur" in next) next else next + "Motzei Yom Kippur"
                         HavdalahRules.Kind.DELAYED_AFTER_TISHA_BEAV ->
                             if ("Motzei Tisha B'Av" in next) next else next + "Motzei Tisha B'Av"
+                        HavdalahRules.Kind.MOTZEI_SHABBAT_INTO_TISHA_BEAV ->
+                            if ("Motzei Shabbat / Tisha B'Av" in next) {
+                                next
+                            } else {
+                                next + "Motzei Shabbat / Tisha B'Av"
+                            }
                         else -> next
                     }
                 },
@@ -254,7 +261,7 @@ class ChecklistEngine(
                 omerTodayLabel = omerLabel,
                 omerDay = omerDay,
                 omerExplainerText = omerBundle?.let {
-                    OmerCountText.buildExplanation(cal, profile)
+                    OmerCountText.buildExplanation(cal, profile, nowMillis)
                 },
                 omerExplainerTemplate = omerBundle?.template,
                 omerExplainerArgs = omerBundle?.args ?: emptyMap(),
@@ -302,7 +309,26 @@ class ChecklistEngine(
         if (item.married == true && !profile.married) return false
         if (item.hasChildren == true && !profile.hasChildren) return false
         if (!matchesShabbatAppUse(item, cal)) return false
-        if (item.hideOnShabbat && cal.isShabbatOrYomTov) return false
+        // hideOnShabbat = no melacha-day wear (Shabbat / Yom Tov assur bemelacha).
+        // Do not use isYomTov — that includes Chol HaMoed, Chanukah, Purim, etc.
+        if (item.hideOnShabbat && (cal.isShabbat || cal.isYomTovAssurBemelacha)) return false
+        // Chol HaMoed: hide tefillin when minhag omits (Israel / Sefard / Chabad / Edot) —
+        // do not leave an EXPIRED "missed" row.
+        if (item.id == "put_on_tefillin_during_morning_prayers_except_shabbat_festiv") {
+            val prayerDay = PrayerDayContext.from(
+                cal,
+                profile.effectiveNusach(),
+                profile.latitude,
+                profile.isInIsrael,
+                tomorrowCal,
+            )
+            if (TefillinSeasonalRules.shouldOmitTefillinOnCholHamoed(prayerDay)) return false
+            if (TishaBeavTefillinRules.isTishaBeav(prayerDay.fastDayIndex) &&
+                TishaBeavTefillinRules.omitsMorningTefillin(prayerDay.nusach)
+            ) {
+                return false
+            }
+        }
         if (item.shabbatEveOnly && !cal.isErevShabbat) return false
         if (item.id == HavdalahRules.CHECKLIST_ITEM_ID) {
             if (!HavdalahRules.isActive(cal, yesterdayCal, tomorrowCal, nowMillis)) return false
@@ -312,7 +338,11 @@ class ChecklistEngine(
             return false
         }
         if (item.id == "musaf_only_on_rosh_chodesh_festivals_and_shabbat") {
-            if (!cal.isShabbat && !cal.isYomTov && !cal.isRoshChodesh) return false
+            val isCholHamoed = "chol_hamoed_pesach" in cal.activeSeasons ||
+                "chol_hamoed_sukkot" in cal.activeSeasons
+            val isMusafDay = cal.isShabbat || cal.isRoshChodesh ||
+                cal.isYomTovAssurBemelacha || isCholHamoed
+            if (!isMusafDay) return false
         } else if (item.id == "rosh_chodesh_half_hallel") {
             if (RoshChodeshRules.hallelKind(cal) != RoshChodeshRules.HallelKind.HALF) return false
         } else if (item.id == "rosh_chodesh_full_hallel_chanukah") {
@@ -341,7 +371,8 @@ class ChecklistEngine(
         if (item.motzeiShabbatOnly || item.id == HavdalahRules.CHECKLIST_ITEM_ID) return true
         if (item.section !in shabbatRelatedSections) return true
         if (cal.isShabbat && !cal.isErevShabbat) return false
-        if (cal.isErevShabbat && !cal.isShabbat) {
+        // Real Friday erev only — Motzei into Friday is ordinary weekday for the app.
+        if (TonightHolyDayRules.tonightBeginsShabbat(cal) && !cal.isShabbat) {
             return item.shabbatEveOnly ||
                 item.id == "prepare_for_and_observe_shabbat_and_festivals"
         }

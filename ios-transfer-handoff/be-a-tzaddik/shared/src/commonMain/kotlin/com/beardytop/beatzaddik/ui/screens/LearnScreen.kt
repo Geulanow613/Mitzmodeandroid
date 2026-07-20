@@ -53,6 +53,7 @@ fun LearnScreen(
     val profile by viewModel.profile.collectAsState()
     val debugOverride by viewModel.checklistDebugOverride.collectAsState()
     val debugMenuVisible by viewModel.checklistDebugMenuVisible.collectAsState()
+    val displayNowMillis by viewModel.displayNowMillis.collectAsState()
     val header = day?.header
     val displayTimezone = remember(debugOverride, profile.timezoneId) {
         val scenario = debugOverride?.scenarioId?.let { ChecklistDebugScenarios.byId(it) }
@@ -66,7 +67,7 @@ fun LearnScreen(
         header?.todayOccasionGuideAnchor,
         header?.omerDay,
         upcoming,
-        debugOverride?.epochMillis,
+        displayNowMillis,
     ) {
         LearnHubCatalog.snapshot(
             parshaLabel = header?.parshaLabel,
@@ -104,6 +105,7 @@ fun LearnScreen(
                     viewModel = viewModel,
                     activeOverride = debugOverride,
                     timezoneId = displayTimezone,
+                    displayNowEpochMillis = displayNowMillis,
                 )
             }
 
