@@ -1,0 +1,189 @@
+Mitz Mode — Final reward video & related Android behavior (for iOS port / prompt)
+================================================================================
+Use this document as context when implementing parity on iOS (SwiftUI / AVKit
+or your stack). File paths below are Android; mirror concepts in your iOS tree.
+
+--------------------------------------------------------------------------------
+1) LEVEL PROGRESSION (completed mitzvah COUNT)
+--------------------------------------------------------------------------------
+- Tiers must stay in sync everywhere you display or gate UI on "current level".
+
+  Count ranges (inclusive lower bound):
+  - 1..9        Beginner
+  - 10..49      Ba'al Teshuva
+  - 50..99      Master Cholent Chef
+  - 100..199    Aspiring Kiddush Maker
+  - 200..299    Assistant Gabbai
+  - 300..399    Guy who hands out candy at shul
+  - 400..499    Western Wall Reveler
+  - 500..599    Sofer
+  - 600..699    Tzaddik
+  - 700..799    Living Sefer Torah
+  - 800..899    Eliyahu HaNavi
+  - 900..999    King David
+  - 1000..1799  Moshiach!!!        ← no longer the final tier
+  - 1800+       Mitz Mode!         ← new ultimate tier
+
+- iOS: duplicate the same ranges in whatever owns "level for count" and any
+  UI that shows the level string (certificate, profile, etc.).
+
+--------------------------------------------------------------------------------
+2) MILESTONE VIDEOS (which count triggers which clip)
+--------------------------------------------------------------------------------
+Milestone counts that auto-play a full-screen reward video after accepting a
+mitzvah (same moment as "level up" celebration on first-time hits):
+
+  1, 10, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1800
+
+- Count 1..1000 map to bundled clips: mitzmodenew1.mp4 … mitzmodenew13.mp4
+  (Android naming; iOS can keep same asset names for parity).
+
+- Count 1800 maps to a SEPARATE asset:
+    finalreward.mp4
+  with AUDIO (not silent). This is the "Mitz Mode!" tier celebration.
+
+--------------------------------------------------------------------------------
+3) SENTINEL ID FOR UI STATE (Android pattern — mirror on iOS)
+--------------------------------------------------------------------------------
+Android cannot use "14" as a filename index for finalreward (files are named
+finalreward.mp4, not mitzmodenew14.mp4). The view layer uses a sentinel:
+
+  FINAL_REWARD_VIDEO_ID = 100
+
+Rules:
+- When "which video to show" == 100 → load finalreward.mp4, not mitzmodenew{N}.
+- All other milestone IDs 1..13 → mitzmodenew{1..13}.mp4
+
+iOS equivalent: use an enum (e.g. enum RewardClip { case milestone(Int); case finalReward })
+or an optional URL/string for asset name — avoid overloading Int 1..13 only.
+
+--------------------------------------------------------------------------------
+4) PLAYER VOLUME vs SYSTEM VOLUME (final reward)
+--------------------------------------------------------------------------------
+- The app does NOT change the phone's system / media volume; the user's hardware
+  buttons and OS slider stay in control.
+- ExoPlayer's own volume is set to 1f when unmuted for the final clip (unity
+  gain within the app). Earlier we used ~0.55f which made the track sound too
+  quiet at a given system volume; that was removed.
+
+- Mute in the reward UI sets player volume to 0f; unmute restores 1f for final
+  (and 1f for other milestone clips on Android).
+
+iOS: do not programmatically force system volume to max; use AVPlayer volume
+1.0 when unmuted unless you intentionally duck.
+
+--------------------------------------------------------------------------------
+5) REWARD VIDEO MODAL — CONTROLS & DISMISS
+--------------------------------------------------------------------------------
+When any milestone video plays (including finalreward):
+
+- Top-trailing controls (respect safe area / status bar):
+  - MUTE / UNMUTE toggles player volume between 0 and 1.0 (ExoPlayer) for the
+    clip; system volume unchanged.
+  - CLOSE (X) dismisses the modal and clears "show video" state.
+
+- dismissOnClickOutside: FALSE (avoid accidental dismiss while tapping near edges).
+
+- Back gesture / back button: still dismiss (Android: Dialog dismissOnBackPress).
+
+iOS: overlay SF Symbols or custom icons; ensure VoiceOver labels ("Mute",
+"Close").
+
+--------------------------------------------------------------------------------
+6) VIDEO / SURFACE LIFECYCLE (Android Media3 — parity ideas for iOS)
+--------------------------------------------------------------------------------
+Android avoids black flicker / codec churn by:
+
+- NOT calling prepare() on the reward player until a TextureView surface exists.
+- Order: create player → attach video surface → prepare() → when READY and
+  user asked to play, set playWhenReady / play.
+
+- On dispose: clear video output from player, release surface, release player.
+
+iOS: attach AVPlayerLayer / UIView only after layer is ready; avoid preparing
+while output is nil; clean up on dismiss.
+
+--------------------------------------------------------------------------------
+7) CERTIFICATE (level dialog) — "Mitz Mode!" TIER ONLY
+--------------------------------------------------------------------------------
+When current level string == "Mitz Mode!" (i.e. count >= 1800 with same tier table):
+
+A) Visual tier (already on Android — match on iOS if you have a certificate):
+   - Neon gradient double border, gradient title text, gradient count, special
+     pill for level name, extra tagline line, brighter rules, etc.
+
+B) Stars row REPLACED (important):
+   - Do NOT show 14 separate Magen David "star" glyphs (too busy / crowded).
+   - Instead show the APP ICON from assets:
+       app_icon.png   (in Android: app/src/main/assets/app_icon.png)
+   - Size ~76pt logical, rounded rect (~16pt radius), gradient border matching
+     the tier accent colors.
+   - Tapping the icon replays finalreward.mp4 (same as milestone 1800).
+
+C) Ultimate tier: tappable app_icon.png only (no caption); single ✡ crown
+   (no sparkle emojis). contentDescription neutral e.g. "Mitz Mode".
+
+D) Replay behavior (Android):
+   - Closes the certificate modal first.
+   - Sets "show level up" to nil and "show video" to FINAL_REWARD_VIDEO_ID (100).
+
+iOS: mirror — dismiss certificate sheet, present full-screen player with
+finalreward; no rainbow level-up overlay (same as first-time 1800 on Android).
+
+--------------------------------------------------------------------------------
+8) FINAL REWARD VIDEO — NO RAINBOW OVERLAY (first hit or replay)
+--------------------------------------------------------------------------------
+For FINAL_REWARD_VIDEO_ID / finalreward.mp4 only:
+- Android does NOT show the "New Level Achieved!" rainbow overlay — video only.
+- Other milestone videos (mitzmodenew1..13) still set showLevelUp and show the
+  overlay as before.
+
+First-time 1800 from accept flow and certificate replay: both video-only for
+the final clip.
+
+--------------------------------------------------------------------------------
+9) VIEWMODEL / APP WIRING SUMMARY (Android file map)
+--------------------------------------------------------------------------------
+MitzModeViewModel.kt:
+  - companion: FINAL_REWARD_VIDEO_ID, FINAL_REWARD_PLAYER_VOLUME_UNMUTED (= 1f)
+  - getCurrentLevel(count): 1800+ → "Mitz Mode!"
+  - getVideoNumberForLevel(count): 1800 → FINAL_REWARD_VIDEO_ID
+  - onMitzvahAccepted: when videoId == FINAL_REWARD_VIDEO_ID, _showLevelUp = null
+  - requestFinalRewardVideoReplay(): clear level-up, set showVideo to sentinel
+
+MitzModeApp.kt:
+  - Level string when() for certificate must match ViewModel ranges.
+  - RewardVideoDialog(videoNumber, onDismiss, levelName = showLevelUp)
+  - MitzvahLevelDialog(..., onRequestFinalRewardVideo = close certificate +
+    requestFinalRewardVideoReplay())
+
+RewardVideoDialog.kt:
+  - Maps sentinel → finalreward.mp4; no LevelUpOverlay when final reward
+  - Mute / Close row; sync volume via VideoManager.setRewardPlayerVolume
+
+VideoManager.kt:
+  - createRewardPlayer(..., volume: Float?)
+  - Deferred prepare until surface attach (reward path)
+  - setRewardPlayerVolume(volume)
+  - releaseRewardPlayer clears surface + player
+
+MitzvahLevelDialog.kt:
+  - "Mitz Mode!" → numStars 14 for non-ultimate display logic elsewhere if needed;
+    ultimate tier replaces star row with app icon + replay copy
+  - Loads app_icon.png via AssetManager / BitmapFactory
+
+Assets (bundle on iOS):
+  - finalreward.mp4
+  - app_icon.png
+  - mitzmodenew1.mp4 … mitzmodenew13.mp4 (existing milestones)
+
+--------------------------------------------------------------------------------
+10) OPTIONAL RELATED ANDROID FIX (video background, not final reward)
+--------------------------------------------------------------------------------
+VideoBackground.kt: lifecycle observer only bumps "recreate player" after a
+real ON_PAUSE so cold start does not double-release the looping background
+ExoPlayer. iOS wallpaper / looping background may need similar "resume without
+false recreate" logic.
+
+================================================================================
+END — paste sections into your Mac/iOS agent prompt as needed.

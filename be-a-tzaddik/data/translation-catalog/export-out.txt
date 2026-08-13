@@ -1,0 +1,15 @@
+﻿he english seasonal: 0
+python : Traceback (most recent call last):
+At C:\Users\chill\AppData\Local\Temp\ps-script-bf900c30-6c56-441c-a1c9-e2183772008d.ps1:94 char:33
++ ... s\hehehe\be-a-tzaddik; python tools/export_actionable.py 2>&1 | Out-F ...
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\apps\hehehe\be-a-tzaddik\tools\export_actionable.py", line 34, in <module>
+    print("short:", actionable["short_untranslated"])
+  File "C:\Users\chill\AppData\Local\Programs\Python\Python312\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 19-22: character maps to <undefined>
+short: 

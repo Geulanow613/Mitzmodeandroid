@@ -1,0 +1,12 @@
+﻿Wrote overlay_000_006.json: 560 keys x 3 langs
+unresolved: 211
+ - es: "Tu B'Av"
+ - es: 'Yom Tov'
+ - fr: 'Yom Tov'
+ - es: 'Gan Eden'
+ - fr: 'Gan Eden'
+ - es: 'Hayom Yom'
+ - es: 'Maoz Tzur'
+ - es: 'Olam HaBa'
+ - fr: 'Olam HaBa'
+ - es: 'Arba Minim'

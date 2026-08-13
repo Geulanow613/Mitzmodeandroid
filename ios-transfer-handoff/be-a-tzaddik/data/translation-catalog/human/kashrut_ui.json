@@ -1,0 +1,18 @@
+{
+  "he": {
+    "{hours}h": "{hours} ש'",
+    "{minutes} min": "{minutes} דק'"
+  },
+  "es": {
+    "{hours}h": "{hours} h",
+    "{minutes} min": "{minutes} min"
+  },
+  "fr": {
+    "{hours}h": "{hours} h",
+    "{minutes} min": "{minutes} min"
+  },
+  "ru": {
+    "{hours}h": "{hours} ч",
+    "{minutes} min": "{minutes} мин"
+  }
+}

@@ -1,0 +1,126 @@
+plugins {
+    id('com.android.application')
+    id('kotlin-android')
+    id('org.jetbrains.kotlin.plugin.compose')
+    id('io.sentry.android.gradle')
+    id('androidx.baselineprofile')
+}
+
+// Read local secrets/config from local.properties (gitignored)
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+
+android {
+    namespace 'com.beardytop.mitzmode'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.beardytop.mitzmode"
+        minSdk 24
+        targetSdk 36
+        versionCode 77
+        versionName "6.1.3.97"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+
+        buildConfigField "String", "SENTRY_DSN", "\"${localProperties.getProperty('SENTRY_DSN', 'YOUR_SENTRY_DSN_HERE')}\""
+    }
+
+    buildTypes {
+        release {
+            buildConfigField "boolean", "IS_DEBUG", "false"
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "boolean", "IS_DEBUG", "true"
+        }
+    }
+    // The baseline profile plugin derives nonMinifiedRelease/benchmarkRelease from `release`,
+    // which has no signing config of its own. Sign them with the debug key so the generator can
+    // install them locally; the real release variant is untouched.
+    buildTypes.configureEach { type ->
+        if (type.name.startsWith('nonMinified') || type.name.startsWith('benchmark')) {
+            type.signingConfig = signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+        buildConfig true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.7.6'
+    }
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/NOTICE.md',
+                'META-INF/LICENSE.md',
+                'META-INF/DEPENDENCIES',
+                'META-INF/INDEX.LIST'
+            ]
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+    }
+    // Store builds: keep finalreward.mp4 only. Legacy milestone/bg/song media live under debug assets.
+    androidResources {
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:!finalreward.mp4:mitzmodenew*:background.mp4:tzaddik.mp4:song.mp3'
+    }
+}
+
+dependencies {
+    implementation platform('androidx.compose:compose-bom:2024.12.01')
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.activity:activity-compose:1.9.3'
+    implementation 'androidx.profileinstaller:profileinstaller:1.4.1'
+    implementation "androidx.core:core-splashscreen:1.0.1"
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+
+    // Sentry Gradle plugin still instruments release builds from the app module.
+    implementation 'io.sentry:sentry-android:7.20.1'
+
+    implementation project(':beatzaddik-shared')
+    baselineProfile project(':baselineprofile')
+}
+
+sentry {
+    ignoredBuildTypes.set(["debug", "nonMinifiedRelease", "benchmarkRelease"] as Set)
+
+    includeNativeSources = true
+    uploadNativeSymbols = true
+    org = "beardy-top-productions"
+    projectName = "mitzmode"
+    includeSourceContext = true
+}

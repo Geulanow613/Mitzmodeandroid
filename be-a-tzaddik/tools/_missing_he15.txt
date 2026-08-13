@@ -1,0 +1,15 @@
+(?:January|February|March|April|May|June|July|August|September|October|November|December)
+Available after halachic midnight (chatzos halayla) — later tonight. Most say {label} when they wake, even after a nap.
+Pray for world peace! - submitted by MM. The prophets describe the days of Mashiach as a time when nations will beat their swords into plowshares and war will be no more. Hillel taught us to be among the disciples of Aaron — a lover of peace and a pursuer of peace, who draws people closer to Torah through kindness. Our sages even teach that peace is so precious that G-d allows His holy Name to be erased in the bitter waters of the sotah ritual in order to restore peace between a husband and wife. When you pray for peace, you align your heart with one of the highest purposes of Torah.
+^(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday),
+^(\d{1,2}:\d{2})(am|pm)(?:\s+(\w{3}))?$
+^Afternoon prayer \(Mincha\) (.+)$
+^Evening prayers available after (.+)$
+^Evening prayers available after sunset$
+^Latest time for morning Shema: (.+)$
+^Until nightfall$
+^Until nightfall: (.+)$
+^Until shortly after sunset: (.+)$
+beardytopproductions@gmail.com
+{name} · {timing}{endSuffix}
+• When the 8th (final) day begins after tomorrow's Yom Tov ends, do NOT recite Shehecheyanu at candle lighting or Kiddush — plan for that before phones go off on Yom Tov.

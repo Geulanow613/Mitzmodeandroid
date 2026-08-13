@@ -1,0 +1,558 @@
+Learn about the quality-control laws for offerings in the Beit Hamikdash! An animal offered to the Master of the Universe had to be perfect. The Rambam lists dozens of physical defects (also called a 'mum') that disqualify an animal. If an animal has a permanent defect like a missing limb or a broken bone, it can never be offered, while temporary defects like a healing skin condition only disqualify the animal until it heals. Other disqualifying features include an eye that is too large or too small, being too old, or even just smelling bad! The deeper message here is that what we offer represents what we value. You wouldn't give a spoiled gift to a king, and the Temple standards remind us that divine service is all about genuine investment and giving your absolute best, not just your leftovers! Think about that for just a minute!
+---STRING---
+Yom Kippur (the Day of Atonement) falls on 10 Tishrei. It is the holiest day of the Jewish year — a full fast from sundown to nightfall (approximately 25 hours) and a day of intensive prayer and introspection.
+
+Five forms of affliction (inuyim) are observed: no eating or drinking, no bathing, no applying oils/creams, no leather shoes, no marital relations.
+
+Key prayers: Kol Nidrei (the night before), Yizkor (Ashkenaz custom on Yom Kippur morning — many Sefard communities omit or observe different memorial customs), the Neilah closing prayer, and the final single shofar blast at the conclusion of the fast.
+
+Unlike a regular Yom Tov, Yom Kippur shares many of Shabbat's additional restrictions — including a strict prohibition on carrying outdoors (unless inside a kosher eruv), exactly like Shabbat. Melachah (labor) is fully forbidden.
+---STRING---
+On ordinary weekdays when Tachanun is said, say:
+
+By the rivers of Babylon, there we sat and wept when we remembered Zion. Upon the willows in its midst we hung our harps. For there our captors asked us for words of song, and our tormentors [asked of us] mirth: 'Sing for us from Zion's song.' How shall we sing the Lord's song on alien soil? If I forget you, O Jerusalem, let my right hand forget its skill. Let my tongue cleave to my palate if I do not remember you, if I do not bring up Jerusalem at the beginning of my joy. Remember, O Lord, against the Edomites the day of Jerusalem, who said, 'Raze it, raze it to its very foundation!' O daughter of Babylon, who is destined to be plundered, praiseworthy is he who repays you your recompense for what you did to us. Praiseworthy is he who will take and dash your infants against the rock.
+---STRING---
+Sukkot (first day) begins tonight — Zman Simchateinu.
+
+Before sunset:
+• Avoid eating a formal meal inside the sukkah today (Rama O.C. 639:1) so that your entry tonight is distinctly dedicated to the start of the mitzvah.
+• Have arba minim ready: lulav, etrog, hadasim, aravot (per your rabbi's kashrut standards).
+
+Tonight & tomorrow:
+• Light Yom Tov candles in the sukkah (per custom) or home.
+${shehecheyanuErevLines(HebrewCalendarEngine.SUCCOS, tomorrowCal, profile)}
+• ${if (profile.isInIsrael) "Shake lulav and etrog with bracha tomorrow (first day of Sukkot)." else "Shake lulav and etrog with bracha on the first and second days of Yom Tov (Diaspora); continue on Chol HaMoed per custom."}
+• Festive meals in the sukkah; Ushpizin welcome guests.
+• No melacha; Full Hallel and Musaf in davening.
+
+${diasporaSecondDayNote(profile, "Sukkot")}
+---STRING---
+Torah learning bonds you with Hashem — the sages teach that the Shechinah dwells wherever words of Torah are spoken (Avot 3:2) and that Torah study protects your life (Sotah 21a). Birkat HaTorah opens that door each day.
+
+Before learning Torah for the first time each day, women say Birkat HaTorah — the blessings over Torah study. This applies when you learn halacha or any Torah text. Women's obligation in Birkat HaTorah is widely accepted among poskim; the precise level (Torah vs rabbinic) is debated — ask your rav.
+
+Say the three blessings once in the morning (from after halachic midnight / chatzos halayla onward). They cover all Torah learning for the rest of the day.
+
+After the blessings, many siddurim include short Torah passages. Even a few minutes of halacha learning afterward fulfills your daily study obligation (see Torah Study).
+---STRING---
+Learn about Me'ilah — misappropriating Temple property — and why using holy items for personal benefit is treated so seriously in halacha! ⚠️ In Temple times, when something was declared 'hekdesh' (consecrated to G-d), it became completely off-limits for personal use. Me'ilah (trespass/misappropriation) is what happens when you benefit from that property. Examples: eating from the Temple's showbread yourself, using a consecrated animal to carry your cargo, taking oil from the Temple's store of oil. The consequences: repay the full value PLUS an additional fifth (adding a fifth so it would be 25% of 125% instead of 20% of 100%), AND bring a korban asham (guilt offering). Fascinating detail: the violation only kicks in when you actually BENEFIT — so accidentally touching Temple property doesn't trigger it, but eating from it does. Learn more!
+---STRING---
+Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.
+---STRING---
+Protect the world: Learn about Bal Tashchit! 🌍 This powerful Torah prohibition (Deuteronomy 20:19) forbids wanton, unnecessary destruction. While its source refers to not destroying fruit trees during a siege, the Sages expanded it to a broader principle: we must not waste or destroy anything useful without a constructive purpose. This includes cutting down fruit-bearing trees without good reason, tearing usable clothing, breaking functional vessels, wasting food for no reason, etc. Importantly, Bal Tashchit applies to *wanton* destruction; removing a fruit tree to build a house is permitted, as there's a productive purpose. The deeper lesson, as explained by the Sefer HaChinuch, is to cultivate a character of care and appreciation for G-d's creation, rather than thoughtless carelessness. It trains us to be stewards of the world, not destroyers.
+---STRING---
+Remember this powerful truth: There is absolutely NO despair in the world! 💪 Rabbi Nachman of Breslov's most famous declaration — 'Ein shum ye'ush ba'olam klal!' — is a game-changer. It means that no matter how far someone feels they've fallen, no matter how many mistakes they've made, return to Hashem is always possible. Every challenge has a solution, every misstep can be rectified, and spiritual renewal is always just a moment away. When discouragement strikes, repeat this phrase aloud in Hebrew or English and let it infuse you with strength and hope. Rabbi Nachman based this on deep Kabbalistic insights: despair presumes your situation is permanent, but that fundamentally misunderstands the fluid, dynamic reality of Divine mercy. Redemption can literally happen in the blink of an eye! Source: Likutei Moharan II, 78; Rabbi Nachman's Teachings.
+---STRING---
+Learn about one of the main vessels of the Beit HaMikdash — the holy Menorah. Did you know that there is a fascinating debate among the Sages regarding how often the Menorah in the Beit Hamikdash was actually lit? While it is commonly understood that the lamps were lit once daily toward evening to burn through the night—a view championed by the Raavad and Rashba—the Rambam (Maimonides) argues that the Menorah was actually lit twice a day, both morning and evening, to ensure the light remained truly continuous. Adding a layer of mystery, the Talmud and the Alter Rebbe explain that even if the other lamps were extinguished, the Western Lamp (there's much discussion about which of the 7 candles this actually was) was kept burning throughout the entire day as a miraculous testimony that the Divine Presence rested among the people of Israel! Learn more!
+---STRING---
+Tzeit — Tzeit (tzeit hakochavim) is halachic nightfall — when three medium stars appear and the day ends for night mitzvot like counting the Omer, bedikat chametz, Chanukah candles, Purim, and the end of Shabbat. It is not identical to sunset; communities follow different standards — from three medium stars to fixed minutes after sunset, and in some Diaspora communities much later (e.g. Rabbeinu Tam). Note: While standard Shabbat and weekday Erev Yom Tov candles must be lit before sunset, whenever a festival begins on a Saturday night (Motzei Shabbat), the Yom Tov candles strictly must be lit after sunset, only once nightfall (tzeit) has arrived, using a pre-existing flame — lighting them before sunset on Shabbat is a severe violation. Shavuot candles also wait for tzeit. The app shows local zmanim; when in doubt on a borderline mitzvah, ask your rav.
+---STRING---
+This app is a learning companion, not a rabbi — it does not give halachic rulings.
+
+This checklist does not contain all the mitzvot in the entire Torah. It covers standard daily mitzvot that observant Jews commonly practice — waking, prayer, blessings, meals, Torah study, Shabbat preparation, and similar foundations.
+
+With your permission, the app uses GPS or a city you choose to calculate Jewish calendar times and when you can fulfill different mitzvot throughout the day (for example morning, afternoon, and evening prayer windows, candle lighting, and Shabbat-related times). Location is kept on your device only for zmanim and the calendar.
+
+If you are new to Judaism, take it slow and do what you can. Build steady habits without overwhelm, and always ask an Orthodox rabbi you trust when something is unclear or when your situation needs personal guidance.
+---STRING---
+Our God and God of our fathers, may there rise, come, reach, appear, be favored, be heard, be regarded, and be remembered before You our remembrance and consideration, and the remembrance of our fathers, and the remembrance of Messiah son of David Your servant, and the remembrance of Jerusalem Your holy city, and the remembrance of all Your people the house of Israel, for deliverance, for goodness, for grace, for kindness, for mercy, for life, and for peace on this day of:
+[On Rosh Chodesh: the New Moon]
+[On Passover: the Festival of Matzot]
+[On Sukkot: the Festival of Sukkot]
+Remember us, Lord our God, on this day for good; consider us on this day for blessing; save us on this day for life. With a word of salvation and mercy spare us and be gracious to us; have mercy on us and save us, for our eyes are turned to You, because You are God, the gracious and merciful King.
+---STRING---
+While men are obligated in three structured prayer times, women are required to pray at least once a day.
+
+What prayer (tefillah) is:
+Tefillah (תְּפִלָּה) comes from the Hebrew root meaning to judge oneself or reflect. Prayer is both a mitzvah and our most direct channel of communication with G-d. The rabbis derived from the phrase "to serve G-d with all your heart" (Deuteronomy 11:13) that this refers to prayer — the service of the heart.
+
+What to say:
+The minimum for women includes praise of G-d, personal requests, and thanks. Many women say the full Amidah (Shemoneh Esrei). Others fulfill the obligation with a heartfelt personal prayer in any language.
+
+For newcomers:
+Start with what you can manage consistently. Even a few sincere sentences every morning — thanking G-d, asking for what you need — is a genuine fulfillment. Over time, learn more from a siddur (prayer book).
+---STRING---
+The Nine Days and the week of Tisha B'Av (shavuah she'chal bo) are the strictest part of summer mourning for Sephardic communities following Shulchan Arukh — generally more lenient than Ashkenazim until the week of Tisha B'Av.
+
+From Rosh Chodesh Av (1 Av):
+• Haircuts: usually prohibited from Rosh Chodesh Av, or only during the actual week of Tisha B'Av — follow your rav.
+
+From the week in which Tisha B'Av falls (shavuah she'chal bo):
+• Meat & wine: prohibited from the start of that week (not necessarily the full Nine Days). Some communities (e.g. Syrian, Mashadi) are strict from Rosh Chodesh Av.
+• Laundry & bathing: restrictions on washing clothes and bathing for pleasure apply during the week of Tisha B'Av.
+
+${nineDaysSharedHalacha()}
+
+After the fast: many Sephardim follow similar post-fast restrictions until chatzos on 10 Av — confirm with your rav before resuming meat and wine.
+---STRING---
+Hoshana Raba is the 21st of Tishrei — the seventh and final day of Sukkot. While it is technically Chol HaMoed (an intermediate day), it carries special significance as the final "sealing" of the divine judgment begun on Rosh Hashana.
+
+Synagogue service — customs vary by nusach:
+• Ashkenaz: extended service with seven hakafot (circuits) with the lulav and aravot; willow branches (hoshanot) beaten on the ground after the circuits; lulav taken for the last time
+• Sefard: similar hoshanot circuits in many communities; willow-beating customs vary — follow your siddur
+• Chabad: hakafot with hoshanot; aravot may be beaten five times on the ground (not the lulav itself) — see your Chabad machzor
+• Yemenite: distinct hoshanot liturgy and customs
+
+Greeting someone with "a gutten kvittel" (a good inscription) is an Ashkenaz custom, referring to the final sealing of one's decree for the year.
+---STRING---
+Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardim may bless first. Shabbat candles must be lit before sunset (not before Plag HaMincha). Weekday Erev Yom Tov candles are also lit before sunset. When Yom Tov begins on Motzei Shabbat, Yom Tov candles are lit only after tzeit, from a pre-existing flame. On other Yom Tov nights, before the holiday begins you may strike a new match; once Yom Tov has started, light only from a pre-existing flame.
+---STRING---
+Arba Minim (ארבעה מינים) — the Four Species — are taken each day of Sukkot (except Shabbat).
+
+The four:
+• Lulav — closed palm branch (at least 3 tefachim)
+• Etrog — citron, beautiful and mostly intact (pitom if present should be intact)
+• Hadasim — three myrtle branches
+• Aravot — two willow branches
+
+How to observe (everyone):
+• Assemble the lulav: Bind the lulav, hadassim, and aravot together (per your hoshanah holder / koisan). Ensure the central spine of the lulav extends upward at least one handbreadth (tefach — around 4 inches) higher than the tops of the myrtle and willow branches (Shulchan Arukh O.C. 650:1).
+• Check kashrut before Yom Tov — especially etrog and that leaves are fresh enough.
+• When: Daytime; many do it before Shacharit at home or in shul. Not on Shabbat.
+• $daysNote
+
+If a species is missing or invalid, ask your rabbi — there are limited substitutions in pressing cases.
+---STRING---
+Mishloach manot (משלוח מנות) — sending portions of food — increases friendship and joy on Purim (Esther 9:19).
+
+The mitzvah (Rambam, Shulchan Arukh 695:4; Aish; Peninei Halakha 05-16-04):
+• Send at least two different ready-to-eat foods or drinks to one friend on Purim day — one mishloach manot package.
+• Women are equally obligated; many send to a woman friend and men to a man (Rema). Sending to additional friends is praiseworthy.
+• Examples: wine and cookies, fruit and pastry — clearly two types, not one combined dish.
+
+How to do it:
+• Deliver on Purim day before sunset — by you or a messenger (shul lists, kids, or neighbors are fine)
+• Food should be ready to eat without cooking
+• Label sender and recipient; mishloach manot should be identifiable
+
+Tips: You need not reciprocate every package you receive the same day. Plan ahead on Erev Purim so deliveries are not rushed at the last minute.
+---STRING---
+Learn about a surprising ruling: answering Amen can be GREATER than reciting the bracha itself! 🙏 The Talmud (Berakhot 53b) records a debate: is the one who recites a blessing greater, or the one who answers Amen? Rabbi Yose ruled: 'The one who answers Amen is greater than the one who recites the blessing!' Because Amen is an affirmation — you are declaring that what was just said is completely true. When you say Amen to a blessing, you are endorsing it and sharing in its merit. The Talmud compares it to two workers: the one who leads (recites the blessing) goes first into battle, but the one who responds (answers Amen) is the stronger fighter who reinforces the victory. The Zohar teaches that 'AMEN' stands for 'El Melech Ne'eman' — G-d, faithful King. So when you answer Amen, you're not just saying 'yes' — you're proclaiming G-d as the faithful King. Try to give your next 'amen' a little oomph!
+---STRING---
+Hadlakat Nerot — Hadlakat Nerot is lighting candles before Shabbat or Yom Tov — welcoming holiness into the home. Women traditionally light; men if no woman is present. Ashkenazi and Chabad custom: daughters in the home may light their own candles with a bracha. Sephardic custom (Shulchan Arukh; Rav Ovadia Yosef): daughters under their parents' roof do not recite a bracha on separate candles if the mother already lit — that would be a bracha levatala. Ashkenazim often light then bless with eyes covered; Sephardim may bless first. Shabbat candles must be lit before sunset (not before Plag HaMincha). Weekday Erev Yom Tov candles are also lit before sunset. When Yom Tov begins on Motzei Shabbat, Yom Tov candles are lit only after tzeit, from a pre-existing flame. On other Yom Tov nights, before the holiday begins you may strike a new match; once Yom Tov has started, light only from a pre-existing flame.
+---STRING---
+Mincha (Chabad / Nusach Ari): The communal service begins with Ashrei — not Korbanot (Sefer HaMinhagim, Mincha). The gabbai or chazan opens the minyan with Psalm 145; the congregation does not wait for or jointly recite Korbanot at Mincha.
+
+Korbanot privately (optional): The Alter Rebbe (Shulchan Arukh HaRav, O.C. 234, Kuntres Acharon 2) writes that after Mincha Gedolah an individual who is meticulous may read the Tamid and Ketoret passages on his own — a personal stringency (midat chasidut), not part of the communal service. Hayom Yom (11 Nissan) treats this as private preparation before joining the minyan.
+
+Tachanun (Chabad): At Shacharit on ordinary weekdays — longer on Mondays and Thursdays (Vehu Rachum), shorter on other days. At Mincha, typically the shorter Tachanun (Vayomer David el Gad). Omitted on Rosh Chodesh, Yom Tov, Chanukah, Purim, and other special occasions — Mincha itself is still said.
+---STRING---
+Shemini Atzeret (22 Tishrei in the Diaspora) — eighth day of Sukkot.
+
+Yom Tov:
+• Full Yom Tov — no melacha; Kiddush and festive meals.
+• Sukkah in the Diaspora: Due to safek dyoma (halachic doubt which day is which), Diaspora Ashkenazim are required to eat all major meals in the sukkah on Shemini Atzeret, though leishev basukkah is omitted entirely. Sephardic and Chabad customs vary — confirm with your rav.
+
+Davening:
+• Liturgical shift: During Musaf today, the entire Jewish world officially transitions to the winter prayer cycle, universally inserting "Mashiv HaRuach U'Morid HaGeshem" into the second blessing of the Amidah. Tefillat Geshem is recited in Musaf.
+• Yizkor — Ashkenaz communities recite memorial prayers.
+• Full Hallel and Musaf; Yom Tov Amidah.
+
+Simchat Torah is tomorrow (23 Tishrei) in the Diaspora — see that day's checklist item for hakafot and Torah joy.
+
+Tonight: light Yom Tov candles; no lulav on Shemini Atzeret.
+---STRING---
+The word mitzvah (מִצְוָה) literally means "commandment." In Judaism, mitzvot are the 613 commandments given by G-d through the Torah, and also some extra mitzvot which our rabbis, through Divine inspiration, added on. 
+
+While mitzvah means commandment, it also carries the deeper meaning of "connection." By performing a mitzvah, we fulfill G-d's will and connect with the Divine. It's like following instructions from a loved one; by doing so, you strengthen your bond with them. 
+
+G-d is constantly sending down pure Heavenly Light which sustains the world and everything in it. If you go against His will, it's like putting an umbrella between yourself and this Light. But by performing mitzvot you can connect with the Heavenly Goodness that is G-d Himself, and experience Heaven on Earth- in a state you might like to call "Mitz Mode." It might not happen right away, but do a few mitzvot and see how you feel. This is just the beginning...
+---STRING---
+Psalms and poetic passages recited before the Shema and Amidah to prepare the heart and mind for prayer.
+
+What they are:
+Pesukei DeZimra (פְּסוּקֵי דְזִמְרָא — Verses of Song) is a collection of psalms and passages from the Hebrew Bible said before the central prayers each morning. The word zimra means song or melody.
+
+Why we say them:
+The Talmud compares jumping straight into the Amidah without preparation to barging into a king's presence without first requesting an audience. Pesukei DeZimra is our way of gradually elevating our focus, shifting from ordinary thought to spiritual awareness, before standing before G-d in prayer.
+
+The minimum for when you are short on time:
+• Baruch She'amar (opening blessing)
+• Ashrei (Psalm 145)
+• Yishtabach (closing blessing)
+
+The full version also includes Psalms 146-150 and other hymns. If you arrive at synagogue late, skip Pesukei DeZimra to say the Shema and Amidah with the congregation on time.
+---STRING---
+Learn about ribbis, the prohibition against charging or paying interest in a Jewish-to-Jewish financial transaction. The Torah states: You shall not give him your money upon interest, nor give him your food for increase (Leviticus 25:37). While the Torah prohibition applies to charging interest, the Sages expanded the prohibition to include many indirect forms of benefit and paying interest. Core Principles: Charging or paying interest between two Jewish parties is strictly forbidden without a valid Heter Iska. The Torah prohibition of ribbis applies exclusively to lending money to another Jew; charging interest to a non-Jew is permitted by Halacha (Deuteronomy 23:21). The prohibition applies not only to cash, but also to non-monetary benefits, services, or gifts connected to a loan. A Heter Iska is a legal and halachic contract that restructures a loan into a business partnership, allowing for returns that are halachically permissible.
+---STRING---
+Sefirat HaOmer is the mitzvah to count the 49 days from the second night of Pesach until Shavuot — linking the Exodus to receiving the Torah.
+
+When to count:
+• Count each night after tzeit (nightfall), before dawn.
+• Many Ashkenazim count after Maariv; many Sephardim and Chabad also count after Maariv. Follow your community.
+
+The blessing:
+• Before counting on the first night, recite the blessing "…al sefirat ha'omer."
+• Then say the count for that night (e.g. "Today is one day of the Omer").
+
+If you forgot at night:
+• Count the next day during the daytime without a bracha.
+• If you do this before sunset, you can continue counting on subsequent nights with a bracha.
+• You only lose the blessing permanently if you miss an entire 24-hour cycle (both night and the following day) — ask your rav.
+
+The Omer period is also a time of mourning in many communities (no haircuts, weddings, or live music) until Lag BaOmer or Shavuot, depending on custom.
+---STRING---
+Matanot la'evyonim (מתנות לאביונים) helps every Jew celebrate Purim with food and joy (Esther 9:22).
+
+The mitzvah (Peninei Halakha 05-16-03):
+• Give at least one gift to each of two different poor people (minimum of two recipients total) during Purim daytime.
+• Each gift should enable a modest Purim meal — money is common (Peninei Halakha: roughly enough for about three slices of bread or your community's minimum; amounts vary).
+
+How to do it:
+• Give during Purim daytime only (not at night); many give after the daytime Megillah reading (follow your minhag).
+• Ideally before your Purim seudah so recipients can use it for the meal.
+• You may give through a trustworthy messenger, gemach, or organization that distributes on Purim day — verify funds reach the poor that day
+• If you cannot find recipients, ask your rabbi or shul — many collect on Purim morning
+
+Who qualifies: Someone who lacks resources for Purim — your rav can guide you if unsure.
+---STRING---
+${arbaMinimSharedBody(profile)}
+
+Women — recommended mitzvah (not obligatory):
+• Women are exempt from this time-bound commandment, but participating is highly popular in both Ashkenazi and Sephardi communities. This checklist marks it as recommended — not a strict daily obligation like men's first-day mitzvah.
+
+Do women need their own set?
+• No. Most women use a shared family set (usually owned by a husband or father) or a synagogue set.
+
+The ownership rule (for men):
+• In Israel: on the first day of Sukkot only, a man must own the set he waves (matana al menat lehachzir if needed). In the Diaspora, lakhem applies on Day 1 and Day 2; borrowing without a gift is permitted from the first day of Chol HaMoed (Day 3) onward.
+
+Bracha:
+• $brachaLine
+
+How to wave:
+• $waveLine
+• Hold etrog in left, lulav (with hadassim and aravot) in right — or together per your siddur.
+
+Each day of Sukkot (except Shabbat) you may fulfill this recommended mitzvah again.
+---STRING---
+The Nine Days (from 1 Av until after Tisha B'Av) are the strictest part of summer mourning in Ashkenazi custom.
+
+From 1 Av:
+• Meat & wine: forbidden entirely, except on Shabbat or at a seudat mitzvah (e.g. brit milah, siyum — ask your rav).
+• Laundry: washing, ironing, and wearing freshly laundered outer clothing are prohibited.
+• Bathing: bathing or showering for pleasure is prohibited.
+• Home & shopping: buying new clothes or beginning major home improvements or repairs is forbidden.
+
+${nineDaysSharedHalacha()}
+
+After the fast (10 Av): Ashkenazi custom continues meat, wine, music, laundry, and bathing for pleasure until chatzos (halachic midday) on 10 Av.
+
+Nine Days Havdalah: On Motzei Shabbat during the Nine Days, use wine or grape juice for Havdalah. Ashkenazi custom (Rema O.C. 551:10): ideally a child (ages 6–9) drinks the cup; if none is present, the one reciting Havdalah drinks it — the mitzvah of Havdalah overrides the custom of restraint.
+---STRING---
+Choose your words wisely: Guard your speech from Lashon Hara! 🤐👄 This mitzvah is incredibly powerful: Lashon Hara (literally 'evil tongue,' meaning derogatory or damaging speech about another person, even if true) is one of the gravest transgressions in Judaism, equivalent to idolatry, forbidden relations, and bloodshed! (Talmud, Arachin 15b)! The saintly Chofetz Chaim dedicated his life to teaching that guarding one's tongue transforms not only the speaker but also protects us from harm and elevates our souls. It's not just about avoiding outright lies or gossip; it means refraining from *any* negative talk about others, even if factual, unless it's for a constructive, halachically sanctioned purpose (like preventing harm). Your words create worlds: choose to build, not to destroy. Today's challenge: aim to speak only positive things about others, or, when in doubt, hold back criticism entirely. It's a daily spiritual workout for your mouth and mind!
+---STRING---
+Learn about kavod sefarim — the halachic obligation to treat holy books with respect — and the surprising level of detail this goes into! 📚 The Rambam rules that writings of Torah have inherent sanctity. Practical rules from the Shulchan Aruch and poskim: (1) Don't place a holy book face-down — this is disrespectful. (2) Don't sit on a surface that has a Torah book on it. (3) Don't use a Torah book as a pillow or headrest, or for any of your own needs like blocking rain or the sunlight from your eyes. (4) Hierarchy matters: a Chumash (Five Books) has higher sanctity than Nach (Prophets/Writings); Nach has higher sanctity than a Gemara or other books. Higher sanctity goes on TOP. (5) When a sefer falls to the ground, it is customary to kiss it upon picking it up. (6) If a sefer becomes too worn to read, it cannot be thrown away — it must go to genizah (respectful storage/burial). Many communities have a genizah box for worn-out religious texts. Learn more!
+---STRING---
+Get ready for a wake-up call! 🎺 Explore the awesome mitzvah of blowing the Shofar on Rosh Hashanah! This isn't just about making noise; it's a powerful spiritual alarm clock for our souls, urging us toward introspection and Teshuva (repentance). The Shofar's blasts have deep meaning: Tekiah is a long, unbroken blast, symbolizing clarity, certainty, and our unified connection to Hashem. Shevarim consists of three shorter, broken blasts, evoking a sigh or cry, representing our brokenness and heartfelt regret for our shortcomings. Teruah is a series of at least nine rapid, staccato blasts, like rapid sobbing, signifying a desperate plea for Divine mercy and a readiness for spiritual awakening. The sequence of these sounds (Tekiah-Shevarim-Teruah-Tekiah, etc.) is crucial. Imagine these ancient sounds piercing the air on the Day of Judgment, stirring your soul to return to your Creator. Source: Numbers 29:1; Talmud, Rosh Hashanah 33b; Shulchan Aruch, Orach Chaim 590.
+---STRING---
+Learn about Zoreh — winnowing and scattering on Shabbat! 💨 In the Mishkan, winnowing was a critical step in making the Showbread: throwing threshed grain into the air so the wind could blow the light, worthless chaff away from the heavy, valuable kernels. While the core melacha focuses on separating food from non-food using the wind (or your breath), the Jerusalem Talmud expands this concept to include scattering any substance into the wind, even if no food is involved. Because leading halachic authorities adhere to this stricter understanding, the practical applications are eye-opening: you should not shake a tablecloth outside after a meal if the wind will catch and scatter the crumbs, nor should you blow dust off a book cover, as forcing a stream of air to scatter particles mimics the classic act of winnowing. The ultimate lesson of Zoreh is that on Shabbat, we don't use the elements—like the wind or our own breath—to sort, refine, or scatter things. Learn more!
+---STRING---
+Musaf is an additional Amidah prayer added to the morning service on Shabbat, Rosh Chodesh, and all Jewish holidays.
+
+What Musaf is:
+Musaf (מוּסָף — literally "additional") is an extra Amidah — the same standing prayer as the rest of the service — but with a special middle blessing describing the Temple offerings (korbanot) that were brought on that day in Temple times, and a prayer for the restoration of the Temple service.
+
+When Musaf is said:
+• Every Shabbat
+• Rosh Chodesh (new month)
+• All Yom Tov holidays
+• Chol HaMoed (intermediate days of Pesach and Sukkot)
+
+Why we say it:
+In Temple times, special extra offerings (musaf korbanot) were brought on these holy days. Since the Temple was destroyed, we replace the physical offerings with prayer — reciting what was offered and praying for the Temple to be rebuilt.
+
+Timing:
+Said after Shacharit (the main morning service), ideally before the end of the 7th halachic hour; bedi'eved valid until sunset (Shulchan Arukh O.C. 286:1).
+---STRING---
+Learn about the obligation to check your mezuzot and tefillin — and how often the Shulchan Aruch says you must do it! 🛠️ Mezuzot: The Shulchan Aruch (Yoreh Deah 291:1) requires checking mezuzot twice every seven years. Some say if they are safe indoors in normal climates they can remain unchecked provided they were kosher initially. But in humid or coastal environments (where the parchment is more likely to be damaged by moisture), you should check more frequently. Signs your mezuzah needs immediate checking: the outer case is cracked, water got inside, it fell down. Tefillin: your personal tefillin should also be checked at least twice every 7 years by a professional. If the tefillin get wet or fall into water— check immediately. If they've been stored unused for a long time — check. The practical challenge: checking requires opening the boxes, examining the parchment letters, and resealing the batim (boxes). Only someone knowledgeable and trained can do this. Stay holy, fam!
+---STRING---
+Learn about the ultimate spiritual "high-voltage" connection! ⚡ Tefillin are way more than just leather boxes—they are a physical bond between your mind, your heart, your actions, and G-d Himself! Inside these hand-crafted parchment scrolls are four specific sections of the Torah that proclaim the unity and all-powerfulness of Hashem. 📜 When the Lubavitcher Rebbe was once asked where modern-day technology like computers could be found in the Torah, he said "Tefillin!" 💻 He explained that just as a computer is a synthesis of different machines connected by cables to work as one, Tefillin syncs your brain, your heart, and your hands so they all find harmony in a single coordinated purpose. 🌐 The halacha for wearing them is precise to ensure the "signal" is clear. First, you place the "Shel Yad" on the bicep of your weaker arm, tilted toward your heart. 🦾 Then the "Shel Rosh" is placed exactly above the hairline, centered between the eyes. Learn more about how to put on tefillin!
+---STRING---
+Learn about Bishul — the famous 'cooking' melacha on Shabbat! 🔥 While the original Mishnah calls this category baking because it relates to making the Mishkan's Showbread, it covers any way you use fire-generated heat to improve an item, tracing back to when workers boiled herbs to create colorful tapestry dyes. The basic law is that you cannot cook, bake, fry, or boil any uncooked food or liquid on Shabbat using a heat source that reaches 'yad soledet bo'—the temperature where your hand would instinctively jump back from the heat. However, because 'there is no cooking after cooking' (Ein Bishul Achar Bishul), you are generally permitted to re-warm dry, solid foods that were already fully cooked before Shabbat began (but you may require putting this onto something else so it doesn't 'look' like cooking). Reheating cold liquids, on the other hand, is completely forbidden because heat dramatically alters and improves them. These laws are very complex so you should probably learn more 👇!
+---STRING---
+Shemini Atzeret is an independent Yom Tov immediately following Sukkot (22 Tishrei). In the Diaspora, Simchat Torah is observed on 23 Tishrei. In Israel, both are observed on 22 Tishrei.
+
+Shemini Atzeret:
+• Tefillat Geshem (prayer for rain) — inserted in Musaf in most Ashkenaz and Sefard communities; some say it at different points — follow your siddur
+• Yizkor — memorial prayers; widely observed in Ashkenaz synagogues on Shemini Atzeret (and on Yom Kippur). Many Sefard communities do not recite Yizkor on this day, or observe different memorial customs
+
+Simchat Torah:
+• Celebrates the completion and immediate restart of the annual Torah reading cycle
+• Ashkenaz / most Sefard: seven hakafot (processional circuits) with the Torah scrolls, singing and dancing; final portion (V'Zot HaBeracha) read, then Bereishit restarted
+• Chabad: hakafot with singing; often one aliyah per scroll taken out
+• Yemenite and other communities may have distinct hakafah and reading customs — follow your synagogue
+---STRING---
+Beware the fire within: ⏸️ The Rambam says 'Anger is an extremely bad character trait, and it is fitting that a person distance himself from it to the utmost extreme... the Sages said: whoever gets angry is as if they worshipped idols.' Why such a harsh comparison to idolatry? Because anger often stems from a belief that *you* are in control, that your expectations *should* have been met, or that others owe you. It's a subtle denial of Hashem's ultimate control over all events. The Rambam further states: 'They said about a person who gets angry that if they are wise, their wisdom departs from them; if they are a prophet, their prophecy departs from them.' Anger literally clouds your judgment and diminishes your spiritual capacity! The Rambam's powerful advice: if someone does something that would normally provoke anger, *stay silent*. Don't respond immediately. Allow the intensity to pass before you speak or act. Silence in the moment of anger is a strategy for conquering this destructive trait.
+---STRING---
+Rosh Hashana — Jewish New Year; Day of Judgment. No melacha from tonight.
+
+If this year Rosh Hashana meets Shabbat, a detailed section follows (eruv tavshilin, Yaknehaz Kiddush–havdalah, etc.) — only in years when the calendar requires it. Use your Machzor for the exact wording.
+
+Tonight & tomorrow:
+• Light Yom Tov candles before sunset.
+${shehecheyanuErevLines(HebrewCalendarEngine.ROSH_HASHANA, tomorrowCal, profile)}
+• Festive meals with Kiddush, challah dipped in honey, and symbolic foods (apple & honey, pomegranate, etc.).
+• Hear the shofar blown during daytime services tomorrow (not tonight).
+• Add Yaaleh V'yavo in Amidah and bentching; Tachanun is omitted.
+
+Customs:
+• Greet others with wishes for a good year (L'shanah tovah).
+• Many avoid nuts, vinegar, and sharp foods on Rosh Hashana (minhag).
+• Tashlich (casting sins into water) is on the first afternoon when Rosh Hashana is not Shabbat; if the first day is Shabbat, tashlich is postponed to Sunday.
+
+${diasporaSecondDayNote(profile, "Rosh Hashana")}
+---STRING---
+Today is Tisha B'Av — mourning the destruction of both Temples and our exile.
+
+The fast:
+• Began at sunset last night and ends at nightfall tonight${tzeit?.let { " (approx. $it)" } ?: ""} — not a dawn-to-dusk fast.
+
+What is forbidden today (in addition to eating and drinking):
+• Leather shoes; bathing for pleasure; anointing with cream or cologne; marital relations.
+• Torah study except for mournful passages (Eichah, Iyov, parts of Yirmiyahu, halachot of mourning).
+• Greeting people with "hello"; idle conversation; work is discouraged (follow your community).
+• Many sit on the floor or a low stool until chatzos (halachic midday); kinot (elegies) are recited.
+
+What is permitted (unlike Yom Kippur in some communities):
+• Music prohibitions are mourning-related — live joyful music is avoided as part of the Three Weeks/Nine Days spirit, but the fast's core prohibitions are the five afflictions above.
+
+After nightfall: some mourning restrictions of the Nine Days lift — ask your rav about laundry, meat, and music.
+---STRING---
+Yaaleh V'Yavo is a special prayer paragraph inserted into the Amidah (the standing silent prayer) and into Birkat HaMazon (Grace After Meals) on Rosh Chodesh (the new month), Yom Tov (festivals), and Chol HaMoed (intermediate festival days).
+
+The text asks G-d to remember us, our fathers, Jerusalem, the Davidic dynasty, and the entire Jewish people for good — for life and peace — on the day being observed.
+
+If forgotten in Shacharit or Mincha (also Chol HaMoed / Yom Tov at any Amidah including Maariv):
+• Still in Retzei — insert Yaaleh V'yavo in its place and continue.
+• After concluding Retzei — return to the beginning of Retzei, insert Yaaleh V'yavo, and complete the remaining blessings.
+• After the final Yihiyu L'ratzon — repeat only that Amidah (Shemoneh Esrei), never the full service.
+
+Rosh Chodesh Maariv only: if forgotten after finishing Retzei, or after the entire Amidah — do not repeat (Berachot 30b; Shulchan Arukh O.C. 422:1). If still in Retzei before God's name at the conclusion, insert it there.
+---STRING---
+Jewish men cover their heads throughout the entire day as a sign that G-d is above us.
+
+What it is:
+A kippah (כִּפָּה — also called a yarmulke, from the Yiddish) is a small head covering — a skullcap worn on top of the head. The word kippah means "dome" or "vault," and the word yarmulke comes from an Aramaic phrase meaning "awe of the King."
+
+Why we wear it:
+The Talmud records that covering the head cultivates yirat Shamayim — literally "fear of Heaven," which in Jewish thought means a constant awareness that G-d is present and that our actions matter. Wearing a kippah is a visible, ongoing reminder of that awareness.
+
+Practical notes:
+• Wear it all day, every day — not just during prayer or Torah study
+• There is no need to wear a kippah while bathing or swimming
+• Any size, color, or style is acceptable; follow your community's custom
+• Many men wear a hat or a larger covering over the kippah during prayer as an added sign of respect
+
+For women:
+Married women are obligated in hair covering — see the modesty section.
+---STRING---
+Learn about the fascinating laws of Jews benefiting from meat and milk cooked together! In most cases of simple non-kosher meat, a Jew isn't allowed to eat it, but he can benefit from it, i.e. by giving it to a non-Jew or feeding his animals. 🧠 But if meat and milk were cooked together, there's a total prohibition on benefiting. Even if someone gave him 1000 pounds of cheeseburgers, one wouldn't be allowed to benefit from it 🚫🐄🥛. It's a super-strict Torah law. But here's something interesting: birds like chicken do not produce milk, so they were never included in the original Torah ban. The Sages later added chicken to the 'meat and milk' forbidden cooking as a protective fence to make sure people did not get confused and start being lenient with beef. 🍗 Because the chicken-and-milk ban is a rabbinic decree rather than a direct Torah law, they did not include the 'no benefit' rule. This is why you are halachically allowed to feed a mixture of chicken cooked with milk to your animal or derive benefit from it! Learn more.
+---STRING---
+Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.
+$hoshanaRabaBlock
+
+Spirit of the day:
+• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.
+• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.
+• Ochel nefesh — food preparation is permitted.
+
+What to do:
+$hallelBlock
+• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.
+$festivalLines
+
+Avoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.
+• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.
+---STRING---
+Tu B'Shvat (15 Shevat) — New Year for Trees — is a day to appreciate Hashem's fruit and Land of Israel.
+
+Liturgical note:
+• Tachanun is completely omitted from standard weekday prayers today — as well as during yesterday afternoon's Mincha service (14 Shevat).
+
+Customs:
+• Eat fruit — especially the seven species of Eretz Yisrael: wheat, barley, grapes, figs, pomegranates, olives, dates.
+• Say brachot and after-brachot carefully.
+• Shehecheyanu on fruit: You may say Shehecheyanu only on a seasonal fruit that is genuinely new to the market this season (like fresh pomegranates or figs). Do not say this blessing on fruits grown and sold year-round (like bananas, pineapples, or apples), even if you personally have not eaten one recently.
+• Some hold a Tu B'Shvat Seder with four cups of wine (white to red) and themed fruit — follow a guide if hosting.
+• No fasting; work is permitted; it is not Yom Tov.
+
+Spiritual focus: gratitude for creation, connection to Eretz Yisrael, and growth (trees blossom in Israel around this season).
+---STRING---
+Guard your body, mind, and soul — they're gifts from Hashem! 💫 This mitzvah isn't just about physical health; it's a holistic approach to serving G-d. The Rambam (Hilchot De'ot 3:3) teaches that maintaining your health is a Torah obligation, because 'it is impossible to understand and know G-d when one is sick or hungry.' Your body is the vessel for your soul's mission — a fit body supports a healthy spiritual life. For your MIND: engage in Torah study, which sharpens your intellect and purifies your thoughts. Avoid excessive worry and grudges, as they can harm both mind and body. For your SOUL: nurture it with regular prayer, mitzvot, and acts of kindness, strengthening its connection to its Divine Source. Simcha (joy) is also a crucial spiritual obligation; sadness can be a major barrier to spiritual growth. Practical takeaway: eat well, get enough sleep, exercise, and constantly seek joy. These aren't luxuries; they're spiritual necessities! Source: Deuteronomy 4:15; Rambam, Hilchot De'ot 3:3; Sefer HaChinuch, Mitzvah 225.
+---STRING---
+Learn the critical distinction that most people miss about Yom Kippur — and why G-d cannot forgive you for hurting another person! 💡 The Mishnah makes a fundamental ruling: 'Yom Kippur atones for sins between a person and G-d. Yom Kippur does NOT atone for sins between one person and another — until the wrongdoer appeases the victim.' This is absolute. No amount of fasting, praying, or Kol Nidrei will earn you forgiveness for badmouthing your friend, embarrassing your coworker, or stealing from your neighbor — unless you: (1) Go to that person; (2) Acknowledge what you did; (3) Sincerely apologize; (4) Offer to make practical restitution if applicable. If the person refuses to forgive you, you must try three times. If they still don't forgive you, you don't need to try again, and now the sin is on THEM for not being forgiving. But you must actually try. The sages explain: G-d cannot grant forgiveness for damage done to another person. Heaven is not a party to the divine atonement — only the person wronged can release that debt.
+---STRING---
+Learn about the melacha of Tzoveya—the art of dyeing and coloring—and why adding a splash of pigment can be a violation of Shabbat rest! This creative labor traces back to the construction of the Mishkan, where craftsmen dyed wool and animal skins in brilliant shades of blue, purple, and red to weave the magnificent tapestries and curtains for the desert sanctuary. On Shabbat, Tzoveya prohibits any action that permanently colors or enhances the appearance of a material using pigment. This goes far beyond avoiding a tie-dye project or using markers; it can even impact how we prepare food and cosmetics. For instance, while coloring food is generally permitted because the intent is purely for eating rather than manufacturing a color, if the intent it purely to dye the the food a certain color, this would be more problematic. Using makeup that stains the skin or nails is a major concern. The core lesson of Tzoveya is that Shabbat is not the time to permanently alter the appearance of our surroundings to match our desires. Learn more!
+---STRING---
+Get ready to experience the Sukkah spirit! ⛺️ During Sukkot, we have the special mitzvah of dwelling in a Sukkah – a temporary booth – just like camping, but with a huge spiritual punch! This unique dwelling reminds us of the clouds of glory that protected us in the desert and the fragility of life, encouraging us to trust completely in Hashem. What does 'dwelling' mean? It primarily means eating your meals there. For sleeping, the Shulchan Aruch (Orach Chaim 639) rules that men are obligated to sleep in the Sukkah, but women are exempt (though many choose to sleep there if comfortable). Sephardi practice is generally to be more stringent about sleeping in the Sukkah even if uncomfortable, while Ashkenazim are more lenient if there's significant discomfort (e.g., cold, rain, or a bad smell). The Talmud teaches that the Shechinah (Divine Presence) literally rests in a kosher Sukkah – no wonder it's a favorite holiday for so many! So, even if you can't build a full Sukkah, reflect on its themes of impermanence and Divine protection.
+---STRING---
+Learn about the Melacha of Melaben—the art of laundering and bleaching—and the fascinating reasons behind why we can't do laundry or scrub out stains on Shabbat! This category of creative labor traces directly back to the construction of the Mishkan, where workers had to wash and bleach the raw goat hair and sheep wool before spinning them into the beautiful tapestries that draped the sacred structure. On Shabbat, the prohibition of Melaben means we pause all forms of whitening, cleaning, and refreshing fabrics, and it goes way beyond just avoiding the washing machine. In fact, even spot-cleaning a fresh spill on a tablecloth or shirt can be a serious violation. For instance, if you drop a piece of food on your shirt and immediately dab it with water or try to rub the stain away with cleaning intent, you are actively performing the Melacha of Melaben by forcing the dirt out of the fabric fibers. The rules are so sensitive that even wetting a dirty garment is sometimes considered the beginning of the laundering process. Learn more!
+---STRING---
+Said immediately before sleep, the bedtime Shema is a separate requirement from the Shema said during Maariv.
+
+What it is:
+Kriat Shema al HaMitah (קְרִיאַת שְׁמַע עַל הַמִּטָּה — "reading of the Shema on the bed") is a short nighttime prayer said as the final spiritual act before sleep. The Talmud teaches it protects the person through the night.
+
+What to say:
+• At minimum: the first paragraph of Shema ("Shema Yisrael... uvshochbecha uvkumecha")
+• Recommended: the full three paragraphs of Shema
+• Also included: Hamapil blessing (next item), several psalms (including Psalm 91 — a psalm of protection), and other brief prayers
+
+Why a second Shema?
+Even if you already said the Shema as part of Maariv, the bedtime Shema is a separate mitzvah — different time, different purpose. The Maariv Shema fulfills the evening commandment; the bedtime Shema is specifically for protection during sleep.
+
+Timing:
+Say it as close to the actual time of sleep as possible. Ideally before halachic midnight (chatzos halayla). If you go to bed later, say it then.
+---STRING---
+Learn the difference between kibbud (honor) and mora (reverence) for parents — two separate Torah commandments with completely different content! 👨‍👩‍👧‍👦 KIBBUD AV VA'EM (honor): the Torah says 'honor your father and mother' (Exodus 20:12). The Rambam defines what kibbud requires in action: feeding your parents, giving them drink, dressing them, escorting them when they leave, helping them come in and go out. Kibbud is about meeting their practical needs, treating them like royalty. MORA AV VA'EM (reverence/fear): the Torah says 'every person shall revere his mother and father' (Leviticus 19:3). The Rambam defines mora in terms of what you DON'T do: don't stand in their designated place, don't sit in their seat, don't contradict them or side against them in a dispute, don't call them by their first name. Mora is about not diminishing their standing. Striking difference: kibbud may be paid for by the parent's money if the parent has means — you use their money to care for them. But if they have no money, the child must provide from their own funds!
+---STRING---
+Learn about Gozez — shearing wool and hair on Shabbat! 🐑 In the Mishkan, this melacha was performed when shearing sheep to obtain the wool needed for the beautiful woven tapestries and coverings. On Shabbat, Gozez prohibits detaching any natural growth from the body of a living creature or its hide, which applies directly to cutting human hair, trimming fingernails or toenails, and plucking hair, fur, or feathers. This is why haircuts, shaving, and nail clipping are strictly weekday activities (It's actually a mitzvah to do these things before Shabbat to honor it), and it is even why people avoid pulling loose feathers out of a pillow or down blanket if they are firmly attached. The law is so comprehensive that even pulling off loose, peeling skin or biting fingernails is restricted under this category. By pausing this melacha, Shabbat reminds us that even our own bodies are a part of creation that we do not 'harvest' or remodel on the day of rest, allowing us to honor ourselves and the natural world exactly as we are for one day a week. Learn more!
+---STRING---
+Learn about the prohibition of 'chukot ha'akum' — following non-Jewish customs — and how nuanced the actual halacha is! 🕊️ The Torah says 'You shall not follow the customs of the nation' (Leviticus 18:3). The Rambam and the Shulchan Aruch codify this as a prohibition against adopting practices associated with non-Jewish religions or that originated as pagan customs. The Shulchan Aruch (Yoreh Deah 178) rules: a Jewish person may not wear distinctive non-Jewish clothing if its purpose is to imitate them, especially for religious or idolatrous reasons. What is NOT prohibited: things that have become universally adopted for practical reasons (e.g., wearing a suit and tie — not pagan, just practical business clothing). The prohibition targets customs that are 'chukat hagoy' — practices specifically identified with non-Jewish religious tradition or that have no logical basis except as their tradition. Important: this prohibition has nothing to do with disrespecting non-Jews — it's about maintaining a distinct Jewish identity and avoiding spiritual confusion!
+---STRING---
+Learn about the machatzit hashekel — the half-shekel donation — and its surprising connection to the Purim story! 🪙 Every year starting from Rosh Chodesh Adar, Jewish communities were reminded: time to give the half-shekel! Every adult Jewish male gave exactly HALF a shekel to fund the Temple's communal offerings. Rich or poor, scholar or laborer — same amount, no exceptions. Not a full shekel, because the idea is that no single person's contribution is 'complete' without everyone else's. The Purim connection is fascinating: Haman offered Achashverosh 10,000 silver talents to have the Jews destroyed. The Midrash teaches that G-d told Israel: 'Your half-shekels preceded Haman's shekels' — the accumulated merit of generations of this donation protected the Jewish people from Haman's scheme. This is why the custom of giving three half-coins (called 'machatzit hashekel') before Purim developed — as a spiritual counter to Haman's money. Today, both Ashkenazim and Sephardim observe this Purim custom of giving three half-coins (or equivalent value in local currency).
+---STRING---
+This year, today is Rosh Hashana on Friday and Shabbat begins tonight — the Yom Tov–Shabbat sequence is in progress.
+
+If you made eruv tavshilin before Rosh Hashana began:
+• You may cook and otherwise prepare food on Yom Tov today for Shabbat meals, within the limits above (food ready with time before Shabbat; no cooking for weekday or for the previous Yom Tov day).
+• Many prepare honey challah, fish, soup, and other Shabbat/Rosh Hashana dishes today.
+• Eruv check: Double-check that your eruv tavshilin foods are in a safe, visible, labeled spot — they are easily discarded during a frantic Friday afternoon prep rush.
+
+Shofar: blown today (if today is a Yom Tov day of Rosh Hashana and not Shabbat) per shul schedule — not on Shabbat itself.
+
+If you did not make eruv tavshilin: ask your rabbi immediately what you may still prepare for Shabbat.
+
+Shabbat tonight: when Yom Tov ends Friday before Shabbat, light Shabbat candles from a pre-existing flame and follow your siddur for the transition — this is not the same as Motzei Shabbat into Yom Tov (no Yaknehaz tonight).
+---STRING---
+Learn about the fascinating symbolism of the kosher signs of land animals! To be on the kosher menu, a land animal must have two specific physical signs: it must have completely split hooves and it must chew its own cud. If an animal only has one of these signs—like a pig which has split hooves but doesn't chew its cud, or a camel which chews its cud but doesn't have split hooves—it is strictly off-limits! 🚫 The Sages teach that these physical signs represent deep character traits. The split hoof has many symbolic meanings. Some say that while a full hoof represents being 'closed off' or clenching blessings for oneself, split hooves symbolize openness, kindness, and dividing one's resources to give to others. Chewing the cud—the process of bringing food back up to re-grind it—represents the importance of 'meditating' on our experiences and being thoughtful about what we consume spiritually. The sages teach that what we eat becomes part of us. Think about the signs Hashem chose as defining an animal as 'kosher' and why He wanted us to have these traits inside us.
+---STRING---
+Maariv is the evening prayer service, instituted by our patriarch Yaakov (Jacob) and observed every night.
+
+What it is:
+Maariv (מַעֲרִיב — also called Arvit, עַרְבִית) is the evening prayer service. After the Shema and its blessings, we say the Amidah (Shemoneh Esrei) — the same standing prayer as in Shacharit and Mincha, though the evening version has some differences.
+
+Structure of Maariv:
+1. Ashrei and a short passage (in some traditions)
+2. Barchu — the call to prayer (בָּרְכוּ — "Bless G-d"), said when praying with a minyan of 10 men
+3. Evening Shema with its two blessings before and two after
+4. Amidah / Shemoneh Esrei
+5. Aleinu
+6. Mourner's Kaddish (said by mourners or those observing yahrzeit)
+
+Timing:
+From nightfall until dawn. If you miss Maariv, make it up at the following morning's Shacharit only — say the regular Shacharit Amidah first, then immediately say a second Amidah as the tashlumin for Maariv. If you miss that window too, the opportunity is permanently gone. See the guide entry on Tashlumin for full rules including the Tefilat Nedavah option.
+---STRING---
+Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir you do not fulfill the mitzvah, even after dawn. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.
+---STRING---
+Learn about honoring the Kohanim! Kohanim are male descendants of Aharon the Cohen from the Torah! They were the ones who did the service in the Beit Hamikdash, offering all the nation's sacrifices before Hashem on the altar. Even today, they are still held to a higher standard of sanctity, meaning they must avoid contact with the dead and follow specific marriage laws to maintain their spiritual level. In our daily lives, we honor their elevated status by giving them the first Aliyah in the synagogue when the Torah is read, and seeking their Priestly Blessing (in communities outside Israel, this may only happen on festival days). It is also a beautiful tradition to show Torah-observant Kohanim extra respect by not asking them to perform menial labor or personal chores, acknowledging that their time is dedicated to a higher purpose. By treating them with this special dignity, we keep the ancient spark of the priesthood alive in our modern world. Your mission: next time you see a Kohen, remember to give him special honor and not ask him to do menial tasks for you ;).
+---STRING---
+Walk in Hashem's ways: V'Halachta B'Drachav! 👣 The Torah commands us, 'Walk in all His ways' (Deuteronomy 11:22). But how can we imitate G-d, who is 'A Consuming Fire'? The Talmud clarifies: we imitate His *actions*, not His essence. It gives powerful examples: Just as Hashem clothed the naked (Adam and Eve), *you* clothe the naked by helping the poor. Just as He visited the sick (Avraham after his circumcision), *you* visit the sick. Just as He comforted mourners, *you* comfort mourners. Just as He buried the dead, *you* bury the dead. These aren't metaphors; they are foundational halachic mitzvot of Chesed (kindness)! The Rambam adds: Just as Hashem is called Gracious – be gracious; Merciful – be merciful; Holy – be holy. This commandment obligates us to actively cultivate these character traits, making them an integral part of who we are. The very word 'halacha' (Jewish law) shares its root with 'walk,' implying that developing good character *is* a form of halacha, not just an addition to it. Think about and try to implement 1 way you can be more like Hashem today!.
+---STRING---
+Learn about thanking Hashem for sustaining you! 🍞 Birkat Hamazon is unique because it is one of the only blessings commanded directly in the Torah—meaning after a bread meal. All other blessings before and after food were instituted by the rabbis. It’s not just a quick "thanks for the food" but a four-part journey through Jewish history!  First is "HaZan" written by Moshe to thank Hashem for the Manna in the desert (miraculous food that fell from Heaven).  Second is "HaAretz" written by Yehoshua as a tribute to the Land of Israel. 🇮🇱 Third is "Boneh Yerushalayim" added by Kings David and Solomon to pray for the Holy City. Finally is "Hatov Vehametiv" which was added by the Sages after the miracle at Betar! 🕊️ To do it right you have to eat at least a "kazayit" of bread (about the size of a golf ball) within about 4-9 minutes. If three or more men eat together they form a "Zimun"—a formal invitation to bless as a team—which levels up the holiness! 🤝 The Halacha says you should sit down and focus on the words. Talk about an after-dinner mint! We're mintin' mitzvot, fam! 🎊🍷
+---STRING---
+$opener
+
+Havdalah when Shabbat leads into Yom Tov:
+• Havdalah is recited when entering a day of lesser holiness. Shabbat is holier than Yom Tov, so when Shabbat leads into a festival, havdalah is included in that night's Kiddush — not as a full separate havdalah with spices before Kiddush.
+• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles already lit on the table; do NOT pick up, move, or touch them — they are muktzeh once lit; gaze at the flames from where they stand) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
+• Spices (besamim) are omitted for this transition.
+• Before Kiddush, melacha permitted on Yom Tov but not on Shabbat: many say Baruch hamavdil bein kodesh l'kodesh, or rely on the Vatodi'enu insert in Maariv — follow your Machzor.
+
+$prepWhen: Yom Tov candles from a pre-existing flame; wine; festive meal ready; 48-hour candle or pilot light per your rav.
+---STRING---
+misheyakir — Misheyakir (מִשֶּׁיַּכִּיר) is when there is enough natural ambient light to recognize a casual acquaintance from about four amot (~6 feet). The earliest time to recite the bracha on tallit and tefillin is misheyakir — often roughly 35–50 minutes after alot hashachar (varies by season and location). Before misheyakir you do not fulfill the mitzvah, even after dawn. Mishnah Berurah recommends waiting until misheyakir, then putting on tallit and tefillin and reciting Krias Shema and the Amidah; many shuls daven until Yishtabach without them, then wait for misheyakir. The Gemara (Berachot 14b) compares Shema without tallit and tefillin to false testimony — avoid if you can wait. If you must leave very early: Igros Moshe (O.C. 4:6) permits wearing them after alot hashachar without a bracha, davening, then moving them slightly and reciting the brachos after misheyakir. Preference: (1) tallit and tefillin after misheyakir, Amidah at sunrise; (2) after misheyakir, Amidah before sunrise; (3) only if necessary — after alot hashachar without bracha, brachos after misheyakir.
+---STRING---
+Learn how to light Shabbat candles! 🕯️ The mitzvah of lighting Shabbat candles ushers in the holy day, bringing peace, warmth, and a special spiritual light into your home. This beautiful act, performed by Jewish women (or men if no woman is available) before sunset on Friday, marks the transition from the mundane week to the sacred Shabbat. The Torah describes Shabbat as a sign between Hashem and Am Yisrael, a perpetual reminder of Creation and our unique covenant. The halacha (Jewish law) dictates a fascinating custom: after lighting the candles, we wave our hands and cover our eyes. This allows us to recite the blessing over the candles *before* we visually benefit from their light. Normally, a blessing precedes the mitzvah, but reciting the blessing itself ushers in Shabbat, after which lighting candles would be forbidden! So, we light, cover our eyes (effectively delaying our acceptance of Shabbat's holiness until after the blessing), say the blessing, and then uncover our eyes to experience the mitzvah fully. It's a brilliant halachic workaround! Now you know why we do it!
+---STRING---
+Kiddush is the Torah-level commandment to "remember the Shabbat day to sanctify it" (Exodus 20:8), established by the Sages through a declaration over a cup of wine.
+
+Key rules:
+• Kiddush must be recited in the same place where you will eat your meal (Kiddush b'Makom Seudah).
+• The cup must hold at least a revi'it (רְבִיעִית — approximately 86ml / ~3 fl oz). The minimum amount to actually drink is maleh lugmov (מְלֹא לֻגְמָיו — a cheekful, approximately 50ml / ~2 fl oz). Ideally, drink the majority of the cup. Exact measurements are debated; consult your rabbi.
+• Women are equally obligated in Kiddush.
+• Grape juice is a fully valid substitute for wine.
+• On Friday night, if wine is unavailable, challah (bread) may substitute.
+• On Shabbat morning, if wine is unavailable, beer or whiskey (chamar medinah — a locally significant beverage) may be used. Wine is always preferred. Consult your rabbi for specifics.
+• Unlike Friday night, bread can never substitute for Kiddush on Shabbat morning — saying Hamotzi without wine or chamar medina means you have skipped daytime Kiddush entirely.
+---STRING---
+Tzniut is one of the defining values of Jewish life — it governs how we dress and how we carry ourselves in the world.
+
+What tzniut is:
+Tzniut (צְנִיעוּת — modesty) comes from the verse "Walk humbly (hatznea lechet) with your G-d" (Micah 6:8). It is not just a dress code — it is a philosophy of life. Tzniut means reserving what is most precious and intimate for those who truly know you, rather than displaying it to the world.
+
+In dress (for women):
+• Skirts or dresses that cover the knees
+• Tops that cover the elbows and collarbone
+• Avoid tight-fitting or sheer clothing
+• Stockings / tights as required by community custom
+
+In conduct (for everyone):
+• Speak with dignity and thoughtfulness
+• Do not seek unnecessary attention
+• Act in a way that reflects inner character over outer appearance
+• Lower the eyes when appropriate
+
+For men:
+Tzniut applies to men too — in dress, speech, and conduct. Men should not wear revealing clothing and should conduct themselves with dignity.
+
+Standards vary by community. The key is sincere progress and consistency, guided by your local rabbi and rebbetzin.
+---STRING---
+Rosh Hashana (the Jewish New Year) falls on 1–2 Tishrei and is observed for two days in the Diaspora (one day in Israel). It is the anniversary of the creation of Adam and Eve and the Day of Judgment — when G-d reviews the deeds of all people and inscribes their fate for the coming year.
+
+Key observances:
+• Hearing the shofar (ram's horn) blown in synagogue — the Ashkenazi custom is approximately 100 blasts per day (200 total over the two days in the Diaspora)
+• Special prayers and liturgy including the Unetaneh Tokef
+• Eating symbolic foods: apples and honey for a sweet new year, pomegranate, fish head, dates, and other simanim (signs)
+• Tashlich — a custom to go to a body of water on the afternoon of the first day of Rosh Hashana and recite verses from Micah (7:18–20) symbolizing casting away sins. The custom involves the prayers at the water, not throwing bread crumbs (many authorities including the Vilna Gaon and Chabad discourage or omit the bread crumb practice entirely)
+• Rosh Hashana is a full Yom Tov — all Shabbat-like restrictions apply, with the exception of cooking and carrying
+---STRING---
+Learn about the Parah Adumah — the Red Heifer — one of the most mind-bending laws in the Torah! 🐄 The Parah Adumah was required to cleanse a person who came into contact with a dead body, and was crucial for service in the Holy Temple. If someone didn't cleanse themself and entered, they were liable for 'karet' - cutting off of their soul! Here's the paradox that stumped even King Solomon: a completely red cow (even TWO not-red hairs disqualify it!) is burned together with cedar wood, hyssop, and crimson thread in a complex ritual. The ashes are mixed with water. This 'purification water' is then sprinkled on someone who became impure from contact with a corpse — and they become PURE. But the person who does the sprinkling? He becomes IMPURE in the process. The thing that purifies causes impurity! The Talmud records that King Solomon — considered the wisest person who ever lived — said about this law: 'I tested all of these with wisdom, but this one is beyond me' (Ecclesiastes 7:23). This is the Torah's prime example of a 'hok' — a law we follow on divine authority, not human logic. Learn more!
+---STRING---
+Be a judge of merit: Learn about Dan L'Kaf Zechut (Judging Favorably)! ⚖️ The Torah commands us, 'B'tzedek Tishpot Amitecha' — judge your fellow with righteousness (Leviticus 19:15). The Rambam rules this as a positive obligation, not just a nice idea! The classic formulation from the Talmud (Shabbat 127b) is: 'With every person, incline the scale toward merit.' Pirkei Avot (2:4) adds: 'Don't judge your fellow until you have reached their place.' What does this look like in practice? If a person you generally know to be righteous does something that appears questionable, assume you're missing context. If someone of average character does something ambiguous, actively give them the benefit of the doubt. Only if someone has established a clear pattern of wrongdoing should you assume the worse interpretation. The Chofetz Chaim expands this, teaching that even forming a negative *thought* about someone without sufficient reason can be a violation! The Talmud shares a powerful story of a worker who trusted his employer despite a delayed payment, exemplifying how judging favorably brings immense Divine reward.
+---STRING---
+A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (minimum wine drunk from the cup), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, many require drinking melo lugmov or the majority of the cup; ask your rav which measure to use.
+---STRING---
+Learn about the spiritual "powerhouse" that was (and will be in the future) the center of the universe! 🏛️ The Beit HaMikdash in Jerusalem wasn't just a building—it was the one spot on Earth where the physical and spiritual worlds collided! ⚡The layout was a journey into deeper and deeper holiness. It started with the Ezrat Nashim, a massive courtyard where the nation gathered for epic celebrations like the Water Drawing Ceremony. 🎊 Then, you’d move up the steps to the Azarah, the inner courtyard where the Kohanim performed the sacred services and the massive Altar stood. 🔥 Inside the main Sanctuary building was the Kodesh, home to the golden Menorah that stayed lit 24/7, the Table with the twelve loaves of Showbread, and the Golden Altar for sweet-smelling incense! 🕯️🍞 But the absolute heart of the Temple was the Kodesh HaKodashim (Holy of Holies). This room was so sacred that only the High Priest could enter, and only once a year on Yom Kippur. 🕊️ Inside sat the Ark of the Covenant itself! 📜 Even though it’s not standing today, many Sages say the "Divine Presence" never left the area. Learn more about it! 🎊
+---STRING---
+The Torah commands Jewish men to wear fringes on the corners of four-cornered garments — a constant physical reminder of all G-d's commandments.
+
+What tzitzit are:
+Tzitzit (צִיצִית — fringes or tassels) are knotted strings attached to each corner of a four-cornered garment. Each set of tzitzit has 8 threads and 5 knots. A famous derash (Bamidbar Rabbah) links the gematria of tzitzit (600) plus 8 threads and 5 knots to 613 — a symbolic reminder of all the mitzvot, not a halachic calculation.
+
+The Torah source:
+"Speak to the Children of Israel and tell them to make fringes on the corners of their garments... so that you may look upon them and remember all the commandments of G-d." (Numbers 15:38-39)
+
+How to observe it:
+Most observant Jewish men wear a tallit katan (small garment) under their shirt all day. During morning prayers (Shacharit), a tallit gadol (large prayer shawl) is worn over the clothing.
+
+Getting started:
+• Buy a tallit katan at any Judaica store or online
+• Ask your rabbi to show you how to wear it and say the blessing
+• Check your tzitzit periodically — if a string breaks, it may invalidate them
+---STRING---
+revi'it — A revi'it (רביעית) is a standard unit of liquid volume in halacha, defined as one-quarter of a log — commonly translated as the volume of an egg and a half. It is the minimum volume required for ritual mitzvot involving liquids, such as Kiddush. Because physical volumes have shifted and been debated, several contemporary measurements exist depending on the posek followed: Rav Chaim Na'eh: ~86 ml (approx. 2.92 fl oz) — widely used as a lenient baseline, particularly in Sephardic tradition and for rabbinic obligations like netilat yadayim. Rabbi Moshe Feinstein: ~130–150 ml (approx. 4.4–5.1 fl oz) — many recommend this for Torah-level obligations like Shabbat Kiddush. The Chazon Ish: ~150 ml (approx. 5.1 fl oz) — stringent standard in many Ashkenazi and Hasidic communities for Torah-level mitzvot. Besides Kiddush, a revi'it is also required for Havdalah (minimum wine drunk from the cup), netilat yadayim (minimum water poured — may rely on the smaller measure), and the four cups at the Pesach Seder. After Kiddush, many require drinking melo lugmov or the majority of the cup; ask your rav which measure to use.
+---STRING---
+Learn about the incredible "sliding scale" system that made sure nobody was ever priced out of a fresh start! 🕊️ The Korban Oleh V'Yored is yet more proof that Hashem cares about each Jew! Depending on how much you had in your pocket, the price of your offering would literally move up or down! 📉📈 This flexible system applied to specific moments like accidentally entering the Temple or eating holy food while impure, forgetting a personal oath and accidentally breaking it, staying silent when you should have testified, healing from the spiritual skin condition Tzara'at, or even a new mother's offering after giving birth. If business was going well, you would bring an animal. But if things were a bit tight, you could offer just birds. In some cases, you could even just show up with a sack of flour! 🌾 Whether you were a high-roller or just getting by, the path back to holiness was always wide open. It wasn't about the cost of the gift, but the heart of the person bringing it! Your mission: think about how G-d is not like most human leaders: He truly wants to be connected with his subjects, instead of just with their money!
+---STRING---
+Learn about the mikveh — a bath with requirements so specific that rabbis are required to get the plumbing right! 💧 A mikveh is NOT just a pool. Jewish law has extremely precise requirements: (1) Minimum volume of 40 se'ah of water — about 200 gallons. (2) The water cannot be 'drawn' — water pumped directly from a tap into the mikveh is invalid! It needs to come from Heaven, meaning rainwater or possibly snow transported in a halachically appropriate manner. (3) The person must be completely immersed with NOTHING between their body and the water — which means no bandages, no nail polish, etc. Who uses a mikveh today? Women after their monthly niddah period (the primary use); converts completing conversion; some men also use it to attain a higher level of holiness. Many use it the day before Yom Kippur. Mikvehs are also used to immerse vessels bought from non-Jews (tevilat keilim — yes, you immerse your pots too!). Fun fact: when a new Jewish community is established, halacha says the mikveh gets built BEFORE the synagogue, because it's what allows husbands and wives to be together, which is a foundation of Jewish life.
+---STRING---
+Many poskim and communities hold that women should say Birchot HaShachar upon waking — the same sequence of morning blessings men recite at the start of Shacharit, thanking G-d for the gifts of each new day.
+
+What they are:
+Birchot HaShachar (בִּרְכוֹת הַשַּׁחַר — Blessings of the Dawn) is a sequence of ~15 short blessings. They originated as blessings said at each stage of waking — opening your eyes, standing up, getting dressed, and stepping outside.
+
+Women's wording:
+Use your siddur's women's version. Instead of "who has not made me a woman," women say "who has made me according to His will." The other blessings are the same.
+
+When to say them:
+• From chatzos (halachic midnight) onward.
+• Ideally say HaNoten LaSechvi Vinah (the rooster blessing) after alot hashachar; if you said it after chatzos, you have still fulfilled your obligation.
+• The other blessings may be said from chatzos if you wake up very early. Ideally say them upon waking.
+
+Even if you do not daven full Shacharit, many say these blessings are an important way to start the day with gratitude.
+
+Ask your rabbi or rebbetzin about your community's practice.
+---STRING---
+A kezayit is the olive-sized portion in Jewish law used to measure how much food you must consume for mitzvot — eating matzah at the Seder, maror, bentching after bread, and after-blessings. Because ancient volumes are difficult to calculate precisely, rabbis have established modern equivalents. Halachically, a kezayit is tied to the size of an egg — usually calculated as either half or one-third of an egg's volume depending on the authority. Many major organizations (such as Star-K) equate a kezayit to about 1.2 to 1.3 fluid ounces (approx. 35–40 ml), which visually translates to the size of a golf ball or a roll of quarters. By weight, this generally ranges between 25 and 33 grams — the stringent opinion of the Chazon Ish is approx. 33 g; the more lenient opinion of Rabbi Chayim Na'eh is approx. 27 g. (Note: For porous foods like matzah, the required weight is typically lower — around 15–20 grams depending on your rav.) The exact size depends on which authority you follow; ask your rav or use a community chart for the specific food or mitzvah you are measuring. Eating less than a kezayit may mean the mitzvah was not fulfilled.

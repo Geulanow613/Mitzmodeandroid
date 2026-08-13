@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "levels": [
+    {
+      "min": 0,
+      "max": 0,
+      "key": "Secular",
+      "stars": 0
+    },
+    {
+      "min": 1,
+      "max": 9,
+      "key": "Beginner",
+      "stars": 1
+    },
+    {
+      "min": 10,
+      "max": 49,
+      "key": "Ba'al Teshuva",
+      "stars": 2
+    },
+    {
+      "min": 50,
+      "max": 99,
+      "key": "Master Cholent Chef",
+      "stars": 3
+    },
+    {
+      "min": 100,
+      "max": 199,
+      "key": "Aspiring Kiddush Maker",
+      "stars": 4
+    },
+    {
+      "min": 200,
+      "max": 299,
+      "key": "Assistant Gabbai",
+      "stars": 5
+    },
+    {
+      "min": 300,
+      "max": 399,
+      "key": "Guy who hands out candy at shul",
+      "stars": 6
+    },
+    {
+      "min": 400,
+      "max": 499,
+      "key": "Western Wall Reveler",
+      "stars": 7
+    },
+    {
+      "min": 500,
+      "max": 599,
+      "key": "Sofer",
+      "stars": 8
+    },
+    {
+      "min": 600,
+      "max": 699,
+      "key": "Tzaddik",
+      "stars": 9
+    },
+    {
+      "min": 700,
+      "max": 799,
+      "key": "Living Sefer Torah",
+      "stars": 10
+    },
+    {
+      "min": 800,
+      "max": 899,
+      "key": "Eliyahu HaNavi",
+      "stars": 11
+    },
+    {
+      "min": 900,
+      "max": 999,
+      "key": "King David",
+      "stars": 12
+    },
+    {
+      "min": 1000,
+      "max": 1799,
+      "key": "Moshiach!!!",
+      "stars": 13
+    },
+    {
+      "min": 1800,
+      "max": null,
+      "key": "Mitz Mode!",
+      "stars": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+total=25
+1: len=926 bad=[] fam=False source=True
+2: len=827 bad=[] fam=False source=True
+3: len=357 bad=[] fam=False source=True
+4: len=883 bad=[] fam=False source=True
+5: len=860 bad=[] fam=False source=True
+6: len=858 bad=[] fam=False source=True
+7: len=618 bad=[] fam=False source=True
+8: len=1005 bad=[] fam=False source=True
+9: len=1000 bad=[] fam=False source=True
+10: len=1009 bad=[] fam=False source=True
+11: len=853 bad=[] fam=False source=True
+12: len=792 bad=[] fam=True source=True
+13: len=804 bad=[] fam=False source=True
+14: len=745 bad=[] fam=False source=True
+15: len=1096 bad=[] fam=False source=True
+16: len=565 bad=[] fam=False source=True
+17: len=638 bad=[] fam=False source=True
+18: len=954 bad=[] fam=False source=True
+19: len=809 bad=[] fam=False source=True
+20: len=832 bad=[] fam=False source=True
+21: len=473 bad=[] fam=False source=True
+22: len=356 bad=[] fam=False source=True
+23: len=682 bad=[] fam=False source=True
+24: len=491 bad=[] fam=False source=True
+25: len=299 bad=[] fam=False source=True

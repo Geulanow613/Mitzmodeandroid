@@ -1,0 +1,17 @@
+{
+  "runtime_count": 323,
+  "catalog_count": 2074,
+  "missing_from_catalog": [],
+  "fallback_by_lang": {
+    "he": 0,
+    "es": 0,
+    "fr": 0,
+    "ru": 0
+  },
+  "fallback_samples": {},
+  "truncated_prefix_hits": [],
+  "whitespace_near_misses": [],
+  "he_latin_heavy": [],
+  "garbage_hits": [],
+  "suspiciously_short_he": []
+}

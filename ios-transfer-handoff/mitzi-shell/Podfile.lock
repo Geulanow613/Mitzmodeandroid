@@ -1,0 +1,16 @@
+PODS:
+  - shared (1.0)
+
+DEPENDENCIES:
+  - shared (from `../be-a-tzaddik/shared`)
+
+EXTERNAL SOURCES:
+  shared:
+    :path: "../be-a-tzaddik/shared"
+
+SPEC CHECKSUMS:
+  shared: 8359bf290973c896da9d8222a03e03d37fa6abdb
+
+PODFILE CHECKSUM: 60136b8e6ef24610cca57e8db179be390b4a1355
+
+COCOAPODS: 1.16.2

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzkotlindual-repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmode-web" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmodeios-publish" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmodeios-publish/be-a-tzaddik" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/_mitzmodeios-repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/be-a-tzaddik" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ios-transfer-handoff/be-a-tzaddik" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mitzmode" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mitzmodeprivacypolicy" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/sharedmodule" vcs="Git" />
+  </component>
+</project>

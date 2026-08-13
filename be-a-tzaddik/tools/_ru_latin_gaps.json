@@ -1,0 +1,50 @@
+{
+  "total_latin": 12,
+  "in_fixes": 11,
+  "gaps": 1,
+  "top_words": [
+    [
+      "h",
+      5
+    ],
+    [
+      "s",
+      2
+    ],
+    [
+      "gps",
+      1
+    ],
+    [
+      "arnasa",
+      1
+    ],
+    [
+      "rsvp",
+      1
+    ],
+    [
+      "hag",
+      1
+    ],
+    [
+      "hs",
+      1
+    ],
+    [
+      "mb",
+      1
+    ]
+  ],
+  "top_gaps": [
+    {
+      "latin_chars": 2,
+      "latin_words": 2,
+      "words": [
+        "s"
+      ],
+      "key": "\\s*/\\s*",
+      "val": "\\s*/\\s*"
+    }
+  ]
+}

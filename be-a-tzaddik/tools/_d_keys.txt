@@ -1,0 +1,245 @@
+1|Melave Malka — escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday
+2|Zachor — "remember" from the Exodus version of the Ten Commandments telling the Jews to remember Shabbat
+3|Spend the next 30 seconds thanking G-d for everything you could possibly thank Him for. - Submitted by MB
+4|colloquial marker for halachic nightfall (tzeit); actual timing varies slightly by community and location
+5|Fast of the Firstborn on Erev Pesach (many break or nullify the fast with the seudat mitzvah after a siyum)
+6|The klaf is the special kosher parchment on which scribes write Torah scrolls, mezuzots, tefillin scrolls, etc.
+7|Try to make peace between two people you know who are currently arguing. The reward for doing so is very great!
+8|Ashkenaz — Full Hallel (Chanukah):
+Recite the blessings before Full Hallel as on Chanukah (Mishnah Berurah 422:8).
+9|Got some spare time? Visit someone who's sick. The Talmud (Nedarim 39b) says this removes 1/60th of their illness!
+10|tallit katan — small four-cornered garment with tzitzit, worn generally over or under a shirt per community custom
+11|Shomer Daltot Yisrael — Guardian of the doors of Israel (acronym Shin-Dalet-Yod (one of Hashem's names) on mezuzah)
+12|Pesach meets Shabbat this year — some steps happen today or tonight (before tomorrow's erev Pesach checklist):
+
+$body
+13|Sephardi — Full Hallel (Chanukah):
+Recite the blessings before Full Hallel as on Chanukah (Shulchan Arukh O.C. 422:2).
+14|klaf — The klaf is the special kosher parchment on which scribes write Torah scrolls, mezuzots, tefillin scrolls, etc.
+15|Kiddush sanctifies Shabbat or Yom Tov over wine (or grape juice, or possibly bread/other drinks if in need; ask a rav).
+16|three stars — colloquial marker for halachic nightfall (tzeit); actual timing varies slightly by community and location
+17|Chabad — Full Hallel (Chanukah):
+Follow Ashkenazic custom — recite the blessings before Full Hallel (Alter Rebbe's Siddur).
+18|Taanit Bechorot — Fast of the Firstborn on Erev Pesach (many break or nullify the fast with the seudat mitzvah after a siyum)
+19|This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.
+20|on this day of the New Moon
+            on this day of the Festival of Matzot
+            on this day of the Festival of Sukkot
+21|Shamayim means Heaven or the skies — in yirat Shamayim (awe of Heaven) it means living with awareness that G-d sees all actions.
+22|Kiddush — Kiddush sanctifies Shabbat or Yom Tov over wine (or grape juice, or possibly bread/other drinks if in need; ask a rav).
+23|This year, Shabbat is Erev Rosh Hashana — Rosh Hashana begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.
+24|Get a Chumash and open to a random page and verse. whatever verse you land on, it's supposed to be a message from G-d - Submitted by HB
+25|matzah balls; those who observe the stringency of not eating gebrochts do not eat kneidlach on Pesach until the 8th day in the diaspora
+26|Chabad — Half Hallel:
+Follow Ashkenazic custom — recite the blessings before Half Hallel (Alter Rebbe's Siddur; ask your rav if unsure).
+27|This is the knobby, stem-like protrusion that extends from the top of the etrog (opposite the branch). The shoshanta rests on top of it.
+28|Shabbat candles before sunset; weekday Erev Yom Tov before sunset; Motzei Shabbat going into a Yom Tov at tzeit from a pre-existing flame
+29|Add Yaaleh V'yavo in the Mincha Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+${yaalehVyavoForgotShacharitOrMincha("Mincha")}
+30|counting period between 2nd day of Pesach and Shavuot; mourning customs and when they end vary by minhag (Ashkenaz, Sephard, Chabad, etc.)
+31|Mishloach manot are ready-to-eat food gifts sent to at least one Jewish friend on Purim day — minimally two different foods in one package.
+32|Shamayim — Shamayim means Heaven or the skies — in yirat Shamayim (awe of Heaven) it means living with awareness that G-d sees all actions.
+33|Rabbi is the English word for a Jewish spiritual leader with rabbinical ordination (semicha). From Hebrew Ribbi ("my master" or "my teacher").
+34|Blessings before reading:
+• Al mikra megillah
+• She'asa nissim
+• Shehecheyanu (recited on the first night; Ashkenazim recite it by day as well)
+35|This year, tomorrow (Shabbat) is Erev $chagName — $chagName begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.
+36|pitom — This is the knobby, stem-like protrusion that extends from the top of the etrog (opposite the branch). The shoshanta rests on top of it.
+37|Priestly blessing; recited daily by everyone in Israel and by Sephardim worldwide; usually recited only on festivals by Ashkenazim in the Diaspora
+38|kneidlach — matzah balls; those who observe the stringency of not eating gebrochts do not eat kneidlach on Pesach until the 8th day in the diaspora
+39|Sefirah — counting period between 2nd day of Pesach and Shavuot; mourning customs and when they end vary by minhag (Ashkenaz, Sephard, Chabad, etc.)
+40|33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut
+41|Rabbi — Rabbi is the English word for a Jewish spiritual leader with rabbinical ordination (semicha). From Hebrew Ribbi ("my master" or "my teacher").
+42|This year, tomorrow (Shabbat) is Erev Rosh Hashana — Rosh Hashana begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.
+43|Shul (synagogue) is the community house of prayer, Torah, and chesed. Beyond services, it often hosts classes, youth programs, and charity organizations.
+44|candle lighting — Shabbat candles before sunset; weekday Erev Yom Tov before sunset; Motzei Shabbat going into a Yom Tov at tzeit from a pre-existing flame
+45|A mechitza divides men and women's seating in shul during prayer so focus stays on tefillah per traditional practice. Heights and designs vary by community.
+46|Mishloach Manot — Mishloach manot are ready-to-eat food gifts sent to at least one Jewish friend on Purim day — minimally two different foods in one package.
+47|shul — Shul (synagogue) is the community house of prayer, Torah, and chesed. Beyond services, it often hosts classes, youth programs, and charity organizations.
+48|The Beit HaMikdash (Holy Temple) stood in Jerusalem as the center of sacrifice, pilgrimage, and divine presence. Its destruction on Tisha B'Av is mourned yearly.
+49|Lag BaOmer — 33rd day of the Omer; mourning eased in many communities; Chabad keeps haircut restrictions until Shavuot except for a 3 year old boy's first haircut
+50|Birkat Kohanim — Priestly blessing; recited daily by everyone in Israel and by Sephardim worldwide; usually recited only on festivals by Ashkenazim in the Diaspora
+51|Say/text something nice to someone else or do a nice act for them. An act of kindness with no ulterior motives (except for scoring yet another mitzvah! Cha-Ching!)
+52|Sephardi — Half Hallel:
+Do not recite a blessing over Partial (Half) Hallel — say the psalms without a bracha (Shulchan Arukh O.C. 422:2; Peninei Halakha 05-01-12).
+53|a group of Jews who follow a movement that emphasizes deep mystical devotion, joyful worship, and a close-knit community led by a spiritual leader known as a Rebbe.
+54|${yaalehVyavoFemaleAmidahLead("Maariv")}
+
+${yaalehVyavoForgotMaarivRoshChodesh()}
+
+If you say Birkat Hamazon when you eat bread tonight, add Yaaleh V'yavo there too.
+55|Today is $holidayName (Yom Tov — a festival day). Please put away your device and keep the day holy. Melacha (forbidden labor) applies on Yom Tov similar to Shabbat.
+56|הרחמן הוא יזכנו לימות המשיח ולחיי העולם הבא. מגדיל ישועות מלכו, ועשה חסד למשיחו, לדוד ולזרעו עד עולם. עשה שלום במרומיו, הוא יעשה שלום עלינו ועל כל ישראל. ואמרו: אמן.
+57|mechitza — A mechitza divides men and women's seating in shul during prayer so focus stays on tefillah per traditional practice. Heights and designs vary by community.
+58|${yaalehVyavoFemaleAmidahLead("Mincha")}
+
+${yaalehVyavoForgotShacharitOrMincha("Mincha")}
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
+59|Shehecheyanu (Ashkenaz — Rema O.C. 692:1): Recite before the first evening Megillah reading. Ashkenazim also recite Shehecheyanu before the first daytime Megillah reading.
+60|Tomorrow is erev Purim — and this year is Purim Meshulash in Jerusalem. Shabbat is in the middle, so you need the full plan now (not only tomorrow).
+
+${fullScheduleBlock()}
+61|minor fast on 10 Tevet from dawn until nightfall; the only fast never postponed when it falls on Friday before Shabbat — in which case we break it with Friday night Kiddush
+62|Saw a lost object recently? 🔍 Don't just ignore it! Go back and try to return it to its owner (if possible). That's the mitzvah of Hashavat Aveidah (returning lost objects).
+63|Before chag — every erev Yom Tov:
+$sunsetLine
+$cookingLine
+• Turn off phones and devices before Yom Tov — this app is for prep, not use on chag.
+$shulServicesLine$simchasBlock
+64|Chasidim — a group of Jews who follow a movement that emphasizes deep mystical devotion, joyful worship, and a close-knit community led by a spiritual leader known as a Rebbe.
+65|${yaalehVyavoFemaleAmidahLead("Shacharit")}
+
+${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
+
+If you say Birkat Hamazon when you eat bread today, add Yaaleh V'yavo there too.
+66|Beit HaMikdash — The Beit HaMikdash (Holy Temple) stood in Jerusalem as the center of sacrifice, pilgrimage, and divine presence. Its destruction on Tisha B'Av is mourned yearly.
+67|Bracha acharona is the after-blessing said when you ate or drank enough of a food but did not have a bread meal requiring Birkat Hamazon — for example borei nefashot or al hamichya.
+68|YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach). Use your siddur's festival night Kiddush section for instructions.
+69|Mezonot (borei minei mezonot) is the blessing on grain foods that are not bread — cake, crackers, pasta, cereal. It is shorter than hamotzi but still thanks G-d for grain sustenance.
+70|Next time you have guests, keep in mind to escort them on their way as they leave, even for just a few steps. The Talmud (Sotah 46b) says the reward for escorting others has no measure!
+71|Ruach Ra'ah ("evil spirit") is a rabbinic term for the impurity resting on hands after sleep. Morning netilat yadayim removes it by washing hands alternating right and left 3 times each.
+72|Asara B'Tevet — minor fast on 10 Tevet from dawn until nightfall; the only fast never postponed when it falls on Friday before Shabbat — in which case we break it with Friday night Kiddush
+73|Kallah means bride; kallah classes teach taharat hamishpacha, mitzvot of the home, and wedding laws before marriage. The kallah and chatan prepare for chuppah and building a Jewish family.
+74|Vatodi'enu ("You have made us know") is an insert in the Maariv Amidah on Saturday night when Yom Tov begins after Shabbat. It acknowledges that Shabbat has ended and the festival has begun.
+75|Mezonot — Mezonot (borei minei mezonot) is the blessing on grain foods that are not bread — cake, crackers, pasta, cereal. It is shorter than hamotzi but still thanks G-d for grain sustenance.
+76|Yaknehaz — YaKNeHaZ is a mnemonic for the order when Shabbat flows directly into Yom Tov (for example Saturday night Pesach). Use your siddur's festival night Kiddush section for instructions.
+77|Add Yaaleh V'yavo in the Maariv Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+${yaalehVyavoForgotMaarivRoshChodesh()}
+
+Also add Yaaleh V'yavo in bentching if you eat bread tonight.
+78|Purim is tomorrow. Plan all four mitzvot: Megillah (night and morning), matanot la'evyonim, mishloach manot, and tomorrow's festive seudah (afternoon meal). Confirm reading times with your shul.
+79|Take a minute to pray for someone else's needs before your own. The sages teach that when you pray for others with pure intentions, and you happen to need the same thing, you get answered first!
+80|Aggadah is the non-legal storytelling and teaching in the Talmud and midrash — ethics, theology, and narrative. It complements halacha (law). Shabbat table stories and many midrashim are aggadah.
+81|Please put away your device and keep Shabbat. Rest, pray, learn Torah, and enjoy time with family and community. Melacha (forbidden labor) applies on Shabbat, including most phone and device use.
+82|Nevi'im (Prophets) is the middle section of Tanach — Joshua, Kings, Isaiah, Jeremiah, and the other prophetic books. They call Israel to justice and loyalty to Hashem. Reading them is Torah study.
+83|catch-all blessing on fragrant herbs, spices, flowers, fruit, etc. (often said as the spice blessing in Havdalah after Shabbat, though some will say a more specific blessing on pleasant fragrances)
+84|kallah — Kallah means bride; kallah classes teach taharat hamishpacha, mitzvot of the home, and wedding laws before marriage. The kallah and chatan prepare for chuppah and building a Jewish family.
+85|When (Northern Hemisphere — your location):
+Say it during Nissan, when fruit trees in your area begin to blossom — ideally as early in the month as you first see flowers (Shulchan Arukh O.C. 226:1).
+86|Nefesh is the 'animal' part of the soul closest to physical life — appetite, hunger, physical desires, etc. Torah and mitzvot attempt to refine the nefesh toward holiness instead of animal instincts.
+87|Spread the joy of mitzvot! Share the Mitz Mode app with your friends 📱. Every time they use it to do a mitzvah, you get credit for that mitzvah too! It's like creating an endless chain of good deeds!
+88|bracha acharona — Bracha acharona is the after-blessing said when you ate or drank enough of a food but did not have a bread meal requiring Birkat Hamazon — for example borei nefashot or al hamichya.
+89|Ruach Ra'ah — Ruach Ra'ah ("evil spirit") is a rabbinic term for the impurity resting on hands after sleep. Morning netilat yadayim removes it by washing hands alternating right and left 3 times each.
+90|Chametz is leavened grain product made from wheat, barley, rye, oats, or spelt. Bread, beer, and many processed foods can be chametz. On Pesach, owning, eating, or benefiting from chametz is forbidden.
+91|Vatodi'enu — Vatodi'enu ("You have made us know") is an insert in the Maariv Amidah on Saturday night when Yom Tov begins after Shabbat. It acknowledges that Shabbat has ended and the festival has begun.
+92|Get rid of something chametz (leavened) you're not going to eat and have in mind that you're fulfilling the mitzvah of cleaning your home of chametz for Pesach. If it is currently Pesach, eat some matzah!
+93|Add Yaaleh V'yavo in the Shacharit Amidah on Rosh Chodesh — in the blessing Retzei (Avodah).
+
+${yaalehVyavoForgotShacharitOrMincha("Shacharit")}
+
+Also add Yaaleh V'yavo in bentching if you eat bread today.
+94|aggadah — Aggadah is the non-legal storytelling and teaching in the Talmud and midrash — ethics, theology, and narrative. It complements halacha (law). Shabbat table stories and many midrashim are aggadah.
+95|Nevi'im — Nevi'im (Prophets) is the middle section of Tanach — Joshua, Kings, Isaiah, Jeremiah, and the other prophetic books. They call Israel to justice and loyalty to Hashem. Reading them is Torah study.
+96|Thank G-d for giving you the ability to feel textures and temperatures 🤚. From soft bristly grass to cooling water to a fluffy blanket - every sensation is a unique blessing that adds richness to our lives!
+97|nefesh — Nefesh is the 'animal' part of the soul closest to physical life — appetite, hunger, physical desires, etc. Torah and mitzvot attempt to refine the nefesh toward holiness instead of animal instincts.
+98|Learn about Tefillin! 👑 Did you know? The head Tefillin contains the same four Torah passages as the arm Tefillin, but arranged differently! Today's mission: Learn about how Tefillin connects our minds to G-d.
+99|Discover the deeper meaning of the beard in Judaism! 🧔 Did you know? Kabbalists say that the 13 attributes of Divine mercy can emanate through the hairs of the beard! Now that's what I call a valuable hairloom.
+100|Maleh lugmov is drinking a cheekful from the Kiddush cup (approx 2 fl oz) after the blessing — from at least a total of a revi'it of wine or grape juice in the cup. Grape juice counts like wine for many poskim.
+101|Chametz — Chametz is leavened grain product made from wheat, barley, rye, oats, or spelt. Bread, beer, and many processed foods can be chametz. On Pesach, owning, eating, or benefiting from chametz is forbidden.
+102|Rosh Chodesh during Chanukah — if you recite Hallel, say Full Hallel at Shacharit (the Chanukah practice), not Half Hallel (Peninei Halakha 12-02-07). Optional for women — follow your minhag.
+
+Tachanun is omitted.
+103|Thank G-d for giving you the ability to smell your surroundings. Not only do you know when someone is baking cookies, but it can help you avoid danger. What if everything in the whole world smelled like cardboard?
+104|Tanach (Tanakh) is the Hebrew Bible in three parts: Torah (the five books), Nevi'im (Prophets), and Ketuvim (Writings). Reading Tanach in Hebrew or translation is Torah study; Psalms (Tehillim) are part of Ketuvim.
+105|Tomorrow is erev $tomorrowChag — the Yom Tov–Shabbat rules below apply starting then. Use today (during the day) to prepare so you are not caught tonight or tomorrow without eruv tavshilin, flames, or food in place.
+106|Add your own mitzvah! ✡ The Talmud teaches that each person has their own unique way of serving G-d. Think of a mitzvah that can bring more light into the world and submit it in the 'Add a Mitzvah' section of the app!
+107|Borei Minei Besamim — catch-all blessing on fragrant herbs, spices, flowers, fruit, etc. (often said as the spice blessing in Havdalah after Shabbat, though some will say a more specific blessing on pleasant fragrances)
+108|Olam HaBa is the World to Come — the eternal reality of closeness to G-d after this life (Heaven). Mitzvot, Torah study, and acts of kindness build merits that the sages describe as unfathomable treasures in that world.
+109|Pshat is the plain, straightforward meaning of a Torah verse — what the text says on its surface before deeper layers. Rashi on Chumash mainly explains pshat. Learning pshat is the foundation before midrash or Kabbalah.
+110|Shir HaMaalot is Psalm 126 — "When G-d returns the captivity of Zion" — sung before bentching on Shabbat and festivals. It expresses joy in redemption and hope for complete return. Many know the tune from Shabbat tables.
+111|Borei pri ha'adamah is the blessing on produce that grows from the earth — potatoes, cucumbers, melons, and many berries. It covers foods that are not tree fruit. Water and plain beverages have their own blessings or none.
+112|Yom Yerushalayim marks the reunification of Jerusalem in 1967, observed on 28 Iyar.
+
+Many communities recite Hallel and hold festive gatherings. As with Yom Ha'atzmaut, customs and halachic rulings vary — consult your rav.
+113|Tanach — Tanach (Tanakh) is the Hebrew Bible in three parts: Torah (the five books), Nevi'im (Prophets), and Ketuvim (Writings). Reading Tanach in Hebrew or translation is Torah study; Psalms (Tehillim) are part of Ketuvim.
+114|Make every day special! Take a moment to think about the upcoming Shabbat 🌅. Maybe plan a special dish you'll make, or imagine the peaceful atmosphere you'll create. Did you know? It's a mitzvah to remember Shabbat every day!
+115|Marvel at the miracle of breath! Notice how G-d designed our bodies to breathe automatically 🫁, giving us life with almost no effort. Each breath is a gift - try taking one deep, mindful breath right now and thank G-d for it!
+116|The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon bar Yochai, written in Aramaic. It illuminates the Torah's inner dimensions. Many study a daily snippet; full mastery requires Hebrew/Aramaic and guidance.
+117|maleh lugmov — Maleh lugmov is drinking a cheekful from the Kiddush cup (approx 2 fl oz) after the blessing — from at least a total of a revi'it of wine or grape juice in the cup. Grape juice counts like wine for many poskim.
+118|Do the powerful mitzvah of praying for others! Think of someone who's looking for their soulmate (shidduch) and say a heartfelt prayer for them 💑. Your sincere prayer could be the key that opens the gates of blessing for them!
+119|Treif means non-kosher — originally torn flesh of improperly slaughtered animals, now any forbidden food. Mixing treif into a kosher kitchen can require kashering. "Kosher style" restaurants without supervision are not kosher.
+120|pshat — Pshat is the plain, straightforward meaning of a Torah verse — what the text says on its surface before deeper layers. Rashi on Chumash mainly explains pshat. Learning pshat is the foundation before midrash or Kabbalah.
+121|Yom Tov (literally "good day") is a biblical festival such as Pesach, Shavuot, Sukkot, or Rosh Hashana. It resembles Shabbat in joy and in restricting melacha, but cooking and carrying are generally permitted for festival needs.
+122|Olam HaBa — Olam HaBa is the World to Come — the eternal reality of closeness to G-d after this life (Heaven). Mitzvot, Torah study, and acts of kindness build merits that the sages describe as unfathomable treasures in that world.
+123|Ketuvim (Writings) is the third section of Tanach — Psalms (Tehillim), Proverbs, Esther, Ruth, Daniel, and others. It includes poetry, history, and wisdom literature. Tehillim is the most commonly recited book for comfort and praise.
+124|Zohar — The Zohar is the classic work of Kabbalah, attributed to Rabbi Shimon bar Yochai, written in Aramaic. It illuminates the Torah's inner dimensions. Many study a daily snippet; full mastery requires Hebrew/Aramaic and guidance.
+125|Peninei Halakha is Rabbi Eliezer Melamed's modern Hebrew halacha series (available in English online), organized by topic — Shabbat, festivals, prayer, family, and Israel. It is clear, sourced, and widely used for practical questions.
+126|treif — Treif means non-kosher — originally torn flesh of improperly slaughtered animals, now any forbidden food. Mixing treif into a kosher kitchen can require kashering. "Kosher style" restaurants without supervision are not kosher.
+127|The Baal Shem Tov (Rabbi Israel ben Eliezer, c. 1700–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.
+128|Shir HaMaalot — Shir HaMaalot is Psalm 126 — "When G-d returns the captivity of Zion" — sung before bentching on Shabbat and festivals. It expresses joy in redemption and hope for complete return. Many know the tune from Shabbat tables.
+129|Mashiach (Moshiach) is the righteous anointed king from David's line who will rebuild the Temple, gather the exiles, and bring universal knowledge of G-d. Belief in his coming is a foundation of Jewish faith. We pray for redemption daily.
+130|Yom Tov — Yom Tov (literally "good day") is a biblical festival such as Pesach, Shavuot, Sukkot, or Rosh Hashana. It resembles Shabbat in joy and in restricting melacha, but cooking and carrying are generally permitted for festival needs.
+131|A keli is a vessel, utensil, or tool. It generally refers to any manufactured object or receptacle that holds, processes, or contains something. A keli is used for netilat yadayim — a cup, bottle, or washing cup (usually) with two handles.
+132|Borei Pri HaAdamah — Borei pri ha'adamah is the blessing on produce that grows from the earth — potatoes, cucumbers, melons, and many berries. It covers foods that are not tree fruit. Water and plain beverages have their own blessings or none.
+133|Daven (davening) means to pray. You 'daven' the daily services (Shacharit, Mincha, Maariv). The word is Yiddish-derived Ashkenazi slang but widely understood. People often say "daven Shacharit" for a service and "daven" for praying in general.
+134|Ketuvim — Ketuvim (Writings) is the third section of Tanach — Psalms (Tehillim), Proverbs, Esther, Ruth, Daniel, and others. It includes poetry, history, and wisdom literature. Tehillim is the most commonly recited book for comfort and praise.
+135|Chazeret is the second bitter herb on the Seder plate in some traditions — often romaine lettuce stalk — alongside maror. Not every community uses a separate chazeret; some use only horseradish for maror. Follow your Haggadah and family custom.
+136|Keli — A keli is a vessel, utensil, or tool. It generally refers to any manufactured object or receptacle that holds, processes, or contains something. A keli is used for netilat yadayim — a cup, bottle, or washing cup (usually) with two handles.
+137|Leining is chanting the Torah portion from the scroll with precise trop (cantillation). The baal koreh trains for months. Congregants follow in a Chumash. Hearing every word on Shabbat morning fulfills the communal mitzvah of public Torah reading.
+138|Rosh Hashana is the Jewish New Year and Day of Judgment — shofar, festive meals, and solemn prayer. It begins the Ten Days of Teshuvah leading to Yom Kippur. Customs include apples in honey, new fruit, and tashlich. Work is forbidden like Yom Tov.
+139|A bentcher (birkon) is a small booklet with Birkat Hamazon and sometimes Shabbat songs and benching additions. Keeping one at the table makes bentching after bread meals easy. Many are bilingual; some include zimun instructions and festival inserts.
+140|Chazal (חז"ל) is an acronym for "our Sages of blessed memory" — the rabbis of the Mishnah, Talmud, and midrash who transmitted halacha and values. When a source says "Chazal teach," it refers to this collective tradition rather than a single author.
+141|Mashiach — Mashiach (Moshiach) is the righteous anointed king from David's line who will rebuild the Temple, gather the exiles, and bring universal knowledge of G-d. Belief in his coming is a foundation of Jewish faith. We pray for redemption daily.
+142|Psak is a halachic ruling — the answer a qualified posek gives for your real case, not a theoretical debate. Judaism has legitimate range between authorities; your job is to follow your rav's psak consistently rather than shop around for leniencies.
+143|Tzedakah is usually translated "charity," but the root means justice — sharing what G-d entrusted to you with those in need. The sages list it among the pillars on which the world stands; even a small coin given with a full heart is a great mitzvah.
+144|Baal Shem Tov — The Baal Shem Tov (Rabbi Israel ben Eliezer, c. 1700–1760) founded the Chasidic movement, teaching that every Jew can serve G-d with joy and that divine presence fills all creation. Chabad traces its spiritual lineage to his disciples.
+145|daven — Daven (davening) means to pray. You 'daven' the daily services (Shacharit, Mincha, Maariv). The word is Yiddish-derived Ashkenazi slang but widely understood. People often say "daven Shacharit" for a service and "daven" for praying in general.
+146|Elokei Neshama thanks G-d in the morning for restoring the soul, which was pure and will be returned at death. It follows Birchot HaShachar in many siddurim. The prayer teaches that each day is a new loan of life — use it for mitzvot, not only errands.
+147|Peninei Halakha — Peninei Halakha is Rabbi Eliezer Melamed's modern Hebrew halacha series (available in English online), organized by topic — Shabbat, festivals, prayer, family, and Israel. It is clear, sourced, and widely used for practical questions.
+148|Simanim are symbolic Rosh Hashana foods — apple in honey, pomegranate, fish head, dates — each with a pun or prayer for the new year. They are minhag, not Torah law, but beloved for teaching children. Say the short yehi ratzon prayers from the machzor.
+149|The Kitzur Shulchan Arukh is a condensed summary of daily halacha — prayer, Shabbat, kashrut, festivals, and family life — written by Rabbi Shlomo Ganzfried. It is a practical first halacha book for beginners and a quick reference for experienced Jews.
+150|Chutz la'aretz means outside the Land of Israel. Halacha differs in some areas — second day of Yom Tov, certain agricultural laws, and some prayer texts. Israelis in chutz la'aretz often follow local practice while visiting; ask your rav for long stays.
+151|Hayom Yom ("Today is…") is a Chabad calendar of brief teachings — a saying, story, or law for each day of the year. It is often studied as part of daily Chitas after Chumash, Tehillim, and Tanya. Entries are short and practical, meant for busy schedules.
+152|Tefilat Nedavah is a voluntary Amidah when tashlumin is impossible — with mental stipulation and a small novelty in the prayer. It does not replace missed obligation like tashlumin but offers a way to pray after multiple misses. Not for daily casual use.
+153|chazeret — Chazeret is the second bitter herb on the Seder plate in some traditions — often romaine lettuce stalk — alongside maror. Not every community uses a separate chazeret; some use only horseradish for maror. Follow your Haggadah and family custom.
+154|Appreciate the gift of rest! Thank G-d for the ability to sleep and wake up refreshed 😴. Imagine if we couldn't recharge our batteries each night! Instead, G-d gave us this amazing daily reset button that helps our bodies and minds function at their best 🌅
+155|Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation, the soul, and mitzvot. Texts include the Zohar and later works like Tanya. Authentic Kabbalah is studied with Torah literacy and a teacher; it is not fortune-telling or magic.
+156|Kosher means fit for use per halacha — especially food, but also valid scrolls and acceptable conduct (e.g. kosher money for mitzvot). Kosher is not a health label; it is spiritual fitness. When in doubt on a product, call the hechsher company or your rav.
+157|Pirsumei nisa means publicizing the miracle — placing Chanukah menorah where passersby see the lights. The miracle of the oil is proclaimed to the street. Inside homes, many light by the window. Do not use the mitzvah candles for reading — use the shamash.
+158|psak — Psak is a halachic ruling — the answer a qualified posek gives for your real case, not a theoretical debate. Judaism has legitimate range between authorities; your job is to follow your rav's psak consistently rather than shop around for leniencies.
+159|Bitachon is trust in G-d — believing that He provides what you need and that hardship can have purpose even when you cannot see it. It is related to emunah (faith) but stresses calm reliance in daily worry. Mussar and Chasidut both teach practical bitachon.
+160|Pesach commemorates the Exodus — matzah, maror, Seder, and no chametz. It is the festival of freedom and faith. Preparation dominates erev Pesach: bedikat, biur, kashering. The spiritual goal is feeling you left Egypt personally, not only historical memory.
+161|The Amidah ("standing" prayer) is the core of every service — also called Shmoneh Esrei (eighteen, now nineteen blessings as 1 was added). It is recited silently while standing, facing Jerusalem or the Temple Mount (if inside Jerusalem), with feet together.
+162|leining — Leining is chanting the Torah portion from the scroll with precise trop (cantillation). The baal koreh trains for months. Congregants follow in a Chumash. Hearing every word on Shabbat morning fulfills the communal mitzvah of public Torah reading.
+163|Chazal — Chazal (חז"ל) is an acronym for "our Sages of blessed memory" — the rabbis of the Mishnah, Talmud, and midrash who transmitted halacha and values. When a source says "Chazal teach," it refers to this collective tradition rather than a single author.
+164|Yetzer hatov is the inclination toward good — conscience, love of mitzvot, shame from wrongdoing. It grows when you learn Torah and see righteous examples. Jewish education (chinuch) cultivates yetzer hatov in children through habit before full understanding.
+165|Zimun is inviting others to bentch together when three or more men (per common minhag) ate bread as a group. The leader says "let us bless" and others answer. It turns private thanks into communal praise. Women's zimun follows separate customs — ask your rav.
+166|bentcher — A bentcher (birkon) is a small booklet with Birkat Hamazon and sometimes Shabbat songs and benching additions. Keeping one at the table makes bentching after bread meals easy. Many are bilingual; some include zimun instructions and festival inserts.
+167|tzedakah — Tzedakah is usually translated "charity," but the root means justice — sharing what G-d entrusted to you with those in need. The sages list it among the pillars on which the world stands; even a small coin given with a full heart is a great mitzvah.
+168|Aleinu is a closing prayer declaring G-d's sovereignty and our hope for universal recognition of His kingship. It ends daily Shacharit and Maariv and appears near the end of High Holiday services. The bow at "we bend the knee" is a moment of submission and awe.
+169|Add some sweetness to Shabbat! 🍪 Bake or prepare some special treats for the holy day. Here's a fun mitzvah hack: Taste-test your creation before Shabbat to make sure it's perfect - this 'quality control' is actually an additional mitzvah of Shabbat preparation!
+170|Chiyuv means obligated — the mitzvah applies to you and you are expected to fulfill it. Bar mitzvah creates chiyuv for a boy's mitzvot; other exemptions (illness, danger) can remove chiyuv temporarily. Knowing whether you are chayav or patur is why we ask a rav.
+171|Rosh Hashana — Rosh Hashana is the Jewish New Year and Day of Judgment — shofar, festive meals, and solemn prayer. It begins the Ten Days of Teshuvah leading to Yom Kippur. Customs include apples in honey, new fruit, and tashlich. Work is forbidden like Yom Tov.
+172|simanim — Simanim are symbolic Rosh Hashana foods — apple in honey, pomegranate, fish head, dates — each with a pun or prayer for the new year. They are minhag, not Torah law, but beloved for teaching children. Say the short yehi ratzon prayers from the machzor.
+173|Chassidut (Chasidic philosophy) teaches serving G-d with joy, sincerity, and awareness that divine sparks fill all of life. Founded by the Baal Shem Tov, it spread through courts like Chabad, Breslov, and Satmar. Tanya is a central Chassidut text for daily study.
+174|Chesed is loving-kindness — going beyond the strict requirement to help another person. Gemilut chasadim (bestowing kindness) includes visiting the sick, burying the dead, and free loans. The world is said to stand on Torah, avodah (service), and gemilut chasadim.
+175|Learn and grow! Watch any Torah class that interests you 📚. Whether it's about the weekly parsha, Jewish history, or practical Jewish law (halacha) - every minute of Torah study lights up the world! Plus, you can learn at your own pace and choose topics you love 🎓
+176|Recite Half Hallel after the Shacharit Amidah on Rosh Chodesh (a cherished custom; not a Torah obligation — Peninei Halakha 05-01-12).
+
+Before Musaf:
+Remove tefillin before Musaf — do not wear tefillin during the Musaf Amidah.
+
+Tachanun is omitted on Rosh Chodesh.
+177|Spread healing energy! Send a heartfelt message to someone who isn't feeling well 💌. Whether they're dealing with a cold or something more serious, your caring words can lift their spirits! The Talmud teaches that visiting the sick removes 1/60th of their illness.
+178|Borei nefashot is the short after-blessing on many foods and drinks — fruit (aside from dates, grapes, olives, figs, and pomegranates which use the Me'ein Shalosh bracha), vegetables, drinks (other than wine/grape juice which use Me'ein Shalosh), meat, cheese, etc.
+179|Korbanot are the Temple offerings — animal sacrifices, incense, and libations — brought by the Jewish people in the Beit HaMikdash. Since the Temple's destruction, we cannot offer them; prayer recalls and substitutes for those offerings until the Temple is rebuilt.
+180|Practice gratitude! Take a moment to thank G-d for something good in your life - big or small 🙌. Maybe it's your health, your family, or even just that morning coffee! Rabbis teach that When G-d sees us sending thanks, he welcomes our other prayers along with them!
+181|The baal koreh (master of reading) chants the Torah from the scroll with correct trop and pronunciation. Training takes months. Congregants follow in Chumash. A mistake that changes meaning may require correction — the oleh listens, not reads aloud from the scroll.
+182|Yom HaZikaron (Memorial Day) falls on 4 Iyar in Israel, immediately before Yom Ha'atzmaut. It honors fallen soldiers and victims of terror.
+
+The day is marked by memorial ceremonies and sirens. Many observe it as a solemn day before the celebration of independence.
+183|kosher — Kosher means fit for use per halacha — especially food, but also valid scrolls and acceptable conduct (e.g. kosher money for mitzvot). Kosher is not a health label; it is spiritual fitness. When in doubt on a product, call the hechsher company or your rav.
+184|Amidah — The Amidah ("standing" prayer) is the core of every service — also called Shmoneh Esrei (eighteen, now nineteen blessings as 1 was added). It is recited silently while standing, facing Jerusalem or the Temple Mount (if inside Jerusalem), with feet together.
+185|Discover the power of Peh (פ)! 👄 The Peh means 'mouth' and teaches us about the power of speech. Its shape includes a Bet (ב) on its inside (the empty space within it when written in a Torah scrollforms a bet), reminding us that what's inside us affects what we say.
+186|Hayom Yom — Hayom Yom ("Today is…") is a Chabad calendar of brief teachings — a saying, story, or law for each day of the year. It is often studied as part of daily Chitas after Chumash, Tehillim, and Tanya. Entries are short and practical, meant for busy schedules.
+187|Pesach — Pesach commemorates the Exodus — matzah, maror, Seder, and no chametz. It is the festival of freedom and faith. Preparation dominates erev Pesach: bedikat, biur, kashering. The spiritual goal is feeling you left Egypt personally, not only historical memory.
+188|Borei pri ha'etz is the blessing on fruit that grows on trees — apples, peaches, grapes (for eating as fruit), and similar. Say it before eating. Fruit from the ground (bananas, strawberries) use borei pri ha'adamah. When in doubt, ask your rav or use a bracha guide.
+189|Kabbalah — Kabbalah is the Jewish mystical tradition exploring how G-d relates to creation, the soul, and mitzvot. Texts include the Zohar and later works like Tanya. Authentic Kabbalah is studied with Torah literacy and a teacher; it is not fortune-telling or magic.
+190|Mayim achronim is washing the fingertips after a bread meal and before bentching — a reminder that we eat as servants before G-d. Not every community emphasizes it today, but many siddurim and bentchers include it. It is separate from netilat yadayim before the meal.
+191|Tekiah is a long straight shofar blast. The Rosh Hashana sequence combines tekiah with shevarim (broken) and teruah (trembling) sounds per minhag. One hundred blasts are customary Ashkenaz. Practice in shul beforehand so the day is not your first time hearing shofar.
+192|zimun — Zimun is inviting others to bentch together when three or more men (per common minhag) ate bread as a group. The leader says "let us bless" and others answer. It turns private thanks into communal praise. Women's zimun follows separate customs — ask your rav.
+193|A Chumash (from chamesh, "five") is a printed book of the five books of the Torah — Bereishit, Shemot, Vayikra, Bamidbar, and Devarim. Most Chumashim include commentaries such as Rashi. You use a Chumash for Shnayim Mikra, following along in shul, or learning at home.

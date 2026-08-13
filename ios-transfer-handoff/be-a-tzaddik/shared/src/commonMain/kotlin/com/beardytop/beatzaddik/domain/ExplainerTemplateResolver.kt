@@ -1,0 +1,425 @@
+package com.beardytop.beatzaddik.domain
+
+/**
+ * Resolves explainer bodies that use catalog template keys + placeholder args
+ * so bundled translations work (plain [rememberAppTranslatedText] misses runtime interpolation).
+ */
+object ExplainerTemplateResolver {
+
+    data class Bundle(
+        val template: String? = null,
+        val args: Map<String, String> = emptyMap(),
+    )
+
+    fun resolve(
+        item: ChecklistItemDef,
+        profile: UserProfile,
+        cal: DayInfo?,
+        yesterdayCal: DayInfo? = null,
+        tomorrowCal: DayInfo? = null,
+        nowMillis: Long = 0L,
+    ): Bundle {
+        if (cal == null) return Bundle()
+        val female = prefersFemaleExplanation(item, profile)
+        val nusachNote = nusachNote(item, profile)
+
+        return when {
+            item.id == HavdalahRules.CHECKLIST_ITEM_ID &&
+                yesterdayCal != null && tomorrowCal != null -> {
+                val kind = HavdalahRules.kind(cal, yesterdayCal, tomorrowCal, nowMillis)
+                    ?: return Bundle()
+                staticBundle(
+                    HavdalahRules.explanationTemplate(
+                        kind,
+                        HavdalahRules.yomKippurWasShabbat(cal, yesterdayCal),
+                    )
+                )
+            }
+
+            item.id == OmerCountText.CHECKLIST_ITEM_ID || item.id.startsWith("sefirat_haomer_day_") ->
+                Bundle(
+                    OmerCountText.explanationTemplate(),
+                    OmerCountText.explanationArgs(cal, profile, nowMillis),
+                )
+
+            item.id.startsWith("chanukah_lighting_day_") -> {
+                val day = item.id.removePrefix("chanukah_lighting_day_").toIntOrNull() ?: return Bundle()
+                Bundle(
+                    SeasonalMitzvahText.chanukahLightingExplanationTemplate(),
+                    SeasonalMitzvahText.chanukahLightingExplanationArgs(day),
+                )
+            }
+
+            item.id == "birkat_hachamah" -> {
+                val occurrence = BirkatHachamahRules.visibleOccurrence(cal.date) ?: return Bundle()
+                Bundle(
+                    SeasonalMitzvahText.birkatHachamahExplanationTemplate(),
+                    SeasonalMitzvahText.birkatHachamahExplanationArgs(occurrence),
+                )
+            }
+
+            item.id == "birkat_hailanot" ->
+                Bundle(
+                    SeasonalMitzvahText.birkatHaIlanotExplanationTemplate(),
+                    SeasonalMitzvahText.birkatHaIlanotExplanationArgs(profile),
+                )
+
+            item.id == "kiddush_levana" ->
+                Bundle(
+                    SeasonalMitzvahText.kiddushLevanaExplanationTemplate(),
+                    SeasonalMitzvahText.kiddushLevanaExplanationArgs(profile),
+                )
+
+            item.id == "three_weeks_mourning_customs" ->
+                Bundle(template = SeasonalMitzvahText.threeWeeksExplanationTemplate(profile))
+
+            item.id == "nine_days_mourning_customs" ->
+                Bundle(template = SeasonalMitzvahText.nineDaysExplanationTemplate(profile))
+
+            item.id == "sukkot_arba_minim" ->
+                Bundle(
+                    ExplainerTemplateSupport.arbaMinimTemplate(female),
+                    ExplainerTemplateSupport.arbaMinimArgs(profile, female),
+                )
+
+            item.id == "hoshana_rabbah_aravot" ->
+                staticBundle(SeasonalMitzvahText.hoshanaRabbahAravotExplanation())
+
+            item.id == "chol_hamoed_honor" ->
+                Bundle(
+                    ExplainerTemplateSupport.cholHamoedHonorTemplate(),
+                    ExplainerTemplateSupport.cholHamoedHonorArgs(cal, profile),
+                )
+
+            item.id == "chol_hamoed_wine_reviit" ->
+                Bundle(
+                    ExplainerTemplateSupport.cholHamoedWineTemplate(),
+                    ExplainerTemplateSupport.cholHamoedWineArgs(cal),
+                )
+
+            item.id == "chol_hamoed_sukkah" ->
+                Bundle(
+                    ExplainerTemplateSupport.cholHamoedSukkahTemplate(
+                        prefersFemaleExplanation(item, profile),
+                    ),
+                    ExplainerTemplateSupport.cholHamoedSukkahArgs(
+                        profile,
+                        prefersFemaleExplanation(item, profile),
+                    ),
+                )
+
+            item.id == "chol_hamoed_pesach_matzah" ->
+                staticBundle(SeasonalMitzvahText.cholHamoedMatzahExplanation())
+
+            item.id == "shemini_atzeret_focus" ->
+                staticBundle(SeasonalMitzvahText.sheminiAtzeretExplanation(profile))
+
+            item.id == "simchat_torah_focus" ->
+                staticBundle(SeasonalMitzvahText.simchatTorahExplanation(profile))
+
+            item.id == "prepare_for_festival_shavuot" ->
+                Bundle(
+                    ExplainerTemplateSupport.shavuotWeekPrepTemplate(),
+                    ExplainerTemplateSupport.shavuotWeekPrepArgs(profile),
+                )
+
+            item.id == "prepare_for_festival_sukkot" ->
+                Bundle(
+                    ExplainerTemplateSupport.sukkotWeekPrepTemplate(),
+                    ExplainerTemplateSupport.sukkotWeekPrepArgs(profile),
+                )
+
+            item.id == "prepare_for_festival_pesach" ->
+                Bundle(
+                    ExplainerTemplateSupport.pesachWeekPrepTemplate(),
+                    ExplainerTemplateSupport.pesachWeekPrepArgs(cal, profile),
+                )
+
+            item.id == "yaaleh_vyavo_rosh_chodesh_shacharit" ->
+                Bundle(
+                    SeasonalMitzvahText.yaalehVyavoShacharitTemplate(female),
+                    SeasonalMitzvahText.yaalehVyavoShacharitArgs(),
+                )
+
+            item.id == "yaaleh_vyavo_rosh_chodesh_mincha" ->
+                Bundle(
+                    SeasonalMitzvahText.yaalehVyavoMinchaTemplate(female),
+                    SeasonalMitzvahText.yaalehVyavoMinchaArgs(),
+                )
+
+            item.id == "yaaleh_vyavo_rosh_chodesh" ->
+                Bundle(
+                    SeasonalMitzvahText.yaalehVyavoMaarivTemplate(female),
+                    SeasonalMitzvahText.yaalehVyavoMaarivArgs(),
+                )
+
+            item.id == "yaaleh_vyavo_chol_hamoed_shacharit" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedShacharitExplanation()
+                    },
+                )
+
+            item.id == "yaaleh_vyavo_chol_hamoed_mincha" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMinchaExplanation()
+                    },
+                )
+
+            item.id == "yaaleh_vyavo_chol_hamoed_maariv" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.yaalehVyavoCholHamoedMaarivExplanation()
+                    },
+                )
+
+            item.id == "rosh_chodesh_half_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.roshChodeshHalfHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.roshChodeshHalfHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "rosh_chodesh_full_hallel_chanukah" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.roshChodeshFullHallelChanukahExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.roshChodeshFullHallelChanukahExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "chanukah_full_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.chanukahFullHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.chanukahFullHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "chol_hamoed_full_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.cholHamoedFullHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.cholHamoedFullHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "chol_hamoed_half_hallel" ->
+                nusachBundle(
+                    if (female) {
+                        SeasonalMitzvahText.cholHamoedHalfHallelExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.cholHamoedHalfHallelExplanation()
+                    },
+                    nusachNote,
+                )
+
+            item.id == "rosh_chodesh_observances" ->
+                staticBundle(
+                    if (female) {
+                        SeasonalMitzvahText.roshChodeshObservancesExplanationFemale()
+                    } else {
+                        SeasonalMitzvahText.roshChodeshObservancesExplanation()
+                    },
+                )
+
+            item.id == "ldovid_hashem_ori_shacharit" ||
+                item.id == "ldovid_hashem_ori_maariv" ->
+                nusachBundle(SeasonalMitzvahText.ldovidExplanation(profile.effectiveNusach()), nusachNote)
+
+            item.id == "selichot_elul_chabad" ||
+                item.id == "selichot_elul_ashkenaz" ||
+                item.id == "selichot_elul_sefard" ||
+                item.id == "selichot_elul_edot_hamizrach" ||
+                item.id == "selichot_elul_other" ->
+                staticBundle(SeasonalMitzvahText.selichotExplanation(profile.effectiveNusach()))
+
+            item.id == "tu_bshvat_seder_optional" ->
+                staticBundle(SeasonalMitzvahText.tuBshvatExplanation())
+
+            item.id == "motzei_yk_build_sukkah" ->
+                staticBundle(SeasonalMitzvahText.sukkahBuildExplanation())
+
+            item.id == "purim_meshulash_advance_prep" ->
+                Bundle(
+                    PurimMeshulashText.advancePrepTemplate(),
+                    PurimMeshulashText.advancePrepArgs(),
+                )
+
+            item.id == "erev_purim_prep" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                if (PurimMeshulashText.isErevBeforeMeshulashFriday(cal, tomorrow)) {
+                    Bundle(
+                        PurimMeshulashText.erevPrepTemplate(),
+                        PurimMeshulashText.erevPrepArgs(),
+                    )
+                } else {
+                    Bundle()
+                }
+            }
+
+            item.id == "purim_meshulash_friday_megillah" ->
+                staticBundle(PurimMeshulashText.fridayMegillahTemplate())
+
+            item.id == "purim_meshulash_friday_matanot" ->
+                staticBundle(PurimMeshulashText.fridayMatanotTemplate())
+
+            item.id == "purim_meshulash_sunday_mishloach" ->
+                staticBundle(PurimMeshulashText.sundayMishloachTemplate())
+
+            item.id == "purim_meshulash_sunday_seudah" ->
+                staticBundle(PurimMeshulashText.sundaySeudahTemplate())
+
+            item.id == "erev_public_fast_prep" -> {
+                val motzei = tomorrowCal != null &&
+                    PublicFastDayRules.shouldShowMotzeiShabbatDeferredMinorFastPrep(
+                        cal, tomorrowCal, nowMillis,
+                    )
+                val idx = if (motzei && tomorrowCal != null) {
+                    PublicFastDayRules.deferredSundayMinorFastIndexForMotzeiPrep(cal, tomorrowCal)
+                } else {
+                    cal.upcomingFastDayIndex
+                } ?: return Bundle()
+                Bundle(
+                    PublicFastDayText.erevMinorFastPrepTemplate(),
+                    PublicFastDayText.erevMinorFastPrepArgs(
+                        cal, idx, profile, motzeiShabbatIntoDeferredSunday = motzei,
+                    ),
+                )
+            }
+
+            item.id == "erev_yom_kippur_eat" ->
+                Bundle(
+                    PublicFastDayText.erevYomKippurTemplate(),
+                    PublicFastDayText.erevYomKippurArgs(cal, profile),
+                )
+
+            item.id == "erev_tisha_beav_prep" -> {
+                val deferredFriday = cal.isErevShabbat &&
+                    cal.hebrewMonth == HebrewCalendarEngine.AV &&
+                    cal.hebrewDay == 8 &&
+                    tomorrowCal?.isShabbat == true &&
+                    tomorrowCal.hebrewMonth == HebrewCalendarEngine.AV &&
+                    tomorrowCal.hebrewDay == 9
+                if (deferredFriday) {
+                    staticBundle(PublicFastDayText.fridayBeforeDeferredTishaBeavTemplate())
+                } else {
+                    Bundle(
+                        PublicFastDayText.erevTishaBeavTemplate(),
+                        PublicFastDayText.erevTishaBeavArgs(cal, profile),
+                    )
+                }
+            }
+
+            item.id == "public_fast_day" -> {
+                val idx = cal.fastDayIndex ?: return Bundle()
+                Bundle(
+                    PublicFastDayText.publicFastDayTemplate(idx),
+                    PublicFastDayText.publicFastDayArgs(idx, cal, profile),
+                )
+            }
+
+            item.id == "motzei_yom_kippur_meal" ->
+                Bundle(
+                    PublicFastDayText.motzeiYomKippurMealTemplate(),
+                    PublicFastDayText.motzeiYomKippurMealArgs(cal, profile),
+                )
+
+            item.id == "yom_tov_shabbat_advance_prep" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                val block = YomTovShabbatPrepText.advanceBlock(cal, tomorrow, profile)
+                if (block.isNullOrBlank()) Bundle() else staticBundle(block)
+            }
+
+            item.id == "erev_chag_prep" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                val prep = ErevChagPrepText.build(cal, profile, tomorrow)
+                staticBundle(prep.explanation)
+            }
+
+            item.id == "eruv_tavshilin" -> {
+                val tomorrow = ExplainerTemplateSupport.tomorrowCal(cal, profile)
+                staticBundle(YomTovShabbatPrepText.eruvTavshilinExplanation(cal, profile, tomorrow))
+            }
+
+            item.id == "erev_pesach_mechirat_chametz" ->
+                Bundle(
+                    ErevPesachExplainerTemplates.mechiratTemplate(),
+                    ErevPesachExplainerTemplates.mechiratArgs(cal, profile),
+                )
+
+            item.id == "erev_pesach_prepare_seder" ->
+                Bundle(
+                    ErevPesachExplainerTemplates.sederPrepTemplate(),
+                    ErevPesachExplainerTemplates.sederPrepArgs(cal, profile),
+                )
+
+            item.id == "bedikat_chametz" ->
+                Bundle(
+                    ErevPesachExplainerTemplates.bedikatTemplate(),
+                    ErevPesachExplainerTemplates.bedikatArgs(cal, profile),
+                )
+
+            item.id == "erev_pesach_biur_chametz" ->
+                Bundle(
+                    ErevPesachExplainerTemplates.biurTemplate(),
+                    ErevPesachExplainerTemplates.biurArgs(cal, profile),
+                )
+
+            item.id == "erev_pesach_taanit_bechorot" ->
+                Bundle(
+                    ErevPesachExplainerTemplates.taanitBechorTemplate(),
+                    ErevPesachExplainerTemplates.taanitBechorArgs(cal, profile),
+                )
+
+            else -> Bundle()
+        }
+    }
+
+    fun omerHeaderBundle(cal: DayInfo, profile: UserProfile, nowMillis: Long): Bundle? {
+        if (cal.omerDay == null || !cal.isSefiratHaomer) return null
+        return Bundle(
+            OmerCountText.explanationTemplate(),
+            OmerCountText.explanationArgs(cal, profile, nowMillis),
+        )
+    }
+
+    private fun prefersFemaleExplanation(item: ChecklistItemDef, profile: UserProfile): Boolean =
+        profile.gender == Gender.FEMALE &&
+            item.explanationFemale.isNotBlank() &&
+            !ChecklistGenderRules.usesMaleExplanationForWomen(item, profile)
+
+    private fun nusachNote(item: ChecklistItemDef, profile: UserProfile): String =
+        when (profile.effectiveNusach()) {
+            EffectiveNusach.ASHKENAZ -> item.explanationAshkenaz
+            EffectiveNusach.SEFARD -> item.explanationSefard
+            EffectiveNusach.EDOT_HAMIZRACH -> item.explanationEdotHamizrach.ifBlank { item.explanationSefard }
+            EffectiveNusach.CHABAD -> item.explanationChabad
+            EffectiveNusach.OTHER -> ""
+        }
+
+    private fun staticBundle(template: String): Bundle =
+        if (template.isBlank()) Bundle() else Bundle(template = template)
+
+    private fun nusachBundle(baseTemplate: String, nusachNote: String): Bundle {
+        if (baseTemplate.isBlank()) return Bundle()
+        val template = ExplainerTemplateSupport.withNusachNote(baseTemplate, nusachNote)
+        return Bundle(template, ExplainerTemplateSupport.nusachNoteArgs(nusachNote))
+    }
+}

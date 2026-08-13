@@ -1,0 +1,18 @@
+{
+  "he": {
+    "Accept": "קבל",
+    "Accepted ✓": "התקבל ✓"
+  },
+  "es": {
+    "Accept": "Aceptar",
+    "Accepted ✓": "Aceptado ✓"
+  },
+  "fr": {
+    "Accept": "Accepter",
+    "Accepted ✓": "Accepté ✓"
+  },
+  "ru": {
+    "Accept": "Принять",
+    "Accepted ✓": "Принято ✓"
+  }
+}

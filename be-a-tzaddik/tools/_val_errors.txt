@@ -1,0 +1,8 @@
+batch_001 he: '\\s*/\\s*'
+batch_003 he: 'ברכת המזון'
+batch_003 he: 'תפילת הדרך'
+batch_004 he: '$mitzvotCount'
+batch_004 he: 'halachic_term'
+batch_005 he: 'www.beardy.top'
+batch_006 he: 'Beardy Top Productions'
+batch_006 he: 'https://www.beardy.top'

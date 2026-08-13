@@ -1,0 +1,188 @@
+package com.beardytop.beatzaddik.domain
+
+import com.beardytop.beatzaddik.data.ChecklistCatalog
+import com.beardytop.beatzaddik.data.HolidayOverlayEntry
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
+
+class JewishCalendarService(
+    private val backend: JewishCalendarBackend = createJewishCalendarBackend(),
+    private val holidayOverlay: List<HolidayOverlayEntry> = emptyList()
+) {
+    fun dayInfoAt(nowEpochMillis: Long, profile: UserProfile): DayInfo =
+        backend.dayInfoAt(nowEpochMillis, profile)
+
+    /** Stable calendar snapshot for a civil date (noon local) — used for tomorrow lookahead. */
+    fun dayInfoForDate(date: LocalDate, profile: UserProfile): DayInfo =
+        backend.dayInfoAt(date.toEpochMillisAtNoon(profile), profile)
+
+    fun electronicsRestPeriod(
+        nowEpochMillis: Long = Clock.System.now().toEpochMilliseconds(),
+        profile: UserProfile
+    ): ElectronicsRestPeriod? = ElectronicsRestEvaluator.evaluate(this, nowEpochMillis, profile)
+
+    fun upcomingHolidays(
+        nowEpochMillis: Long = Clock.System.now().toEpochMilliseconds(),
+        profile: UserProfile = UserProfile()
+    ): List<UpcomingHoliday> {
+        val nowInfo = dayInfoAt(nowEpochMillis, profile)
+        val from = Instant.fromEpochMilliseconds(nowEpochMillis)
+            .toLocalDateTime(TimeZone.of(profile.timezoneId))
+            .date
+        val fromPlanner = UpcomingHolidayPlanner.plan(backend, nowEpochMillis, profile)
+        val plannerCoversPurim = fromPlanner.any { it.name.contains("Purim", ignoreCase = true) }
+        val fromOverlay = holidayOverlay.mapNotNull { entry ->
+            if (entry.id == "purim" &&
+                (JerusalemPurimRules.isJerusalemProfile(profile) || plannerCoversPurim)
+            ) {
+                return@mapNotNull null
+            }
+            overlayToHoliday(entry, from, profile)
+        }
+        return (fromPlanner + fromOverlay)
+            .distinctBy { canonicalizeUpcomingName(it.name) }
+            .filter { it.daysAway <= UpcomingHolidayPlanner.HORIZON_DAYS }
+            .sortedWith(
+                compareBy<UpcomingHoliday> { it.daysAway }
+                    .thenBy { withinDaySortRank(it) }
+                    .thenBy { it.name },
+            )
+            .take(8)
+    }
+
+    /** Collapse synonymous upcoming labels so planner + overlay do not double-list. */
+    private fun canonicalizeUpcomingName(name: String): String = when {
+        name.startsWith("Fast of Esther") -> PublicFastDayRules.displayName(HebrewCalendarEngine.FAST_OF_ESTHER)
+        else -> name
+    }
+
+    private fun withinDaySortRank(holiday: UpcomingHoliday): Int = when {
+        holiday.name.startsWith("Fast of") || holiday.name == "Tisha B'Av" -> 0
+        holiday.beginsTonightWhenImminent -> 2
+        holiday.name.contains("Purim", ignoreCase = true) -> 2
+        holiday.name == "Shabbat" || holiday.name == "Chanukah" || holiday.name == "Rosh Chodesh" -> 2
+        else -> 1
+    }
+
+    private fun overlayToHoliday(entry: HolidayOverlayEntry, from: LocalDate, profile: UserProfile): UpcomingHoliday? {
+        val hint = prepHintText(entry.prepMitzvot)
+        return when (entry.recurring) {
+            "weekly_friday" -> {
+                val days = daysUntilFriday(from)
+                if (days in 0..14) {
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = days,
+                        hint = hint,
+                        beginsTonightWhenImminent = true,
+                    )
+                } else {
+                    null
+                }
+            }
+            "monthly" -> {
+                val days = daysUntilRoshChodesh(from, profile)
+                days?.let {
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = it,
+                        hint = hint,
+                        beginsTonightWhenImminent = true,
+                    )
+                }
+            }
+            else -> {
+                val days = daysUntilHebrewDate(from, entry.hebrewMonth, entry.hebrewDay, profile)
+                days?.let {
+                    val startsAtNightfall = entry.hebrewMonth != null && entry.hebrewDay != null && when (entry.id) {
+                        // Day-only observances: count to the civil day itself (morning/daytime).
+                        "birkat_hachamah" -> false
+                        // Minor fasts begin at dawn; count to the civil day.
+                        "fast_gedaliah", "fast_10tev", "fast_esther", "fast_17tam" -> false
+                        // These begin at sunset the evening before.
+                        "yom_kippur", "tisha_beav" -> true
+                        // Most yom-tov style days begin at nightfall.
+                        else -> true
+                    }
+                    UpcomingHoliday(
+                        name = entry.name,
+                        daysAway = if (startsAtNightfall) (it - 1).coerceAtLeast(0) else it,
+                        hint = hint,
+                        beginsTonightWhenImminent = startsAtNightfall,
+                    )
+                }
+            }
+        }
+    }
+
+    private fun prepHintText(ids: List<String>): String {
+        if (ids.isEmpty()) return ""
+        return ids.mapNotNull { id ->
+            ChecklistCatalog.titleForId(id) ?: PREP_FALLBACK_LABELS[id]
+        }.joinToString(" · ")
+    }
+
+    private fun daysUntilFriday(from: LocalDate): Int {
+        for (i in 0..7) {
+            val d = from.plus(i, DateTimeUnit.DAY)
+            if (d.dayOfWeek == kotlinx.datetime.DayOfWeek.FRIDAY) return i
+        }
+        return 7
+    }
+
+    private fun daysUntilRoshChodesh(from: LocalDate, profile: UserProfile): Int? {
+        val today = backend.dayInfoAt(from.toEpochMillisAtNoon(profile), profile)
+        if (today.isRoshChodesh) return null
+        for (i in 0..45) {
+            val cal = backend.dayInfoAt(
+                from.plus(i, DateTimeUnit.DAY).toEpochMillisAtNoon(profile),
+                profile
+            )
+            // Anchor to the START evening (erev) of Rosh Chodesh, not the daytime date.
+            if (cal.isRoshChodesh && i > 0) return (i - 1).coerceAtLeast(0)
+        }
+        return null
+    }
+
+    private fun daysUntilHebrewDate(
+        from: LocalDate,
+        hebrewMonth: Int?,
+        hebrewDay: Int?,
+        profile: UserProfile
+    ): Int? {
+        if (hebrewMonth == null || hebrewDay == null) return null
+        for (i in 0..120) {
+            val cal = backend.dayInfoAt(
+                from.plus(i, DateTimeUnit.DAY).toEpochMillisAtNoon(profile),
+                profile
+            )
+            if (cal.hebrewMonth == hebrewMonth && cal.hebrewDay == hebrewDay) return i
+        }
+        return null
+    }
+
+    private fun today(): LocalDate =
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
+
+    companion object {
+        private val PREP_FALLBACK_LABELS = mapOf(
+            "shabbat_candles" to "Light Shabbat candles",
+            "shabbat_prep" to "Prepare for Shabbat",
+            "electronics_shabbat" to "Pause electronics on Shabbat"
+        )
+    }
+}
+
+private fun LocalDate.toEpochMillisAtNoon(profile: UserProfile): Long {
+    val tz = TimeZone.of(profile.timezoneId)
+    return kotlinx.datetime.LocalDateTime(year, monthNumber, dayOfMonth, 12, 0)
+        .toInstant(tz)
+        .toEpochMilliseconds()
+}

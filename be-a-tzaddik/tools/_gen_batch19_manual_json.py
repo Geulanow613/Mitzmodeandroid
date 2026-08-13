@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Generate _ru_batch19_manual.json — final Latin-gap sweep."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+KEYS_PATH = Path(__file__).parent / "_batch19_keys.json"
+OUT = Path(__file__).parent / "_ru_batch19_manual.json"
+
+_BORER = (
+    "Борер — запрещает сортировать смешанную кучу в Шаббат, отделяя нежелательное от желаемого, "
+    "если не выполнены три условия: брать хорошее из плохого, вручную (не специальным ситом), "
+    "для немедленного использования. Пример: убрать кости с тарелки прямо перед едой — можно; "
+    "сортировать салат в миске на потом — нельзя."
+)
+
+MANUAL: dict[str, str] = {
+    "Borer — Borer (selecting) forbids sorting a mixed pile on Shabbat by removing unwanted from wanted unless three conditions are met: take the good from the bad, by hand (not a dedicated strainer), for immediate use. Example: picking bones from your plate right before eating is OK; sorting a salad bowl for later is not.": (
+        "борер — запрещает сортировать смешанную кучу в Шаббат, отделяя нежелательное от желаемого, "
+        "если не выполнены три условия: брать хорошее из плохого, вручную, для немедленного использования."
+    ),
+    "Borer (selecting) forbids sorting a mixed pile on Shabbat by removing unwanted from wanted unless three conditions are met: take the good from the bad, by hand (not a dedicated strainer), for immediate use. Example: picking bones from your plate right before eating is OK; sorting a salad bowl for later is not.": _BORER,
+    "17 Tammuz — fast marking breaching of Jerusalem's walls": "17 Таммуза — пост в память о проломе стен Иерусалима",
+    "Soter — demolishing melacha": "сотер — мелаха разрушения",
+    "Melave Malka — escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday": (
+        "мелаве малка — провожают Царицу Шаббата — трапеза моцэи Шаббат (מְלַוֶּה מַלְכָּה) до рассвета воскресенья"
+    ),
+    "Ochel nefesh (\"food for the soul\") is the Torah-based allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day — cooking and baking that would otherwise be forbidden melacha. It does not apply on Chol HaMoed, where food preparation is permitted. It does not permit unnecessary cooking. To prepare for Shabbat that falls immediately after Yom Tov, you need an eruv tavshilin.": (
+        "Охель нефеш («пища для души») — разрешение Торы готовить в Йом Тов для еды в тот же день — "
+        "готовка и выпечка, иначе бывшая запрещённой мелахой. Не для Холь hа-моэд (там готовка разрешена). "
+        "Не для лишней готовки. Шаббат сразу после Йом Тов — нужен эрув тавшилин."
+    ),
+    "Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.\n$hoshanaRabaBlock\n\nSpirit of the day:\n• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.\n• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.\n• Ochel nefesh — food preparation is permitted.\n\nWhat to do:\n$hallelBlock\n• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.\n$festivalLines\n\nAvoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.\n• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.": (
+        "Холь hа-моэд (חול המועד) — промежуточные праздничные дни: не полный Йом Тов, но и не обычные будни.\n$hoshanaRabaBlock\n\n"
+        "Дух дня:\n• Симхат моэд — радость праздника; хорошие трапезы, семья, Тора.\n"
+        "• Мелаха — многие работы ограничены (мягче, чем в Йом Тов). Работа против убытка — спросите рава.\n"
+        "• Охель нефеш — готовка разрешена.\n\nЧто делать:\n$hallelBlock\n"
+        "• Не как обычный рабочий день — прогулки, учёба, визиты в духе моэда.\n$festivalLines\n\n"
+        "Избегайте без указания рава: тяжёлой стирки, крупного ремонта, бритья и стрижки (ША О.Х. 531) — "
+        "кроме особых случаев (мальчик в 3 года, выход из тюрьмы — спросите рава)."
+    ),
+    "Learn the laws of lashon hara (evil speech) from the Chofetz Chaim. -Submitted by Moshe. Our sages compare harmful speech to the most serious sins — and teach that habitual gossip can destroy relationships, communities, and a person's own spiritual standing. The Chofetz Chaim devoted his life to showing how the Torah warns about speech again and again, because words can build worlds or tear them down. Even one day of guarding your tongue can transform how you see other people — and how they see you.": (
+        "Изучите законы лашон hара у Хафец Хаима. — Предложено Моше. Мудрецы сравнивают вредную речь с тяжелейшими грехами; "
+        "сплетни разрушают отношения и общины. Хафец Хаим показал, как Тора снова и снова предупреждает о речи. "
+        "Один день охраны языка может изменить взгляд на людей."
+    ),
+    "Learn the laws of lashon hara (evil speech) from the Chofetz Chaim.  -Submitted by Moshe": (
+        "Изучите законы лашон hара у Хафец Хаима. — От Моше"
+    ),
+    "The Shema (\"Hear O Israel\") declares G-d's oneness and our duty to love Him with all our heart, soul, and might. It is recited morning and evening with surrounding blessings. Krias Shema has specific times — especially morning Shema before the third hour of the day halachically. It is the Jewish declaration of faith children learn first.": (
+        "Шма («Слушай, Израиль») — единство В-га и любовь к Нему всем сердцем, душой и могуществом. "
+        "Утром и вечером с благословениями. Криат Шма — особые сроки; утреннее Шма — до третьего часа. "
+        "Первая декларация веры, которую учат дети."
+    ),
+    "Shema — The Shema (\"Hear O Israel\") declares G-d's oneness and our duty to love Him with all our heart, soul, and might. It is recited morning and evening with surrounding blessings. Krias Shema has specific times — especially morning Shema before the third hour of the day halachically. It is the Jewish declaration of faith children learn first.": (
+        "шма — «Слушай, Израиль»: единство В-га и любовь всем сердцем. Утром и вечером с благословениями. "
+        "Криат Шма — до третьего часа утром. Первая декларация веры детей."
+    ),
+    "Krias Shema — recitation of the Shema and its blessings": "криат шма — чтение Шма с благословениями",
+    "Learn about the special Kiyor (washbasin) of the Temple! 🚰 Did you know? The Kohanim had to wash their hands and feet at the same time by placing their right hand on their right foot and left hand on their left foot! This unique position reminded them to be fully dedicated to service - from head to toe! Plus, the water had to be fresh each day, teaching us about starting each day's divine service with renewal.": (
+        "Кийор Храма! 🚰 Коhаним мыли руки и ноги одновременно: правая рука на правой ноге, левая — на левой. "
+        "Полная преданность служению. Вода каждый день свежая — обновление в служении."
+    ),
+    "Gozez — shearing or cutting hair/nails melacha": "гозез — мелаха стрижки шерсти/волос/ногтей",
+    "Eretz Yisrael — the Land of Israel": "эрец Йисраэль — Земля Израиля",
+    "Explore the majesty of Psalm 8! 🌠 Did you know? This psalm celebrates the wonder of G-d's creation and humanity's special role in it! Here's something amazing: When David gazed at the stars, he was inspired to write about human dignity and our Divine purpose. Today's mission: Step outside, look at the night sky, and recite this uplifting psalm.": (
+        "Псалом 8! 🌠 Чудо творения и особая роль человека. Давид, глядя на звёзды, писал о достоинстве и предназначении. "
+        "Задание: выйдите, посмотрите на небо и прочитайте этот псалом."
+    ),
+    "Experience the power of Psalm 5! 🌅 Did you know? This morning prayer of King David teaches us how to start our day with faith! Here's something beautiful: The psalm shows us that G-d listens to our voice in the morning, teaching us to begin each day with prayer and hope. Mission: Start your morning by reading this uplifting psalm.": (
+        "Псалом 5! 🌅 Утренняя молитва Давида — начать день с веры. В-г слышит голос утром. "
+        "Задание: прочитайте этот псалом утром."
+    ),
+    "Discover the power of Psalm 7! 🛡️ Did you know? This psalm is David's response to false accusations! Here's something incredible: It teaches us how to maintain our integrity even when facing unfair criticism. Today's mission: Read this psalm and reflect on maintaining your moral compass in challenging times.": (
+        "Псалом 7! 🛡️ Ответ Давида на ложные обвинения — сохранять честность под критикой. "
+        "Задание: прочитайте и подумайте о моральном компасе в трудные времена."
+    ),
+}
+
+
+def main() -> None:
+    keys: list[str] = json.loads(KEYS_PATH.read_text(encoding="utf-8"))
+    missing = [k for k in keys if k not in MANUAL]
+    extra = [k for k in MANUAL if k not in keys]
+    if missing:
+        raise SystemExit(f"missing ({len(missing)}): {missing[0][:80]}...")
+    if extra:
+        raise SystemExit(f"extra ({len(extra)}): {extra[0][:80]}...")
+    ordered = {k: MANUAL[k] for k in keys}
+    OUT.write_text(json.dumps(ordered, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Wrote {len(ordered)} entries to {OUT.name}")
+
+
+if __name__ == "__main__":
+    main()

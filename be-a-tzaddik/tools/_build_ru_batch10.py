@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""Build _ru_top50_batch10_data.py — explicit key→RU dict."""
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+CAND = Path(__file__).parent / "_batch10_candidates.json"
+OUT = Path(__file__).parent / "_ru_top50_batch10_data.py"
+
+SKIP_KEYS = {
+    "Beardy Top Productions",
+    "www.beardy.top",
+    "https://www.beardy.top",
+    "XL",
+    "Rav",
+    "e.g., Sarah B.",
+    "Listen to more Jewish music from G.E.U.L.A",
+    "Performed by G.E.U.L.A © 2026",
+}
+
+MANUAL: dict[str, str] = {
+    "neshama — Neshama is the soul — the divine breath that makes you alive. Modeh Ani thanks G-d for returning it after sleep. Yizkor and Kaddish relate to the soul's journey after death. Jewish thought distinguishes levels of soul (nefesh, ruach, neshama) in mysticism; practically, nurturing the soul means Torah, mitzvot, and character.": (
+        "нешама — душа, божественное дыхание. Моде ани, Йизкор и Кадиш. Воспитание души — Тора, мицвот, характер."
+    ),
+    "niddah — Niddah is the state of ritual separation during and after menstruation until mikveh immersion. Husband and wife avoid physical intimacy and certain affectionate contact. Laws of stains and cycles are complex — a kallah teacher or rav supports real-life questions. Niddah is not a punishment; it is rhythm and holiness in marriage.": (
+        "нида — ритуальное разделение до микве; не наказание, а святость брака. Сложные законы пятен — спросите учительницу каллы или рава."
+    ),
+    "nusach": "нусах",
+    "nusach Ashkenaz": "нусах ашкеназ",
+    "nusach Ashkenaz — Ashkenazi prayer wording": "нусах ашкеназ — ашкеназский молитвенный текст",
+    "nusach Sefard": "нусах сефард",
+    "pareve": "парвe",
+    "pareve — neutral foods (neither meat nor dairy) such as fish, eggs, and produce": (
+        "парвe — нейтральные продукты (не мясо и не молочное): рыба, яйца, овощи, фрукты"
+    ),
+    "schach": "схах",
+    "shaliach tzibur": "шлиах цибур",
+    "shaliach tzibur — A shaliach tzibur is the prayer leader who represents the congregation before G-d — reciting the repetition of the Amidah and guiding pacing. He must be someone the community accepts and who knows the laws of prayer. Women and men have different roles per community in who may lead which parts.": (
+        "шлиах цибур — ведущий молитвы, представляющий общину; повторяет Амиду. Должен быть принят общиной и знать законы молитвы."
+    ),
+    "tekiah": "текия",
+    "teruah": "теруа",
+    "teruah — quick staccato shofar blasts": "теруа — короткие прерывистые звуки шофара",
+    "tevilat keilim": "тевилат кеилим",
+    "tzniut": "цниют",
+    "yetzer hara — Yetzer hara is the inclination toward selfishness, laziness, or sin — not a devil, but internal pull. Everyone has it; the battle is lifelong. Torah, mitzvot, and good friends strengthen yetzer hatov. The goal is not to destroy desire but to channel it — appetite for holy things, ambition for good deeds.": (
+        "йетцер hара — склонность к эгоизму и лени, не дьявол, а внутреннее притяжение. Тора и мицвот укрепляют йетцер hатов. Цель — направить желание к святому."
+    ),
+    "yichud": "йихуд",
+    "yichud — Yichud is the prohibition against the seclusion of a man and a woman together in a private area when they are not married to each other and are not immediate blood relatives (parents, children, siblings, etc.). It prevents situations that could lead to improper intimacy. Exceptions and practical details (open doors, shared workplaces, healthcare) vary — ask your rav for real-life guidance.": (
+        "йихуд — запрет уединения мужчины и женщины, не состоящих в браке и не близких родственников. Исключения различаются — спросите рава."
+    ),
+    "17 Tammuz — fast marking breaching of Jerusalem's walls": "17 Таммуз — пост в память о проломе стен Иерусалима",
+    "A kezayit is the olive-sized portion in Jewish law used to measure how much food you must consume for mitzvot — eating matzah at the Seder, maror, bentching after bread, and after-blessings. Because ancient volumes are difficult to calculate precisely, rabbis have established modern equivalents. Halachically, a kezayit is tied to the size of an egg — usually calculated as either half or one-third of an egg's volume depending on the authority. Many major organizations (such as Star-K) equate a kezayit to about 1.2 to 1.3 fluid ounces (approx. 35–40 ml), which visually translates to the size of a golf ball or a roll of quarters. By weight, this generally ranges between 25 and 33 grams — the stringent opinion of the Chazon Ish is approx. 33 g; the more lenient opinion of Rabbi Chayim Na'eh is approx. 27 g. (Note: For porous foods like matzah, the required weight is typically lower — around 15–20 grams depending on your rav.) The exact size depends on which authority you follow; ask your rav or use a community chart for the specific food or mitzvah you are measuring. Eating less than a kezayit may mean the mitzvah was not fulfilled.": (
+        "кезайит — порция «размером с оливу» для мицвот (маца, марор, бентчинг). Привязан к объёму яйца: ~25–33 г по разным мнениям; для пористой мацы — меньше. Спросите рава."
+    ),
+    "A siddur (from seder, \"order\") is the Jewish prayer book with the fixed texts for daily and Shabbat services — blessings, Shema, Amidah, Birkat Hamazon, and more. Editions follow nusach (Ashkenaz, Sefard, Chabad, etc.), so words and order differ slightly. Your siddur is your map for davening.": (
+        "сидур (от «седер» — порядок) — молитвенник с текстами будней и Шаббата. Издания по нусаху (ашкеназ, сефард, Хабад). Ваш путеводитель по тфиле."
+    ),
+    "Bentching — Bentching is Birkat Hamazon — Grace After Meals after eating a kezayit of bread within a meal. It thanks G-d for food and the Land. On Shabbat and festivals, Psalm 126 (Shir HaMaalot) precedes the second blessing. Yaaleh V'yavo is added on Rosh Chodesh and chag. Zimun invites others when three or more men ate bread together per minhag.": (
+        "бентчинг — Биркат а-Мазон после кезайит хлеба; в Шаббат и праздники — Псалом 126; Яале вьяво в Рош Ходеш и chag; зимун по минhагу."
+    ),
+    "Borer (selecting) forbids sorting a mixed pile on Shabbat by removing unwanted from wanted unless three conditions are met: take the good from the bad, by hand (not a dedicated strainer), for immediate use. Example: picking bones from your plate right before eating is OK; sorting a salad bowl for later is not.": (
+        "Борер запрещает сортировать смесь в Шаббат, если не: хорошее из плохого, рукой, для немедленного употребления. Кости с тарелки перед едой — можно."
+    ),
+    "Borer — Borer (selecting) forbids sorting a mixed pile on Shabbat by removing unwanted from wanted unless three conditions are met: take the good from the bad, by hand (not a dedicated strainer), for immediate use. Example: picking bones from your plate right before eating is OK; sorting a salad bowl for later is not.": (
+        "борер — сортировка смеси в Шаббат только при трёх условиях: хорошее из плохого, рукой, сразу."
+    ),
+    "Chol HaMoed (חול המועד) — the intermediate festival days — is not full Yom Tov, but it is not ordinary weekdays either.\n$hoshanaRabaBlock\n\nSpirit of the day:\n• Simchat moed — joy of the festival; nicer meals, family time, Torah learning.\n• Melacha — many labors are restricted (not as strict as Yom Tov). Work needed to avoid financial loss may be permitted — ask your rabbi before assuming.\n• Ochel nefesh — food preparation is permitted.\n\nWhat to do:\n$hallelBlock\n• Avoid treating it like a regular workday — schedule outings, learning, and visits that fit the moed.\n$festivalLines\n\nAvoid (without halachic guidance): heavy laundry, major home projects, shaving, haircuts, and activities that diminish the festival atmosphere.\n• Grooming restrictions: Shaving and getting a haircut are strictly prohibited on Chol HaMoed (Shulchan Arukh O.C. 531) — unless under highly specific conditions, such as a boy turning three or leaving prison (ask your rav). This applies even if you want to look clean for the remaining days of the festival.": (
+        "Холь hа-моэд (חול המועד) — промежуточные дни праздника: не полный Йом Тов, но и не будни.\n$hoshanaRabaBlock\n\n"
+        "• Симхат моэд — радость, трапезы, Тора.\n• Мелаха ограничена; работа против убытка — спросите рава.\n• Охель нефеш — готовка разрешена.\n\n"
+        "Что делать:\n$hallelBlock\n$festivalLines\n\n"
+        "Избегайте: стирка, крупные проекты, бритьё и стрижка (О.Х. 531) без особых случаев."
+    ),
+    "Discover the power of Psalm 7! 🛡️ Did you know? This psalm is David's response to false accusations! Here's something incredible: It teaches us how to maintain our integrity even when facing unfair criticism. Today's mission: Read this psalm and reflect on maintaining your moral compass in challenging times.": (
+        "Откройте силу Псалма 7! 🛡️ Ответ Давида на ложные обвинения — как сохранять честность под критикой. Прочитайте сегодня."
+    ),
+    "Eretz Yisrael — the Land of Israel": "Эрец Исраэль — Земля Израиля",
+    "Experience the power of Psalm 5! 🌅 Did you know? This morning prayer of King David teaches us how to start our day with faith! Here's something beautiful: The psalm shows us that G-d listens to our voice in the morning, teaching us to begin each day with prayer and hope. Mission: Start your morning by reading this uplifting psalm.": (
+        "Почувствуйте силу Псалма 5! 🌅 Утренняя молитва Давида — начинать день с веры и надежды. Прочитайте утром."
+    ),
+    "Explore the majesty of Psalm 8! 🌠 Did you know? This psalm celebrates the wonder of G-d's creation and humanity's special role in it! Here's something amazing: When David gazed at the stars, he was inspired to write about human dignity and our Divine purpose. Today's mission: Step outside, look at the night sky, and recite this uplifting psalm.": (
+        "Исследуйте величие Псалма 8! 🌠 Давид, глядя на звёзды, писал о достоинстве человека. Выйдите и прочитайте под небом."
+    ),
+    "Gozez": "гозез",
+    "Gozez — shearing or cutting hair/nails melacha": "гозез — мелаха стрижки волос или ногтей",
+    "Hafrashat challah is separating a small portion of dough when baking a large amount of bread or similar flour-based foods, then burning or discarding in many customs. It recalls the Temple-era gift to the kohen (when they were in a state of ritual purity and able to eat it).": (
+        "хафрашат хала — отделение кусочка теста при выпечке большого количества хлеба; сжигают или выбрасывают. Вспоминание дара коэну во времена Храма."
+    ),
+    "Haman": "Аман",
+    "Kinot": "кинот",
+    "Krias Shema — recitation of the Shema and its blessings": "криат Шма — чтение Шма и её благословений",
+    "Learn about the special Kiyor (washbasin) of the Temple! 🚰 Did you know? The Kohanim had to wash their hands and feet at the same time by placing their right hand on their right foot and left hand on their left foot! This unique position reminded them to be fully dedicated to service - from head to toe! Plus, the water had to be fresh each day, teaching us about starting each day's divine service with renewal.": (
+        "Узнайте о кийоре (умывальнике) Храма! 🚰 Кохеним мыли руки и ноги одновременно — правая рука на правой ноге. Вода обновлялась ежедневно."
+    ),
+    "Learn the Rambam's precise definition of teshuvah — and why verbal confession (vidui) is not optional! 🔄 The Rambam rules (Hilchot Teshuvah 1:1): teshuvah is a positive Torah commandment whenever one has sinned — whether a minor or major sin. The full process consists of four components: (1) Azivat HaChait — abandoning the sin. You actually STOP doing it, not just feel bad. (2) Charatah — genuine regret. Not just 'I got caught' regret, but authentic recognition that you did something wrong. (3) Kabalat l'atid — committing to change. Deciding that given the same circumstances, you would not repeat the sin. (4) Vidui — verbal confession out loud. Just feeling regret in your heart is NOT sufficient for teshuvah! The vidui must include: naming the specific sin, expressing regret, and committing to change according to the Rambam. He adds: repeating the same sin after teshuvah doesn't mean the earlier teshuvah was invalid — it just means you need to do teshuvah again. And again. As many times as necessary. The door never closes. For sins between people, there's a FIFTH requirement: you must first make restitution or seek forgiveness from the person you wronged. G-d does not forgive interpersonal sins without the person forgiving you first. Learn more!": (
+        "Узнайте определение тшува по Рамбам! 🔄 Четыре шага: (1) оставить грех, (2) сожаление, (3) решение не повторять, (4) видуй вслух. "
+        "Между людьми — пятое: загладить вину перед обиженным. Дверь покаяния не закрывается."
+    ),
+    "Learn the laws of lashon hara (evil speech) from the Chofetz Chaim.  -Submitted by Moshe": (
+        "Изучите законы лашон hара у Хофец Хаима. — От Моше"
+    ),
+    "Learn the laws of lashon hara (evil speech) from the Chofetz Chaim. -Submitted by Moshe. Our sages compare harmful speech to the most serious sins — and teach that habitual gossip can destroy relationships, communities, and a person's own spiritual standing. The Chofetz Chaim devoted his life to showing how the Torah warns about speech again and again, because words can build worlds or tear them down. Even one day of guarding your tongue can transform how you see other people — and how they see you.": (
+        "Изучите законы лашон hара у Хофец Хаима. Мудрецы сравнивают вредную речь с тяжкими грехами. "
+        "Даже один день охраны языка меняет отношения."
+    ),
+    "Mavir": "мавир",
+    "Melave Malka — escorting the Shabbat Queen — Motzei Shabbat meal (מְלַוֶּה מַלְכָּה) through dawn Sunday": (
+        "мелаве малка — проводы Шаббата: трапеза в моцеи Шаббат до рассвета воскресенья"
+    ),
+    "Mikra Megillah (hearing the Book of Esther) is a rabbinic mitzvah instituted for Purim (Esther 9:28; Megillah 19a). Men and women are equally obligated.\n\nWhen to hear it:\n• Once on Purim evening — after nightfall (tzeit)\n• Once on Purim day — you are halachically obligated to hear the Megillah during the daytime (usually right after morning Shacharit and before sunset). The daytime reading is the primary fulfillment of the mitzvah (mitzvat ha'yom); the night reading was instituted later — both are required.\n\nHow to fulfill:\n• Hear every word read from a kosher megillah scroll by someone who can discharge your obligation (Shulchan Arukh O.C. 690)\n• Stand for the blessings; customs when Haman's name is read vary by shul (many make noise; sitting vs standing — follow your community)\n• Listen without talking — missed words may require hearing that passage again; ask your rabbi if unsure\n\nBlessings before reading:\n• Al mikra megillah\n• She'asa nissim\n• Shehecheyanu (recited on the first night; Ashkenazim recite it by day as well)\n\nMachatzit haShekel: A widespread pre-Purim custom (not one of the four Purim mitzvot in the same way); many give before Megillah — follow your community. Confirm local reading times with your shul.\n\nPrayers & meals:\n• Insert Al HaNissim into every Amidah and into Birkat Hamazon (bentching) all day long on Purim.": (
+        "Микра Мегилла — слушать свиток Есфирь в Пурим (Эсфирь 9:28). Мужчины и женщины обязаны.\n\n"
+        "Когда: вечером после цейт и днём (основная мицва — днём). Слушайте каждое слово из кошерного свитка (О.Х. 690). "
+        "Брахи: аль микра мегилла, шеаса нисим, шехехияну. Ал hа-Ниссим в Амиде и Биркат а-Мазон весь день."
+    ),
+    "Nerot": "нерот",
+    "Ochel nefesh (\"food for the soul\") is the Torah-based allowance to perform certain food preparation tasks on Yom Tov (festival days) for consumption on that same day — cooking and baking that would otherwise be forbidden melacha. It does not apply on Chol HaMoed, where food preparation is permitted. It does not permit unnecessary cooking. To prepare for Shabbat that falls immediately after Yom Tov, you need an eruv tavshilin.": (
+        "охель нефеш — разрешение готовить в Йом Тов для еды в тот же день. Не для лишней готовки. "
+        "Перед Шаббатом сразу после Йом Тов — эйрув тавшилин."
+    ),
+    "Shema — The Shema (\"Hear O Israel\") declares G-d's oneness and our duty to love Him with all our heart, soul, and might. It is recited morning and evening with surrounding blessings. Krias Shema has specific times — especially morning Shema before the third hour of the day halachically. It is the Jewish declaration of faith children learn first.": (
+        "Шма — «Слушай, Израиль»: единство В-га и любовь всем сердцем. Утром и вечером. Криат Шма — до третьего часа утром."
+    ),
+    "Soter": "сотер",
+    "Soter — demolishing melacha": "сотер — мелаха разрушения",
+    "The Shema (\"Hear O Israel\") declares G-d's oneness and our duty to love Him with all our heart, soul, and might. It is recited morning and evening with surrounding blessings. Krias Shema has specific times — especially morning Shema before the third hour of the day halachically. It is the Jewish declaration of faith children learn first.": (
+        "Шма («Слушай, Израиль») — единство В-га и любовь всем сердцем, душой и могуществом. "
+        "Утренняя Шма — до третьего галахического часа. Первое провозглашение веры детей."
+    ),
+    "Tomorrow is $fastName — a public fast from dawn (alot hashachar) until nightfall (tzeit).\n\nIf you plan to eat before the fast begins:\n• Set a mental condition (tanai) the night before: \"If I wake up hungry before dawn, I will eat.\" Without this condition, waking early and eating may prohibit you from eating again until the fast officially begins at dawn (Shulchan Arukh O.C. 564:1).\n• If you wake before dawn and want to eat, you may drink water and eat foods that are not normally cooked for a meal — e.g. a piece of cake, fruit, or cereal. A full hot meal is disputed; many avoid a formal cooked meal once they have decided to fast (Mishnah Berurah 564:8–9).\n• Stop all eating and drinking at alot hashachar$alotLine.\n\nPractical prep tonight:\n• Hydrate well and eat a balanced dinner.\n• Plan a lighter morning if you will not eat before dawn.\n• Know your synagogue schedule if you plan to attend special prayers.\n\nWho must fast: Jewish adults (bar/bat mitzvah age and older) in good health. Children below bar/bat mitzvah are not required to fast — train them gradually per your rav.$fridayNote": (
+        "Завтра $fastName — общественный пост с алот hа-шахар до цейт.\n\n"
+        "Перед постом: условие (танай) накануне — «если проснусь голодным до рассвета, буду есть» (О.Х. 564:1). "
+        "Прекратите есть в алот hа-шахар$alotLine.\n\n"
+        "Подготовка: пейте, ужинайте сбалансированно. Обязаны здоровые взрослые; детей приучайте постепенно.$fridayNote"
+    ),
+    "Tzeit": "цейт",
+}
+
+
+def main() -> None:
+    if not CAND.exists():
+        subprocess.run([sys.executable, str(Path(__file__).parent / "_gen_batch10_candidates.py")], check=True)
+    candidates = json.loads(CAND.read_text(encoding="utf-8"))
+    keys = [c["key"] for c in candidates if c["key"] not in SKIP_KEYS][:50]
+    missing = [k for k in keys if k not in MANUAL]
+    if missing:
+        raise SystemExit(f"missing MANUAL ({len(missing)}): {missing[0][:80]}...")
+    batch = {k: MANUAL[k] for k in keys}
+    if len(batch) != 50:
+        raise SystemExit(f"expected 50 keys, got {len(batch)}")
+
+    lines = [
+        '"""Batch 10: next 50 Latin-gap keys — explicit mappings."""',
+        "",
+        "from __future__ import annotations",
+        "",
+        "TOP50_BATCH10: dict[str, str] = {",
+    ]
+    for k in keys:
+        lines.append(f"    {json.dumps(k, ensure_ascii=False)}: {json.dumps(batch[k], ensure_ascii=False)},")
+    lines.append("}")
+    lines.append("")
+    OUT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Wrote {len(batch)} entries to {OUT.name}")
+
+
+if __name__ == "__main__":
+    main()

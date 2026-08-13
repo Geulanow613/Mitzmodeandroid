@@ -1,0 +1,25 @@
+{
+    "generated_at":  "2026-07-13T06:10:49Z",
+    "file_count":  140,
+    "source":  "Dropbox/claudesucks/mitzi",
+    "excludes":  {
+                     "files":  [
+                                   "*.mp4",
+                                   "*.webm",
+                                   "*.mov",
+                                   "*.avi",
+                                   "Config.swift",
+                                   "Secrets.swift"
+                               ],
+                     "dirs":  [
+                                  "Pods",
+                                  "build",
+                                  "DerivedData",
+                                  ".git",
+                                  "be-a-tzaddik",
+                                  "TempIcons",
+                                  "xcuserdata",
+                                  ".swiftpm"
+                              ]
+                 }
+}

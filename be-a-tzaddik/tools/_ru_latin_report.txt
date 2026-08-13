@@ -1,0 +1,130 @@
+﻿Total entries: 2737
+Entries with Latin: 808
+
+TOP 20 worst by latin char count:
+1. latin_chars=51 words=13
+   key: $opener
+
+Havdalah when Shabbat leads into Yom Tov:
+ΓÇó Havdalah is recited when entering a day of lesser holiness. Shabbat
+   val: $opener
+
+╨Ñ╨░╨▓╨┤╨░╨╗╨░, ╨║╨╛╨│╨┤╨░ ╨¿╨░╨▒╨▒╨░╤é ╨┐╨╡╤Ç╨╡╤à╨╛╨┤╨╕╤é ╨▓ ╨Ö╨╛╨╝ ╨ó╨╛╨▓:
+ΓÇó ╨Ñ╨░╨▓╨┤╨░╨╗╨░ ╤ç╨╕╤é╨░╨╡╤é╤ü╤Å ╨┐╤Ç╨╕ ╨▓╤à╨╛╨┤╨╡ ╨▓ ╨┤╨╡╨╜╤î ╨╝╨╡╨╜╤î╤ê╨╡╨╣ ╤ü╨▓╤Å╤é╨╛╤ü╤é╨╕. ╨¿╨░╨▒╨▒╨░╤é ╤ü╨▓╤Å╤é╨╡╨╡ ╨Ö╨╛╨╝ ╨ó╨╛╨▓, ╨┐╨╛╤ì╤é╨╛╨╝╤â ╨║╨╛╨│╨┤╨░ ╨¿╨░╨▒╨▒╨░╤é ╨▓╨╡╨┤╤æ╤é ╨║ ╨┐╤Ç╨░╨╖╨┤╨╜╨╕╨║╤â, ╤à╨░╨▓╨┤╨░╨╗╨░ ╨▓╨║╨╗
+   latin: ['kodesh', 'Zeman', 'borei', 'eish', 'orei', 'Ner', 'me', 'ha', 'l']
+
+2. latin_chars=51 words=11
+   key: Learn about Shemittah ΓÇö the seventh year when the land of Israel rests ΓÇö and what this actually means for Jews living in
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╨¿╨╝╨╕╤é╨╡ ΓÇö ╤ü╨╡╨┤╤î╨╝╨╛╨╝ ╨│╨╛╨┤╨╡, ╨║╨╛╨│╨┤╨░ ╨╖╨╡╨╝╨╗╤Å ╨ÿ╨╖╤Ç╨░╨╕╨╗╤Å ╨╛╤é╨┤╤ï╤à╨░╨╡╤é ΓÇö ╨╕ ╤ç╤é╨╛ ╤ì╤é╨╛ ╨╜╨░ ╤ü╨░╨╝╨╛╨╝ ╨┤╨╡╨╗╨╡ ╨╖╨╜╨░╤ç╨╕╤é ╨┤╨╗╤Å ╨╡╨▓╤Ç╨╡╨╡╨▓, ╨╢╨╕╨▓╤â╤ë╨╕╤à ╨▓ ╨ÿ╨╖╤Ç╨░╨╕╨╗╨╡ ╤ü╨╡╨│╨╛╨┤╨╜╤Å! ≡ƒî╛ ╨Ü╨░╨╢╨┤╤ï╨╡ ╤ü╨╡╨╝╤î ╨╗╨╡╤é ╨ó╨╛╤Ç╨░ ╨┐╨╛╨▓╨╡╨╗╨╡╨▓╨░╨╡╤é, ╤ç╤é╨╛╨▒╤ï ╨╖╨╡╨╝╨╗╤Å 
+   latin: ['kedushat', 'Mechira', 'Heter', 'Otzar', 'shevi', 'Beit', 'Din', 'it']
+
+3. latin_chars=50 words=12
+   key: bein kodesh l'kodesh ΓÇö Bein kodesh l'kodesh means "between holy and holy." In havdalah when Shabbat leads into Yom Tov, 
+   val: ╨▒╨╡╨╣╨╜ kodesh l'kodesh ΓÇö Bein kodesh l'kodesh ╨╛╨╖╨╜╨░╤ç╨░╨╡╤é ┬½╨╝╨╡╨╢╨┤╤â ╤ü╨▓╤Å╤é╤ï╨╝ ╨╕ ╤ü╨▓╤Å╤é╤ï╨╝┬╗. ╨Æ ╤à╨░╨▓╨┤╨░╨╗╨╡, ╨║╨╛╨│╨┤╨░ ╨¿╨░╨▒╨▒╨░╤é ╨┐╨╡╤Ç╨╡╤à╨╛╨┤╨╕╤é ╨▓ ╨Ö╨╛╨╝-╨ó╨╛╨▓, ╨╖╨░╤Å╨▓╨╗╤Å╨╡╤é╤ü╤Å, ╤ç╤é╨╛ ╨╛╨┤╨╕╨╜ ╤â╤Ç╨╛╨▓╨╡╨╜╤î ╤ü╨▓╤Å╤é╨╛╤ü╤é╨╕ (╨¿╨░╨▒╨▒╨░╤é) ╨╖╨░╨║╨░╨╜╤ç╨╕╨▓╨░╨╡
+   latin: ['kodesh', 'Bein', 'l']
+
+4. latin_chars=50 words=11
+   key: Before eating or drinking anything, we say a short blessing (bracha) thanking G-d for the food. This is one of the most 
+   val: ╨ƒ╨╡╤Ç╨╡╨┤ ╤é╨╡╨╝, ╨║╨░╨║ ╤ç╤é╨╛-╨╗╨╕╨▒╨╛ ╤ü╤è╨╡╤ü╤é╤î ╨╕╨╗╨╕ ╨▓╤ï╨┐╨╕╤é╤î, ╨╝╤ï ╨│╨╛╨▓╨╛╤Ç╨╕╨╝ ╨║╨╛╤Ç╨╛╤é╨║╨╛╨╡ ╨▒╨╗╨░╨│╨╛╤ü╨╗╨╛╨▓╨╡╨╜╨╕╨╡ (╨▒╤Ç╨░╤à╨░), ╨▒╨╗╨░╨│╨╛╨┤╨░╤Ç╤Å╤Ä╤ë╨╡╨╡ ╨æ╨╛╨│╨░ ╨╖╨░ ╨┐╨╕╤ë╤â. ╨¡╤é╨╛ ╨╛╨┤╨╕╨╜ ╨╕╨╖ ╨╜╨░╨╕╨▒╨╛╨╗╨╡╨╡ ╤ç╨░╤ü╤é╨╛ ╨▓╤ï╨┐╨╛╨╗╨╜╤Å╨╡╨╝╤ï╤à ╨╝╨╕╤å╨▓╨╛╤é╨╛╨▓ ╨▓ ╨┐╨╛╨▓╤ü╨╡╨┤╨╜╨╡╨▓╨╜╨╛╨╣ ╨╢╨╕╨╖
+   latin: ['blessing', 'HaAdamah', 'HaGafen', 'gafen', 'HaEtz', 'pri', 'the', 'for', 'ha']
+
+5. latin_chars=49 words=13
+   key: Learn about the ultimate "legal permit" to enjoy the world! ≡ƒìÄ The Talmud says that everything on earth belongs to Hashem
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╨▓╤ï╤ü╤ê╨╡╨╝ ┬½╤Ä╤Ç╨╕╨┤╨╕╤ç╨╡╤ü╨║╨╛╨╝ ╤Ç╨░╨╖╤Ç╨╡╤ê╨╡╨╜╨╕╨╕┬╗ ╨╜╨░╤ü╨╗╨░╨╢╨┤╨░╤é╤î╤ü╤Å ╨╝╨╕╤Ç╨╛╨╝! ≡ƒìÄ ╨ó╨░╨╗╨╝╤â╨┤ ╨│╨╛╨▓╨╛╤Ç╨╕╤é: ╨▓╤ü╤æ ╨╜╨░ ╨╖╨╡╨╝╨╗╨╡ ╨┐╤Ç╨╕╨╜╨░╨┤╨╗╨╡╨╢╨╕╤é ╨Ñ╨░╤ê╨╡╨╝, ╨┐╨╛╤ì╤é╨╛╨╝╤â ╨╛╤é╨║╤â╤ü╨╕╤é╤î ╨▒╨╡╨╖ ╨▒╨╗╨░╨│╨╛╤ü╨╗╨╛╨▓╨╡╨╜╨╕╤Å ΓÇö ╨║╨░╨║ ┬½╨║╤Ç╨░╤ü╤é╤î┬╗ ╨╕╨╖ ╨┤╨▓╨╛╤Ç╤å╨░ ╨ª╨░╤Ç╤Å. ╨ƒ╤Ç
+   latin: ['Shehakol', 'HaGafen', 'adamah', 'motzi', 'Peri', 'Mag', 'Esh', 'VIP', 'etz', 'Ha', 'a']
+
+6. latin_chars=48 words=9
+   key: Learn about Bishul ΓÇö the famous 'cooking' melacha on Shabbat! ≡ƒöÑ While the original Mishnah calls this category baking be
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╨æ╨╕╤ê╤â╨╗╨╡ ΓÇö ╨╖╨╜╨░╨╝╨╡╨╜╨╕╤é╨╛╨╣ ┬½╨▓╨░╤Ç╨╡╨╜╨╛╨╣┬╗ ╨╝╨╡╨╗╨░╤à╨╡ ╨▓ ╨¿╨░╨▒╨▒╨░╤é! ╨Æ ╤é╨╛ ╨▓╤Ç╨╡╨╝╤Å ╨║╨░╨║ ╨╛╤Ç╨╕╨│╨╕╨╜╨░╨╗╤î╨╜╨░╤Å ╨£╨╕╤ê╨╜╨░ ╨╜╨░╨╖╤ï╨▓╨░╨╡╤é ╤ì╤é╤â ╨║╨░╤é╨╡╨│╨╛╤Ç╨╕╤Ä ╨▓╤ï╨┐╨╡╤ç╨║╨╛╨╣, ╨┐╨╛╤é╨╛╨╝╤â ╤ç╤é╨╛ ╨╛╨╜╨░ ╨╛╤é╨╜╨╛╤ü╨╕╤é╤ü╤Å ╨║ ╨╕╨╖╨│╨╛╤é╨╛╨▓╨╗╨╡╨╜╨╕╤Ä Showbread Mishka
+   latin: ['Showbread', 'Mishkan', 'soledet', 'Bishul', 'Achar', 'Ein', 'yad', 'bo']
+
+7. latin_chars=47 words=10
+   key: Be a judge of merit: Learn about Dan L'Kaf Zechut (Judging Favorably)! ΓÜû∩╕Å The Torah commands us, 'B'tzedek Tishpot Amite
+   val: ╨æ╤â╨┤╤î╤é╨╡ ╤ü╤â╨┤╤î╤æ╨╣ ╨▓ ╨┐╨╛╨╗╤î╨╖╤â ╨╖╨░╤ü╨╗╤â╨│: ╤â╨╖╨╜╨░╨╣╤é╨╡ ╨╛ Dan L'Kaf Zechut (╤ü╤â╨┤╨╕╤é╤î ╨▒╨╗╨░╨│╨╛╨┐╤Ç╨╕╤Å╤é╨╜╨╛)! ΓÜû∩╕Å ╨ó╨╛╤Ç╨░ ╨┐╨╛╨▓╨╡╨╗╨╡╨▓╨░╨╡╤é: ┬½B'tzedek Tishpot Amitecha┬╗ ΓÇö ╤ü╤â╨┤╨╕ ╨▒╨╗╨╕╨╢╨╜╨╡╨│╨╛ ╤ü╨▓╨╛╨╡╨│╨╛ ╤ü ╨┐╤Ç╨░╨▓╨╡╨┤╨╜╨╛╤ü╤é╤î╤Ä (╨¢╨╡╨▓╨╕╤é 19:15)
+   latin: ['Amitecha', 'Tishpot', 'Chofetz', 'Zechut', 'tzedek', 'Chaim', 'Dan', 'Kaf', 'B', 'L']
+
+8. latin_chars=47 words=7
+   key: 
+
+This year, Erev Pesach is on Shabbat (14 Nisan). When Erev Pesach falls on Shabbat, the entire preparatory timeline sh
+   val: 
+
+╨Æ ╤ì╤é╨╛╨╝ ╨│╨╛╨┤╤â ╨¡╤Ç╨╡╨▓ ╨ƒ╨╡╤ü╨░╤à ╨▓ ╨¿╨░╨▒╨░╤é (14 ╨¥╨╕╤ü╨░╨╜╨░). ╨Ü╨╛╨│╨┤╨░ ╨¡╤Ç╨╡╨▓ ╨ƒ╨╡╤ü╨░╤à ╨▓ ╨¿╨░╨▒╨░╤é, ╨▓╨╡╤ü╤î ╨║╨░╨╗╨╡╨╜╨┤╨░╤Ç╤î ╤ü╨┤╨▓╨╕╨│╨░╨╡╤é╤ü╤Å ╤Ç╨░╨╜╤î╤ê╨╡ (╨ƒ╨╡╨╜╨╕╨╜╨╡╨╣ ╨Ñ╨░╨╗╨░╤à╨░ ╨│╨╗. 14):
+
+ΓÇó ╨ó╨░╨░╨╜╨╕╤é ╨æ╨╡╤à╨╛╤Ç╨╛╤é: ╤ç╨╡╤é╨▓╨╡╤Ç╨│ (12 ╨¥╨╕╤ü╨░╨╜╨░) ΓÇö ╨╜╨╡ ╨▓ ╨¿╨░╨▒╨░
+   latin: ['Mechirat', 'shlishit', 'Bedikat', 'chamira', 'Shabat', 'Biur']
+
+9. latin_chars=47 words=7
+   key: Learn about Kiddush Hashem and Chillul Hashem ΓÇö the positive commandment to sanctify G-d's Name and the severe prohibiti
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╨Ü╨╕╨┤╨┤╤â╤ê ╨Ñ╨░╤ê╨╡╨╝ ╨╕ Chillul ╨Ñ╨░╤ê╨╡╨╝ ΓÇö ╨┐╨╛╨╗╨╛╨╢╨╕╤é╨╡╨╗╤î╨╜╨╛╨╣ ╨╖╨░╨┐╨╛╨▓╨╡╨┤╨╕ ╨╛╤ü╨▓╤Å╤é╨╕╤é╤î ╨ÿ╨╝╤Å ╨æ-╨│╨░ ╨╕ ╤ü╤â╤Ç╨╛╨▓╨╛╨╝ ╨╖╨░╨┐╤Ç╨╡╤é╨╡ ╨╡╨│╨╛ ╨╛╤ü╨║╨▓╨╡╤Ç╨╜╤Å╤é╤î! ╨á╨░╨╝╨▒╨░╨╝ ╨╛╨┐╤Ç╨╡╨┤╨╡╨╗╤Å╨╡╤é ╨╛╨▒╨░: KIDDUSH HASHEM: ╨ú╤ç╤æ╨╜╤ï╨╣ ╨ó╨╛╤Ç╤ï ╨╕╨╗╨╕ ╤â╨╖╨╜╨░╨▓╨░╨╡╨╝╨╛
+   latin: ['CHILLUL', 'Chillul', 'KIDDUSH', 'HASHEM']
+
+10. latin_chars=46 words=10
+   key: Bedikat chametz (╫æ╓░╓╝╫ô╓┤╫Ö╫º╓╖╫¬ ╫ù╓╕╫₧╓╡╫Ñ) ΓÇö the formal search for chametz ΓÇö is a rabbinic mitzvah on the night **before** Erev P
+   val: Bedikat ╤à╨░╨╝╨╡╤å (╫æ╓░╓╝╫ô╓┤╫Ö╫º╓╖╫¬ ╫ù╓╕╫₧╓╡╫Ñ) ΓÇö ╤ä╨╛╤Ç╨╝╨░╨╗╤î╨╜╤ï╨╣ ╨┐╨╛╨╕╤ü╨║ ╤à╨░╨╝╨╡╤å╨░ ΓÇö ╤Ç╨░╨▓╨▓╨╕╨╜╤ü╨║╨░╤Å mitzv├í ╨▓ ╨╜╨╛╤ç╤î **╨┐╨╡╤Ç╨╡╨┤** ╨┤╨╜╤æ╨╝ ╨¡╤Ç╨╡╨▓ ╨ƒ╨╡╤ü╨░╤à (╨┐╨╛╤ü╨╗╨╡ ╤å╨╡╨╣╤é, ╨║╨╛╨│╨┤╨░ ╨╡╨▓╤Ç╨╡╨╣╤ü╨║╨░╤Å ╨┤╨░╤é╨░ ╤ü╤é╨░╨╜╨╛╨▓╨╕╤é╤ü╤Å 14 ╨¥╨╕╤ü╨░╨╜╨░).
+
+$whenLine
+
+
+   latin: ['Bedikat', 'chamira', 'bitul', 'mitzv', 'biur', 'Al', 'ur', 'bi']
+
+11. latin_chars=46 words=10
+   key: Bedikat chametz (╫æ╓░╓╝╫ô╓┤╫Ö╫º╓╖╫¬ ╫ù╓╕╫₧╓╡╫Ñ) ΓÇö the formal search for chametz ΓÇö is a rabbinic mitzvah on the night **before** Erev P
+   val: Bedikat ╤à╨░╨╝╨╡╤å (╫æ╓░╓╝╫ô╓┤╫Ö╫º╓╖╫¬ ╫ù╓╕╫₧╓╡╫Ñ) ΓÇö ╤ä╨╛╤Ç╨╝╨░╨╗╤î╨╜╤ï╨╣ ╨┐╨╛╨╕╤ü╨║ ╤à╨░╨╝╨╡╤å╨░ ΓÇö ╤Ç╨░╨▓╨▓╨╕╨╜╤ü╨║╨░╤Å mitzv├í ╨▓ ╨╜╨╛╤ç╤î **╨┐╨╡╤Ç╨╡╨┤** ╨┤╨╜╤æ╨╝ ╨¡╤Ç╨╡╨▓ ╨ƒ╨╡╤ü╨░╤à (╨┐╨╛╤ü╨╗╨╡ ╤å╨╡╨╣╤é, ╨║╨╛╨│╨┤╨░ ╨╡╨▓╤Ç╨╡╨╣╤ü╨║╨░╤Å ╨┤╨░╤é╨░ ╤ü╤é╨░╨╜╨╛╨▓╨╕╤é╤ü╤Å 14 ╨¥╨╕╤ü╨░╨╜╨░).
+
+$whenLine
+
+
+   latin: ['Bedikat', 'chamira', 'bitul', 'mitzv', 'biur', 'Al', 'ur', 'bi']
+
+12. latin_chars=46 words=7
+   key: machloket ΓÇö Machloket is respectful disagreement between Torah authorities ΓÇö often recorded in the Talmud. Not every mac
+   val: machloket ΓÇö ╤â╨▓╨░╨╢╨╕╤é╨╡╨╗╤î╨╜╨╛╨╡ ╤Ç╨░╤ü╤à╨╛╨╢╨┤╨╡╨╜╨╕╨╡ ╨╝╨╡╨╢╨┤╤â ╨ó╨╛╤Ç╨░ authorities ΓÇö ╤ç╨░╤ü╤é╨╛ ╨╖╨░╤ä╨╕╨║╤ü╨╕╤Ç╨╛╨▓╨░╨╜╨╜╨╛╨╡ ╨▓ ╨ó╨░╨╗╨╝╤â╨┤. ╨¥╨╡ ╨║╨░╨╢╨┤╨░╤Å machloket ╤Ç╨░╨╖╤Ç╨╡╤ê╨╡╨╜╨░; ╨╛╨▒╨╡ ╤ü╤é╨╛╤Ç╨╛╨╜╤ï ╨╝╨╛╨│╤â╤é ╨▒╤ï╤é╤î ╨┐╤Ç╨░╨▓╨╛╨╝╨╡╤Ç╨╜╤ï. ╨£╨╕╤å╨▓╨░ ΓÇö ╤ü╨╗╨╡╨┤╨╛╨▓╨░╤é╤î ╨┐╤ü
+   latin: ['authorities', 'machloket', 'Machloket', 'shem', 'ego', 'l']
+
+13. latin_chars=45 words=8
+   key: Pesach begins in about a week ΓÇö use this time for practical preparation (not spring cleaning every closet, but removing 
+   val: ╨ƒ╨╡╤ü╨░╤à ╨╜╨░╤ç╨╕╨╜╨░╨╡╤é╤ü╤Å ╨┐╤Ç╨╕╨╝╨╡╤Ç╨╜╨╛ ╤ç╨╡╤Ç╨╡╨╖ ╨╜╨╡╨┤╨╡╨╗╤Ä ΓÇö ╨╕╤ü╨┐╨╛╨╗╤î╨╖╤â╨╣╤é╨╡ ╤ì╤é╨╛ ╨▓╤Ç╨╡╨╝╤Å ╨┤╨╗╤Å ╨┐╤Ç╨░╨║╤é╨╕╤ç╨╡╤ü╨║╨╛╨╣ ╨┐╨╛╨┤╨│╨╛╤é╨╛╨▓╨║╨╕ (╨╜╨╡ ╨▓╨╡╤ü╨╡╨╜╨╜╤Å╤Å ╤â╨▒╨╛╤Ç╨║╨░ ╨║╨░╨╢╨┤╨╛╨│╨╛ ╤ê╨║╨░╤ä╨░, ╨░ ╤â╨┤╨░╨╗╨╡╨╜╨╕╨╡ ╤ç╨░╨╝╤å╨░ ╤é╨░╨╝, ╨│╨┤╨╡ ╤ì╤é╨╛ ╨╕╨╝╨╡╨╡╤é ╨╖╨╜╨░╤ç╨╡╨╜╨╕╨╡).
+
+╨₧╤ü╨╜╨╛╨▓╨╜
+   latin: ['haPesach', 'Mechirat', 'Bedikat', 'milchig', 'biur', 'alav', 'avar', 'she']
+
+14. latin_chars=45 words=7
+   key: Get ready for a hunt! Bedikat Chametz (Nighttime Search for Leaven)! ≡ƒöª The night before Passover eve (the night of the 1
+   val: ╨ƒ╤Ç╨╕╨│╨╛╤é╨╛╨▓╤î╤é╨╡╤ü╤î ╨║ ╨╛╤à╨╛╤é╨╡! Bedikat ╨Ñ╨░╨╝╨╡╤å (╨╜╨╛╤ç╨╜╨╛╨╣ ╨┐╨╛╨╕╤ü╨║ ╤à╨░╨╝╨╡╤å)! ≡ƒöª ╨Æ ╨╜╨╛╤ç╤î ╨┐╨╡╤Ç╨╡╨┤ ╨║╨░╨╜╤â╨╜╨╛╨╝ ╨ƒ╨╡╤ü╨░╤à (╨╜╨╛╤ç╤î 13-╨│╨╛ Nissan), ╨┐╨╛╤ü╨╗╨╡ ╨╜╨░╤ü╤é╤â╨┐╨╗╨╡╨╜╨╕╤Å ╤é╨╡╨╝╨╜╨╛╤é╤ï, ╨╝╤ï ╨┐╤Ç╨╛╨▓╨╛╨┤╨╕╨╝ ╤ä╨╛╤Ç╨╝╨░╨╗╤î╨╜╤ï╨╣ ╨┐╨╛╨╕╤ü╨║ ╤à╨░╨╝╨╡╤å (╨║╨▓╨░╤ü╨╜╨╛╨│╨╛
+   latin: ['Pesachim', 'Chamira', 'Bedikat', 'Nissan', 'Bitul', 'Biur']
+
+15. latin_chars=44 words=9
+   key: Ready to launch into Shabbat with holiness? ≡ƒì╖ Learn about Kiddush, the beautiful mitzvah that sanctifies our holy day! T
+   val: ╨ô╨╛╤é╨╛╨▓╤ï ╨▓╨╛╨╣╤é╨╕ ╨▓ ╨¿╨░╨▒╨▒╨░╤é ╤ü╨╛ ╤ü╨▓╤Å╤é╨╛╤ü╤é╤î╤Ä? ≡ƒì╖ ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╨Ü╨╕╨┤╨┤╤â╤ê ΓÇö ╨┐╤Ç╨╡╨║╤Ç╨░╤ü╨╜╨╛╨╣ ╨╝╨╕╤å╨▓╨╡, ╨╛╤ü╨▓╤Å╤ë╨░╤Ä╤ë╨╡╨╣ ╨╜╨░╤ê ╤ü╨▓╤Å╤é╨╛╨╣ ╨┤╨╡╨╜╤î! ╨¡╤é╨╛ ╨╜╨╡ ╨┐╤Ç╨╛╤ü╤é╨╛ ╤Ç╨╕╤é╤â╨░╨╗ ΓÇö ╤ì╤é╨╛ ╨╖╨░╨┐╨╛╨▓╨╡╨┤╤î ╤â╤Ç╨╛╨▓╨╜╤Å ╨ó╨╛╤Ç╤ï ┬½╨┐╨╛╨╝╨╜╨╕ ╨┤╨╡╨╜╤î ╨¿╨░╨▒╨▒╨░╤é╨░, ╤ç╤é╨╛╨▒╤ï ╨╛╤ü
+   latin: ['HaGafen', 'lugmav', 'chamor', 'medina', 'Seudah', 'Makom', 'melo', 'Pri', 'B']
+
+16. latin_chars=44 words=8
+   key: Learn about kavod sefarim ΓÇö the halachic obligation to treat holy books with respect ΓÇö and the surprising level of detai
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ kavod sefarim ΓÇö ╨│╨░╨╗╨░╤à╨╕╤ç╨╡╤ü╨║╨╕╨╣ ╨╛╨▒╤Å╨╖╨░╨╜╨╜╨╛╤ü╤é╨╕ ╨╛╤é╨╜╨╛╤ü╨╕╤é╤î╤ü╤Å ╨║ ╤ü╨▓╤Å╤ë╨╡╨╜╨╜╤ï╨╝ ╨║╨╜╨╕╨│╨░╨╝ ╤ü ╤â╨▓╨░╨╢╨╡╨╜╨╕╨╡╨╝ ΓÇö ╨╕ ╨╛╨▒ ╤â╨┤╨╕╨▓╨╕╤é╨╡╨╗╤î╨╜╨╛╨╣ ╨┤╨╡╤é╨░╨╗╨╕╨╖╨░╤å╨╕╨╕, ╨┤╨╛ ╨║╨╛╤é╨╛╤Ç╨╛╨╣ ╤ì╤é╨╛ ╨┤╨╛╤à╨╛╨┤╨╕╤é! ≡ƒôÜ ╨á╨░╨╝╨▒╨░╨╝ ╨┐╨╛╤ü╤é╨░╨╜╨╛╨▓╨╗╤Å╨╡╤é: ╨╖╨░╨┐╨╕╤ü╨╕ 
+   latin: ['sefarim', 'genizah', 'kavod', 'sefer', 'Nach']
+
+17. latin_chars=43 words=12
+   key: Birkat Hachamah (╫æ╓┤╓╝╫¿╓░╫¢╓╖╓╝╫¬ ╫ö╓╖╫ù╓╖╫₧╓╕╓╝╫ö ΓÇö Blessing of the Sun) is recited once every 28 years, when the sun completes the ma
+   val: ╨æ╨╕╤Ç╨║╨░╤é ╨Ñ╨░╨░╨╝╨░ (╫æ╓┤╓╝╫¿╓░╫¢╓╖╓╝╫¬ ╫ö╓╖╫ù╓╖╫₧╓╕╓╝╫ö) ╨┐╤Ç╨╛╨╕╨╖╨╜╨╛╤ü╨╕╤é╤ü╤Å ╤Ç╨░╨╖ ╨▓ 28 ╨╗╨╡╤é, ╨║╨╛╨│╨┤╨░ ╤ü╨╛╨╗╨╜╤å╨╡ ╨╖╨░╨▓╨╡╤Ç╤ê╨░╨╡╤é ╨╝╨░╤à╨╖╨╛╤Ç gadol (╫₧╫ù╫û╫ò╫¿ ╫Æ╫ô╫ò╫£) ΓÇö 28-╨╗╨╡╤é╨╜╨╕╨╣ ╤ü╨╛╨╗╨╜╨╡╤ç╨╜╤ï╨╣ ╤å╨╕╨║╨╗ ╨ó╨░╨╗╨╝╤â╨┤╨░ (╨æ╨╡╤Ç╨░╤à╨╛╤é 59b).
+
+╨¡╤é╨╛ ╤ü╨╛╨▒╤ï╤é╨╕╨╡: $dateL
+   latin: ['bereishit', 'gadol', 'mitzv', 'olam', 'aseh', 'oseh', 'nai', 'Ado', 'ma', 'ha', 'b', 'h']
+
+18. latin_chars=43 words=7
+   key: A series of short blessings said at the beginning of the morning prayer service, thanking G-d for things we tend to take
+   val: ╨í╨╡╤Ç╨╕╤Å ╨║╨╛╤Ç╨╛╤é╨║╨╕╤à ╨▒╨╗╨░╨│╨╛╤ü╨╗╨╛╨▓╨╡╨╜╨╕╨╣, ╨┐╤Ç╨╛╨╕╨╖╨╜╨╡╤ü╨╡╨╜╨╜╤ï╤à ╨▓ ╨╜╨░╤ç╨░╨╗╨╡ ╤â╤é╤Ç╨╡╨╜╨╜╨╡╨│╨╛ ╨╝╨╛╨╗╨╕╤é╨▓╨╡╨╜╨╜╨╛╨│╨╛ ╤ü╨╗╤â╨╢╨╡╨╜╨╕╤Å, ╨▒╨╗╨░╨│╨╛╨┤╨░╤Ç╨╕╤é ╨æ-╨│╨░ ╨╖╨░ ╤é╨╛, ╤ç╤é╨╛ ╨╝╤ï, ╨║╨░╨║ ╨┐╤Ç╨░╨▓╨╕╨╗╨╛, ╨┐╤Ç╨╕╨╜╨╕╨╝╨░╨╡╨╝ ╨║╨░╨║ ╨┤╨╛╨╗╨╢╨╜╨╛╨╡.
+
+╨º╤é╨╛ ╨╛╨╜╨╕ ╤ü╨╛╨▒╨╛╨╣ ╨┐╤Ç╨╡╨┤╤ü╤é╨░╨▓╨╗╤Å╤Ä╤é
+   latin: ['chatchila', 'hashachar', 'LaSechvi', 'HaNoten', 'Vinah', 'alot', 'L']
+
+19. latin_chars=42 words=7
+   key: Pray for a shidduch (wife) for my friend Mordechai Shaul ben Devorah - submitted by HS. Our sages teach that when you pr
+   val: ╨£╨╛╨╗╨╕╤é╨╡╤ü╤î ╨╛ shidduch (╨╢╨╡╨╜╨╡) ╨┤╨╗╤Å ╨╝╨╛╨╡╨│╨╛ ╨┤╤Ç╤â╨│╨░ Mordechai Shaul ben Devorah ΓÇö ╨╛╤é HS. ╨£╤â╨┤╤Ç╨╡╤å╤ï ╤â╤ç╨░╤é: ╨║╨╛╨│╨┤╨░ ╨▓╤ï ╨╝╨╛╨╗╨╕╤é╨╡╤ü╤î ╨╖╨░ ╨┤╤Ç╤â╨│╨╛╨│╨╛ ╨╕ ╤ü╨░╨╝╨╕ ╨╜╤â╨╢╨┤╨░╨╡╤é╨╡╤ü╤î ╨▓ ╤é╨╛╨╝ ╨╢╨╡, ╨▓╨░╤ü ╤â╤ü╨╗╤ï╤ê╨░╤é ╨┐╨╡╤Ç╨▓╤ï╨╝ ΓÇö ╨╕╨▒╨╛ ╨▒╨╡╤ü╨║
+   latin: ['Mordechai', 'shidduch', 'Devorah', 'Shaul', 'ben', 'HS']
+
+20. latin_chars=41 words=9
+   key: Learn about the Torah obligation to TEACH ΓÇö not just to learn ΓÇö and the specific mitzvah of 'v'shinantam l'vanecha'! ≡ƒôÜ T
+   val: ╨ú╨╖╨╜╨░╨╣╤é╨╡ ╨╛ ╤é╨╛╤Ç╨╛╨▓╨╛╨╣ ╨╛╨▒╤Å╨╖╨░╨╜╨╜╨╛╤ü╤é╨╕ ╨ú╨º╨ÿ╨ó╨¼ ΓÇö ╨╜╨╡ ╤é╨╛╨╗╤î╨║╨╛ ╤â╤ç╨╕╤é╤î╤ü╤Å ΓÇö ╨╕ ╨╛ ╨║╨╛╨╜╨║╤Ç╨╡╤é╨╜╨╛╨╣ ╨╝╨╕╤å╨▓╨╡ ┬½v'shinantam l'vanecha┬╗! ≡ƒôÜ ╨ó╨╛╤Ç╨░ ╨│╨╛╨▓╨╛╤Ç╨╕╤é: ┬½╨ÿ ╤â╤ç╨╕╤é╨╡ ╨╕╤à ╤é╤ë╨░╤é╨╡╨╗╤î╨╜╨╛ ╨▓╨░╤ê╨╕╨╝ ╨┤╨╡╤é╤Å╨╝┬╗ (╨ö╨▓╨░╤Ç╨╕╨╝ 6:7). ╨¡╤é╨╛ ╨┐╨╛╨╗╨╛╨╢╨╕╤é
+   latin: ['shinantam', 'vanecha', 'tzivah', 'Moshe', 'lanu', 'l', 'v']
+

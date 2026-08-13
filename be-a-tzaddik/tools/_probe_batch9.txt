@@ -1,0 +1,17 @@
+resolved 83
+placeholder bad 0
+
+KEY Psak is a halachic ruling — the answer a qualified posek gives for you
+VAL Псак — галахическое постановление — ответ квалифицированного посека на ваш реальный случай, а не тео
+
+KEY psak — Psak is a halachic ruling — the answer a qualified posek gives 
+VAL псак — Псак — галахическое постановление — ответ квалифицированного посека на ваш реальный случай, а
+
+KEY Peninei Halakha is Rabbi Eliezer Melamed's modern Hebrew halacha serie
+VAL Пениней Халаха — современная ивритская серия галахи рава Элиэзера Меламеда (доступна на английском о
+
+KEY Peninei Halakha — Peninei Halakha is Rabbi Eliezer Melamed's modern He
+VAL Пениней Халаха — Пениней Халаха — современная ивритская серия галахи рава Элиэзера Меламеда (доступн
+
+KEY Chiyuv means obligated — the mitzvah applies to you and you are expect
+VAL Хиюв означает обязанность — мицва применяется к вам и вы должны её выполнить. Бар-мицва создаёт хиюв

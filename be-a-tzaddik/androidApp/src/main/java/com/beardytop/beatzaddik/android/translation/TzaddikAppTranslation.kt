@@ -1,0 +1,48 @@
+package com.beardytop.beatzaddik.android.translation
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.beardytop.beatzaddik.ui.translation.AppTextTranslator
+import com.beardytop.beatzaddik.ui.translation.AppTranslationState
+import com.beardytop.beatzaddik.ui.translation.BundledTranslationLanguages
+import com.beardytop.beatzaddik.ui.translation.LanguageOption
+import com.beardytop.beatzaddik.ui.translation.LanguageSelectorState
+import com.beardytop.beatzaddik.ui.translation.LocalAppTranslation
+import com.beardytop.beatzaddik.ui.translation.LocalLanguageSelector
+import com.beardytop.beatzaddik.viewmodel.TranslationViewModel
+
+@Composable
+fun ProvideAppTranslation(
+    translationViewModel: TranslationViewModel,
+    content: @Composable () -> Unit,
+) {
+    val enabled by translationViewModel.translationEnabled.collectAsState()
+    val lang by translationViewModel.currentLanguage.collectAsState()
+    val translator = AppTextTranslator { text -> translationViewModel.translateText(text) }
+    val languages = translationViewModel.getSupportedLanguages().map { info ->
+        LanguageOption(
+            code = info.code,
+            englishName = info.name,
+            nativeName = info.nativeName,
+            isOffline = BundledTranslationLanguages.isBundled(info.code),
+        )
+    }
+    CompositionLocalProvider(
+        LocalAppTranslation provides AppTranslationState(
+            enabled = enabled && lang != "en",
+            languageCode = lang,
+            translator = translator,
+        ),
+        LocalLanguageSelector provides LanguageSelectorState(
+            enabled = enabled,
+            currentLanguageCode = lang,
+            availableLanguages = languages,
+            onLanguageChange = { code -> translationViewModel.setCurrentLanguage(code) },
+            onEnabledChange = { on -> translationViewModel.setTranslationEnabled(on) },
+        ),
+    ) {
+        content()
+    }
+}

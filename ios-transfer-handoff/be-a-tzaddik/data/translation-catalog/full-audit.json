@@ -1,0 +1,11 @@
+{
+  "fallbacks_long": {
+    "he": 0,
+    "es": 0,
+    "fr": 0,
+    "ru": 0
+  },
+  "disaster_count": 0,
+  "disasters": [],
+  "disaster_by_reason": {}
+}

@@ -1,0 +1,378 @@
+package com.beardytop.beatzaddik.domain
+
+import kotlinx.datetime.DateTimeUnit
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.plus
+
+/**
+ * Calendar-driven copy when Yom Tov and Shabbat meet (eruv tavshilin, havdalah in Kiddush).
+ * Calendar-driven halachic prep copy — not invented psak.
+ * Shown only in years when detection helpers return true.
+ */
+object YomTovShabbatPrepText {
+
+    private fun dayAfter(cal: DayInfo, days: Int = 1) = cal.date.plus(days, DateTimeUnit.DAY)
+
+    fun isRoshHashanaChag(cal: DayInfo, chagName: String): Boolean =
+        cal.upcomingChagYomTovIndex == HebrewCalendarEngine.ROSH_HASHANA ||
+            chagName.contains("Rosh Hashana", ignoreCase = true)
+
+    /** Civil Shabbat that follows this festival eve (1 = tomorrow is Shabbat, 3 = two Yom Tov days then Shabbat). */
+    private fun shabbatDaysAfterErevChag(cal: DayInfo): Int? =
+        EruvTavshilinRules.civilDaysUntilShabbat(cal)
+
+    fun isShabbatErevChag(cal: DayInfo): Boolean =
+        "erev_chag" in cal.activeSeasons && cal.isShabbat
+
+    /** Friday before civil Shabbat that is erev chag (Motzei Shabbat → Yom Tov). */
+    fun isFridayBeforeShabbatErevChag(today: DayInfo, tomorrow: DayInfo): Boolean =
+        today.isErevShabbat && !today.isShabbat && isShabbatErevChag(tomorrow)
+
+    /**
+     * Today is erev chag on the calendar, but the festival actually begins only after
+     * tomorrow's Shabbat (e.g. Friday marked erev when RH starts Saturday night).
+     */
+    fun isErevChagBeforeShabbatErevChag(today: DayInfo, tomorrow: DayInfo): Boolean =
+        "erev_chag" in today.activeSeasons && isFridayBeforeShabbatErevChag(today, tomorrow)
+
+    /** Yom Tov begins tonight; one day of Yom Tov then Shabbat (erev is Friday). */
+    fun isErevChagYomTovStartsBeforeShabbat(cal: DayInfo): Boolean {
+        if (!EruvTavshilinRules.isFestivalEve(cal) || !cal.isErevShabbat) return false
+        if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
+        return shabbatDaysAfterErevChag(cal) == 2 &&
+            cal.upcomingChagYomTovIndex != null &&
+            HebrewCalendarEngine.isYomTovAssurBemelacha(cal.upcomingChagYomTovIndex!!)
+    }
+
+    /**
+     * Two days of Yom Tov starting tomorrow, then Shabbat (erev is Wed).
+     * Diaspora: any two-day Yom Tov. Israel: Rosh Hashana only (still two days in Israel).
+     */
+    fun isErevChagTwoDayYomTovBeforeShabbat(cal: DayInfo, profile: UserProfile): Boolean {
+        if (!EruvTavshilinRules.isFestivalEve(cal)) return false
+        if (ErevPesachPrepText.isErevPesachFridayBeforeShabbatPesach(cal)) return false
+        val chagIdx = cal.upcomingChagYomTovIndex ?: return false
+        if (!HebrewCalendarEngine.isYomTovAssurBemelacha(chagIdx)) return false
+        // Israel observes only one day of most festivals; Rosh Hashana is two days everywhere.
+        if (profile.isInIsrael && chagIdx != HebrewCalendarEngine.ROSH_HASHANA) return false
+        return shabbatDaysAfterErevChag(cal) == 3
+    }
+
+    fun isYomTovFridayLeadsIntoShabbat(cal: DayInfo): Boolean =
+        cal.isYomTovAssurBemelacha && cal.date.dayOfWeek == DayOfWeek.FRIDAY
+
+    fun requiresEruvTavshilin(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): Boolean =
+        EruvTavshilinRules.requiresEruvTavshilin(cal, profile, tomorrowCal)
+
+    fun scheduleBlock(
+        cal: DayInfo,
+        profile: UserProfile,
+        chagName: String,
+        forFridayAdvance: Boolean = false,
+        tomorrowCal: DayInfo = cal,
+    ): String? {
+        val parts = mutableListOf<String>()
+        shabbatErevChagHavdalahBlock(cal, profile, chagName, forFridayAdvance)?.let { parts.add(it) }
+        eruvTavshilinBlock(cal, profile, chagName, tomorrowCal)?.let { parts.add(it) }
+        yomTovFridayCookingBlock(cal, profile, chagName)?.let { parts.add(it) }
+        return parts.takeIf { it.isNotEmpty() }?.joinToString("\n\n")
+    }
+
+    fun eruvTavshilinExplanation(cal: DayInfo, profile: UserProfile, tomorrowCal: DayInfo): String =
+        eruvTavshilinBlock(cal, profile, EruvTavshilinRules.chagName(cal), tomorrowCal).orEmpty()
+
+    /**
+     * Show on a readable day before prep is needed — especially **Friday before Shabbat–erev–chag**
+     * (checklist is off on Shabbat). Also Thu/Wed before other Yom Tov–Shabbat sequences.
+     */
+    fun shouldShowAdvancePrepDay(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): Boolean {
+        if (HolyDayPhoneRules.isShabbatMelachaDay(today)) return false
+        // Only show an "advance" reminder when tomorrow is Shabbat + erev chag, since the app
+        // is not for use on Shabbat itself. Other eruv tavshilin reminders belong on the festival eve.
+        return isFridayBeforeShabbatErevChag(today, tomorrow)
+    }
+
+    fun advanceBlock(today: DayInfo, tomorrow: DayInfo, profile: UserProfile): String? {
+        val parts = mutableListOf<String>()
+        val tomorrowChag = tomorrow.upcomingChagName
+            ?: if ("erev_pesach" in tomorrow.activeSeasons) "Pesach" else null
+
+        if (tomorrowChag != null) {
+            scheduleBlock(tomorrow, profile, tomorrowChag, forFridayAdvance = true)?.let { body ->
+                val intro = if (isShabbatErevChag(tomorrow)) {
+                    """
+Read this today (Friday) before Shabbat candles — the app is not for use on Shabbat.
+
+Tomorrow is Shabbat and erev $tomorrowChag. $tomorrowChag begins tomorrow night at nightfall (Motzei Shabbat), not tonight. You cannot do Yaknehaz prep, light Yom Tov candles, or begin food prep on Shabbat — wait until after Shabbat ends at nightfall, recite Baruch hamavdil bein kodesh l'kodesh, and only then light Yom Tov candles from a pre-existing flame and begin Kiddush (Yaknehaz) per your Machzor.
+                    """.trim()
+                } else {
+                    """
+Tomorrow is erev $tomorrowChag — the Yom Tov–Shabbat rules below apply starting then. Use today (during the day) to prepare so you are not caught tonight or tomorrow without eruv tavshilin, flames, or food in place.
+                    """.trim()
+                }
+                parts.add("$intro\n\n$body")
+            }
+            if (HebrewCalendarEngine.isShaloshRegalim(tomorrow.upcomingChagYomTovIndex)) {
+                parts.add(SeasonalMitzvahText.simchasYomTovPrepBlock())
+            }
+        }
+
+        if ("erev_pesach" !in today.activeSeasons) {
+            ErevPesachPrepText.erevPesachShabbatScheduleBlock(today)?.let { body ->
+                parts.add(
+                    """
+Pesach meets Shabbat this year — some steps happen today or tonight (before tomorrow's erev Pesach checklist):
+
+$body
+                    """.trim()
+                )
+            }
+        }
+
+        return parts.takeIf { it.isNotEmpty() }?.joinToString("\n\n\n")
+    }
+
+    fun links(cal: DayInfo, profile: UserProfile, chagName: String): List<ChecklistLink> = buildList {
+        add(
+            ChecklistLink(
+                "Chabad — Eruv tavshilin",
+                "https://www.chabad.org/library/article_cdo/aid/2327/jewish/Eruv-Tavshilin.htm",
+                "chabad"
+            )
+        )
+        add(
+            ChecklistLink(
+                "Chabad — Holiday Havdalah (Yaknehaz)",
+                "https://www.chabad.org/library/article_cdo/aid/611296/jewish/Holiday-Havdalah.htm",
+                "chabad"
+            )
+        )
+        add(
+            ChecklistLink(
+                "Chabad — What you need to know about eruv tavshilin",
+                "https://www.chabad.org/library/article_cdo/aid/7292713/jewish/What-You-Need-to-Know-About-Eruv-Tavshilin.htm",
+                "chabad"
+            )
+        )
+        add(ChecklistLink("Peninei Halacha — Eruv tavshilin", "https://ph.yhb.org.il/en/12-08-02/", "default"))
+        add(ChecklistLink("Peninei Halacha — Festivals & Shabbat", "https://ph.yhb.org.il/en/category/12/12-08/", "default"))
+        add(ChecklistLink("Aish — Holidays & Shabbat", "https://aish.com/holidays/", "default"))
+        add(ChecklistLink("Ohr Somayach — Yom Tov", "https://ohr.edu/holidays/yom_tov/", "default"))
+        if (isRoshHashanaChag(cal, chagName)) {
+            if (profile.effectiveNusach() == EffectiveNusach.CHABAD) {
+                add(
+                    ChecklistLink(
+                        "Chabad — Rosh Hashana",
+                        "https://www.chabad.org/library/article_cdo/aid/4762/jewish/What-Is-Rosh-Hashanah.htm",
+                        "chabad"
+                    )
+                )
+            }
+            add(ChecklistLink("Peninei Halacha — Rosh Hashana", "https://ph.yhb.org.il/en/category/15/15-03/", "default"))
+            add(ChecklistLink("Aish — Rosh Hashana", "https://aish.com/holidays/rosh-hashanah/", "default"))
+            add(ChecklistLink("Ohr Somayach — Rosh Hashana", "https://ohr.edu/holidays/rosh_hashana/", "default"))
+        }
+    }
+
+    private fun shabbatErevChagHavdalahBlock(
+        cal: DayInfo,
+        profile: UserProfile,
+        chagName: String,
+        forFridayAdvance: Boolean,
+    ): String? {
+        if (!isShabbatErevChag(cal)) return null
+        if (!forFridayAdvance && HolyDayPhoneRules.isShabbatMelachaDay(cal)) return null
+        return if (isRoshHashanaChag(cal, chagName)) {
+            roshHashanaHavdalahInKiddushBlock(chagName, forFridayAdvance)
+        } else {
+            genericHavdalahInKiddushBlock(chagName, forFridayAdvance)
+        }
+    }
+
+    private fun genericHavdalahInKiddushBlock(chagName: String, forFridayAdvance: Boolean): String {
+        val opener = if (forFridayAdvance) {
+            """
+This year, tomorrow (Shabbat) is Erev $chagName — $chagName begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.
+            """.trim()
+        } else {
+            """
+This year, Shabbat is Erev $chagName — $chagName begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.
+            """.trim()
+        }
+        val prepWhen = if (forFridayAdvance) {
+            "Prepare today (Friday) before Shabbat candles: have wine, festive food, and Yom Tov candles ready"
+        } else {
+            "After Shabbat ends at nightfall"
+        }
+        return BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.yomTovAndShabbat(),
+        """
+$opener
+
+Havdalah when Shabbat leads into Yom Tov:
+• Havdalah is recited when entering a day of lesser holiness. Shabbat is holier than Yom Tov, so when Shabbat leads into a festival, havdalah is included in that night's Kiddush — not as a full separate havdalah with spices before Kiddush.
+• Order (mnemonic YaKNeHaZ per many Ashkenaz poskim): Yayin (borei pri hagafen) → Kiddush for Yom Tov → Ner (borei me'orei ha'eish — recite over the Yom Tov candles on the table; you may move a burning candle on Yom Tov if needed for the blessing or the meal, unlike Shabbat muktzeh rules) → Havdalah (holiday text ending bein kodesh l'kodesh, not bein kodesh l'chol) → Zeman (Shehecheyanu on the first festival night when applicable).
+• Spices (besamim) are omitted for this transition.
+• Before Kiddush, melacha permitted on Yom Tov but not on Shabbat: many say Baruch hamavdil bein kodesh l'kodesh, or rely on the Vatodi'enu insert in Maariv — follow your Machzor.
+
+$prepWhen: recite Baruch hamavdil bein kodesh l'kodesh after nightfall, then light Yom Tov candles from a pre-existing flame; 48-hour candle or pilot light per your rav.
+    """.trim(),
+    )
+    }
+
+    private fun roshHashanaHavdalahInKiddushBlock(chagName: String, forFridayAdvance: Boolean): String {
+        val opener = if (forFridayAdvance) {
+            """
+This year, tomorrow (Shabbat) is Erev Rosh Hashana — Rosh Hashana begins tomorrow night at nightfall (Motzei Shabbat). This doesn't happen every year.
+            """.trim()
+        } else {
+            """
+This year, Shabbat is Erev Rosh Hashana — Rosh Hashana begins tonight at nightfall (Motzei Shabbat). This doesn't happen every year.
+            """.trim()
+        }
+        val prepLead = if (forFridayAdvance) {
+            "Rosh Hashana–specific prep today (Friday) before Shabbat"
+        } else {
+            "After Shabbat ends at nightfall"
+        }
+        return BeginnerHalachaGlossary.withKeyTerms(
+        BeginnerHalachaGlossary.yomTovAndShabbat(),
+        """
+$opener
+
+Havdalah inside Kiddush (Yaknehaz):
+• When a biblical holiday begins Saturday night (including Rosh Hashana), that night's Kiddush incorporates havdalah for Shabbat. The order is: (1) wine blessing, (2) holiday Kiddush, (3) candle blessing, (4) havdalah blessing — with the Yom Tov text concluding bein kodesh l'kodesh (not bein kodesh l'chol), (5) Shehecheyanu for the festival.
+• This is the YaKNeHaZ order (Yayin, Kiddush, Ner, Havdalah, Zeman) codified in Shulchan Arukh for Motzei Shabbat into Yom Tov.
+• Spices are not used.
+• Use the Machzor or siddur nusach for Rosh Hashana — do not rely on memory for the long havdalah text.
+
+Before or at Maariv:
+• You may say Baruch hamavdil bein kodesh l'kodesh to begin Yom Tov-permitted activities before Kiddush, or rely on Vatodi'enu in the Amidah of Maariv — follow your community.
+
+$prepLead:
+• Have round challah, honey, apples, and symbolic foods ready for the Yom Tov meals after Shabbat (minhag).
+• Confirm shofar and Musaf times for the first day(s) of Rosh Hashana after Shabbat — shofar is not blown on Shabbat itself.
+• Tashlich when the first day is Shabbat: Ashkenazim customarily postpone to Sunday. Many Sephardic communities (following the Arizal and Yalkut Yosef) recite Tashlich on the first day when Shabbat is Rosh Hashana (where a kosher eruv permits carrying a machzor). Tashlich is prayers at the water — not feeding fish (throwing breadcrumbs is forbidden on Shabbat and Yom Tov).
+
+Candles: after Shabbat ends, light Yom Tov candles from a flame lit before Shabbat began (pre-existing flame).
+    """.trim(),
+    )
+    }
+
+    private fun eruvTavshilinBlock(cal: DayInfo, profile: UserProfile, chagName: String, tomorrowCal: DayInfo): String? {
+        if (!requiresEruvTavshilin(cal, profile, tomorrowCal)) return null
+        if (isYomTovFridayLeadsIntoShabbat(cal)) return null
+
+        return if (isRoshHashanaChag(cal, chagName)) {
+            roshHashanaEruvBlock(cal, profile)
+        } else {
+            genericEruvBlock(cal, profile, chagName)
+        }
+    }
+
+    private fun genericEruvBlock(cal: DayInfo, profile: UserProfile, chagName: String): String {
+        val whenLine = eruvWhenLine(cal, profile, chagName)
+        return BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.yomTovAndShabbat(),
+            """
+This year, $chagName meets Shabbat on the calendar — you need eruv tavshilin. This doesn't happen every year.
+
+Why (Peninei Halakha 12:8):
+• On Yom Tov, cooking is generally allowed only for that calendar day of Yom Tov, not for the next day.
+• When Yom Tov is immediately followed by Shabbat, the Sages required eruv tavshilin so you may cook on Yom Tov for Shabbat, and so Shabbat is not forgotten amid festival preparations.
+
+$whenLine
+
+How (Peninei Halakha 12:8:2):
+• Set aside two foods: a baked item (whole challah or matzah) and a cooked dish (meat, fish, or a hard-boiled egg with the shell on are common choices).
+• The cooked dish is the essential part. Having both baked and cooked is ideal; a cooked dish alone is valid. A baked item without any cooked food does not work — ask your rav if you're unsure.
+• Recite the blessing and eruv declaration from your Machzor or siddur, in any language you understand.
+• One eruv per household is enough.
+• The foods should be fit to eat with bread; keep at least a kezayit of the cooked food until your Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled spot. Only the cooked dish is essential — if the baked item is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens).
+
+Limits:
+• Permits cooking and food prep on Yom Tov for Shabbat only — not cooking on one day of Yom Tov for the next festival day.
+• Start early enough Friday afternoon that your food could theoretically be eaten before Shabbat begins.
+• Covers food preparation for Shabbat — not other melacha that remains forbidden on Yom Tov.
+        """.trim(),
+        )
+    }
+
+    private fun roshHashanaEruvBlock(cal: DayInfo, profile: UserProfile): String {
+        val whenLine = eruvWhenLine(cal, profile, "Rosh Hashana")
+        return BeginnerHalachaGlossary.withKeyTerms(
+            BeginnerHalachaGlossary.yomTovAndShabbat(),
+            """
+This year, Rosh Hashana leads into Shabbat on the calendar — you need eruv tavshilin. This doesn't happen every year.
+
+Why (Peninei Halakha 12:8):
+• When Rosh Hashana (or its second day — Rosh Hashana is two days in Israel and the Diaspora) falls on Friday, Shabbat follows immediately. Without an eruv, you may not cook on Yom Tov for Shabbat.
+• The eruv reminds the household to prepare for Shabbat, not only for the Days of Awe.
+
+$whenLine
+
+How to make eruv tavshilin (Peninei Halakha 12:8:2):
+• Foods: a baked item (whole challah or matzah) plus a cooked dish — commonly fish, meat, or a hard-boiled egg with the shell on. The cooked dish is essential; both together is ideal, but cooked alone is valid. Baked alone without cooked food does not work.
+• Blessing: Asher kid'shanu b'mitzvotav v'tzivanu al mitzvat eruv — use your siddur text.
+• Declaration: recite the eruv declaration from your Machzor or siddur in any language you understand (traditionally Aramaic; many editions include translation). It permits baking, cooking, lighting, and food prep on Yom Tov for Shabbat.
+• Keep at least a kezayit of the cooked food until Shabbat cooking is finished.
+• Store the eruv in a safe, clearly labeled, visible spot before the Friday afternoon rush — it is easily thrown out by mistake. Only the cooked dish is essential — if the challah or matzah is accidentally eaten or discarded, the eruv remains valid. If the cooked dish is eaten or destroyed before you finish cooking for Shabbat on Friday afternoon, you lose permission to cook for Shabbat (ask your rav if that happens). Many eat the eruv foods at a Shabbat meal once Shabbat prep is done (lechem mishneh / oneg Shabbat).
+
+Rosh Hashana notes:
+• Eruv allows Shabbat **food** prep on Friday Yom Tov — honey cake, challah, fish, soup, etc. — not melacha forbidden on Yom Tov itself.
+• If Rosh Hashana was Thursday–Friday, only **Friday** Yom Tov cooking for Shabbat uses this eruv — the eruv does not permit Thursday cooking for Friday Yom Tov.
+• Confirm communal eruv from your rabbi does not replace your household eruv for personal cooking — many poskim require each home to make its own (ask your rav).
+
+Shofar & davening: eruv does not change shofar rules — shofar is blown on Yom Tov days of Rosh Hashana when not Shabbat, per your minhag and calendar.
+        """.trim(),
+        )
+    }
+
+    private fun eruvWhenLine(cal: DayInfo, profile: UserProfile, chagName: String): String = when {
+        isErevChagTwoDayYomTovBeforeShabbat(cal, profile) ->
+            "When: Today, before the first day of $chagName tomorrow — the next two days are Yom Tov, then Shabbat (set eruv on the day before the festival begins)."
+        isErevChagYomTovStartsBeforeShabbat(cal) ->
+            "When: Today (Friday) before Yom Tov candle lighting — $chagName begins tonight and Shabbat is tomorrow."
+        else ->
+            "When: Before Yom Tov begins — follow your Machzor for the exact time."
+    }
+
+    private fun yomTovFridayCookingBlock(cal: DayInfo, profile: UserProfile, chagName: String): String? {
+        if (!isYomTovFridayLeadsIntoShabbat(cal)) return null
+        return if (isRoshHashanaChag(cal, chagName)) {
+            BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.yomTovAndShabbat(),
+                """
+This year, today is Rosh Hashana on Friday and Shabbat begins tonight — the Yom Tov–Shabbat sequence is in progress.
+
+If you made eruv tavshilin before Rosh Hashana began:
+• You may cook and otherwise prepare food on Yom Tov today for Shabbat meals, within the limits above (food ready with time before Shabbat; no cooking for weekday or for the previous Yom Tov day).
+• Many prepare honey challah, fish, soup, and other Shabbat/Rosh Hashana dishes today.
+• Eruv check: Double-check that your eruv tavshilin foods are in a safe, visible, labeled spot — they are easily discarded during a frantic Friday afternoon prep rush.
+
+Shofar: blown today (if today is a Yom Tov day of Rosh Hashana and not Shabbat) per shul schedule — not on Shabbat itself.
+
+If you did not make eruv tavshilin: ask your rabbi immediately what you may still prepare for Shabbat.
+
+Shabbat tonight: before Friday afternoon fades into Shabbat, transfer a flame and light Shabbat candles before sunset. Yom Tov and Shabbat overlap today — do not wait until nightfall to light Shabbat candles.
+            """.trim(),
+            )
+        } else {
+            BeginnerHalachaGlossary.withKeyTerms(
+                BeginnerHalachaGlossary.yomTovAndShabbat(),
+                """
+This year, today is $chagName on Friday and Shabbat begins tonight — the Yom Tov–Shabbat sequence is in progress.
+
+Today on Yom Tov (if you made eruv tavshilin before the festival began):
+• You may cook and prepare for Shabbat meals today — within halachic limits (food ready with time to spare before Shabbat).
+• Finish preparations before Shabbat; set timers/blech as guided by your rav.
+
+If you have not made eruv tavshilin, ask your rabbi immediately.
+
+Shabbat tonight: before Friday afternoon fades into Shabbat, transfer a flame and light Shabbat candles before sunset — not after nightfall.
+            """.trim(),
+            )
+        }
+    }
+}

@@ -1,0 +1,26 @@
+
+=== latin-heavy he (7) top 30 ===
+  [0.75] 
+• $tomorrowNight night: you will count $nextDaySummary.
+       
+• בליל $tomorrowNight תספרו $nextDaySummary.
+  [0.73] $translatedSwitchedTo $languageName.
+$translatedPleaseNote
+       התרגום הוחלף ל-$languageName.
+$translatedPleaseNote
+  [0.49] {label} is available from dawn ({startTime}). Ideal at sunrise ({sunri
+       {label} זמין משחר ({startTime}). מומלץ בזריחה ({sunriseTime}) או אחר כך.
+  [0.42] You may open the app again $tzeitNote — $endLabel.
+       ניתן לפתוח שוב את האפליקציה $tzeitNote — $endLabel.
+  [0.41] Before chag — every erev Yom Tov:
+$sunsetLine
+$cookingLine
+• Turn off 
+       לפני חג — כל ערב יום טוב:
+$sunsetLine
+$cookingLine
+• כבו טלפונים ומכשירים לפני יום טוב — האפליקציה ל
+  [0.38] Many in Chabad count after Maariv (Tehillat Hashem).
+       רבים בחב"ד סופרים אחרי מעריב (Tehillat Hashem).
+  [0.37] {label} is available from dawn ({startTime}). Ideal from sunrise or la
+       {label} זמין משחר ({startTime}). מומלץ מזריחה ואילך.
