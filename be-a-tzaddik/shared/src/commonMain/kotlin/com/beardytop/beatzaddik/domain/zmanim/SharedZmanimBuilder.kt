@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik.domain.zmanim
 
+import com.beardytop.beatzaddik.domain.LocationElevation
 import com.beardytop.beatzaddik.domain.UserProfile
 import com.beardytop.beatzaddik.domain.ZmanimSnapshot
 import kotlinx.datetime.Instant
@@ -15,7 +16,8 @@ object SharedZmanimBuilder {
     fun build(nowMillis: Long, profile: UserProfile): ZmanimSnapshot? {
         val lat = profile.latitude ?: return null
         val lon = profile.longitude ?: return null
-        return buildForLocation(nowMillis, profile.timezoneId, lat, lon)
+        val elevation = LocationElevation.metersFor(profile)
+        return buildForLocation(nowMillis, profile.timezoneId, lat, lon, elevation)
     }
 
     fun buildForLocation(
@@ -23,22 +25,24 @@ object SharedZmanimBuilder {
         timezoneId: String,
         latitude: Double,
         longitude: Double,
+        elevationMeters: Double = 0.0,
     ): ZmanimSnapshot {
         val tz = TimeZone.of(timezoneId)
         val date = Instant.fromEpochMilliseconds(nowMillis).toLocalDateTime(tz).date
         val tomorrow = SolarZmanim.tomorrow(date)
+        val elev = elevationMeters
 
-        val sunrise = SolarZmanim.sunriseMillis(date, latitude, longitude)
-        val sunset = SolarZmanim.sunsetMillis(date, latitude, longitude)
+        val sunrise = SolarZmanim.sunriseMillis(date, latitude, longitude, elev)
+        val sunset = SolarZmanim.sunsetMillis(date, latitude, longitude, elev)
         val chatzos = SolarZmanim.solarNoonUtcMillis(date, latitude, longitude)
-        val tzeit = SolarZmanim.tzeitMillis(date, latitude, longitude)
-        val alot = SolarZmanim.alotHaShacharMillis(date, latitude, longitude)
-        val misheyakir = SolarZmanim.misheyakirMillis(date, latitude, longitude)
-        val sofShema = SolarZmanim.proportionalMillis(date, latitude, longitude, 3.0)
-        val sofTefilla = SolarZmanim.proportionalMillis(date, latitude, longitude, 4.0)
-        val minchaGedola = SolarZmanim.proportionalMillis(date, latitude, longitude, 6.5)
-        val plag = SolarZmanim.proportionalMillis(date, latitude, longitude, 10.75)
-        val nightEnd = SolarZmanim.alotHaShacharMillis(tomorrow, latitude, longitude)
+        val tzeit = SolarZmanim.tzeitMillis(date, latitude, longitude, elev)
+        val alot = SolarZmanim.alotHaShacharMillis(date, latitude, longitude, elev)
+        val misheyakir = SolarZmanim.misheyakirMillis(date, latitude, longitude, elev)
+        val sofShema = SolarZmanim.proportionalMillis(date, latitude, longitude, 3.0, elev)
+        val sofTefilla = SolarZmanim.proportionalMillis(date, latitude, longitude, 4.0, elev)
+        val minchaGedola = SolarZmanim.proportionalMillis(date, latitude, longitude, 6.5, elev)
+        val plag = SolarZmanim.proportionalMillis(date, latitude, longitude, 10.75, elev)
+        val nightEnd = SolarZmanim.alotHaShacharMillis(tomorrow, latitude, longitude, elev)
 
         return ZmanimSnapshot(
             misheyakirMillis = misheyakir,

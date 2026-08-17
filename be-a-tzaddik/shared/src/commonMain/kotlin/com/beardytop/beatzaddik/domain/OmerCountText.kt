@@ -2,6 +2,7 @@ package com.beardytop.beatzaddik.domain
 
 import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 
 /**
@@ -55,7 +56,7 @@ object OmerCountText {
     fun buildTitle(cal: DayInfo, nusach: EffectiveNusach, nowMillis: Long): String {
         val day = cal.omerDay ?: return "Count the Omer"
         val rolled = HalachicNightWindow.isOpen(cal, nowMillis)
-        val tonightEveningDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
+        val tonightEveningDate = civilEveningDateForOmerLabels(cal, rolled)
         val tonightDow = tonightEveningDate.dayOfWeek.shortDisplayName()
         val lastNightDow = tonightEveningDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.shortDisplayName()
         val tonightCount = if (rolled) day else day + 1
@@ -194,7 +195,7 @@ object OmerCountText {
         // After the tzeit rollover (through dawn) the DayInfo already describes the new Hebrew day:
         // tonight's (ongoing) count is `day` itself and the real civil evening is date - 1.
         val rolled = HalachicNightWindow.isOpen(cal, nowMillis)
-        val tonightDate = if (rolled) cal.date.plus(-1, DateTimeUnit.DAY) else cal.date
+        val tonightDate = civilEveningDateForOmerLabels(cal, rolled)
         val tonight = tonightDate.dayOfWeek.displayName()
         val lastNight = tonightDate.plus(-1, DateTimeUnit.DAY).dayOfWeek.displayName()
         val tomorrowNight = tonightDate.plus(1, DateTimeUnit.DAY).dayOfWeek.displayName()
@@ -286,6 +287,20 @@ How to count:
 
 ${'$'}nusachWhen
     """.trimIndent()
+
+    /**
+     * Civil evening date for "tonight"/"last night" labels.
+     *
+     * [DayInfo.startedTonightAtTzeit] is only true from tzeit until civil midnight — during that
+     * window [DayInfo.date] is already the correct civil evening date. Only the midnight-to-dawn
+     * tail (rolled, but startedTonightAtTzeit has flipped false) needs date - 1.
+     */
+    private fun civilEveningDateForOmerLabels(cal: DayInfo, nightWindowOpen: Boolean): LocalDate =
+        when {
+            !nightWindowOpen -> cal.date
+            cal.startedTonightAtTzeit -> cal.date
+            else -> cal.date.plus(-1, DateTimeUnit.DAY)
+        }
 
     private fun DayOfWeek.displayName(): String =
         name.lowercase().replaceFirstChar { it.uppercase() }

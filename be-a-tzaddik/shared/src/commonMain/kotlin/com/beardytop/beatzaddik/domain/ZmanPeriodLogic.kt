@@ -46,6 +46,14 @@ object ZmanPeriodLogic {
         zmanim.sunsetMillis ?: zmanim.tzeitMillis
 
     /**
+     * Nightfall (tzeit) for mitzvot that require stars / true night —
+     * Megillah night reading, Kiddush Levana, bedikat chametz, etc.
+     * Falls back to sunset only if tzeit is missing.
+     */
+    fun nightfallMitzvahStart(zmanim: ZmanimSnapshot): Long? =
+        zmanim.tzeitMillis ?: zmanim.sunsetMillis
+
+    /**
      * When the current evening obligation window began (or will begin).
      *
      * - After today's sunset: tonight's sunset.
@@ -54,6 +62,20 @@ object ZmanPeriodLogic {
      */
     fun effectiveEveningStart(nowMillis: Long, zmanim: ZmanimSnapshot): Long? {
         val todayStart = eveningMitzvahStart(zmanim) ?: return null
+        if (nowMillis >= todayStart) return todayStart
+
+        val dawn = zmanim.alotHaShacharMillis ?: zmanim.sunriseMillis
+        if (dawn != null && nowMillis < dawn) {
+            return todayStart - 24 * 60 * 60 * 1000L
+        }
+        return todayStart
+    }
+
+    /**
+     * Same shift rules as [effectiveEveningStart], but anchored at tzeit for true-night mitzvot.
+     */
+    fun effectiveNightfallStart(nowMillis: Long, zmanim: ZmanimSnapshot): Long? {
+        val todayStart = nightfallMitzvahStart(zmanim) ?: return null
         if (nowMillis >= todayStart) return todayStart
 
         val dawn = zmanim.alotHaShacharMillis ?: zmanim.sunriseMillis

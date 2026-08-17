@@ -1,5 +1,9 @@
 package com.beardytop.beatzaddik.domain
 
+import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+
 /**
  * Night-mitzvah window for the **current Hebrew day**.
  *
@@ -24,8 +28,23 @@ object HalachicNightWindow {
         }
         // After civil midnight: Hebrew day already advanced at last night's tzeit;
         // still "tonight" until dawn.
-        val dawn = dawnMillis(cal) ?: return false
-        return nowMillis < dawn
+        val dawn = dawnMillis(cal)
+        if (dawn != null) return nowMillis < dawn
+        // No zmanim/location on file -- fall back to the civil clock. Only the
+        // post-midnight sliver (00:00-05:00) of civil NIGHT counts as "still tonight";
+        // 20:00-midnight NIGHT is tomorrow's evening, not a continuation of last night.
+        if (cal.activeTimeOfDay != TimeOfDay.NIGHT) return false
+        val hour = localHour(nowMillis, cal.zmanim?.timezoneId) ?: return false
+        return hour < 5
+    }
+
+    private fun localHour(nowMillis: Long, timezoneId: String?): Int? {
+        if (timezoneId.isNullOrBlank()) return null
+        return runCatching {
+            Instant.fromEpochMilliseconds(nowMillis)
+                .toLocalDateTime(TimeZone.of(timezoneId))
+                .hour
+        }.getOrNull()
     }
 
     fun dawnMillis(cal: DayInfo): Long? =
@@ -37,5 +56,5 @@ object HalachicNightWindow {
      * and midnight→dawn do not point at the *next* nightfall.
      */
     fun nightStartMillis(nowMillis: Long, z: ZmanimSnapshot): Long? =
-        ZmanPeriodLogic.effectiveEveningStart(nowMillis, z) ?: z.tzeitMillis
+        ZmanPeriodLogic.effectiveNightfallStart(nowMillis, z) ?: z.tzeitMillis
 }

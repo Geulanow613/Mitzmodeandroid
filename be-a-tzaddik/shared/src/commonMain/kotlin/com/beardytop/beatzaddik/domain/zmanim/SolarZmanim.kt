@@ -30,13 +30,26 @@ internal object SolarZmanim {
     private const val ALOT_ZENITH = 90.0 + 16.1
     private const val MISHEYAKIR_ZENITH = 90.0 + 10.2
 
+    /** KosherJava AstronomicalCalculator earth radius (km) for elevation zenith adjustment. */
+    private const val EARTH_RADIUS_KM = 6356.9
+
     private enum class SolarEvent { SUNRISE, SUNSET, NOON }
 
-    fun sunriseMillis(date: LocalDate, latitude: Double, longitude: Double): Long? =
-        sunEventMillis(date, latitude, longitude, SUNRISE_ZENITH, SolarEvent.SUNRISE)
+    fun sunriseMillis(
+        date: LocalDate,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+    ): Long? =
+        sunEventMillis(date, latitude, longitude, SUNRISE_ZENITH, SolarEvent.SUNRISE, elevationMeters)
 
-    fun sunsetMillis(date: LocalDate, latitude: Double, longitude: Double): Long? =
-        sunEventMillis(date, latitude, longitude, SUNRISE_ZENITH, SolarEvent.SUNSET)
+    fun sunsetMillis(
+        date: LocalDate,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+    ): Long? =
+        sunEventMillis(date, latitude, longitude, SUNRISE_ZENITH, SolarEvent.SUNSET, elevationMeters)
 
     fun solarNoonUtcMillis(date: LocalDate, latitude: Double, longitude: Double): Long? {
         val jd = julianDay(date)
@@ -44,27 +57,52 @@ internal object SolarZmanim {
         return utcMinutesToEpochMillis(date, noonMin)
     }
 
-    fun tzeitMillis(date: LocalDate, latitude: Double, longitude: Double): Long? =
-        sunEventMillis(date, latitude, longitude, TZEIT_ZENITH, SolarEvent.SUNSET)
+    fun tzeitMillis(
+        date: LocalDate,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+    ): Long? =
+        sunEventMillis(date, latitude, longitude, TZEIT_ZENITH, SolarEvent.SUNSET, elevationMeters)
 
-    fun alotHaShacharMillis(date: LocalDate, latitude: Double, longitude: Double): Long? =
-        sunEventMillis(date, latitude, longitude, ALOT_ZENITH, SolarEvent.SUNRISE)
+    fun alotHaShacharMillis(
+        date: LocalDate,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+    ): Long? =
+        sunEventMillis(date, latitude, longitude, ALOT_ZENITH, SolarEvent.SUNRISE, elevationMeters)
 
-    fun misheyakirMillis(date: LocalDate, latitude: Double, longitude: Double): Long? =
-        sunEventMillis(date, latitude, longitude, MISHEYAKIR_ZENITH, SolarEvent.SUNRISE)
+    fun misheyakirMillis(
+        date: LocalDate,
+        latitude: Double,
+        longitude: Double,
+        elevationMeters: Double = 0.0,
+    ): Long? =
+        sunEventMillis(date, latitude, longitude, MISHEYAKIR_ZENITH, SolarEvent.SUNRISE, elevationMeters)
 
     fun proportionalMillis(
         date: LocalDate,
         latitude: Double,
         longitude: Double,
         halachicHour: Double,
+        elevationMeters: Double = 0.0,
     ): Long? {
-        val sunrise = sunriseMillis(date, latitude, longitude) ?: return null
-        val sunset = sunsetMillis(date, latitude, longitude) ?: return null
+        val sunrise = sunriseMillis(date, latitude, longitude, elevationMeters) ?: return null
+        val sunset = sunsetMillis(date, latitude, longitude, elevationMeters) ?: return null
         return sunrise + ((sunset - sunrise) * halachicHour / 12.0).toLong()
     }
 
     fun tomorrow(date: LocalDate): LocalDate = date.plus(1, DateTimeUnit.DAY)
+
+    /** Degrees added to zenith when elevation > 0 (KosherJava getElevationAdjustment). */
+    internal fun elevationAdjustmentDegrees(elevationMeters: Double): Double {
+        if (elevationMeters <= 0.0 || !elevationMeters.isFinite()) return 0.0
+        val elevKm = elevationMeters / 1000.0
+        val ratio = EARTH_RADIUS_KM / (EARTH_RADIUS_KM + elevKm)
+        if (ratio !in 0.0..1.0) return 0.0
+        return acos(ratio) * 180.0 / PI
+    }
 
     private fun sunEventMillis(
         date: LocalDate,
@@ -72,8 +110,16 @@ internal object SolarZmanim {
         longitude: Double,
         zenith: Double,
         event: SolarEvent,
+        elevationMeters: Double,
     ): Long? {
-        val utcMinutes = sunRiseSetUtcMinutes(date, latitude, -longitude, zenith, event)
+        // KosherJava: elevation adjusts geometric sunrise/sunset only -- not degree-based
+        // dips (tzeit 8.5, alot 16.1, misheyakir, etc.).
+        val adjustedZenith = if (zenith == SUNRISE_ZENITH) {
+            zenith + elevationAdjustmentDegrees(elevationMeters)
+        } else {
+            zenith
+        }
+        val utcMinutes = sunRiseSetUtcMinutes(date, latitude, -longitude, adjustedZenith, event)
         if (utcMinutes.isNaN()) return null
         return utcMinutesToEpochMillis(date, utcMinutes)
     }

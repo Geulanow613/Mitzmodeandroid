@@ -477,9 +477,9 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         when {
             wait != null && wait.endsAtEpochMillis <= now -> {
                 // Keep finished wait until the user clears it; refresh the “you can eat” notification.
-                deps.kashrut.showFinishedNotification(wait, prof)
+                deps.kashrut.showFinishedNotification(wait, prof, deps.calendar, now)
             }
-            wait != null -> deps.kashrut.scheduleEndNotification(wait, prof)
+            wait != null -> deps.kashrut.scheduleEndNotification(wait, prof, deps.calendar)
             else -> deps.kashrut.cancelNotification()
         }
         if (prof.useGps && prof.elevationMeters == null) {
@@ -791,7 +791,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
             val wait = deps.kashrut.startMeal(prof, category, Clock.System.now().toEpochMilliseconds())
             deps.repository.setKashrutWait(wait)
             if (scheduleNotification) {
-                deps.kashrut.scheduleEndNotification(wait, prof)
+                deps.kashrut.scheduleEndNotification(wait, prof, deps.calendar)
             }
         }
     }
@@ -829,7 +829,7 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
                 Clock.System.now().toEpochMilliseconds(),
             )
             deps.repository.setKashrutWait(wait)
-            deps.kashrut.scheduleEndNotification(wait, prof)
+            deps.kashrut.scheduleEndNotification(wait, prof, deps.calendar)
         }
     }
 
@@ -881,11 +881,11 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
         val now = Clock.System.now().toEpochMilliseconds()
         when {
             wait == null -> deps.kashrut.cancelNotification()
-            wait.endsAtEpochMillis <= now -> deps.kashrut.showFinishedNotification(wait, p)
-            p.showKashrutTimerNotification -> deps.kashrut.scheduleEndNotification(wait, p)
+            wait.endsAtEpochMillis <= now -> deps.kashrut.showFinishedNotification(wait, p, deps.calendar, now)
+            p.showKashrutTimerNotification -> deps.kashrut.scheduleEndNotification(wait, p, deps.calendar)
             else -> {
                 deps.kashrut.dismissStatusNotification()
-                deps.kashrut.scheduleEndNotification(wait, p)
+                deps.kashrut.scheduleEndNotification(wait, p, deps.calendar)
             }
         }
     }

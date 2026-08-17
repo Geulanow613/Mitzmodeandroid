@@ -25,12 +25,30 @@ class KashrutTimerService {
         }
     }
 
-    fun scheduleEndNotification(wait: KashrutWait, profile: UserProfile) {
+    fun scheduleEndNotification(wait: KashrutWait, profile: UserProfile, calendar: JewishCalendarService) {
+        if (fallsDuringShabbatOrYomTov(calendar, profile, wait.endsAtEpochMillis)) {
+            KashrutNotifications.cancel()
+            return
+        }
         KashrutNotifications.schedule(wait, profile)
     }
 
-    fun showFinishedNotification(wait: KashrutWait, profile: UserProfile) {
+    fun showFinishedNotification(wait: KashrutWait, profile: UserProfile, calendar: JewishCalendarService, nowMillis: Long) {
+        if (fallsDuringShabbatOrYomTov(calendar, profile, nowMillis)) {
+            return
+        }
         KashrutNotifications.showFinished(wait, profile)
+    }
+
+    private fun fallsDuringShabbatOrYomTov(
+        calendar: JewishCalendarService,
+        profile: UserProfile,
+        atMillis: Long,
+    ): Boolean {
+        val cal = calendar.dayInfoAt(atMillis, profile)
+        val tomorrowCal = calendar.dayInfoAt(atMillis + 24L * 60 * 60 * 1000L, profile)
+        return HolyDayPhoneRules.isShabbatMelachaWindow(cal, atMillis) ||
+            HolyDayPhoneRules.isYomTovMelachaWindow(cal, atMillis, tomorrowCal)
     }
 
     fun cancelNotification() {
