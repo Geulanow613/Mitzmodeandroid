@@ -20,6 +20,7 @@ import com.beardytop.beatzaddik.domain.LocationElevation
 import com.beardytop.beatzaddik.domain.LocationTimezone
 import com.beardytop.beatzaddik.platform.LocationResult
 import com.beardytop.beatzaddik.platform.KashrutNotifications
+import com.beardytop.beatzaddik.platform.NotificationAlarmRescheduler
 import com.beardytop.beatzaddik.platform.applyLauncherIcon
 import com.beardytop.beatzaddik.domain.ChecklistDebugDateFinder
 import com.beardytop.beatzaddik.domain.ChecklistDebugScenarios
@@ -471,17 +472,8 @@ class AppViewModel(private val deps: AppDependencies) : ViewModel() {
 
     private suspend fun runStartupMaintenance() {
         // Note: daily rollover is handled by the collector in init() using a tzeit-based key.
-        val now = Clock.System.now().toEpochMilliseconds()
-        val wait = deps.repository.kashrutWait.first()
+        NotificationAlarmRescheduler.rescheduleKashrut(deps)
         var prof = deps.repository.profile.first()
-        when {
-            wait != null && wait.endsAtEpochMillis <= now -> {
-                // Keep finished wait until the user clears it; refresh the “you can eat” notification.
-                deps.kashrut.showFinishedNotification(wait, prof, deps.calendar, now)
-            }
-            wait != null -> deps.kashrut.scheduleEndNotification(wait, prof, deps.calendar)
-            else -> deps.kashrut.cancelNotification()
-        }
         if (prof.useGps && prof.elevationMeters == null) {
             LocationElevation.backfillForProfile(prof)?.let { elevation ->
                 prof = prof.copy(elevationMeters = elevation)

@@ -40,6 +40,7 @@ object ChecklistEmbedBridge {
     fun preloadChecklistDependencies() {
         if (cachedDeps != null || preloadStarted) return
         preloadStarted = true
+        com.beardytop.beatzaddik.platform.KashrutNotifications.warmUp()
         scope.launch {
             runCatching { ensureDependencies() }
         }

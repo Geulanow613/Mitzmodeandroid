@@ -1,5 +1,6 @@
 package com.beardytop.beatzaddik
 
+import com.beardytop.beatzaddik.platform.KashrutNotifications
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -10,7 +11,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.ComposeUIViewController
 
+/** Swift can call this at `@main` init so cold-start notification taps hit the delegate. */
+fun warmUpKashrutNotifications() {
+    KashrutNotifications.warmUp()
+}
+
 fun MainViewController() = ComposeUIViewController {
+    KashrutNotifications.warmUp()
     val deps by ChecklistEmbedBridge.depsFlow.collectAsState()
     LaunchedEffect(Unit) {
         ChecklistEmbedBridge.ensureDependencies()

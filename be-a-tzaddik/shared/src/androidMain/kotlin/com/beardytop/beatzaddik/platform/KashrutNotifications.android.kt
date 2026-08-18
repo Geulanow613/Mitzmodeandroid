@@ -197,8 +197,7 @@ actual object KashrutNotifications {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
-        alarm.setAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
+        alarm.setExactAndAllowWhileIdleCompat(
             wait.endsAtEpochMillis,
             pending,
         )
@@ -378,4 +377,30 @@ fun postKashrutFinishedNotification(
         if (!vibrate) builder.setVibrate(null)
     }
     safeNotify(ctx, KASHRUT_STATUS_NOTIFICATION_ID, builder.build())
+}
+
+/**
+ * Prefer exact RTC wakeups so the meat/dairy wait ends on time while Doze is active.
+ * Falls back to inexact when the user has not granted SCHEDULE_EXACT_ALARM (Android 12+).
+ */
+private fun AlarmManager.setExactAndAllowWhileIdleCompat(
+    triggerAtMillis: Long,
+    operation: PendingIntent,
+) {
+    try {
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !canScheduleExactAlarms() -> {
+                setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation)
+            }
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
+                setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation)
+            }
+            else -> {
+                @Suppress("DEPRECATION")
+                setExact(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation)
+            }
+        }
+    } catch (_: SecurityException) {
+        setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAtMillis, operation)
+    }
 }
