@@ -19,6 +19,8 @@
     "New York": "ניו יורק",
     "Jerusalem": "ירושלים",
     "Brooklyn": "ברוקלין",
-    "Ezra SIL SR is the default for all siddur and blessing Hebrew. Ezra SIL fonts place vowels and cantillation cleanly.": "Ezra SIL SR הוא ברירת המחדל. בחרו גופן שמציג ניקוד (וטעמים, כשיש) בצורה ברורה לכל העברית בסידור ובברכות."
+    "Ezra SIL SR is the default for all siddur and blessing Hebrew. Ezra SIL fonts place vowels and cantillation cleanly.": "Ezra SIL SR הוא ברירת המחדל. בחרו גופן שמציג ניקוד (וטעמים, כשיש) בצורה ברורה לכל העברית בסידור ובברכות.",
+    "\n(Location permission is off — open Location permission and allow While Using the App. iOS needs this for the compass heading.)": "\n(הרשאת מיקום כבויה — פתחו את הרשאת המיקום ואפשרו ״בעת השימוש באפליקציה״. ב-iOS זה נדרש לקריאת כיוון המצפן.)",
+    "\n(No phone location yet — allow Location permission. A listed city is not used for the compass.)": "\n(אין עדיין מיקום מהטלפון — אפשרו הרשאת מיקום. עיר מהרשימה אינה משמשת למצפן.)"
   }
 }
