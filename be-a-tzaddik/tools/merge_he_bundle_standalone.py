@@ -79,6 +79,10 @@ PRIORITY_LAST = [
     "he_native_short_ui_and_strings.json",
     "he_native_checklist_pass.json",
     "he_native_master_polish.json",
+    "he_native_guide_batch_a.json",
+    "he_native_guide_batch_b.json",
+    "he_native_guide_batch_c.json",
+    "he_native_guide_fluency.json",
 ]
 
 LATIN_IN_HE = re.compile(r"(?<![\u0590-\u05FF\{])([A-Za-z]{4,})(?![\u0590-\u05FF\}])")
