@@ -159,8 +159,15 @@ def main() -> int:
     if LEGACY.exists():
         merged.update(load_json(LEGACY).get("entries", {}))
 
-    paths = sorted(p for p in HUMAN.glob("*.json") if not should_skip_human_file(p.name) and p.name not in PRIORITY_LAST)
+    paths = sorted(
+        p
+        for p in HUMAN.glob("*.json")
+        if not should_skip_human_file(p.name)
+        and p.name not in PRIORITY_LAST
+        and not p.name.startswith("he_fluency_")
+    )
     paths += [HUMAN / n for n in PRIORITY_LAST if (HUMAN / n).is_file()]
+    paths += sorted(HUMAN.glob("he_fluency_*.json"))
 
     loaded = 0
     for path in paths:
@@ -171,6 +178,10 @@ def main() -> int:
             print(f"WARN skip {path.name}: {exc}", file=sys.stderr)
 
     entries: dict[str, str] = {key: merged.get(key, key) for key in required}
+    # Keep shipped keys that are not in the extractor catalog (siddur labels, etc.).
+    for key, value in before_entries.items():
+        if key not in entries:
+            entries[key] = merged.get(key, value)
     stats = bundle_stats(required, entries)
     suspicious = [k for k, v in entries.items() if v != k and is_suspicious_hebrew(v)]
     missing_short = top_missing_short_ui(required, entries)
