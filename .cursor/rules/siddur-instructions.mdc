@@ -1,0 +1,28 @@
+---
+description: Siddur stage directions use gold instruction cues, never liturgy typeface
+alwaysApply: true
+---
+
+# Siddur instructions ≠ liturgy text
+
+Who-says-what, stand/bow/kiss-tzitzit, and similar stage directions must look like **cues**, not like the prayer.
+
+## Where they go
+
+- Field: `SiddurLiturgyStep.instructionEn` (English source; Hebrew UI via `SiddurInstructionHe` / catalog).
+- Instruction-only step: `SiddurLiturgyStep(instructionEn = "…")` with **no** `hebrew` / `english`.
+- Reader: `SiddurCueText` in `SiddurReaderDialog` — small **gold italic** (`labelSmall`), not the siddur Hebrew font.
+
+Render order is already `instructionEn` → blessing cue → Hebrew → English.
+
+## Do
+
+- Peel pack-dump editor notes, section titles, and “if you finish before the chazzan” lines **out of** `hebrew`/`english` into `instructionEn` (`SiddurInsertText`, `SiddurMinyanNotes`).
+- Keep cues brief. Add the Hebrew line in `SiddurInstructionHe` when the app UI is Hebrew.
+
+## Do not
+
+- Glue a stage direction onto the liturgy paragraph (`hebrew` / `english`) so it uses the prayer typeface.
+- Invent a second instruction channel in the reader composable.
+- Style a cue as purple INSERT unless it is a real calendar `occasionInsert`.
+- Put a cue in `hebrew` so it “shows in Hebrew-only mode” — `instructionEn` already shows in Hebrew-only via `SiddurCueText`.

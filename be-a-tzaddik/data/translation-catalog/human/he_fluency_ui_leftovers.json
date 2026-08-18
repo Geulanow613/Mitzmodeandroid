@@ -1,0 +1,24 @@
+{
+  "he": {
+    "Nusach: Other (general customs)": "נוסח: אחר (מנהגים כלליים)",
+    "Getting location…": "מאתרים מיקום…",
+    "Location: {place}. Using timezone {tz}.": "מיקום: {place}. אזור הזמן: {tz}.",
+    "Location: {place}. Using timezone {tz} (matched from nearby city).": "מיקום: {place}. אזור הזמן: {tz} (לפי עיר קרובה).",
+    "Using timezone {tz}.": "אזור הזמן: {tz}.",
+    "Using timezone {tz} (matched from nearby city).": "אזור הזמן: {tz} (לפי עיר קרובה).",
+    "Using {place} for zmanim": "זמנים לפי {place}",
+    "System default": "ברירת המחדל של המכשיר",
+    "Best for niqqud & trope positioning (SIL). Recommended default.": "הכי מדויק לניקוד ולטעמים (SIL). ברירת המחדל המומלצת.",
+    "Classic Biblia Hebraica (BHS) look — same marks, different cantillation style.": "מראה קלאסי של Biblia Hebraica (BHS) — אותם סימנים, סגנון טעמים שונה.",
+    "Clear scholarly serif; strong niqqud, good on screens.": "סריף ברור וקריא; ניקוד חזק, נוח על המסך.",
+    "Modern, very readable Google face (lighter trope coverage).": "גופן Google מודרני וקריא מאוד (כיסוי טעמים חלקי יותר).",
+    "Device font — may crowd vowels / miss trope glyphs.": "גופן המכשיר — עלול לדחוס ניקוד או להחסיר גליפי טעמים.",
+    "By the way, what is Mitz Mode?": "אגב, מה זה \u2066\u200eMitz Mode\u200e\u2069?",
+    "What's Mitz Mode?": "מה זה \u2066\u200eMitz Mode\u200e\u2069?",
+    "Los Angeles": "לוס אנג׳לס",
+    "New York": "ניו יורק",
+    "Jerusalem": "ירושלים",
+    "Brooklyn": "ברוקלין",
+    "Ezra SIL SR is the default for all siddur and blessing Hebrew. Ezra SIL fonts place vowels and cantillation cleanly.": "Ezra SIL SR הוא ברירת המחדל. בחרו גופן שמציג ניקוד (וטעמים, כשיש) בצורה ברורה לכל העברית בסידור ובברכות."
+  }
+}
