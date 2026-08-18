@@ -1,7 +1,7 @@
 {
   "he": {
     "\"Rock of Ages,\" Chanukah hymn sung after lighting": "\"מעוז צור\", שיר חנוכה הנשיר לאחר ההדלקה",
-    "\"guard (Shabbat)\" from the Deuteronomy version of the Ten Commandments": "«שמור (שבת)» מנוסח דברים של עשרת הדיברות",
+    "\"guard (Shabbat)\" from the Deuteronomy version of the Ten Commandments": "״שמור (שבת)״ מנוסח דברים של עשרת הדיברות",
     "$translatedSwitchedTo $languageName.\n$translatedPleaseNote": "$translatedSwitchedTo $languageName.\n$translatedPleaseNote",
     "(?i)(?<![A-Za-z0-9'])${Regex.escape(word)}(?![A-Za-z0-9'])": "(?i)(?<![A-Za-z0-9'])${Regex.escape(word)}(?![A-Za-z0-9'])",
     "(translations may not be perfect)": "(התרגומים עשויים שלא להיות מושלמים)",

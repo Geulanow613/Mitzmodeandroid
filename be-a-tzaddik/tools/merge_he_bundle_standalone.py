@@ -70,6 +70,15 @@ PRIORITY_LAST = [
     "he_grok_siddur_cues.json",
     "he_grok_app_tour.json",
     "he_grok_ui_sweep.json",
+    "he_grok_learn_upcoming.json",
+    "he_grok_shabbat_guide.json",
+    "he_native_ui_polish.json",
+    "he_native_holidays_explainers.json",
+    "he_native_halacha_glossary.json",
+    "he_native_learn_and_mixed.json",
+    "he_native_short_ui_and_strings.json",
+    "he_native_checklist_pass.json",
+    "he_native_master_polish.json",
 ]
 
 LATIN_IN_HE = re.compile(r"(?<![\u0590-\u05FF\{])([A-Za-z]{4,})(?![\u0590-\u05FF\}])")
