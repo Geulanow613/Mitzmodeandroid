@@ -1,0 +1,33 @@
+---
+description: Repository architecture: sharedmodule is the primary source of truth for Mitz Mode KMP, Android/iOS code, and runtime translations
+alwaysApply: true
+---
+
+# Repository Architecture: `sharedmodule` is Primary
+
+The core runtime codebase for **Mitz Mode** (Android + iOS) is housed in **`sharedmodule/`**.
+
+## Workspace Structure & Repositories
+
+1. **`sharedmodule/` — PRIMARY REPO (One Source of Truth)**
+   - Git remote: `https://github.com/Geulanow613/sharedmodule.git` (branch `main`).
+   - Contains all Kotlin Multiplatform (KMP) shared code: Compose UI screens, Siddur liturgy & reader engine, zmanim, calendar calculations, domain models, tests, and Compose Resources.
+   - **Runtime bundled translations**: `sharedmodule/shared/src/commonMain/composeResources/files/translations/he.json` (and other languages) is the actual file loaded by the apps at runtime.
+   - Both Android (`MitzModeAndroid`) and iOS (`mitzmodeios`) consume `sharedmodule/shared` directly.
+
+2. **`c:\apps\hehehe\` (Root Workspace) — `Mitzmodeandroid` Repo**
+   - Git remote: `https://github.com/Geulanow613/Mitzmodeandroid.git` (branch `master`).
+   - Host workspace containing the Android app shell (`:app`), Gradle root configuration, baseline profile, and gitignores the nested `sharedmodule/` repo checkout.
+
+3. **`be-a-tzaddik/` — SECONDARY / TOOLING & DATA CATALOG**
+   - Auxiliary tooling and source catalog repository.
+   - Houses human translation catalog shards (`be-a-tzaddik/data/translation-catalog/human/`) and data generation/merge scripts (`be-a-tzaddik/tools/`).
+   - When updating translations, shards are edited in `be-a-tzaddik/` and compiled/merged directly into `sharedmodule/shared/src/commonMain/composeResources/files/translations/he.json`.
+
+## Hard Rules for Agents
+
+- **Always prioritize `sharedmodule` for app logic & resources**: Any feature, bug fix, liturgy adjustment, UI text, or translation change that runs in the app must be present in `sharedmodule/`.
+- **Separate Git Repositories**:
+  - `sharedmodule` has its own `.git` directory (`origin/main`). Committing in the root `Mitzmodeandroid` workspace does **NOT** commit changes in `sharedmodule`.
+  - Always run git commands (`git status`, `git diff`, `git commit`, `git push`) inside `sharedmodule/` when modifying shared code or runtime translations.
+- **Do not duplicate or fork**: Never copy code between `be-a-tzaddik/shared` and `sharedmodule/shared` manually; treat `sharedmodule` as the definitive authority.

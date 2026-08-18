@@ -1,0 +1,27 @@
+---
+description: App is off on Shabbat/Yom Tov — never design for phone use those days
+alwaysApply: true
+---
+
+# No Shabbat / Yom Tov phone use
+
+Mitz Mode **turns itself off** on Shabbat and Yom Tov (melacha-forbidden days). The user **cannot and does not** use the app then.
+
+## Hard rules for agents
+
+- **Never** spend time on Shabbat or Yom Tov “what if they’re using the phone” edge cases.
+- **Never** add weekday-siddur / checklist / UI logic whose only purpose is Shabbat or Yom Tov davening or in-app use that day.
+- Treat Shabbat and Yom Tov (including both days of Rosh Hashanah, Yom Kippur, etc.) as **out of scope for runtime app use**.
+- When gating liturgy or features by calendar, reason about **weekday / Motzei / Erev** windows the user can actually open the app — not “during Shabbat Amidah” or “during YK machzor on the phone.”
+
+## Examples of wasted work (do not do)
+
+- Special-casing silent Amidah / Tachanun / inserts “if today is Shabbat”
+- Motzei-unlock flows whose only goal is phone use while still tagged Shabbat/YT for davening
+- Debating Israel vs chutz phone use **on** Yom Tov itself
+
+## What is still in scope
+
+- **Erev** Shabbat/YT and **Motzei** (after tzeit) weekday behavior — the app is on
+- Calendar labels, prep checklists, and “tonight begins…” logic that run **before** or **after** the forbidden day
+- Knowing a day **is** Shabbat/YT so the app stays off / hides phone features — not so the siddur works that day

@@ -1,0 +1,38 @@
+---
+description: Keep siddur assemble/reader hot paths fast when changing liturgy or English
+alwaysApply: true
+---
+
+# Siddur performance — hot-path rules
+
+Any siddur change (pack JSON, English translation, liturgy gate, solo/minyan filter, specialize logic) must follow the performance patterns already in this codebase. The reader runs over **every leaf** at assemble/specialize time — avoid work that scales with scroll or recompiles regex per step.
+
+## Hot paths (do not slow these down)
+
+- `SiddurAssembler.assemble` → `SiddurInsertText.specialize` on each block
+- `SiddurLiturgyEnglish.polish` / `expandLeaderSayCues` (every leaf with English — **including Selichot**)
+- `SiddurCommunalText`, `SiddurHallelText`, `SiddurAshreiText`, and other `*Text.kt` specialists
+- Reader filters (`SiddurSoloMode`, `SiddurMinyanNotes` step cues) when toggling solo mode
+
+## Required patterns
+
+1. **Cheap gate first** — `contains`, `in`, or blank checks on block id/title before touching body text.
+2. **Precompiled regex** — `private val FOO = Regex(...)` on the object; never `Regex(...)` inside per-step/per-block loops.
+3. **Hebrew matching** — prefer `lettersOnly()` / nikud-stripped plain strings + `indexOf`, not regex on full nikud text.
+4. **Return unchanged** — if nothing mutated, return the same `SiddurBlock` / `SiddurLiturgyStep` instance (see `SiddurLiturgyEnglish.polish`).
+5. **English cleanup** — new Selichot / dump / stage-direction patterns belong in `SiddurLiturgyEnglish` (or the right `*Text.kt`), with a `needsX()` gate so untouched blocks skip work entirely.
+
+## When adding English needles (Selichot, Half Hallel, Kaddish, etc.)
+
+- Add **compiled** patterns + a cheap substring gate (`en.contains("…")`) before regex.
+- Widen needles in the existing specialist (`SiddurHallelText`, `SiddurMinyanNotes`, `SiddurSoloMode`) — do not add one-off scans in UI composables.
+- Verify with a **pack-backed** test block, not a toy stub.
+
+## Anti-patterns (do not introduce)
+
+- `Regex(...)` inside `map`/`forEach` over steps or blocks
+- Re-lowercasing or re-filtering the same string multiple times in one function
+- Full-text regex over multi-KB mega-blocks when id/title or a short prefix gate would suffice
+- New per-frame string work in `SiddurReaderDialog` — filter in `remember(...)` keys, not in lazy list item lambdas without caching
+
+Reference implementation: `SiddurLiturgyEnglish` header comment and `SiddurInsertText` top-level `private val` regex fields.

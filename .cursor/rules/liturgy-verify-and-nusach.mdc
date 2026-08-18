@@ -1,0 +1,24 @@
+---
+description: Verify liturgy fixes with runtime evidence; Nusach Sefard is not Sephardi
+alwaysApply: true
+---
+
+# Liturgy: verify fixes; Sefard ≠ Edot
+
+## Double-check after you “fix”
+
+Do not treat a code change as done. For each liturgy/halacha fix that is not obviously mechanical (typo, comment, one-line rename):
+
+- Assemble or specialize the real pack block (or a fixture copied from pack text), not only a toy stub.
+- Assert **Hebrew and English** for omit/keep (needles that actually appear in that nusach’s JSON).
+- Cover the days/slots/nusachim the rule claims — including **Sefard and Edot separately**.
+- If you previously said something was fixed, re-read the gate + a pack-backed test before moving on.
+
+Skip this only for changes that cannot silently fail (e.g. deleting a duplicate comment).
+
+## Nusach Sefard vs Edot HaMizrach
+
+- **Nusach Sefard** (`EffectiveNusach.SEFARD`) is Hasidic / Eastern-Ashkenaz shaped (like many Polish/Chassidic siddurim). It is **not** Sephardi.
+- **Edot HaMizrach** (`EffectiveNusach.EDOT_HAMIZRACH`) is the Sephardi rite.
+- Never copy a “Sephardi” din onto Sefard, or an Ashkenaz/Hasidic din onto Edot, without checking.
+- Typical split: TBA morning tefillin — Ashkenaz/Chabad/Sefard omit; Edot often wear. Avinu on ordinary fasts — Ashkenaz/Chabad/Sefard yes; Edot Aseret (+ Erev YK) only.
