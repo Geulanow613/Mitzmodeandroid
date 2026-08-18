@@ -71,7 +71,7 @@ def load_human() -> dict[str, dict[str, str]]:
     human_dir = ROOT / "data" / "translation-catalog" / "human"
     if not human_dir.exists():
         return merged
-    skip_argos = {"quality_fixes.json", "es_fr_ru_retranslate.json", "es_fr_ru_polish.json"}
+    skip_argos = {"quality_fixes.json", "es_fr_ru_retranslate.json", "es_fr_ru_polish.json", "shabbat_guide.json"}
     skip_work = {p.name for p in human_dir.glob("*_only.json")}
     skip_work |= {p.name for p in human_dir.glob("*_src.json")}
     skip_work |= {p.name for p in human_dir.glob("_*")}
@@ -83,6 +83,7 @@ def load_human() -> dict[str, dict[str, str]]:
         "quality_overrides.json",
         "ui_templates.json",
         "shabbat_guide_ui.json",
+        "shabbat_guide_he_polish.json",
         "shabbat_guide_polish.json",
         "glossary_polish.json",
         "hebrew_terms.json",

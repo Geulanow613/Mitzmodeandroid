@@ -1,0 +1,33 @@
+{
+  "he": {
+    "Let's go!": "קדימה!",
+    "Close tour": "סגירת הסיור",
+    "Step {current} of {total}": "שלב {current} מתוך {total}",
+    "Welcome to Mitz Mode": "ברוכים הבאים למיץ מוד",
+    "Welcome to Mitz Mode!": "ברוכים הבאים למיץ מוד!",
+    "Your daily companion for Torah-observant living. Ready to level up your spiritual growth? Here is a quick tour of how the app keeps you in-the-know, tracks your daily mitzvot, and brings you closer to your Creator with every tap!": "השותף היומי שלכם לחיים שומרי תורה. מוכנים לגדול? סיור קצר — איך האפליקציה משאירה אתכם בעניינים, עוקבת אחרי מצוות היום, ומקרבת בכל לחיצה.",
+    "Today & what’s coming": "היום ומה בהמשך",
+    "Up here you’ll find the date, Hebrew calendar, and upcoming Jewish holidays and observances. The app uses GPS (or your chosen city) to calculate accurate zmanim — prayer times, candle lighting, seasonal items, and more — for where you are.": "כאן למעלה: התאריך, הלוח העברי, וחגים וימים מיוחדים שמתקרבים. האפליקציה משתמשת ב־GPS (או בעיר שבחרתם) לזמנים מדויקים — תפילות, הדלקת נרות, פריטים עונתיים ועוד — לפי המקום שלכם.",
+    "Your checklist": "הרשימה שלכם",
+    "Down here is today’s checklist. Mitzvot appear as they become available. Check them off as you complete them — they usually reset at nightfall (tzeit), but the exact window depends on each mitzvah.": "כאן למטה רשימת היום. מצוות מופיעות כשהן נפתחות. סמנו כשסיימתם — בדרך כלל מתאפסות בלילה (צאת הכוכבים), אבל החלון המדויק תלוי במצווה.",
+    "Mitzvah explainers": "הסבר על המצווה",
+    "Tap here for a more in-depth explanation of the mitzvah, and how to observe it.": "לחצו כאן להסבר מעמיק יותר על המצווה, ואיך מקיימים אותה.",
+    "Jump to the siddur": "ישר לסידור",
+    "For prayer mitzvot, click on the blue siddur to zip over to that prayer in the Mitz Mode Siddur. It’s so easy! Halleluyah!": "במצוות תפילה, לחצו על הסידור הכחול כדי לקפוץ ישר לתפילה בסידור מיץ מוד. כזה פשוט. הללויה!",
+    "Mitzvah button": "כפתור מצווה",
+    "Tap the center Mitzvah button anytime for a mitzvah you can do right now — Torah learning, prayer, good deeds, and more. Instant inspiration when you want it. Got a couple minutes in an elevator? Now you can pop a mitzvah into your life!": "לחצו על כפתור המצווה באמצע בכל רגע — מצווה שאפשר לעשות עכשיו: לימוד תורה, תפילה, מעשים טובים ועוד. השראה מיידית כשצריכים. יש כמה דקות במעלית? אפשר להכניס מצווה ליום.",
+    "Kashrut timer": "טיימר כשרות",
+    "Ate meat or dairy? Start a wait timer here so you know when it’s time for the next meal category — calm, clear kashrut timing without guesswork.": "אכלתם בשר או חלב? הפעילו כאן טיימר המתנה כדי לדעת מתי מותר הקטגוריה הבאה — זמני כשרות ברורים, בלי ניחושים.",
+    "Pray": "תפילה",
+    "The Pray tab opens the weekday siddur and everyday blessings — Shacharit, Mincha, Maariv, Musaf when needed, food brachot, Birkat Hamazon, and more. You’re all set. Let’s go make some light!": "לשונית תפילה פותחת את סידור החול וברכות יומיום — שחרית, מנחה, ערבית, מוסף כשצריך, ברכות הנהנין, ברכת המזון ועוד. אתם מסודרים. בואו נעשה אור!",
+    "Your daily companion for Torah-observant living! Here’s a quick tour of the tools that help you grow — one mitzvah at a time.": "השותף היומי שלכם לחיים שומרי תורה! סיור קצר בכלים שעוזרים לגדול — מצווה ועוד מצווה.",
+    "Holy Light Checklist": "רשימת היום",
+    "This is your smart daily checklist. When you complete a mitzvah, check it off! Tap any item for clear explainers and how-tos. GPS powers live zmanim so you know when to daven, light candles, and keep the day’s mitzvot in sync with Heaven’s clock.": "זו רשימת היום החכמה. כשמסיימים מצווה — מסמנים. לחצו על פריט להסברים ברורים ואיך לקיים. GPS מפעיל זמנים חיים, כדי לדעת מתי להתפלל, להדליק נרות, ולסנכרן את מצוות היום עם השעון של שמיים.",
+    "Meat & Dairy Timer": "טיימר בשר וחלב",
+    "Ate meat or dairy? Start the wait timer here so you know when it’s time for the next meal category — no guessing, just calm kashrut confidence.": "אכלתם בשר או חלב? הפעילו כאן את טיימר ההמתנה כדי לדעת מתי מותר הקטגוריה הבאה — בלי ניחושים, כשרות רגועה וברורה.",
+    "Need the weekday siddur, a bracha before or after food, Birkat Hamazon, or the Traveler’s Prayer? The Pray tab keeps the words ready whenever you need them.": "צריכים סידור חול, ברכה לפני האוכל או אחריו, ברכת המזון או תפילת הדרך? לשונית תפילה מחזיקה את הנוסח מוכן כשצריכים.",
+    "Tap the glowing center button anytime for a fresh mitzvah suggestion — instant inspiration when you want something meaningful to do right now.": "לחצו על הכפתור הזוהר באמצע בכל רגע להצעת מצווה חדשה — השראה מיידית כשרוצים משהו משמעותי לעשות עכשיו.",
+    "Your progress": "ההתקדמות שלכם",
+    "Watch your mitzvah count climb here — and open Status anytime to see your level and celebrate how far you’ve come. Ready? Let’s go make some light!": "כאן עולה מונה המצוות — ובסטטוס אפשר לראות את הרמה ולחגוג כמה שהתקדמתם. מוכנים? בואו נעשה אור!"
+  }
+}

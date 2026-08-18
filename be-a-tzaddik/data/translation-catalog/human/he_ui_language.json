@@ -1,0 +1,16 @@
+{
+  "he": {
+    "Language": "שפה",
+    "App language": "שפת האפליקציה",
+    "Choose English or Hebrew for the whole app.": "בחרו אנגלית או עברית לכל האפליקציה.",
+    "Enable Translation": "הפעל תרגום",
+    "Show the app in a language other than English": "הציגו את האפליקציה בשפה שאינה אנגלית",
+    "Select Language": "בחרו שפה",
+    "English": "אנגלית",
+    "Offline languages": "שפות במצב לא מקוון",
+    "No internet required": "אינטרנט לא נדרש",
+    "Current: {native} ({english})": "כרגע: {native} ({english})",
+    "All languages (online) →": "כל השפות (מקוון) →",
+    "Online languages use Google Translate. Quality varies.": "שפות מקוון משתמשות ב-Google Translate. האיכות משתנה."
+  }
+}

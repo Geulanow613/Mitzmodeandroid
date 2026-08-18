@@ -1,0 +1,14 @@
+{
+  "he": {
+    "Musaf (Rosh Chodesh / Chol HaMoed)": "מוסף (ראש חודש / חול המועד)",
+    "Taharat Hamishpacha (Family Purity Laws)": "טהרת המשפחה (דיני טהרה)",
+    "If you're still looking for the right marriage partner, try contacting your local Shadchan (matchmaker). There's a new free service to help match Jewish singles together from the good people at Merkaz Daf Yomi. You can check it out [here](https://mdydaf.com/shidduch).": "אם אתם עדיין מחפשים את בן/בת הזוג המתאים/ה, נסו לפנות לשדכן/ית מקומי/ת. יש שירות חינמי חדש לחיבור רווקים יהודים מ«מרכז דף יומי». אפשר לבדוק [כאן](https://mdydaf.com/shidduch).",
+    "Musaf is an additional Amidah after Shacharit on days that had a musaf offering in the Temple — Rosh Chodesh, Shabbat, Yom Tov, and Chol HaMoed. It includes the same core structure as weekday Amidah with a special middle blessing for the day's sanctity.": "מוסף הוא עמידה נוספת אחרי שחרית בימים שבהם הוקרב קרבן מוסף במקדש — ראש חודש, שבת, יום טוב וחול המועד. מבנה דומה לעמידת חול, עם ברכת אמצע מיוחדת לקדושת היום.",
+    "Note: This app assumes that if you selected Married, you are married to a Jewish spouse of the opposite gender. If that is not your situation, these laws do not apply.": "הערה: האפליקציה מניחה שאם בחרתם «נשוי/אה», אתם נשואים לבן/בת זוג יהודי/ה מהמין השני. אם זה לא המצב שלכם — הדינים האלה אינם חלים.",
+    "Shabbat is the holiest day of the week — the Jewish Sabbath. It begins at sunset on Friday and ends when three stars are visible on Saturday night.": "שבת היא היום הקדוש ביותר בשבוע — יום המנוחה היהודי. מתחילה בשקיעה ביום שישי ומסתיימת כששלושה כוכבים נראים במוצאי שבת.",
+    "Birkat Hachamah in $days days — $dateLabel. Plan to recite outdoors at sunrise.": "ברכת החמה בעוד $days ימים — $dateLabel. תכננו לאמרה בחוץ בזריחה.",
+    "Today — Birkat Hachamah at sunrise ($dateLabel). Recite outdoors while viewing the sun.": "היום — ברכת החמה בזריחה ($dateLabel). אמרו בחוץ תוך התבוננות בשמש.",
+    "Recite Birkat Hachamah outdoors at sunrise while viewing the sun.": "אמרו ברכת החמה בחוץ בזריחה תוך התבוננות בשמש.",
+    "Birkat Hachamah": "ברכת החמה"
+  }
+}
