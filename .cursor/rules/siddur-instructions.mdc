@@ -18,7 +18,7 @@ Render order is already `instructionEn` → blessing cue → Hebrew → English.
 ## Do
 
 - Peel pack-dump editor notes, section titles, and “if you finish before the chazzan” lines **out of** `hebrew`/`english` into `instructionEn` (`SiddurInsertText`, `SiddurMinyanNotes`).
-- Keep cues brief. Add the Hebrew line in `SiddurInstructionHe` when the app UI is Hebrew.
+- Keep cues brief. When the app UI is Hebrew, show the Hebrew line from `SiddurInstructionHe` (JSON pack cues in `SiddurInstructionHePack`, Kotlin notes in `SiddurInstructionHeNotes`) — Hebrew only, not English beside it.
 
 ## Do not
 

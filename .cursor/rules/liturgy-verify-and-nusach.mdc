@@ -11,6 +11,7 @@ Do not treat a code change as done. For each liturgy/halacha fix that is not obv
 
 - Assemble or specialize the real pack block (or a fixture copied from pack text), not only a toy stub.
 - Assert **Hebrew and English** for omit/keep (needles that actually appear in that nusach’s JSON).
+- **Full English**: every liturgy Hebrew line has a matching full English line (not a stub). See `siddur-complete-liturgy`.
 - Cover the days/slots/nusachim the rule claims — including **Sefard and Edot separately**.
 - If you previously said something was fixed, re-read the gate + a pack-backed test before moving on.
 

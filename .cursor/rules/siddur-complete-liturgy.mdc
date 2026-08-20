@@ -1,0 +1,30 @@
+---
+description: Never omit standard siddur liturgy; every Hebrew line needs full English
+alwaysApply: true
+---
+
+# Siddur: complete liturgy, full English
+
+You are **not allowed** to leave out pieces that a standard siddur of that nusach includes, or to ship Hebrew without a full English rendering. “We’ll add the rest later” is not done.
+
+## Do not omit
+
+When adding or fixing a section, include **every** piece that belongs in that slot for that nusach: opening, the day’s piyut, כל יום extras, hakafa pesukim, closers. Check Wikisource / Tehillat Hashem / a printed machzor — not a shortened hybrid from memory.
+
+Shabbat and Yom Tov **phone use** stays out of scope (`no-shabbat-yomtov-phone`). That does **not** excuse dropping weekday / Chol HaMoed / Hoshanah Rabbah pieces the user can actually daven in-app.
+
+Sefard ≠ Edot. Ashkenaz ≠ Chabad. Do not blend cycles.
+
+## Full English (not stubs)
+
+Every liturgy `hebrew` line on a `SiddurLiturgyStep` / pack leaf must have a matching `english` line that **translates that Hebrew** — same line count, full sense.
+
+Not a caption, not two words for a long line, not `…` / `etc.` / “see your siddur”. `הוֹשַׁע נָא.` → “Save, please.” is fine; a whole piyut line → “Save, please.” is not.
+
+Stage directions stay in `instructionEn` (`siddur-instructions`). Cues are not a substitute for translating the prayer.
+
+## Done means
+
+- Diffed against a real siddur page for that nusach, not “close enough.”
+- Pack-backed test: keep/omit needles **and** paired HE/EN with a non-stub English check (word-count vs Hebrew length).
+- If you previously truncated it, restore the missing Hebrew **and** the missing English in the same change.
