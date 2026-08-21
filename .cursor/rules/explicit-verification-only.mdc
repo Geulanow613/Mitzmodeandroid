@@ -1,0 +1,36 @@
+---
+description: Verify only what the user named; never substitute another source
+alwaysApply: true
+---
+
+# Explicit verification only — no substitutes
+
+When the user asks you to **check**, **verify**, **compare**, or **audit** against a **specific** source (URL, book, page, edition, file, screenshot), you must use **only that source** for that verification task.
+
+## Hard rules
+
+1. **Check only what they named.** Do not broaden scope (e.g. “full Chabad siddur”) unless they explicitly asked for that scope.
+2. **Never substitute.** If the named source is blocked, garbled, paywalled, or unreadable, you **must not** replace it with Open Siddur, Chabad.org, Wikisource, another edition, “our pack,” memory, or any other stand-in and call that the same check.
+3. **Say so plainly.** Report: what you could not read, what you did **not** verify, and stop — or ask the user for a different **explicit** source or permission to use a named alternative.
+4. **No silent retargeting.** Do not plan or execute “I’ll verify against X instead” in thinking or tools unless the user explicitly authorized X for **this** task.
+5. **Copying is separate.** “Do not take/copy liturgy from source S” does not mean “use source T instead for verification.” Verification target and copy source are whatever the user specified; do not conflate them.
+
+## Required response when the named source fails
+
+- State that the **requested** source was not usable for verification (and why).
+- List what was **not** checked against that source.
+- Do **not** claim verification against the named source if you used something else.
+- Optional: offer to verify against a **different source only if the user names it**.
+
+## Examples
+
+**User:** “Verify our bedtime Shema against [this Scribd Tehillat Hashem page]. Don’t copy from it.”
+
+- ✅ Try that URL only; report if unreadable; compare our pack only if you can read **that** page’s Hebrew.
+- ❌ “I verified against Open Siddur / Chabad.org instead.”
+- ❌ “I audited the whole Chabad siddur” when they asked for one section against one book.
+
+**User:** “Check page 958 of document D.”
+
+- ✅ Treat page 958 of **D** as the verification anchor; if the viewer page ≠ printed page, say that and do not pretend you matched printed 958 without evidence from **D**.
+- ❌ Substitute a different document or TOC page number without user approval.
